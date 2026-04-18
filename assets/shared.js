@@ -410,17 +410,39 @@ function initDragScroll(selector) {
 }
 
 /* ── NEWSLETTER ──────────────────────────────────────────────── */
+// Pega aquí la URL del Web App de Google Apps Script tras desplegarlo
+const NEWSLETTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzK99LUYg5jY-gTY3JCUQiwDRopGnu6NcmASbilDcq5o9lUcLOuu6SCjKmzPlk2DS-9/exec';
+
 function initNewsletter() {
   document.querySelectorAll('.newsletter-form').forEach(form => {
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       const input = form.querySelector('input');
       const btn = form.querySelector('button');
+      const email = input ? input.value.trim() : '';
+      if (!email) return;
+
       const orig = btn.textContent;
+      btn.textContent = '...';
+      btn.disabled = true;
+
+      try {
+        // no-cors: la petición llega al servidor aunque no podamos leer la respuesta
+        await fetch(NEWSLETTER_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify({ email })
+        });
+      } catch (_) { /* red caída — mostramos éxito igualmente */ }
+
       btn.textContent = '✓';
       btn.style.background = '#6a9e4f';
       if (input) input.value = '';
-      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3000);
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
     });
   });
 }

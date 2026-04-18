@@ -5,31 +5,168 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reserva de Entradas — Catedral de Santo Domingo de la Calzada</title>
+
+  <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
     rel="stylesheet" />
-  <!-- Shared styles -->
-  <link rel="stylesheet" href="../assets/shared.css" />
+
   <!-- QR Code library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- PayPal SDK (sandbox) — Sustituye MDWL7YQRDVE9C por tu client-id de producción -->
+
+  <!-- PayPal SDK (sandbox) — Sustituye TU_CLIENT_ID_PAYPAL por tu client-id real -->
   <script src="https://www.paypal.com/sdk/js?client-id=MDWL7YQRDVE9C&currency=EUR&locale=es_ES"
     data-sdk-integration-source="button-factory" defer></script>
+
   <style>
-    /* ── Override: reservas usa fondo crema, no carbon ── */
+    /* ─── TOKENS ──────────────────────────────────────────────── */
+    :root {
+      --cream: #F5F0E8;
+      --cream-dark: #EDE6D6;
+      --stone: #8C8070;
+      --stone-lt: #BEB5A8;
+      --carbon: #1A1A1A;
+      --carbon-70: rgba(26, 26, 26, .70);
+      --gold: #C9A84C;
+      --gold-lt: #DFC070;
+      --gold-dk: #A8852E;
+      --white: #FDFAF4;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --radius: 4px;
+      --shadow: 0 2px 18px rgba(140, 120, 80, .13);
+      --transition: 340ms cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* ─── RESET & BASE ────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: var(--cream);
+      font-family: var(--sans);
+      background-color: var(--cream);
       color: var(--carbon);
-      cursor: default;
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.65;
+      /* Noise texture overlay */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
     }
 
-    button {
-      cursor: pointer;
+    /* ─── HEADER ──────────────────────────────────────────────── */
+    .site-header {
+      padding: 28px 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(201, 168, 76, .22);
+      background: rgba(253, 250, 244, .92);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    /* ── PAGE-SPECIFIC STYLES ─────────────────────────── */
+    .site-header__logo {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .site-header__name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--carbon);
+    }
+
+    .site-header__sub {
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .header-ornament {
+      width: 38px;
+      opacity: .45;
+    }
+
+    /* ─── PAGE HERO ───────────────────────────────────────────── */
+    .page-hero {
+      text-align: center;
+      padding: 64px 24px 48px;
+      position: relative;
+    }
+
+    .page-hero__eyebrow {
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--carbon);
+      margin-bottom: 18px;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold-dk);
+    }
+
+    .page-hero__desc {
+      max-width: 520px;
+      margin: 0 auto;
+      color: var(--stone);
+      font-size: .92rem;
+    }
+
+    /* Ornamental divider */
+    .ornament-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+      margin: 32px auto;
+      max-width: 320px;
+    }
+
+    .ornament-line::before,
+    .ornament-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-lt), transparent);
+    }
+
+    .ornament-line__diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ─── WIZARD STEPPER ──────────────────────────────────────── */
     .wizard-wrapper {
       max-width: 760px;
       margin: 0 auto;
@@ -1149,96 +1286,50 @@
     }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
+    .site-footer {
+      text-align: center;
+      padding: 36px 20px;
+      font-size: .72rem;
+      color: var(--stone);
+      border-top: 1px solid rgba(201, 168, 76, .18);
+      letter-spacing: .04em;
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="cursor" id="cursor">
-    <div class="cursor__ring"></div>
-    <div class="cursor__dot"></div>
+  <!-- ═══ HEADER ════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="site-header__logo">
+      <span class="site-header__name">Catedral de Santo Domingo de la Calzada</span>
+      <span class="site-header__sub">Patrimonio · Camino de Santiago</span>
+    </div>
+    <!-- SVG Ornament: rosetón esquemático -->
+    <svg class="header-ornament" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="18" stroke="#C9A84C" stroke-width="1" />
+      <circle cx="20" cy="20" r="10" stroke="#C9A84C" stroke-width="1" />
+      <circle cx="20" cy="20" r="3" fill="#C9A84C" />
+      <line x1="20" y1="2" x2="20" y2="38" stroke="#C9A84C" stroke-width=".8" />
+      <line x1="2" y1="20" x2="38" y2="20" stroke="#C9A84C" stroke-width=".8" />
+      <line x1="7.2" y1="7.2" x2="32.8" y2="32.8" stroke="#C9A84C" stroke-width=".8" />
+      <line x1="32.8" y1="7.2" x2="7.2" y2="32.8" stroke="#C9A84C" stroke-width=".8" />
+    </svg>
+  </header>
+
+  <!-- ═══ PAGE HERO ══════════════════════════════════════════════════ -->
+  <div class="page-hero">
+    <p class="page-hero__eyebrow">Entradas oficiales</p>
+    <h1 class="page-hero__title">Reserva tu <em>visita</em></h1>
+    <p class="page-hero__desc">Adquiere tus entradas para explorar la Catedral, la Torre y el Convento de San Francisco
+      con total comodidad.</p>
   </div>
 
+  <div class="ornament-line">
+    <div class="ornament-line__diamond"></div>
+  </div>
 
-  <!-- NAVBAR -->
-  <nav class="navbar navbar--always-solid" id="navbar">
-    <a href="../index.html" class="navbar__logo">
-      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
-      <div class="navbar__logo-text">
-        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
-        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
-      </div>
-    </a>
-    <div class="navbar__actions">
-      <a href="../reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
-      <div class="lang-selector" id="lang-selector">
-        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
-          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
-          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
-            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-          </svg>
-        </button>
-        <div class="lang-selector__dropdown" role="listbox">
-          <button class="lang-selector__option active" data-lang="es" role="option"><span
-              class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
-              class="lang-code">ES</span></button>
-          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span
-              class="lang-name">English</span><span class="lang-code">EN</span></button>
-          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span
-              class="lang-name">Français</span><span class="lang-code">FR</span></button>
-          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span
-              class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
-          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span
-              class="lang-name">Português</span><span class="lang-code">PT</span></button>
-          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span
-              class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
-          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span
-              class="lang-name">한국어</span><span class="lang-code">KO</span></button>
-        </div>
-      </div>
-      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-      </button>
-    </div>
-  </nav>
-
-  <!-- SIDE MENU -->
-  <div class="menu-overlay" id="menu-overlay"></div>
-  <aside class="side-menu" id="side-menu">
-    <button class="side-menu__close" id="menu-close">×</button>
-    <nav class="side-menu__nav">
-      <ul class="side-menu__nav-list">
-        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span
-              class="nav-num">01</span>Inicio</a></li>
-        <li class="side-menu__nav-item"><a href="../monumentos/catedral.html" class="side-menu__nav-link"><span
-              class="nav-num">02</span>Monumentos</a></li>
-        <li class="side-menu__nav-item"><a href="../visitas/" class="side-menu__nav-link"><span
-              class="nav-num">03</span>Visitas</a></li>
-        <li class="side-menu__nav-item"><a href="reservas.html" class="side-menu__nav-link"><span
-              class="nav-num">04</span>Reservas</a></li>
-        <li class="side-menu__nav-item"><a href="../actualidad/" class="side-menu__nav-link"><span
-              class="nav-num">05</span>Actualidad</a></li>
-        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span
-              class="nav-num">06</span>Tienda</a></li>
-      </ul>
-    </nav>
-    <div class="side-menu__social">
-      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-          <path
-            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-        </svg></a>
-      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-          <path
-            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-        </svg></a>
-    </div>
-    <div class="side-menu__legal">
-      <a href="#">Política de privacidad</a><a href="#">Aviso legal</a><a href="#">Contacto</a>
-    </div>
-  </aside>
-
+  <!-- ═══ WIZARD ═════════════════════════════════════════════════════ -->
   <div class="wizard-wrapper">
 
     <!-- Stepper -->
@@ -1746,77 +1837,43 @@
 
   </div><!-- /wizard-wrapper -->
 
-  <!-- FOOTER -->
-  <div class="ornament-divider"><span class="ornament-divider__symbol">✦</span></div>
+  <!-- ═══ MODALES ════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-terms" onclick="closeModal('modal-terms')">
+    <div class="modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+      <button class="modal-close" onclick="closeModal('modal-terms')" aria-label="Cerrar">×</button>
+      <h3 class="modal-title" id="terms-title">Términos y condiciones de compra</h3>
+      <p><strong>1. Entradas nominales.</strong> Las entradas son nominales e intransferibles. Se verificará la
+        identidad en taquilla.</p>
+      <p><strong>2. Devoluciones.</strong> No se admiten cambios ni devoluciones una vez confirmado el pago, salvo
+        cancelación por parte de la Catedral.</p>
+      <p><strong>3. Tarifas especiales.</strong> Las tarifas gratuitas para residentes y menores de 12 años requieren
+        acreditación en taquilla.</p>
+      <p><strong>4. Acceso.</strong> Se recomienda llegar 10 minutos antes de la hora seleccionada. La entrada no
+        garantiza acceso si se presenta fuera del horario.</p>
+      <p><strong>5. Modificaciones de horario.</strong> La Catedral se reserva el derecho a modificar los horarios por
+        motivos religiosos o de conservación, con notificación previa al visitante.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-privacy" onclick="closeModal('modal-privacy')">
+    <div class="modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true"
+      aria-labelledby="privacy-title">
+      <button class="modal-close" onclick="closeModal('modal-privacy')" aria-label="Cerrar">×</button>
+      <h3 class="modal-title" id="privacy-title">Política de privacidad</h3>
+      <p>Los datos personales facilitados serán tratados por la Catedral de Santo Domingo de la Calzada con la finalidad
+        de gestionar tu reserva y enviarte la confirmación de compra.</p>
+      <p>No se cederán datos a terceros salvo obligación legal. Puedes ejercer tus derechos de acceso, rectificación y
+        supresión escribiendo a la dirección de contacto.</p>
+      <p>El tratamiento se basa en la ejecución del contrato de compra de entradas (Art. 6.1.b RGPD).</p>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
   <footer class="site-footer">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
-        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
-        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del
-          Camino Francés. Patrimonio vivo de la humanidad.</p>
-        <div class="footer-social">
-          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24">
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-            </svg></a>
-          <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24">
-              <path
-                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg></a>
-          <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24">
-              <path
-                d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
-            </svg></a>
-          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24">
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg></a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
-        <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
-          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
-          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
-          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
-          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
-        <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
-          <li><a href="monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
-          <li><a href="monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
-          <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
-          <li><a href="monumentos/canas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
-        <ul class="footer-col__list">
-          <li><a href="reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
-          <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
-          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
-          <li><a href="actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
-          <li><a href="actualidad/" data-i18n="footer_info_5">Actualidad</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
-        Rioja · España</span>
-      <div class="footer-bottom__links"><a href="#" data-i18n="footer_legal_1">Aviso legal</a><a href="#"
-          data-i18n="footer_legal_2">Privacidad</a><a href="#" data-i18n="footer_legal_3">Cookies</a><a href="#"
-          data-i18n="footer_legal_4">Accesibilidad</a></div>
-    </div>
+    © 2025 Catedral de Santo Domingo de la Calzada · Camino de Santiago · La Rioja
   </footer>
 
-  <!-- SHARED JS -->
-  <script src="../assets/shared.js"></script>
-  <!-- PAGE JS -->
+  <!-- ═══ JAVASCRIPT ══════════════════════════════════════════════════ -->
   <script>
     /* ── Estado global ──────────────────────────────────────────────── */
     let currentStep = 1;
@@ -2426,8 +2483,6 @@
       document.getElementById(id).addEventListener('blur', () => validateStep(1));
     });
   </script>
-</body>
-</script>
 </body>
 
 </html>

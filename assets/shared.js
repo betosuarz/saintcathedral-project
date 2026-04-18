@@ -30,6 +30,7 @@ const SHARED_T = {
     newsletter_title: 'El Camino en tu <em>bandeja de entrada</em>',
     newsletter_sub: 'Noticias, exposiciones, eventos y ofertas exclusivas cada semana.',
     newsletter_ph: 'tu@correo.com', newsletter_btn: 'Suscribirme',
+    newsletter_already: 'Este correo ya está suscrito.',
     lamp_open: 'Abierto ahora', lamp_closed: 'Cerrado',
     day_names: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
     open_prefix: 'Abierta hoy',
@@ -55,6 +56,7 @@ const SHARED_T = {
     newsletter_title: 'The Way in your <em>inbox</em>',
     newsletter_sub: 'News, exhibitions, events and exclusive offers every week.',
     newsletter_ph: 'your@email.com', newsletter_btn: 'Subscribe',
+    newsletter_already: 'This email is already subscribed.',
     lamp_open: 'Open now', lamp_closed: 'Closed',
     day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     open_prefix: 'Open today',
@@ -80,6 +82,7 @@ const SHARED_T = {
     newsletter_title: 'Le Chemin dans votre <em>boîte mail</em>',
     newsletter_sub: 'Actualités, expositions, événements et offres exclusives chaque semaine.',
     newsletter_ph: 'votre@email.com', newsletter_btn: 'S\'abonner',
+    newsletter_already: 'Cet e-mail est déjà abonné.',
     lamp_open: 'Ouvert maintenant', lamp_closed: 'Fermé',
     day_names: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
     open_prefix: 'Ouverte aujourd\'hui',
@@ -105,6 +108,7 @@ const SHARED_T = {
     newsletter_title: 'Der Camino in Ihrem <em>Posteingang</em>',
     newsletter_sub: 'Neuigkeiten, Ausstellungen, Veranstaltungen und exklusive Angebote jede Woche.',
     newsletter_ph: 'ihre@email.com', newsletter_btn: 'Abonnieren',
+    newsletter_already: 'Diese E-Mail ist bereits angemeldet.',
     lamp_open: 'Jetzt geöffnet', lamp_closed: 'Geschlossen',
     day_names: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     open_prefix: 'Heute geöffnet',
@@ -130,6 +134,7 @@ const SHARED_T = {
     newsletter_title: 'O Caminho na sua <em>caixa de entrada</em>',
     newsletter_sub: 'Notícias, exposições, eventos e ofertas exclusivas todas as semanas.',
     newsletter_ph: 'seu@email.com', newsletter_btn: 'Subscrever',
+    newsletter_already: 'Este email já está subscrito.',
     lamp_open: 'Aberta agora', lamp_closed: 'Fechada',
     day_names: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
     open_prefix: 'Aberta hoje',
@@ -155,6 +160,7 @@ const SHARED_T = {
     newsletter_title: 'Il Cammino nella tua <em>casella di posta</em>',
     newsletter_sub: 'Notizie, mostre, eventi e offerte esclusive ogni settimana.',
     newsletter_ph: 'tua@email.com', newsletter_btn: 'Iscriviti',
+    newsletter_already: 'Questa email è già iscritta.',
     lamp_open: 'Aperta ora', lamp_closed: 'Chiusa',
     day_names: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
     open_prefix: 'Aperta oggi',
@@ -180,6 +186,7 @@ const SHARED_T = {
     newsletter_title: '카미노를 당신의 <em>수신함으로</em>',
     newsletter_sub: '매주 뉴스, 이벤트 및 독점 할인을 안내해 드립니다.',
     newsletter_ph: 'your@email.com', newsletter_btn: '구독하기',
+    newsletter_already: '이미 구독된 이메일입니다.',
     lamp_open: '지금 개방', lamp_closed: '폐관',
     day_names: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
     open_prefix: '오늘 개방',
@@ -415,34 +422,62 @@ const NEWSLETTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzK99LUYg
 
 function initNewsletter() {
   document.querySelectorAll('.newsletter-form').forEach(form => {
+    // Envolver el formulario en un wrapper de columna
+    const wrap = document.createElement('div');
+    wrap.className = 'newsletter-form-wrap';
+    form.before(wrap);
+    wrap.appendChild(form);
+
+    // Mensaje debajo del input, dentro del wrapper
+    const msg = document.createElement('p');
+    msg.className = 'newsletter-msg';
+    wrap.appendChild(msg);
+
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const input = form.querySelector('input');
-      const btn = form.querySelector('button');
+      const btn   = form.querySelector('button');
       const email = input ? input.value.trim() : '';
       if (!email) return;
 
+      msg.textContent = '';
       const orig = btn.textContent;
       btn.textContent = '...';
       btn.disabled = true;
 
       try {
-        // no-cors: la petición llega al servidor aunque no podamos leer la respuesta
-        await fetch(NEWSLETTER_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: JSON.stringify({ email })
-        });
-      } catch (_) { /* red caída — mostramos éxito igualmente */ }
+        const url  = `${NEWSLETTER_SCRIPT_URL}?action=subscribe&email=${encodeURIComponent(email)}`;
+        const res  = await fetch(url);
+        const data = await res.json();
 
-      btn.textContent = '✓';
-      btn.style.background = '#6a9e4f';
-      if (input) input.value = '';
-      setTimeout(() => {
-        btn.textContent = orig;
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3000);
+        if (data.alreadySubscribed) {
+          const lang = localStorage.getItem('lang') || 'es';
+          msg.textContent = (SHARED_T[lang] || SHARED_T.es).newsletter_already;
+          msg.style.color = '#c9a84c';
+          btn.textContent = orig;
+          btn.disabled = false;
+        } else {
+          btn.textContent = '✓';
+          btn.style.background = '#6a9e4f';
+          if (input) input.value = '';
+          setTimeout(() => {
+            btn.textContent = orig;
+            btn.style.background = '';
+            btn.disabled = false;
+            msg.textContent = '';
+          }, 3000);
+        }
+      } catch (_) {
+        // Red caída — éxito optimista
+        btn.textContent = '✓';
+        btn.style.background = '#6a9e4f';
+        if (input) input.value = '';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3000);
+      }
     });
   });
 }

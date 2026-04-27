@@ -1122,6 +1122,124 @@
     <div class="cursor__dot"></div>
   </div>
 
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" />
+            <line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
   <!-- NAVBAR (sin hero fullscreen → always-solid) -->
   <nav class="navbar navbar--always-solid" id="navbar">
     <a href="../index.html" class="navbar__logo">
@@ -1273,7 +1391,7 @@
       <div>
         <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
         <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
-            class="ht-row__val ht-row__val--highlight">7 €</span></div>
+            class="ht-row__val ht-row__val--highlight">7 € / persona</span></div>
         <div class="ht-row">
           <span class="ht-row__label">
             <span data-i18n-page="ht_pilgrim">Peregrinos</span>
@@ -1308,7 +1426,7 @@
                 incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el número
                 de hijos.</span></span>
           </span>
-          <span class="ht-row__val ht-row__val--highlight">25 €</span>
+          <span class="ht-row__val ht-row__val--highlight">25 € / familia</span>
         </div>
         <div class="ht-row">
           <span class="ht-row__label">

@@ -1,0 +1,2593 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ermita de la Virgen de la Plaza · Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+  <!-- Estilos compartidos -->
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    /* ── PAGE-HERO ───────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 92vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/ermitaplaza.webp');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded {
+      transform: scale(1)
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.88) 0%,
+          rgba(14, 12, 10, 0.58) 45%,
+          rgba(14, 12, 10, 0.72) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.88) 0%,
+          rgba(14, 12, 10, 0.45) 40%,
+          transparent 70%);
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      max-width: 700px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 20px
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .75);
+      max-width: 520px;
+      margin-bottom: 32px
+    }
+
+    .page-hero__meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap
+    }
+
+    .page-hero__meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .page-hero__meta-label {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone)
+    }
+
+    .page-hero__meta-val {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--gold-lt)
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────── */
+    .section {
+      padding: 100px 8vw
+    }
+
+    .section__inner {
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .cta-band .section__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      width: 100%
+    }
+
+    .section--cream {
+      background: var(--cream);
+      color: var(--carbon)
+    }
+
+    .section--dark {
+      background: #0f0d0b
+    }
+
+    .section--carbon {
+      background: var(--carbon)
+    }
+
+    .section--white {
+      background: #fff;
+      color: var(--carbon)
+    }
+
+    .eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .reveal-info {
+      margin-bottom: 32px;
+    }
+
+    .section--cream .eyebrow,
+    .section--white .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    .section--dark .eyebrow,
+    .section--carbon .eyebrow {
+      color: var(--gold)
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 48px
+    }
+
+    .section--cream .section-title,
+    .section--white .section-title {
+      color: var(--carbon)
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .section--cream .section-title em,
+    .section--white .section-title em {
+      color: var(--gold-dk)
+    }
+
+    /* ── IMG SCROLL ──────────────────────────────────────────── */
+    .img-scroll-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+      cursor: grab
+    }
+
+    .img-scroll-track.is-dragging {
+      cursor: grabbing;
+      user-select: none
+    }
+
+    .img-scroll-track::-webkit-scrollbar {
+      display: none
+    }
+
+    .img-scroll-item {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px
+    }
+
+    .img-scroll-item--wide {
+      width: 560px;
+      height: 380px
+    }
+
+    .img-scroll-item--sq {
+      width: 340px;
+      height: 380px
+    }
+
+    .img-scroll-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease)
+    }
+
+    .img-scroll-item:hover img {
+      transform: scale(1.05)
+    }
+
+    .img-scroll-item__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 22px;
+      background: linear-gradient(to top, rgba(14, 12, 10, .85), transparent);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    /* ── TEXT 2-COL ──────────────────────────────────────────── */
+    .text-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start
+    }
+
+    .text-grid__lead {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--carbon);
+      margin-bottom: 28px
+    }
+
+    .text-grid__body {
+      font-size: .88rem;
+      line-height: 1.8;
+      color: var(--stone);
+      margin-bottom: 20px
+    }
+
+    .text-grid__quote {
+      border-left: 2px solid var(--gold-dk);
+      padding-left: 28px;
+      margin-bottom: 32px
+    }
+
+    .text-grid__quote p {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--carbon)
+    }
+
+    .text-grid__quote cite {
+      display: block;
+      margin-top: 12px;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--stone)
+    }
+
+    .highlight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .highlight-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: .85rem;
+      line-height: 1.6;
+      color: var(--stone)
+    }
+
+    .highlight-list li::before {
+      content: '✦';
+      color: var(--gold-dk);
+      font-size: .65rem;
+      margin-top: .2rem;
+      flex-shrink: 0
+    }
+
+    /* ── TIMELINE ────────────────────────────────────────────── */
+    .timeline {
+      position: relative
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 132px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201, 168, 76, .3) 10%, rgba(201, 168, 76, .3) 90%, transparent)
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      /* border-bottom: 1px solid rgba(255, 255, 255, .06) */
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none
+    }
+
+    .timeline-year {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      text-align: right;
+      position: relative;
+      line-height: 1
+    }
+
+    .timeline-year::after {
+      content: '';
+      position: absolute;
+      right: -24px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      background: var(--carbon)
+    }
+
+    .timeline-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 8px
+    }
+
+    .timeline-desc {
+      font-size: .82rem;
+      line-height: 1.7;
+      color: var(--stone)
+    }
+
+    /* ── GALLERY ─────────────────────────────────────────────── */
+    .gallery-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px
+    }
+
+    .gallery-track {
+      display: flex;
+      transition: transform .7s var(--ease)
+    }
+
+    .gallery-slide {
+      flex-shrink: 0;
+      width: 100%;
+      height: 520px;
+      position: relative
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .gallery-slide__cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 36px;
+      background: linear-gradient(to top, rgba(14, 12, 10, .8), transparent);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between
+    }
+
+    .gallery-slide__cap-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--white)
+    }
+
+    .gallery-slide__cap-num {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .gallery-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px
+    }
+
+    .gallery-dot {
+      width: 24px;
+      height: 2px;
+      background: rgba(255, 255, 255, .2);
+      border-radius: 2px;
+      transition: background .3s, width .3s;
+      cursor: pointer
+    }
+
+    .gallery-dot.active {
+      background: var(--gold);
+      width: 40px
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: border-color .2s, background .2s;
+      cursor: pointer
+    }
+
+    .gallery-nav:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, .1)
+    }
+
+    .gallery-nav--prev {
+      left: 20px
+    }
+
+    .gallery-nav--next {
+      right: 20px
+    }
+
+    /* ── GALLERY INFO BUTTON ─────────────────────────────────────── */
+    .gallery-info-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 12, 10, 0.65);
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .gallery-info-btn:hover {
+      background: rgba(201, 168, 76, 0.18);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .gallery-info-btn__icon {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .gallery-info-btn__text {
+      display: inline;
+    }
+
+    @media (max-width: 640px) {
+      .gallery-info-btn {
+        padding: 8px;
+        gap: 0;
+      }
+
+      .gallery-info-btn__text {
+        display: none;
+      }
+    }
+
+    /* ── GALLERY INFO POPUP ──────────────────────────────────────── */
+    .gallery-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+      backdrop-filter: blur(6px);
+    }
+
+    .gallery-popup-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .gallery-popup {
+      position: relative;
+      background: rgba(14, 12, 10, 0.96);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: 4px;
+      max-width: 560px;
+      width: 100%;
+      padding: 52px 48px 44px;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .gallery-popup-overlay.open .gallery-popup {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Línea decorativa dorada arriba */
+    .gallery-popup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 48px;
+      right: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .gallery-popup__close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 1.6rem;
+      line-height: 1;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: var(--sans);
+    }
+
+    .gallery-popup__close:hover {
+      color: var(--white);
+    }
+
+    .gallery-popup__num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gallery-popup__num::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .gallery-popup__title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .gallery-popup__subtitle {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      font-family: var(--sans);
+    }
+
+    .gallery-popup__divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201, 168, 76, 0.3), transparent);
+      margin-bottom: 24px;
+    }
+
+    .gallery-popup__body p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 14px;
+    }
+
+    .gallery-popup__body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .gallery-popup__body strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .gallery-popup__fact {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: rgba(201, 168, 76, 0.06);
+      border-left: 2px solid var(--gold);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .gallery-popup__fact-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .gallery-popup__fact-text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.65);
+      font-style: italic;
+    }
+
+    /* ── AUDIO CARDS ─────────────────────────────────────────── */
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 500px));
+      gap: 20px;
+      width: 100%;
+    }
+
+    .audio-card {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 168, 76, .12);
+      border-radius: 4px;
+      padding: 24px;
+      transition: border-color .3s, background .3s;
+      cursor: pointer;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .audio-card:hover {
+      border-color: rgba(201, 168, 76, .35);
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .audio-card__num {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px
+    }
+
+    .audio-card__title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 6px
+    }
+
+    .audio-card__dur {
+      font-size: .72rem;
+      color: var(--stone);
+      margin-bottom: 18px
+    }
+
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .audio-play-btn {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(201, 168, 76, .4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: .85rem;
+      transition: border-color .25s, transform .25s;
+      flex-shrink: 0
+    }
+
+    .audio-play-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.1)
+    }
+
+    .audio-play-btn.playing {
+      background: rgba(201, 168, 76, .15)
+    }
+
+    .audio-progress {
+      flex: 1;
+      height: 2px;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .audio-progress__fill {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      transition: width .3s linear
+    }
+
+    .audio-time {
+      font-size: .62rem;
+      color: var(--stone);
+      flex-shrink: 0
+    }
+
+    /* ── PDF GRID ────────────────────────────────────────────── */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 500px));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .pdf-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 168, 76, .1);
+      border-radius: 4px;
+      padding: 18px 20px;
+      transition: border-color .3s, background .3s;
+      height: 100%;
+      box-sizing: border-box;
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .pdf-card:hover {
+      border-color: rgba(201, 168, 76, .3);
+      background: rgba(255, 255, 255, .07)
+    }
+
+    @media (hover: hover) {
+      .pdf-card:hover .pdf-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pdf-card.tooltip-active .pdf-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* ── AUDIO INFO ICON + TOOLTIP ───────────────────────────── */
+    .audio-info-wrap,
+    .pdf-info-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    .audio-info-icon,
+    .pdf-info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(201, 168, 76, 0.55);
+      border-radius: 50%;
+      font-size: 0.62rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: var(--serif);
+    }
+
+    .audio-info-icon:hover,
+    .pdf-info-icon:hover {
+      background: rgba(201, 168, 76, 0.12);
+      border-color: var(--gold);
+    }
+
+    .audio-info-tooltip,
+    .pdf-info-tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      z-index: 50;
+      width: 240px;
+      background: #1a1610;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.1), 0 8px 32px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .audio-info-tooltip::before,
+    .pdf-info-tooltip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.55), transparent);
+    }
+
+    .audio-info-tooltip::after,
+    .pdf-info-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 18px;
+      left: auto;
+      transform: rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: #1a1610;
+      border-right: 1px solid rgba(201, 168, 76, 0.45);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.45);
+    }
+
+    .audio-info-tooltip__icon,
+    .pdf-info-tooltip__icon {
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .audio-info-tooltip__text,
+    .pdf-info-tooltip__text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #FDFAF4;
+      line-height: 1.5;
+    }
+
+    .audio-info-row,
+    .pdf-info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Desktop hover */
+    @media (hover: hover) {
+
+      .audio-info-wrap:hover .audio-info-tooltip,
+      .pdf-info-wrap:hover .pdf-info-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Mobile tap */
+    .audio-info-wrap.tooltip-active .audio-info-tooltip,
+    .pdf-info-wrap.tooltip-active .pdf-info-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .pdf-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(201, 168, 76, .12);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: var(--gold)
+    }
+
+    .pdf-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .pdf-name {
+      font-size: .82rem;
+      color: var(--white);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .pdf-size {
+      font-size: .65rem;
+      color: var(--stone)
+    }
+
+    .pdf-dl {
+      font-size: .7rem;
+      color: var(--gold);
+      flex-shrink: 0
+    }
+
+    @media(max-width:900px) {
+      .text-grid {
+        grid-template-columns: 1fr
+      }
+
+      .timeline::before {
+        left: 69px
+      }
+
+      .timeline-item {
+        grid-template-columns: 70px 1fr;
+        gap: 20px
+      }
+
+      .timeline-year::after {
+        right: -14px
+      }
+    }
+
+    @media(max-width:640px) {
+      .timeline::before {
+        left: 78px;
+      }
+
+      .section {
+        padding: 72px 5vw
+      }
+
+      .page-hero__content {
+        padding: 0 5vw 9vh
+      }
+
+      .img-scroll-item--wide {
+        width: 88vw;
+        height: 280px
+      }
+
+      .img-scroll-item--sq {
+        width: 72vw;
+        height: 280px
+      }
+
+      .gallery-slide {
+        height: 320px
+      }
+    }
+
+    /* ── AUDIO + PDF dos columnas ────────────────────────────── */
+    .audio-pdf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: stretch
+    }
+
+    .audio-pdf-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .audio-pdf-col .audio-grid {
+      flex: 1;
+      align-items: stretch;
+    }
+
+    .audio-pdf-col .pdf-grid {
+      align-items: start;
+    }
+
+    .audio-pdf-col .section-title {
+      margin-bottom: 12px
+    }
+
+    .audio-pdf-col__desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--stone-lt);
+      margin-bottom: 28px;
+      max-width: 400px;
+    }
+
+    .audio-info-tooltip,
+    .pdf-info-tooltip {
+      /* position: absolute;
+      bottom: calc(100% + 12px); */
+      left: -650%;
+      /* transform: translateX(-50%) translateY(6px);
+      z-index: 50;
+      width: 240px;
+      background: #1a1610;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.1), 0 8px 32px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px; */
+    }
+
+    @media(max-width: 860px) {
+      .audio-pdf-row {
+        grid-template-columns: 1fr;
+        gap: 56px
+      }
+    }
+
+    /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
+    body.light-mode {
+      background: #F9F8F6;
+      color: #141210;
+    }
+
+    body.light-mode .section--dark,
+    body.light-mode .section--carbon,
+    body.light-mode .section--cream {
+      background: #F9F8F6;
+    }
+
+    body.light-mode #espacios {
+      background: #EFE9E3;
+    }
+
+    body.light-mode .navbar--solid,
+    body.light-mode .navbar.scrolled,
+    body.light-mode .navbar--always-solid {
+      background: rgba(245, 240, 232, .95);
+    }
+
+    body.light-mode .side-menu {
+      background: #F9F8F6;
+    }
+
+    body.light-mode .site-footer {
+      background: #F9F8F6;
+    }
+
+    body.light-mode .cta-band {
+      background: #EFE9E3;
+    }
+
+    body.light-mode .navbar__logo-name,
+    body.light-mode .lang-selector__btn,
+    body.light-mode .lang-selector__option,
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close,
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a,
+    body.light-mode .cta-band__title,
+    body.light-mode .cta-band__sub,
+    body.light-mode .timeline-title,
+    body.light-mode .timeline-desc,
+    body.light-mode .audio-card__title,
+    body.light-mode .audio-card__num,
+    body.light-mode .audio-card__dur,
+    body.light-mode .pdf-name,
+    body.light-mode .pdf-size,
+    body.light-mode .gallery-popup__title,
+    body.light-mode .gallery-popup__body,
+    body.light-mode .gallery-popup__num {
+      color: #141210;
+    }
+
+    body.light-mode .side-menu__nav-item {
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+
+    body.light-mode .section--dark .section-title,
+    body.light-mode .section--carbon .section-title {
+      color: #141210 !important;
+    }
+
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a {
+      color: rgba(20, 18, 16, .5);
+    }
+
+    body.light-mode .page-hero__title {
+      color: var(--white);
+    }
+
+    body.light-mode .page-hero__title em {
+      color: var(--gold-lt);
+    }
+
+    body.light-mode .page-hero__eyebrow,
+    body.light-mode .page-hero__desc {
+      color: var(--white);
+    }
+
+    body.light-mode .info-bar {
+      background: #F5F0E8;
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+
+    body.light-mode .info-bar__val,
+    body.light-mode .info-bar__label,
+    body.light-mode .lamp-label,
+    body.light-mode .lamp-label strong {
+      color: #141210;
+    }
+
+    body.light-mode #galeria {
+      background: #F5F0E8;
+    }
+
+    body.light-mode .section--dark .section-title em,
+    body.light-mode .section--carbon .section-title em {
+      color: var(--gold) !important;
+    }
+
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245, 240, 232, .97);
+    }
+
+    body.light-mode .side-menu__nav-link:hover {
+      color: var(--gold);
+    }
+
+    body.light-mode .audio-card {
+      background: rgb(119 72 0 / 4%);
+      border-width: 2px;
+    }
+
+    body.light-mode .audio-progress {
+      background: rgb(185 87 0 / 10%);
+    }
+
+    body.light-mode .pdf-card {
+      background: rgb(119 72 0 / 4%);
+      border-width: 2px;
+    }
+
+    body.light-mode .hamburger-line {
+      background: #141210;
+    }
+
+    body.light-mode .page-hero::after {
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.28) 45%,
+          rgba(14, 12, 10, 0.40) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.18) 40%,
+          transparent 70%);
+    }
+
+    body.light-mode .gallery-slide__cap {
+      background: linear-gradient(to top, rgba(14, 12, 10, .42), transparent);
+    }
+
+    body.light-mode .gallery-nav {
+      border-color: rgba(20, 18, 16, .22);
+      color: #141210;
+      background: rgba(249, 248, 246, .6);
+    }
+
+    body.light-mode .gallery-nav:hover {
+      border-color: var(--gold-dk);
+      background: rgba(201, 168, 76, .12);
+      color: #141210;
+    }
+
+    body.light-mode .gallery-dot {
+      background: rgba(20, 18, 16, .15);
+    }
+
+    body.light-mode .gallery-popup-overlay {
+      background: rgba(180, 163, 140, .72);
+    }
+
+    body.light-mode .gallery-popup {
+      background: #F9F8F6;
+      border-color: rgba(140, 110, 50, .18);
+    }
+
+    body.light-mode .gallery-popup__close {
+      color: rgba(20, 18, 16, .38);
+    }
+
+    body.light-mode .gallery-popup__close:hover {
+      color: #141210;
+    }
+
+    body.light-mode .gallery-popup__divider {
+      background: linear-gradient(90deg, rgba(140, 110, 50, .25), transparent);
+    }
+
+    body.light-mode .gallery-popup__body p {
+      color: rgba(20, 18, 16, .72);
+    }
+
+    body.light-mode .gallery-popup__fact {
+      background: rgba(201, 168, 76, .07);
+      border-left-color: var(--gold-dk);
+    }
+
+    body.light-mode .gallery-popup__fact-text {
+      color: rgba(20, 18, 16, .58);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          Modo Claro / Oscuro
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" />
+            <line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR (sin hero fullscreen → always-solid) -->
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
+            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="lang-selector__dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span
+              class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
+              class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span
+              class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span
+              class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span
+              class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span
+              class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span
+              class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span
+              class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">EU</span><span
+              class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">CA</span><span
+              class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu">
+    <button class="side-menu__close" id="menu-close">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span
+              class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span
+              class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="../visitas/" class="side-menu__nav-link"><span
+              class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas/reservas.html" class="side-menu__nav-link"><span
+              class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="../actualidad/" class="side-menu__nav-link"><span
+              class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span
+              class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+        </svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="#">Política de privacidad</a><a href="#">Política de cookies</a><a href="#">Aviso legal</a><a
+        href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Monumentos · Ermita de la Virgen de la Plaza</div>
+      <h1 class="page-hero__title" data-i18n-page="page_title">Ermita de la <em>Virgen de la Plaza</em></h1>
+      <p class="page-hero__desc" data-i18n-page="page_desc">Joya barroca en el corazón de la ciudad. Levantada sobre el antiguo oratorio del Santo, custodia a la Virgen de la Plaza, patrona de los calceatenses.</p>
+      <div class="page-hero__meta">
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_entrada">Entrada</span><span class="page-hero__meta-val">Gratis</span></div>
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_horario">Horario</span><span class="page-hero__meta-val">10:00–13:30 /
+            16:30–20:00</span></div>
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_estilos">Estilos</span><span class="page-hero__meta-val">Barroco · Clasicista</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO BAR -->
+  <div class="info-bar">
+    <div class="info-bar__inner">
+      <div class="status-lamp">
+        <div class="lamp-dot" id="lamp-dot"></div><span class="lamp-label" id="lamp-label"></span>
+      </div>
+      <div class="info-bar__item">
+        <span class="info-bar__icon">🕐</span>
+        <div class="info-bar__text">
+          <span class="info-bar__label" id="infobar-day-label">Abierta hoy</span>
+          <span class="info-bar__val" id="infobar-hours">10:00–14:00 · 16:00–20:00 h</span>
+        </div>
+      </div>
+      <div class="info-bar__item">
+        <span class="info-bar__icon">📍</span>
+        <div class="info-bar__text">
+          <span class="info-bar__label" data-i18n-page="infobar_location_label">Ubicación</span>
+          <span class="info-bar__val">Plaza del Santo, 4 · Santo Domingo de la Calzada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HORARIOS Y TARIFAS -->
+  <section class="section section--white" id="horarios-tarifas">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_ht_eyebrow">Visita</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+      <div class="ht-grid reveal reveal-delay-2">
+        <div>
+          <div class="ht-block__title" data-i18n-page="ht_schedule_title">Horarios de apertura</div>
+          <div class="ht-row">
+            <span class="ht-row__label" data-i18n-page="ht_lv">Todos los días<span class="ht-today-badge"
+                id="badge-todos" style="display:none">Hoy</span></span>
+            <span class="ht-row__val">10:00 – 14:00 · 16:00 – 20:00 h</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--stone);margin-top:20px;line-height:1.6" data-i18n-page="ht_note">La
+            Catedral permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30
+            minutos antes del cierre.</p>
+        </div>
+        <div>
+          <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
+          <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
+              class="ht-row__val ht-row__val--highlight">4 €</span></div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_pilgrim">Peregrinos</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_pilgrim">Pulsera
+                  turística: incluye acceso a los 4 monumentos. Acreditar debidamente con credencial oficial del Camino,
+                  habiendo realizado por lo menos 4 etapas andando o en bicicleta.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--highlight">5 € / persona</span>
+          </div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_family">Entrada familiar</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_family">El precio
+                  incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el
+                  número
+                  de hijos.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--highlight">25 €</span>
+          </div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_children">Menores de 12 años</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_free">Acreditar
+                  debidamente con carnet en taquillas.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--free" data-i18n-page="ht_free">Gratuidad</span>
+          </div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_residents">Residentes</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_free">Acreditar
+                  debidamente con carnet en taquillas.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--free" data-i18n-page="ht_free">Gratuidad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section section--carbon" id="galeria">
+    <p class="eyebrow reveal" data-i18n-page="sec_gallery_eyebrow">Galería</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_gallery_title">La Ermita y su
+      <em>historia</em>
+    </h2>
+    <div class="gallery-wrap reveal reveal-delay-2" id="gallery">
+      <div class="gallery-track" id="gallery-track">
+
+        <!-- Slide 1 — Fachada Barroca -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Fachada Barroca</span>
+            <span class="gallery-slide__cap-num">01/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(0)"
+            aria-label="Saber más sobre la Fachada Barroca">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 2 — Retablo Mayor -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Retablo Mayor Barroco</span>
+            <span class="gallery-slide__cap-num">02/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(1)"
+            aria-label="Saber más sobre el Retablo Mayor Barroco">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 3 — Virgen de la Plaza -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Virgen de la Plaza</span>
+            <span class="gallery-slide__cap-num">03/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(2)"
+            aria-label="Saber más sobre la Virgen de la Plaza">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 4 — Interior y Bóveda -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Interior y Bóveda de Cañón</span>
+            <span class="gallery-slide__cap-num">04/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(3)" aria-label="Saber más sobre el interior de la Ermita">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+      </div>
+      <button class="gallery-nav gallery-nav--prev" id="gallery-prev">‹</button>
+      <button class="gallery-nav gallery-nav--next" id="gallery-next">›</button>
+    </div>
+
+    <!-- POPUP OVERLAY para la galería -->
+    <div class="gallery-popup-overlay" id="gallery-popup-overlay" onclick="handlePopupOverlayClick(event)">
+      <div class="gallery-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+        <button class="gallery-popup__close" onclick="closeGalleryPopup()" aria-label="Cerrar">×</button>
+        <div class="gallery-popup__num" id="popup-num">01 / 10 · Galería</div>
+        <h3 class="gallery-popup__title" id="popup-title">Título</h3>
+        <div class="gallery-popup__subtitle" id="popup-subtitle">Subtítulo</div>
+        <div class="gallery-popup__divider"></div>
+        <div class="gallery-popup__body" id="popup-body"></div>
+        <div class="gallery-popup__fact" id="popup-fact">
+          <span class="gallery-popup__fact-icon">✦</span>
+          <span class="gallery-popup__fact-text" id="popup-fact-text"></span>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-dots" id="gallery-dots">
+      <div class="gallery-dot active"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="section section--cream">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_hist_eyebrow">Arquitectura e Historia</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_hist_title">Un <em>corazón de devoción</em>: la Ermita de la Virgen de la Plaza</h2>
+      <div class="text-grid reveal reveal-delay-2">
+        <div>
+          <p class="text-grid__lead" data-i18n-page="hist_lead">Situada en el costado sur de la Catedral, en la Plaza del Santo, esta ermita se levanta, según la tradición, sobre el antiguo oratorio que el propio Santo Domingo fundó en el siglo XI. Su fisonomía actual es fruto de una profunda remodelación realizada en 1710, que transformó el antiguo templo medieval en un elegante espacio barroco con toques clasicistas.</p>
+          <p class="text-grid__body" data-i18n-page="hist_body1">La ermita es un edificio de una sola nave dividida en tres tramos, cubierta con bóveda de cañón y lunetos. En su interior destaca el retablo mayor, de estilo barroco, que custodia la imagen de la <strong>Virgen de la Plaza</strong>, patrona de la ciudad y objeto de una profunda devoción por parte de los calceatenses.</p>
+          <ul class="highlight-list" style="margin-top:24px">
+            <li data-i18n-page="hist_li1">Fundación original en el s. XI, reedificada en 1710.</li>
+            <li data-i18n-page="hist_li2">Estilo barroco-clasicista con sillería de piedra.</li>
+            <li data-i18n-page="hist_li3">Nave única con bóveda de cañón y lunetos.</li>
+            <li data-i18n-page="hist_li4">Retablo Mayor barroco con la imagen de la Patrona.</li>
+            <li data-i18n-page="hist_li5">Epicentro de las tradiciones y fiestas locales.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-grid__quote">
+            <p data-i18n-page="hist_quote1">"Aquí late el origen de la ciudad; donde el Santo puso la primera piedra de su fe."</p>
+            <cite data-i18n-page="hist_cite1">— DESCRIPCIÓN DE LA ERMITA</cite>
+          </div>
+          <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body3">La imagen de la Virgen es una talla de madera policromada que, aunque conserva rasgos de su origen románico-gótico, fue muy retocada en épocas posteriores. La ermita no es solo un lugar de culto, sino el punto de encuentro fundamental durante las Fiestas del Santo, cuando la ciudad se vuelca en procesiones y actos tradicionales.</p>
+          <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body4">La reciente restauración ha permitido recuperar la luminosidad de sus muros de sillería y la policromía de sus retablos laterales, ofreciendo al visitante un remanso de paz y arte en el centro histórico.</p>
+          <div class="text-grid__quote">
+            <p data-i18n-page="hist_quote2">¿Sabías que la ermita se asienta sobre el lugar donde el Santo tenía su vivienda y primer hospital?</p>
+            <cite data-i18n-page="hist_cite2">— CURIOSIDAD SOBRE EL EMPLAZAMIENTO</cite>
+          </div>
+          <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body5">La Virgen de la Plaza, patrona de Santo Domingo de la Calzada, preside la ermita desde su retablo mayor. Su festividad reúne cada año a centenares de devotos en una de las celebraciones más arraigadas de la ciudad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section section--dark">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_time_eyebrow">Cronología</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">La
+        historia de la <em>Ermita</em></h2>
+      <div class="timeline reveal reveal-delay-2">
+        <div class="timeline-item">
+          <div class="timeline-year">s. XI</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl1_title">El oratorio del Santo</div>
+            <div class="timeline-desc" data-i18n-page="tl1_desc">Según la tradición, Domingo García construye en este solar su primera vivienda y un humilde oratorio dedicado a la Virgen, junto al camino de peregrinos.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1527</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl2_title">Ampliación renacentista</div>
+            <div class="timeline-desc" data-i18n-page="tl2_desc">Ante el crecimiento de la devoción, se realizan obras de mejora y ampliación en el templo original, dotándolo de una estructura más sólida.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1710</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl3_title">La gran transformación barroca</div>
+            <div class="timeline-desc" data-i18n-page="tl3_desc">Se lleva a cabo la reconstrucción definitiva que le otorga su aspecto actual, con la construcción de la nueva fachada de sillería y el interior barroco.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">s. XIX</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl4_title">Consolidación como Patrona</div>
+            <div class="timeline-desc" data-i18n-page="tl4_desc">La Virgen de la Plaza se consolida como la gran referencia devocional de la ciudad, separando su culto de la liturgia catedralicia propiamente dicha.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Hoy</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl5_title">Corazón de la identidad calceatense</div>
+            <div class="timeline-desc" data-i18n-page="tl5_desc">La ermita se mantiene como el lugar más querido por los habitantes de la ciudad, siendo el punto de partida de las procesiones de las Fiestas del Santo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA AUTOPLAY -->
+  <section class="section section--carbon" id="espacios">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_spaces_eyebrow">Espacios</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_spaces_title">Cada rincón, una <em>obra
+          maestra</em></h2>
+
+      <div class="img-scroll-track">
+        <div class="img-scroll-item img-scroll-item--wide">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_claustro">Fachada · Sillería barroca · 1710</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_iglesia">Nave única · Bóveda de cañón · Lunetos</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_retablo">Retablo Mayor · Estilo barroco</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--wide">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_sepulcro">Virgen de la Plaza · Imagen titular · Patrona</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_marfiles">Plaza del Santo · Corazón de la ciudad</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_taller">Detalle escultórico · Arte calceatense</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--wide">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_fachada">Interior · Lunetos y sillería restaurada</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIOGUÍAS + PDFs — dos columnas -->
+  <section class="section section--dark">
+    <div class="section__inner">
+      <div class="audio-pdf-row">
+
+        <!-- Columna izquierda: Audioguías -->
+        <div class="audio-pdf-col">
+          <p class="eyebrow reveal" data-i18n-page="sec_audio_eyebrow">Audioguías</p>
+          <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_audio_title" style="color:var(--white)">
+            Descubre
+            cada <em>espacio</em></h2>
+          <p class="audio-pdf-col__desc reveal reveal-delay-2" data-i18n-page="sec_audio_desc">Déjate guiar por la ermita barroca. Cada rincón de este espacio centenario desvela la historia, el arte y la devoción que han convertido a la Virgen de la Plaza en el alma de la ciudad.</p>
+          <div class="audio-info-row">
+            <p class="eyebrow reveal reveal-info" data-i18n-page="audio_q">¿Dónde puedo encontrar todas las audioguías?
+            </p>
+            <span class="audio-info-wrap audio-pdf-col__desc reveal reveal-delay-2">
+              <span class="audio-info-icon" id="audio-info-trigger" tabindex="0"
+                aria-label="Información sobre disponibilidad">i</span>
+              <span class="audio-info-tooltip">
+                <span class="audio-info-tooltip__icon">🎧</span>
+                <span class="audio-info-tooltip__text" data-i18n-page="tooltip_monuments">Disponibles en la visita a
+                  nuestros monumentos.</span>
+              </span>
+            </span>
+          </div>
+          <div class="audio-grid reveal reveal-delay-2">
+            <div class="audio-card" onclick="toggleAudio(this,0)">
+              <audio id="audio-0" src="../assets/audio/esp/Gallinero-Milagro_ESP.flac" preload="none"></audio>
+              <div class="audio-card__num" data-i18n-page="audio_card_tag">Audioguía de prueba • Disponible</div>
+              <div class="audio-card__title" data-i18n-page="audio_card_title">La Moza de Santo Domingo</div>
+              <div class="audio-card__dur" data-i18n-page="audio_card_dur">0 min 38 s</div>
+              <div class="audio-player"><button class="audio-play-btn">▶</button>
+                <div class="audio-progress">
+                  <div class="audio-progress__fill"></div>
+                </div><span class="audio-time">00:38</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna derecha: Documentación -->
+        <div class="audio-pdf-col">
+          <p class="eyebrow reveal" data-i18n-page="sec_pdf_eyebrow">Documentación</p>
+          <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_pdf_title">Folletos y <em>guías en
+              PDF</em>
+          </h2>
+          <p class="audio-pdf-col__desc reveal reveal-delay-2" data-i18n-page="sec_pdf_desc">Visita nuestros monumentos
+            para que puedas descubrir
+            nuestro verdadero legado con las audioguías y folletos guía digitales. Disponibles en 7 idiomas escanenando
+            un
+            código
+            QR, con planos, rutas y descripción de las obras en cada uno de los monumentos.</p>
+          <div class="audio-info-row">
+            <p class="eyebrow reveal reveal-info" data-i18n-page="pdf_q">¿Dónde puedo encontrar todos los folletos?</p>
+            <span class="pdf-info-wrap audio-pdf-col__desc reveal reveal-delay-2">
+              <span class="pdf-info-icon" id="audio-info-trigger" tabindex="0"
+                aria-label="Información sobre disponibilidad">i</span>
+              <span class="pdf-info-tooltip">
+                <span class="pdf-info-tooltip__icon">📄</span>
+                <span class="pdf-info-tooltip__text" data-i18n-page="tooltip_monuments">Disponibles en la visita a
+                  nuestros monumentos.</span>
+              </span>
+            </span>
+          </div>
+          <div class="pdf-grid reveal reveal-delay-2">
+            <div class="pdf-card" id="pdf-card-main">
+              <div class="pdf-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                    fill="#E5251C" stroke="#E5251C" stroke-width="0.5" stroke-linejoin="round" />
+                  <path d="M14 2V8H20" stroke="#fff" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
+                    font-size="5.5" fill="#fff" letter-spacing="0.3">PDF</text>
+                </svg>
+              </div>
+              <div class="pdf-info">
+                <div class="audio-card__num" data-i18n-page="pdf_card_tag">Folleto de la Ermita • No Disponible</div>
+                <div class="pdf-name" data-i18n-page="pdf_card_name">Guía de visita — Español</div>
+                <div class="pdf-size">PDF · 4.2 MB</div>
+              </div>
+              <span class="pdf-dl">↓</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="section__inner">
+      <div>
+        <h3 class="cta-band__title" data-i18n-page="cta_title">Visita la <em>Ermita de la Virgen de la Plaza</em></h3>
+        <p class="cta-band__sub" data-i18n-page="cta_sub">Entrada libre. Adquiere la pulsera turística para acceder a todos los monumentos de Santo Domingo de la Calzada.</p>
+      </div>
+      <a href="../reservas/reservas.html" class="cta-band__btn" data-i18n-page="cta_btn">Comprar entradas →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="section__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+          <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+          <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón
+            del
+            Camino Francés. Patrimonio vivo de la humanidad.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24">
+                <path
+                  d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+            <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+            <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+            <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+            <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
+            <li><a href="catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+            <li><a href="torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+            <li><a href="sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+            <li><a href="monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+          <ul class="footer-col__list">
+            <li><a href="../reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+            <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+            <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+            <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
+            <li><a href="../actualidad/" data-i18n="footer_info_5">Actualidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
+          Rioja · España</span>
+        <div class="footer-bottom__links"><a href="#" data-i18n="footer_legal_1">Aviso legal</a><a href="#"
+            data-i18n="footer_legal_2">Privacidad</a><a href="#" data-i18n="footer_legal_3">Cookies</a><a href="#"
+            data-i18n="footer_legal_4">Accesibilidad</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SHARED JS -->
+  <script src="../assets/shared.js"></script>
+  <script>
+    /* ── Traducciones específicas de esta página ─────────────────── */
+    const PAGE_T = {
+      es: {
+        page_eyebrow: 'Monumentos · Ermita de la Virgen de la Plaza', page_title: 'Ermita de la <em>Virgen de la Plaza</em>', page_desc: 'Joya barroca en el corazón de la ciudad. Levantada sobre el antiguo oratorio del Santo, custodia a la Virgen de la Plaza, patrona de los calceatenses.', meta_entrada: 'Entrada', meta_horario: 'Horario', meta_estilos: 'Estilos',
+        infobar_location_label: 'Ubicación',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horarios y <em>tarifas</em>', ht_schedule_title: 'Horarios de apertura', ht_lv: 'Todos los días', ht_sat: 'Sábados', ht_note: 'La Ermita permanece abierta todos los días del año. Las últimas entradas se admiten 30 minutos antes del cierre.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Ticket general', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 personas', ht_group_small: 'Grupos &lt; 25 personas', ht_family: 'Entrada familiar', ht_children: 'Menores de 12 años', ht_residents: 'Residentes', ht_free: 'Gratuidad', tip_pilgrim: 'Pulsera turística: incluye acceso a los 4 monumentos. Acreditar debidamente con credencial oficial del Camino, habiendo realizado por lo menos 4 etapas andando o en bicicleta.', tip_group: 'Esta entrada incluye el acceso a todos los monumentos de Santo Domingo de la Calzada con la pulsera turística.', tip_family: 'El precio incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el número de hijos.', tip_free: 'Acreditar debidamente con carnet en taquillas.',
+        sec_gallery_eyebrow: 'Galería', sec_gallery_title: 'La Ermita y su <em>historia</em>',
+        gal_btn: 'Saber más',
+        sec_hist_eyebrow: 'Arquitectura e Historia', sec_hist_title: 'Un <em>corazón de devoción</em>: la Ermita de la Virgen de la Plaza',
+        hist_lead: 'Situada en la Plaza del Santo, la ermita se asienta sobre el oratorio del siglo XI que el propio Santo Domingo de la Calzada empleó como vivienda y primer hospital de peregrinos. Reconstruida en estilo barroco en 1710, es hoy el templo más íntimo y querido de la ciudad.',
+        hist_body1: 'De una sola nave con bóveda de cañón y lunetos, alberga un soberbio retablo mayor barroco que enmarca a la Virgen de la Plaza, imagen de madera policromada de gran devoción popular. La sillería del coro y los detalles escultóricos del interior completan un espacio de serena belleza.',
+        hist_body2: '',
+        hist_li1: 'Fundada en el s. XI como oratorio del Santo; reconstruida en 1710.', hist_li2: 'Estilo barroco-clasicista.', hist_li3: 'Nave única con bóveda de cañón y lunetos.', hist_li4: 'Retablo mayor barroco.', hist_li5: 'Epicentro de las tradiciones y fiestas del Santo.',
+        hist_quote1: '"Aquí late el origen de la ciudad; donde el Santo puso la primera piedra de su fe."', hist_cite1: '— DESCRIPCIÓN DE LA ERMITA',
+        hist_body3: 'La talla de la Virgen de la Plaza, obra en madera policromada, es una de las imágenes más veneradas de La Rioja. Su nombre evoca la plaza donde se asienta la ermita, escenario de las fiestas del Santo que cada año congregan a devotos y peregrinos del Camino de Santiago.',
+        hist_body4: 'La reciente restauración ha devuelto a la sillería su esplendor original, y la nueva iluminación resalta la luminosidad interior de las piedras calcáreas, transformando la visita en una experiencia de inusitada belleza.',
+        hist_quote2: '¿Sabías que la ermita se asienta sobre el lugar donde el Santo tenía su vivienda y primer hospital?', hist_cite2: '— CURIOSIDAD SOBRE EL EMPLAZAMIENTO',
+        hist_body5: 'La Virgen de la Plaza es la patrona de los calceatenses. Su festividad, celebrada con gran fervor cada año, llena la Plaza del Santo de procesiones, música y devoción, convirtiendo a la ermita en el alma viva de la identidad de la ciudad.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronología', sec_time_title: 'La historia de la <em>Ermita</em>',
+        tl1_title: 'El oratorio del Santo', tl1_desc: 'Santo Domingo de la Calzada establece en este lugar su vivienda y primer hospital para peregrinos, levantando un sencillo oratorio que constituye el germen de la ermita actual.',
+        tl2_title: 'Ampliación renacentista', tl2_desc: 'El oratorio original es ampliado y reformado, consolidándose como lugar de culto y devoción en el corazón de la ciudad.',
+        tl3_title: 'La gran transformación barroca', tl3_desc: 'La ermita es reconstruida en su configuración actual, con nave única, bóveda de cañón, lunetos y un soberbio retablo mayor barroco que preside el espacio.',
+        tl4_title: 'Consolidación como Patrona', tl4_desc: 'La Virgen de la Plaza es proclamada patrona de los calceatenses, reforzando el vínculo entre la ermita y la identidad colectiva de la ciudad.',
+        tl5_title: 'Corazón de la identidad calceatense', tl5_desc: 'Tras la reciente restauración, la ermita luce su esplendor barroco como epicentro de la devoción y las fiestas del Santo, acogiendo a peregrinos y visitantes del Camino de Santiago.',
+        sec_spaces_eyebrow: 'Espacios', sec_spaces_title: 'Cada rincón, una <em>obra maestra</em>',
+        cap_claustro: 'Fachada barroca · Sillería', cap_iglesia: 'Nave única · Bóveda de cañón', cap_retablo: 'Retablo mayor barroco', cap_sepulcro: 'Virgen titular · Patrona', cap_marfiles: 'Plaza del Santo', cap_taller: 'Detalle escultórico', cap_fachada: 'Interior · Lunetos',
+        sec_audio_eyebrow: 'Audioguías', sec_audio_title: 'Descubre cada <em>espacio</em>', sec_audio_desc: 'Déjate guiar por la ermita barroca. Cada rincón de este espacio centenario desvela la historia, el arte y la devoción que han convertido a la Virgen de la Plaza en el alma de la ciudad.',
+        audio_q: '¿Dónde puedo encontrar todas las audioguías?', tooltip_monuments: 'Disponibles en la visita a nuestros monumentos.',
+        audio_card_tag: 'Audioguía de prueba • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentación', sec_pdf_title: 'Folletos y <em>guías en PDF</em>', sec_pdf_desc: 'Visita nuestros monumentos para descubrir nuestro verdadero legado con audioguías y folletos digitales. Disponibles en 7 idiomas escaneando un código QR.',
+        pdf_q: '¿Dónde puedo encontrar todos los folletos?', pdf_card_tag: 'Folleto de la Ermita • No Disponible', pdf_card_name: 'Guía de visita — Español',
+        cta_title: 'Visita la <em>Ermita de la Virgen de la Plaza</em>', cta_sub: 'Entrada libre. Adquiere la pulsera turística para acceder a todos los monumentos de Santo Domingo de la Calzada.', cta_btn: 'Comprar entradas →'
+      },
+      en: {
+        page_eyebrow: 'Monuments · Hermitage of the Virgen de la Plaza', page_title: 'Hermitage of the <em>Virgen de la Plaza</em>', page_desc: 'A Baroque gem in the heart of the city. Built over the ancient oratory of the Saint, it enshrines the Virgen de la Plaza, patron of the people of Santo Domingo.', meta_entrada: 'Admission', meta_horario: 'Hours', meta_estilos: 'Styles',
+        infobar_location_label: 'Location',
+        sec_ht_eyebrow: 'Visit', sec_ht_title: 'Hours & <em>admission</em>', ht_schedule_title: 'Opening hours', ht_lv: 'Every day', ht_sat: 'Saturdays', ht_note: 'The Hermitage is open every day of the year. Last admissions 30 min before closing.', ht_prices_title: 'Admission prices', ht_general: 'General ticket', ht_pilgrim: 'Pilgrims', ht_group_big: 'Groups &gt; 25 people', ht_group_small: 'Groups &lt; 25 people', ht_family: 'Family ticket', ht_children: 'Under 12', ht_residents: 'Residents', ht_free: 'Free', tip_pilgrim: 'Tourist wristband: includes access to all 4 monuments. Must present official Camino credential showing at least 4 stages walked or cycled.', tip_group: 'This ticket includes access to all monuments in Santo Domingo de la Calzada with the tourist wristband.', tip_family: 'Price covers entry to all monuments for the whole family, regardless of the number of children.', tip_free: 'Please show valid ID at the ticket office.',
+        sec_gallery_eyebrow: 'Gallery', sec_gallery_title: 'The Hermitage and its <em>history</em>',
+        gal_btn: 'Learn more',
+        sec_hist_eyebrow: 'Architecture & History', sec_hist_title: 'A <em>heart of devotion</em>: the Hermitage of the Virgen de la Plaza',
+        hist_lead: 'Located on the Plaza del Santo, the hermitage stands on the 11th-century oratory that Saint Dominic of the Causeway himself used as his home and first hospital for pilgrims. Rebuilt in Baroque style in 1710, it is today the city\'s most intimate and cherished shrine.',
+        hist_body1: 'Its single nave with barrel vault and lunettes shelters a magnificent Baroque altarpiece framing the Virgen de la Plaza, a polychrome wood carving of great popular devotion. The choir stalls and sculptural details complete a space of serene beauty.',
+        hist_body2: '',
+        hist_li1: 'Founded in the 11th century as the Saint\'s oratory; rebuilt in 1710.', hist_li2: 'Baroque-classicist style.', hist_li3: 'Single nave with barrel vault and lunettes.', hist_li4: 'Baroque main altarpiece.', hist_li5: 'Epicentre of the traditions and festivals of the Saint.',
+        hist_quote1: '"Here beats the origin of the city; where the Saint laid the first stone of his faith."', hist_cite1: '— DESCRIPTION OF THE HERMITAGE',
+        hist_body3: 'The carving of the Virgen de la Plaza, a polychrome wood sculpture, is one of the most venerated images in La Rioja. Its name evokes the square on which the hermitage stands, the setting for the festivals of the Saint that each year draw devotees and pilgrims from the Camino de Santiago.',
+        hist_body4: 'A recent restoration has returned the choir stalls to their original splendour, and new lighting highlights the luminosity of the limestone interior, transforming the visit into an experience of rare beauty.',
+        hist_quote2: 'Did you know the hermitage stands on the very spot where the Saint had his home and first hospital?', hist_cite2: '— CURIOSITY ABOUT THE LOCATION',
+        hist_body5: 'The Virgen de la Plaza is the patron saint of the people of Santo Domingo. Her feast day, celebrated with great fervour each year, fills the Plaza del Santo with processions, music and devotion, making the hermitage the living soul of the city\'s identity.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Timeline', sec_time_title: 'The history of the <em>Hermitage</em>',
+        tl1_title: 'The Saint\'s oratory', tl1_desc: 'Saint Dominic of the Causeway establishes his home and first pilgrims\' hospital on this site, raising a simple oratory that is the seed of the present hermitage.',
+        tl2_title: 'Renaissance extension', tl2_desc: 'The original oratory is enlarged and remodelled, establishing itself as a place of worship and devotion in the heart of the city.',
+        tl3_title: 'The great Baroque transformation', tl3_desc: 'The hermitage is rebuilt in its current form, with a single nave, barrel vault, lunettes and a magnificent Baroque altarpiece that presides over the space.',
+        tl4_title: 'Established as patron saint', tl4_desc: 'The Virgen de la Plaza is proclaimed patron of the people of Santo Domingo, deepening the bond between the hermitage and the collective identity of the city.',
+        tl5_title: 'Heart of the Calceatense identity', tl5_desc: 'After a recent restoration, the hermitage displays its Baroque splendour as the epicentre of devotion and the festivals of the Saint, welcoming pilgrims and visitors on the Camino de Santiago.',
+        sec_spaces_eyebrow: 'Spaces', sec_spaces_title: 'Every corner, a <em>masterpiece</em>',
+        cap_claustro: 'Baroque façade · Choir stalls', cap_iglesia: 'Single nave · Barrel vault', cap_retablo: 'Baroque main altarpiece', cap_sepulcro: 'Virgin titular · Patron', cap_marfiles: 'Plaza del Santo', cap_taller: 'Sculptural detail', cap_fachada: 'Interior · Lunettes',
+        sec_audio_eyebrow: 'Audio guides', sec_audio_title: 'Discover every <em>space</em>', sec_audio_desc: 'Let the Baroque hermitage guide you. Every corner of this centuries-old space reveals the history, art and devotion that have made the Virgen de la Plaza the soul of the city.',
+        audio_q: 'Where can I find all the audio guides?', tooltip_monuments: 'Available during your visit to our monuments.',
+        audio_card_tag: 'Sample audio guide • Available', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures & <em>PDF guides</em>', sec_pdf_desc: 'Visit our monuments to discover our true heritage with digital audio guides and brochures. Available in 7 languages by scanning a QR code.',
+        pdf_q: 'Where can I find all the brochures?', pdf_card_tag: 'Hermitage Brochure • Not Available', pdf_card_name: 'Visit guide — English',
+        cta_title: 'Visit the <em>Hermitage of the Virgen de la Plaza</em>', cta_sub: 'Free admission. Get the tourist wristband to access all the monuments of Santo Domingo de la Calzada.', cta_btn: 'Buy tickets →'
+      },
+      fr: {
+        page_eyebrow: 'Monuments · Ermitage de la Virgen de la Plaza', page_title: 'Ermitage de la <em>Virgen de la Plaza</em>', page_desc: 'Un joyau baroque au cœur de la ville. Érigé sur l\'ancien oratoire du Saint, il abrite la Virgen de la Plaza, patronne des habitants de Santo Domingo.', meta_entrada: 'Entrée', meta_horario: 'Horaires', meta_estilos: 'Styles',
+        infobar_location_label: 'Emplacement',
+        sec_ht_eyebrow: 'Visite', sec_ht_title: 'Horaires et <em>tarifs</em>', ht_schedule_title: 'Horaires d\'ouverture', ht_lv: 'Tous les jours', ht_sat: 'Samedis', ht_note: 'L\'Ermitage est ouvert tous les jours. Dernières entrées 30 min avant la fermeture.', ht_prices_title: 'Tarifs d\'entrée', ht_general: 'Billet général', ht_pilgrim: 'Pèlerins', ht_group_big: 'Groupes &gt; 25 personnes', ht_group_small: 'Groupes &lt; 25 personnes', ht_family: 'Billet famille', ht_children: 'Moins de 12 ans', ht_residents: 'Résidents', ht_free: 'Gratuit', tip_pilgrim: 'Bracelet touristique : inclut l\'accès aux 4 monuments. Présenter la crédentiale officielle du Chemin, avec au moins 4 étapes à pied ou à vélo.', tip_group: 'Ce billet inclut l\'accès à tous les monuments avec le bracelet touristique.', tip_family: 'Le prix comprend l\'entrée à tous les monuments pour toute la famille.', tip_free: 'Présenter une pièce d\'identité valide aux guichets.',
+        sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'L\'Ermitage et son <em>histoire</em>',
+        gal_btn: 'En savoir plus',
+        sec_hist_eyebrow: 'Architecture & Histoire', sec_hist_title: 'Un <em>cœur de dévotion</em> : l\'Ermitage de la Virgen de la Plaza',
+        hist_lead: 'Situé sur la Plaza del Santo, l\'ermitage s\'élève sur l\'oratoire du XIe siècle que saint Dominique de la Chaussée utilisait comme demeure et premier hôpital de pèlerins. Reconstruit en style baroque en 1710, c\'est aujourd\'hui le sanctuaire le plus intime et le plus aimé de la ville.',
+        hist_body1: 'Sa nef unique avec voûte en berceau et lunettes abrite un magnifique retable baroque encadrant la Virgen de la Plaza, une sculpture en bois polychrome d\'une grande dévotion populaire. Les stalles du chœur et les détails sculpturaux complètent un espace d\'une beauté sereine.',
+        hist_body2: '',
+        hist_li1: 'Fondé au XIe s. comme oratoire du Saint ; reconstruit en 1710.', hist_li2: 'Style baroque-classiciste.', hist_li3: 'Nef unique avec voûte en berceau et lunettes.', hist_li4: 'Retable majeur baroque.', hist_li5: 'Épicentre des traditions et fêtes du Saint.',
+        hist_quote1: '"Ici bat l\'origine de la ville ; là où le Saint posa la première pierre de sa foi."', hist_cite1: '— DESCRIPTION DE L\'ERMITAGE',
+        hist_body3: 'La sculpture de la Virgen de la Plaza, œuvre en bois polychrome, est l\'une des images les plus vénérées de La Rioja. Son nom évoque la place où se dresse l\'ermitage, cadre des fêtes du Saint qui rassemblent chaque année pèlerins et fidèles du Chemin de Saint-Jacques.',
+        hist_body4: 'Une récente restauration a restitué aux stalles leur splendeur d\'origine, et un nouvel éclairage met en valeur la luminosité de l\'intérieur calcaire, transformant la visite en une expérience d\'une beauté rare.',
+        hist_quote2: 'Saviez-vous que l\'ermitage s\'élève sur le lieu même où le Saint avait sa demeure et son premier hôpital ?', hist_cite2: '— CURIOSITÉ SUR L\'EMPLACEMENT',
+        hist_body5: 'La Virgen de la Plaza est la patronne des habitants de Santo Domingo. Sa fête, célébrée chaque année avec une grande ferveur, emplit la Plaza del Santo de processions, de musique et de dévotion, faisant de l\'ermitage l\'âme vivante de l\'identité de la ville.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Chronologie', sec_time_title: 'L\'histoire de l\'<em>Ermitage</em>',
+        tl1_title: 'L\'oratoire du Saint', tl1_desc: 'Saint Dominique de la Chaussée établit sur ce lieu sa demeure et son premier hôpital de pèlerins, élevant un simple oratoire qui est l\'embryon de l\'ermitage actuel.',
+        tl2_title: 'Extension de la Renaissance', tl2_desc: 'L\'oratoire d\'origine est agrandi et remodelé, s\'établissant comme lieu de culte et de dévotion au cœur de la ville.',
+        tl3_title: 'La grande transformation baroque', tl3_desc: 'L\'ermitage est reconstruit dans sa configuration actuelle, avec nef unique, voûte en berceau, lunettes et un magnifique retable baroque qui préside l\'espace.',
+        tl4_title: 'Consécration comme patronne', tl4_desc: 'La Virgen de la Plaza est proclamée patronne des habitants de Santo Domingo, renforçant le lien entre l\'ermitage et l\'identité collective de la ville.',
+        tl5_title: 'Cœur de l\'identité calceatense', tl5_desc: 'Après une récente restauration, l\'ermitage rayonne de sa splendeur baroque comme épicentre de la dévotion et des fêtes du Saint, accueillant pèlerins et visiteurs du Chemin de Saint-Jacques.',
+        sec_spaces_eyebrow: 'Espaces', sec_spaces_title: 'Chaque recoin, un <em>chef-d\'œuvre</em>',
+        cap_claustro: 'Façade baroque · Stalles', cap_iglesia: 'Nef unique · Voûte en berceau', cap_retablo: 'Retable majeur baroque', cap_sepulcro: 'Vierge titulaire · Patronne', cap_marfiles: 'Plaza del Santo', cap_taller: 'Détail sculpturaux', cap_fachada: 'Intérieur · Lunettes',
+        sec_audio_eyebrow: 'Audioguides', sec_audio_title: 'Découvrez chaque <em>espace</em>', sec_audio_desc: 'Laissez-vous guider par l\'ermitage baroque. Chaque recoin de cet espace centenaire dévoile l\'histoire, l\'art et la dévotion qui ont fait de la Virgen de la Plaza l\'âme de la ville.',
+        audio_q: 'Où puis-je trouver tous les audioguides ?', tooltip_monuments: 'Disponibles lors de la visite de nos monuments.',
+        audio_card_tag: 'Audioguide d\'essai • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures et <em>guides PDF</em>', sec_pdf_desc: 'Visitez nos monuments pour découvrir notre véritable héritage avec des audioguides et des brochures numériques. Disponibles en 7 langues en scannant un QR code.',
+        pdf_q: 'Où puis-je trouver toutes les brochures ?', pdf_card_tag: 'Brochure de l\'Ermitage • Non disponible', pdf_card_name: 'Guide de visite — Français',
+        cta_title: 'Visitez l\'<em>Ermitage de la Virgen de la Plaza</em>', cta_sub: 'Entrée libre. Acquérez le bracelet touristique pour accéder à tous les monuments de Santo Domingo de la Calzada.', cta_btn: 'Acheter des billets →'
+      },
+      de: {
+        page_eyebrow: 'Denkmäler · Ermitage der Virgen de la Plaza', page_title: 'Ermitage der <em>Virgen de la Plaza</em>', page_desc: 'Ein Barockjuwel im Herzen der Stadt. Errichtet auf dem alten Oratorium des Heiligen, beherbergt es die Virgen de la Plaza, Schutzpatronin der Calceatenser.', meta_entrada: 'Eintritt', meta_horario: 'Öffnungszeiten', meta_estilos: 'Stile',
+        infobar_location_label: 'Standort',
+        sec_ht_eyebrow: 'Besuch', sec_ht_title: 'Öffnungszeiten & <em>Preise</em>', ht_schedule_title: 'Öffnungszeiten', ht_lv: 'Täglich', ht_sat: 'Samstage', ht_note: 'Die Ermitage ist täglich geöffnet. Letzter Einlass 30 Min. vor Schließung.', ht_prices_title: 'Eintrittspreise', ht_general: 'Normaleintritt', ht_pilgrim: 'Pilger', ht_group_big: 'Gruppen &gt; 25 Personen', ht_group_small: 'Gruppen &lt; 25 Personen', ht_family: 'Familienticket', ht_children: 'Unter 12 Jahre', ht_residents: 'Einwohner', ht_free: 'Kostenlos', tip_pilgrim: 'Tourismusarmband: Zugang zu allen 4 Denkmälern. Offiziellen Pilgerausweis mit mindestens 4 Etappen zu Fuß oder per Fahrrad vorzeigen.', tip_group: 'Dieses Ticket beinhaltet den Zugang zu allen Denkmälern mit dem Tourismusarmband.', tip_family: 'Preis gilt für die gesamte Familie, unabhängig von der Kinderanzahl.', tip_free: 'Bitte gültigen Ausweis an der Kasse vorzeigen.',
+        sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'Die Ermitage und ihre <em>Geschichte</em>',
+        gal_btn: 'Mehr erfahren',
+        sec_hist_eyebrow: 'Architektur & Geschichte', sec_hist_title: 'Ein <em>Herz der Andacht</em>: die Ermitage der Virgen de la Plaza',
+        hist_lead: 'Die Ermitage auf der Plaza del Santo erhebt sich über dem Oratorium aus dem 11. Jahrhundert, das der heilige Dominikus von der Heerstraße als Wohnstätte und erstes Pilgerhospiz nutzte. 1710 im Barockstil wieder aufgebaut, ist sie heute das intimste und geliebteste Heiligtum der Stadt.',
+        hist_body1: 'Das einschiffige Gotteshaus mit Tonnengewölbe und Lünetten beherbergt einen prachtvollen barocken Hochaltar, der die Virgen de la Plaza, eine polychrome Holzskulptur von großer Volksverehrung, einfasst. Das Chorgestühl und die Bildhauerdetails vervollständigen einen Raum von stiller Schönheit.',
+        hist_body2: '',
+        hist_li1: 'Im 11. Jh. als Oratorium des Heiligen gegründet; 1710 wieder aufgebaut.', hist_li2: 'Barock-klassizistischer Stil.', hist_li3: 'Einschiffig mit Tonnengewölbe und Lünetten.', hist_li4: 'Barocker Hochaltar.', hist_li5: 'Mittelpunkt der Traditionen und Feste des Heiligen.',
+        hist_quote1: '"Hier schlägt der Ursprung der Stadt; wo der Heilige den ersten Stein seines Glaubens legte."', hist_cite1: '— BESCHREIBUNG DER ERMITAGE',
+        hist_body3: 'Die Schnitzfigur der Virgen de la Plaza, eine polychrome Holzarbeit, ist eines der am meisten verehrten Bildwerke in La Rioja. Ihr Name evoziert den Platz, auf dem die Ermitage steht, Schauplatz der Feste des Heiligen, die alljährlich Gläubige und Jakobsweg-Pilger zusammenführen.',
+        hist_body4: 'Eine kürzliche Restaurierung hat dem Chorgestühl seinen ursprünglichen Glanz zurückgegeben, und die neue Beleuchtung hebt die Leuchtkraft des Kalksteininneren hervor und verwandelt den Besuch in ein Erlebnis seltener Schönheit.',
+        hist_quote2: 'Wussten Sie, dass die Ermitage auf dem Ort steht, an dem der Heilige sein Zuhause und sein erstes Hospital hatte?', hist_cite2: '— WISSENSWERTES ÜBER DEN STANDORT',
+        hist_body5: 'Die Virgen de la Plaza ist die Schutzpatronin der Calceatenser. Ihr Festtag, der alljährlich mit großem Eifer begangen wird, füllt die Plaza del Santo mit Prozessionen, Musik und Andacht und macht die Ermitage zur lebendigen Seele der Stadtidentität.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Chronologie', sec_time_title: 'Die Geschichte der <em>Ermitage</em>',
+        tl1_title: 'Das Oratorium des Heiligen', tl1_desc: 'Der heilige Dominikus von der Heerstraße richtet auf diesem Gelände seine Wohnstätte und sein erstes Pilgerhospiz ein und errichtet ein schlichtes Oratorium, den Keim der heutigen Ermitage.',
+        tl2_title: 'Renaissance-Erweiterung', tl2_desc: 'Das ursprüngliche Oratorium wird erweitert und umgestaltet und etabliert sich als Ort des Kultes und der Andacht im Herzen der Stadt.',
+        tl3_title: 'Die große barocke Umgestaltung', tl3_desc: 'Die Ermitage wird in ihrer heutigen Form wieder aufgebaut, mit einschiffigem Kirchenraum, Tonnengewölbe, Lünetten und einem prachtvollen barocken Hochaltar, der den Raum beherrscht.',
+        tl4_title: 'Ernennung zur Schutzpatronin', tl4_desc: 'Die Virgen de la Plaza wird zur Schutzpatronin der Calceatenser ausgerufen und vertieft damit die Verbindung zwischen der Ermitage und der kollektiven Identität der Stadt.',
+        tl5_title: 'Herz der Calceatenser Identität', tl5_desc: 'Nach einer kürzlichen Restaurierung erstrahlt die Ermitage in barockem Glanz als Mittelpunkt der Verehrung und der Feste des Heiligen und empfängt Pilger und Besucher des Jakobswegs.',
+        sec_spaces_eyebrow: 'Räume', sec_spaces_title: 'Jede Ecke ein <em>Meisterwerk</em>',
+        cap_claustro: 'Barockfassade · Chorgestühl', cap_iglesia: 'Einschiffiger Raum · Tonnengewölbe', cap_retablo: 'Barocker Hochaltar', cap_sepulcro: 'Titularheilige · Schutzpatronin', cap_marfiles: 'Plaza del Santo', cap_taller: 'Bildhauerisches Detail', cap_fachada: 'Innenraum · Lünetten',
+        sec_audio_eyebrow: 'Audioguides', sec_audio_title: 'Entdecken Sie jeden <em>Raum</em>', sec_audio_desc: 'Lassen Sie sich von der Barockermitage führen. Jede Ecke dieses jahrhundertealten Ortes enthüllt die Geschichte, die Kunst und die Andacht, die die Virgen de la Plaza zur Seele der Stadt gemacht haben.',
+        audio_q: 'Wo finde ich alle Audioguides?', tooltip_monuments: 'Erhältlich beim Besuch unserer Denkmäler.',
+        audio_card_tag: 'Audioguide-Probe • Verfügbar', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 Min. 38 s',
+        sec_pdf_eyebrow: 'Dokumentation', sec_pdf_title: 'Broschüren & <em>PDF-Guides</em>', sec_pdf_desc: 'Besuchen Sie unsere Denkmäler, um unser wahres Erbe mit digitalen Audioguides und Broschüren zu entdecken. In 7 Sprachen per QR-Code verfügbar.',
+        pdf_q: 'Wo finde ich alle Broschüren?', pdf_card_tag: 'Ermitage-Broschüre • Nicht verfügbar', pdf_card_name: 'Besucherführer — Deutsch',
+        cta_title: 'Besuchen Sie die <em>Ermitage der Virgen de la Plaza</em>', cta_sub: 'Eintritt frei. Erwerben Sie das Tourismusarmband, um Zugang zu allen Denkmälern von Santo Domingo de la Calzada zu erhalten.', cta_btn: 'Tickets kaufen →'
+      },
+      pt: {
+        page_eyebrow: 'Monumentos · Ermida da Virgen de la Plaza', page_title: 'Ermida da <em>Virgen de la Plaza</em>', page_desc: 'Uma joia barroca no coração da cidade. Erguida sobre o antigo oratório do Santo, abriga a Virgen de la Plaza, padroeira dos calceatenses.', meta_entrada: 'Entrada', meta_horario: 'Horário', meta_estilos: 'Estilos',
+        infobar_location_label: 'Localização',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horários e <em>tarifas</em>', ht_schedule_title: 'Horários de abertura', ht_lv: 'Todos os dias', ht_sat: 'Sábados', ht_note: 'A Ermida está aberta todos os dias. Últimas entradas 30 min antes do fecho.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Bilhete geral', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 pessoas', ht_group_small: 'Grupos &lt; 25 pessoas', ht_family: 'Bilhete familiar', ht_children: 'Menores de 12 anos', ht_residents: 'Residentes', ht_free: 'Gratuito', tip_pilgrim: 'Pulseira turística: inclui acesso a todos os 4 monumentos. Apresentar credencial oficial do Caminho com pelo menos 4 etapas a pé ou de bicicleta.', tip_group: 'Este bilhete inclui o acesso a todos os monumentos com a pulseira turística.', tip_family: 'O preço inclui a entrada em todos os monumentos para toda a família.', tip_free: 'Apresentar documento de identificação nas bilheteiras.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'A Ermida e a sua <em>história</em>',
+        gal_btn: 'Saber mais',
+        sec_hist_eyebrow: 'Arquitetura & História', sec_hist_title: 'Um <em>coração de devoção</em>: a Ermida da Virgen de la Plaza',
+        hist_lead: 'Situada na Plaza del Santo, a ermida ergue-se sobre o oratório do século XI que o próprio Santo Domingo de la Calzada utilizou como habitação e primeiro hospital de peregrinos. Reconstruída em estilo barroco em 1710, é hoje o santuário mais íntimo e querido da cidade.',
+        hist_body1: 'A sua nave única com abóbada de canhão e lunetas alberga um soberbo retábulo-mor barroco que enquadra a Virgen de la Plaza, uma escultura em madeira policromada de grande devoção popular. A cadeiria do coro e os detalhes escultóricos completam um espaço de serena beleza.',
+        hist_body2: '',
+        hist_li1: 'Fundada no séc. XI como oratório do Santo; reconstruída em 1710.', hist_li2: 'Estilo barroco-classicista.', hist_li3: 'Nave única com abóbada de canhão e lunetas.', hist_li4: 'Retábulo-mor barroco.', hist_li5: 'Epicentro das tradições e festas do Santo.',
+        hist_quote1: '"Aqui bate a origem da cidade; onde o Santo colocou a primeira pedra da sua fé."', hist_cite1: '— DESCRIÇÃO DA ERMIDA',
+        hist_body3: 'A escultura da Virgen de la Plaza, obra em madeira policromada, é uma das imagens mais veneradas de La Rioja. O seu nome evoca a praça onde se ergue a ermida, palco das festas do Santo que cada ano reúnem devotos e peregrinos do Caminho de Santiago.',
+        hist_body4: 'Uma recente restauração devolveu à cadeiria o seu esplendor original, e a nova iluminação realça a luminosidade do interior calcário, transformando a visita numa experiência de rara beleza.',
+        hist_quote2: 'Sabia que a ermida se ergue no mesmo local onde o Santo tinha a sua habitação e primeiro hospital?', hist_cite2: '— CURIOSIDADE SOBRE O EMPLAZAMENTO',
+        hist_body5: 'A Virgen de la Plaza é a padroeira dos calceatenses. A sua festividade, celebrada com grande fervor cada ano, enche a Plaza del Santo de procissões, música e devoção, tornando a ermida a alma viva da identidade da cidade.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'A história da <em>Ermida</em>',
+        tl1_title: 'O oratório do Santo', tl1_desc: 'Santo Domingo de la Calzada estabelece neste local a sua habitação e primeiro hospital de peregrinos, erguendo um simples oratório que é o embrião da ermida atual.',
+        tl2_title: 'Ampliação renascentista', tl2_desc: 'O oratório original é ampliado e remodelado, consolidando-se como lugar de culto e devoção no coração da cidade.',
+        tl3_title: 'A grande transformação barroca', tl3_desc: 'A ermida é reconstruída na sua configuração atual, com nave única, abóbada de canhão, lunetas e um soberbo retábulo-mor barroco que preside o espaço.',
+        tl4_title: 'Consolidação como Padroeira', tl4_desc: 'A Virgen de la Plaza é proclamada padroeira dos calceatenses, reforçando o vínculo entre a ermida e a identidade coletiva da cidade.',
+        tl5_title: 'Coração da identidade calceatense', tl5_desc: 'Após uma recente restauração, a ermida exibe o seu esplendor barroco como epicentro da devoção e das festas do Santo, recebendo peregrinos e visitantes do Caminho de Santiago.',
+        sec_spaces_eyebrow: 'Espaços', sec_spaces_title: 'Cada recanto, uma <em>obra-prima</em>',
+        cap_claustro: 'Fachada barroca · Cadeiria', cap_iglesia: 'Nave única · Abóbada de canhão', cap_retablo: 'Retábulo-mor barroco', cap_sepulcro: 'Virgem titular · Padroeira', cap_marfiles: 'Plaza del Santo', cap_taller: 'Detalhe escultórico', cap_fachada: 'Interior · Lunetas',
+        sec_audio_eyebrow: 'Audioguias', sec_audio_title: 'Descubra cada <em>espaço</em>', sec_audio_desc: 'Deixe-se guiar pela ermida barroca. Cada canto deste espaço centenário desvela a história, a arte e a devoção que fizeram da Virgen de la Plaza a alma da cidade.',
+        audio_q: 'Onde posso encontrar todos os audioguias?', tooltip_monuments: 'Disponíveis durante a visita aos nossos monumentos.',
+        audio_card_tag: 'Audioguia de teste • Disponível', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentação', sec_pdf_title: 'Folhetos e <em>guias PDF</em>', sec_pdf_desc: 'Visite os nossos monumentos para descobrir o nosso verdadeiro legado com audioguias e folhetos digitais. Disponíveis em 7 idiomas digitalizando um QR code.',
+        pdf_q: 'Onde posso encontrar todos os folhetos?', pdf_card_tag: 'Folheto da Ermida • Não disponível', pdf_card_name: 'Guia de visita — Português',
+        cta_title: 'Visite a <em>Ermida da Virgen de la Plaza</em>', cta_sub: 'Entrada gratuita. Adquira a pulseira turística para aceder a todos os monumentos de Santo Domingo de la Calzada.', cta_btn: 'Comprar bilhetes →'
+      },
+      it: {
+        page_eyebrow: 'Monumenti · Eremo della Virgen de la Plaza', page_title: 'Eremo della <em>Virgen de la Plaza</em>', page_desc: 'Un gioiello barocco nel cuore della città. Edificato sull\'antico oratorio del Santo, custodisce la Virgen de la Plaza, patrona dei calceatenses.', meta_entrada: 'Ingresso', meta_horario: 'Orario', meta_estilos: 'Stili',
+        infobar_location_label: 'Posizione',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Orari e <em>tariffe</em>', ht_schedule_title: 'Orari di apertura', ht_lv: 'Tutti i giorni', ht_sat: 'Sabati', ht_note: 'L\'Eremo è aperto tutti i giorni. Ultimi ingressi 30 min prima della chiusura.', ht_prices_title: 'Tariffe d\'ingresso', ht_general: 'Biglietto ordinario', ht_pilgrim: 'Pellegrini', ht_group_big: 'Gruppi &gt; 25 persone', ht_group_small: 'Gruppi &lt; 25 persone', ht_family: 'Biglietto famiglia', ht_children: 'Minori di 12 anni', ht_residents: 'Residenti', ht_free: 'Gratuito', tip_pilgrim: 'Braccialetto turistico: include l\'accesso a tutti i 4 monumenti. Presentare la credenziale ufficiale del Cammino con almeno 4 tappe a piedi o in bicicletta.', tip_group: 'Questo biglietto include l\'accesso a tutti i monumenti con il braccialetto turistico.', tip_family: 'Il prezzo include l\'ingresso a tutti i monumenti per l\'intera famiglia.', tip_free: 'Presentare documento d\'identità valido alle biglietterie.',
+        sec_gallery_eyebrow: 'Galleria', sec_gallery_title: 'L\'Eremo e la sua <em>storia</em>',
+        gal_btn: 'Scopri di più',
+        sec_hist_eyebrow: 'Architettura & Storia', sec_hist_title: 'Un <em>cuore di devozione</em>: l\'Eremo della Virgen de la Plaza',
+        hist_lead: 'Situato sulla Plaza del Santo, l\'eremo sorge sull\'oratorio dell\'XI secolo che lo stesso Santo Domingo de la Calzada utilizzò come dimora e primo ospedale dei pellegrini. Ricostruito in stile barocco nel 1710, è oggi il santuario più intimo e amato della città.',
+        hist_body1: 'La sua unica navata con volta a botte e lunette ospita uno splendido retablo maggiore barocco che incornicia la Virgen de la Plaza, una scultura in legno policromo di grande devozione popolare. La cantoria e i dettagli scultorei completano uno spazio di serena bellezza.',
+        hist_body2: '',
+        hist_li1: 'Fondata nell\'XI sec. come oratorio del Santo; ricostruita nel 1710.', hist_li2: 'Stile barocco-classicista.', hist_li3: 'Navata unica con volta a botte e lunette.', hist_li4: 'Retablo maggiore barocco.', hist_li5: 'Epicentro delle tradizioni e delle feste del Santo.',
+        hist_quote1: '"Qui batte l\'origine della città; dove il Santo pose la prima pietra della sua fede."', hist_cite1: '— DESCRIZIONE DELL\'EREMO',
+        hist_body3: 'La scultura della Virgen de la Plaza, opera in legno policromo, è una delle immagini più venerate de La Rioja. Il suo nome evoca la piazza su cui sorge l\'eremo, scenario delle feste del Santo che ogni anno radunano fedeli e pellegrini del Cammino di Santiago.',
+        hist_body4: 'Un recente restauro ha restituito alla cantoria il suo splendore originale, e la nuova illuminazione valorizza la luminosità dell\'interno calcareo, trasformando la visita in un\'esperienza di rara bellezza.',
+        hist_quote2: 'Sapevi che l\'eremo sorge nel luogo stesso in cui il Santo aveva la sua dimora e il primo ospedale?', hist_cite2: '— CURIOSITÀ SULL\'UBICAZIONE',
+        hist_body5: 'La Virgen de la Plaza è la patrona dei calceatenses. La sua festa, celebrata con grande fervore ogni anno, riempie la Plaza del Santo di processioni, musica e devozione, rendendo l\'eremo l\'anima viva dell\'identità della città.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'La storia dell\'<em>Eremo</em>',
+        tl1_title: 'L\'oratorio del Santo', tl1_desc: 'Santo Domingo de la Calzada stabilisce in questo luogo la sua dimora e il primo ospedale dei pellegrini, erigendo un semplice oratorio che è il germe dell\'eremo attuale.',
+        tl2_title: 'Ampliamento rinascimentale', tl2_desc: 'L\'oratorio originale è ampliato e rimodellato, consolidandosi come luogo di culto e devozione nel cuore della città.',
+        tl3_title: 'La grande trasformazione barocca', tl3_desc: 'L\'eremo viene ricostruito nella sua configurazione attuale, con navata unica, volta a botte, lunette e uno splendido retablo maggiore barocco che presiede lo spazio.',
+        tl4_title: 'Consacrazione come Patrona', tl4_desc: 'La Virgen de la Plaza viene proclamata patrona dei calceatenses, rafforzando il legame tra l\'eremo e l\'identità collettiva della città.',
+        tl5_title: 'Cuore dell\'identità calceatense', tl5_desc: 'Dopo un recente restauro, l\'eremo esibisce il suo splendore barocco come epicentro della devozione e delle feste del Santo, accogliendo pellegrini e visitatori del Cammino di Santiago.',
+        sec_spaces_eyebrow: 'Spazi', sec_spaces_title: 'Ogni angolo, un <em>capolavoro</em>',
+        cap_claustro: 'Facciata barocca · Cantoria', cap_iglesia: 'Navata unica · Volta a botte', cap_retablo: 'Retablo maggiore barocco', cap_sepulcro: 'Vergine titolare · Patrona', cap_marfiles: 'Plaza del Santo', cap_taller: 'Dettaglio scultoreo', cap_fachada: 'Interno · Lunette',
+        sec_audio_eyebrow: 'Audioguide', sec_audio_title: 'Scopri ogni <em>spazio</em>', sec_audio_desc: 'Lasciati guidare dall\'eremo barocco. Ogni angolo di questo spazio secolare svela la storia, l\'arte e la devozione che hanno fatto della Virgen de la Plaza l\'anima della città.',
+        audio_q: 'Dove posso trovare tutte le audioguide?', tooltip_monuments: 'Disponibili durante la visita ai nostri monumenti.',
+        audio_card_tag: 'Audioguida di prova • Disponibile', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentazione', sec_pdf_title: 'Opuscoli e <em>guide PDF</em>', sec_pdf_desc: 'Visita i nostri monumenti per scoprire il nostro vero patrimonio con audioguide e opuscoli digitali. Disponibili in 7 lingue scansionando un QR code.',
+        pdf_q: 'Dove posso trovare tutti gli opuscoli?', pdf_card_tag: 'Opuscolo dell\'Eremo • Non disponibile', pdf_card_name: 'Guida alla visita — Italiano',
+        cta_title: 'Visita l\'<em>Eremo della Virgen de la Plaza</em>', cta_sub: 'Ingresso libero. Acquista il braccialetto turistico per accedere a tutti i monumenti di Santo Domingo de la Calzada.', cta_btn: 'Acquista biglietti →'
+      },
+      ko: {
+        page_eyebrow: '유적 · 비르헨 데 라 플라사 예배당', page_title: '<em>비르헨 데 라 플라사</em> 예배당', page_desc: '도심 한가운데의 바로크 보석. 성인의 옛 기도실 위에 세워졌으며, 칼사텐세 사람들의 수호성녀인 비르헨 데 라 플라사를 모시고 있습니다.', meta_entrada: '입장료', meta_horario: '운영 시간', meta_estilos: '양식',
+        infobar_location_label: '위치',
+        sec_ht_eyebrow: '관람', sec_ht_title: '운영 시간 및 <em>요금</em>', ht_schedule_title: '운영 시간', ht_lv: '매일', ht_sat: '토요일', ht_note: '예배당은 매일 개방됩니다. 마지막 입장은 폐관 30분 전까지.', ht_prices_title: '입장 요금', ht_general: '일반 입장권', ht_pilgrim: '순례자', ht_group_big: '25인 이상 단체', ht_group_small: '25인 미만 단체', ht_family: '가족 입장권', ht_children: '12세 미만', ht_residents: '거주자', ht_free: '무료', tip_pilgrim: '관광 팔찌: 4개 유적 모두 입장 포함. 도보 또는 자전거로 최소 4구간을 완주한 공식 순례 증명서 지참.', tip_group: '이 입장권은 관광 팔찌로 모든 유적 입장 포함.', tip_family: '자녀 수에 관계없이 전 가족 모든 유적 입장 포함.', tip_free: '매표소에서 신분증 제시.',
+        sec_gallery_eyebrow: '갤러리', sec_gallery_title: '예배당과 그 <em>역사</em>',
+        gal_btn: '자세히 보기',
+        sec_hist_eyebrow: '건축 & 역사', sec_hist_title: '<em>헌신의 심장</em>: 비르헨 데 라 플라사 예배당',
+        hist_lead: '플라사 델 산토에 위치한 이 예배당은 산토 도밍고 데 라 칼사다 성인이 거주지와 최초의 순례자 병원으로 사용했던 11세기 기도실 위에 서 있습니다. 1710년 바로크 양식으로 재건된 이 예배당은 오늘날 도시에서 가장 친근하고 사랑받는 성소입니다.',
+        hist_body1: '통 볼트 천장과 루네트를 갖춘 단일 본당은 민간 신앙의 대상인 채색 목각 조각 비르헨 데 라 플라사를 중심으로 하는 웅장한 바로크 제단화를 품고 있습니다. 합창단석과 조각 세부 요소들이 고요한 아름다움의 공간을 완성합니다.',
+        hist_body2: '',
+        hist_li1: '11세기 성인의 기도실로 설립, 1710년 재건.', hist_li2: '바로크-고전주의 양식.', hist_li3: '통 볼트와 루네트를 갖춘 단일 본당.', hist_li4: '바로크 주 제단화.', hist_li5: '성인 전통과 축제의 중심지.',
+        hist_quote1: '"여기에 도시의 기원이 뛰고 있다. 성인이 신앙의 첫 돌을 놓은 곳."', hist_cite1: '— 예배당에 관하여',
+        hist_body3: '채색 목각 조각인 비르헨 데 라 플라사는 라리오하에서 가장 숭배받는 성상 중 하나입니다. 그 이름은 예배당이 위치한 광장을 연상시키며, 매년 산티아고 순례길의 신도와 순례자들이 모이는 성인 축제의 무대가 됩니다.',
+        hist_body4: '최근 복원 작업으로 합창단석은 원래의 화려함을 되찾았고, 새로운 조명이 석회암 내부의 빛나는 아름다움을 부각시켜 방문을 특별한 경험으로 만들어 줍니다.',
+        hist_quote2: '예배당이 성인이 거주하며 최초의 병원을 운영했던 바로 그 자리에 세워져 있다는 것을 알고 계셨나요?', hist_cite2: '— 위치에 관한 흥미로운 사실',
+        hist_body5: '비르헨 데 라 플라사는 칼사텐세 사람들의 수호성녀입니다. 매년 성대하게 열리는 그녀의 축일은 플라사 델 산토를 행렬, 음악, 기도로 가득 채우며, 예배당을 도시 정체성의 살아있는 영혼으로 만들고 있습니다.',
+        hist_body6: '',
+        sec_time_eyebrow: '연대표', sec_time_title: '예배당의 <em>역사</em>',
+        tl1_title: '성인의 기도실', tl1_desc: '산토 도밍고 데 라 칼사다 성인이 이곳에 거주지와 최초의 순례자 병원을 세우고, 현재 예배당의 기원이 되는 단순한 기도실을 짓습니다.',
+        tl2_title: '르네상스 시대 확장', tl2_desc: '원래의 기도실이 확장되고 개조되어 도시 중심부의 경배와 신앙의 장소로 자리 잡습니다.',
+        tl3_title: '대규모 바로크 변환', tl3_desc: '예배당이 현재의 모습으로 재건됩니다. 단일 본당, 통 볼트, 루네트, 그리고 공간을 주도하는 웅장한 바로크 제단화가 완성됩니다.',
+        tl4_title: '수호성녀로 확립', tl4_desc: '비르헨 데 라 플라사가 칼사텐세의 수호성녀로 선포되어 예배당과 도시 집단 정체성 사이의 유대를 강화합니다.',
+        tl5_title: '칼사텐세 정체성의 심장', tl5_desc: '최근 복원 후 예배당은 산티아고 순례길의 순례자와 방문객을 맞이하며 성인의 신앙과 축제의 중심지로서 바로크의 화려함을 빛내고 있습니다.',
+        sec_spaces_eyebrow: '공간', sec_spaces_title: '모든 구석, <em>걸작</em>',
+        cap_claustro: '바로크 파사드 · 합창단석', cap_iglesia: '단일 본당 · 통 볼트', cap_retablo: '바로크 주 제단화', cap_sepulcro: '주보 성모상 · 수호성녀', cap_marfiles: '플라사 델 산토', cap_taller: '조각 세부', cap_fachada: '내부 · 루네트',
+        sec_audio_eyebrow: '오디오 가이드', sec_audio_title: '모든 <em>공간</em> 탐색', sec_audio_desc: '바로크 예배당이 이끄는 대로 따라가세요. 이 수백 년 된 공간의 모든 구석은 비르헨 데 라 플라사를 도시의 영혼으로 만든 역사, 예술, 신앙을 드러냅니다.',
+        audio_q: '오디오 가이드는 어디서 구할 수 있나요?', tooltip_monuments: '유적 방문 시 이용 가능합니다.',
+        audio_card_tag: '오디오 가이드 샘플 • 이용 가능', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0분 38초',
+        sec_pdf_eyebrow: '문서', sec_pdf_title: '브로슈어 및 <em>PDF 가이드</em>', sec_pdf_desc: '저희 유적을 방문하여 QR 코드를 스캔하면 7개 언어로 제공되는 디지털 오디오 가이드와 브로슈어로 진정한 유산을 발견하실 수 있습니다.',
+        pdf_q: '브로슈어는 어디서 구할 수 있나요?', pdf_card_tag: '예배당 브로슈어 • 미제공', pdf_card_name: '관람 안내서 — 한국어',
+        cta_title: '<em>비르헨 데 라 플라사 예배당</em> 방문', cta_sub: '입장 무료. 관광 팔찌를 구매하면 산토 도밍고 데 라 칼사다의 모든 유적에 입장할 수 있습니다.', cta_btn: '입장권 구매 →'
+      },
+      eu: {
+        page_eyebrow: 'Monumentuak · Plazako Amaren Ermita', page_title: '<em>Plazako Amaren</em> Ermita', page_desc: 'Hiriaren bihotzean dagoen barrokoko bitxia. Santuaren oratorio zaharraren gainean eraikia, Plazako Ama custodiatzen du, calceatenseen patroina.', meta_entrada: 'Sarrera', meta_horario: 'Ordutegia', meta_estilos: 'Estiloak',
+        infobar_location_label: 'Kokapena',
+        sec_ht_eyebrow: 'Bisita', sec_ht_title: 'Ordutegia eta <em>tarifak</em>', ht_schedule_title: 'Irekitze ordutegia', ht_lv: 'Egunero', ht_sat: 'Larunbatak', ht_note: 'Ermita egunero irekita dago. Azken sarrerak itxiera baino 30 minutu lehenago onartzen dira.', ht_prices_title: 'Sarrera tarifak', ht_general: 'Sarrera orokorra', ht_pilgrim: 'Erromesak', ht_group_big: 'Taldeak &gt; 25 pertsona', ht_group_small: 'Taldeak &lt; 25 pertsona', ht_family: 'Familia sarrera', ht_children: '12 urte azpikoak', ht_residents: 'Bizilagunak', ht_free: 'Doakoa', tip_pilgrim: 'Pulsera turistikoa: 4 monumentuetarako sarbidea barne. Bideko kredentziala behar bezala egiaztatu behar da, gutxienez 4 etapa oinez edo bizikletaz eginda.', tip_group: 'Sarrera honek pulsera turistikoarekin Santo Domingoko monumento guztietarako sarbidea barne hartzen du.', tip_family: 'Prezioak familia osoaren sarrera barne hartzen du Santo Domingoko monumento guztietara, seme-alaben kopurua edozein dela ere.', tip_free: 'Leihatiletan txartela behar bezala egiaztatu.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'Ermita eta bere <em>historia</em>',
+        gal_btn: 'Gehiago jakin',
+        sec_hist_eyebrow: 'Arkitektura eta Historia', sec_hist_title: '<em>Deboziozko bihotza</em>: Plazako Amaren Ermita',
+        hist_lead: 'Plaza del Santoan kokatutako ermita, Santu Domingo de la Calzadak bere etxebizitza eta lehenengo erromesen ospitale gisa erabilitako XI. mendeko oratorioa azpian duela altxatzen da. 1710ean estilo barrokoan berreraiki zen, eta gaur egun hiriaren santutegi intimoena eta maitena da.',
+        hist_body1: 'Ganga-barroileko eta lunetedun nabe bakarrak herri deboziozko egurrezko irudi politxromo bat den Plazako Ama inguratzen duen erretaula nagusi barrokoa biltzen du. Koruaren aulkigintza eta irudi-xehetasunak bakardade ederreko espazio bat osatzen dute.',
+        hist_body2: '',
+        hist_li1: 'XI. mendean Santuaren oratorio gisa sortua; 1710ean berreraiki.', hist_li2: 'Estilo barroko-klasizista.', hist_li3: 'Nabe bakar bat ganga-barroilarekin eta luneteekin.', hist_li4: 'Erretaula nagusi barrokoa.', hist_li5: 'Santuaren tradizioen eta jaialdien gune nagusia.',
+        hist_quote1: '"Hemen hiriko jatorria bizia da; Santuak bere fedearen lehen harria jarri zuen tokian."', hist_cite1: '— ERMITAREN DESKRIBAPENA',
+        hist_body3: 'Plazako Amaren irudia, irudi politxromoa, Errioxako gurtzaileenetatik bat da. Bere izenak ermita dagoen plaza evozatzen du, urtero Santiago Bideko sinestun eta erromesak biltzen dituzten Santuaren jaialdiena den eremua.',
+        hist_body4: 'Berriki egindako zaharberritzeak aulkigintza bere jatorrizko distirara itzuli du, eta argi berria kareharrizko barrualdeko distira azpimarratzen du, bisita edertasun bakandeko esperientzia bihurtuz.',
+        hist_quote2: 'Ba al zenekien ermita Santuak bere etxebizitza eta lehen ospitalea zuen tokian bertan altxatzen dela?', hist_cite2: '— KOKAPENARI BURUZKO BITXIKERIA',
+        hist_body5: 'Plazako Ama calceatenseen patroina da. Bere festibitatea, urtero debozioz ospatzen dena, Plaza del Santo prozesio, musika eta debozioz betetzen du, ermita hiriaren nortasunaren arima bizi bihurtuz.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Kronologia', sec_time_title: 'Ermitaren <em>historia</em>',
+        tl1_title: 'Santuaren oratorio', tl1_desc: 'Santu Domingo de la Calzadak toki honetan bere etxebizitza eta lehenengo erromesen ospitalea ezartzen du, egungo ermitaren hazia den oratorio soil bat altxatuz.',
+        tl2_title: 'Errenazimentuko hedapena', tl2_desc: 'Jatorrizko oratorio zabaltzen eta birmoldatzen da, hiriaren bihotzean gurtzarako eta debozioak leku gisa finkatuz.',
+        tl3_title: 'Eraldaketa barroko handia', tl3_desc: 'Ermita bere egungo konfigurazioan berreraikitzen da, nabe bakar, ganga-barroil, lunete eta espazioa zuzentzen duen erretaula nagusi barrokoekin.',
+        tl4_title: 'Patrona gisa finkatzea', tl4_desc: 'Plazako Ama calceatenseen patrona aldarrikatzen da, ermita eta hiriaren kolektibo nortasunaren arteko lotura sendotuz.',
+        tl5_title: 'Calceatense nortasunaren bihotza', tl5_desc: 'Berriki zaharberritu ondoren, ermita bere apaingarri barrokoa erakusten du Santuaren debozioren eta jaialdiaren gune nagusi gisa, Santiago Bideko erromesak eta bisitariak hartuz.',
+        sec_spaces_eyebrow: 'Espazioak', sec_spaces_title: 'Txoko bakoitza, <em>maisu lan bat</em>',
+        cap_claustro: 'Fatxada barrokoa · Aulkigintza', cap_iglesia: 'Nabe bakarra · Ganga-barroila', cap_retablo: 'Erretaula nagusi barrokoa', cap_sepulcro: 'Amaren irudia titularra · Patrona', cap_marfiles: 'Plaza del Santo', cap_taller: 'Irudi-xehetasuna', cap_fachada: 'Barrualdea · Luneteak',
+        sec_audio_eyebrow: 'Audiogidariak', sec_audio_title: 'Espazio bakoitza <em>aurkitu</em>', sec_audio_desc: 'Utzi ermita barrokoaren gidaritzapean. Mende askotako espazio honetako txoko bakoitzak Plazako Ama hiriaren arima bihurtu duen historia, artea eta debozioa agertzen ditu.',
+        audio_q: 'Non aurki ditzaket audiogidariak?', tooltip_monuments: 'Monumentuetara bisitetan eskuragarri.',
+        audio_card_tag: 'Audiogidariaren lagin bat • Eskuragarri', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Dokumentazioa', sec_pdf_title: 'Liburuskak eta <em>PDF gidak</em>', sec_pdf_desc: 'Bisitatu gure monumentuak eta eskaneatu QR kode bat 7 hizkuntzatan eskuragarri dauden audiogidariak eta liburuskak aurkitzeko.',
+        pdf_q: 'Non aurki ditzaket liburuska guztiak?', pdf_card_tag: 'Ermitako Liburuxka • Ez dago eskuragarri', pdf_card_name: 'Bisita gida — Euskara',
+        cta_title: '<em>Plazako Amaren Ermita</em> bisitatu', cta_sub: 'Sarrera doakoa. Erosi pulsera turistikoa Santo Domingoko monumento guztietarako sarbidea izateko.', cta_btn: 'Sarrerak erosi →'
+      },
+      ca: {
+        page_eyebrow: 'Monuments · Ermita de la Verge de la Plaça', page_title: 'Ermita de la <em>Verge de la Plaça</em>', page_desc: 'Una joia barroca al cor de la ciutat. Aixecada sobre l\'antic oratori del Sant, custodia la Verge de la Plaça, patrona dels calceatenses.', meta_entrada: 'Entrada', meta_horario: 'Horari', meta_estilos: 'Estils',
+        infobar_location_label: 'Ubicació',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horaris i <em>tarifes</em>', ht_schedule_title: 'Horaris d\'obertura', ht_lv: 'Tots els dies', ht_sat: 'Dissabtes', ht_note: 'L\'Ermita roman oberta tots els dies. Les darreres entrades s\'accepten 30 minuts abans del tancament.', ht_prices_title: 'Tarifes d\'entrada', ht_general: 'Entrada general', ht_pilgrim: 'Pelegrins', ht_group_big: 'Grups &gt; 25 persones', ht_group_small: 'Grups &lt; 25 persones', ht_family: 'Entrada familiar', ht_children: 'Menors de 12 anys', ht_residents: 'Residents', ht_free: 'Gratuïtat', tip_pilgrim: 'Polsera turística: inclou accés als 4 monuments. Acreditar degudament amb credencial oficial del Camí, havent realitzat almenys 4 etapes a peu o en bicicleta.', tip_group: 'Aquesta entrada inclou l\'accés a tots els monuments de Santo Domingo de la Calzada amb la polsera turística.', tip_family: 'El preu inclou l\'entrada a tots els monuments de Santo Domingo per a tota la família, independentment del nombre de fills.', tip_free: 'Acreditar degudament amb carnet a les taquilles.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'L\'Ermita i la seva <em>història</em>',
+        gal_btn: 'Saber-ne més',
+        sec_hist_eyebrow: 'Arquitectura i Història', sec_hist_title: 'Un <em>cor de devoció</em>: l\'Ermita de la Verge de la Plaça',
+        hist_lead: 'Situada a la Plaça del Sant, l\'ermita s\'assenta sobre l\'oratori del segle XI que el mateix Sant Domingo de la Calzada va emprar com a habitatge i primer hospital de pelegrins. Reconstruïda en estil barroc el 1710, és avui el santuari més íntim i estimat de la ciutat.',
+        hist_body1: 'La seva nau única amb volta de canó i llunetes alberga un magnífic retaule major barroc que emmarca la Verge de la Plaça, una imatge de fusta policromada de gran devoció popular. La cadireria del cor i els detalls escultòrics completen un espai de serena bellesa.',
+        hist_body2: '',
+        hist_li1: 'Fundada al s. XI com a oratori del Sant; reconstruïda el 1710.', hist_li2: 'Estil barroc-classicista.', hist_li3: 'Nau única amb volta de canó i llunetes.', hist_li4: 'Retaule major barroc.', hist_li5: 'Epicentre de les tradicions i festes del Sant.',
+        hist_quote1: '"Aquí bat l\'origen de la ciutat; on el Sant posà la primera pedra de la seva fe."', hist_cite1: '— DESCRIPCIÓ DE L\'ERMITA',
+        hist_body3: 'La talla de la Verge de la Plaça, obra en fusta policromada, és una de les imatges més venerades de La Rioja. El seu nom evoca la plaça on s\'assenta l\'ermita, escenari de les festes del Sant que cada any apleguen devots i pelegrins del Camí de Santiago.',
+        hist_body4: 'La recent restauració ha restituït a la cadireria el seu esplendor original, i la nova il·luminació ressalta la luminositat interior de les pedres calcàries, transformant la visita en una experiència de bellesa inusitada.',
+        hist_quote2: 'Sabies que l\'ermita s\'assenta sobre el lloc on el Sant tenia la seva residència i el primer hospital?', hist_cite2: '— CURIOSITAT SOBRE L\'EMPLAÇAMENT',
+        hist_body5: 'La Verge de la Plaça és la patrona dels calceatenses. La seva festivitat, celebrada amb gran fervor cada any, omple la Plaça del Sant de processons, música i devoció, convertint l\'ermita en l\'ànima viva de la identitat de la ciutat.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'La història de l\'<em>Ermita</em>',
+        tl1_title: 'L\'oratori del Sant', tl1_desc: 'Sant Domingo de la Calzada estableix en aquest lloc la seva residència i el primer hospital de pelegrins, aixecant un senzill oratori que és el germen de l\'ermita actual.',
+        tl2_title: 'Ampliació renaixentista', tl2_desc: 'L\'oratori original és ampliat i reformat, consolidant-se com a lloc de culte i devoció al cor de la ciutat.',
+        tl3_title: 'La gran transformació barroca', tl3_desc: 'L\'ermita és reconstruïda en la seva configuració actual, amb nau única, volta de canó, llunetes i un magnífic retaule major barroc que presideix l\'espai.',
+        tl4_title: 'Consolidació com a Patrona', tl4_desc: 'La Verge de la Plaça és proclamada patrona dels calceatenses, reforçant el vincle entre l\'ermita i la identitat col·lectiva de la ciutat.',
+        tl5_title: 'Cor de la identitat calceatense', tl5_desc: 'Després de la recent restauració, l\'ermita llueix el seu esplendor barroc com a epicentre de la devoció i les festes del Sant, acollint pelegrins i visitants del Camí de Santiago.',
+        sec_spaces_eyebrow: 'Espais', sec_spaces_title: 'Cada racó, una <em>obra mestra</em>',
+        cap_claustro: 'Façana barroca · Cadireria', cap_iglesia: 'Nau única · Volta de canó', cap_retablo: 'Retaule major barroc', cap_sepulcro: 'Verge titular · Patrona', cap_marfiles: 'Plaça del Sant', cap_taller: 'Detall escultòric', cap_fachada: 'Interior · Llunetes',
+        sec_audio_eyebrow: 'Audioguies', sec_audio_title: 'Descobreix cada <em>espai</em>', sec_audio_desc: 'Deixa\'t guiar per l\'ermita barroca. Cada racó d\'aquest espai centenari desvela la història, l\'art i la devoció que han convertit la Verge de la Plaça en l\'ànima de la ciutat.',
+        audio_q: 'On puc trobar totes les audioguies?', tooltip_monuments: 'Disponibles a la visita als nostres monuments.',
+        audio_card_tag: 'Audioguia de prova • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentació', sec_pdf_title: 'Fulletons i <em>guies en PDF</em>', sec_pdf_desc: 'Visita els nostres monuments i escaneja un codi QR per descobrir el nostre veritable llegat amb audioguies i fulletons digitals disponibles en 7 idiomes.',
+        pdf_q: 'On puc trobar tots els fulletons?', pdf_card_tag: 'Fulletó de l\'Ermita • No disponible', pdf_card_name: 'Guia de visita — Català',
+        cta_title: 'Visita l\'<em>Ermita de la Verge de la Plaça</em>', cta_sub: 'Entrada gratuïta. Adquireix la polsera turística per accedir a tots els monuments de Santo Domingo de la Calzada.', cta_btn: 'Comprar entrades →'
+      },
+    };
+
+    /* ── Horario Torre: 10-14 y 16-20 todos los días ─────────────── */
+    function _torreIsOpen() {
+      const parts = new Intl.DateTimeFormat('es-ES', {
+        timeZone: 'Europe/Madrid', hour: 'numeric', minute: 'numeric', hour12: false
+      }).formatToParts(new Date());
+      const mh = parseInt(parts.find(p => p.type === 'hour').value, 10);
+      const mm = parseInt(parts.find(p => p.type === 'minute').value, 10);
+      const total = mh * 60 + mm;
+      return (total >= 600 && total < 810) || (total >= 990 && total < 1200);
+    }
+
+    /* ── Hook: shared.js llama a esta función al cambiar idioma ──── */
+    window.PAGE_applyLang = function (lang, sharedT) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      // Aplica todos los elementos con data-i18n-page
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (!t[key]) return;
+        el.innerHTML = t[key];
+      });
+
+      // Override infobar hours con horario partido de la Torre
+      const hoursEl = document.getElementById('infobar-hours');
+      if (hoursEl) hoursEl.textContent = '10:00–13:30 · 16:30–20:00 h';
+
+      // Override lamp label con horario de la Torre
+      const lampLabel = document.getElementById('lamp-label');
+      if (lampLabel) {
+        const isOpen = _torreIsOpen();
+        lampLabel.innerHTML = `<strong>${isOpen ? sharedT.lamp_open : sharedT.lamp_closed}</strong>`;
+      }
+
+      // Badge "Hoy" — la Torre tiene el mismo horario todos los días
+      const now = new Date(); const day = now.getDay();
+      const badge = document.getElementById('badge-todos');
+      if (badge) {
+        badge.textContent = sharedT.day_names[day];
+        badge.style.display = 'inline-flex';
+      }
+    };
+
+    /* ── Gallery info popup ──────────────────────────────────────── */
+    const GALLERY_INFO = [
+      {
+        num: '01 / 04 · Galería',
+        title: 'Fachada Barroca',
+        subtitle: 'Estilo barroco-clasicista · 1710',
+        body: `<p>La fachada de la Ermita de la Virgen de la Plaza es la presentación en piedra de la fe calceatense. Construida en su configuración actual en <strong>1710</strong> sobre el solar del antiguo oratorio del Santo, combina la sobriedad clasicista con detalles ornamentales barrocos que enmarcan la entrada al recinto sagrado.</p>
+               <p>La sillería de piedra local, característica de la arquitectura riojana, confiere al conjunto una calidez y una luminosidad singulares que varían con las horas del día. La portada, de proporciones equilibradas, anticipa la serenidad del espacio interior y constituye uno de los rincones más fotografiados de la Plaza del Santo, escenario de las grandes fiestas patronales de la ciudad.</p>`,
+        fact: 'La ermita se asienta sobre el lugar exacto donde Santo Domingo de la Calzada tenía su vivienda y levantó el primer hospital para peregrinos del Camino de Santiago en el siglo XI.'
+      },
+      {
+        num: '02 / 04 · Galería',
+        title: 'Retablo Mayor Barroco',
+        subtitle: 'Madera policromada y dorada · s. XVIII',
+        body: `<p>El retablo mayor de la ermita es la pieza central del espacio litúrgico y uno de los ejemplos más notables del <strong>barroco riojano</strong> de la primera mitad del siglo XVIII. Tallado en madera policromada y dorada, su estructura exuberante contrasta con la sobriedad de la nave única, creando un foco de luz y devoción que atrae inmediatamente la mirada del visitante.</p>
+               <p>Organizado en calles y cuerpos articulados por columnas salomónicas y decoración de hojarasca dorada, el retablo enmarca en su hornacina central a la <strong>Virgen de la Plaza</strong>, imagen titular de la ermita. Los paneles laterales albergan escenas de la vida del Santo y figuras de santos de especial devoción local, conformando un programa iconográfico completo de la historia sagrada de la ciudad.</p>`,
+        fact: 'Las columnas salomónicas del retablo, características del barroco pleno, son un guiño directo al baldaquino de San Pedro del Vaticano, símbolo del triunfo de la Iglesia en la época de la Contrarreforma.'
+      },
+      {
+        num: '03 / 04 · Galería',
+        title: 'Virgen de la Plaza',
+        subtitle: 'Imagen titular · Patrona de los calceatenses',
+        body: `<p>La Virgen de la Plaza es la imagen más venerada de Santo Domingo de la Calzada. Tallada en <strong>madera policromada</strong>, preside el retablo mayor de la ermita desde hace siglos y es el centro espiritual de la vida religiosa de la ciudad. Su nombre evoca directamente la plaza donde se asienta la ermita, corazón histórico y simbólico de la comunidad calceatense.</p>
+               <p>Como <strong>patrona de los calceatenses</strong>, la Virgen de la Plaza protagoniza las fiestas patronales más importantes del año, cuando la imagen es sacada en procesión solemne por las calles de la ciudad, acompañada por la música de la banda municipal, las autoridades civiles y eclesiásticas y una multitud de fieles. La devoción a esta imagen trasciende generaciones y reúne cada año a emigrantes y peregrinos que regresan a la ciudad para honrarla.</p>`,
+        fact: 'La festividad de la Virgen de la Plaza, celebrada con gran fervor cada año, es la fiesta patronal por excelencia de Santo Domingo de la Calzada y reúne a miles de devotos llegados de toda La Rioja y de la diáspora calceatense.'
+      },
+      {
+        num: '04 / 04 · Galería',
+        title: 'Interior y Bóveda de Cañón',
+        subtitle: 'Nave única · Lunetos · Sillería',
+        body: `<p>El interior de la ermita sorprende por su serena belleza. La <strong>nave única</strong>, cubierta por una elegante <strong>bóveda de cañón con lunetos</strong>, crea un espacio luminoso y recogido que invita a la contemplación. La piedra caliza local, de tonos cálidos, y la nueva iluminación resaltan la calidad de los materiales y la proporción armoniosa del conjunto arquitectónico.</p>
+               <p>La <strong>sillería del coro</strong>, recientemente restaurada, recupera su esplendor original con la madera labrada a mano y los remates escultóricos que narran escenas de devoción mariana. Los lunetos, abiertos en los arranques de la bóveda, bañan el interior de luz natural a lo largo del día, transformando la ermita en un espacio dinámico que cambia con las horas y las estaciones, siempre fiel a su vocación de ser el corazón devocional de la ciudad.</p>`,
+        fact: 'La bóveda de cañón con lunetos es una solución arquitectónica típica del barroco español que permite iluminar la nave desde lo alto, creando una atmósfera de luz celestial muy en consonancia con la espiritualidad de la época.'
+      }
+    ];
+
+    function openGalleryPopup(idx) {
+      const data = GALLERY_INFO[idx];
+      if (!data) return;
+      document.getElementById('popup-num').textContent = data.num;
+      document.getElementById('popup-title').textContent = data.title;
+      document.getElementById('popup-subtitle').textContent = data.subtitle;
+      document.getElementById('popup-body').innerHTML = data.body;
+      document.getElementById('popup-fact-text').textContent = data.fact;
+      document.getElementById('gallery-popup-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Pausar el autoplay de la galería
+      if (window._galleryStop) window._galleryStop();
+    }
+
+    function closeGalleryPopup() {
+      document.getElementById('gallery-popup-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      // Reanudar el autoplay de la galería
+      if (window._galleryStart) window._galleryStart();
+    }
+
+    function handlePopupOverlayClick(e) {
+      if (e.target === document.getElementById('gallery-popup-overlay')) closeGalleryPopup();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeGalleryPopup();
+    });
+
+    /* ── Gallery autoplay ────────────────────────────────────────── */
+    (function () {
+      const track = document.getElementById('gallery-track');
+      const dots = document.querySelectorAll('#gallery-dots .gallery-dot');
+      let cur = 0, total = 4, timer;
+      function go(n) { cur = (n + total) % total; track.style.transform = `translateX(-${cur * 100}%)`; dots.forEach((d, i) => d.classList.toggle('active', i === cur)); }
+      function start() { clearInterval(timer); timer = setInterval(() => go(cur + 1), 4000); }
+      function stop() { clearInterval(timer); }
+      window._galleryStart = start;
+      window._galleryStop = stop;
+      document.getElementById('gallery-prev').addEventListener('click', () => { go(cur - 1); start() });
+      document.getElementById('gallery-next').addEventListener('click', () => { go(cur + 1); start() });
+      dots.forEach((d, i) => d.addEventListener('click', () => { go(i); start() }));
+      start();
+    })();
+
+    /* ── Audio playback ─────────────────────────────────────────── */
+    function toggleAudio(card, idx) {
+      const btn = card.querySelector('.audio-play-btn');
+      const fill = card.querySelector('.audio-progress__fill');
+      const timeEl = card.querySelector('.audio-time');
+      const audioEl = document.getElementById('audio-' + idx);
+
+      if (!audioEl) return;
+
+      if (audioEl.paused) {
+        // Pausar cualquier otro audio que esté reproduciéndose
+        document.querySelectorAll('.audio-card audio').forEach(a => {
+          if (a !== audioEl && !a.paused) {
+            a.pause();
+            const otherCard = a.closest('.audio-card');
+            if (otherCard) {
+              otherCard.querySelector('.audio-play-btn').textContent = '▶';
+              otherCard.querySelector('.audio-play-btn').classList.remove('playing');
+            }
+          }
+        });
+
+        audioEl.play();
+        btn.textContent = '⏸';
+        btn.classList.add('playing');
+
+        // Actualizar barra de progreso y tiempo restante mientras suena
+        audioEl.ontimeupdate = () => {
+          if (!audioEl.duration) return;
+          const pct = (audioEl.currentTime / audioEl.duration) * 100;
+          fill.style.width = pct + '%';
+          const rem = Math.max(0, audioEl.duration - audioEl.currentTime);
+          const m = Math.floor(rem / 60);
+          const s = Math.floor(rem % 60).toString().padStart(2, '0');
+          timeEl.textContent = m + ':' + s;
+        };
+
+        // Al terminar, resetear
+        audioEl.onended = () => {
+          btn.textContent = '▶';
+          btn.classList.remove('playing');
+          fill.style.width = '0%';
+          timeEl.textContent = '00:38';
+          audioEl.currentTime = 0;
+        };
+      } else {
+        audioEl.pause();
+        btn.textContent = '▶';
+        btn.classList.remove('playing');
+      }
+    }
+
+    /* ── Override lamp-dot con horario de la Torre ───────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const lamp = document.getElementById('lamp-dot');
+      if (lamp) {
+        lamp.classList.remove('lamp-dot--open', 'lamp-dot--closed');
+        lamp.classList.add(_torreIsOpen() ? 'lamp-dot--open' : 'lamp-dot--closed');
+      }
+    });
+
+    /* ── Hero bg zoom-in ─────────────────────────────────────────── */
+    setTimeout(() => { const b = document.getElementById('hero-bg'); if (b) b.classList.add('loaded'); }, 100);
+
+    /* ── PDF tooltip (mobile tap) ────────────────────────────────── */
+    const pdfCard = document.getElementById('pdf-card-main');
+    if (pdfCard) {
+      pdfCard.addEventListener('click', (e) => {
+        pdfCard.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        pdfCard.classList.remove('tooltip-active');
+      });
+    }
+
+    /* ── Audio info tooltip (mobile tap) ─────────────────────────── */
+    const audioInfoWrap = document.querySelector('.audio-info-wrap');
+    if (audioInfoWrap) {
+      audioInfoWrap.addEventListener('click', (e) => {
+        audioInfoWrap.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        audioInfoWrap.classList.remove('tooltip-active');
+      });
+    }
+
+    /* ── PDF info tooltip (mobile tap) ───────────────────────────── */
+    const pdfInfoWrap = document.querySelector('.pdf-info-wrap');
+    if (pdfInfoWrap) {
+      pdfInfoWrap.addEventListener('click', (e) => {
+        pdfInfoWrap.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        pdfInfoWrap.classList.remove('tooltip-active');
+      });
+    }
+
+    // ── Modo Claro / Oscuro ───────────────────────────────────
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        if (on) localStorage.setItem(KEY, '1');
+        else localStorage.removeItem(KEY);
+      }
+
+      if (localStorage.getItem(KEY) === '1') applyLightMode(true);
+
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+</body>
+
+</html>

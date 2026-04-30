@@ -1,0 +1,2631 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convento San Francisco · Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+  <!-- Estilos compartidos -->
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    /* ── PAGE-HERO ───────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 92vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/sanfrancisco.webp');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded {
+      transform: scale(1)
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.88) 0%,
+          rgba(14, 12, 10, 0.58) 45%,
+          rgba(14, 12, 10, 0.72) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.88) 0%,
+          rgba(14, 12, 10, 0.45) 40%,
+          transparent 70%);
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      max-width: 700px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 20px
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .75);
+      max-width: 520px;
+      margin-bottom: 32px
+    }
+
+    .page-hero__meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap
+    }
+
+    .page-hero__meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .page-hero__meta-label {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone)
+    }
+
+    .page-hero__meta-val {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--gold-lt)
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────── */
+    .section {
+      padding: 100px 8vw
+    }
+
+    .section__inner {
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .cta-band .section__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      width: 100%
+    }
+
+    .section--cream {
+      background: var(--cream);
+      color: var(--carbon)
+    }
+
+    .section--dark {
+      background: #0f0d0b
+    }
+
+    .section--carbon {
+      background: var(--carbon)
+    }
+
+    .section--white {
+      background: #fff;
+      color: var(--carbon)
+    }
+
+    .eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .reveal-info {
+      margin-bottom: 32px;
+    }
+
+    .section--cream .eyebrow,
+    .section--white .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    .section--dark .eyebrow,
+    .section--carbon .eyebrow {
+      color: var(--gold)
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 48px
+    }
+
+    .section--cream .section-title,
+    .section--white .section-title {
+      color: var(--carbon)
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .section--cream .section-title em,
+    .section--white .section-title em {
+      color: var(--gold-dk)
+    }
+
+    /* ── IMG SCROLL ──────────────────────────────────────────── */
+    .img-scroll-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+      cursor: grab
+    }
+
+    .img-scroll-track.is-dragging {
+      cursor: grabbing;
+      user-select: none
+    }
+
+    .img-scroll-track::-webkit-scrollbar {
+      display: none
+    }
+
+    .img-scroll-item {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px
+    }
+
+    .img-scroll-item--wide {
+      width: 560px;
+      height: 380px
+    }
+
+    .img-scroll-item--sq {
+      width: 340px;
+      height: 380px
+    }
+
+    .img-scroll-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease)
+    }
+
+    .img-scroll-item:hover img {
+      transform: scale(1.05)
+    }
+
+    .img-scroll-item__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 22px;
+      background: linear-gradient(to top, rgba(14, 12, 10, .85), transparent);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    /* ── TEXT 2-COL ──────────────────────────────────────────── */
+    .text-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start
+    }
+
+    .text-grid__lead {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--carbon);
+      margin-bottom: 28px
+    }
+
+    .text-grid__body {
+      font-size: .88rem;
+      line-height: 1.8;
+      color: var(--stone);
+      margin-bottom: 20px
+    }
+
+    .text-grid__quote {
+      border-left: 2px solid var(--gold-dk);
+      padding-left: 28px;
+      margin-bottom: 32px
+    }
+
+    .text-grid__quote p {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--carbon)
+    }
+
+    .text-grid__quote cite {
+      display: block;
+      margin-top: 12px;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--stone)
+    }
+
+    .highlight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .highlight-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: .85rem;
+      line-height: 1.6;
+      color: var(--stone)
+    }
+
+    .highlight-list li::before {
+      content: '✦';
+      color: var(--gold-dk);
+      font-size: .65rem;
+      margin-top: .2rem;
+      flex-shrink: 0
+    }
+
+    /* ── TIMELINE ────────────────────────────────────────────── */
+    .timeline {
+      position: relative
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 132px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201, 168, 76, .3) 10%, rgba(201, 168, 76, .3) 90%, transparent)
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      /* border-bottom: 1px solid rgba(255, 255, 255, .06) */
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none
+    }
+
+    .timeline-year {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      text-align: right;
+      position: relative;
+      line-height: 1
+    }
+
+    .timeline-year::after {
+      content: '';
+      position: absolute;
+      right: -24px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      background: var(--carbon)
+    }
+
+    .timeline-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 8px
+    }
+
+    .timeline-desc {
+      font-size: .82rem;
+      line-height: 1.7;
+      color: var(--stone)
+    }
+
+    /* ── GALLERY ─────────────────────────────────────────────── */
+    .gallery-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px
+    }
+
+    .gallery-track {
+      display: flex;
+      transition: transform .7s var(--ease)
+    }
+
+    .gallery-slide {
+      flex-shrink: 0;
+      width: 100%;
+      height: 520px;
+      position: relative
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .gallery-slide__cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 36px;
+      background: linear-gradient(to top, rgba(14, 12, 10, .8), transparent);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between
+    }
+
+    .gallery-slide__cap-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--white)
+    }
+
+    .gallery-slide__cap-num {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .gallery-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px
+    }
+
+    .gallery-dot {
+      width: 24px;
+      height: 2px;
+      background: rgba(255, 255, 255, .2);
+      border-radius: 2px;
+      transition: background .3s, width .3s;
+      cursor: pointer
+    }
+
+    .gallery-dot.active {
+      background: var(--gold);
+      width: 40px
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: border-color .2s, background .2s;
+      cursor: pointer
+    }
+
+    .gallery-nav:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, .1)
+    }
+
+    .gallery-nav--prev {
+      left: 20px
+    }
+
+    .gallery-nav--next {
+      right: 20px
+    }
+
+    /* ── GALLERY INFO BUTTON ─────────────────────────────────────── */
+    .gallery-info-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 12, 10, 0.65);
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .gallery-info-btn:hover {
+      background: rgba(201, 168, 76, 0.18);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .gallery-info-btn__icon {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .gallery-info-btn__text {
+      display: inline;
+    }
+
+    @media (max-width: 640px) {
+      .gallery-info-btn {
+        padding: 8px;
+        gap: 0;
+      }
+
+      .gallery-info-btn__text {
+        display: none;
+      }
+    }
+
+    /* ── GALLERY INFO POPUP ──────────────────────────────────────── */
+    .gallery-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+      backdrop-filter: blur(6px);
+    }
+
+    .gallery-popup-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .gallery-popup {
+      position: relative;
+      background: rgba(14, 12, 10, 0.96);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: 4px;
+      max-width: 560px;
+      width: 100%;
+      padding: 52px 48px 44px;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .gallery-popup-overlay.open .gallery-popup {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Línea decorativa dorada arriba */
+    .gallery-popup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 48px;
+      right: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .gallery-popup__close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 1.6rem;
+      line-height: 1;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: var(--sans);
+    }
+
+    .gallery-popup__close:hover {
+      color: var(--white);
+    }
+
+    .gallery-popup__num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gallery-popup__num::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .gallery-popup__title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .gallery-popup__subtitle {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      font-family: var(--sans);
+    }
+
+    .gallery-popup__divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201, 168, 76, 0.3), transparent);
+      margin-bottom: 24px;
+    }
+
+    .gallery-popup__body p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 14px;
+    }
+
+    .gallery-popup__body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .gallery-popup__body strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .gallery-popup__fact {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: rgba(201, 168, 76, 0.06);
+      border-left: 2px solid var(--gold);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .gallery-popup__fact-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .gallery-popup__fact-text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.65);
+      font-style: italic;
+    }
+
+    /* ── AUDIO CARDS ─────────────────────────────────────────── */
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 500px));
+      gap: 20px;
+      width: 100%;
+    }
+
+    .audio-card {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 168, 76, .12);
+      border-radius: 4px;
+      padding: 24px;
+      transition: border-color .3s, background .3s;
+      cursor: pointer;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .audio-card:hover {
+      border-color: rgba(201, 168, 76, .35);
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .audio-card__num {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px
+    }
+
+    .audio-card__title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 6px
+    }
+
+    .audio-card__dur {
+      font-size: .72rem;
+      color: var(--stone);
+      margin-bottom: 18px
+    }
+
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .audio-play-btn {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(201, 168, 76, .4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: .85rem;
+      transition: border-color .25s, transform .25s;
+      flex-shrink: 0
+    }
+
+    .audio-play-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.1)
+    }
+
+    .audio-play-btn.playing {
+      background: rgba(201, 168, 76, .15)
+    }
+
+    .audio-progress {
+      flex: 1;
+      height: 2px;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .audio-progress__fill {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      transition: width .3s linear
+    }
+
+    .audio-time {
+      font-size: .62rem;
+      color: var(--stone);
+      flex-shrink: 0
+    }
+
+    /* ── PDF GRID ────────────────────────────────────────────── */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 500px));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .pdf-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 168, 76, .1);
+      border-radius: 4px;
+      padding: 18px 20px;
+      transition: border-color .3s, background .3s;
+      height: 100%;
+      box-sizing: border-box;
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .pdf-card:hover {
+      border-color: rgba(201, 168, 76, .3);
+      background: rgba(255, 255, 255, .07)
+    }
+
+    @media (hover: hover) {
+      .pdf-card:hover .pdf-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pdf-card.tooltip-active .pdf-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* ── AUDIO INFO ICON + TOOLTIP ───────────────────────────── */
+    .audio-info-wrap,
+    .pdf-info-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    .audio-info-icon,
+    .pdf-info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(201, 168, 76, 0.55);
+      border-radius: 50%;
+      font-size: 0.62rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: var(--serif);
+    }
+
+    .audio-info-icon:hover,
+    .pdf-info-icon:hover {
+      background: rgba(201, 168, 76, 0.12);
+      border-color: var(--gold);
+    }
+
+    .audio-info-tooltip,
+    .pdf-info-tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      z-index: 50;
+      width: 240px;
+      background: #1a1610;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.1), 0 8px 32px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .audio-info-tooltip::before,
+    .pdf-info-tooltip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.55), transparent);
+    }
+
+    .audio-info-tooltip::after,
+    .pdf-info-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 18px;
+      left: auto;
+      transform: rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: #1a1610;
+      border-right: 1px solid rgba(201, 168, 76, 0.45);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.45);
+    }
+
+    .audio-info-tooltip__icon,
+    .pdf-info-tooltip__icon {
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .audio-info-tooltip__text,
+    .pdf-info-tooltip__text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #FDFAF4;
+      line-height: 1.5;
+    }
+
+    .audio-info-row,
+    .pdf-info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Desktop hover */
+    @media (hover: hover) {
+
+      .audio-info-wrap:hover .audio-info-tooltip,
+      .pdf-info-wrap:hover .pdf-info-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Mobile tap */
+    .audio-info-wrap.tooltip-active .audio-info-tooltip,
+    .pdf-info-wrap.tooltip-active .pdf-info-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .pdf-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(201, 168, 76, .12);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: var(--gold)
+    }
+
+    .pdf-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .pdf-name {
+      font-size: .82rem;
+      color: var(--white);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .pdf-size {
+      font-size: .65rem;
+      color: var(--stone)
+    }
+
+    .pdf-dl {
+      font-size: .7rem;
+      color: var(--gold);
+      flex-shrink: 0
+    }
+
+    @media(max-width:900px) {
+      .text-grid {
+        grid-template-columns: 1fr
+      }
+
+      .timeline::before {
+        left: 69px
+      }
+
+      .timeline-item {
+        grid-template-columns: 70px 1fr;
+        gap: 20px
+      }
+
+      .timeline-year::after {
+        right: -14px
+      }
+    }
+
+    @media(max-width:640px) {
+      .timeline::before {
+        left: 78px;
+      }
+
+      .section {
+        padding: 72px 5vw
+      }
+
+      .page-hero__content {
+        padding: 0 5vw 9vh
+      }
+
+      .img-scroll-item--wide {
+        width: 88vw;
+        height: 280px
+      }
+
+      .img-scroll-item--sq {
+        width: 72vw;
+        height: 280px
+      }
+
+      .gallery-slide {
+        height: 320px
+      }
+    }
+
+    /* ── AUDIO + PDF dos columnas ────────────────────────────── */
+    .audio-pdf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: stretch
+    }
+
+    .audio-pdf-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .audio-pdf-col .audio-grid {
+      flex: 1;
+      align-items: stretch;
+    }
+
+    .audio-pdf-col .pdf-grid {
+      align-items: start;
+    }
+
+    .audio-pdf-col .section-title {
+      margin-bottom: 12px
+    }
+
+    .audio-pdf-col__desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--stone-lt);
+      margin-bottom: 28px;
+      max-width: 400px;
+    }
+
+    .audio-info-tooltip,
+    .pdf-info-tooltip {
+      /* position: absolute;
+      bottom: calc(100% + 12px); */
+      left: -650%;
+      /* transform: translateX(-50%) translateY(6px);
+      z-index: 50;
+      width: 240px;
+      background: #1a1610;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.1), 0 8px 32px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px; */
+    }
+
+    @media(max-width: 860px) {
+      .audio-pdf-row {
+        grid-template-columns: 1fr;
+        gap: 56px
+      }
+    }
+
+    /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
+    body.light-mode {
+      background: #F9F8F6;
+      color: #141210;
+    }
+
+    body.light-mode .section--dark,
+    body.light-mode .section--carbon,
+    body.light-mode .section--cream {
+      background: #F9F8F6;
+    }
+
+    body.light-mode #espacios {
+      background: #EFE9E3;
+    }
+
+    body.light-mode .navbar--solid,
+    body.light-mode .navbar.scrolled,
+    body.light-mode .navbar--always-solid {
+      background: rgba(245, 240, 232, .95);
+    }
+
+    body.light-mode .side-menu {
+      background: #F9F8F6;
+    }
+
+    body.light-mode .site-footer {
+      background: #F9F8F6;
+    }
+
+    body.light-mode .cta-band {
+      background: #EFE9E3;
+    }
+
+    body.light-mode .navbar__logo-name,
+    body.light-mode .lang-selector__btn,
+    body.light-mode .lang-selector__option,
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close,
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a,
+    body.light-mode .cta-band__title,
+    body.light-mode .cta-band__sub,
+    body.light-mode .timeline-title,
+    body.light-mode .timeline-desc,
+    body.light-mode .audio-card__title,
+    body.light-mode .audio-card__num,
+    body.light-mode .audio-card__dur,
+    body.light-mode .pdf-name,
+    body.light-mode .pdf-size,
+    body.light-mode .gallery-popup__title,
+    body.light-mode .gallery-popup__body,
+    body.light-mode .gallery-popup__num {
+      color: #141210;
+    }
+
+    body.light-mode .side-menu__nav-item {
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+
+    body.light-mode .section--dark .section-title,
+    body.light-mode .section--carbon .section-title {
+      color: #141210 !important;
+    }
+
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a {
+      color: rgba(20, 18, 16, .5);
+    }
+
+    body.light-mode .page-hero__title {
+      color: var(--white);
+    }
+
+    body.light-mode .page-hero__title em {
+      color: var(--gold-lt);
+    }
+
+    body.light-mode .page-hero__eyebrow,
+    body.light-mode .page-hero__desc {
+      color: var(--white);
+    }
+
+    body.light-mode .info-bar {
+      background: #F5F0E8;
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+
+    body.light-mode .info-bar__val,
+    body.light-mode .info-bar__label,
+    body.light-mode .lamp-label,
+    body.light-mode .lamp-label strong {
+      color: #141210;
+    }
+
+    body.light-mode #galeria {
+      background: #F5F0E8;
+    }
+
+    body.light-mode .section--dark .section-title em,
+    body.light-mode .section--carbon .section-title em {
+      color: var(--gold) !important;
+    }
+
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245, 240, 232, .97);
+    }
+
+    body.light-mode .side-menu__nav-link:hover {
+      color: var(--gold);
+    }
+
+    body.light-mode .audio-card {
+      background: rgb(119 72 0 / 4%);
+      border-width: 2px;
+    }
+
+    body.light-mode .audio-progress {
+      background: rgb(185 87 0 / 10%);
+    }
+
+    body.light-mode .pdf-card {
+      background: rgb(119 72 0 / 4%);
+      border-width: 2px;
+    }
+
+    body.light-mode .hamburger-line {
+      background: #141210;
+    }
+
+    body.light-mode .page-hero::after {
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.28) 45%,
+          rgba(14, 12, 10, 0.40) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.18) 40%,
+          transparent 70%);
+    }
+
+    body.light-mode .gallery-slide__cap {
+      background: linear-gradient(to top, rgba(14, 12, 10, .42), transparent);
+    }
+
+    body.light-mode .gallery-nav {
+      border-color: rgba(20, 18, 16, .22);
+      color: #141210;
+      background: rgba(249, 248, 246, .6);
+    }
+
+    body.light-mode .gallery-nav:hover {
+      border-color: var(--gold-dk);
+      background: rgba(201, 168, 76, .12);
+      color: #141210;
+    }
+
+    body.light-mode .gallery-dot {
+      background: rgba(20, 18, 16, .15);
+    }
+
+    body.light-mode .gallery-popup-overlay {
+      background: rgba(180, 163, 140, .72);
+    }
+
+    body.light-mode .gallery-popup {
+      background: #F9F8F6;
+      border-color: rgba(140, 110, 50, .18);
+    }
+
+    body.light-mode .gallery-popup__close {
+      color: rgba(20, 18, 16, .38);
+    }
+
+    body.light-mode .gallery-popup__close:hover {
+      color: #141210;
+    }
+
+    body.light-mode .gallery-popup__divider {
+      background: linear-gradient(90deg, rgba(140, 110, 50, .25), transparent);
+    }
+
+    body.light-mode .gallery-popup__body p {
+      color: rgba(20, 18, 16, .72);
+    }
+
+    body.light-mode .gallery-popup__fact {
+      background: rgba(201, 168, 76, .07);
+      border-left-color: var(--gold-dk);
+    }
+
+    body.light-mode .gallery-popup__fact-text {
+      color: rgba(20, 18, 16, .58);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          Modo Claro / Oscuro
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" />
+            <line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR (sin hero fullscreen → always-solid) -->
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
+            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="lang-selector__dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span
+              class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
+              class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span
+              class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span
+              class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span
+              class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span
+              class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span
+              class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span
+              class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">EU</span><span
+              class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">CA</span><span
+              class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu">
+    <button class="side-menu__close" id="menu-close">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span
+              class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span
+              class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="../visitas/" class="side-menu__nav-link"><span
+              class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas/reservas.html" class="side-menu__nav-link"><span
+              class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="../actualidad/" class="side-menu__nav-link"><span
+              class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span
+              class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+        </svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="#">Política de privacidad</a><a href="#">Política de cookies</a><a href="#">Aviso legal</a><a
+        href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Monumentos · Convento San Francisco</div>
+      <h1 class="page-hero__title" data-i18n-page="page_title">Convento de <em>San Francisco</em></h1>
+      <p class="page-hero__desc" data-i18n-page="page_desc">Joya del renacimiento tardío y el estilo herreriano. Sede de
+        la Sala de Marfiles más importante de La Rioja y del Taller Diocesano de Restauración.</p>
+      <div class="page-hero__meta">
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_entrada">Entrada</span><span class="page-hero__meta-val">5 €</span></div>
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_horario">Horario</span><span class="page-hero__meta-val">10:00–14:00 /
+            16:00–20:00</span></div>
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_estilos">Estilos</span><span class="page-hero__meta-val">Herreriano · Clasicista</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO BAR -->
+  <div class="info-bar">
+    <div class="info-bar__inner">
+      <div class="status-lamp">
+        <div class="lamp-dot" id="lamp-dot"></div><span class="lamp-label" id="lamp-label"></span>
+      </div>
+      <div class="info-bar__item">
+        <span class="info-bar__icon">🕐</span>
+        <div class="info-bar__text">
+          <span class="info-bar__label" id="infobar-day-label">Abierta hoy</span>
+          <span class="info-bar__val" id="infobar-hours">10:00–14:00 · 16:00–20:00 h</span>
+        </div>
+      </div>
+      <div class="info-bar__item">
+        <span class="info-bar__icon">📍</span>
+        <div class="info-bar__text">
+          <span class="info-bar__label" data-i18n-page="infobar_location_label">Ubicación</span>
+          <span class="info-bar__val">Plaza del Santo, 4 · Santo Domingo de la Calzada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HORARIOS Y TARIFAS -->
+  <section class="section section--white" id="horarios-tarifas">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_ht_eyebrow">Visita</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+      <div class="ht-grid reveal reveal-delay-2">
+        <div>
+          <div class="ht-block__title" data-i18n-page="ht_schedule_title">Horarios de apertura</div>
+          <div class="ht-row">
+            <span class="ht-row__label" data-i18n-page="ht_lv">Todos los días<span class="ht-today-badge"
+                id="badge-todos" style="display:none">Hoy</span></span>
+            <span class="ht-row__val">10:00 – 14:00 · 16:00 – 20:00 h</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--stone);margin-top:20px;line-height:1.6" data-i18n-page="ht_note">La
+            Catedral permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30
+            minutos antes del cierre.</p>
+        </div>
+        <div>
+          <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
+          <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
+              class="ht-row__val ht-row__val--highlight">4 €</span></div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_pilgrim">Peregrinos</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_pilgrim">Pulsera
+                  turística: incluye acceso a los 4 monumentos. Acreditar debidamente con credencial oficial del Camino,
+                  habiendo realizado por lo menos 4 etapas andando o en bicicleta.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--highlight">5 € / persona</span>
+          </div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_family">Entrada familiar</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_family">El precio
+                  incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el
+                  número
+                  de hijos.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--highlight">25 €</span>
+          </div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_children">Menores de 12 años</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_free">Acreditar
+                  debidamente con carnet en taquillas.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--free" data-i18n-page="ht_free">Gratuidad</span>
+          </div>
+          <div class="ht-row">
+            <span class="ht-row__label">
+              <span data-i18n-page="ht_residents">Residentes</span>
+              <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_free">Acreditar
+                  debidamente con carnet en taquillas.</span></span>
+            </span>
+            <span class="ht-row__val ht-row__val--free" data-i18n-page="ht_free">Gratuidad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section section--carbon" id="galeria">
+    <p class="eyebrow reveal" data-i18n-page="sec_gallery_eyebrow">Galería</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_gallery_title">El Convento y su
+      <em>historia</em>
+    </h2>
+    <div class="gallery-wrap reveal reveal-delay-2" id="gallery">
+      <div class="gallery-track" id="gallery-track">
+
+        <!-- Slide 1 — Claustro Herreriano -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Claustro Herreriano</span>
+            <span class="gallery-slide__cap-num">01/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(0)"
+            aria-label="Saber más sobre el Claustro Herreriano">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 2 — Fray Bernardo de Fresneda -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Fray Bernardo de Fresneda</span>
+            <span class="gallery-slide__cap-num">02/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(1)"
+            aria-label="Saber más sobre Fray Bernardo de Fresneda">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 3 — Sala de Marfiles -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Sala de Marfiles</span>
+            <span class="gallery-slide__cap-num">03/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(2)"
+            aria-label="Saber más sobre la Sala de Marfiles">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 4 — Retablo Mayor Clasicista -->
+        <div class="gallery-slide">
+          <div style="background:#3a3a3a;width:100%;height:100%"></div>
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Retablo Mayor Clasicista</span>
+            <span class="gallery-slide__cap-num">04/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(3)" aria-label="Saber más sobre el Retablo Mayor">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+      </div>
+      <button class="gallery-nav gallery-nav--prev" id="gallery-prev">‹</button>
+      <button class="gallery-nav gallery-nav--next" id="gallery-next">›</button>
+    </div>
+
+    <!-- POPUP OVERLAY para la galería -->
+    <div class="gallery-popup-overlay" id="gallery-popup-overlay" onclick="handlePopupOverlayClick(event)">
+      <div class="gallery-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+        <button class="gallery-popup__close" onclick="closeGalleryPopup()" aria-label="Cerrar">×</button>
+        <div class="gallery-popup__num" id="popup-num">01 / 10 · Galería</div>
+        <h3 class="gallery-popup__title" id="popup-title">Título</h3>
+        <div class="gallery-popup__subtitle" id="popup-subtitle">Subtítulo</div>
+        <div class="gallery-popup__divider"></div>
+        <div class="gallery-popup__body" id="popup-body"></div>
+        <div class="gallery-popup__fact" id="popup-fact">
+          <span class="gallery-popup__fact-icon">✦</span>
+          <span class="gallery-popup__fact-text" id="popup-fact-text"></span>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-dots" id="gallery-dots">
+      <div class="gallery-dot active"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="section section--cream">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_hist_eyebrow">Arquitectura e Historia</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_hist_title">Un <em>legado herreriano</em>: el
+        Convento de San Francisco</h2>
+      <div class="text-grid reveal reveal-delay-2">
+        <div>
+          <p class="text-grid__lead" data-i18n-page="hist_lead">Fundado en 1456 en Cidamón por Iñigo Ortiz de Zúñiga, el
+            convento franciscano fue trasladado a Santo Domingo de la Calzada en 1535. Su definitiva configuración
+            arquitectónica se debe al mecenazgo de fray Bernardo de Fresneda, confesor de Carlos V y Felipe II, cuya
+            influencia en la corte marcó el rumbo de la fábrica.</p>
+          <p class="text-grid__body" data-i18n-page="hist_body1">La iglesia de tres naves, con bóveda de crucería y un
+            sobrio retablo mayor clasicista de hacia 1605, refleja la austeridad y rigor del estilo herreriano. En el
+            transepto reposa la sepultura marmórea de Fresneda, autorizada por bula papal de Gregorio XIII en 1573.</p>
+          <ul class="highlight-list" style="margin-top:24px">
+            <li data-i18n-page="hist_li1">Fundado en 1456, trasladado a la villa en 1535.</li>
+            <li data-i18n-page="hist_li2">Estilo herreriano-clasicista, influencia de El Escorial.</li>
+            <li data-i18n-page="hist_li3">Iglesia de tres naves con bóveda de crucería.</li>
+            <li data-i18n-page="hist_li4">Retablo Mayor clasicista de hacia 1605.</li>
+            <li data-i18n-page="hist_li5">Sala de Marfiles: colección de marfil religioso más importante de La Rioja.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-grid__quote">
+            <p data-i18n-page="hist_quote1">"La piedra herreriana habla aquí el mismo idioma austero que El Escorial."
+            </p>
+            <cite data-i18n-page="hist_cite1">— DESCRIPCIÓN DEL CONVENTO</cite>
+          </div>
+          <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body3">Fray Bernardo de Fresneda
+            (1509–1577) fue una de las figuras más influyentes de la corte española. Como confesor real, estuvo presente
+            en la colocación de la primera piedra de El Escorial, y trasladó esa misma visión arquitectónica sobria y
+            monumental al convento calceatense que patrocinó.</p>
+          <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body4">Hoy el convento alberga el
+            Taller Diocesano de Restauración, la Sala de Marfiles —con cerca de treinta piezas de marfil religioso en la
+            exposición permanente «Figuras que fascinan»— y las dependencias del Museo Calceatense.</p>
+          <div class="text-grid__quote">
+            <p data-i18n-page="hist_quote2">¿Sabías que la colección de marfiles del convento es la más importante de
+              toda
+              La Rioja?</p>
+            <cite data-i18n-page="hist_cite2">— CURIOSIDAD SOBRE LA SALA DE MARFILES</cite>
+          </div>
+          <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body5">La exposición «Figuras que
+            fascinan: marfiles que cuentan historias» reúne unas treinta piezas de marfil religioso de extraordinaria
+            calidad, testimonio de siglos de devoción y maestría artesanal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section section--dark">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_time_eyebrow">Cronología</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">La
+        historia del <em>Convento</em></h2>
+      <div class="timeline reveal reveal-delay-2">
+        <div class="timeline-item">
+          <div class="timeline-year">1456</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl1_title">Fundación en Cidamón</div>
+            <div class="timeline-desc" data-i18n-page="tl1_desc">Iñigo Ortiz de Zúñiga funda el convento franciscano en
+              la
+              localidad riojana de Cidamón, a pocos kilómetros de Santo Domingo de la Calzada.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1535</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl2_title">Traslado a la villa</div>
+            <div class="timeline-desc" data-i18n-page="tl2_desc">La comunidad franciscana se establece definitivamente
+              en
+              Santo Domingo de la Calzada, en el solar donde se levanta el convento actual.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">s. XVI</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl3_title">El mecenazgo de Fresneda</div>
+            <div class="timeline-desc" data-i18n-page="tl3_desc">Fray Bernardo de Fresneda, confesor de Carlos V y
+              Felipe
+              II y presente en la primera piedra de El Escorial, patrocina la fábrica herreriana del convento.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">c. 1605</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl4_title">El Retablo Mayor</div>
+            <div class="timeline-desc" data-i18n-page="tl4_desc">Se instala el retablo mayor clasicista, obra de marcada
+              austeridad acorde con la estética herreriana que define el templo.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Hoy</div>
+          <div>
+            <div class="timeline-title" data-i18n-page="tl5_title">Espacio cultural vivo</div>
+            <div class="timeline-desc" data-i18n-page="tl5_desc">El convento acoge el Taller Diocesano de Restauración,
+              la
+              Sala de Marfiles y el Museo Calceatense, consolidándose como centro cultural de referencia.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA AUTOPLAY -->
+  <section class="section section--carbon" id="espacios">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_spaces_eyebrow">Espacios</p>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_spaces_title">Cada rincón, una <em>obra
+          maestra</em></h2>
+
+      <div class="img-scroll-track">
+        <div class="img-scroll-item img-scroll-item--wide">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_claustro">Claustro herreriano · Sobriedad y
+            proporción
+          </div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_iglesia">Nave central · Bóveda de crucería
+          </div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_retablo">Retablo Mayor · Clasicismo herreriano · c.
+            1605
+          </div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--wide">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_sepulcro">Sepulcro de Fresneda · Mármol · Transepto
+          </div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_marfiles">Sala de Marfiles · «Figuras que fascinan»
+          </div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--sq">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_taller">Taller Diocesano de Restauración</div>
+        </div>
+        <div class="img-scroll-item img-scroll-item--wide">
+          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <div class="img-scroll-item__caption" data-i18n-page="cap_fachada">Fachada del Convento · Camino de Santiago
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIOGUÍAS + PDFs — dos columnas -->
+  <section class="section section--dark">
+    <div class="section__inner">
+      <div class="audio-pdf-row">
+
+        <!-- Columna izquierda: Audioguías -->
+        <div class="audio-pdf-col">
+          <p class="eyebrow reveal" data-i18n-page="sec_audio_eyebrow">Audioguías</p>
+          <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_audio_title" style="color:var(--white)">
+            Descubre
+            cada <em>espacio</em></h2>
+          <p class="audio-pdf-col__desc reveal reveal-delay-2" data-i18n-page="sec_audio_desc">Déjate guiar por el
+            convento herreriano. Cada parada en tu visita desvela la historia, el arte y la espiritualidad que encierran
+            sus muros.</p>
+          <div class="audio-info-row">
+            <p class="eyebrow reveal reveal-info" data-i18n-page="audio_q">¿Dónde puedo encontrar todas las audioguías?
+            </p>
+            <span class="audio-info-wrap audio-pdf-col__desc reveal reveal-delay-2">
+              <span class="audio-info-icon" id="audio-info-trigger" tabindex="0"
+                aria-label="Información sobre disponibilidad">i</span>
+              <span class="audio-info-tooltip">
+                <span class="audio-info-tooltip__icon">🎧</span>
+                <span class="audio-info-tooltip__text" data-i18n-page="tooltip_monuments">Disponibles en la visita a
+                  nuestros monumentos.</span>
+              </span>
+            </span>
+          </div>
+          <div class="audio-grid reveal reveal-delay-2">
+            <div class="audio-card" onclick="toggleAudio(this,0)">
+              <audio id="audio-0" src="../assets/audio/esp/Gallinero-Milagro_ESP.flac" preload="none"></audio>
+              <div class="audio-card__num" data-i18n-page="audio_card_tag">Audioguía de prueba • Disponible</div>
+              <div class="audio-card__title" data-i18n-page="audio_card_title">La Moza de Santo Domingo</div>
+              <div class="audio-card__dur" data-i18n-page="audio_card_dur">0 min 38 s</div>
+              <div class="audio-player"><button class="audio-play-btn">▶</button>
+                <div class="audio-progress">
+                  <div class="audio-progress__fill"></div>
+                </div><span class="audio-time">00:38</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna derecha: Documentación -->
+        <div class="audio-pdf-col">
+          <p class="eyebrow reveal" data-i18n-page="sec_pdf_eyebrow">Documentación</p>
+          <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_pdf_title">Folletos y <em>guías en
+              PDF</em>
+          </h2>
+          <p class="audio-pdf-col__desc reveal reveal-delay-2" data-i18n-page="sec_pdf_desc">Visita nuestros monumentos
+            para que puedas descubrir
+            nuestro verdadero legado con las audioguías y folletos guía digitales. Disponibles en 7 idiomas escanenando
+            un
+            código
+            QR, con planos, rutas y descripción de las obras en cada uno de los monumentos.</p>
+          <div class="audio-info-row">
+            <p class="eyebrow reveal reveal-info" data-i18n-page="pdf_q">¿Dónde puedo encontrar todos los folletos?</p>
+            <span class="pdf-info-wrap audio-pdf-col__desc reveal reveal-delay-2">
+              <span class="pdf-info-icon" id="audio-info-trigger" tabindex="0"
+                aria-label="Información sobre disponibilidad">i</span>
+              <span class="pdf-info-tooltip">
+                <span class="pdf-info-tooltip__icon">📄</span>
+                <span class="pdf-info-tooltip__text" data-i18n-page="tooltip_monuments">Disponibles en la visita a
+                  nuestros monumentos.</span>
+              </span>
+            </span>
+          </div>
+          <div class="pdf-grid reveal reveal-delay-2">
+            <div class="pdf-card" id="pdf-card-main">
+              <div class="pdf-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                    fill="#E5251C" stroke="#E5251C" stroke-width="0.5" stroke-linejoin="round" />
+                  <path d="M14 2V8H20" stroke="#fff" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
+                    font-size="5.5" fill="#fff" letter-spacing="0.3">PDF</text>
+                </svg>
+              </div>
+              <div class="pdf-info">
+                <div class="audio-card__num" data-i18n-page="pdf_card_tag">Folleto del Convento • No Disponible</div>
+                <div class="pdf-name" data-i18n-page="pdf_card_name">Guía de visita — Español</div>
+                <div class="pdf-size">PDF · 4.2 MB</div>
+              </div>
+              <span class="pdf-dl">↓</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="section__inner">
+      <div>
+        <h3 class="cta-band__title" data-i18n-page="cta_title">Reserva tu visita al <em>Convento</em></h3>
+        <p class="cta-band__sub" data-i18n-page="cta_sub">Adquiere tu entrada online y evita colas. Incluye acceso a la
+          Sala de Marfiles, la iglesia herreriana y la pulsera turística.</p>
+      </div>
+      <a href="../reservas/reservas.html" class="cta-band__btn" data-i18n-page="cta_btn">Comprar entradas →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="section__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+          <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+          <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón
+            del
+            Camino Francés. Patrimonio vivo de la humanidad.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24">
+                <path
+                  d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+            <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+            <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+            <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+            <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
+            <li><a href="catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+            <li><a href="torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+            <li><a href="sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+            <li><a href="monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+          <ul class="footer-col__list">
+            <li><a href="../reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+            <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+            <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+            <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
+            <li><a href="../actualidad/" data-i18n="footer_info_5">Actualidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
+          Rioja · España</span>
+        <div class="footer-bottom__links"><a href="#" data-i18n="footer_legal_1">Aviso legal</a><a href="#"
+            data-i18n="footer_legal_2">Privacidad</a><a href="#" data-i18n="footer_legal_3">Cookies</a><a href="#"
+            data-i18n="footer_legal_4">Accesibilidad</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SHARED JS -->
+  <script src="../assets/shared.js"></script>
+  <script>
+    /* ── Traducciones específicas de esta página ─────────────────── */
+    const PAGE_T = {
+      es: {
+        page_eyebrow: 'Monumentos · Convento San Francisco', page_title: 'Convento de <em>San Francisco</em>', page_desc: 'Joya del renacimiento tardío y el estilo herreriano. Sede de la Sala de Marfiles más importante de La Rioja y del Taller Diocesano de Restauración.', meta_entrada: 'Entrada', meta_horario: 'Horario', meta_estilos: 'Estilos',
+        infobar_location_label: 'Ubicación',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horarios y <em>tarifas</em>', ht_schedule_title: 'Horarios de apertura', ht_lv: 'Todos los días', ht_sat: 'Sábados', ht_note: 'El Convento permanece abierto todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30 minutos antes del cierre.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Ticket general', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 personas', ht_group_small: 'Grupos &lt; 25 personas', ht_family: 'Entrada familiar', ht_children: 'Menores de 12 años', ht_residents: 'Residentes', ht_free: 'Gratuidad', tip_pilgrim: 'Pulsera turística: incluye acceso a los 4 monumentos. Acreditar debidamente con credencial oficial del Camino, habiendo realizado por lo menos 4 etapas andando o en bicicleta.', tip_group: 'Esta entrada incluye el acceso a todos los monumentos de Santo Domingo de la Calzada con la pulsera turística.', tip_family: 'El precio incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el número de hijos.', tip_free: 'Acreditar debidamente con carnet en taquillas.',
+        sec_gallery_eyebrow: 'Galería', sec_gallery_title: 'El Convento y su <em>historia</em>',
+        gal_btn: 'Saber más',
+        sec_hist_eyebrow: 'Arquitectura e Historia', sec_hist_title: 'Un <em>legado herreriano</em>: el Convento de San Francisco',
+        hist_lead: 'Fundado en 1456 en Cidamón por Iñigo Ortiz de Zúñiga, el convento franciscano fue trasladado a Santo Domingo de la Calzada en 1535. Su definitiva configuración arquitectónica se debe al mecenazgo de fray Bernardo de Fresneda, confesor de Carlos V y Felipe II, cuya influencia en la corte marcó el rumbo de la fábrica.',
+        hist_body1: 'La iglesia de tres naves, con bóveda de crucería y un sobrio retablo mayor clasicista de hacia 1605, refleja la austeridad y rigor del estilo herreriano. En el transepto reposa la sepultura marmórea de Fresneda, autorizada por bula papal de Gregorio XIII en 1573.',
+        hist_body2: '',
+        hist_li1: 'Fundado en 1456, trasladado a la villa en 1535.', hist_li2: 'Estilo herreriano-clasicista, influencia de El Escorial.', hist_li3: 'Iglesia de tres naves con bóveda de crucería.', hist_li4: 'Retablo Mayor clasicista de hacia 1605.', hist_li5: 'Sala de Marfiles: colección más importante de La Rioja.',
+        hist_quote1: '"La piedra herreriana habla aquí el mismo idioma austero que El Escorial."', hist_cite1: '— DESCRIPCIÓN DEL CONVENTO',
+        hist_body3: 'Fray Bernardo de Fresneda (1509–1577) fue una de las figuras más influyentes de la corte española. Como confesor real, estuvo presente en la colocación de la primera piedra de El Escorial, y trasladó esa misma visión arquitectónica al convento calceatense que patrocinó.',
+        hist_body4: 'Hoy el convento alberga el Taller Diocesano de Restauración, la Sala de Marfiles —con cerca de treinta piezas en la exposición «Figuras que fascinan»— y las dependencias del Museo Calceatense.',
+        hist_quote2: '¿Sabías que la colección de marfiles del convento es la más importante de toda La Rioja?', hist_cite2: '— CURIOSIDAD SOBRE LA SALA DE MARFILES',
+        hist_body5: 'La exposición «Figuras que fascinan: marfiles que cuentan historias» reúne unas treinta piezas de marfil religioso de extraordinaria calidad, testimonio de siglos de devoción y maestría artesanal.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronología', sec_time_title: 'La historia del <em>Convento</em>',
+        tl1_title: 'Fundación en Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga funda el convento franciscano en la localidad riojana de Cidamón, a pocos kilómetros de Santo Domingo de la Calzada.',
+        tl2_title: 'Traslado a la villa', tl2_desc: 'La comunidad franciscana se establece definitivamente en Santo Domingo de la Calzada, en el solar donde se levanta el convento actual.',
+        tl3_title: 'El mecenazgo de Fresneda', tl3_desc: 'Fray Bernardo de Fresneda, confesor de Carlos V y Felipe II y presente en la primera piedra de El Escorial, patrocina la fábrica herreriana del convento.',
+        tl4_title: 'El Retablo Mayor', tl4_desc: 'Se instala el retablo mayor clasicista, obra de marcada austeridad acorde con la estética herreriana que define el templo.',
+        tl5_title: 'Espacio cultural vivo', tl5_desc: 'El convento acoge el Taller Diocesano de Restauración, la Sala de Marfiles y el Museo Calceatense, consolidándose como centro cultural de referencia.',
+        sec_spaces_eyebrow: 'Espacios', sec_spaces_title: 'Cada rincón, una <em>obra maestra</em>',
+        cap_claustro: 'Claustro herreriano · Sobriedad y proporción', cap_iglesia: 'Nave central · Bóveda de crucería', cap_retablo: 'Retablo Mayor · Clasicismo herreriano · c. 1605', cap_sepulcro: 'Sepulcro de Fresneda · Mármol · Transepto', cap_marfiles: 'Sala de Marfiles · «Figuras que fascinan»', cap_taller: 'Taller Diocesano de Restauración', cap_fachada: 'Fachada del Convento · Camino de Santiago',
+        sec_audio_eyebrow: 'Audioguías', sec_audio_title: 'Descubre cada <em>espacio</em>', sec_audio_desc: 'Déjate guiar por el convento herreriano. Cada parada en tu visita desvela la historia, el arte y la espiritualidad que encierran sus muros.',
+        audio_q: '¿Dónde puedo encontrar todas las audioguías?', tooltip_monuments: 'Disponibles en la visita a nuestros monumentos.',
+        audio_card_tag: 'Audioguía de prueba • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentación', sec_pdf_title: 'Folletos y <em>guías en PDF</em>', sec_pdf_desc: 'Visita nuestros monumentos para descubrir nuestro verdadero legado con audioguías y folletos digitales. Disponibles en 7 idiomas escaneando un código QR.',
+        pdf_q: '¿Dónde puedo encontrar todos los folletos?', pdf_card_tag: 'Folleto del Convento • No Disponible', pdf_card_name: 'Guía de visita — Español',
+        cta_title: 'Reserva tu visita al <em>Convento</em>', cta_sub: 'Adquiere tu entrada online y evita colas. Incluye acceso a la Sala de Marfiles, la iglesia herreriana y la pulsera turística.', cta_btn: 'Comprar entradas →'
+      },
+      en: {
+        page_eyebrow: 'Monuments · Convent of San Francisco', page_title: 'Convent of <em>San Francisco</em>', page_desc: 'A gem of late Renaissance and Herreran style. Home to the most important ivory collection in La Rioja and the Diocesan Restoration Workshop.', meta_entrada: 'Admission', meta_horario: 'Hours', meta_estilos: 'Styles',
+        infobar_location_label: 'Location',
+        sec_ht_eyebrow: 'Visit', sec_ht_title: 'Hours & <em>admission</em>', ht_schedule_title: 'Opening hours', ht_lv: 'Every day', ht_sat: 'Saturdays', ht_note: 'The Convent is open every day of the year, including public holidays. Last admissions 30 min before closing.', ht_prices_title: 'Admission prices', ht_general: 'General ticket', ht_pilgrim: 'Pilgrims', ht_group_big: 'Groups &gt; 25 people', ht_group_small: 'Groups &lt; 25 people', ht_family: 'Family ticket', ht_children: 'Under 12', ht_residents: 'Residents', ht_free: 'Free', tip_pilgrim: 'Tourist wristband: includes access to all 4 monuments. Must present official Camino credential showing at least 4 stages walked or cycled.', tip_group: 'This ticket includes access to all monuments in Santo Domingo de la Calzada with the tourist wristband.', tip_family: 'Price covers entry to all monuments for the whole family, regardless of the number of children.', tip_free: 'Please show valid ID at the ticket office.',
+        sec_gallery_eyebrow: 'Gallery', sec_gallery_title: 'The Convent and its <em>history</em>',
+        gal_btn: 'Learn more',
+        sec_hist_eyebrow: 'Architecture & History', sec_hist_title: 'A <em>Herreran legacy</em>: the Convent of San Francisco',
+        hist_lead: 'Founded in 1456 in Cidamón by Iñigo Ortiz de Zúñiga, the Franciscan convent was moved to Santo Domingo de la Calzada in 1535. Its definitive architectural form was shaped by the patronage of Friar Bernardo de Fresneda, confessor to Charles V and Philip II, whose influence at court determined the building\'s final character.',
+        hist_body1: 'The three-nave church, with ribbed vaulting and a sober classicist altarpiece of around 1605, reflects the austerity and rigour of the Herreran style. In the transept rests the marble tomb of Fresneda, authorised by a papal bull of Gregory XIII in 1573.',
+        hist_body2: '',
+        hist_li1: 'Founded in 1456, moved to the town in 1535.', hist_li2: 'Herreran-classicist style, influence of El Escorial.', hist_li3: 'Three-nave church with ribbed vaulting.', hist_li4: 'Classicist main altarpiece of around 1605.', hist_li5: 'Ivory Room: the most important religious ivory collection in La Rioja.',
+        hist_quote1: '"The Herreran stone here speaks the same austere language as El Escorial."', hist_cite1: '— DESCRIPTION OF THE CONVENT',
+        hist_body3: 'Friar Bernardo de Fresneda (1509–1577) was one of the most influential figures at the Spanish court. As royal confessor, he was present at the laying of the first stone of El Escorial, and brought that same architectural vision — sober and monumental — to the convent he patronised.',
+        hist_body4: 'Today the convent houses the Diocesan Restoration Workshop, the Ivory Room — with around thirty pieces in the permanent exhibition "Figures that Fascinate" — and the rooms of the Calceatense Museum.',
+        hist_quote2: 'Did you know the convent\'s ivory collection is the most important in all of La Rioja?', hist_cite2: '— CURIOSITY ABOUT THE IVORY ROOM',
+        hist_body5: 'The exhibition "Figures that Fascinate: ivories that tell stories" brings together around thirty pieces of outstanding religious ivory, bearing witness to centuries of devotion and craftsmanship.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Timeline', sec_time_title: 'The history of the <em>Convent</em>',
+        tl1_title: 'Foundation in Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga founds the Franciscan convent in the Riojan village of Cidamón, a few kilometres from Santo Domingo de la Calzada.',
+        tl2_title: 'Move to the town', tl2_desc: 'The Franciscan community settles permanently in Santo Domingo de la Calzada, on the site where the present convent stands.',
+        tl3_title: 'The patronage of Fresneda', tl3_desc: 'Friar Bernardo de Fresneda, confessor to Charles V and Philip II and present at the laying of El Escorial\'s first stone, sponsors the Herreran fabric of the convent.',
+        tl4_title: 'The Main Altarpiece', tl4_desc: 'The classicist main altarpiece is installed, a work of marked austerity in keeping with the Herreran aesthetic that defines the church.',
+        tl5_title: 'A living cultural space', tl5_desc: 'The convent hosts the Diocesan Restoration Workshop, the Ivory Room and the Calceatense Museum, establishing itself as a key cultural centre.',
+        sec_spaces_eyebrow: 'Spaces', sec_spaces_title: 'Every corner, a <em>masterpiece</em>',
+        cap_claustro: 'Herreran cloister · Sobriety and proportion', cap_iglesia: 'Central nave · Ribbed vaulting', cap_retablo: 'Main Altarpiece · Herreran classicism · c. 1605', cap_sepulcro: 'Tomb of Fresneda · Marble · Transept', cap_marfiles: 'Ivory Room · "Figures that Fascinate"', cap_taller: 'Diocesan Restoration Workshop', cap_fachada: 'Convent façade · Camino de Santiago',
+        sec_audio_eyebrow: 'Audio guides', sec_audio_title: 'Discover every <em>space</em>', sec_audio_desc: 'Let the Herreran convent guide you. Each stop on your visit reveals the history, art and spirituality enclosed within its walls.',
+        audio_q: 'Where can I find all the audio guides?', tooltip_monuments: 'Available during your visit to our monuments.',
+        audio_card_tag: 'Sample audio guide • Available', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures & <em>PDF guides</em>', sec_pdf_desc: 'Visit our monuments to discover our true heritage with digital audio guides and brochures. Available in 7 languages by scanning a QR code.',
+        pdf_q: 'Where can I find all the brochures?', pdf_card_tag: 'Convent Brochure • Not Available', pdf_card_name: 'Visit guide — English',
+        cta_title: 'Book your visit to the <em>Convent</em>', cta_sub: 'Buy your ticket online and skip the queues. Includes access to the Ivory Room, the Herreran church and the tourist wristband.', cta_btn: 'Buy tickets →'
+      },
+      fr: {
+        page_eyebrow: 'Monuments · Couvent Saint-François', page_title: 'Couvent de <em>Saint-François</em>', page_desc: 'Un joyau de la Renaissance tardive et du style herrérien. Siège de la plus importante collection d\'ivoires religieux de La Rioja et de l\'Atelier diocésain de restauration.', meta_entrada: 'Entrée', meta_horario: 'Horaires', meta_estilos: 'Styles',
+        infobar_location_label: 'Emplacement',
+        sec_ht_eyebrow: 'Visite', sec_ht_title: 'Horaires et <em>tarifs</em>', ht_schedule_title: 'Horaires d\'ouverture', ht_lv: 'Tous les jours', ht_sat: 'Samedis', ht_note: 'Le Couvent est ouvert tous les jours, y compris les jours fériés. Dernières entrées 30 min avant la fermeture.', ht_prices_title: 'Tarifs d\'entrée', ht_general: 'Billet général', ht_pilgrim: 'Pèlerins', ht_group_big: 'Groupes &gt; 25 personnes', ht_group_small: 'Groupes &lt; 25 personnes', ht_family: 'Billet famille', ht_children: 'Moins de 12 ans', ht_residents: 'Résidents', ht_free: 'Gratuit', tip_pilgrim: 'Bracelet touristique : inclut l\'accès aux 4 monuments. Présenter la crédentiale officielle du Chemin, avec au moins 4 étapes à pied ou à vélo.', tip_group: 'Ce billet inclut l\'accès à tous les monuments avec le bracelet touristique.', tip_family: 'Le prix comprend l\'entrée à tous les monuments pour toute la famille.', tip_free: 'Présenter une pièce d\'identité valide aux guichets.',
+        sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'Le Couvent et son <em>histoire</em>',
+        gal_btn: 'En savoir plus',
+        sec_hist_eyebrow: 'Architecture & Histoire', sec_hist_title: 'Un <em>héritage herrérien</em> : le Couvent Saint-François',
+        hist_lead: 'Fondé en 1456 à Cidamón par Iñigo Ortiz de Zúñiga, le couvent franciscain fut transféré à Santo Domingo de la Calzada en 1535. Sa configuration architecturale définitive est due au mécénat du frère Bernardo de Fresneda, confesseur de Charles Quint et Philippe II, dont l\'influence à la cour orienta le projet.',
+        hist_body1: 'L\'église à trois nefs, dotée d\'une voûte d\'ogives et d\'un sobre retable majeur classiciste d\'environ 1605, reflète l\'austérité et la rigueur du style herrérien. Dans le transept repose le tombeau en marbre de Fresneda, autorisé par bulle pontificale de Grégoire XIII en 1573.',
+        hist_body2: '',
+        hist_li1: 'Fondé en 1456, transféré dans la ville en 1535.', hist_li2: 'Style herrérien-classiciste, influence de l\'Escorial.', hist_li3: 'Église à trois nefs avec voûte d\'ogives.', hist_li4: 'Retable majeur classiciste d\'environ 1605.', hist_li5: 'Salle des Ivoires : la plus importante collection de La Rioja.',
+        hist_quote1: '"La pierre herrérienne parle ici le même langage austère que l\'Escorial."', hist_cite1: '— DESCRIPTION DU COUVENT',
+        hist_body3: 'Le frère Bernardo de Fresneda (1509–1577) fut l\'une des figures les plus influentes de la cour espagnole. Confesseur royal, il assista à la pose de la première pierre de l\'Escorial et apporta cette même vision architecturale sobre et monumentale au couvent qu\'il patronna.',
+        hist_body4: 'Aujourd\'hui, le couvent abrite l\'Atelier diocésain de restauration, la Salle des Ivoires — avec une trentaine de pièces dans l\'exposition permanente « Figures qui fascinent » — et les dépendances du Musée Calceatense.',
+        hist_quote2: 'Saviez-vous que la collection d\'ivoires du couvent est la plus importante de toute La Rioja ?', hist_cite2: '— CURIOSITÉ SUR LA SALLE DES IVOIRES',
+        hist_body5: 'L\'exposition « Figures qui fascinent : des ivoires qui racontent des histoires » réunit une trentaine de pièces d\'ivoire religieux d\'une qualité remarquable, témoins de siècles de dévotion et de savoir-faire artisanal.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Chronologie', sec_time_title: 'L\'histoire du <em>Couvent</em>',
+        tl1_title: 'Fondation à Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga fonde le couvent franciscain dans le village riojano de Cidamón, à quelques kilomètres de Santo Domingo de la Calzada.',
+        tl2_title: 'Transfert dans la ville', tl2_desc: 'La communauté franciscaine s\'établit définitivement à Santo Domingo de la Calzada, sur le terrain où s\'élève le couvent actuel.',
+        tl3_title: 'Le mécénat de Fresneda', tl3_desc: 'Le frère Bernardo de Fresneda, confesseur de Charles Quint et Philippe II et présent lors de la pose de la première pierre de l\'Escorial, parraine la construction herrérienne du couvent.',
+        tl4_title: 'Le Retable Majeur', tl4_desc: 'Le retable majeur classiciste est mis en place, une œuvre d\'une austérité marquée, en accord avec l\'esthétique herrérienne qui définit le temple.',
+        tl5_title: 'Un espace culturel vivant', tl5_desc: 'Le couvent accueille l\'Atelier diocésain de restauration, la Salle des Ivoires et le Musée Calceatense, s\'imposant comme un centre culturel de référence.',
+        sec_spaces_eyebrow: 'Espaces', sec_spaces_title: 'Chaque recoin, un <em>chef-d\'œuvre</em>',
+        cap_claustro: 'Cloître herrérien · Sobriété et proportion', cap_iglesia: 'Nef centrale · Voûte d\'ogives', cap_retablo: 'Retable Majeur · Classicisme herrérien · v. 1605', cap_sepulcro: 'Tombeau de Fresneda · Marbre · Transept', cap_marfiles: 'Salle des Ivoires · « Figures qui fascinent »', cap_taller: 'Atelier diocésain de restauration', cap_fachada: 'Façade du Couvent · Chemin de Saint-Jacques',
+        sec_audio_eyebrow: 'Audioguides', sec_audio_title: 'Découvrez chaque <em>espace</em>', sec_audio_desc: 'Laissez-vous guider par le couvent herrérien. Chaque arrêt de votre visite révèle l\'histoire, l\'art et la spiritualité que renferment ses murs.',
+        audio_q: 'Où puis-je trouver tous les audioguides ?', tooltip_monuments: 'Disponibles lors de la visite de nos monuments.',
+        audio_card_tag: 'Audioguide d\'essai • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures et <em>guides PDF</em>', sec_pdf_desc: 'Visitez nos monuments pour découvrir notre véritable héritage avec des audioguides et des brochures numériques. Disponibles en 7 langues en scannant un QR code.',
+        pdf_q: 'Où puis-je trouver toutes les brochures ?', pdf_card_tag: 'Brochure du Couvent • Non disponible', pdf_card_name: 'Guide de visite — Français',
+        cta_title: 'Réservez votre visite au <em>Couvent</em>', cta_sub: 'Achetez votre billet en ligne et évitez les files. Inclut l\'accès à la Salle des Ivoires, l\'église herrérienne et le bracelet touristique.', cta_btn: 'Acheter des billets →'
+      },
+      de: {
+        page_eyebrow: 'Denkmäler · Kloster San Francisco', page_title: 'Kloster <em>San Francisco</em>', page_desc: 'Ein Juwel der Spätrenaissance und des herrerianischen Stils. Heimat der bedeutendsten religiösen Elfenbeinsammlung in La Rioja und der Diözesanen Restaurierungswerkstatt.', meta_entrada: 'Eintritt', meta_horario: 'Öffnungszeiten', meta_estilos: 'Stile',
+        infobar_location_label: 'Standort',
+        sec_ht_eyebrow: 'Besuch', sec_ht_title: 'Öffnungszeiten & <em>Preise</em>', ht_schedule_title: 'Öffnungszeiten', ht_lv: 'Täglich', ht_sat: 'Samstage', ht_note: 'Das Kloster ist täglich geöffnet, auch an Feiertagen. Letzter Einlass 30 Min. vor Schließung.', ht_prices_title: 'Eintrittspreise', ht_general: 'Normaleintritt', ht_pilgrim: 'Pilger', ht_group_big: 'Gruppen &gt; 25 Personen', ht_group_small: 'Gruppen &lt; 25 Personen', ht_family: 'Familienticket', ht_children: 'Unter 12 Jahre', ht_residents: 'Einwohner', ht_free: 'Kostenlos', tip_pilgrim: 'Tourismusarmband: Zugang zu allen 4 Denkmälern. Offiziellen Pilgerausweis mit mindestens 4 Etappen zu Fuß oder per Fahrrad vorzeigen.', tip_group: 'Dieses Ticket beinhaltet den Zugang zu allen Denkmälern mit dem Tourismusarmband.', tip_family: 'Preis gilt für die gesamte Familie, unabhängig von der Kinderanzahl.', tip_free: 'Bitte gültigen Ausweis an der Kasse vorzeigen.',
+        sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'Das Kloster und seine <em>Geschichte</em>',
+        gal_btn: 'Mehr erfahren',
+        sec_hist_eyebrow: 'Architektur & Geschichte', sec_hist_title: 'Ein <em>herrerianisches Erbe</em>: das Kloster San Francisco',
+        hist_lead: 'Das 1456 in Cidamón von Iñigo Ortiz de Zúñiga gegründete Franziskanerkloster wurde 1535 nach Santo Domingo de la Calzada verlegt. Seine endgültige architektonische Gestalt verdankt es dem Mäzenatentum von Bruder Bernardo de Fresneda, Beichtvater Karls V. und Philipps II., dessen Einfluss am Hof die Richtung des Baus bestimmte.',
+        hist_body1: 'Die dreischiffige Kirche mit Kreuzgewölbe und einem schlichten klassizistischen Hochaltar von etwa 1605 spiegelt die Strenge und Nüchternheit des herrerianischen Stils wider. Im Querschiff ruht das Marmorgrabmal Fresnedas, das durch eine päpstliche Bulle Gregors XIII. von 1573 genehmigt wurde.',
+        hist_body2: '',
+        hist_li1: 'Gegründet 1456, nach Santo Domingo verlegt 1535.', hist_li2: 'Herrerianisch-klassizistischer Stil, Einfluss des Escorial.', hist_li3: 'Dreischiffige Kirche mit Kreuzgewölbe.', hist_li4: 'Klassizistischer Hochaltar von ca. 1605.', hist_li5: 'Elfenbeinsaal: bedeutendste religiöse Elfenbeinsammlung in La Rioja.',
+        hist_quote1: '"Der herrerianische Stein spricht hier dieselbe nüchterne Sprache wie der Escorial."', hist_cite1: '— BESCHREIBUNG DES KLOSTERS',
+        hist_body3: 'Bruder Bernardo de Fresneda (1509–1577) war eine der einflussreichsten Persönlichkeiten am spanischen Hof. Als königlicher Beichtvater war er bei der Grundsteinlegung des Escorial zugegen und trug dieselbe architektonische Vision — nüchtern und monumental — in das von ihm geförderte Kloster.',
+        hist_body4: 'Heute beherbergt das Kloster die Diözesane Restaurierungswerkstatt, den Elfenbeinsaal — mit rund dreißig Stücken in der Dauerausstellung „Figuren, die faszinieren" — sowie die Räumlichkeiten des Calceatense-Museums.',
+        hist_quote2: 'Wussten Sie, dass die Elfenbeinsammlung des Klosters die bedeutendste in ganz La Rioja ist?', hist_cite2: '— WISSENSWERTES ÜBER DEN ELFENBEINSAAL',
+        hist_body5: 'Die Ausstellung „Figuren, die faszinieren: Elfenbeine, die Geschichten erzählen" vereint rund dreißig Stücke religiösen Elfenbeins von außerordentlicher Qualität — Zeugnisse jahrhundertelanger Frömmigkeit und handwerklicher Meisterschaft.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Chronologie', sec_time_title: 'Die Geschichte des <em>Klosters</em>',
+        tl1_title: 'Gründung in Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga gründet das Franziskanerkloster im riojanischen Dorf Cidamón, wenige Kilometer von Santo Domingo de la Calzada entfernt.',
+        tl2_title: 'Verlegung in die Stadt', tl2_desc: 'Die Franziskanergemeinschaft lässt sich dauerhaft in Santo Domingo de la Calzada nieder, auf dem Grundstück, auf dem das heutige Kloster steht.',
+        tl3_title: 'Das Mäzenatentum Fresnedas', tl3_desc: 'Bruder Bernardo de Fresneda, Beichtvater Karls V. und Philipps II. und anwesend bei der Grundsteinlegung des Escorial, fördert den herrerianischen Klosterbau.',
+        tl4_title: 'Der Hochaltar', tl4_desc: 'Der klassizistische Hochaltar wird aufgestellt — ein Werk von ausgeprägter Schlichtheit, das der herrerianischen Ästhetik des Tempels entspricht.',
+        tl5_title: 'Ein lebendiger Kulturraum', tl5_desc: 'Das Kloster beherbergt die Diözesane Restaurierungswerkstatt, den Elfenbeinsaal und das Calceatense-Museum und etabliert sich als bedeutendes Kulturzentrum.',
+        sec_spaces_eyebrow: 'Räume', sec_spaces_title: 'Jede Ecke ein <em>Meisterwerk</em>',
+        cap_claustro: 'Herrerianischer Kreuzgang · Schlichtheit und Proportion', cap_iglesia: 'Mittelschiff · Kreuzgewölbe', cap_retablo: 'Hochaltar · Herrerianischer Klassizismus · ca. 1605', cap_sepulcro: 'Grabmal Fresnedas · Marmor · Querschiff', cap_marfiles: 'Elfenbeinsaal · „Figuren, die faszinieren"', cap_taller: 'Diözesane Restaurierungswerkstatt', cap_fachada: 'Klosterfassade · Jakobsweg',
+        sec_audio_eyebrow: 'Audioguides', sec_audio_title: 'Entdecken Sie jeden <em>Raum</em>', sec_audio_desc: 'Lassen Sie sich vom herrerianischen Kloster führen. Jede Station Ihres Besuchs enthüllt Geschichte, Kunst und Spiritualität, die in seinen Mauern verborgen liegen.',
+        audio_q: 'Wo finde ich alle Audioguides?', tooltip_monuments: 'Erhältlich beim Besuch unserer Denkmäler.',
+        audio_card_tag: 'Audioguide-Probe • Verfügbar', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 Min. 38 s',
+        sec_pdf_eyebrow: 'Dokumentation', sec_pdf_title: 'Broschüren & <em>PDF-Guides</em>', sec_pdf_desc: 'Besuchen Sie unsere Denkmäler, um unser wahres Erbe mit digitalen Audioguides und Broschüren zu entdecken. In 7 Sprachen per QR-Code verfügbar.',
+        pdf_q: 'Wo finde ich alle Broschüren?', pdf_card_tag: 'Kloster-Broschüre • Nicht verfügbar', pdf_card_name: 'Besucherführer — Deutsch',
+        cta_title: 'Buchen Sie Ihren Besuch im <em>Kloster</em>', cta_sub: 'Kaufen Sie Ihr Ticket online und überspringen Sie die Warteschlange. Inklusive Zugang zum Elfenbeinsaal, der herrerianischen Kirche und dem Tourismusarmband.', cta_btn: 'Tickets kaufen →'
+      },
+      pt: {
+        page_eyebrow: 'Monumentos · Convento de São Francisco', page_title: 'Convento de <em>São Francisco</em>', page_desc: 'Uma joia do Renascimento tardio e do estilo herreriano. Sede da mais importante coleção de marfim religioso de La Rioja e da Oficina Diocesana de Restauro.', meta_entrada: 'Entrada', meta_horario: 'Horário', meta_estilos: 'Estilos',
+        infobar_location_label: 'Localização',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horários e <em>tarifas</em>', ht_schedule_title: 'Horários de abertura', ht_lv: 'Todos os dias', ht_sat: 'Sábados', ht_note: 'O Convento está aberto todos os dias, incluindo feriados. Últimas entradas 30 min antes do fecho.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Bilhete geral', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 pessoas', ht_group_small: 'Grupos &lt; 25 pessoas', ht_family: 'Bilhete familiar', ht_children: 'Menores de 12 anos', ht_residents: 'Residentes', ht_free: 'Gratuito', tip_pilgrim: 'Pulseira turística: inclui acesso a todos os 4 monumentos. Apresentar credencial oficial do Caminho com pelo menos 4 etapas a pé ou de bicicleta.', tip_group: 'Este bilhete inclui o acesso a todos os monumentos com a pulseira turística.', tip_family: 'O preço inclui a entrada em todos os monumentos para toda a família.', tip_free: 'Apresentar documento de identificação nas bilheteiras.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'O Convento e a sua <em>história</em>',
+        gal_btn: 'Saber mais',
+        sec_hist_eyebrow: 'Arquitetura & História', sec_hist_title: 'Um <em>legado herreriano</em>: o Convento de São Francisco',
+        hist_lead: 'Fundado em 1456 em Cidamón por Iñigo Ortiz de Zúñiga, o convento franciscano foi transferido para Santo Domingo de la Calzada em 1535. A sua configuração arquitetónica definitiva deve-se ao mecenato do frei Bernardo de Fresneda, confessor de Carlos V e Filipe II, cuja influência na corte determinou o rumo da obra.',
+        hist_body1: 'A igreja de três naves, com abóbada de cruzaria e um sóbrio retábulo-mor classicista de cerca de 1605, reflete a austeridade e o rigor do estilo herreriano. No transepto repousa o túmulo de mármore de Fresneda, autorizado por bula papal de Gregório XIII em 1573.',
+        hist_body2: '',
+        hist_li1: 'Fundado em 1456, transferido para a vila em 1535.', hist_li2: 'Estilo herreriano-classicista, influência do Escorial.', hist_li3: 'Igreja de três naves com abóbada de cruzaria.', hist_li4: 'Retábulo-Mor classicista de cerca de 1605.', hist_li5: 'Sala dos Marfins: a mais importante coleção de La Rioja.',
+        hist_quote1: '"A pedra herreriana fala aqui a mesma linguagem austera que o Escorial."', hist_cite1: '— DESCRIÇÃO DO CONVENTO',
+        hist_body3: 'Frei Bernardo de Fresneda (1509–1577) foi uma das figuras mais influentes da corte espanhola. Como confessor real, esteve presente na colocação da primeira pedra do Escorial e trouxe essa mesma visão arquitetónica — sóbria e monumental — ao convento que patrocinou.',
+        hist_body4: 'Hoje o convento alberga a Oficina Diocesana de Restauro, a Sala dos Marfins — com cerca de trinta peças na exposição permanente «Figuras que fascinam» — e as dependências do Museu Calceatense.',
+        hist_quote2: 'Sabia que a coleção de marfins do convento é a mais importante de toda La Rioja?', hist_cite2: '— CURIOSIDADE SOBRE A SALA DOS MARFINS',
+        hist_body5: 'A exposição «Figuras que fascinam: marfins que contam histórias» reúne cerca de trinta peças de marfim religioso de qualidade extraordinária, testemunho de séculos de devoção e mestria artesanal.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'A história do <em>Convento</em>',
+        tl1_title: 'Fundação em Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga funda o convento franciscano na aldeia riojana de Cidamón, a poucos quilómetros de Santo Domingo de la Calzada.',
+        tl2_title: 'Transferência para a vila', tl2_desc: 'A comunidade franciscana instala-se definitivamente em Santo Domingo de la Calzada, no terreno onde se ergue o convento atual.',
+        tl3_title: 'O mecenato de Fresneda', tl3_desc: 'Frei Bernardo de Fresneda, confessor de Carlos V e Filipe II e presente na colocação da primeira pedra do Escorial, patrocina a fábrica herreriana do convento.',
+        tl4_title: 'O Retábulo-Mor', tl4_desc: 'O retábulo-mor classicista é instalado, uma obra de marcada austeridade em consonância com a estética herreriana que define o templo.',
+        tl5_title: 'Um espaço cultural vivo', tl5_desc: 'O convento acolhe a Oficina Diocesana de Restauro, a Sala dos Marfins e o Museu Calceatense, consolidando-se como centro cultural de referência.',
+        sec_spaces_eyebrow: 'Espaços', sec_spaces_title: 'Cada recanto, uma <em>obra-prima</em>',
+        cap_claustro: 'Claustro herreriano · Sobriedade e proporção', cap_iglesia: 'Nave central · Abóbada de cruzaria', cap_retablo: 'Retábulo-Mor · Classicismo herreriano · c. 1605', cap_sepulcro: 'Túmulo de Fresneda · Mármore · Transepto', cap_marfiles: 'Sala dos Marfins · «Figuras que fascinam»', cap_taller: 'Oficina Diocesana de Restauro', cap_fachada: 'Fachada do Convento · Caminho de Santiago',
+        sec_audio_eyebrow: 'Audioguias', sec_audio_title: 'Descubra cada <em>espaço</em>', sec_audio_desc: 'Deixe-se guiar pelo convento herreriano. Cada paragem na sua visita revela a história, a arte e a espiritualidade que encerram os seus muros.',
+        audio_q: 'Onde posso encontrar todos os audioguias?', tooltip_monuments: 'Disponíveis durante a visita aos nossos monumentos.',
+        audio_card_tag: 'Audioguia de teste • Disponível', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentação', sec_pdf_title: 'Folhetos e <em>guias PDF</em>', sec_pdf_desc: 'Visite os nossos monumentos para descobrir o nosso verdadeiro legado com audioguias e folhetos digitais. Disponíveis em 7 idiomas digitalizando um QR code.',
+        pdf_q: 'Onde posso encontrar todos os folhetos?', pdf_card_tag: 'Folheto do Convento • Não disponível', pdf_card_name: 'Guia de visita — Português',
+        cta_title: 'Reserve a sua visita ao <em>Convento</em>', cta_sub: 'Compre o seu bilhete online e evite filas. Inclui acesso à Sala dos Marfins, à igreja herreriana e à pulseira turística.', cta_btn: 'Comprar bilhetes →'
+      },
+      it: {
+        page_eyebrow: 'Monumenti · Convento di San Francesco', page_title: 'Convento di <em>San Francesco</em>', page_desc: 'Un gioiello del Rinascimento tardivo e dello stile herreriano. Sede della più importante collezione di avori religiosi della Rioja e del Laboratorio diocesano di restauro.', meta_entrada: 'Ingresso', meta_horario: 'Orario', meta_estilos: 'Stili',
+        infobar_location_label: 'Posizione',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Orari e <em>tariffe</em>', ht_schedule_title: 'Orari di apertura', ht_lv: 'Tutti i giorni', ht_sat: 'Sabati', ht_note: 'Il Convento è aperto tutti i giorni, inclusi i festivi. Ultimi ingressi 30 min prima della chiusura.', ht_prices_title: 'Tariffe d\'ingresso', ht_general: 'Biglietto ordinario', ht_pilgrim: 'Pellegrini', ht_group_big: 'Gruppi &gt; 25 persone', ht_group_small: 'Gruppi &lt; 25 persone', ht_family: 'Biglietto famiglia', ht_children: 'Minori di 12 anni', ht_residents: 'Residenti', ht_free: 'Gratuito', tip_pilgrim: 'Braccialetto turistico: include l\'accesso a tutti i 4 monumenti. Presentare la credenziale ufficiale del Cammino con almeno 4 tappe a piedi o in bicicletta.', tip_group: 'Questo biglietto include l\'accesso a tutti i monumenti con il braccialetto turistico.', tip_family: 'Il prezzo include l\'ingresso a tutti i monumenti per l\'intera famiglia.', tip_free: 'Presentare documento d\'identità valido alle biglietterie.',
+        sec_gallery_eyebrow: 'Galleria', sec_gallery_title: 'Il Convento e la sua <em>storia</em>',
+        gal_btn: 'Scopri di più',
+        sec_hist_eyebrow: 'Architettura & Storia', sec_hist_title: 'Un <em>eredità herreriana</em>: il Convento di San Francesco',
+        hist_lead: 'Fondato nel 1456 a Cidamón da Iñigo Ortiz de Zúñiga, il convento francescano fu trasferito a Santo Domingo de la Calzada nel 1535. La sua configurazione architettonica definitiva si deve al mecenatismo di frate Bernardo de Fresneda, confessore di Carlo V e Filippo II, la cui influenza a corte determinò l\'orientamento del progetto.',
+        hist_body1: 'La chiesa a tre navate, con volta a crociera e un sobrio retablo maggiore classicista di circa il 1605, riflette l\'austerità e il rigore dello stile herreriano. Nel transetto riposa la tomba in marmo di Fresneda, autorizzata da bolla papale di Gregorio XIII nel 1573.',
+        hist_body2: '',
+        hist_li1: 'Fondato nel 1456, trasferito nella città nel 1535.', hist_li2: 'Stile herreriano-classicista, influenza dell\'Escorial.', hist_li3: 'Chiesa a tre navate con volta a crociera.', hist_li4: 'Retablo maggiore classicista di circa il 1605.', hist_li5: 'Sala degli Avori: la collezione più importante della Rioja.',
+        hist_quote1: '"La pietra herreriana parla qui lo stesso linguaggio austero dell\'Escorial."', hist_cite1: '— DESCRIZIONE DEL CONVENTO',
+        hist_body3: 'Frate Bernardo de Fresneda (1509–1577) fu una delle figure più influenti della corte spagnola. Come confessore reale, fu presente alla posa della prima pietra dell\'Escorial e portò quella stessa visione architettonica — sobria e monumentale — nel convento da lui patrocinato.',
+        hist_body4: 'Oggi il convento ospita il Laboratorio diocesano di restauro, la Sala degli Avori — con una trentina di pezzi nella mostra permanente «Figure che affascinano» — e i locali del Museo Calceatense.',
+        hist_quote2: 'Sapevate che la collezione di avori del convento è la più importante di tutta la Rioja?', hist_cite2: '— CURIOSITÀ SULLA SALA DEGLI AVORI',
+        hist_body5: 'La mostra «Figure che affascinano: avori che raccontano storie» riunisce una trentina di pezzi di avorio religioso di straordinaria qualità, testimonianza di secoli di devozione e maestria artigianale.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'La storia del <em>Convento</em>',
+        tl1_title: 'Fondazione a Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga fonda il convento francescano nel villaggio riojanno di Cidamón, a pochi chilometri da Santo Domingo de la Calzada.',
+        tl2_title: 'Trasferimento nella città', tl2_desc: 'La comunità francescana si stabilisce definitivamente a Santo Domingo de la Calzada, sul sito dove sorge l\'attuale convento.',
+        tl3_title: 'Il mecenatismo di Fresneda', tl3_desc: 'Frate Bernardo de Fresneda, confessore di Carlo V e Filippo II e presente alla posa della prima pietra dell\'Escorial, patrocina la fabbrica herreriana del convento.',
+        tl4_title: 'Il Retablo Maggiore', tl4_desc: 'Viene installato il retablo maggiore classicista, un\'opera di marcata austerità in linea con l\'estetica herreriana che definisce il tempio.',
+        tl5_title: 'Uno spazio culturale vivo', tl5_desc: 'Il convento ospita il Laboratorio diocesano di restauro, la Sala degli Avori e il Museo Calceatense, affermandosi come centro culturale di riferimento.',
+        sec_spaces_eyebrow: 'Spazi', sec_spaces_title: 'Ogni angolo, un <em>capolavoro</em>',
+        cap_claustro: 'Chiostro herreriano · Sobrietà e proporzione', cap_iglesia: 'Navata centrale · Volta a crociera', cap_retablo: 'Retablo Maggiore · Classicismo herreriano · c. 1605', cap_sepulcro: 'Tomba di Fresneda · Marmo · Transetto', cap_marfiles: 'Sala degli Avori · «Figure che affascinano»', cap_taller: 'Laboratorio diocesano di restauro', cap_fachada: 'Facciata del Convento · Cammino di Santiago',
+        sec_audio_eyebrow: 'Audioguide', sec_audio_title: 'Scopri ogni <em>spazio</em>', sec_audio_desc: 'Lasciati guidare dal convento herreriano. Ogni tappa della tua visita svela la storia, l\'arte e la spiritualità che racchiudono le sue mura.',
+        audio_q: 'Dove posso trovare tutte le audioguide?', tooltip_monuments: 'Disponibili durante la visita ai nostri monumenti.',
+        audio_card_tag: 'Audioguida di prova • Disponibile', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentazione', sec_pdf_title: 'Opuscoli e <em>guide PDF</em>', sec_pdf_desc: 'Visita i nostri monumenti per scoprire il nostro vero patrimonio con audioguide e opuscoli digitali. Disponibili in 7 lingue scansionando un QR code.',
+        pdf_q: 'Dove posso trovare tutti gli opuscoli?', pdf_card_tag: 'Opuscolo del Convento • Non disponibile', pdf_card_name: 'Guida alla visita — Italiano',
+        cta_title: 'Prenota la tua visita al <em>Convento</em>', cta_sub: 'Acquista il tuo biglietto online ed evita le code. Include l\'accesso alla Sala degli Avori, alla chiesa herreriana e al braccialetto turistico.', cta_btn: 'Acquista biglietti →'
+      },
+      ko: {
+        page_eyebrow: '유적 · 산프란시스코 수도원', page_title: '<em>산프란시스코</em> 수도원', page_desc: '후기 르네상스와 에레리아 양식의 보석. 라리오하에서 가장 중요한 종교 상아 컬렉션과 교구 복원 공방의 본거지.', meta_entrada: '입장료', meta_horario: '운영 시간', meta_estilos: '양식',
+        infobar_location_label: '위치',
+        sec_ht_eyebrow: '관람', sec_ht_title: '운영 시간 및 <em>요금</em>', ht_schedule_title: '운영 시간', ht_lv: '매일', ht_sat: '토요일', ht_note: '수도원은 공휴일 포함 연중무휴 개방. 마지막 입장은 폐관 30분 전까지.', ht_prices_title: '입장 요금', ht_general: '일반 입장권', ht_pilgrim: '순례자', ht_group_big: '25인 이상 단체', ht_group_small: '25인 미만 단체', ht_family: '가족 입장권', ht_children: '12세 미만', ht_residents: '거주자', ht_free: '무료', tip_pilgrim: '관광 팔찌: 4개 유적 모두 입장 포함. 도보 또는 자전거로 최소 4구간을 완주한 공식 순례 증명서 지참.', tip_group: '이 입장권은 관광 팔찌로 모든 유적 입장 포함.', tip_family: '자녀 수에 관계없이 전 가족 모든 유적 입장 포함.', tip_free: '매표소에서 신분증 제시.',
+        sec_gallery_eyebrow: '갤러리', sec_gallery_title: '수도원과 그 <em>역사</em>',
+        gal_btn: '자세히 보기',
+        sec_hist_eyebrow: '건축 & 역사', sec_hist_title: '<em>에레리아 유산</em>: 산프란시스코 수도원',
+        hist_lead: '1456년 이니고 오르티스 데 수니가에 의해 시다몬에 창설된 프란치스코회 수도원은 1535년 산토 도밍고 데 라 칼사다로 이전되었습니다. 최종 건축 형태는 카를로스 5세와 펠리페 2세의 고해신부였던 베르나르도 데 프레스네다 수사의 후원으로 완성되었으며, 그의 궁정 내 영향력이 건물의 방향을 결정했습니다.',
+        hist_body1: '리브 볼트 천장과 1605년경의 단아한 고전주의 제단화를 갖춘 3랑식 교회는 에레리아 양식의 절제미를 잘 보여줍니다. 익랑에는 1573년 교황 그레고리오 13세의 교서로 허가된 프레스네다의 대리석 묘소가 있습니다.',
+        hist_body2: '',
+        hist_li1: '1456년 창설, 1535년 마을로 이전.', hist_li2: '에레리아-고전주의 양식, 에스코리알의 영향.', hist_li3: '리브 볼트 천장의 3랑식 교회.', hist_li4: '1605년경 고전주의 주 제단화.', hist_li5: '상아실: 라리오하 최대 규모의 종교 상아 컬렉션.',
+        hist_quote1: '"에레리아 석재는 여기서 에스코리알과 같은 엄숙한 언어로 말한다."', hist_cite1: '— 수도원 묘사',
+        hist_body3: '베르나르도 데 프레스네다 수사(1509–1577)는 스페인 궁정에서 가장 영향력 있는 인물 중 하나였습니다. 왕실 고해신부로서 에스코리알의 첫 번째 돌 놓기에 참석했으며, 그 건축 철학—단아하고 장엄함—을 그가 후원한 수도원에 그대로 반영했습니다.',
+        hist_body4: '현재 수도원은 교구 복원 공방, 상아실—상설 전시 «매혹하는 형상들»의 약 30점 소장—, 그리고 칼사텐세 박물관 공간을 운영하고 있습니다.',
+        hist_quote2: '수도원의 상아 컬렉션이 라리오하 전체에서 가장 중요하다는 것을 알고 계셨나요?', hist_cite2: '— 상아실에 관한 흥미로운 사실',
+        hist_body5: '«매혹하는 형상들: 이야기를 담은 상아» 전시는 수백 년의 신앙과 장인 정신을 증언하는 탁월한 종교 상아 작품 약 30점을 선보입니다.',
+        hist_body6: '',
+        sec_time_eyebrow: '연대표', sec_time_title: '수도원의 <em>역사</em>',
+        tl1_title: '시다몬 창설', tl1_desc: '이니고 오르티스 데 수니가가 산토 도밍고 데 라 칼사다에서 불과 몇 킬로미터 떨어진 리오하 마을 시다몬에 프란치스코회 수도원을 창설합니다.',
+        tl2_title: '마을로 이전', tl2_desc: '프란치스코회 공동체가 현재의 수도원이 서 있는 부지에 산토 도밍고 데 라 칼사다에 영구적으로 정착합니다.',
+        tl3_title: '프레스네다의 후원', tl3_desc: '카를로스 5세와 펠리페 2세의 고해신부이자 에스코리알 첫 돌 놓기에 참석한 베르나르도 데 프레스네다 수사가 수도원의 에레리아 건축물을 후원합니다.',
+        tl4_title: '주 제단화', tl4_desc: '고전주의 주 제단화가 설치됩니다. 이 작품은 교회를 정의하는 에레리아 미학에 걸맞은 절제된 아름다움을 지닙니다.',
+        tl5_title: '살아있는 문화 공간', tl5_desc: '수도원은 교구 복원 공방, 상아실, 칼사텐세 박물관을 운영하며 주요 문화 센터로 자리매김하고 있습니다.',
+        sec_spaces_eyebrow: '공간', sec_spaces_title: '모든 구석, <em>걸작</em>',
+        cap_claustro: '에레리아 회랑 · 절제와 비례', cap_iglesia: '중앙 랑 · 리브 볼트', cap_retablo: '주 제단화 · 에레리아 고전주의 · c. 1605', cap_sepulcro: '프레스네다 묘소 · 대리석 · 익랑', cap_marfiles: '상아실 · «매혹하는 형상들»', cap_taller: '교구 복원 공방', cap_fachada: '수도원 정면 · 산티아고 순례길',
+        sec_audio_eyebrow: '오디오 가이드', sec_audio_title: '모든 <em>공간</em> 탐색', sec_audio_desc: '에레리아 수도원이 이끄는 대로 따라가세요. 방문의 각 정류장에서 그 벽 안에 담긴 역사, 예술, 영성이 펼쳐집니다.',
+        audio_q: '오디오 가이드는 어디서 구할 수 있나요?', tooltip_monuments: '유적 방문 시 이용 가능합니다.',
+        audio_card_tag: '오디오 가이드 샘플 • 이용 가능', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0분 38초',
+        sec_pdf_eyebrow: '문서', sec_pdf_title: '브로슈어 및 <em>PDF 가이드</em>', sec_pdf_desc: '저희 유적을 방문하여 QR 코드를 스캔하면 7개 언어로 제공되는 디지털 오디오 가이드와 브로슈어로 진정한 유산을 발견하실 수 있습니다.',
+        pdf_q: '브로슈어는 어디서 구할 수 있나요?', pdf_card_tag: '수도원 브로슈어 • 미제공', pdf_card_name: '관람 안내서 — 한국어',
+        cta_title: '<em>수도원</em> 방문 예약', cta_sub: '온라인으로 입장권을 구매하고 줄을 피하세요. 상아실, 에레리아 교회 및 관광 팔찌 이용 포함.', cta_btn: '입장권 구매 →'
+      },
+      eu: {
+        page_eyebrow: 'Monumentuak · San Frantzisko Komentua', page_title: '<em>San Frantzisko</em> Komentua', page_desc: 'Errenazimentu berantiarraren eta estilo herrerianoaren bitxia. Errioxako bilduma erlijioso garrantzitsuena eta Elizbarrutiko Zaharberritzen Tailerraren egoitza.', meta_entrada: 'Sarrera', meta_horario: 'Ordutegia', meta_estilos: 'Estiloak',
+        infobar_location_label: 'Kokapena',
+        sec_ht_eyebrow: 'Bisita', sec_ht_title: 'Ordutegia eta <em>tarifak</em>', ht_schedule_title: 'Irekitze ordutegia', ht_lv: 'Egunero', ht_sat: 'Larunbatak', ht_note: 'Komentua urteko egun guztietan irekita dago, jaiegunetan barne. Azken sarrerak itxiera baino 30 minutu lehenago onartzen dira.', ht_prices_title: 'Sarrera tarifak', ht_general: 'Sarrera orokorra', ht_pilgrim: 'Erromesak', ht_group_big: 'Taldeak &gt; 25 pertsona', ht_group_small: 'Taldeak &lt; 25 pertsona', ht_family: 'Familia sarrera', ht_children: '12 urte azpikoak', ht_residents: 'Bizilagunak', ht_free: 'Doakoa', tip_pilgrim: 'Pulsera turistikoa: 4 monumentuetarako sarbidea barne. Bideko kredentziala behar bezala egiaztatu behar da, gutxienez 4 etapa oinez edo bizikletaz eginda.', tip_group: 'Sarrera honek pulsera turistikoarekin Santo Domingoko monumento guztietarako sarbidea barne hartzen du.', tip_family: 'Prezioak familia osoaren sarrera barne hartzen du Santo Domingoko monumento guztietara, seme-alaben kopurua edozein dela ere.', tip_free: 'Leihatiletan txartela behar bezala egiaztatu.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'Komentua eta bere <em>historia</em>',
+        gal_btn: 'Gehiago jakin',
+        sec_hist_eyebrow: 'Arkitektura eta Historia', sec_hist_title: '<em>Ondare herrerianoaren</em> lekukoa: San Frantzisko Komentua',
+        hist_lead: '1456an Iñigo Ortiz de Zúñigak Cidamónen sortutako frantziskotarren komentua 1535ean eraman zuten Santo Domingo de la Calzadara. Bere behin betiko arkitektura-ezaugarria Bernardo de Fresneda fraide mecenasari zor zaio, Karlos V.aren eta Felipe II.aren aitortzaileari, zeinen eragina gortean eraikinaren norabidea zehaztu baitzuen.',
+        hist_body1: 'Hiru nabeko eliza, ganga-saretarekin eta 1605 inguruko erretaula nagusi klasizistarekin, estilo herrerianoaren soiltasuna eta zorroztasuna islatzen du. Transeptuan Fresnedarenaren marmolezko hilobia dago, Gregorio XIII.aren 1573ko bula pontifikalak baimenduta.',
+        hist_body2: '',
+        hist_li1: '1456an sortua, 1535ean herrira eramana.', hist_li2: 'Estilo herreriano-klasizista, El Escorialaren eragina.', hist_li3: 'Hiru nabeko eliza ganga-saretarekin.', hist_li4: '1605 inguruko erretaula nagusi klasizista.', hist_li5: 'Boli-Arri Gela: Errioxako bilduma garrantzitsuena.',
+        hist_quote1: '"Harri herrerianoek hemen El Escorialeko hizkuntza austero bera mintzatzen dute."', hist_cite1: '— KOMENTUA DESKRIBATUZ',
+        hist_body3: 'Bernardo de Fresneda fraidea (1509–1577) Espainiako gortearen pertsona eraginkorrenetariko bat izan zen. Errege-aitortzaile gisa, El Escorialeko lehen harria jartzen egon zen, eta ikuspegi arkitektoniko bera —soila eta monumentala— eraman zuen babesten zuen komentuan.',
+        hist_body4: 'Gaur egun komentua Elizbarrutiko Zaharberritzen Tailerra, Boli-Arri Gela —«Liluratzaile Irudiak» erakusketa iraunkorreko hogeita hamar pieza ingururekin— eta Museo Calceatenseren dependentziak biltzen ditu.',
+        hist_quote2: 'Ba al zenekien komentuko boli-arri bilduma Errioxa osoko garrantzitsuena dela?', hist_cite2: '— BOLI-ARRI GELARI BURUZKO BITXIKERIA',
+        hist_body5: '«Liluratzaile Irudiak: istoriak kontatzen dituzten boli-arriak» erakusketak kalitate bikaineko hogeita hamar boli-arri erlijioso inguru biltzen ditu, mendeetako debozioaren eta eskulangintzako maisulanaren lekuko.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Kronologia', sec_time_title: 'Komentua: <em>historia</em>',
+        tl1_title: 'Cidamónen sorrera', tl1_desc: 'Iñigo Ortiz de Zúñigak frantziskotarren komentua sortu zuen Cidamón errioxar herrian, Santo Domingo de la Calzadatik kilometro gutxira.',
+        tl2_title: 'Herrira lekualdatzea', tl2_desc: 'Frantziskotarren komunitatea behin betiko Santo Domingo de la Calzadan ezarri zen, gaur egungo komentua zutik dagoen lurraldean.',
+        tl3_title: 'Fresnedarenaren babesa', tl3_desc: 'Bernardo de Fresneda fraidea, Karlos V.aren eta Felipe II.aren aitortzailea eta El Escorialeko lehen harriaren jartzean egona, komentuko eraikuntza herrerianoa babestu zuen.',
+        tl4_title: 'Erretaula Nagusia', tl4_desc: 'Erretaula nagusi klasizista instalatu zen, tenplua definitzen duen estetika herrerianoaren bidetik nabarmen soila den lana.',
+        tl5_title: 'Kultura-espazio bizia', tl5_desc: 'Komentua Elizbarrutiko Zaharberritzen Tailerra, Boli-Arri Gela eta Museo Calceatensea biltzen ditu, erreferentziazko kultura-zentro gisa finkatuz.',
+        sec_spaces_eyebrow: 'Espazioak', sec_spaces_title: 'Txoko bakoitza, <em>maisu lan bat</em>',
+        cap_claustro: 'Klaustra herrerianoaren · Soiltasuna eta proportzioa', cap_iglesia: 'Erdiko nabia · Ganga-sarea', cap_retablo: 'Erretaula Nagusia · Klasizismo herrerianoaren · c. 1605', cap_sepulcro: 'Fresnedarenaren hilobia · Marmola · Transeptua', cap_marfiles: 'Boli-Arri Gela · «Liluratzaile Irudiak»', cap_taller: 'Elizbarrutiko Zaharberritzen Tailerra', cap_fachada: 'Komentuko Fatxada · Santiago Bidea',
+        sec_audio_eyebrow: 'Audiogidariak', sec_audio_title: 'Espazio bakoitza <em>aurkitu</em>', sec_audio_desc: 'Utzi komentua herrerianoaren gidaritzapean. Bisitako geltoki bakoitzak bere hormetan dauden historia, arte eta espiritualtasuna azaltzen ditu.',
+        audio_q: 'Non aurki ditzaket audiogidariak?', tooltip_monuments: 'Monumentuetara bisitetan eskuragarri.',
+        audio_card_tag: 'Audiogidariaren lagin bat • Eskuragarri', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Dokumentazioa', sec_pdf_title: 'Liburuskak eta <em>PDF gidak</em>', sec_pdf_desc: 'Bisitatu gure monumentuak eta eskaneatu QR kode bat 7 hizkuntzatan eskuragarri dauden audiogidariak eta liburuskak aurkitzeko.',
+        pdf_q: 'Non aurki ditzaket liburuska guztiak?', pdf_card_tag: 'Komentuko Liburuxka • Ez dago eskuragarri', pdf_card_name: 'Bisita gida — Euskara',
+        cta_title: '<em>Komentua</em> bisitatu', cta_sub: 'Erosi sarrera online eta saihestu ilarak. Boli-Arri Gelara, eliza herrerianova eta pulsera turistikora sarbidea barne.', cta_btn: 'Sarrerak erosi →'
+      },
+      ca: {
+        page_eyebrow: 'Monuments · Convent de Sant Francesc', page_title: 'Convent de <em>Sant Francesc</em>', page_desc: 'Una joia del Renaixement tardà i l\'estil herrerià. Seu de la col·lecció d\'ivori religiós més important de La Rioja i del Taller Diocesà de Restauració.', meta_entrada: 'Entrada', meta_horario: 'Horari', meta_estilos: 'Estils',
+        infobar_location_label: 'Ubicació',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horaris i <em>tarifes</em>', ht_schedule_title: 'Horaris d\'obertura', ht_lv: 'Tots els dies', ht_sat: 'Dissabtes', ht_note: 'El Convent roman obert tots els dies de l\'any, inclosos els festius. Les darreres entrades s\'accepten 30 minuts abans del tancament.', ht_prices_title: 'Tarifes d\'entrada', ht_general: 'Entrada general', ht_pilgrim: 'Pelegrins', ht_group_big: 'Grups &gt; 25 persones', ht_group_small: 'Grups &lt; 25 persones', ht_family: 'Entrada familiar', ht_children: 'Menors de 12 anys', ht_residents: 'Residents', ht_free: 'Gratuïtat', tip_pilgrim: 'Polsera turística: inclou accés als 4 monuments. Acreditar degudament amb credencial oficial del Camí, havent realitzat almenys 4 etapes a peu o en bicicleta.', tip_group: 'Aquesta entrada inclou l\'accés a tots els monuments de Santo Domingo de la Calzada amb la polsera turística.', tip_family: 'El preu inclou l\'entrada a tots els monuments de Santo Domingo per a tota la família, independentment del nombre de fills.', tip_free: 'Acreditar degudament amb carnet a les taquilles.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'El Convent i la seva <em>història</em>',
+        gal_btn: 'Saber-ne més',
+        sec_hist_eyebrow: 'Arquitectura i Història', sec_hist_title: 'Un <em>llegat herrerià</em>: el Convent de Sant Francesc',
+        hist_lead: 'Fundat el 1456 a Cidamón per Iñigo Ortiz de Zúñiga, el convent franciscà va ser traslladat a Santo Domingo de la Calzada el 1535. La seva configuració arquitectònica definitiva es deu al mecenatge del frare Bernardo de Fresneda, confessor de Carles V i Felip II, la influència del qual a la cort va marcar el rumb de la fàbrica.',
+        hist_body1: 'L\'església de tres naus, amb volta de creueria i un sobri retaule major classicista de cap al 1605, reflecteix l\'austeritat i el rigor de l\'estil herrerià. Al transsepte reposa la sepultura de marbre de Fresneda, autoritzada per butlla papal de Gregori XIII el 1573.',
+        hist_body2: '',
+        hist_li1: 'Fundat el 1456, traslladat a la vila el 1535.', hist_li2: 'Estil herrerià-classicista, influència de l\'Escorial.', hist_li3: 'Església de tres naus amb volta de creueria.', hist_li4: 'Retaule Major classicista de cap al 1605.', hist_li5: 'Sala dels Ivors: la col·lecció més important de La Rioja.',
+        hist_quote1: '"La pedra herreria parla aquí el mateix llenguatge auster que l\'Escorial."', hist_cite1: '— DESCRIPCIÓ DEL CONVENT',
+        hist_body3: 'El frare Bernardo de Fresneda (1509–1577) fou una de les figures més influents de la cort espanyola. Com a confessor reial, va estar present en la col·locació de la primera pedra de l\'Escorial, i va traslladar aquella mateixa visió arquitectònica —sobria i monumental— al convent que va patrocinar.',
+        hist_body4: 'Avui el convent acull el Taller Diocesà de Restauració, la Sala dels Ivors —amb una trentena de peces a l\'exposició permanent «Figures que fascinen»— i les dependències del Museu Calceatense.',
+        hist_quote2: 'Sabies que la col·lecció d\'ivors del convent és la més important de tota La Rioja?', hist_cite2: '— CURIOSITAT SOBRE LA SALA DELS IVORS',
+        hist_body5: 'L\'exposició «Figures que fascinen: ivors que expliquen històries» reuneix una trentena de peces d\'ivori religiós de qualitat extraordinària, testimoni de segles de devoció i mestria artesanal.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'La història del <em>Convent</em>',
+        tl1_title: 'Fundació a Cidamón', tl1_desc: 'Iñigo Ortiz de Zúñiga funda el convent franciscà al poble riojà de Cidamón, a pocs quilòmetres de Santo Domingo de la Calzada.',
+        tl2_title: 'Trasllat a la vila', tl2_desc: 'La comunitat franciscana s\'estableix definitivament a Santo Domingo de la Calzada, al solar on s\'aixeca el convent actual.',
+        tl3_title: 'El mecenatge de Fresneda', tl3_desc: 'El frare Bernardo de Fresneda, confessor de Carles V i Felip II i present en la col·locació de la primera pedra de l\'Escorial, patrocina la fàbrica herreria del convent.',
+        tl4_title: 'El Retaule Major', tl4_desc: 'S\'instal·la el retaule major classicista, una obra d\'una austeritat marcada d\'acord amb l\'estètica herreria que defineix el temple.',
+        tl5_title: 'Un espai cultural viu', tl5_desc: 'El convent acull el Taller Diocesà de Restauració, la Sala dels Ivors i el Museu Calceatense, consolidant-se com a centre cultural de referència.',
+        sec_spaces_eyebrow: 'Espais', sec_spaces_title: 'Cada racó, una <em>obra mestra</em>',
+        cap_claustro: 'Claustre herrerià · Sobrietat i proporció', cap_iglesia: 'Nau central · Volta de creueria', cap_retablo: 'Retaule Major · Classicisme herrerià · c. 1605', cap_sepulcro: 'Sepulcre de Fresneda · Marbre · Transsepte', cap_marfiles: 'Sala dels Ivors · «Figures que fascinen»', cap_taller: 'Taller Diocesà de Restauració', cap_fachada: 'Façana del Convent · Camí de Santiago',
+        sec_audio_eyebrow: 'Audioguies', sec_audio_title: 'Descobreix cada <em>espai</em>', sec_audio_desc: 'Deixa\'t guiar pel convent herrerià. Cada parada de la teva visita desvela la història, l\'art i l\'espiritualitat que amaguen els seus murs.',
+        audio_q: 'On puc trobar totes les audioguies?', tooltip_monuments: 'Disponibles a la visita als nostres monuments.',
+        audio_card_tag: 'Audioguia de prova • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentació', sec_pdf_title: 'Fulletons i <em>guies en PDF</em>', sec_pdf_desc: 'Visita els nostres monuments i escaneja un codi QR per descobrir el nostre veritable llegat amb audioguies i fulletons digitals disponibles en 7 idiomes.',
+        pdf_q: 'On puc trobar tots els fulletons?', pdf_card_tag: 'Fulletó del Convent • No disponible', pdf_card_name: 'Guia de visita — Català',
+        cta_title: 'Reserva la teva visita al <em>Convent</em>', cta_sub: 'Adquireix la teva entrada en línia i evita cues. Inclou accés a la Sala dels Ivors, l\'església herreria i la polsera turística.', cta_btn: 'Comprar entrades →'
+      },
+    };
+
+    /* ── Horario Torre: 10-14 y 16-20 todos los días ─────────────── */
+    function _torreIsOpen() {
+      const parts = new Intl.DateTimeFormat('es-ES', {
+        timeZone: 'Europe/Madrid', hour: 'numeric', minute: 'numeric', hour12: false
+      }).formatToParts(new Date());
+      const mh = parseInt(parts.find(p => p.type === 'hour').value, 10);
+      const mm = parseInt(parts.find(p => p.type === 'minute').value, 10);
+      const total = mh * 60 + mm;
+      return (total >= 600 && total < 840) || (total >= 960 && total < 1200);
+    }
+
+    /* ── Hook: shared.js llama a esta función al cambiar idioma ──── */
+    window.PAGE_applyLang = function (lang, sharedT) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      // Aplica todos los elementos con data-i18n-page
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (!t[key]) return;
+        el.innerHTML = t[key];
+      });
+
+      // Override infobar hours con horario partido de la Torre
+      const hoursEl = document.getElementById('infobar-hours');
+      if (hoursEl) hoursEl.textContent = '10:00–14:00 · 16:00–20:00 h';
+
+      // Override lamp label con horario de la Torre
+      const lampLabel = document.getElementById('lamp-label');
+      if (lampLabel) {
+        const isOpen = _torreIsOpen();
+        lampLabel.innerHTML = `<strong>${isOpen ? sharedT.lamp_open : sharedT.lamp_closed}</strong>`;
+      }
+
+      // Badge "Hoy" — la Torre tiene el mismo horario todos los días
+      const now = new Date(); const day = now.getDay();
+      const badge = document.getElementById('badge-todos');
+      if (badge) {
+        badge.textContent = sharedT.day_names[day];
+        badge.style.display = 'inline-flex';
+      }
+    };
+
+    /* ── Gallery info popup ──────────────────────────────────────── */
+    const GALLERY_INFO = [
+      {
+        num: '01 / 04 · Galería',
+        title: 'Claustro Herreriano',
+        subtitle: 'Estilo herreriano-clasicista · s. XVI',
+        body: `<p>El claustro del Convento de San Francisco constituye uno de los ejemplos más puros del <strong>estilo herreriano</strong> en La Rioja. Sus proporciones severas y la ausencia de ornamentación superflua reflejan directamente la influencia de El Escorial, paradigma de la arquitectura oficial de Felipe II.</p>
+               <p>El mecenas del convento, fray <strong>Bernardo de Fresneda</strong>, confesor real y presente en la primera piedra del Escorial en 1563, importó conscientemente ese mismo lenguaje de piedra gris, arcos de medio punto y ritmo geométrico al corazón del Camino de Santiago, creando un espacio de meditación y recogimiento que aún hoy impresiona por su sobria elegancia.</p>`,
+        fact: 'El claustro herreriano del convento es uno de los pocos ejemplos de este estilo fuera de los grandes centros reales, testimonio del alcance de la red de influencia cortesana de Fresneda.'
+      },
+      {
+        num: '02 / 04 · Galería',
+        title: 'Fray Bernardo de Fresneda',
+        subtitle: 'Confesor Real y Mecenas · 1509–1577',
+        body: `<p>Fray <strong>Bernardo de Fresneda</strong> (Fresneda, Burgos, 1509 – Cuenca, 1577) fue una de las figuras más influyentes de la España del siglo XVI. Franciscano y teólogo de sólida formación, ascendió hasta convertirse en confesor personal de <strong>Carlos V y Felipe II</strong>, participando activamente en los grandes debates religiosos y políticos de su época, incluido el Concilio de Trento.</p>
+               <p>Su vínculo con el convento calceatense fue profundo: patrocinó la reedificación de la iglesia en estilo herreriano y solicitó —y obtuvo mediante bula papal de <strong>Gregorio XIII en 1573</strong>— el privilegio de ser enterrado en el transepto con un soberbio sepulcro de mármol. Su tumba, presente en el lugar hasta hoy, es uno de los monumentos funerarios más notables de La Rioja renacentista.</p>`,
+        fact: 'Fresneda fue el único franciscano que ejerció como confesor real en la corte de Felipe II, lo que le otorgó un poder e influencia comparable al de los grandes nobles del reino.'
+      },
+      {
+        num: '03 / 04 · Galería',
+        title: 'Sala de Marfiles',
+        subtitle: '«Figuras que fascinan» · Colección permanente',
+        body: `<p>La Sala de Marfiles del Convento de San Francisco alberga la <strong>colección de marfil religioso más importante de La Rioja</strong>. La exposición permanente, titulada <em>«Figuras que fascinan: marfiles que cuentan historias»</em>, reúne cerca de <strong>treinta piezas</strong> de extraordinaria calidad artística y devoción, procedentes de talleres europeos y orientales de los siglos XVI al XIX.</p>
+               <p>Entre las obras destacan crucifijos, vírgenes, niños Jesús y figuras devocionales en marfil tallado, muchas de ellas con engarces en metales preciosos. La colección ilustra las rutas comerciales y espirituales que conectaban España con los grandes centros de producción artística, convirtiendo al convento en custodio de un patrimonio de dimensión universal.</p>`,
+        fact: 'Algunos de los marfiles de la colección proceden de talleres de Amberes y del sureste asiático, reflejo de las conexiones globales del Imperio español y de la devoción particular de los franciscanos por estas piezas devocionales.'
+      },
+      {
+        num: '04 / 04 · Galería',
+        title: 'Retablo Mayor Clasicista',
+        subtitle: 'Estilo clasicista herreriano · c. 1605',
+        body: `<p>El retablo mayor de la iglesia del convento, datado hacia <strong>1605</strong>, es un ejemplo sobresaliente del <strong>clasicismo herreriano</strong> aplicado al arte del retablo. Frente a la exuberancia del renacimiento plateresco o del barroco posterior, esta obra apuesta por la claridad estructural, las columnas de orden corintio y la pintura integrada en compartimentos bien delimitados.</p>
+               <p>Su composición en tres calles y tres cuerpos, coronada por un ático con calvario, sigue el esquema clásico fijado por los grandes retablistas de la segunda mitad del siglo XVI. Los <strong>paneles pictóricos</strong> narran escenas de la vida de san Francisco de Asís, patrón de la orden, con una paleta sobria y una expresividad contenida muy en sintonía con la espiritualidad franciscana de la Contrarreforma.</p>`,
+        fact: 'El retablo mayor se conserva en su ubicación original desde hace más de cuatro siglos, lo que lo convierte en uno de los conjuntos retablísticos in situ más íntegros de toda La Rioja.'
+      }
+    ];
+
+    function openGalleryPopup(idx) {
+      const data = GALLERY_INFO[idx];
+      if (!data) return;
+      document.getElementById('popup-num').textContent = data.num;
+      document.getElementById('popup-title').textContent = data.title;
+      document.getElementById('popup-subtitle').textContent = data.subtitle;
+      document.getElementById('popup-body').innerHTML = data.body;
+      document.getElementById('popup-fact-text').textContent = data.fact;
+      document.getElementById('gallery-popup-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Pausar el autoplay de la galería
+      if (window._galleryStop) window._galleryStop();
+    }
+
+    function closeGalleryPopup() {
+      document.getElementById('gallery-popup-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      // Reanudar el autoplay de la galería
+      if (window._galleryStart) window._galleryStart();
+    }
+
+    function handlePopupOverlayClick(e) {
+      if (e.target === document.getElementById('gallery-popup-overlay')) closeGalleryPopup();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeGalleryPopup();
+    });
+
+    /* ── Gallery autoplay ────────────────────────────────────────── */
+    (function () {
+      const track = document.getElementById('gallery-track');
+      const dots = document.querySelectorAll('#gallery-dots .gallery-dot');
+      let cur = 0, total = 4, timer;
+      function go(n) { cur = (n + total) % total; track.style.transform = `translateX(-${cur * 100}%)`; dots.forEach((d, i) => d.classList.toggle('active', i === cur)); }
+      function start() { clearInterval(timer); timer = setInterval(() => go(cur + 1), 4000); }
+      function stop() { clearInterval(timer); }
+      window._galleryStart = start;
+      window._galleryStop = stop;
+      document.getElementById('gallery-prev').addEventListener('click', () => { go(cur - 1); start() });
+      document.getElementById('gallery-next').addEventListener('click', () => { go(cur + 1); start() });
+      dots.forEach((d, i) => d.addEventListener('click', () => { go(i); start() }));
+      start();
+    })();
+
+    /* ── Audio playback ─────────────────────────────────────────── */
+    function toggleAudio(card, idx) {
+      const btn = card.querySelector('.audio-play-btn');
+      const fill = card.querySelector('.audio-progress__fill');
+      const timeEl = card.querySelector('.audio-time');
+      const audioEl = document.getElementById('audio-' + idx);
+
+      if (!audioEl) return;
+
+      if (audioEl.paused) {
+        // Pausar cualquier otro audio que esté reproduciéndose
+        document.querySelectorAll('.audio-card audio').forEach(a => {
+          if (a !== audioEl && !a.paused) {
+            a.pause();
+            const otherCard = a.closest('.audio-card');
+            if (otherCard) {
+              otherCard.querySelector('.audio-play-btn').textContent = '▶';
+              otherCard.querySelector('.audio-play-btn').classList.remove('playing');
+            }
+          }
+        });
+
+        audioEl.play();
+        btn.textContent = '⏸';
+        btn.classList.add('playing');
+
+        // Actualizar barra de progreso y tiempo restante mientras suena
+        audioEl.ontimeupdate = () => {
+          if (!audioEl.duration) return;
+          const pct = (audioEl.currentTime / audioEl.duration) * 100;
+          fill.style.width = pct + '%';
+          const rem = Math.max(0, audioEl.duration - audioEl.currentTime);
+          const m = Math.floor(rem / 60);
+          const s = Math.floor(rem % 60).toString().padStart(2, '0');
+          timeEl.textContent = m + ':' + s;
+        };
+
+        // Al terminar, resetear
+        audioEl.onended = () => {
+          btn.textContent = '▶';
+          btn.classList.remove('playing');
+          fill.style.width = '0%';
+          timeEl.textContent = '00:38';
+          audioEl.currentTime = 0;
+        };
+      } else {
+        audioEl.pause();
+        btn.textContent = '▶';
+        btn.classList.remove('playing');
+      }
+    }
+
+    /* ── Override lamp-dot con horario de la Torre ───────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const lamp = document.getElementById('lamp-dot');
+      if (lamp) {
+        lamp.classList.remove('lamp-dot--open', 'lamp-dot--closed');
+        lamp.classList.add(_torreIsOpen() ? 'lamp-dot--open' : 'lamp-dot--closed');
+      }
+    });
+
+    /* ── Hero bg zoom-in ─────────────────────────────────────────── */
+    setTimeout(() => { const b = document.getElementById('hero-bg'); if (b) b.classList.add('loaded'); }, 100);
+
+    /* ── PDF tooltip (mobile tap) ────────────────────────────────── */
+    const pdfCard = document.getElementById('pdf-card-main');
+    if (pdfCard) {
+      pdfCard.addEventListener('click', (e) => {
+        pdfCard.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        pdfCard.classList.remove('tooltip-active');
+      });
+    }
+
+    /* ── Audio info tooltip (mobile tap) ─────────────────────────── */
+    const audioInfoWrap = document.querySelector('.audio-info-wrap');
+    if (audioInfoWrap) {
+      audioInfoWrap.addEventListener('click', (e) => {
+        audioInfoWrap.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        audioInfoWrap.classList.remove('tooltip-active');
+      });
+    }
+
+    /* ── PDF info tooltip (mobile tap) ───────────────────────────── */
+    const pdfInfoWrap = document.querySelector('.pdf-info-wrap');
+    if (pdfInfoWrap) {
+      pdfInfoWrap.addEventListener('click', (e) => {
+        pdfInfoWrap.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        pdfInfoWrap.classList.remove('tooltip-active');
+      });
+    }
+
+    // ── Modo Claro / Oscuro ───────────────────────────────────
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        if (on) localStorage.setItem(KEY, '1');
+        else localStorage.removeItem(KEY);
+      }
+
+      if (localStorage.getItem(KEY) === '1') applyLightMode(true);
+
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+</body>
+
+</html>

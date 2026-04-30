@@ -1,0 +1,2609 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Torre Exenta · Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+  <!-- Estilos compartidos -->
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    /* ── PAGE-HERO ───────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 92vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/torre-exenta.webp');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded {
+      transform: scale(1)
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.88) 0%,
+          rgba(14, 12, 10, 0.58) 45%,
+          rgba(14, 12, 10, 0.72) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.88) 0%,
+          rgba(14, 12, 10, 0.45) 40%,
+          transparent 70%);
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      max-width: 700px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 20px
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .75);
+      max-width: 520px;
+      margin-bottom: 32px
+    }
+
+    .page-hero__meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap
+    }
+
+    .page-hero__meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .page-hero__meta-label {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone)
+    }
+
+    .page-hero__meta-val {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--gold-lt)
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────── */
+    .section {
+      padding: 100px 8vw
+    }
+
+    .section__inner {
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .cta-band .section__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      width: 100%
+    }
+
+    .section--cream {
+      background: var(--cream);
+      color: var(--carbon)
+    }
+
+    .section--dark {
+      background: #0f0d0b
+    }
+
+    .section--carbon {
+      background: var(--carbon)
+    }
+
+    .section--white {
+      background: #fff;
+      color: var(--carbon)
+    }
+
+    .eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .reveal-info {
+      margin-bottom: 32px;
+    }
+
+    .section--cream .eyebrow,
+    .section--white .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    .section--dark .eyebrow,
+    .section--carbon .eyebrow {
+      color: var(--gold)
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 48px
+    }
+
+    .section--cream .section-title,
+    .section--white .section-title {
+      color: var(--carbon)
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .section--cream .section-title em,
+    .section--white .section-title em {
+      color: var(--gold-dk)
+    }
+
+    /* ── IMG SCROLL ──────────────────────────────────────────── */
+    .img-scroll-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+      cursor: grab
+    }
+
+    .img-scroll-track.is-dragging {
+      cursor: grabbing;
+      user-select: none
+    }
+
+    .img-scroll-track::-webkit-scrollbar {
+      display: none
+    }
+
+    .img-scroll-item {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px
+    }
+
+    .img-scroll-item--wide {
+      width: 560px;
+      height: 380px
+    }
+
+    .img-scroll-item--sq {
+      width: 340px;
+      height: 380px
+    }
+
+    .img-scroll-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease)
+    }
+
+    .img-scroll-item:hover img {
+      transform: scale(1.05)
+    }
+
+    .img-scroll-item__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 22px;
+      background: linear-gradient(to top, rgba(14, 12, 10, .85), transparent);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    /* ── TEXT 2-COL ──────────────────────────────────────────── */
+    .text-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start
+    }
+
+    .text-grid__lead {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--carbon);
+      margin-bottom: 28px
+    }
+
+    .text-grid__body {
+      font-size: .88rem;
+      line-height: 1.8;
+      color: var(--stone);
+      margin-bottom: 20px
+    }
+
+    .text-grid__quote {
+      border-left: 2px solid var(--gold-dk);
+      padding-left: 28px;
+      margin-bottom: 32px
+    }
+
+    .text-grid__quote p {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--carbon)
+    }
+
+    .text-grid__quote cite {
+      display: block;
+      margin-top: 12px;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--stone)
+    }
+
+    .highlight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .highlight-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: .85rem;
+      line-height: 1.6;
+      color: var(--stone)
+    }
+
+    .highlight-list li::before {
+      content: '✦';
+      color: var(--gold-dk);
+      font-size: .65rem;
+      margin-top: .2rem;
+      flex-shrink: 0
+    }
+
+    /* ── TIMELINE ────────────────────────────────────────────── */
+    .timeline {
+      position: relative
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 132px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201, 168, 76, .3) 10%, rgba(201, 168, 76, .3) 90%, transparent)
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      /* border-bottom: 1px solid rgba(255, 255, 255, .06) */
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none
+    }
+
+    .timeline-year {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      text-align: right;
+      position: relative;
+      line-height: 1
+    }
+
+    .timeline-year::after {
+      content: '';
+      position: absolute;
+      right: -24px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      background: var(--carbon)
+    }
+
+    .timeline-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 8px
+    }
+
+    .timeline-desc {
+      font-size: .82rem;
+      line-height: 1.7;
+      color: var(--stone)
+    }
+
+    /* ── GALLERY ─────────────────────────────────────────────── */
+    .gallery-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px
+    }
+
+    .gallery-track {
+      display: flex;
+      transition: transform .7s var(--ease)
+    }
+
+    .gallery-slide {
+      flex-shrink: 0;
+      width: 100%;
+      height: 520px;
+      position: relative
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .gallery-slide__cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 36px;
+      background: linear-gradient(to top, rgba(14, 12, 10, .8), transparent);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between
+    }
+
+    .gallery-slide__cap-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--white)
+    }
+
+    .gallery-slide__cap-num {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .gallery-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px
+    }
+
+    .gallery-dot {
+      width: 24px;
+      height: 2px;
+      background: rgba(255, 255, 255, .2);
+      border-radius: 2px;
+      transition: background .3s, width .3s;
+      cursor: pointer
+    }
+
+    .gallery-dot.active {
+      background: var(--gold);
+      width: 40px
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: border-color .2s, background .2s;
+      cursor: pointer
+    }
+
+    .gallery-nav:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, .1)
+    }
+
+    .gallery-nav--prev {
+      left: 20px
+    }
+
+    .gallery-nav--next {
+      right: 20px
+    }
+
+    /* ── GALLERY INFO BUTTON ─────────────────────────────────────── */
+    .gallery-info-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 12, 10, 0.65);
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .gallery-info-btn:hover {
+      background: rgba(201, 168, 76, 0.18);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .gallery-info-btn__icon {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .gallery-info-btn__text {
+      display: inline;
+    }
+
+
+
+    @media (max-width: 640px) {
+      .gallery-info-btn {
+        padding: 8px;
+        gap: 0;
+      }
+
+      .gallery-info-btn__text {
+        display: none;
+      }
+    }
+
+    /* ── GALLERY INFO POPUP ──────────────────────────────────────── */
+    .gallery-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+      backdrop-filter: blur(6px);
+    }
+
+    .gallery-popup-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .gallery-popup {
+      position: relative;
+      background: rgba(14, 12, 10, 0.96);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: 4px;
+      max-width: 560px;
+      width: 100%;
+      padding: 52px 48px 44px;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .gallery-popup-overlay.open .gallery-popup {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Línea decorativa dorada arriba */
+    .gallery-popup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 48px;
+      right: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .gallery-popup__close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 1.6rem;
+      line-height: 1;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: var(--sans);
+    }
+
+    .gallery-popup__close:hover {
+      color: var(--white);
+    }
+
+    .gallery-popup__num {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gallery-popup__num::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .gallery-popup__title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .gallery-popup__subtitle {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      font-family: var(--sans);
+    }
+
+    .gallery-popup__divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201, 168, 76, 0.3), transparent);
+      margin-bottom: 24px;
+    }
+
+    .gallery-popup__body p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 14px;
+    }
+
+    .gallery-popup__body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .gallery-popup__body strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .gallery-popup__fact {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: rgba(201, 168, 76, 0.06);
+      border-left: 2px solid var(--gold);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .gallery-popup__fact-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .gallery-popup__fact-text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.65);
+      font-style: italic;
+    }
+
+    /* ── AUDIO CARDS ─────────────────────────────────────────── */
+    .audio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 500px));
+      gap: 20px;
+      width: 100%;
+    }
+
+    .audio-card {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 168, 76, .12);
+      border-radius: 4px;
+      padding: 24px;
+      transition: border-color .3s, background .3s;
+      cursor: pointer;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .audio-card:hover {
+      border-color: rgba(201, 168, 76, .35);
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .audio-card__num {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px
+    }
+
+    .audio-card__title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 6px
+    }
+
+    .audio-card__dur {
+      font-size: .72rem;
+      color: var(--stone);
+      margin-bottom: 18px
+    }
+
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .audio-play-btn {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(201, 168, 76, .4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: .85rem;
+      transition: border-color .25s, transform .25s;
+      flex-shrink: 0
+    }
+
+    .audio-play-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.1)
+    }
+
+    .audio-play-btn.playing {
+      background: rgba(201, 168, 76, .15)
+    }
+
+    .audio-progress {
+      flex: 1;
+      height: 2px;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .audio-progress__fill {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      transition: width .3s linear
+    }
+
+    .audio-time {
+      font-size: .62rem;
+      color: var(--stone);
+      flex-shrink: 0
+    }
+
+    /* ── PDF GRID ────────────────────────────────────────────── */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 500px));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .pdf-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 168, 76, .1);
+      border-radius: 4px;
+      padding: 18px 20px;
+      transition: border-color .3s, background .3s;
+      height: 100%;
+      box-sizing: border-box;
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .pdf-card:hover {
+      border-color: rgba(201, 168, 76, .3);
+      background: rgba(255, 255, 255, .07)
+    }
+
+    @media (hover: hover) {
+      .pdf-card:hover .pdf-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pdf-card.tooltip-active .pdf-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* ── AUDIO INFO ICON + TOOLTIP ───────────────────────────── */
+    .audio-info-wrap,
+    .pdf-info-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    .audio-info-icon,
+    .pdf-info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(201, 168, 76, 0.55);
+      border-radius: 50%;
+      font-size: 0.62rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: var(--serif);
+    }
+
+    .audio-info-icon:hover,
+    .pdf-info-icon:hover {
+      background: rgba(201, 168, 76, 0.12);
+      border-color: var(--gold);
+    }
+
+    .audio-info-tooltip,
+    .pdf-info-tooltip {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      z-index: 50;
+      width: 240px;
+      background: #1a1610;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.1), 0 8px 32px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .audio-info-tooltip::before,
+    .pdf-info-tooltip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.55), transparent);
+    }
+
+    .audio-info-tooltip::after,
+    .pdf-info-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 18px;
+      left: auto;
+      transform: rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: #1a1610;
+      border-right: 1px solid rgba(201, 168, 76, 0.45);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.45);
+    }
+
+    .audio-info-tooltip__icon,
+    .pdf-info-tooltip__icon {
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .audio-info-tooltip__text,
+    .pdf-info-tooltip__text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #FDFAF4;
+      line-height: 1.5;
+    }
+
+    .audio-info-row,
+    .pdf-info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Desktop hover */
+    @media (hover: hover) {
+
+      .audio-info-wrap:hover .audio-info-tooltip,
+      .pdf-info-wrap:hover .pdf-info-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Mobile tap */
+    .audio-info-wrap.tooltip-active .audio-info-tooltip,
+    .pdf-info-wrap.tooltip-active .pdf-info-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .pdf-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(201, 168, 76, .12);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: var(--gold)
+    }
+
+    .pdf-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .pdf-name {
+      font-size: .82rem;
+      color: var(--white);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .pdf-size {
+      font-size: .65rem;
+      color: var(--stone)
+    }
+
+    .pdf-dl {
+      font-size: .7rem;
+      color: var(--gold);
+      flex-shrink: 0
+    }
+
+    @media(max-width:900px) {
+      .text-grid {
+        grid-template-columns: 1fr
+      }
+
+      .timeline::before {
+        left: 69px
+      }
+
+      .timeline-item {
+        grid-template-columns: 70px 1fr;
+        gap: 20px
+      }
+
+      .timeline-year::after {
+        right: -14px
+      }
+    }
+
+    @media(max-width:640px) {
+      .timeline::before {
+        left: 78px;
+      }
+
+      .section {
+        padding: 72px 5vw
+      }
+
+      .page-hero__content {
+        padding: 0 5vw 9vh
+      }
+
+      .img-scroll-item--wide {
+        width: 88vw;
+        height: 280px
+      }
+
+      .img-scroll-item--sq {
+        width: 72vw;
+        height: 280px
+      }
+
+      .gallery-slide {
+        height: 320px
+      }
+    }
+
+    /* ── AUDIO + PDF dos columnas ────────────────────────────── */
+    .audio-pdf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: stretch
+    }
+
+    .audio-pdf-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .audio-pdf-col .audio-grid {
+      flex: 1;
+      align-items: stretch;
+    }
+
+    .audio-pdf-col .pdf-grid {
+      align-items: start;
+    }
+
+    .audio-pdf-col .section-title {
+      margin-bottom: 12px
+    }
+
+    .audio-pdf-col__desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--stone-lt);
+      margin-bottom: 28px;
+      max-width: 400px;
+    }
+
+    .audio-info-tooltip,
+    .pdf-info-tooltip {
+      /* position: absolute;
+      bottom: calc(100% + 12px); */
+      left: -650%;
+      /* transform: translateX(-50%) translateY(6px);
+      z-index: 50;
+      width: 240px;
+      background: #1a1610;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      border-radius: 4px;
+      padding: 16px 18px;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.1), 0 8px 32px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px; */
+    }
+
+    @media(max-width: 860px) {
+      .audio-pdf-row {
+        grid-template-columns: 1fr;
+        gap: 56px
+      }
+    }
+    /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
+    body.light-mode {
+      background: #F9F8F6;
+      color: #141210;
+    }
+
+    /* Fondos → claros */
+    body.light-mode .section--dark,
+    body.light-mode .section--carbon,
+    body.light-mode .section--cream {
+      background: #F9F8F6;
+    }
+    body.light-mode #espacios {
+      background: #EFE9E3;
+    }
+    body.light-mode .navbar--solid,
+    body.light-mode .navbar.scrolled,
+    body.light-mode .navbar--always-solid {
+      background: rgba(245, 240, 232, .95);
+    }
+    body.light-mode .side-menu {
+      background: #F9F8F6;
+    }
+    body.light-mode .site-footer {
+      background: #F9F8F6;
+    }
+    body.light-mode .cta-band {
+      background: #EFE9E3;
+    }
+
+    /* Texto blanco → negro */
+    body.light-mode .navbar__logo-name,
+    body.light-mode .lang-selector__btn,
+    body.light-mode .lang-selector__option,
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close,
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a,
+    body.light-mode .cta-band__title,
+    body.light-mode .cta-band__sub,
+    body.light-mode .timeline-title,
+    body.light-mode .timeline-desc,
+    body.light-mode .audio-card__title,
+    body.light-mode .audio-card__num,
+    body.light-mode .audio-card__dur,
+    body.light-mode .pdf-name,
+    body.light-mode .pdf-size,
+    body.light-mode .gallery-popup__title,
+    body.light-mode .gallery-popup__body,
+    body.light-mode .gallery-popup__num {
+      color: #141210;
+    }
+
+    /* Separadores del side-menu */
+    body.light-mode .side-menu__nav-item {
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+
+    /* Section-titles con inline style */
+    body.light-mode .section--dark .section-title,
+    body.light-mode .section--carbon .section-title {
+      color: #141210 !important;
+    }
+
+    /* Footer bottom textos semitransparentes */
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a {
+      color: rgba(20, 18, 16, .5);
+    }
+
+    /* Hero title → mantener blanco en modo claro (fondo oscuro de foto) */
+    body.light-mode .page-hero__title {
+      color: var(--white);
+    }
+    body.light-mode .page-hero__title em {
+      color: var(--gold-lt);
+    }
+    body.light-mode .page-hero__eyebrow,
+    body.light-mode .page-hero__desc {
+      color: var(--white);
+    }
+
+    /* Infobar → fondo F5F0E8 en modo claro */
+    body.light-mode .info-bar {
+      background: #F5F0E8;
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+    body.light-mode .info-bar__val,
+    body.light-mode .info-bar__label,
+    body.light-mode .lamp-label,
+    body.light-mode .lamp-label strong {
+      color: #141210;
+    }
+
+    /* Galería → fondo F5F0E8 en modo claro */
+    body.light-mode #galeria {
+      background: #F5F0E8;
+    }
+
+    /* Section-title em → mantener color dorado en modo claro */
+    body.light-mode .section--dark .section-title em,
+    body.light-mode .section--carbon .section-title em {
+      color: var(--gold) !important;
+    }
+
+    /* Lang selector dropdown → fondo F5F0E8 en modo claro */
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245, 240, 232, .97);
+    }
+
+    /* Side-menu hover → dorado en modo claro */
+    body.light-mode .side-menu__nav-link:hover {
+      color: var(--gold);
+    }
+
+    /* Audio card y PDF card → estilos modo claro */
+    body.light-mode .audio-card {
+      background: rgb(119 72 0 / 4%);
+      border-width: 2px;
+    }
+    body.light-mode .audio-progress {
+      background: rgb(185 87 0 / 10%);
+    }
+    body.light-mode .pdf-card {
+      background: rgb(119 72 0 / 4%);
+      border-width: 2px;
+    }
+
+    /* Hamburger → negro en modo claro */
+    body.light-mode .hamburger-line {
+      background: #141210;
+    }
+
+    /* Hero overlay → más clara en modo claro */
+    body.light-mode .page-hero::after {
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.28) 45%,
+          rgba(14, 12, 10, 0.40) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.18) 40%,
+          transparent 70%);
+    }
+
+    /* Gallery — light mode overrides */
+    body.light-mode .gallery-slide__cap {
+      background: linear-gradient(to top, rgba(14, 12, 10, .42), transparent);
+    }
+    body.light-mode .gallery-nav {
+      border-color: rgba(20, 18, 16, .22);
+      color: #141210;
+      background: rgba(249, 248, 246, .6);
+    }
+    body.light-mode .gallery-nav:hover {
+      border-color: var(--gold-dk);
+      background: rgba(201, 168, 76, .12);
+      color: #141210;
+    }
+    body.light-mode .gallery-dot {
+      background: rgba(20, 18, 16, .15);
+    }
+    body.light-mode .gallery-popup-overlay {
+      background: rgba(180, 163, 140, .72);
+    }
+    body.light-mode .gallery-popup {
+      background: #F9F8F6;
+      border-color: rgba(140, 110, 50, .18);
+    }
+    body.light-mode .gallery-popup__close {
+      color: rgba(20, 18, 16, .38);
+    }
+    body.light-mode .gallery-popup__close:hover {
+      color: #141210;
+    }
+    body.light-mode .gallery-popup__divider {
+      background: linear-gradient(90deg, rgba(140, 110, 50, .25), transparent);
+    }
+    body.light-mode .gallery-popup__body p {
+      color: rgba(20, 18, 16, .72);
+    }
+    body.light-mode .gallery-popup__fact {
+      background: rgba(201, 168, 76, .07);
+      border-left-color: var(--gold-dk);
+    }
+    body.light-mode .gallery-popup__fact-text {
+      color: rgba(20, 18, 16, .58);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          Modo Claro / Oscuro
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" />
+            <line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR (sin hero fullscreen → always-solid) -->
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
+            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="lang-selector__dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span
+              class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
+              class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span
+              class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span
+              class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span
+              class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span
+              class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span
+              class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span
+              class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span
+              class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span
+              class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu">
+    <button class="side-menu__close" id="menu-close">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span
+              class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span
+              class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="../visitas/" class="side-menu__nav-link"><span
+              class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas/reservas.html" class="side-menu__nav-link"><span
+              class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="../actualidad/" class="side-menu__nav-link"><span
+              class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span
+              class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+        </svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="#">Política de privacidad</a><a href="#">Política de cookies</a><a href="#">Aviso legal</a><a
+        href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Monumentos · Torre Exenta</div>
+      <h1 class="page-hero__title" data-i18n-page="page_title">La <em>Torre</em><br>Exenta</h1>
+      <p class="page-hero__desc" data-i18n-page="page_desc">El campanario más alto de La Rioja. Un símbolo singular
+        de la Catedral que regala vistas únicas sobre la villa del Santo y el Camino de Santiago.</p>
+      <div class="page-hero__meta">
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_entrada">Entrada</span><span class="page-hero__meta-val">4 €</span></div>
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_horario">Horario</span><span class="page-hero__meta-val">10:00–14:00 /
+            16:00–20:00</span></div>
+        <div class="page-hero__meta-item"><span class="page-hero__meta-label"
+            data-i18n-page="meta_estilos">Estilos</span><span class="page-hero__meta-val">Barroco</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO BAR -->
+  <div class="info-bar">
+    <div class="info-bar__inner">
+      <div class="status-lamp">
+        <div class="lamp-dot" id="lamp-dot"></div><span class="lamp-label" id="lamp-label"></span>
+      </div>
+      <div class="info-bar__item">
+        <span class="info-bar__icon">🕐</span>
+        <div class="info-bar__text">
+          <span class="info-bar__label" id="infobar-day-label">Abierta hoy</span>
+          <span class="info-bar__val" id="infobar-hours">10:00–14:00 · 16:00–20:00 h</span>
+        </div>
+      </div>
+      <div class="info-bar__item">
+        <span class="info-bar__icon">📍</span>
+        <div class="info-bar__text">
+          <span class="info-bar__label" data-i18n-page="infobar_location_label">Ubicación</span>
+          <span class="info-bar__val">Plaza del Santo, 4 · Santo Domingo de la Calzada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HORARIOS Y TARIFAS -->
+  <section class="section section--white" id="horarios-tarifas">
+    <div class="section__inner">
+    <p class="eyebrow reveal" data-i18n-page="sec_ht_eyebrow">Visita</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+    <div class="ht-grid reveal reveal-delay-2">
+      <div>
+        <div class="ht-block__title" data-i18n-page="ht_schedule_title">Horarios de apertura</div>
+        <div class="ht-row">
+          <span class="ht-row__label" data-i18n-page="ht_lv">Todos los días<span class="ht-today-badge" id="badge-todos"
+              style="display:none">Hoy</span></span>
+          <span class="ht-row__val">10:00 – 14:00 · 16:00 – 20:00 h</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--stone);margin-top:20px;line-height:1.6" data-i18n-page="ht_note">La
+          Catedral permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30
+          minutos antes del cierre.</p>
+      </div>
+      <div>
+        <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
+        <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
+            class="ht-row__val ht-row__val--highlight">4 €</span></div>
+        <div class="ht-row">
+          <span class="ht-row__label">
+            <span data-i18n-page="ht_pilgrim">Peregrinos</span>
+            <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_pilgrim">Pulsera
+                turística: incluye acceso a los 4 monumentos. Acreditar debidamente con credencial oficial del Camino,
+                habiendo realizado por lo menos 4 etapas andando o en bicicleta.</span></span>
+          </span>
+          <span class="ht-row__val ht-row__val--highlight">5 € / persona</span>
+        </div>
+        <div class="ht-row">
+          <span class="ht-row__label">
+            <span data-i18n-page="ht_family">Entrada familiar</span>
+            <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_family">El precio
+                incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el número
+                de hijos.</span></span>
+          </span>
+          <span class="ht-row__val ht-row__val--highlight">25 €</span>
+        </div>
+        <div class="ht-row">
+          <span class="ht-row__label">
+            <span data-i18n-page="ht_children">Menores de 12 años</span>
+            <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_free">Acreditar
+                debidamente con carnet en taquillas.</span></span>
+          </span>
+          <span class="ht-row__val ht-row__val--free" data-i18n-page="ht_free">Gratuidad</span>
+        </div>
+        <div class="ht-row">
+          <span class="ht-row__label">
+            <span data-i18n-page="ht_residents">Residentes</span>
+            <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_free">Acreditar
+                debidamente con carnet en taquillas.</span></span>
+          </span>
+          <span class="ht-row__val ht-row__val--free" data-i18n-page="ht_free">Gratuidad</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section section--carbon" id="galeria">
+    <p class="eyebrow reveal" data-i18n-page="sec_gallery_eyebrow">Galería</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_gallery_title">La Torre y su <em>historia</em>
+    </h2>
+    <div class="gallery-wrap reveal reveal-delay-2" id="gallery">
+      <div class="gallery-track" id="gallery-track">
+
+        <!-- Slide 1 — La Torre Exenta -->
+        <div class="gallery-slide">
+          <img src="../assets/img/torre-exenta.webp" alt="La Torre Exenta" />
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">La Torre Exenta</span>
+            <span class="gallery-slide__cap-num">01/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(0)" aria-label="Saber más sobre la Torre Exenta">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 2 — Don Andrés de Porras -->
+        <div class="gallery-slide">
+          <img src="../assets/img/torre.webp" alt="Don Andrés de Porras" />
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Don Andrés de Porras</span>
+            <span class="gallery-slide__cap-num">02/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(1)"
+            aria-label="Saber más sobre Don Andrés de Porras">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 3 — Museo de Relojes y Campanas -->
+        <div class="gallery-slide">
+          <img src="../assets/img/nocturna.webp" alt="Museo de Relojes y Campanas" />
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">Museo de Relojes y Campanas</span>
+            <span class="gallery-slide__cap-num">03/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(2)"
+            aria-label="Saber más sobre el Museo de Relojes y Campanas">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+        <!-- Slide 4 — El Reloj de la Catedral -->
+        <div class="gallery-slide">
+          <img src="../assets/img/diurna.webp" alt="El Reloj de la Catedral" />
+          <div class="gallery-slide__cap">
+            <span class="gallery-slide__cap-title">El Reloj de la Catedral</span>
+            <span class="gallery-slide__cap-num">04/04</span>
+          </div>
+          <button class="gallery-info-btn" onclick="openGalleryPopup(3)"
+            aria-label="Saber más sobre el Reloj de la Catedral">
+            <span class="gallery-info-btn__icon">i</span>
+            <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
+          </button>
+        </div>
+
+      </div>
+      <button class="gallery-nav gallery-nav--prev" id="gallery-prev">‹</button>
+      <button class="gallery-nav gallery-nav--next" id="gallery-next">›</button>
+    </div>
+
+    <!-- POPUP OVERLAY para la galería -->
+    <div class="gallery-popup-overlay" id="gallery-popup-overlay" onclick="handlePopupOverlayClick(event)">
+      <div class="gallery-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+        <button class="gallery-popup__close" onclick="closeGalleryPopup()" aria-label="Cerrar">×</button>
+        <div class="gallery-popup__num" id="popup-num">01 / 10 · Galería</div>
+        <h3 class="gallery-popup__title" id="popup-title">Título</h3>
+        <div class="gallery-popup__subtitle" id="popup-subtitle">Subtítulo</div>
+        <div class="gallery-popup__divider"></div>
+        <div class="gallery-popup__body" id="popup-body"></div>
+        <div class="gallery-popup__fact" id="popup-fact">
+          <span class="gallery-popup__fact-icon">✦</span>
+          <span class="gallery-popup__fact-text" id="popup-fact-text"></span>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-dots" id="gallery-dots">
+      <div class="gallery-dot active"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="section section--cream">
+    <div class="section__inner">
+    <p class="eyebrow reveal" data-i18n-page="sec_hist_eyebrow">Arquitectura y Ingeniería</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_hist_title">Un <em>Coloso Barroco</em>: La Torre
+      de Santo Domingo de la Calzada</h2>
+    <div class="text-grid reveal reveal-delay-2">
+      <div>
+        <p class="text-grid__lead" data-i18n-page="hist_lead">Como un ave fénix tras el colapso y demolición de
+          estructuras anteriores, la actual torre exenta, financiada por el obispo Don Andrés de Porras y Temes, se alza
+          sobre los terrenos de la antigua cárcel real. Esta ubicación estratégica, diseñada por Martín de Beratúa,
+          evitó los problemas de cimentación crónicos del pasado.</p>
+        <p class="text-grid__body" data-i18n-page="hist_body1">Su ingeniosa cimentación de cal, arena y cuernos de
+          vacuno, junto con sus 70 metros de altura, la convierten en una obra maestra del barroco riojano. Se
+          caracteriza por tres cuerpos principales y un remate dinámico. Se conservan detalles únicos, como la muesca
+          para el tejado de la Casa del Campanero.</p>
+        <ul class="highlight-list" style="margin-top:24px">
+          <li data-i18n-page="hist_li1">Localización exenta y única.</li>
+          <li data-i18n-page="hist_li2">70 metros de altura y 8 campanas históricas.</li>
+          <li data-i18n-page="hist_li3">Cimentación con mortero de cal, arena y cuernos de vacuno.</li>
+          <li data-i18n-page="hist_li4">El reloj de Martín Pasco (s. XVIII) con engranaje original activo.</li>
+          <li data-i18n-page="hist_li5">La Casa del Campanero: un museo del tiempo y el sonido.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-grid__quote">
+          <p data-i18n-page="hist_quote1">"El tiempo, desde aquí, tiene voz de campana y pulso de hierro."</p>
+          <cite data-i18n-page="hist_cite1">— DESCRIPCIÓN POÉTICA DE LA TORRE</cite>
+        </div>
+        <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body3">A los pies de la torre exenta
+          se encuentra la Casa del Campanero, un edificio de diseño unificado que albergaba al encargado del
+          mantenimiento de la torre. Desde 2018, este espacio acoge un singular Museo de Relojes y Campanas.</p>
+        <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body4">El museo ofrece una visión del
+          proceso de fabricación de campanas y una extensa colección de maquinarias, desde cuadrantes solares hasta
+          sofisticados mecanismos mecánicos, con piezas de gran diversidad.</p>
+        <div class="text-grid__quote">
+          <p data-i18n-page="hist_quote2">¿Sabías que el reloj de la torre es el único original y activo de las
+            catedrales de España?</p>
+          <cite data-i18n-page="hist_cite2">— CURIOSIDAD SOBRE EL RELOJ DE TORRE</cite>
+        </div>
+        <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body5">Su maquinaria del s. XVIII,
+          obra de Martín Pasco, sigue funcionando gracias a dos grandes pesas remontadas manualmente cada semana,
+          manteniendo viva una tradición centenaria.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section section--dark">
+    <div class="section__inner">
+    <p class="eyebrow reveal" data-i18n-page="sec_time_eyebrow">Cronología</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">El pulso
+      de la <em>torre</em></h2>
+    <div class="timeline reveal reveal-delay-2">
+      <div class="timeline-item">
+        <div class="timeline-year">1450</div>
+        <div>
+          <div class="timeline-title" data-i18n-page="tl1_title">El fin de la primera torre</div>
+          <div class="timeline-desc" data-i18n-page="tl1_desc">Un rayo destruye el campanario original, situado sobre el
+            actual gallinero, marcando el inicio de una accidentada historia arquitectónica.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1758</div>
+        <div>
+          <div class="timeline-title" data-i18n-page="tl2_title">El proyecto fallido</div>
+          <div class="timeline-desc" data-i18n-page="tl2_desc">El obispo Andrés de Porras inicia una nueva torre sobre
+            la portada sur, pero problemas críticos de cimentación obligan a Martín de Beratúa a desmontarla en 1761.
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1762</div>
+        <div>
+          <div class="timeline-title" data-i18n-page="tl3_title">Nacimiento de la torre exenta</div>
+          <div class="timeline-desc" data-i18n-page="tl3_desc">Comienzan las obras en su ubicación actual, los terrenos
+            de la antigua cárcel real, utilizando una innovadora cimentación con cuernos de vacuno para ganar
+            estabilidad.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1767</div>
+        <div>
+          <div class="timeline-title" data-i18n-page="tl4_title">Culminación de la "Moza de la Rioja"</div>
+          <div class="timeline-desc" data-i18n-page="tl4_desc">Finalizan los trabajos de la torre barroca. Con sus 70
+            metros, se consolida como la más esbelta de la región y un hito para los peregrinos del Camino.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2018</div>
+        <div>
+          <div class="timeline-title" data-i18n-page="tl5_title">Museo de Relojes y Campanas</div>
+          <div class="timeline-desc" data-i18n-page="tl5_desc">Se inaugura el espacio museístico en la Casa del
+            Campanero, rehabilitando las estancias donde se custodiaba el tiempo y el sonido de la ciudad.</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA AUTOPLAY -->
+  <section class="section section--carbon" id="espacios">
+    <p class="eyebrow reveal" data-i18n-page="sec_spaces_eyebrow">Espacios</p>
+    <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_spaces_title">Cada rincón, una <em>obra
+        maestra</em></h2>
+
+    <div class="img-scroll-track">
+      <div class="img-scroll-item img-scroll-item--wide">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_reloj_museo">Reloj del museo · Casa del Campanero
+        </div>
+      </div>
+      <div class="img-scroll-item img-scroll-item--sq">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_campana_museo">Campana del museo · Colección histórica
+        </div>
+      </div>
+      <div class="img-scroll-item img-scroll-item--sq">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_lauda">Lauda de Andrés de Porras y Temes · s. XVIII
+        </div>
+      </div>
+      <div class="img-scroll-item img-scroll-item--wide">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_reloj_torre">Reloj de la torre · Maquinaria Pasco
+        </div>
+      </div>
+      <div class="img-scroll-item img-scroll-item--sq">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_campanario">Campanario · 70 metros de altura</div>
+      </div>
+      <div class="img-scroll-item img-scroll-item--sq">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_pinaculos">Pináculos y gárgolas · Remate barroco</div>
+      </div>
+      <div class="img-scroll-item img-scroll-item--wide">
+        <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+        <div class="img-scroll-item__caption" data-i18n-page="cap_vistas">Vistas panorámicas · El Camino desde lo alto
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIOGUÍAS + PDFs — dos columnas -->
+  <section class="section section--dark">
+    <div class="section__inner">
+    <div class="audio-pdf-row">
+
+      <!-- Columna izquierda: Audioguías -->
+      <div class="audio-pdf-col">
+        <p class="eyebrow reveal" data-i18n-page="sec_audio_eyebrow">Audioguías</p>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_audio_title" style="color:var(--white)">
+          Descubre
+          cada <em>espacio</em></h2>
+        <p class="audio-pdf-col__desc reveal reveal-delay-2" data-i18n-page="sec_audio_desc">Déjate guiar por la torre
+          barroca. Cada parada en tu visita, desvela la historia, el arte y la leyenda que encierran sus muros.</p>
+        <div class="audio-info-row">
+          <p class="eyebrow reveal reveal-info" data-i18n-page="audio_q">¿Dónde puedo encontrar todas las audioguías?
+          </p>
+          <span class="audio-info-wrap audio-pdf-col__desc reveal reveal-delay-2">
+            <span class="audio-info-icon" id="audio-info-trigger" tabindex="0"
+              aria-label="Información sobre disponibilidad">i</span>
+            <span class="audio-info-tooltip">
+              <span class="audio-info-tooltip__icon">🎧</span>
+              <span class="audio-info-tooltip__text" data-i18n-page="tooltip_monuments">Disponibles en la visita a
+                nuestros monumentos.</span>
+            </span>
+          </span>
+        </div>
+        <div class="audio-grid reveal reveal-delay-2">
+          <div class="audio-card" onclick="toggleAudio(this,0)">
+            <audio id="audio-0" src="../assets/audio/esp/Gallinero-Milagro_ESP.flac" preload="none"></audio>
+            <div class="audio-card__num" data-i18n-page="audio_card_tag">Audioguía de prueba • Disponible</div>
+            <div class="audio-card__title" data-i18n-page="audio_card_title">La Moza de Santo Domingo</div>
+            <div class="audio-card__dur" data-i18n-page="audio_card_dur">0 min 38 s</div>
+            <div class="audio-player"><button class="audio-play-btn">▶</button>
+              <div class="audio-progress">
+                <div class="audio-progress__fill"></div>
+              </div><span class="audio-time">00:38</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Documentación -->
+      <div class="audio-pdf-col">
+        <p class="eyebrow reveal" data-i18n-page="sec_pdf_eyebrow">Documentación</p>
+        <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_pdf_title">Folletos y <em>guías en PDF</em>
+        </h2>
+        <p class="audio-pdf-col__desc reveal reveal-delay-2" data-i18n-page="sec_pdf_desc">Visita nuestros monumentos
+          para que puedas descubrir
+          nuestro verdadero legado con las audioguías y folletos guía digitales. Disponibles en 7 idiomas escanenando un
+          código
+          QR, con planos, rutas y descripción de las obras en cada uno de los monumentos.</p>
+        <div class="audio-info-row">
+          <p class="eyebrow reveal reveal-info" data-i18n-page="pdf_q">¿Dónde puedo encontrar todos los folletos?</p>
+          <span class="pdf-info-wrap audio-pdf-col__desc reveal reveal-delay-2">
+            <span class="pdf-info-icon" id="audio-info-trigger" tabindex="0"
+              aria-label="Información sobre disponibilidad">i</span>
+            <span class="pdf-info-tooltip">
+              <span class="pdf-info-tooltip__icon">📄</span>
+              <span class="pdf-info-tooltip__text" data-i18n-page="tooltip_monuments">Disponibles en la visita a
+                nuestros monumentos.</span>
+            </span>
+          </span>
+        </div>
+        <div class="pdf-grid reveal reveal-delay-2">
+          <div class="pdf-card" id="pdf-card-main">
+            <div class="pdf-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                  fill="#E5251C" stroke="#E5251C" stroke-width="0.5" stroke-linejoin="round" />
+                <path d="M14 2V8H20" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700"
+                  font-size="5.5" fill="#fff" letter-spacing="0.3">PDF</text>
+              </svg>
+            </div>
+            <div class="pdf-info">
+              <div class="audio-card__num" data-i18n-page="pdf_card_tag">Folleto de la Torre • No Disponible</div>
+              <div class="pdf-name" data-i18n-page="pdf_card_name">Guía de visita — Español</div>
+              <div class="pdf-size">PDF · 4.2 MB</div>
+            </div>
+            <span class="pdf-dl">↓</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <div class="section__inner">
+      <div>
+        <h3 class="cta-band__title" data-i18n-page="cta_title">Reserva tu visita a la <em>Torre</em></h3>
+        <p class="cta-band__sub" data-i18n-page="cta_sub">Adquiere tu entrada online y evita colas. Disponible para la
+          subida al campanario, visita de museo de relojes y campanas y pulsera turística.</p>
+      </div>
+      <a href="../reservas/reservas.html" class="cta-band__btn" data-i18n-page="cta_btn">Comprar entradas →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="section__inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del
+          Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+            </svg></a>
+          <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg></a>
+          <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24">
+              <path
+                d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+            </svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="../reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+          <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
+          <li><a href="../actualidad/" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
+        Rioja · España</span>
+      <div class="footer-bottom__links"><a href="#" data-i18n="footer_legal_1">Aviso legal</a><a href="#"
+          data-i18n="footer_legal_2">Privacidad</a><a href="#" data-i18n="footer_legal_3">Cookies</a><a href="#"
+          data-i18n="footer_legal_4">Accesibilidad</a></div>
+    </div>
+    </div>
+  </footer>
+
+  <!-- SHARED JS -->
+  <script src="../assets/shared.js"></script>
+  <script>
+    /* ── Traducciones específicas de esta página ─────────────────── */
+    const PAGE_T = {
+      es: {
+        page_eyebrow: 'Torre más alta de La Rioja', page_title: 'La <em>Torre</em><br>de Santo Domingo', page_desc: 'Faro de piedra que guía desde hace siglos a peregrinos y viajeros, combinando la solidez de su arquitectura barroca con la elegancia de sus proporciones.', meta_entrada: 'Entrada', meta_horario: 'Horario', meta_estilos: 'Estilos',
+        infobar_location_label: 'Ubicación',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horarios y <em>tarifas</em>', ht_schedule_title: 'Horarios de apertura', ht_lv: 'Todos los días', ht_sat: 'Sábados', ht_note: 'La Torre permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30 minutos antes del cierre.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Ticket general', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 personas', ht_group_small: 'Grupos &lt; 25 personas', ht_family: 'Entrada familiar', ht_children: 'Menores de 12 años', ht_residents: 'Residentes', ht_free: 'Gratuidad', tip_pilgrim: 'Pulsera turística: incluye acceso a los 4 monumentos. Acreditar debidamente con credencial oficial del Camino, habiendo realizado por lo menos 4 etapas andando o en bicicleta.', tip_group: 'Esta entrada incluye el acceso a todos los monumentos de Santo Domingo de la Calzada con la pulsera turística.', tip_family: 'El precio incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el número de hijos.', tip_free: 'Acreditar debidamente con carnet en taquillas.',
+        sec_gallery_eyebrow: 'Galería', sec_gallery_title: 'La Torre y su <em>historia</em>',
+        gal_btn: 'Saber más', gal_cap_1: 'Gallinero Gótico', gal_cap_2: 'Triforio y Girola', gal_cap_3: 'Retablo Mayor', gal_cap_4: 'Sepulcro del Santo', gal_cap_5: 'Ábside Románico', gal_cap_6: 'Tríptico Flamenco',
+        sec_hist_eyebrow: 'Arquitectura y Ingeniería', sec_hist_title: 'Un <em>Coloso Barroco</em>: La Torre de Santo Domingo de la Calzada',
+        hist_lead: 'Como un ave fénix tras el colapso y demolición de estructuras anteriores, la actual torre exenta, financiada por el obispo Don Andrés de Porras y Temes, se alza sobre los terrenos de la antigua cárcel real. Esta ubicación estratégica, diseñada por Martín de Beratúa, evitó los problemas de cimentación crónicos del pasado.',
+        hist_body1: 'Su ingeniosa cimentación de cal, arena y cuernos de vacuno, junto con sus 70 metros de altura, la convierten en una obra maestra del barroco riojano. Se caracteriza por tres cuerpos principales y un remate dinámico. Se conservan detalles únicos, como la muesca para el tejado de la Casa del Campanero.',
+        hist_body2: '',
+        hist_li1: 'Localización exenta y única.', hist_li2: '70 metros de altura y 8 campanas históricas.', hist_li3: 'Cimentación con mortero de cal, arena y cuernos de vacuno.', hist_li4: 'El reloj de Martín Pasco (s. XVIII) con engranaje original activo.', hist_li5: 'La Casa del Campanero: un museo del tiempo y el sonido.',
+        hist_quote1: '"El tiempo, desde aquí, tiene voz de campana y pulso de hierro."', hist_cite1: '— DESCRIPCIÓN POÉTICA DE LA TORRE',
+        hist_body3: 'A los pies de la torre exenta se encuentra la Casa del Campanero, un edificio de diseño unificado que albergaba al encargado del mantenimiento de la torre. Desde 2018, este espacio acoge un singular Museo de Relojes y Campanas.',
+        hist_body4: 'El museo ofrece una visión del proceso de fabricación de campanas y una extensa colección de maquinarias, desde cuadrantes solares hasta sofisticados mecanismos mecánicos, con piezas de gran diversidad.',
+        hist_quote2: '¿Sabías que el reloj de la torre es el único original y activo de las catedrales de España?', hist_cite2: '— CURIOSIDAD SOBRE EL RELOJ DE TORRE',
+        hist_body5: 'Su maquinaria del s. XVIII, obra de Martín Pasco, sigue funcionando gracias a dos grandes pesas remontadas manualmente cada semana, manteniendo viva una tradición centenaria.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronología', sec_time_title: 'El pulso de la <em>torre</em>',
+        tl1_title: 'El fin de la primera torre', tl1_desc: 'Un rayo destruye el campanario original, situado sobre el actual gallinero, marcando el inicio de una accidentada historia arquitectónica.',
+        tl2_title: 'El proyecto fallido', tl2_desc: 'El obispo Andrés de Porras inicia una nueva torre sobre la portada sur, pero problemas críticos de cimentación obligan a Martín de Beratúa a desmontarla en 1761.',
+        tl3_title: 'Nacimiento de la torre exenta', tl3_desc: 'Comienzan las obras en su ubicación actual, los terrenos de la antigua cárcel real, utilizando una innovadora cimentación con cuernos de vacuno para ganar estabilidad.',
+        tl4_title: 'Culminación de la "Moza de la Rioja"', tl4_desc: 'Finalizan los trabajos de la torre barroca. Con sus 70 metros, se consolida como la más esbelta de la región y un hito para los peregrinos del Camino.',
+        tl5_title: 'Museo de Relojes y Campanas', tl5_desc: 'Se inaugura el espacio museístico en la Casa del Campanero, rehabilitando las estancias donde se custodiaba el tiempo y el sonido de la ciudad.',
+        sec_spaces_eyebrow: 'Espacios', sec_spaces_title: 'Cada rincón, una <em>obra maestra</em>',
+        cap_reloj_museo: 'Reloj del museo · Casa del Campanero', cap_campana_museo: 'Campana del museo · Colección histórica', cap_lauda: 'Lauda de Andrés de Porras y Temes · s. XVIII', cap_reloj_torre: 'Reloj de la torre · Maquinaria Pasco', cap_campanario: 'Campanario · 70 metros de altura', cap_pinaculos: 'Pináculos y gárgolas · Remate barroco', cap_vistas: 'Vistas panorámicas · El Camino desde lo alto',
+        sec_audio_eyebrow: 'Audioguías', sec_audio_title: 'Descubre cada <em>espacio</em>', sec_audio_desc: 'Déjate guiar por la torre barroca. Cada parada en tu visita, desvela la historia, el arte y la leyenda que encierran sus muros.',
+        audio_q: '¿Dónde puedo encontrar todas las audioguías?', tooltip_monuments: 'Disponibles en la visita a nuestros monumentos.',
+        audio_card_tag: 'Audioguía de prueba • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentación', sec_pdf_title: 'Folletos y <em>guías en PDF</em>', sec_pdf_desc: 'Visita nuestros monumentos para descubrir nuestro verdadero legado con audioguías y folletos digitales. Disponibles en 7 idiomas escaneando un código QR.',
+        pdf_q: '¿Dónde puedo encontrar todos los folletos?', pdf_card_tag: 'Folleto de la Torre • No Disponible', pdf_card_name: 'Guía de visita — Español',
+        cta_title: 'Reserva tu visita a la <em>Torre</em>', cta_sub: 'Adquiere tu entrada online y evita colas. Disponible para la subida al campanario, visita de museo de relojes y campanas y pulsera turística.', cta_btn: 'Comprar entradas →'
+      },
+      en: {
+        page_eyebrow: 'Monuments · Main monument', page_title: 'The <em>Cathedral</em><br>of Santo Domingo', page_desc: 'A jewel of Riojan Romanesque-Gothic style. Eight centuries of history at the heart of the French Way.', meta_entrada: 'Admission', meta_horario: 'Hours', meta_estilos: 'Styles',
+        infobar_location_label: 'Location',
+        sec_ht_eyebrow: 'Visit', sec_ht_title: 'Hours & <em>admission</em>', ht_schedule_title: 'Opening hours', ht_lv: 'Every day', ht_sat: 'Saturdays', ht_note: 'The Tower is open every day of the year, including public holidays. Last admissions 30 min before closing.', ht_prices_title: 'Admission prices', ht_general: 'General ticket', ht_pilgrim: 'Pilgrims', ht_group_big: 'Groups &gt; 25 people', ht_group_small: 'Groups &lt; 25 people', ht_family: 'Family ticket', ht_children: 'Under 12', ht_residents: 'Residents', ht_free: 'Free', tip_pilgrim: 'Tourist wristband: includes access to all 4 monuments. Must present official Camino credential showing at least 4 stages walked or cycled.', tip_group: 'This ticket includes access to all monuments in Santo Domingo de la Calzada with the tourist wristband.', tip_family: 'Price covers entry to all monuments for the whole family, regardless of the number of children.', tip_free: 'Please show valid ID at the ticket office.',
+        sec_gallery_eyebrow: 'Gallery', sec_gallery_title: 'The Tower and its <em>history</em>',
+        gal_btn: 'Learn more', gal_cap_1: 'Gothic Hen House', gal_cap_2: 'Triforium & Ambulatory', gal_cap_3: 'Main Altarpiece', gal_cap_4: 'Tomb of the Saint', gal_cap_5: 'Romanesque Apse', gal_cap_6: 'Flemish Triptych',
+        sec_hist_eyebrow: 'Architecture & Engineering', sec_hist_title: 'A <em>Baroque Colossus</em>: The Tower of Santo Domingo de la Calzada',
+        hist_lead: 'Like a phoenix rising from the collapse and demolition of earlier structures, the current freestanding tower — funded by Bishop Don Andrés de Porras y Temes — stands on the grounds of the former royal prison. This strategic location, designed by Martín de Beratúa, avoided the chronic foundation problems of the past.',
+        hist_body1: 'Its ingenious mortar of lime, sand and cattle horn, combined with its 70-metre height, make it a masterpiece of Riojan Baroque. It features three main sections crowned by a dynamic finial. Unique details survive, such as the notch in the tower wall marking the original roofline of the Bell-Keeper\'s House.',
+        hist_body2: '',
+        hist_li1: 'Freestanding and unique location.', hist_li2: '70 metres tall with 8 historic bells.', hist_li3: 'Foundation mortar of lime, sand and cattle horn.', hist_li4: 'Martín Pasco\'s clock (18th c.) with its original mechanism still active.', hist_li5: 'The Bell-Keeper\'s House: a museum of time and sound.',
+        hist_quote1: '"From here, time speaks with the voice of a bell and the pulse of iron."', hist_cite1: '— POETIC DESCRIPTION OF THE TOWER',
+        hist_body3: 'At the foot of the freestanding tower stands the Bell-Keeper\'s House, a building designed in aesthetic harmony with the tower to house the custodian responsible for its upkeep. Since 2018, this space has been home to a unique Museum of Clocks and Bells.',
+        hist_body4: 'The museum offers an insight into the bell-casting process and houses an impressive collection of timepieces — from ancient sundials to sophisticated mechanical movements — spanning great diversity in origin and period.',
+        hist_quote2: 'Did you know the tower clock is the only original, fully active one in a Spanish cathedral?', hist_cite2: '— CURIOSITY ABOUT THE TOWER CLOCK',
+        hist_body5: 'Its 18th-century mechanism, forged by Martín Pasco, keeps running thanks to two large weights wound by hand every week, keeping a centuries-old tradition alive.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Timeline', sec_time_title: 'The pulse of the <em>tower</em>',
+        tl1_title: 'The end of the first tower', tl1_desc: 'A lightning strike destroys the original bell tower, located above the present hen house, marking the beginning of a troubled architectural history.',
+        tl2_title: 'The failed project', tl2_desc: 'Bishop Andrés de Porras begins a new tower over the south portal, but critical foundation problems force Martín de Beratúa to dismantle it in 1761.',
+        tl3_title: 'Birth of the freestanding tower', tl3_desc: 'Construction begins at its current location, on the grounds of the former royal prison, using an innovative foundation with cattle horns for stability.',
+        tl4_title: 'Completion of the "Moza de la Rioja"', tl4_desc: 'Work on the Baroque tower concludes. Standing 70 metres tall, it becomes the most slender in the region and a landmark for Camino pilgrims.',
+        tl5_title: 'Clock and Bell Museum', tl5_desc: 'The museum space opens in the Casa del Campanero, restoring the rooms where the time and sound of the city were once kept.',
+        sec_spaces_eyebrow: 'Spaces', sec_spaces_title: 'Every corner, a <em>masterpiece</em>',
+        cap_reloj_museo: 'Museum clock · Casa del Campanero', cap_campana_museo: 'Museum bell · Historic collection', cap_lauda: 'Lauda of Andrés de Porras y Temes · 18th c.', cap_reloj_torre: 'Tower clock · Pasco machinery', cap_campanario: 'Bell tower · 70 metres tall', cap_pinaculos: 'Pinnacles and gargoyles · Baroque crown', cap_vistas: 'Panoramic views · The Camino from above',
+        sec_audio_eyebrow: 'Audio guides', sec_audio_title: 'Discover every <em>space</em>', sec_audio_desc: 'Let the Baroque tower guide you. Each stop on your visit reveals the history, art and legend enclosed within its walls.',
+        audio_q: 'Where can I find all the audio guides?', tooltip_monuments: 'Available during your visit to our monuments.',
+        audio_card_tag: 'Sample audio guide • Available', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures & <em>PDF guides</em>', sec_pdf_desc: 'Visit our monuments to discover our true heritage with digital audio guides and brochures. Available in 7 languages by scanning a QR code.',
+        pdf_q: 'Where can I find all the brochures?', pdf_card_tag: 'Tower Brochure • Not Available', pdf_card_name: 'Visit guide — English',
+        cta_title: 'Book your visit to the <em>Tower</em>', cta_sub: 'Buy your ticket online and skip the queues. Available for bell tower climb, Clock and Bell Museum visit, and tourist wristband.', cta_btn: 'Buy tickets →'
+      },
+      fr: {
+        page_eyebrow: 'Monuments · Monument principal', page_title: 'La <em>Cathédrale</em><br>de Santo Domingo', page_desc: 'Joyau romano-gothique riojano. Huit siècles d\'histoire au cœur du Chemin Français.', meta_entrada: 'Entrée', meta_horario: 'Horaires', meta_estilos: 'Styles',
+        infobar_location_label: 'Emplacement',
+        sec_ht_eyebrow: 'Visite', sec_ht_title: 'Horaires et <em>tarifs</em>', ht_schedule_title: 'Horaires d\'ouverture', ht_lv: 'Tous les jours', ht_sat: 'Samedis', ht_note: 'La Tour est ouverte tous les jours, y compris les jours fériés. Dernières entrées 30 min avant la fermeture.', ht_prices_title: 'Tarifs d\'entrée', ht_general: 'Billet général', ht_pilgrim: 'Pèlerins', ht_group_big: 'Groupes &gt; 25 personnes', ht_group_small: 'Groupes &lt; 25 personnes', ht_family: 'Billet famille', ht_children: 'Moins de 12 ans', ht_residents: 'Résidents', ht_free: 'Gratuit', tip_pilgrim: 'Bracelet touristique : inclut l\'accès aux 4 monuments. Présenter la crédentiale officielle du Chemin, avec au moins 4 étapes à pied ou à vélo.', tip_group: 'Ce billet inclut l\'accès à tous les monuments avec le bracelet touristique.', tip_family: 'Le prix comprend l\'entrée à tous les monuments pour toute la famille.', tip_free: 'Présenter une pièce d\'identité valide aux guichets.',
+        sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'La Tour et son <em>histoire</em>',
+        gal_btn: 'En savoir plus', gal_cap_1: 'Le Poulailler Gothique', gal_cap_2: 'Triforium et Déambulatoire', gal_cap_3: 'Retable Majeur', gal_cap_4: 'Sépulcre du Saint', gal_cap_5: 'Abside Romane', gal_cap_6: 'Triptyque Flamand',
+        sec_hist_eyebrow: 'Architecture & Ingénierie', sec_hist_title: 'Un <em>Colosse Baroque</em> : La Tour de Santo Domingo de la Calzada',
+        hist_lead: 'Telle un phénix renaissant de l\'effondrement et de la démolition des structures précédentes, l\'actuelle tour exempte — financée par l\'évêque Don Andrés de Porras y Temes — s\'élève sur les terrains de l\'ancienne prison royale. Cet emplacement stratégique, conçu par Martín de Beratúa, a permis d\'éviter les problèmes chroniques de fondation du passé.',
+        hist_body1: 'Sa fondation ingénieuse de chaux, de sable et de cornes de bovins, alliée à ses 70 mètres de hauteur, en font un chef-d\'œuvre du baroque riojano. Elle se compose de trois corps principaux couronnés d\'un amortissement dynamique. Des détails uniques subsistent, comme l\'encoche dans le mur de la tour marquant le toit d\'origine de la Maison du Sonneur.',
+        hist_body2: '',
+        hist_li1: 'Localisation exempte et unique.', hist_li2: '70 mètres de hauteur et 8 cloches historiques.', hist_li3: 'Fondation en mortier de chaux, sable et cornes de bovins.', hist_li4: 'Horloge de Martín Pasco (XVIIIe s.) avec mécanisme d\'origine en activité.', hist_li5: 'La Maison du Sonneur : un musée du temps et du son.',
+        hist_quote1: '"D\'ici, le temps parle avec la voix d\'une cloche et le pouls du fer."', hist_cite1: '— DESCRIPTION POÉTIQUE DE LA TOUR',
+        hist_body3: 'Au pied de la tour exempte se trouve la Maison du Sonneur, un édifice conçu en harmonie esthétique avec la tour pour loger le gardien chargé de son entretien. Depuis 2018, cet espace abrite un singulier Musée des Horloges et des Cloches.',
+        hist_body4: 'Le musée offre un aperçu du processus de fabrication des cloches et une impressionnante collection de mécanismes horlogers — des cadrans solaires aux mouvements mécaniques sophistiqués — d\'une grande diversité d\'origines.',
+        hist_quote2: 'Saviez-vous que l\'horloge de la tour est la seule originale et active dans une cathédrale espagnole ?', hist_cite2: '— CURIOSITÉ SUR L\'HORLOGE DE LA TOUR',
+        hist_body5: 'Son mécanisme du XVIIIe siècle, forgé par Martín Pasco, continue de fonctionner grâce à deux grandes masses remontées à la main chaque semaine, perpétuant une tradition séculaire.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Chronologie', sec_time_title: 'Le pouls de la <em>tour</em>',
+        tl1_title: 'La fin du premier clocher', tl1_desc: 'La foudre détruit le clocher original, situé au-dessus de l\'actuel poulailler, marquant le début d\'une histoire architecturale mouvementée.',
+        tl2_title: 'Le projet avorté', tl2_desc: 'L\'évêque Andrés de Porras lance une nouvelle tour au-dessus du portail sud, mais des problèmes critiques de fondation obligent Martín de Beratúa à la démonter en 1761.',
+        tl3_title: 'Naissance de la tour indépendante', tl3_desc: 'Les travaux commencent à l\'emplacement actuel, sur le terrain de l\'ancienne prison royale, avec une fondation innovante utilisant des cornes de bovins pour plus de stabilité.',
+        tl4_title: 'Achèvement de la "Moza de la Rioja"', tl4_desc: 'Les travaux de la tour baroque s\'achèvent. Avec ses 70 mètres, elle devient la plus élancée de la région et un repère pour les pèlerins du Camino.',
+        tl5_title: 'Musée des Horloges et des Cloches', tl5_desc: 'L\'espace muséal ouvre dans la Casa del Campanero, réhabilitant les salles où le temps et le son de la ville étaient autrefois gardés.',
+        sec_spaces_eyebrow: 'Espaces', sec_spaces_title: 'Chaque recoin, un <em>chef-d\'œuvre</em>',
+        cap_reloj_museo: 'Horloge du musée · Casa del Campanero', cap_campana_museo: 'Cloche du musée · Collection historique', cap_lauda: 'Lauda d\'Andrés de Porras y Temes · XVIIIe s.', cap_reloj_torre: 'Horloge de la tour · Mécanisme Pasco', cap_campanario: 'Clocher · 70 mètres de hauteur', cap_pinaculos: 'Pinacles et gargouilles · Couronnement baroque', cap_vistas: 'Vues panoramiques · Le Chemin vu d\'en haut',
+        sec_audio_eyebrow: 'Audioguides', sec_audio_title: 'Découvrez chaque <em>espace</em>', sec_audio_desc: 'Laissez-vous guider par la tour baroque. Chaque arrêt de votre visite révèle l\'histoire, l\'art et la légende que renferment ses murs.',
+        audio_q: 'Où puis-je trouver tous les audioguides ?', tooltip_monuments: 'Disponibles lors de la visite de nos monuments.',
+        audio_card_tag: 'Audioguide d\'essai • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures et <em>guides PDF</em>', sec_pdf_desc: 'Visitez nos monuments pour découvrir notre véritable héritage avec des audioguides et des brochures numériques. Disponibles en 7 langues en scannant un QR code.',
+        pdf_q: 'Où puis-je trouver toutes les brochures ?', pdf_card_tag: 'Brochure de la Tour • Non disponible', pdf_card_name: 'Guide de visite — Français',
+        cta_title: 'Réservez votre visite à la <em>Tour</em>', cta_sub: 'Achetez votre billet en ligne et évitez les files. Disponible pour la montée au clocher, la visite du musée des horloges et cloches, et le bracelet touristique.', cta_btn: 'Acheter des billets →'
+      },
+      de: {
+        page_eyebrow: 'Denkmäler · Hauptdenkmal', page_title: 'Die <em>Kathedrale</em><br>von Santo Domingo', page_desc: 'Ein Juwel des romanisch-gotischen Stils. Acht Jahrhunderte Geschichte im Herzen des Jakobsweges.', meta_entrada: 'Eintritt', meta_horario: 'Öffnungszeiten', meta_estilos: 'Stile',
+        infobar_location_label: 'Standort',
+        sec_ht_eyebrow: 'Besuch', sec_ht_title: 'Öffnungszeiten & <em>Preise</em>', ht_schedule_title: 'Öffnungszeiten', ht_lv: 'Täglich', ht_sat: 'Samstage', ht_note: 'Der Turm ist täglich geöffnet, auch an Feiertagen. Letzter Einlass 30 Min. vor Schließung.', ht_prices_title: 'Eintrittspreise', ht_general: 'Normaleintritt', ht_pilgrim: 'Pilger', ht_group_big: 'Gruppen &gt; 25 Personen', ht_group_small: 'Gruppen &lt; 25 Personen', ht_family: 'Familienticket', ht_children: 'Unter 12 Jahre', ht_residents: 'Einwohner', ht_free: 'Kostenlos', tip_pilgrim: 'Tourismusarmband: Zugang zu allen 4 Denkmälern. Offiziellen Pilgerausweis mit mindestens 4 Etappen zu Fuß oder per Fahrrad vorzeigen.', tip_group: 'Dieses Ticket beinhaltet den Zugang zu allen Denkmälern mit dem Tourismusarmband.', tip_family: 'Preis gilt für die gesamte Familie, unabhängig von der Kinderanzahl.', tip_free: 'Bitte gültigen Ausweis an der Kasse vorzeigen.',
+        sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'Der Turm und seine <em>Geschichte</em>',
+        gal_btn: 'Mehr erfahren', gal_cap_1: 'Gotischer Hühnerstall', gal_cap_2: 'Triforium und Umgang', gal_cap_3: 'Hauptretabel', gal_cap_4: 'Grabmal des Heiligen', gal_cap_5: 'Romanische Apsis', gal_cap_6: 'Flämisches Triptychon',
+        sec_hist_eyebrow: 'Architektur & Ingenieurskunst', sec_hist_title: 'Ein <em>barocker Koloss</em>: Der Turm von Santo Domingo de la Calzada',
+        hist_lead: 'Wie ein Phönix aus der Asche nach dem Zusammenbruch und Abriss früherer Strukturen erhebt sich der heutige freistehende Turm — finanziert von Bischof Don Andrés de Porras y Temes — auf dem Gelände des ehemaligen königlichen Gefängnisses. Dieser strategische Standort, entworfen von Martín de Beratúa, vermied die chronischen Fundamentprobleme der Vergangenheit.',
+        hist_body1: 'Sein ingeniöses Fundament aus Kalk, Sand und Rinderknochen macht ihn zusammen mit seinen 70 Metern Höhe zu einem Meisterwerk des riojanischen Barocks. Er gliedert sich in drei Hauptkörper, die von einem dynamischen Abschluss bekrönt werden. Einzigartige Details sind erhalten, wie die Kerbe in der Turmwand, die den ursprünglichen Dachansatz des Glöcknershauses markiert.',
+        hist_body2: '',
+        hist_li1: 'Freistehendes und einzigartiges Bauwerk.', hist_li2: '70 Meter Höhe und 8 historische Glocken.', hist_li3: 'Fundament aus Kalk, Sand und Rinderknochen.', hist_li4: 'Uhr von Martín Pasco (18. Jh.) mit originalem Uhrwerk in Betrieb.', hist_li5: 'Das Glöcknerhaus: ein Museum für Zeit und Klang.',
+        hist_quote1: '"Von hier aus spricht die Zeit mit der Stimme einer Glocke und dem Puls des Eisens."', hist_cite1: '— POETISCHE BESCHREIBUNG DES TURMS',
+        hist_body3: 'Am Fuß des freistehenden Turms steht das Glöcknerhaus, ein Gebäude, das in ästhetischer Harmonie mit dem Turm errichtet wurde, um den für die Wartung zuständigen Wächter unterzubringen. Seit 2018 beherbergt dieser Raum ein einzigartiges Museum für Uhren und Glocken.',
+        hist_body4: 'Das Museum bietet Einblicke in den Glockenguss und eine beeindruckende Sammlung von Zeitmessgeräten — von antiken Sonnenuhren bis hin zu raffinierten Uhrwerken — aus unterschiedlichsten Epochen und Herkunftsorten.',
+        hist_quote2: 'Wussten Sie, dass die Turmuhr die einzige originale und aktive in einer spanischen Kathedrale ist?', hist_cite2: '— WISSENSWERTES ÜBER DIE TURMUHR',
+        hist_body5: 'Ihr Uhrwerk aus dem 18. Jahrhundert, geschmiedet von Martín Pasco, funktioniert dank zweier großer Gewichte, die jede Woche von Hand aufgezogen werden, und hält so eine jahrhundertealte Tradition lebendig.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Chronologie', sec_time_title: 'Der Puls des <em>Turms</em>',
+        tl1_title: 'Das Ende des ersten Turms', tl1_desc: 'Ein Blitzschlag zerstört den ursprünglichen Glockenturm, der sich über dem heutigen Hühnerstall befand, und markiert den Beginn einer turbulenten Baugeschichte.',
+        tl2_title: 'Das gescheiterte Projekt', tl2_desc: 'Bischof Andrés de Porras beginnt einen neuen Turm über dem Südportal, aber kritische Fundamentprobleme zwingen Martín de Beratúa, ihn 1761 wieder abzureißen.',
+        tl3_title: 'Geburt des freistehenden Turms', tl3_desc: 'Die Bauarbeiten beginnen am heutigen Standort, auf dem Gelände des ehemaligen königlichen Gefängnisses, mit einem innovativen Fundament aus Rinderhörnern.',
+        tl4_title: 'Vollendung der „Moza de la Rioja"', tl4_desc: 'Die Arbeiten am Barockturm werden abgeschlossen. Mit 70 Metern wird er zum schlanksten der Region und einem Wahrzeichen für Pilger des Jakobsweges.',
+        tl5_title: 'Uhren- und Glockenmuseum', tl5_desc: 'Der Museumsraum öffnet im Casa del Campanero und rehabilitiert die Räume, in denen einst Zeit und Klang der Stadt bewahrt wurden.',
+        sec_spaces_eyebrow: 'Räume', sec_spaces_title: 'Jede Ecke ein <em>Meisterwerk</em>',
+        cap_reloj_museo: 'Museumsuhr · Casa del Campanero', cap_campana_museo: 'Museumsglocke · Historische Sammlung', cap_lauda: 'Lauda von Andrés de Porras y Temes · 18. Jh.', cap_reloj_torre: 'Turmuhr · Pasco-Uhrwerk', cap_campanario: 'Glockenturm · 70 Meter Höhe', cap_pinaculos: 'Fialen und Wasserspeier · Barockes Bekrönung', cap_vistas: 'Panoramablick · Der Jakobsweg von oben',
+        sec_audio_eyebrow: 'Audioguides', sec_audio_title: 'Entdecken Sie jeden <em>Raum</em>', sec_audio_desc: 'Lassen Sie sich vom Barockturm führen. Jede Station Ihres Besuchs enthüllt die Geschichte, Kunst und Legende, die in den Mauern verborgen sind.',
+        audio_q: 'Wo finde ich alle Audioguides?', tooltip_monuments: 'Erhältlich beim Besuch unserer Denkmäler.',
+        audio_card_tag: 'Audioguide-Probe • Verfügbar', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 Min. 38 s',
+        sec_pdf_eyebrow: 'Dokumentation', sec_pdf_title: 'Broschüren & <em>PDF-Guides</em>', sec_pdf_desc: 'Besuchen Sie unsere Denkmäler, um unser wahres Erbe mit digitalen Audioguides und Broschüren zu entdecken. In 7 Sprachen per QR-Code verfügbar.',
+        pdf_q: 'Wo finde ich alle Broschüren?', pdf_card_tag: 'Turm-Broschüre • Nicht verfügbar', pdf_card_name: 'Besucherführer — Deutsch',
+        cta_title: 'Buchen Sie Ihren Besuch im <em>Turm</em>', cta_sub: 'Kaufen Sie Ihr Ticket online und überspringen Sie die Warteschlange. Verfügbar für den Turmaufstieg, den Besuch des Uhren- und Glockenmuseums und das Tourismusarmband.', cta_btn: 'Tickets kaufen →'
+      },
+      pt: {
+        page_eyebrow: 'Monumentos · Monumento principal', page_title: 'A <em>Catedral</em><br>de Santo Domingo', page_desc: 'Uma joia do românico-gótico riojano. Oito séculos de história no coração do Caminho Francês.', meta_entrada: 'Entrada', meta_horario: 'Horário', meta_estilos: 'Estilos',
+        infobar_location_label: 'Localização',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horários e <em>tarifas</em>', ht_schedule_title: 'Horários de abertura', ht_lv: 'Todos os dias', ht_sat: 'Sábados', ht_note: 'A Torre está aberta todos os dias, incluindo feriados. Últimas entradas 30 min antes do fecho.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Bilhete geral', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 pessoas', ht_group_small: 'Grupos &lt; 25 pessoas', ht_family: 'Bilhete familiar', ht_children: 'Menores de 12 anos', ht_residents: 'Residentes', ht_free: 'Gratuito', tip_pilgrim: 'Pulseira turística: inclui acesso a todos os 4 monumentos. Apresentar credencial oficial do Caminho com pelo menos 4 etapas a pé ou de bicicleta.', tip_group: 'Este bilhete inclui o acesso a todos os monumentos com a pulseira turística.', tip_family: 'O preço inclui a entrada em todos os monumentos para toda a família.', tip_free: 'Apresentar documento de identificação nas bilheteiras.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'A Torre e a sua <em>história</em>',
+        gal_btn: 'Saber mais', gal_cap_1: 'Galinheiro Gótico', gal_cap_2: 'Trifório e Girola', gal_cap_3: 'Retábulo-Mor', gal_cap_4: 'Sepulcro do Santo', gal_cap_5: 'Ábside Românica', gal_cap_6: 'Tríptico Flamengo',
+        sec_hist_eyebrow: 'Arquitetura & Engenharia', sec_hist_title: 'Um <em>Colosso Barroco</em>: A Torre de Santo Domingo de la Calzada',
+        hist_lead: 'Como uma fénix renascida após o colapso e demolição das estruturas anteriores, a atual torre exenta — financiada pelo bispo Don Andrés de Porras y Temes — ergue-se nos terrenos da antiga prisão real. Esta localização estratégica, projetada por Martín de Beratúa, evitou os crónicos problemas de fundação do passado.',
+        hist_body1: 'A sua engenhosa fundação de cal, areia e chifres de gado, aliada aos seus 70 metros de altura, tornam-na numa obra-prima do barroco riojano. Caracteriza-se por três corpos principais rematados por um coroamento dinâmico. Preservam-se detalhes únicos, como o entalhe na parede da torre que indica o telhado original da Casa do Sineiro.',
+        hist_body2: '',
+        hist_li1: 'Localização exenta e única.', hist_li2: '70 metros de altura e 8 sinos históricos.', hist_li3: 'Fundação com argamassa de cal, areia e chifres de gado.', hist_li4: 'Relógio de Martín Pasco (séc. XVIII) com mecanismo original ativo.', hist_li5: 'A Casa do Sineiro: um museu do tempo e do som.',
+        hist_quote1: '"Daqui, o tempo fala com a voz de um sino e o pulso do ferro."', hist_cite1: '— DESCRIÇÃO POÉTICA DA TORRE',
+        hist_body3: 'Aos pés da torre exenta encontra-se a Casa do Sineiro, um edifício projetado em harmonia estética com a torre para albergar o responsável pela sua manutenção. Desde 2018, este espaço acolhe um singular Museu de Relógios e Sinos.',
+        hist_body4: 'O museu oferece uma visão do processo de fundição de sinos e uma impressionante coleção de mecanismos — desde antigos relógios de sol até sofisticadas peças mecânicas — de grande diversidade de origens.',
+        hist_quote2: 'Sabia que o relógio da torre é o único original e ativo numa catedral espanhola?', hist_cite2: '— CURIOSIDADE SOBRE O RELÓGIO DA TORRE',
+        hist_body5: 'O seu mecanismo do séc. XVIII, forjado por Martín Pasco, continua a funcionar graças a dois grandes pesos remontados manualmente cada semana, mantendo viva uma tradição centenária.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'O pulso da <em>torre</em>',
+        tl1_title: 'O fim da primeira torre', tl1_desc: 'Um raio destrói o campanário original, situado sobre o atual galinheiro, marcando o início de uma acidentada história arquitetónica.',
+        tl2_title: 'O projeto falhado', tl2_desc: 'O bispo Andrés de Porras inicia uma nova torre sobre o portal sul, mas problemas críticos de fundação obrigam Martín de Beratúa a desmontá-la em 1761.',
+        tl3_title: 'Nascimento da torre independente', tl3_desc: 'As obras começam na sua localização atual, nos terrenos da antiga prisão real, usando uma fundação inovadora com chifres de bovino para ganhar estabilidade.',
+        tl4_title: 'Culminação da "Moza de la Rioja"', tl4_desc: 'Terminam os trabalhos da torre barroca. Com os seus 70 metros, consolida-se como a mais esbelta da região e um marco para os peregrinos do Caminho.',
+        tl5_title: 'Museu de Relógios e Sinos', tl5_desc: 'O espaço museológico inaugura na Casa del Campanero, reabilitando as dependências onde se guardava o tempo e o som da cidade.',
+        sec_spaces_eyebrow: 'Espaços', sec_spaces_title: 'Cada recanto, uma <em>obra-prima</em>',
+        cap_reloj_museo: 'Relógio do museu · Casa del Campanero', cap_campana_museo: 'Sino do museu · Coleção histórica', cap_lauda: 'Lauda de Andrés de Porras y Temes · séc. XVIII', cap_reloj_torre: 'Relógio da torre · Maquinaria Pasco', cap_campanario: 'Campanário · 70 metros de altura', cap_pinaculos: 'Pináculos e gárgulas · Remate barroco', cap_vistas: 'Vistas panorâmicas · O Caminho do alto',
+        sec_audio_eyebrow: 'Audioguias', sec_audio_title: 'Descubra cada <em>espaço</em>', sec_audio_desc: 'Deixe-se guiar pela torre barroca. Cada paragem na sua visita revela a história, a arte e a lenda que encerram os seus muros.',
+        audio_q: 'Onde posso encontrar todos os audioguias?', tooltip_monuments: 'Disponíveis durante a visita aos nossos monumentos.',
+        audio_card_tag: 'Audioguia de teste • Disponível', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentação', sec_pdf_title: 'Folhetos e <em>guias PDF</em>', sec_pdf_desc: 'Visite os nossos monumentos para descobrir o nosso verdadeiro legado com audioguias e folhetos digitais. Disponíveis em 7 idiomas ao digitalizar um QR code.',
+        pdf_q: 'Onde posso encontrar todos os folhetos?', pdf_card_tag: 'Folheto da Torre • Não disponível', pdf_card_name: 'Guia de visita — Português',
+        cta_title: 'Reserve a sua visita à <em>Torre</em>', cta_sub: 'Compre o seu bilhete online e evite filas. Disponível para a subida ao campanário, visita ao museu de relógios e sinos e pulseira turística.', cta_btn: 'Comprar bilhetes →'
+      },
+      it: {
+        page_eyebrow: 'Monumenti · Monumento principale', page_title: 'La <em>Cattedrale</em><br>di Santo Domingo', page_desc: 'Un gioiello del romanico-gotico riojano. Otto secoli di storia nel cuore del Cammino Francese.', meta_entrada: 'Ingresso', meta_horario: 'Orario', meta_estilos: 'Stili',
+        infobar_location_label: 'Posizione',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Orari e <em>tariffe</em>', ht_schedule_title: 'Orari di apertura', ht_lv: 'Tutti i giorni', ht_sat: 'Sabati', ht_note: 'La Torre è aperta tutti i giorni, inclusi i festivi. Ultimi ingressi 30 min prima della chiusura.', ht_prices_title: 'Tariffe d\'ingresso', ht_general: 'Biglietto ordinario', ht_pilgrim: 'Pellegrini', ht_group_big: 'Gruppi &gt; 25 persone', ht_group_small: 'Gruppi &lt; 25 persone', ht_family: 'Biglietto famiglia', ht_children: 'Minori di 12 anni', ht_residents: 'Residenti', ht_free: 'Gratuito', tip_pilgrim: 'Braccialetto turistico: include l\'accesso a tutti i 4 monumenti. Presentare la credenziale ufficiale del Cammino con almeno 4 tappe a piedi o in bicicletta.', tip_group: 'Questo biglietto include l\'accesso a tutti i monumenti con il braccialetto turistico.', tip_family: 'Il prezzo include l\'ingresso a tutti i monumenti per l\'intera famiglia.', tip_free: 'Presentare documento d\'identità valido alle biglietterie.',
+        sec_gallery_eyebrow: 'Galleria', sec_gallery_title: 'La Torre e la sua <em>storia</em>',
+        gal_btn: 'Scopri di più', gal_cap_1: 'Il Pollaio Gotico', gal_cap_2: 'Triforio e Deambulatorio', gal_cap_3: 'Pala Maggiore', gal_cap_4: 'Sepolcro del Santo', gal_cap_5: 'Abside Romanica', gal_cap_6: 'Trittico Fiammingo',
+        sec_hist_eyebrow: 'Architettura & Ingegneria', sec_hist_title: 'Un <em>Colosso Barocco</em>: La Torre di Santo Domingo de la Calzada',
+        hist_lead: 'Come una fenice risorta dal crollo e dalla demolizione delle strutture precedenti, l\'attuale torre esente — finanziata dal vescovo Don Andrés de Porras y Temes — si erge sui terreni dell\'antica prigione reale. Questa posizione strategica, progettata da Martín de Beratúa, evitò i cronici problemi di fondazione del passato.',
+        hist_body1: 'La sua ingegnosa fondazione di calce, sabbia e corna bovine, unita ai suoi 70 metri di altezza, ne fanno un capolavoro del barocco riojano. Si caratterizza per tre corpi principali coronati da una cuspide dinamica. Si conservano dettagli unici, come l\'incavo nel muro della torre che indica il tetto originale della Casa del Campanaro.',
+        hist_body2: '',
+        hist_li1: 'Posizione esente e unica.', hist_li2: '70 metri di altezza e 8 campane storiche.', hist_li3: 'Fondazione con malta di calce, sabbia e corna bovine.', hist_li4: 'Orologio di Martín Pasco (sec. XVIII) con meccanismo originale attivo.', hist_li5: 'La Casa del Campanaro: un museo del tempo e del suono.',
+        hist_quote1: '"Da qui, il tempo parla con la voce di una campana e il battito del ferro."', hist_cite1: '— DESCRIZIONE POETICA DELLA TORRE',
+        hist_body3: 'Ai piedi della torre esente si trova la Casa del Campanaro, un edificio progettato in armonia estetica con la torre per ospitare il custode incaricato della sua manutenzione. Dal 2018, questo spazio accoglie un singolare Museo di Orologi e Campane.',
+        hist_body4: 'Il museo offre una visione del processo di fusione delle campane e una straordinaria collezione di meccanismi — dai quadranti solari ai sofisticati movimenti meccanici — di grande varietà di origini.',
+        hist_quote2: 'Sapevate che l\'orologio della torre è l\'unico originale e attivo in una cattedrale spagnola?', hist_cite2: '— CURIOSITÀ SULL\'OROLOGIO DELLA TORRE',
+        hist_body5: 'Il suo meccanismo del sec. XVIII, forgiato da Martín Pasco, continua a funzionare grazie a due grandi pesi ricaricati a mano ogni settimana, mantenendo viva una tradizione centenaria.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'Il polso della <em>torre</em>',
+        tl1_title: 'La fine del primo campanile', tl1_desc: 'Un fulmine distrugge il campanile originale, situato sopra l\'attuale pollaio, segnando l\'inizio di una travagliata storia architettonica.',
+        tl2_title: 'Il progetto fallito', tl2_desc: 'Il vescovo Andrés de Porras avvia una nuova torre sopra il portale sud, ma critici problemi di fondazione costringono Martín de Beratúa a smontarla nel 1761.',
+        tl3_title: 'Nascita della torre indipendente', tl3_desc: 'I lavori iniziano nell\'attuale ubicazione, sui terreni dell\'antica prigione reale, con un\'innovativa fondazione con corna bovine per guadagnare stabilità.',
+        tl4_title: 'Completamento della "Moza de la Rioja"', tl4_desc: 'Si concludono i lavori della torre barocca. Con i suoi 70 metri, si afferma come la più slanciata della regione e un punto di riferimento per i pellegrini del Cammino.',
+        tl5_title: 'Museo di Orologi e Campane', tl5_desc: 'Lo spazio museale apre nella Casa del Campanero, recuperando le stanze dove un tempo erano custoditi il tempo e il suono della città.',
+        sec_spaces_eyebrow: 'Spazi', sec_spaces_title: 'Ogni angolo, un <em>capolavoro</em>',
+        cap_reloj_museo: 'Orologio del museo · Casa del Campanero', cap_campana_museo: 'Campana del museo · Collezione storica', cap_lauda: 'Lauda di Andrés de Porras y Temes · sec. XVIII', cap_reloj_torre: 'Orologio della torre · Meccanismo Pasco', cap_campanario: 'Campanile · 70 metri d\'altezza', cap_pinaculos: 'Pinnacoli e doccioni · Coronamento barocco', cap_vistas: 'Vedute panoramiche · Il Cammino dall\'alto',
+        sec_audio_eyebrow: 'Audioguide', sec_audio_title: 'Scopri ogni <em>spazio</em>', sec_audio_desc: 'Lasciati guidare dalla torre barocca. Ogni tappa della tua visita svela la storia, l\'arte e la leggenda che racchiudono le sue mura.',
+        audio_q: 'Dove posso trovare tutte le audioguide?', tooltip_monuments: 'Disponibili durante la visita ai nostri monumenti.',
+        audio_card_tag: 'Audioguida di prova • Disponibile', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentazione', sec_pdf_title: 'Opuscoli e <em>guide PDF</em>', sec_pdf_desc: 'Visita i nostri monumenti per scoprire il nostro vero patrimonio con audioguide e opuscoli digitali. Disponibili in 7 lingue scansionando un QR code.',
+        pdf_q: 'Dove posso trovare tutti gli opuscoli?', pdf_card_tag: 'Opuscolo della Torre • Non disponibile', pdf_card_name: 'Guida alla visita — Italiano',
+        cta_title: 'Prenota la tua visita alla <em>Torre</em>', cta_sub: 'Acquista il tuo biglietto online ed evita le code. Disponibile per la salita al campanile, la visita al museo di orologi e campane e il braccialetto turistico.', cta_btn: 'Acquista biglietti →'
+      },
+      ko: {
+        page_eyebrow: '유적 · 주요 유적', page_title: '산티아고의 <em>대성당</em>', page_desc: '리오하나 로마네스크-고딕 양식의 보석. 산티아고 순례길의 중심에서 8세기의 역사.', meta_entrada: '입장료', meta_horario: '운영 시간', meta_estilos: '양식',
+        infobar_location_label: '위치',
+        sec_ht_eyebrow: '관람', sec_ht_title: '운영 시간 및 <em>요금</em>', ht_schedule_title: '운영 시간', ht_lv: '매일', ht_sat: '토요일', ht_note: '타워는 공휴일 포함 연중무휴 개방. 마지막 입장은 폐관 30분 전까지.', ht_prices_title: '입장 요금', ht_general: '일반 입장권', ht_pilgrim: '순례자', ht_group_big: '25인 이상 단체', ht_group_small: '25인 미만 단체', ht_family: '가족 입장권', ht_children: '12세 미만', ht_residents: '거주자', ht_free: '무료', tip_pilgrim: '관광 팔찌: 4개 유적 모두 입장 포함. 도보 또는 자전거로 최소 4구간을 완주한 공식 순례 증명서 지참.', tip_group: '이 입장권은 관광 팔찌로 모든 유적 입장 포함.', tip_family: '자녀 수에 관계없이 전 가족 모든 유적 입장 포함.', tip_free: '매표소에서 신분증 제시.',
+        sec_gallery_eyebrow: '갤러리', sec_gallery_title: '탑과 그 <em>역사</em>',
+        gal_btn: '자세히 보기', gal_cap_1: '고딕 닭장', gal_cap_2: '트리포리움과 회랑', gal_cap_3: '주 제단화', gal_cap_4: '성인의 묘', gal_cap_5: '로마네스크 후진', gal_cap_6: '플랑드르 삼부화',
+        sec_hist_eyebrow: '건축 & 공학', sec_hist_title: '<em>바로크 거탑</em>: 산토 도밍고 데 라 칼사다의 탑',
+        hist_lead: '이전 구조물의 붕괴와 철거 후 불사조처럼 부활한 현재의 독립형 탑은 안드레스 데 포라스 이 테메스 주교의 후원으로 옛 왕립 감옥 부지에 세워졌습니다. 마르틴 데 베라투아가 설계한 이 전략적 위치는 과거의 만성적인 기초 문제를 피할 수 있게 해주었습니다.',
+        hist_body1: '석회, 모래, 소뿔로 이루어진 독창적인 기초와 70미터의 높이는 이 탑을 리오하 바로크의 걸작으로 만듭니다. 세 개의 주요 몸체와 역동적인 마감부로 구성되며, 종지기의 집 지붕선을 표시하는 탑 벽의 홈 등 독특한 세부 요소가 남아 있습니다.',
+        hist_body2: '',
+        hist_li1: '독립적이고 독보적인 위치.', hist_li2: '높이 70미터, 역사적인 종 8개.', hist_li3: '석회, 모래, 소뿔 모르타르 기초.', hist_li4: '마르틴 파스코의 시계 (18세기), 원래 기계장치 작동 중.', hist_li5: '종지기의 집: 시간과 소리의 박물관.',
+        hist_quote1: '"여기서 시간은 종의 목소리와 쇠의 맥박으로 말한다."', hist_cite1: '— 탑에 대한 시적 묘사',
+        hist_body3: '독립형 탑 발치에는 탑과 미적 조화를 이루도록 설계된 종지기의 집이 있으며, 탑의 유지관리를 담당하는 관리인을 위한 공간이었습니다. 2018년부터 이 공간은 독특한 시계·종 박물관으로 운영되고 있습니다.',
+        hist_body4: '박물관은 종 제작 과정과 해시계부터 정교한 기계식 시계에 이르는 다양한 출처의 인상적인 소장품을 선보입니다.',
+        hist_quote2: '이 탑의 시계가 스페인 대성당 중 유일하게 원본 기계장치로 작동 중인 것을 알고 계셨나요?', hist_cite2: '— 탑 시계에 관한 흥미로운 사실',
+        hist_body5: '마르틴 파스코가 제작한 18세기 기계장치는 매주 수동으로 감아주는 두 개의 큰 추 덕분에 계속 작동하며, 수백 년의 전통을 이어가고 있습니다.',
+        hist_body6: '',
+        sec_time_eyebrow: '연대표', sec_time_title: '탑의 <em>맥박</em>',
+        tl1_title: '첫 번째 종탑의 끝', tl1_desc: '벼락이 현재 닭장 위에 위치했던 원래 종탑을 파괴하여 파란만장한 건축 역사의 시작을 알립니다.',
+        tl2_title: '실패한 프로젝트', tl2_desc: '안드레스 데 포라스 주교가 남쪽 정문 위에 새 탑을 시작하지만, 심각한 기초 문제로 마르틴 데 베라투아가 1761년에 이를 해체해야 했습니다.',
+        tl3_title: '독립형 탑의 탄생', tl3_desc: '현재 위치인 옛 왕실 감옥 부지에서 공사가 시작됩니다. 안정성을 위해 소뿔을 사용한 혁신적인 기초 공법이 도입됩니다.',
+        tl4_title: '"리오하의 아가씨" 완성', tl4_desc: '바로크 탑 공사가 마무리됩니다. 높이 70미터로 이 지역에서 가장 날씬한 탑이 되어 순례자들의 이정표가 됩니다.',
+        tl5_title: '시계와 종 박물관', tl5_desc: '카사 델 캄파네로에 박물관이 개관하여 도시의 시간과 소리를 지키던 공간이 복원됩니다.',
+        sec_spaces_eyebrow: '공간', sec_spaces_title: '모든 구석, <em>걸작</em>',
+        cap_reloj_museo: '박물관 시계 · 카사 델 캄파네로', cap_campana_museo: '박물관 종 · 역사 컬렉션', cap_lauda: '안드레스 데 포라스 비문 · 18세기', cap_reloj_torre: '탑 시계 · 파스코 기계', cap_campanario: '종탑 · 높이 70미터', cap_pinaculos: '첨탑과 가고일 · 바로크 왕관', cap_vistas: '파노라마 전망 · 위에서 본 순례길',
+        sec_audio_eyebrow: '오디오 가이드', sec_audio_title: '모든 <em>공간</em> 탐색', sec_audio_desc: '바로크 탑이 이끄는 대로 따라가세요. 방문의 각 정류장에서 그 벽 안에 담긴 역사, 예술, 전설이 펼쳐집니다.',
+        audio_q: '오디오 가이드는 어디서 구할 수 있나요?', tooltip_monuments: '유적 방문 시 이용 가능합니다.',
+        audio_card_tag: '오디오 가이드 샘플 • 이용 가능', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0분 38초',
+        sec_pdf_eyebrow: '문서', sec_pdf_title: '브로슈어 및 <em>PDF 가이드</em>', sec_pdf_desc: '저희 유적을 방문하여 QR 코드를 스캔하면 7개 언어로 제공되는 디지털 오디오 가이드와 브로슈어로 진정한 유산을 발견하실 수 있습니다.',
+        pdf_q: '브로슈어는 어디서 구할 수 있나요?', pdf_card_tag: '탑 브로슈어 • 미제공', pdf_card_name: '관람 안내서 — 한국어',
+        cta_title: '<em>탑</em> 방문 예약', cta_sub: '온라인으로 입장권을 구매하고 줄을 피하세요. 종탑 오르기, 시계와 종 박물관 방문, 관광 팔찌 이용 가능.', cta_btn: '입장권 구매 →'
+      },
+      eu: {
+        page_eyebrow: 'Errioxako dorre altuena', page_title: 'La <em>Torre</em><br>de Santo Domingo', page_desc: 'Harrizko farola, mendez mende erromesak eta bidaiariak gidatzen dituena, arkitektura barrokoaren sendotasuna eta proportzioen elegantzia uztartuz.', meta_entrada: 'Sarrera', meta_horario: 'Ordutegia', meta_estilos: 'Estiloak',
+        infobar_location_label: 'Kokapena',
+        sec_ht_eyebrow: 'Bisita', sec_ht_title: 'Ordutegia eta <em>tarifak</em>', ht_schedule_title: 'Irekitze ordutegia', ht_lv: 'Egunero', ht_sat: 'Larunbatak', ht_note: 'Dorrea urteko egun guztietan irekita dago, jaiegunetan barne. Azken sarrerak itxiera baino 30 minutu lehenago onartzen dira.', ht_prices_title: 'Sarrera tarifak', ht_general: 'Sarrera orokorra', ht_pilgrim: 'Erromesak', ht_group_big: 'Taldeak &gt; 25 pertsona', ht_group_small: 'Taldeak &lt; 25 pertsona', ht_family: 'Familia sarrera', ht_children: '12 urte azpikoak', ht_residents: 'Bizilagunak', ht_free: 'Doakoa', tip_pilgrim: 'Pulsera turistikoa: 4 monumentuetarako sarbidea barne. Bideko kredentziala behar bezala egiaztatu behar da, gutxienez 4 etapa oinez edo bizikletaz eginda.', tip_group: 'Sarrera honek pulsera turistikoarekin Santo Domingoko monumento guztietarako sarbidea barne hartzen du.', tip_family: 'Prezioak familia osoaren sarrera barne hartzen du Santo Domingoko monumento guztietara, seme-alaben kopurua edozein dela ere.', tip_free: 'Leihatiletan txartela behar bezala egiaztatu.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'Dorrea eta bere <em>historia</em>',
+        gal_btn: 'Gehiago jakin', gal_cap_1: 'Gallinero Gotikoa', gal_cap_2: 'Triforio eta Girola', gal_cap_3: 'Erretaula Nagusia', gal_cap_4: 'Santuaren Hilobia', gal_cap_5: 'Abside Erromanikoa', gal_cap_6: 'Flandriako Hiruzkoa',
+        sec_hist_eyebrow: 'Arkitektura eta Ingeniaritza', sec_hist_title: '<em>Koloso Barroko</em> bat: Santo Domingoko Dorrea',
+        hist_lead: 'Aurreko egituren erorketaren ondoren fenix hegaztiaren antzera, gaur egungo dorre exentua, Don Andrés de Porras y Temes apezpikuak ordaindua, errege kartzela zaharreko lurretan altxatzen da. Martín de Beratúak diseinatutako kokaleku estrategiko honek iraganeko zimendaketa arazo kronikoak saihestu zituen.',
+        hist_body1: 'Kare, harea eta behi adarren zimendaketa burutsu hori, bere 70 metroko garaierarekin batera, Errioxako barrokoaren maisu lan bat bihurtzen dute. Hiru gorputz nagusi eta bukaera dinamiko batez osatuta dago. Xehetasun bakarrak gordetzen dira, hala nola Campanero Etxearen teilatu lerrariduna.',
+        hist_body2: '',
+        hist_li1: 'Kokaleku exentu eta bakarra.', hist_li2: '70 metroko garaiera eta 8 kanpai historiko.', hist_li3: 'Kare, harea eta behi adar morrailua.', hist_li4: 'Martín Pascoren erlojua (XVIII. m.) jatorrizko engranaje aktiboarekin.', hist_li5: 'Campanero Etxea: denboraren eta soinuaren museoa.',
+        hist_quote1: '"Denbora, hemendik, kanpaien ahotsa eta burdinaren taupadaz mintzo da."', hist_cite1: '— DORREAREN DESKRIBAPEN POETIKOA',
+        hist_body3: 'Dorre exentuaren oinetan Campanero Etxea dago, dorreko arduraduna hartzeko diseinatutako eraikina. 2018az geroztik, espazio honek Erloju eta Kanpai Museo berezi bat hartzen du.',
+        hist_body4: 'Museoak kanpaiak egiteko prozesua eta eguzki-erlojuetatik mekanismo sofistikatu batzuetara irauten duen bilduma zabala erakusten du.',
+        hist_quote2: 'Ba al zenekien dorrea dela Espainiako katedral artean jatorrizko makineriaz funtzionatzen duen bakarra?', hist_cite2: '— DORREKO ERLOJUARI BURUZKO BITXIKERIA',
+        hist_body5: 'Martín Pascok egindako XVIII. mendeko makineria astero eskuz altxatutako bi pisuren bidez funtzionatzen jarraitzen du, mendeetako tradizioa bizirik mantenduz.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Kronologia', sec_time_title: 'Dorrearen <em>taupadak</em>',
+        tl1_title: 'Lehen dorrearen amaiera', tl1_desc: 'Tximistak jatorrizko kanpai-dorrea suntsitzen du, gaur egungo gallineroaren gainean kokatua zegoena, historia arkitektoniko latzen bat hasiz.',
+        tl2_title: 'Huts egindako proiektua', tl2_desc: 'Andrés de Porras apezpikuak hegoaldeko atartearen gainean dorre berri bat hasten du, baina zimendaketa arazo larriek Martín de Beratúa 1761ean desmontatzera behartzen dute.',
+        tl3_title: 'Dorre exentuaren jaiotzea', tl3_desc: 'Lanak gaur egungo kokalekuan hasten dira, errege kartzela zaharraren lurretan, egonkortasuna lortzeko behi adarrekin zimendaketa berritzaile bat erabiliz.',
+        tl4_title: '"Errioxako Neskatxa"-ren bukaera', tl4_desc: 'Dorre barrokoaren lanak amaitzen dira. Bere 70 metrokoarekin, eskualdeko eslenena bihurtzen da eta Bidearen erromesen erreferentzia puntu bat.',
+        tl5_title: 'Erloju eta Kanpai Museoa', tl5_desc: 'Espazio museistikoa Campanero Etxean inauguratzen da, hiria denbora eta soinua gordetzen zen gelak birgaituz.',
+        sec_spaces_eyebrow: 'Espazioak', sec_spaces_title: 'Txoko bakoitza, <em>maisu lan bat</em>',
+        cap_reloj_museo: 'Museoko erlojua · Campanero Etxea', cap_campana_museo: 'Museoko kanpaia · Bilduma historikoa', cap_lauda: 'Andrés de Porras y Temesen lauda · XVIII. m.', cap_reloj_torre: 'Dorreko erlojua · Pasco makineria', cap_campanario: 'Kanpandorrea · 70 metroko garaiera', cap_pinaculos: 'Finkateak eta gargoilak · Bukaera barrokoa', cap_vistas: 'Ikuspegi panoramikoa · Bidea goitik',
+        sec_audio_eyebrow: 'Audiogidariak', sec_audio_title: 'Espazio bakoitza <em>aurkitu</em>', sec_audio_desc: 'Utzi dorre barrokoaren gidaritzapean. Bisitako geltoki bakoitzak bere hormetan dauden historia, arte eta kondaira azaltzen ditu.',
+        audio_q: 'Non aurki ditzaket audiogidariak?', tooltip_monuments: 'Monumentuetara bisitetan eskuragarri.',
+        audio_card_tag: 'Audiogidariaren lagin bat • Eskuragarri', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Dokumentazioa', sec_pdf_title: 'Liburuskak eta <em>PDF gidak</em>', sec_pdf_desc: 'Bisitatu gure monumentuak eta eskaneatu QR kode bat 7 hizkuntzatan eskuragarri dauden audiogidariak eta liburuskak aurkitzeko.',
+        pdf_q: 'Non aurki ditzaket liburuska guztiak?', pdf_card_tag: 'Dorrearen Liburuxka • Ez dago eskuragarri', pdf_card_name: 'Bisita gida — Euskara',
+        cta_title: '<em>Dorrera</em> bisita egin', cta_sub: 'Erosi sarrera online eta saihestu ilarak. Kanpandorrean igotzeko, erloju eta kanpai museoa bisitatzeko eta pulsera turistikorako eskuragarri.', cta_btn: 'Sarrerak erosi →'
+      },
+      ca: {
+        page_eyebrow: 'Torre més alta de La Rioja', page_title: 'La <em>Torre</em><br>de Santo Domingo', page_desc: 'Far de pedra que guia des de fa segles pelegrins i viatgers, combinant la solidesa de la seva arquitectura barroca amb l\'elegància de les seves proporcions.', meta_entrada: 'Entrada', meta_horario: 'Horari', meta_estilos: 'Estils',
+        infobar_location_label: 'Ubicació',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horaris i <em>tarifes</em>', ht_schedule_title: 'Horaris d\'obertura', ht_lv: 'Tots els dies', ht_sat: 'Dissabtes', ht_note: 'La Torre roman oberta tots els dies de l\'any, inclosos els festius. Les darreres entrades s\'accepten 30 minuts abans del tancament.', ht_prices_title: 'Tarifes d\'entrada', ht_general: 'Entrada general', ht_pilgrim: 'Pelegrins', ht_group_big: 'Grups &gt; 25 persones', ht_group_small: 'Grups &lt; 25 persones', ht_family: 'Entrada familiar', ht_children: 'Menors de 12 anys', ht_residents: 'Residents', ht_free: 'Gratuïtat', tip_pilgrim: 'Polsera turística: inclou accés als 4 monuments. Acreditar degudament amb credencial oficial del Camí, havent realitzat almenys 4 etapes a peu o en bicicleta.', tip_group: 'Aquesta entrada inclou l\'accés a tots els monuments de Santo Domingo de la Calzada amb la polsera turística.', tip_family: 'El preu inclou l\'entrada a tots els monuments de Santo Domingo per a tota la família, independentment del nombre de fills.', tip_free: 'Acreditar degudament amb carnet a les taquilles.',
+        sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'La Torre i la seva <em>història</em>',
+        gal_btn: 'Saber-ne més', gal_cap_1: 'Galliner Gòtic', gal_cap_2: 'Trifori i Girola', gal_cap_3: 'Retaule Major', gal_cap_4: 'Sepulcre del Sant', gal_cap_5: 'Absis Romànic', gal_cap_6: 'Tríptic Flamenc',
+        sec_hist_eyebrow: 'Arquitectura i Enginyeria', sec_hist_title: 'Un <em>Colossal Barroc</em>: La Torre de Santo Domingo de la Calzada',
+        hist_lead: 'Com un au fènix rere el col·lapse i demolició d\'estructures anteriors, l\'actual torre exempta, finançada pel bisbe Don Andrés de Porras y Temes, s\'alça sobre els terrenys de l\'antiga presó reial. Aquesta ubicació estratègica, dissenyada per Martín de Beratúa, va evitar els problemes de cimentació crònics del passat.',
+        hist_body1: 'La seva enginyosa cimentació de calç, sorra i banyes de boví, juntament amb els seus 70 metres d\'alçada, la converteixen en una obra mestra del barroc riojà. Es caracteritza per tres cossos principals i un remat dinàmic. Es conserven detalls únics, com l\'escotadura per a la teulada de la Casa del Campaner.',
+        hist_body2: '',
+        hist_li1: 'Ubicació exempta i única.', hist_li2: '70 metres d\'alçada i 8 campanes històriques.', hist_li3: 'Cimentació amb morter de calç, sorra i banyes de boví.', hist_li4: 'El rellotge de Martín Pasco (s. XVIII) amb engranatge original actiu.', hist_li5: 'La Casa del Campaner: un museu del temps i el so.',
+        hist_quote1: '"El temps, des d\'aquí, té veu de campana i pols de ferro."', hist_cite1: '— DESCRIPCIÓ POÈTICA DE LA TORRE',
+        hist_body3: 'Als peus de la torre exempta es troba la Casa del Campaner, un edifici de disseny unificat que allotjava l\'encarregat del manteniment de la torre. Des de 2018, aquest espai acull un singular Museu de Rellotges i Campanes.',
+        hist_body4: 'El museu ofereix una visió del procés de fabricació de campanes i una extensa col·lecció de maquinàries, des de quadrants solars fins a sofisticats mecanismes mecànics, amb peces de gran diversitat.',
+        hist_quote2: 'Sabies que el rellotge de la torre és l\'únic original i actiu de les catedrals d\'Espanya?', hist_cite2: '— CURIOSITAT SOBRE EL RELLOTGE DE LA TORRE',
+        hist_body5: 'La seva maquinària del s. XVIII, obra de Martín Pasco, continua funcionant gràcies a dos grans pesos remuntats manualment cada setmana, mantenint viva una tradició centenària.',
+        hist_body6: '',
+        sec_time_eyebrow: 'Cronologia', sec_time_title: 'El pols de la <em>torre</em>',
+        tl1_title: 'La fi del primer campanar', tl1_desc: 'Un llamp destrueix el campanar original, situat sobre l\'actual galliner, marcant l\'inici d\'una accidentada història arquitectònica.',
+        tl2_title: 'El projecte fallit', tl2_desc: 'El bisbe Andrés de Porras inicia una nova torre sobre el portal sud, però problemes crítics de cimentació obliguen Martín de Beratúa a desmuntar-la el 1761.',
+        tl3_title: 'Naixement de la torre exempta', tl3_desc: 'Comencen les obres a la seva ubicació actual, els terrenys de l\'antiga presó reial, emprant una innovadora cimentació amb banyes de boví per guanyar estabilitat.',
+        tl4_title: 'Culminació de la "Moza de la Rioja"', tl4_desc: 'Finalitzen els treballs de la torre barroca. Amb els seus 70 metres, es consolida com la més esvelta de la regió i una fita per als pelegrins del Camí.',
+        tl5_title: 'Museu de Rellotges i Campanes', tl5_desc: 'S\'inaugura l\'espai museístic a la Casa del Campaner, rehabilitant les estances on es custodiava el temps i el so de la ciutat.',
+        sec_spaces_eyebrow: 'Espais', sec_spaces_title: 'Cada racó, una <em>obra mestra</em>',
+        cap_reloj_museo: 'Rellotge del museu · Casa del Campaner', cap_campana_museo: 'Campana del museu · Col·lecció històrica', cap_lauda: 'Lauda d\'Andrés de Porras y Temes · s. XVIII', cap_reloj_torre: 'Rellotge de la torre · Maquinària Pasco', cap_campanario: 'Campanar · 70 metres d\'alçada', cap_pinaculos: 'Pinacles i gàrgoles · Remat barroc', cap_vistas: 'Vistes panoràmiques · El Camí des de dalt',
+        sec_audio_eyebrow: 'Audioguies', sec_audio_title: 'Descobreix cada <em>espai</em>', sec_audio_desc: 'Deixa\'t guiar per la torre barroca. Cada parada de la teva visita desvela la història, l\'art i la llegenda que amaguen els seus murs.',
+        audio_q: 'On puc trobar totes les audioguies?', tooltip_monuments: 'Disponibles a la visita als nostres monuments.',
+        audio_card_tag: 'Audioguia de prova • Disponible', audio_card_title: 'La Moza de Santo Domingo', audio_card_dur: '0 min 38 s',
+        sec_pdf_eyebrow: 'Documentació', sec_pdf_title: 'Fulletons i <em>guies en PDF</em>', sec_pdf_desc: 'Visita els nostres monuments i escaneja un codi QR per descobrir el nostre veritable llegat amb audioguies i fulletons digitals disponibles en 7 idiomes.',
+        pdf_q: 'On puc trobar tots els fulletons?', pdf_card_tag: 'Fulletó de la Torre • No disponible', pdf_card_name: 'Guia de visita — Català',
+        cta_title: 'Reserva la teva visita a la <em>Torre</em>', cta_sub: 'Adquireix la teva entrada en línia i evita cues. Disponible per a la pujada al campanar, visita al museu de rellotges i campanes i polsera turística.', cta_btn: 'Comprar entrades →'
+      },
+    };
+
+    /* ── Horario Torre: 10-14 y 16-20 todos los días ─────────────── */
+    function _torreIsOpen() {
+      const parts = new Intl.DateTimeFormat('es-ES', {
+        timeZone: 'Europe/Madrid', hour: 'numeric', minute: 'numeric', hour12: false
+      }).formatToParts(new Date());
+      const mh = parseInt(parts.find(p => p.type === 'hour').value, 10);
+      const mm = parseInt(parts.find(p => p.type === 'minute').value, 10);
+      const total = mh * 60 + mm;
+      return (total >= 600 && total < 840) || (total >= 960 && total < 1200);
+    }
+
+    /* ── Hook: shared.js llama a esta función al cambiar idioma ──── */
+    window.PAGE_applyLang = function (lang, sharedT) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      // Aplica todos los elementos con data-i18n-page
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (!t[key]) return;
+        el.innerHTML = t[key];
+      });
+
+      // Override infobar hours con horario partido de la Torre
+      const hoursEl = document.getElementById('infobar-hours');
+      if (hoursEl) hoursEl.textContent = '10:00–14:00 · 16:00–20:00 h';
+
+      // Override lamp label con horario de la Torre
+      const lampLabel = document.getElementById('lamp-label');
+      if (lampLabel) {
+        const isOpen = _torreIsOpen();
+        lampLabel.innerHTML = `<strong>${isOpen ? sharedT.lamp_open : sharedT.lamp_closed}</strong>`;
+      }
+
+      // Badge "Hoy" — la Torre tiene el mismo horario todos los días
+      const now = new Date(); const day = now.getDay();
+      const badge = document.getElementById('badge-todos');
+      if (badge) {
+        badge.textContent = sharedT.day_names[day];
+        badge.style.display = 'inline-flex';
+      }
+    };
+
+    /* ── Gallery info popup ──────────────────────────────────────── */
+    const GALLERY_INFO = [
+      {
+        num: '01 / 04 · Galería',
+        title: 'La Torre Exenta',
+        subtitle: 'Martín de Beratúa · a. 1762–1767 · Barroco',
+        body: `<p>La Torre de la Catedral de Santo Domingo de la Calzada destaca, ante todo, por su insólita localización exenta, separada del cuerpo principal del templo. Tras varios intentos fallidos de situar el campanario sobre el edificio original —debido a rayos y problemas de cimentación—, el arquitecto <strong>Martín de Beratúa</strong> proyectó en 1762 esta estructura en los terrenos de la antigua cárcel real.</p>
+               <p>Con sus <strong>70 metros de altura</strong>, es una de las torres más esbeltas y monumentales de La Rioja. Se divide en tres cuerpos rematados por un coronamiento barroco de gran dinamismo. Para asegurar su estabilidad en un terreno difícil, se empleó una técnica singular: un mortero a base de cal, arena y cuernos de vacuno, logrando asentar esta obra maestra que hoy alberga <strong>8 campanas</strong>.</p>`,
+        fact: 'La Torre de Santo Domingo es considerada “la más airosa de España”. Su diseño exento no fue un capricho estético, sino una solución de ingeniería tras el colapso de dos torres previas que amenazaban con destruir la propia Catedral.'
+      },
+      {
+        num: '02 / 04 · Galería',
+        title: 'Don Andrés de Porras',
+        subtitle: 'Obispo y Mecenas · s. XVIII',
+        body: `<p>El obispo <strong>Don Andrés de Porras y Temes</strong>, nacido en Orense en 1708, fue el gran impulsor de las transformaciones barrocas de la Catedral. Tras haber sido canónigo en la propia seo calceatense, su ascenso al obispado en 1753 no hizo sino reafirmar su compromiso con el templo, convirtiéndose en su benefactor más generoso.</p>
+               <p>A su visión y patrocinio debemos la construcción de la portada sur, donde hoy luce su escudo episcopal. Sin embargo, su mayor legado fue la actual torre. Ante el riesgo de ruina de la estructura anterior, presentó el proyecto de Beratúa y <strong>financió las obras a sus propias expensas</strong>, dejando constancia de su voluntad incluso en su testamento para asegurar que la ciudad tuviera el campanario que merecía.</p>`,
+        fact: 'Aunque el obispo murió tres años antes de ver la torre terminada, sus restos descansan en la capilla mayor de la Catedral. La lápida original de su sepulcro puede visitarse hoy en la Casa de la Torre como homenaje a su mecenazgo.'
+      },
+      {
+        num: '03 / 04 · Galería',
+        title: 'Museo de Relojes y Campanas',
+        subtitle: 'Casa del Campanero · s. XVIII–2018',
+        body: `<p>Adosada a la base de la torre se encuentra la <strong>Casa del Campanero</strong>, un edificio diseñado en armonía estética con la propia torre para albergar a quien debía custodiar los tiempos de la ciudad. Tras la electrificación de las campanas, este espacio fue rehabilitado en 2018 para transformarse en un centro museístico único que narra la historia del tiempo y el sonido.</p>
+               <p>En la planta baja, los visitantes pueden descubrir el complejo proceso de fundición de campanas, mientras que la planta superior alberga una impresionante <strong>colección de relojes</strong>: desde antiguos cuadrantes solares hasta sofisticadas piezas de mano, pasando por grandes maquinarias de diversas procedencias. El edificio conserva detalles originales, como la muesca en la pared de la torre que indica el diseño inicial de su tejado.</p>`,
+        fact: 'El museo permite comprender la importancia del campanero, una figura vital que no solo marcaba las horas, sino que avisaba de incendios, tormentas o festividades, conectando la vida civil con la religiosa a través del bronce.'
+      },
+      {
+        num: '04 / 04 · Galería',
+        title: 'El Reloj de la Catedral',
+        subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
+        body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
+               <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
+        fact: 'Se trata del único reloj de torre en una catedral española que sigue funcionando íntegramente con su maquinaria original del siglo XVIII, manteniendo viva una tradición mecánica de más de 250 años.'
+      }
+    ];
+
+    function openGalleryPopup(idx) {
+      const data = GALLERY_INFO[idx];
+      if (!data) return;
+      document.getElementById('popup-num').textContent = data.num;
+      document.getElementById('popup-title').textContent = data.title;
+      document.getElementById('popup-subtitle').textContent = data.subtitle;
+      document.getElementById('popup-body').innerHTML = data.body;
+      document.getElementById('popup-fact-text').textContent = data.fact;
+      document.getElementById('gallery-popup-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Pausar el autoplay de la galería
+      if (window._galleryStop) window._galleryStop();
+    }
+
+    function closeGalleryPopup() {
+      document.getElementById('gallery-popup-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      // Reanudar el autoplay de la galería
+      if (window._galleryStart) window._galleryStart();
+    }
+
+    function handlePopupOverlayClick(e) {
+      if (e.target === document.getElementById('gallery-popup-overlay')) closeGalleryPopup();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeGalleryPopup();
+    });
+
+    /* ── Gallery autoplay ────────────────────────────────────────── */
+    (function () {
+      const track = document.getElementById('gallery-track');
+      const dots = document.querySelectorAll('#gallery-dots .gallery-dot');
+      let cur = 0, total = 4, timer;
+      function go(n) { cur = (n + total) % total; track.style.transform = `translateX(-${cur * 100}%)`; dots.forEach((d, i) => d.classList.toggle('active', i === cur)); }
+      function start() { clearInterval(timer); timer = setInterval(() => go(cur + 1), 4000); }
+      function stop() { clearInterval(timer); }
+      window._galleryStart = start;
+      window._galleryStop = stop;
+      document.getElementById('gallery-prev').addEventListener('click', () => { go(cur - 1); start() });
+      document.getElementById('gallery-next').addEventListener('click', () => { go(cur + 1); start() });
+      dots.forEach((d, i) => d.addEventListener('click', () => { go(i); start() }));
+      start();
+    })();
+
+    /* ── Audio playback ─────────────────────────────────────────── */
+    function toggleAudio(card, idx) {
+      const btn = card.querySelector('.audio-play-btn');
+      const fill = card.querySelector('.audio-progress__fill');
+      const timeEl = card.querySelector('.audio-time');
+      const audioEl = document.getElementById('audio-' + idx);
+
+      if (!audioEl) return;
+
+      if (audioEl.paused) {
+        // Pausar cualquier otro audio que esté reproduciéndose
+        document.querySelectorAll('.audio-card audio').forEach(a => {
+          if (a !== audioEl && !a.paused) {
+            a.pause();
+            const otherCard = a.closest('.audio-card');
+            if (otherCard) {
+              otherCard.querySelector('.audio-play-btn').textContent = '▶';
+              otherCard.querySelector('.audio-play-btn').classList.remove('playing');
+            }
+          }
+        });
+
+        audioEl.play();
+        btn.textContent = '⏸';
+        btn.classList.add('playing');
+
+        // Actualizar barra de progreso y tiempo restante mientras suena
+        audioEl.ontimeupdate = () => {
+          if (!audioEl.duration) return;
+          const pct = (audioEl.currentTime / audioEl.duration) * 100;
+          fill.style.width = pct + '%';
+          const rem = Math.max(0, audioEl.duration - audioEl.currentTime);
+          const m = Math.floor(rem / 60);
+          const s = Math.floor(rem % 60).toString().padStart(2, '0');
+          timeEl.textContent = m + ':' + s;
+        };
+
+        // Al terminar, resetear
+        audioEl.onended = () => {
+          btn.textContent = '▶';
+          btn.classList.remove('playing');
+          fill.style.width = '0%';
+          timeEl.textContent = '00:38';
+          audioEl.currentTime = 0;
+        };
+      } else {
+        audioEl.pause();
+        btn.textContent = '▶';
+        btn.classList.remove('playing');
+      }
+    }
+
+    /* ── Override lamp-dot con horario de la Torre ───────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const lamp = document.getElementById('lamp-dot');
+      if (lamp) {
+        lamp.classList.remove('lamp-dot--open', 'lamp-dot--closed');
+        lamp.classList.add(_torreIsOpen() ? 'lamp-dot--open' : 'lamp-dot--closed');
+      }
+    });
+
+    /* ── Hero bg zoom-in ─────────────────────────────────────────── */
+    setTimeout(() => { const b = document.getElementById('hero-bg'); if (b) b.classList.add('loaded'); }, 100);
+
+    /* ── PDF tooltip (mobile tap) ────────────────────────────────── */
+    const pdfCard = document.getElementById('pdf-card-main');
+    if (pdfCard) {
+      pdfCard.addEventListener('click', (e) => {
+        pdfCard.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        pdfCard.classList.remove('tooltip-active');
+      });
+    }
+
+    /* ── Audio info tooltip (mobile tap) ─────────────────────────── */
+    const audioInfoWrap = document.querySelector('.audio-info-wrap');
+    if (audioInfoWrap) {
+      audioInfoWrap.addEventListener('click', (e) => {
+        audioInfoWrap.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        audioInfoWrap.classList.remove('tooltip-active');
+      });
+    }
+
+    /* ── PDF info tooltip (mobile tap) ───────────────────────────── */
+    const pdfInfoWrap = document.querySelector('.pdf-info-wrap');
+    if (pdfInfoWrap) {
+      pdfInfoWrap.addEventListener('click', (e) => {
+        pdfInfoWrap.classList.toggle('tooltip-active');
+        e.stopPropagation();
+      });
+      document.addEventListener('click', () => {
+        pdfInfoWrap.classList.remove('tooltip-active');
+      });
+    }
+
+    // ── Modo Claro / Oscuro ───────────────────────────────────
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        if (on) localStorage.setItem(KEY, '1');
+        else localStorage.removeItem(KEY);
+      }
+
+      if (localStorage.getItem(KEY) === '1') applyLightMode(true);
+
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+</body>
+
+</html>

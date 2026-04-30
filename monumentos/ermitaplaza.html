@@ -2646,10 +2646,10 @@
         btn.setAttribute('aria-pressed', String(on));
         if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
         if (on) localStorage.setItem(KEY, '1');
-        else localStorage.removeItem(KEY);
+        else localStorage.setItem(KEY, '0');
       }
 
-      if (localStorage.getItem(KEY) === '1') applyLightMode(true);
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
 
       btn.addEventListener('click', () => {
         applyLightMode(!document.body.classList.contains('light-mode'));

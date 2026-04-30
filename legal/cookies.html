@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Cookies — Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    .legal-hero { background: var(--carbon); padding: 120px 0 80px; border-bottom: 1px solid rgba(201,168,76,.15); }
+    .legal-hero__inner { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+    .legal-eyebrow { font-size: .62rem; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .legal-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+    .legal-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+    .legal-title em { font-style: italic; color: var(--gold-lt, #DFC07A); }
+    .legal-meta { font-size: .78rem; color: rgba(245,240,232,.45); letter-spacing: .06em; }
+    .legal-body { background: var(--carbon); padding: 80px 0 120px; }
+    .legal-content { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+    .legal-section { margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid rgba(201,168,76,.1); }
+    .legal-section:last-child { border-bottom: none; margin-bottom: 0; }
+    .legal-section h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 300; color: var(--gold-lt, #DFC07A); margin-bottom: 20px; display: flex; align-items: baseline; gap: 14px; }
+    .legal-section h2 .num { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); opacity: .7; flex-shrink: 0; }
+    .legal-section p { font-size: .92rem; line-height: 1.85; color: rgba(245,240,232,.72); margin-bottom: 16px; }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section strong { color: rgba(245,240,232,.9); font-weight: 500; }
+    .legal-section a { color: var(--gold); text-underline-offset: 3px; }
+    .legal-section ul { margin: 12px 0 16px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .legal-section ul li { font-size: .92rem; line-height: 1.75; color: rgba(245,240,232,.72); padding-left: 4px; }
+    .legal-data-box { background: rgba(201,168,76,.06); border: 1px solid rgba(201,168,76,.18); border-left: 3px solid var(--gold); border-radius: 2px; padding: 24px 28px; margin: 20px 0; }
+    .legal-data-box p { margin-bottom: 6px !important; font-size: .88rem !important; }
+    .cookie-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .cookie-table th { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); text-align: left; padding: 10px 16px; border-bottom: 1px solid rgba(201,168,76,.2); }
+    .cookie-table td { font-size: .85rem; color: rgba(245,240,232,.7); padding: 14px 16px; border-bottom: 1px solid rgba(201,168,76,.08); vertical-align: top; line-height: 1.6; }
+    .cookie-table tr:last-child td { border-bottom: none; }
+    .cookie-badge { display: inline-block; font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; font-weight: 500; }
+    .cookie-badge--necessary { background: rgba(40,160,80,.15); color: #28a050; border: 1px solid rgba(40,160,80,.3); }
+    .cookie-badge--third { background: rgba(201,168,76,.12); color: var(--gold); border: 1px solid rgba(201,168,76,.3); }
+
+    body.light-mode { background: #F9F8F6; color: #141210; }
+    body.light-mode .legal-hero { background: #F5F0E8; border-bottom-color: rgba(20,18,16,.1); }
+    body.light-mode .legal-title { color: #141210; }
+    body.light-mode .legal-meta { color: rgba(20,18,16,.45); }
+    body.light-mode .legal-body { background: #F9F8F6; }
+    body.light-mode .legal-section h2 { color: #7A6025; }
+    body.light-mode .legal-section p, body.light-mode .legal-section ul li { color: rgba(20,18,16,.75); }
+    body.light-mode .legal-section strong { color: #141210; }
+    body.light-mode .legal-section { border-bottom-color: rgba(20,18,16,.08); }
+    body.light-mode .legal-data-box { background: rgba(201,168,76,.05); border-color: rgba(201,168,76,.2); }
+    body.light-mode .cookie-table th { color: #7A6025; border-bottom-color: rgba(201,168,76,.3); }
+    body.light-mode .cookie-table td { color: rgba(20,18,16,.72); border-bottom-color: rgba(20,18,16,.06); }
+    body.light-mode .navbar--always-solid, body.light-mode .navbar.scrolled { background: rgba(245,240,232,.95); }
+    body.light-mode .navbar--always-solid .hamburger-line, body.light-mode .navbar.scrolled .hamburger-line { background: #141210; }
+    body.light-mode .navbar--always-solid .navbar__logo-name, body.light-mode .navbar--always-solid .lang-selector__btn, body.light-mode .navbar.scrolled .navbar__logo-name, body.light-mode .navbar.scrolled .lang-selector__btn { color: #141210; }
+    body.light-mode .side-menu { background: #F9F8F6; }
+    body.light-mode .side-menu__nav-item { border-bottom-color: rgba(20,18,16,.1); }
+    body.light-mode .side-menu__nav-link:hover { color: var(--gold); }
+    body.light-mode .side-menu__nav-link, body.light-mode .side-menu__close, body.light-mode .lang-selector__option { color: #141210; }
+    body.light-mode .lang-selector__dropdown { background: rgba(245,240,232,.97); }
+    body.light-mode .site-footer { background: #F9F8F6; }
+    body.light-mode .footer-brand__logo, body.light-mode .footer-brand__desc, body.light-mode .footer-col__list a, body.light-mode .footer-bottom__copy, body.light-mode .footer-bottom__links a { color: rgba(20,18,16,.75); }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
+
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/></svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
+      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Modo Claro / Oscuro</button></li>
+      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
+      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
+      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
+      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>Subrayar enlaces</button></li>
+      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Fuente legible</button></li>
+      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Leer texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Restablecer</button></li>
+    </ul>
+  </div>
+
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div><div class="hamburger-line"></div><div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos/catedral.html" class="side-menu__nav-link"><span class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas/reservas.html" class="side-menu__nav-link"><span class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="privacidad.html">Política de privacidad</a>
+      <a href="cookies.html">Política de cookies</a>
+      <a href="aviso-legal.html">Aviso legal</a>
+      <a href="accesibilidad.html">Accesibilidad</a>
+      <a href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <section class="legal-hero">
+    <div class="legal-hero__inner">
+      <p class="legal-eyebrow">Legal · Cookies</p>
+      <h1 class="legal-title">Política de <em>Cookies</em></h1>
+      <p class="legal-meta">Última actualización: 30 de abril de 2026</p>
+    </div>
+  </section>
+
+  <main class="legal-body">
+    <div class="legal-content">
+
+      <section class="legal-section">
+        <h2><span class="num">01</span> ¿Qué son las cookies?</h2>
+        <p>Las cookies son pequeños archivos de texto que los sitios web almacenan en el navegador del usuario al visitar una página. Permiten que el sitio recuerde información entre visitas —como sus preferencias de idioma o de accesibilidad— mejorando así la experiencia de navegación.</p>
+        <p>Existen también tecnologías similares como el <strong>almacenamiento local (localStorage)</strong>, que funciona de forma análoga a las cookies pero se almacena en el propio navegador sin fecha de caducidad automática.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">02</span> Cookies y almacenamiento local que utilizamos</h2>
+        <p>Este sitio web utiliza exclusivamente los tipos que se describen a continuación. <strong>No utilizamos cookies analíticas ni publicitarias propias.</strong></p>
+
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Finalidad</th>
+              <th>Duración</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>cat-lang</code></td>
+              <td><span class="cookie-badge cookie-badge--necessary">Funcional</span></td>
+              <td>Guarda el idioma seleccionado por el usuario.</td>
+              <td>Persistente (localStorage)</td>
+            </tr>
+            <tr>
+              <td><code>a11y-light-mode</code></td>
+              <td><span class="cookie-badge cookie-badge--necessary">Funcional</span></td>
+              <td>Recuerda si el usuario ha activado o desactivado el modo claro.</td>
+              <td>Persistente (localStorage)</td>
+            </tr>
+            <tr>
+              <td><code>a11y-text</code></td>
+              <td><span class="cookie-badge cookie-badge--necessary">Funcional</span></td>
+              <td>Guarda el nivel de tamaño de texto elegido en el panel de accesibilidad.</td>
+              <td>Persistente (localStorage)</td>
+            </tr>
+            <tr>
+              <td><code>a11y-grayscale</code>, <code>a11y-high-contrast</code>, <code>a11y-invert</code>, <code>a11y-underline-links</code>, <code>a11y-readable-font</code>, <code>a11y-magnifier</code></td>
+              <td><span class="cookie-badge cookie-badge--necessary">Funcional</span></td>
+              <td>Guardan las preferencias de accesibilidad visual activadas por el usuario.</td>
+              <td>Persistente (localStorage)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Todos los elementos anteriores son <strong>estrictamente necesarios para el funcionamiento correcto del sitio</strong> y no requieren consentimiento del usuario conforme al art. 22.2 de la LSSI.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">03</span> Cookies de terceros (YouTube)</h2>
+        <p>Algunas páginas de este sitio incorporan <strong>vídeos de YouTube</strong> (Google LLC). Cuando estos vídeos se cargan o reproducen, YouTube puede instalar cookies propias en su navegador con las siguientes finalidades:</p>
+
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie de YouTube</th>
+              <th>Tipo</th>
+              <th>Finalidad</th>
+              <th>Duración</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>VISITOR_INFO1_LIVE</code></td>
+              <td><span class="cookie-badge cookie-badge--third">Terceros</span></td>
+              <td>Estima el ancho de banda del usuario para seleccionar la calidad de vídeo.</td>
+              <td>6 meses</td>
+            </tr>
+            <tr>
+              <td><code>YSC</code></td>
+              <td><span class="cookie-badge cookie-badge--third">Terceros</span></td>
+              <td>Registra una identificación única de sesión para rastrear las visualizaciones.</td>
+              <td>Sesión</td>
+            </tr>
+            <tr>
+              <td><code>yt-remote-device-id</code></td>
+              <td><span class="cookie-badge cookie-badge--third">Terceros</span></td>
+              <td>Almacena las preferencias del reproductor de vídeo del usuario.</td>
+              <td>Persistente</td>
+            </tr>
+            <tr>
+              <td><code>yt-remote-connected-devices</code></td>
+              <td><span class="cookie-badge cookie-badge--third">Terceros</span></td>
+              <td>Almacena las preferencias del reproductor del usuario.</td>
+              <td>Persistente</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Estas cookies son instaladas por Google LLC bajo sus propias políticas de privacidad. Puede consultarlas en: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+        <p>Si prefiere no recibir estas cookies, puede utilizar el modo de navegación privada de su navegador o bloquear las cookies de terceros en la configuración del mismo antes de reproducir los vídeos.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">04</span> Analítica web</h2>
+        <p>Actualmente este sitio web <strong>no utiliza ninguna herramienta de analítica</strong> (Google Analytics, Matomo u otras). No se instalan cookies con fines estadísticos propios. Si en el futuro se incorporara alguna herramienta de este tipo, esta política se actualizará con la debida antelación.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">05</span> Cómo gestionar o eliminar las cookies</h2>
+        <p>Puede configurar su navegador para bloquear o eliminar cookies en cualquier momento. A continuación encontrará los enlaces de ayuda para los navegadores más habituales:</p>
+        <ul>
+          <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+          <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+          <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Apple Safari</a></li>
+          <li><a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li>
+        </ul>
+        <p>Para eliminar el almacenamiento local (preferencias de idioma y accesibilidad) puede acceder a las herramientas de desarrollador de su navegador (F12) → Aplicación → Almacenamiento local, y eliminar las entradas correspondientes al dominio <strong>catedralsantodomingo.org</strong>.</p>
+        <p>Tenga en cuenta que bloquear o eliminar las cookies funcionales puede afectar al correcto funcionamiento de algunas características del sitio, como el recuerdo de su idioma preferido o sus ajustes de accesibilidad.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">06</span> Actualizaciones de esta política</h2>
+        <p>El Cabildo Catedral se reserva el derecho de actualizar esta Política de Cookies cuando sea necesario, por ejemplo al incorporar nuevos servicios o herramientas. Cualquier cambio será publicado en esta página con la fecha de actualización correspondiente.</p>
+        <p>Para cualquier consulta relacionada con esta política puede contactar con nosotros en: <a href="mailto:info@catedralsantodomingo.org">info@catedralsantodomingo.org</a>.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+          <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+          <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+            <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+            <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+            <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+            <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+            <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+          <ul class="footer-col__list">
+            <li><a href="../index.html" data-i18n="footer_disc_1">Historia</a></li>
+            <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+            <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+            <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+            <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+          <ul class="footer-col__list">
+            <li><a href="../reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+            <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+            <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+            <li><a href="#" data-i18n="footer_info_4">Prensa</a></li>
+            <li><a href="#" data-i18n="footer_info_5">Actualidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+        <div class="footer-bottom__links">
+          <a href="aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+          <a href="privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+          <a href="cookies.html" data-i18n="footer_legal_3">Cookies</a>
+          <a href="accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        if (on) localStorage.setItem(KEY, '1');
+        else localStorage.setItem(KEY, '0');
+      }
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+</body>
+</html>

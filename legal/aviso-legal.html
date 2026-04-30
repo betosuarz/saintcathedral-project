@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviso Legal — Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    .legal-hero {
+      background: var(--carbon);
+      padding: 120px 0 80px;
+      border-bottom: 1px solid rgba(201, 168, 76, .15);
+    }
+    .legal-hero__inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .legal-eyebrow {
+      font-size: .62rem;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .legal-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .legal-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .legal-title em {
+      font-style: italic;
+      color: var(--gold-lt, #DFC07A);
+    }
+    .legal-meta {
+      font-size: .78rem;
+      color: rgba(245, 240, 232, .45);
+      letter-spacing: .06em;
+    }
+    .legal-body {
+      background: var(--carbon);
+      padding: 80px 0 120px;
+    }
+    .legal-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .legal-section {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(201, 168, 76, .1);
+    }
+    .legal-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .legal-section h2 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold-lt, #DFC07A);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .legal-section h2 .num {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .7;
+      flex-shrink: 0;
+    }
+    .legal-section p {
+      font-size: .92rem;
+      line-height: 1.85;
+      color: rgba(245, 240, 232, .72);
+      margin-bottom: 16px;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section strong { color: rgba(245, 240, 232, .9); font-weight: 500; }
+    .legal-section a { color: var(--gold); text-underline-offset: 3px; }
+    .legal-section ul {
+      margin: 12px 0 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .legal-section ul li {
+      font-size: .92rem;
+      line-height: 1.75;
+      color: rgba(245, 240, 232, .72);
+      padding-left: 4px;
+    }
+    .legal-data-box {
+      background: rgba(201, 168, 76, .06);
+      border: 1px solid rgba(201, 168, 76, .18);
+      border-left: 3px solid var(--gold);
+      border-radius: 2px;
+      padding: 24px 28px;
+      margin: 20px 0;
+    }
+    .legal-data-box p {
+      margin-bottom: 6px !important;
+      font-size: .88rem !important;
+    }
+
+    /* ── MODO CLARO ────────────────────────────────── */
+    body.light-mode { background: #F9F8F6; color: #141210; }
+    body.light-mode .legal-hero { background: #F5F0E8; border-bottom-color: rgba(20,18,16,.1); }
+    body.light-mode .legal-title { color: #141210; }
+    body.light-mode .legal-meta { color: rgba(20,18,16,.45); }
+    body.light-mode .legal-body { background: #F9F8F6; }
+    body.light-mode .legal-section h2 { color: #7A6025; }
+    body.light-mode .legal-section p,
+    body.light-mode .legal-section ul li { color: rgba(20,18,16,.75); }
+    body.light-mode .legal-section strong { color: #141210; }
+    body.light-mode .legal-section { border-bottom-color: rgba(20,18,16,.08); }
+    body.light-mode .legal-data-box { background: rgba(201,168,76,.05); border-color: rgba(201,168,76,.2); }
+    body.light-mode .navbar--always-solid,
+    body.light-mode .navbar.scrolled { background: rgba(245,240,232,.95); }
+    body.light-mode .navbar--always-solid .hamburger-line, body.light-mode .navbar.scrolled .hamburger-line { background: #141210; }
+    body.light-mode .navbar--always-solid .navbar__logo-name,
+    body.light-mode .navbar--always-solid .lang-selector__btn,
+    body.light-mode .navbar.scrolled .navbar__logo-name,
+    body.light-mode .navbar.scrolled .lang-selector__btn { color: #141210; }
+    body.light-mode .side-menu { background: #F9F8F6; }
+    body.light-mode .side-menu__nav-item { border-bottom-color: rgba(20,18,16,.1); }
+    body.light-mode .side-menu__nav-link:hover { color: var(--gold); }
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close,
+    body.light-mode .lang-selector__option { color: #141210; }
+    body.light-mode .lang-selector__dropdown { background: rgba(245,240,232,.97); }
+    body.light-mode .site-footer { background: #F9F8F6; }
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a { color: rgba(20,18,16,.75); }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/>
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
+      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Modo Claro / Oscuro</button></li>
+      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
+      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
+      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
+      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>Subrayar enlaces</button></li>
+      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Fuente legible</button></li>
+      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Leer texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Restablecer</button></li>
+    </ul>
+  </div>
+
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos/catedral.html" class="side-menu__nav-link"><span class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas/reservas.html" class="side-menu__nav-link"><span class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="privacidad.html">Política de privacidad</a>
+      <a href="cookies.html">Política de cookies</a>
+      <a href="aviso-legal.html">Aviso legal</a>
+      <a href="accesibilidad.html">Accesibilidad</a>
+      <a href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="legal-hero">
+    <div class="legal-hero__inner">
+      <p class="legal-eyebrow">Legal · Información</p>
+      <h1 class="legal-title">Aviso <em>Legal</em></h1>
+      <p class="legal-meta">Última actualización: 30 de abril de 2026</p>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="legal-body">
+    <div class="legal-content">
+
+      <section class="legal-section">
+        <h2><span class="num">01</span> Datos identificativos del titular</h2>
+        <p>En cumplimiento de lo dispuesto en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos identificativos del titular de este sitio web:</p>
+        <div class="legal-data-box">
+          <p><strong>Razón social:</strong> Cabildo Catedral de Santo Domingo de la Calzada</p>
+          <p><strong>CIF:</strong> R2600013C</p>
+          <p><strong>Domicilio:</strong> Plaza de España, 1 — 26250 Santo Domingo de la Calzada, La Rioja (España)</p>
+          <p><strong>Correo electrónico:</strong> <a href="mailto:info@catedralsantodomingo.org">info@catedralsantodomingo.org</a></p>
+          <p><strong>Sitio web:</strong> <a href="https://www.catedralsantodomingo.org">www.catedralsantodomingo.org</a></p>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">02</span> Objeto y ámbito de aplicación</h2>
+        <p>El presente Aviso Legal regula el acceso, navegación y uso del sitio web <strong>www.catedralsantodomingo.org</strong> (en adelante, «el Portal»), así como las responsabilidades derivadas de su utilización.</p>
+        <p>El acceso al Portal implica la aceptación plena y sin reservas de todas las disposiciones incluidas en este Aviso Legal, la <a href="privacidad.html">Política de Privacidad</a> y la <a href="cookies.html">Política de Cookies</a>. Si no está de acuerdo con alguna de estas condiciones, le rogamos que no haga uso del Portal.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">03</span> Acceso y uso del Portal</h2>
+        <p>El acceso al Portal es, con carácter general, gratuito y no exige la previa suscripción o registro del usuario, salvo para la utilización de determinados servicios como la reserva de visitas.</p>
+        <p>El usuario se compromete a hacer un uso adecuado de los contenidos y servicios del Portal y a no emplearlos para realizar actividades ilícitas, contrarias a la buena fe, o que puedan vulnerar los derechos e intereses de terceros o que puedan dañar, inutilizar o deteriorar el Portal o sus servicios.</p>
+        <p>El Cabildo Catedral se reserva el derecho de modificar, suspender, cancelar o restringir el contenido, los servicios o el propio Portal, sin necesidad de previo aviso.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">04</span> Propiedad intelectual e industrial</h2>
+        <p>Todos los contenidos del Portal —incluyendo, de forma enunciativa y no limitativa, textos, fotografías, imágenes, vídeos, grabaciones sonoras, bases de datos, diseño gráfico, código fuente y software— son propiedad del Cabildo Catedral de Santo Domingo de la Calzada o de terceros que han autorizado su uso, y están protegidos por las leyes españolas e internacionales de propiedad intelectual e industrial.</p>
+        <p>Queda expresamente prohibida la reproducción total o parcial, distribución, comunicación pública, transformación o cualquier otra forma de explotación de los contenidos del Portal sin autorización escrita previa del titular.</p>
+        <p>Las marcas, nombres comerciales o signos distintivos que aparecen en el Portal son propiedad del Cabildo Catedral o de terceros, y no podrán utilizarse sin autorización expresa.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">05</span> Limitación de responsabilidad</h2>
+        <p>El Cabildo Catedral no se hace responsable de los daños y perjuicios de cualquier naturaleza que pudieran derivarse del acceso o uso del Portal, incluyendo, sin carácter exhaustivo:</p>
+        <ul>
+          <li>Errores u omisiones en los contenidos publicados.</li>
+          <li>La falta de disponibilidad, mantenimiento y funcionamiento efectivo del Portal o de sus servicios.</li>
+          <li>La transmisión de virus o programas maliciosos a través del Portal, a pesar de haber adoptado las medidas tecnológicas necesarias para prevenirlo.</li>
+          <li>El uso del Portal por parte de menores de edad.</li>
+        </ul>
+        <p>El Cabildo Catedral velará por la exactitud y actualización de los contenidos, pero no garantiza la ausencia de errores ni la vigencia permanente de la información publicada.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">06</span> Política de enlaces</h2>
+        <p>El Portal puede contener enlaces a sitios web de terceros. El Cabildo Catedral no asume responsabilidad alguna sobre los contenidos, productos o servicios disponibles en dichos sitios, ni sobre su política de privacidad o condiciones de uso.</p>
+        <p>Si desea establecer un enlace desde su sitio web al Portal, deberá hacerlo de forma que no perjudique la imagen o reputación del Cabildo Catedral, y deberá contar con autorización expresa para la reproducción de cualquier contenido protegido. La existencia de un enlace no implica relación alguna entre el Cabildo y el titular del sitio de origen.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">07</span> Legislación aplicable y jurisdicción</h2>
+        <p>El presente Aviso Legal se rige íntegramente por la legislación española. Para la resolución de cualquier controversia derivada del acceso o uso del Portal, las partes se someten, con renuncia expresa a cualquier otro fuero que pudiera corresponderles, a los Juzgados y Tribunales de La Rioja (España).</p>
+        <p>El Cabildo Catedral de Santo Domingo de la Calzada se reserva el derecho de modificar el presente Aviso Legal en cualquier momento. Los cambios serán efectivos desde su publicación en el Portal.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+          <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+          <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+            <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+            <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+            <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+            <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+            <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+          <ul class="footer-col__list">
+            <li><a href="../index.html" data-i18n="footer_disc_1">Historia</a></li>
+            <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+            <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+            <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+            <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+          <ul class="footer-col__list">
+            <li><a href="../reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+            <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+            <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+            <li><a href="#" data-i18n="footer_info_4">Prensa</a></li>
+            <li><a href="#" data-i18n="footer_info_5">Actualidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+        <div class="footer-bottom__links">
+          <a href="aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+          <a href="privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+          <a href="cookies.html" data-i18n="footer_legal_3">Cookies</a>
+          <a href="accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        if (on) localStorage.setItem(KEY, '1');
+        else localStorage.setItem(KEY, '0');
+      }
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+</body>
+</html>

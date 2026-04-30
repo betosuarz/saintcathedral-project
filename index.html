@@ -781,13 +781,13 @@
 
     /* Fondos oscuros → beige */
     body.light-mode .section-video {
-      background: #EFE9E3;
+      background: #E8E0D4;
     }
     body.light-mode .section-monuments {
       background: #F9F8F6;
     }
     body.light-mode .section-visits {
-      background: #EFE9E3;
+      background: #E8E0D4;
     }
     body.light-mode .section-reviews {
       background: #F9F8F6;
@@ -827,12 +827,12 @@
       color: #141210;
     }
     body.light-mode .newsletter-input {
-      background: #F9F8F6;
-      border-color: rgba(20, 18, 16, .2);
+      background: #FDFAF4;
+      border-color: rgba(20, 18, 16, .25);
       color: #141210;
     }
     body.light-mode .newsletter-input::placeholder {
-      color: rgba(20, 18, 16, .4);
+      color: rgba(20, 18, 16, .55);
     }
 
     /* Footer */
@@ -867,12 +867,35 @@
     }
     body.light-mode .footer-bottom__copy,
     body.light-mode .footer-bottom__links a {
-      color: rgba(20, 18, 16, .5);
+      color: rgba(20, 18, 16, .65);
     }
 
     /* Section visits title (color:white en CSS + inline) */
     body.light-mode .section-visits .section-title {
       color: #141210 !important;
+    }
+
+    /* Texto secundario (--stone) → más oscuro en fondos claros */
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a {
+      color: #5C5048;
+    }
+
+    /* section--white → blanco cálido */
+    body.light-mode .section--white {
+      background: #FDFAF4;
+    }
+
+    /* CTA band → gradiente cálido con bordes dorados */
+    body.light-mode .cta-band {
+      background: linear-gradient(135deg, #EDE6D6, #E8DFCF);
+      border-top-color: rgba(168, 133, 46, .35);
+      border-bottom-color: rgba(168, 133, 46, .35);
+    }
+
+    body.light-mode .cta-band__title,
+    body.light-mode .cta-band__sub {
+      color: #141210;
     }
   </style>
 </head>

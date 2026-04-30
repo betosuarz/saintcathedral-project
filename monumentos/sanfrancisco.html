@@ -1141,7 +1141,7 @@
     }
 
     body.light-mode #espacios {
-      background: #EFE9E3;
+      background: #F5F0E8;
     }
 
     body.light-mode .navbar--solid,
@@ -1159,7 +1159,9 @@
     }
 
     body.light-mode .cta-band {
-      background: #EFE9E3;
+      background: #F5F0E8;
+      border-top-color: rgba(168, 133, 46, .35);
+      border-bottom-color: rgba(168, 133, 46, .35);
     }
 
     body.light-mode .navbar__logo-name,
@@ -1198,7 +1200,7 @@
 
     body.light-mode .footer-bottom__copy,
     body.light-mode .footer-bottom__links a {
-      color: rgba(20, 18, 16, .5);
+      color: rgba(20, 18, 16, .65);
     }
 
     body.light-mode .page-hero__title {
@@ -1220,10 +1222,13 @@
     }
 
     body.light-mode .info-bar__val,
-    body.light-mode .info-bar__label,
-    body.light-mode .lamp-label,
     body.light-mode .lamp-label strong {
       color: #141210;
+    }
+
+    body.light-mode .info-bar__label,
+    body.light-mode .lamp-label {
+      color: #6B6058;
     }
 
     body.light-mode #galeria {
@@ -1244,8 +1249,9 @@
     }
 
     body.light-mode .audio-card {
-      background: rgb(119 72 0 / 4%);
+      background: #F5F0E8;
       border-width: 2px;
+      border-color: rgba(140, 110, 50, .25);
     }
 
     body.light-mode .audio-progress {
@@ -1253,8 +1259,9 @@
     }
 
     body.light-mode .pdf-card {
-      background: rgb(119 72 0 / 4%);
+      background: #F5F0E8;
       border-width: 2px;
+      border-color: rgba(140, 110, 50, .25);
     }
 
     body.light-mode .hamburger-line {
@@ -1294,7 +1301,7 @@
     }
 
     body.light-mode .gallery-popup-overlay {
-      background: rgba(180, 163, 140, .72);
+      background: rgba(30, 25, 20, .42);
     }
 
     body.light-mode .gallery-popup {
@@ -1325,6 +1332,66 @@
 
     body.light-mode .gallery-popup__fact-text {
       color: rgba(20, 18, 16, .58);
+    }
+
+    /* Eyebrow en secciones oscuras convertidas a fondo claro */
+    body.light-mode .section--dark .eyebrow,
+    body.light-mode .section--carbon .eyebrow {
+      color: #8B6A1E;
+    }
+
+    /* Texto secundario (--stone) sin override previo */
+    body.light-mode .text-grid__body,
+    body.light-mode .text-grid__quote cite,
+    body.light-mode .highlight-list li,
+    body.light-mode .ht-row__label {
+      color: #5C5048;
+    }
+
+    /* Jerarquía secundaria en elementos ya sobrescritos a #141210 */
+    body.light-mode .timeline-desc,
+    body.light-mode .cta-band__sub,
+    body.light-mode .footer-brand__desc,
+    body.light-mode .audio-card__dur,
+    body.light-mode .pdf-size {
+      color: #5C5048;
+    }
+
+    /* Timeline dot → fondo de sección en modo claro (evita punto negro sólido) */
+    body.light-mode .timeline-year::after {
+      background: #F9F8F6;
+    }
+
+    /* section--white → blanco cálido, coherente con el sistema */
+    body.light-mode .section--white {
+      background: #FDFAF4;
+    }
+
+    /* Entrada gratuita → verde con contraste en fondos claros */
+    body.light-mode .ht-row__val--free {
+      color: #2E7D32;
+    }
+
+    /* Footer CTA (newsletter) → fondo claro + textos oscuros */
+    body.light-mode .footer-cta {
+      background: #F5F0E8;
+      border-color: rgba(20, 18, 16, .1);
+    }
+
+    body.light-mode .footer-cta__eyebrow,
+    body.light-mode .footer-cta__title,
+    body.light-mode .footer-cta__sub {
+      color: #141210;
+    }
+
+    body.light-mode .newsletter-input {
+      background: #FDFAF4;
+      border-color: rgba(20, 18, 16, .25);
+      color: #141210;
+    }
+
+    body.light-mode .newsletter-input::placeholder {
+      color: rgba(20, 18, 16, .55);
     }
   </style>
 </head>

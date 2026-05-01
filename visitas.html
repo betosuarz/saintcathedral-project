@@ -248,6 +248,13 @@
     }
 
     /* ── LIGHT MODE ────────────────────────────────────────── */
+    body.light-mode { background: #F9F8F6; color: #141210; }
+    body.light-mode .page-hero::after {
+      background:
+        linear-gradient(160deg, rgba(14,12,10,.52) 0%, rgba(14,12,10,.28) 45%, rgba(14,12,10,.42) 100%),
+        linear-gradient(to top right, rgba(14,12,10,.58) 0%, rgba(14,12,10,.22) 40%, transparent 70%);
+    }
+
     body.light-mode .hub-intro { background: #F5F0E8 }
     body.light-mode .hub-intro__question { color: var(--carbon) }
     body.light-mode .hub-intro__body { color: rgba(20,18,16,.65) }
@@ -255,6 +262,42 @@
     body.light-mode .hub-card::after {
       background: linear-gradient(to top, rgba(14,12,10,.92) 0%, rgba(14,12,10,.55) 50%, rgba(14,12,10,.22) 100%)
     }
+
+    /* Navbar scrolled */
+    body.light-mode .navbar.scrolled {
+      background: rgba(245,240,232,.95);
+      border-bottom-color: rgba(20,18,16,.1);
+    }
+    body.light-mode .navbar.scrolled .hamburger-line { background: #141210; }
+    body.light-mode .navbar.scrolled .navbar__logo-name,
+    body.light-mode .navbar.scrolled .lang-selector__btn { color: #141210; }
+
+    /* Lang selector */
+    body.light-mode .lang-selector__dropdown { background: rgba(245,240,232,.97); }
+    body.light-mode .lang-selector__option { color: rgba(20,18,16,.75); }
+    body.light-mode .lang-selector__option:hover,
+    body.light-mode .lang-selector__option.active { color: #141210; }
+
+    /* Ornament divider */
+    body.light-mode .ornament-divider { background: #F9F8F6 !important; }
+
+    /* Footer */
+    body.light-mode .site-footer { background: #F9F8F6; }
+    body.light-mode .footer-cta { background: #F5F0E8; border-color: rgba(20,18,16,.1); }
+    body.light-mode .footer-cta__eyebrow,
+    body.light-mode .footer-cta__title,
+    body.light-mode .footer-cta__sub { color: #141210; }
+    body.light-mode .newsletter-input {
+      background: #FDFAF4;
+      border-color: rgba(20,18,16,.25);
+      color: #141210;
+    }
+    body.light-mode .newsletter-input::placeholder { color: rgba(20,18,16,.55); }
+    body.light-mode .footer-brand__logo { color: #141210; }
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a { color: #5C5048; }
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a { color: rgba(20,18,16,.65); }
 
     /* ── CTA BAND ──────────────────────────────────────────── */
     .cta-band {
@@ -324,6 +367,7 @@
     @media (max-width: 600px) {
       .hub-intro { padding: 64px 6vw 56px }
       .hub-card__body { padding: 28px 24px }
+      .hero-nav { padding-left: 54px }
     }
 
   </style>
@@ -860,13 +904,21 @@
     (function() {
       const btn = document.getElementById('a11y-light-mode');
       const logoImg = document.getElementById('logo-img');
+      const navbar = document.getElementById('navbar');
       const KEY = 'a11y-light-mode';
+      function updateLogo() {
+        if (!logoImg) return;
+        const isLight = document.body.classList.contains('light-mode');
+        const isScrolled = navbar && navbar.classList.contains('scrolled');
+        logoImg.src = (isLight && isScrolled) ? '../favicon_black.svg' : '../favicon.svg';
+      }
       function applyLightMode(on) {
         document.body.classList.toggle('light-mode', on);
         if (btn) { btn.classList.toggle('is-active', on); btn.setAttribute('aria-pressed', String(on)); }
-        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        updateLogo();
         localStorage.setItem(KEY, on ? '1' : '0');
       }
+      window.addEventListener('scroll', updateLogo, { passive: true });
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
       const stored = localStorage.getItem(KEY);
       if (stored === '1') applyLightMode(true);

@@ -732,11 +732,23 @@
     }
 
     .reviews-counter {
-      text-align: center;
-      margin-top: 24px;
       font-size: .72rem;
       letter-spacing: .12em;
       color: var(--stone)
+    }
+
+    .reviews-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .review-nav-btn--m {
+      display: none;
+      position: static;
+      transform: none;
     }
 
     /* ── RESPONSIVE ─────────────────────────────────── */
@@ -769,9 +781,15 @@
         font-size: 5rem
       }
 
-      .reviews-slider {
-        padding: 0 36px
-      }
+      .section-video__eyebrow,
+      .section-video__title { padding: 0 30px }
+
+      .reviews-slider { padding: 0 30px }
+
+      .review-nav-btn.prev,
+      .review-nav-btn.next { display: none }
+
+      .review-nav-btn--m { display: flex }
     }
 
     /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
@@ -1452,7 +1470,11 @@
       </div>
       <button class="review-nav-btn next" id="review-next">›</button>
     </div>
-    <div class="reviews-counter" id="reviews-counter">1 / 5</div>
+    <div class="reviews-nav">
+      <button class="review-nav-btn review-nav-btn--m" id="review-prev-m">‹</button>
+      <div class="reviews-counter" id="reviews-counter">1 / 5</div>
+      <button class="review-nav-btn review-nav-btn--m" id="review-next-m">›</button>
+    </div>
   </section>
 
   <!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
@@ -1629,6 +1651,8 @@
     }
     document.getElementById('review-prev').addEventListener('click', () => goToReview(currentReview - 1));
     document.getElementById('review-next').addEventListener('click', () => goToReview(currentReview + 1));
+    document.getElementById('review-prev-m').addEventListener('click', () => goToReview(currentReview - 1));
+    document.getElementById('review-next-m').addEventListener('click', () => goToReview(currentReview + 1));
     setInterval(() => goToReview(currentReview + 1), 6000);
 
     /* ── Video ───────────────────────────────────────────────────── */

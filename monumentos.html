@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monumentos · Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+  <style>
+    /* ── SECTIONS ─────────────────────────────────────────────── */
+    .section {
+      padding: 100px 8vw
+    }
+
+    .section__inner {
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .cta-band .section__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap
+    }
+
+    .section--white {
+      background: #FDFAF4;
+      color: var(--carbon)
+    }
+
+    .section--cream {
+      background: var(--cream);
+      color: var(--carbon)
+    }
+
+    .eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .section--white .eyebrow,
+    .section--cream .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 48px
+    }
+
+    .section--white .section-title,
+    .section--cream .section-title {
+      color: var(--carbon)
+    }
+
+    /* ── PAGE HERO ───────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/img/nocturna.webp');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded {
+      transform: scale(1)
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.82) 0%,
+          rgba(14, 12, 10, 0.50) 45%,
+          rgba(14, 12, 10, 0.70) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.90) 0%,
+          rgba(14, 12, 10, 0.40) 40%,
+          transparent 70%)
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      max-width: 900px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: var(--white)
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .72);
+      max-width: 540px
+    }
+
+    /* ── INTRO SECTION ───────────────────────────────────────── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start
+    }
+
+    .intro-lead {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--carbon)
+    }
+
+    .intro-body {
+      font-size: .88rem;
+      line-height: 1.85;
+      color: var(--stone);
+      margin-bottom: 28px
+    }
+
+    .intro-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px
+    }
+
+    .intro-stat {
+      border-left: 2px solid var(--gold-dk);
+      padding-left: 16px
+    }
+
+    .intro-stat__num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--carbon);
+      line-height: 1
+    }
+
+    .intro-stat__label {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-top: 4px
+    }
+
+    /* ── SDLC MONUMENT SECTIONS ─────────────────────────────── */
+    .sdlc-section {
+      background: var(--carbon);
+      padding: 100px 8vw;
+      border-top: 1px solid rgba(255,255,255,.06)
+    }
+
+    .sdlc-section__inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .sdlc-header {
+      margin-bottom: 56px
+    }
+
+    .sdlc-header .eyebrow {
+      color: var(--gold)
+    }
+
+    .sdlc-header .section-title {
+      color: var(--white);
+      margin-bottom: 0
+    }
+
+    .sdlc-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 64px
+    }
+
+    .sdlc-lead {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.55;
+      color: rgba(253,250,244,.88)
+    }
+
+    .sdlc-body {
+      font-size: .88rem;
+      line-height: 1.85;
+      color: var(--stone);
+      margin-bottom: 24px
+    }
+
+    .sdlc-body:last-child {
+      margin-bottom: 0
+    }
+
+    .sdlc-card {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      color: var(--white)
+    }
+
+    .sdlc-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.9s var(--ease)
+    }
+
+    .sdlc-card:hover .sdlc-card__img {
+      transform: scale(1.05)
+    }
+
+    .sdlc-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(14,12,10,0.95) 0%,
+        rgba(14,12,10,0.55) 45%,
+        rgba(14,12,10,0.18) 75%,
+        rgba(14,12,10,0.08) 100%
+      );
+      transition: background 0.5s ease
+    }
+
+    .sdlc-card:hover .sdlc-card__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(14,12,10,0.97) 0%,
+        rgba(14,12,10,0.68) 48%,
+        rgba(14,12,10,0.28) 78%,
+        rgba(14,12,10,0.12) 100%
+      )
+    }
+
+    .sdlc-card__content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 48px 52px
+    }
+
+    .sdlc-card__eyebrow {
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .sdlc-card__eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .sdlc-card__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--white);
+      margin-bottom: 14px
+    }
+
+    .sdlc-card__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .sdlc-card__desc {
+      font-size: .85rem;
+      line-height: 1.68;
+      color: rgba(253,250,244,.68);
+      max-width: 560px;
+      margin-bottom: 22px
+    }
+
+    .sdlc-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .7rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: gap .25s ease
+    }
+
+    .sdlc-card:hover .sdlc-card__cta {
+      gap: 14px
+    }
+
+    .sdlc-card__cta-arrow {
+      transition: transform .25s ease
+    }
+
+    .sdlc-card:hover .sdlc-card__cta-arrow {
+      transform: translateX(4px)
+    }
+
+    /* ── SECTION PRE-TITLE ──────────────────────────────────── */
+    .sdlc-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--carbon);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(140, 128, 112, .2)
+    }
+
+    .sdlc-title em {
+      font-style: italic;
+      color: var(--gold)
+    }
+
+    /* ── CAÑAS SECTION ───────────────────────────────────────── */
+    .canas-section {
+      background: var(--carbon);
+      padding: 100px 8vw
+    }
+
+    .canas-section__inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .canas-header {
+      margin-bottom: 56px
+    }
+
+    .canas-header .eyebrow {
+      color: var(--gold)
+    }
+
+    .canas-header .section-title {
+      color: var(--white);
+      margin-bottom: 0
+    }
+
+    .canas-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 64px
+    }
+
+    .canas-lead {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.55;
+      color: rgba(253,250,244,.88)
+    }
+
+    .canas-body {
+      font-size: .88rem;
+      line-height: 1.85;
+      color: var(--stone);
+      margin-bottom: 24px
+    }
+
+    .canas-body:last-child {
+      margin-bottom: 0
+    }
+
+    .canas-card {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      color: var(--white)
+    }
+
+    .canas-card__img {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/img/canas.webp');
+      background-size: cover;
+      background-position: center 30%;
+      transition: transform 0.9s var(--ease)
+    }
+
+    .canas-card:hover .canas-card__img {
+      transform: scale(1.05)
+    }
+
+    .canas-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(14, 12, 10, 0.95) 0%,
+        rgba(14, 12, 10, 0.55) 45%,
+        rgba(14, 12, 10, 0.18) 75%,
+        rgba(14, 12, 10, 0.08) 100%
+      );
+      transition: background 0.5s ease
+    }
+
+    .canas-card:hover .canas-card__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(14, 12, 10, 0.97) 0%,
+        rgba(14, 12, 10, 0.68) 48%,
+        rgba(14, 12, 10, 0.28) 78%,
+        rgba(14, 12, 10, 0.12) 100%
+      )
+    }
+
+    .canas-card__content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 48px 52px
+    }
+
+    .canas-card__eyebrow {
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .canas-card__eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .canas-card__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--white);
+      margin-bottom: 14px
+    }
+
+    .canas-card__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .canas-card__desc {
+      font-size: .85rem;
+      line-height: 1.68;
+      color: rgba(253, 250, 244, .68);
+      max-width: 560px;
+      margin-bottom: 22px
+    }
+
+    .canas-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .7rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: gap .25s ease
+    }
+
+    .canas-card:hover .canas-card__cta {
+      gap: 14px
+    }
+
+    .canas-card__cta-arrow {
+      transition: transform .25s ease
+    }
+
+    .canas-card:hover .canas-card__cta-arrow {
+      transform: translateX(4px)
+    }
+
+    /* ── LIGHT MODE ──────────────────────────────────────────── */
+    body.light-mode {
+      background: var(--cream)
+    }
+
+    body.light-mode .navbar--always-solid,
+    body.light-mode .navbar--solid,
+    body.light-mode .navbar.scrolled {
+      background: rgba(245, 240, 232, .97)
+    }
+
+    body.light-mode .navbar__logo-name,
+    body.light-mode .navbar__logo-sub,
+    body.light-mode .lang-selector__btn,
+    body.light-mode .lang-selector__option {
+      color: var(--carbon)
+    }
+
+    body.light-mode .hamburger-line {
+      background: var(--carbon)
+    }
+
+    body.light-mode .side-menu {
+      background: #F9F8F6
+    }
+
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close {
+      color: var(--carbon)
+    }
+
+    body.light-mode .side-menu__nav-item {
+      border-bottom-color: rgba(20, 18, 16, .1)
+    }
+
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245, 240, 232, .97)
+    }
+
+    body.light-mode .page-hero::after {
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.78) 0%,
+          rgba(14, 12, 10, 0.46) 45%,
+          rgba(14, 12, 10, 0.65) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.85) 0%,
+          rgba(14, 12, 10, 0.35) 40%,
+          transparent 70%)
+    }
+
+    body.light-mode .section--white {
+      background: #F5F0E8
+    }
+
+    body.light-mode .sdlc-section {
+      background: #F9F8F6;
+      border-top-color: rgba(140,128,112,.15)
+    }
+
+    body.light-mode .sdlc-header .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    body.light-mode .sdlc-header .section-title,
+    body.light-mode .sdlc-lead {
+      color: var(--carbon)
+    }
+
+    body.light-mode .canas-section {
+      background: #F9F8F6
+    }
+
+    body.light-mode .canas-header .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    body.light-mode .canas-header .section-title,
+    body.light-mode .canas-lead {
+      color: var(--carbon)
+    }
+
+    body.light-mode .sdlc-title {
+      color: var(--carbon)
+    }
+
+    body.light-mode .ornament-divider {
+      background: #F0EBE3
+    }
+
+    body.light-mode .cta-band {
+      background: var(--cream);
+      border-top-color: rgba(168, 133, 46, .3);
+      border-bottom-color: rgba(168, 133, 46, .3)
+    }
+
+    body.light-mode .cta-band__title,
+    body.light-mode .cta-band__sub {
+      color: var(--carbon)
+    }
+
+    body.light-mode .cta-band__sub {
+      color: var(--stone)
+    }
+
+    body.light-mode .site-footer {
+      background: #F9F8F6
+    }
+
+    body.light-mode .footer-col__title,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a,
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__sub {
+      color: var(--carbon)
+    }
+
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a {
+      color: var(--stone)
+    }
+
+    body.light-mode .footer-bottom {
+      border-top-color: rgba(20, 18, 16, .1)
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 40px
+      }
+
+      .intro-stats {
+        grid-template-columns: repeat(4, 1fr)
+      }
+
+      .sdlc-intro {
+        grid-template-columns: 1fr;
+        gap: 32px
+      }
+
+      .sdlc-card {
+        height: 420px
+      }
+
+      .canas-intro {
+        grid-template-columns: 1fr;
+        gap: 32px
+      }
+
+      .canas-card {
+        height: 420px
+      }
+
+      .sdlc-card__content,
+      .canas-card__content {
+        padding: 32px 36px
+      }
+    }
+
+    @media (max-width: 640px) {
+      .sdlc-section {
+        padding: 72px 6vw
+      }
+
+      .sdlc-intro {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+
+      .sdlc-card {
+        height: 360px
+      }
+
+      .sdlc-card__content {
+        padding: 28px 28px
+      }
+
+      .canas-intro {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+
+      .canas-card {
+        height: 360px
+      }
+
+      .canas-card__content {
+        padding: 28px 28px
+      }
+
+      .intro-stats {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" /><line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          Modo Claro / Oscuro
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" /><line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" /><line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="reservas/reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
+            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="index.html" class="side-menu__nav-link"><span class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="reservas/reservas.html" class="side-menu__nav-link"><span class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+        </svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="legal/privacidad.html">Política de privacidad</a><a href="legal/cookies.html">Política de cookies</a><a href="legal/aviso-legal.html">Aviso legal</a><a href="legal/accesibilidad.html">Accesibilidad</a><a href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Santo Domingo de la Calzada · La Rioja</div>
+      <h1 class="page-hero__title" data-i18n-page="page_title">Los <em>monumentos</em></h1>
+      <p class="page-hero__desc" data-i18n-page="page_desc">Cinco joyas patrimoniales que narran ocho siglos de arte, devoción y Camino de Santiago.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section section--white">
+    <div class="section__inner">
+      <h2 class="sdlc-title reveal" data-i18n-page="sdlc_title">Monumentos de Santo Domingo de la Calzada</h2>
+      <p class="eyebrow reveal" data-i18n-page="intro_eyebrow">Conjunto monumental</p>
+      <div class="intro-grid">
+        <div>
+          <h2 class="section-title reveal reveal-delay-1" data-i18n-page="intro_title">Cinco siglos de <em>historia viva</em></h2>
+          <div class="intro-stats reveal reveal-delay-2">
+            <div class="intro-stat">
+              <div class="intro-stat__num">4</div>
+              <div class="intro-stat__label" data-i18n-page="stat1_label">Monumentos</div>
+            </div>
+            <div class="intro-stat">
+              <div class="intro-stat__num">8</div>
+              <div class="intro-stat__label" data-i18n-page="stat2_label">Siglos de historia</div>
+            </div>
+            <div class="intro-stat">
+              <div class="intro-stat__num">7</div>
+              <div class="intro-stat__label" data-i18n-page="stat3_label">Idiomas disponibles</div>
+            </div>
+            <div class="intro-stat">
+              <div class="intro-stat__num">∞</div>
+              <div class="intro-stat__label" data-i18n-page="stat4_label">Años de tradición</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="intro-body" data-i18n-page="intro_body">En el corazón del Camino Francés de Santiago, la ciudad de Santo Domingo de la Calzada reúne cuatro monumentos de primer orden: una catedral románico-gótica que alberga el famoso gallinero vivo, una imponente torre barroca exenta, el antiguo convento franciscano y la ermita románica dedicada a la Virgen de la Plaza.</p>
+          <p class="intro-body" data-i18n-page="intro_body2">Cada uno de estos edificios guarda siglos de historia, arte y devoción. Visítalos por separado o accede a todos con la pulsera turística y descubre el legado que ha convertido a esta ciudad en referencia inexcusable del patrimonio riojano.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONUMENTOS DE SANTO DOMINGO DE LA CALZADA -->
+
+  <!-- Catedral -->
+  <section class="sdlc-section">
+    <div class="sdlc-section__inner">
+      <div class="sdlc-header reveal">
+        <p class="eyebrow" data-i18n-page="mon1_eyebrow">Catedral · ss. XII–XIV</p>
+        <h2 class="section-title" data-i18n-page="mon1_title">La <em>Catedral</em></h2>
+      </div>
+      <div class="sdlc-intro">
+        <div class="reveal reveal-delay-1">
+          <p class="sdlc-lead" data-i18n-page="mon1_desc">Joya del románico-gótico riojano. Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Gallinero vivo, retablo de Forment y sepulcro del Santo.</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="sdlc-body" data-i18n-page="mon1_body">Alberga el famoso gallinero vivo en recuerdo del milagro del ahorcado, el monumental retablo de Damián Forment y el sepulcro del Santo fundador. Su claustro y sus capillas son testimonio de ocho siglos de arte y devoción.</p>
+        </div>
+      </div>
+      <a href="monumentos/catedral.html" class="sdlc-card reveal reveal-delay-1">
+        <div class="sdlc-card__img" style="background-image:url('assets/img/diurna.webp'); background-position:center 40%"></div>
+        <div class="sdlc-card__overlay"></div>
+        <div class="sdlc-card__content">
+          <span class="sdlc-card__eyebrow" data-i18n-page="mon1_eyebrow">Catedral · ss. XII–XIV</span>
+          <h2 class="sdlc-card__title" data-i18n-page="mon1_title">La <em>Catedral</em></h2>
+          <p class="sdlc-card__desc" data-i18n-page="mon1_desc">Joya del románico-gótico riojano. Ocho siglos de historia, arte y devoción en el corazón del Camino Francés.</p>
+          <span class="sdlc-card__cta"><span data-i18n-page="mon1_cta">Descubrir</span><span class="sdlc-card__cta-arrow">→</span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Torre Exenta -->
+  <section class="sdlc-section">
+    <div class="sdlc-section__inner">
+      <div class="sdlc-header reveal">
+        <p class="eyebrow" data-i18n-page="mon2_eyebrow">Torre exenta · s. XVIII</p>
+        <h2 class="section-title" data-i18n-page="mon2_title">La <em>Torre</em> Exenta</h2>
+      </div>
+      <div class="sdlc-intro">
+        <div class="reveal reveal-delay-1">
+          <p class="sdlc-lead" data-i18n-page="mon2_desc">70 metros de barroco tardío que dominan el horizonte del Camino Francés. La torre campanario más alta de La Rioja.</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="sdlc-body" data-i18n-page="mon2_body">Construida en el siglo XVIII, su diseño independiente respecto a la Catedral la convierte en una rareza de la arquitectura barroca hispánica. Desde su cima, las vistas sobre la ciudad y los campos de La Rioja son excepcionales.</p>
+        </div>
+      </div>
+      <a href="monumentos/torre.html" class="sdlc-card reveal reveal-delay-1">
+        <div class="sdlc-card__img" style="background-image:url('assets/img/torre.webp'); background-position:center 20%"></div>
+        <div class="sdlc-card__overlay"></div>
+        <div class="sdlc-card__content">
+          <span class="sdlc-card__eyebrow" data-i18n-page="mon2_eyebrow">Torre exenta · s. XVIII</span>
+          <h2 class="sdlc-card__title" data-i18n-page="mon2_title">La <em>Torre</em> Exenta</h2>
+          <p class="sdlc-card__desc" data-i18n-page="mon2_desc">70 metros de barroco tardío que dominan el horizonte del Camino Francés. La torre campanario más alta de La Rioja.</p>
+          <span class="sdlc-card__cta"><span data-i18n-page="mon2_cta">Descubrir</span><span class="sdlc-card__cta-arrow">→</span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Convento San Francisco -->
+  <section class="sdlc-section">
+    <div class="sdlc-section__inner">
+      <div class="sdlc-header reveal">
+        <p class="eyebrow" data-i18n-page="mon3_eyebrow">Convento · ss. XIII–XVI</p>
+        <h2 class="section-title" data-i18n-page="mon3_title">Convento de <em>San Francisco</em></h2>
+      </div>
+      <div class="sdlc-intro">
+        <div class="reveal reveal-delay-1">
+          <p class="sdlc-lead" data-i18n-page="mon3_desc">El antiguo convento franciscano conserva una iglesia gótica y un claustro de notable valor histórico y artístico.</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="sdlc-body" data-i18n-page="mon3_body">Fundado entre los siglos XIII y XVI, su iglesia gótica de nave única y su claustro porticado son testimonio singular de la arquitectura mendicante riojana. Hoy acoge actividades culturales y exposiciones temporales.</p>
+        </div>
+      </div>
+      <a href="monumentos/sanfrancisco.html" class="sdlc-card reveal reveal-delay-1">
+        <div class="sdlc-card__img" style="background-image:url('assets/img/sanfrancisco.webp'); background-position:center"></div>
+        <div class="sdlc-card__overlay"></div>
+        <div class="sdlc-card__content">
+          <span class="sdlc-card__eyebrow" data-i18n-page="mon3_eyebrow">Convento · ss. XIII–XVI</span>
+          <h2 class="sdlc-card__title" data-i18n-page="mon3_title">Convento de <em>San Francisco</em></h2>
+          <p class="sdlc-card__desc" data-i18n-page="mon3_desc">El antiguo convento franciscano conserva una iglesia gótica y un claustro de notable valor histórico y artístico.</p>
+          <span class="sdlc-card__cta"><span data-i18n-page="mon3_cta">Descubrir</span><span class="sdlc-card__cta-arrow">→</span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Ermita de la Virgen de la Plaza -->
+  <section class="sdlc-section">
+    <div class="sdlc-section__inner">
+      <div class="sdlc-header reveal">
+        <p class="eyebrow" data-i18n-page="mon4_eyebrow">Ermita · s. XII</p>
+        <h2 class="section-title" data-i18n-page="mon4_title">Ermita de la <em>Virgen de la Plaza</em></h2>
+      </div>
+      <div class="sdlc-intro">
+        <div class="reveal reveal-delay-1">
+          <p class="sdlc-lead" data-i18n-page="mon4_desc">La ermita románica dedicada a la Virgen, corazón espiritual de la plaza mayor de Santo Domingo de la Calzada.</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="sdlc-body" data-i18n-page="mon4_body">Datada en el siglo XII, la ermita presidió durante siglos la vida pública de la ciudad. Su sobria fachada románica contrasta con la devoción que despierta la imagen venerada de la Virgen en su interior.</p>
+        </div>
+      </div>
+      <a href="monumentos/ermitaplaza.html" class="sdlc-card reveal reveal-delay-1">
+        <div class="sdlc-card__img" style="background-image:url('assets/img/ermitaplaza.webp'); background-position:center"></div>
+        <div class="sdlc-card__overlay"></div>
+        <div class="sdlc-card__content">
+          <span class="sdlc-card__eyebrow" data-i18n-page="mon4_eyebrow">Ermita · s. XII</span>
+          <h2 class="sdlc-card__title" data-i18n-page="mon4_title">Ermita de la <em>Virgen de la Plaza</em></h2>
+          <p class="sdlc-card__desc" data-i18n-page="mon4_desc">La ermita románica dedicada a la Virgen, corazón espiritual de la plaza mayor de Santo Domingo de la Calzada.</p>
+          <span class="sdlc-card__cta"><span data-i18n-page="mon4_cta">Descubrir</span><span class="sdlc-card__cta-arrow">→</span></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- INTRO MONASTERIO DE CAÑAS -->
+  <section class="section section--white">
+    <div class="section__inner">
+      <h2 class="sdlc-title reveal" data-i18n-page="canas_title">Monasterio de <em>Cañas</em></h2>
+      <p class="eyebrow reveal" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</p>
+      <div class="intro-grid">
+        <div>
+          <h2 class="section-title reveal reveal-delay-1" data-i18n-page="canas_intro_title">El monasterio <em>cisterciense</em></h2>
+          <div class="intro-stats reveal reveal-delay-2">
+            <div class="intro-stat">
+              <div class="intro-stat__num">1169</div>
+              <div class="intro-stat__label" data-i18n-page="canas_stat1_label">Año de fundación</div>
+            </div>
+            <div class="intro-stat">
+              <div class="intro-stat__num">VIII+</div>
+              <div class="intro-stat__label" data-i18n-page="canas_stat2_label">Siglos de historia</div>
+            </div>
+            <div class="intro-stat">
+              <div class="intro-stat__num">XII</div>
+              <div class="intro-stat__label" data-i18n-page="canas_stat3_label">Siglo de la iglesia</div>
+            </div>
+            <div class="intro-stat">
+              <div class="intro-stat__num">∞</div>
+              <div class="intro-stat__label" data-i18n-page="canas_stat4_label">Tradición viva</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="intro-body" data-i18n-page="canas_lead">A escasos kilómetros de Santo Domingo, entre los viñedos y huertas de La Rioja, el Monasterio de Cañas guarda uno de los conjuntos cistercienses más completos y mejor conservados de España.</p>
+          <p class="intro-body" data-i18n-page="canas_body1">Fundado en 1169 por doña Urraca López de Haro, el monasterio alberga desde entonces una comunidad de monjas bernardas que mantiene la tradición contemplativa cisterciense. Su iglesia románico-gótica, el claustro porticado y el panteón de los señores de los Cameros constituyen una visita de primer orden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONASTERIO DE CAÑAS — CARD -->
+  <section class="canas-section">
+    <div class="canas-section__inner">
+
+      <div class="canas-header reveal">
+        <p class="eyebrow" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</p>
+        <h2 class="section-title" data-i18n-page="canas_title">Monasterio de <em>Cañas</em></h2>
+      </div>
+
+      <a href="monumentos/monasteriocanas.html" class="canas-card reveal reveal-delay-1">
+        <div class="canas-card__img"></div>
+        <div class="canas-card__overlay"></div>
+        <div class="canas-card__content">
+          <span class="canas-card__eyebrow" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</span>
+          <h2 class="canas-card__title" data-i18n-page="canas_card_title">Monasterio de <em>Cañas</em></h2>
+          <p class="canas-card__desc" data-i18n-page="canas_card_desc">Comunidad cisterciense fundada en 1169. Panteón funerario, claustro porticado e iglesia románico-gótica de excepcional belleza medieval.</p>
+          <span class="canas-card__cta"><span data-i18n-page="canas_card_cta">Descubrir el monasterio</span><span class="canas-card__cta-arrow">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+      <div>
+        <h3 class="cta-band__title" data-i18n-page="cta_title">Reserva tu <em>visita</em></h3>
+        <p class="cta-band__sub" data-i18n-page="cta_sub">Adquiere tu entrada online y accede a todos los monumentos con la pulsera turística.</p>
+      </div>
+      <a href="reservas/reservas.html" class="cta-band__btn" data-i18n-page="cta_btn">Comprar entradas →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="section__inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+          <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+          <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24">
+                <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+              </svg></a>
+            <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+          <ul class="footer-col__list">
+            <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+            <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+            <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+            <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+            <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+          <ul class="footer-col__list">
+            <li><a href="index.html" data-i18n="footer_disc_1">Historia</a></li>
+            <li><a href="monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+            <li><a href="monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+            <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+            <li><a href="monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+          <ul class="footer-col__list">
+            <li><a href="reservas/reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+            <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+            <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+            <li><a href="#" data-i18n="footer_info_4">Prensa</a></li>
+            <li><a href="#" data-i18n="footer_info_5">Actualidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+        <div class="footer-bottom__links">
+          <a href="legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+          <a href="legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+          <a href="legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+          <a href="legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    /* ── Traducciones específicas de esta página ─────────────────── */
+    const PAGE_T = {
+      es: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'Los <em>monumentos</em>',
+        page_desc: 'Cuatro joyas patrimoniales en el corazón del Camino, y un monasterio cisterciense único en La Rioja.',
+        sdlc_title: 'Monumentos de <em>Santo Domingo de la Calzada</em>',
+        intro_eyebrow: 'Conjunto monumental',
+        intro_title: 'Cinco siglos de <em>historia viva</em>',
+        intro_body: 'En el corazón del Camino Francés de Santiago, la ciudad de Santo Domingo de la Calzada reúne cuatro monumentos de primer orden: una catedral románico-gótica que alberga el famoso gallinero vivo, una imponente torre barroca exenta, el antiguo convento franciscano y la ermita románica dedicada a la Virgen de la Plaza.',
+        intro_body2: 'Cada uno de estos edificios guarda siglos de historia, arte y devoción. Visítalos por separado o accede a todos con la pulsera turística y descubre el legado que ha convertido a esta ciudad en referencia inexcusable del patrimonio riojano.',
+        stat1_label: 'Monumentos', stat2_label: 'Siglos de historia', stat3_label: 'Idiomas disponibles', stat4_label: 'Años de tradición',
+        mon1_eyebrow: 'Catedral · ss. XII–XIV', mon1_title: 'La <em>Catedral</em>', mon1_desc: 'Joya del románico-gótico riojano. Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Gallinero vivo, retablo de Forment y sepulcro del Santo.', mon1_cta: 'Descubrir',
+        mon1_body: 'Alberga el famoso gallinero vivo en recuerdo del milagro del ahorcado, el monumental retablo de Damián Forment y el sepulcro del Santo fundador. Su claustro y sus capillas son testimonio de ocho siglos de arte y devoción.',
+        mon2_eyebrow: 'Torre exenta · s. XVIII', mon2_title: 'La <em>Torre</em> Exenta', mon2_desc: '70 metros de barroco tardío que dominan el horizonte del Camino Francés. La torre campanario más alta de La Rioja.', mon2_cta: 'Descubrir',
+        mon2_body: 'Construida en el siglo XVIII, su diseño independiente respecto a la Catedral la convierte en una rareza de la arquitectura barroca hispánica. Desde su cima, las vistas sobre la ciudad y los campos de La Rioja son excepcionales.',
+        mon3_eyebrow: 'Convento · ss. XIII–XVI', mon3_title: 'Convento de <em>San Francisco</em>', mon3_desc: 'El antiguo convento franciscano conserva una iglesia gótica y un claustro de notable valor histórico y artístico.', mon3_cta: 'Descubrir',
+        mon3_body: 'Fundado entre los siglos XIII y XVI, su iglesia gótica de nave única y su claustro porticado son testimonio singular de la arquitectura mendicante riojana. Hoy acoge actividades culturales y exposiciones temporales.',
+        mon4_eyebrow: 'Ermita · s. XII', mon4_title: 'Ermita de la <em>Virgen de la Plaza</em>', mon4_desc: 'La ermita románica dedicada a la Virgen, corazón espiritual de la plaza mayor de Santo Domingo de la Calzada.', mon4_cta: 'Descubrir',
+        mon4_body: 'Datada en el siglo XII, la ermita presidió durante siglos la vida pública de la ciudad. Su sobria fachada románica contrasta con la devoción que despierta la imagen venerada de la Virgen en su interior.',
+        canas_eyebrow: 'Fuera del conjunto urbano · s. XII', canas_title: 'Monasterio de <em>Cañas</em>',
+        canas_intro_title: 'El monasterio <em>cisterciense</em>',
+        canas_stat1_label: 'Año de fundación', canas_stat2_label: 'Siglos de historia', canas_stat3_label: 'Siglo de la iglesia', canas_stat4_label: 'Tradición viva',
+        canas_lead: 'A escasos kilómetros de Santo Domingo, entre los viñedos y huertas de La Rioja, el Monasterio de Cañas guarda uno de los conjuntos cistercienses más completos y mejor conservados de España.',
+        canas_body1: 'Fundado en 1169 por doña Urraca López de Haro, el monasterio alberga desde entonces una comunidad de monjas bernardas que mantiene la tradición contemplativa cisterciense. Su iglesia románico-gótica, el claustro porticado y el panteón de los señores de los Cameros constituyen una visita de primer orden.',
+        canas_body2: 'El panteón atesora piezas escultóricas únicas del siglo XIII: los yacentes de doña Urraca López y de la beata Oria de Villavelayo son considerados obras maestras de la escultura medieval hispana.',
+        canas_card_title: 'Monasterio de <em>Cañas</em>', canas_card_desc: 'Comunidad cisterciense fundada en 1169. Panteón funerario, claustro porticado e iglesia románico-gótica de excepcional belleza medieval.', canas_card_cta: 'Descubrir el monasterio',
+        cta_title: 'Reserva tu <em>visita</em>', cta_sub: 'Adquiere tu entrada online y accede a todos los monumentos con la pulsera turística.', cta_btn: 'Comprar entradas →'
+      },
+      en: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'The <em>monuments</em>',
+        page_desc: 'Five heritage gems narrating eight centuries of art, devotion and the Way of St. James.',
+        intro_eyebrow: 'Monumental complex',
+        intro_title: 'Five centuries of <em>living history</em>',
+        intro_body: 'Santo Domingo de la Calzada holds one of the most singular monumental complexes on the Way of St. James. A Romanesque-Gothic cathedral, a freestanding Baroque tower, a Franciscan convent, a Romanesque hermitage and a Cistercian monastery form a unique heritage.',
+        intro_body2: 'Every stone holds centuries of history, legend and devotion. Plan your visit and discover the soul of La Rioja through its most singular architecture.',
+        stat1_label: 'Monuments', stat2_label: 'Centuries of history', stat3_label: 'Available languages', stat4_label: 'Years of tradition',
+        grid_eyebrow: 'Heritage · Discover', grid_title: 'Choose your <em>destination</em>',
+        mon1_eyebrow: 'Cathedral · 12th–14th c.', mon1_title: 'The <em>Cathedral</em>', mon1_desc: 'A jewel of Riojan Romanesque-Gothic. Eight centuries of history, art and devotion at the heart of the French Way. Live hen house, Forment altarpiece and the Saint\'s tomb.', mon1_cta: 'Discover',
+        mon1_body: 'It houses the famous live hen house, a reminder of the miracle of the hanged man, the monumental altarpiece by Damián Forment and the tomb of the founding Saint. Its cloister and chapels bear witness to eight centuries of art and devotion.',
+        mon2_eyebrow: 'Freestanding tower · 18th c.', mon2_title: 'The Freestanding <em>Tower</em>', mon2_desc: '70 metres of late Baroque dominating the skyline of the French Way. The tallest bell tower in La Rioja.', mon2_cta: 'Discover',
+        mon2_body: 'Built in the 18th century, its design independent of the Cathedral makes it a rarity of Hispanic Baroque architecture. From its summit, the views over the city and the fields of La Rioja are exceptional.',
+        mon3_eyebrow: 'Convent · 13th–16th c.', mon3_title: 'Convent of <em>San Francisco</em>', mon3_desc: 'The former Franciscan convent preserves a Gothic church and a cloister of remarkable historical and artistic value.', mon3_cta: 'Discover',
+        mon3_body: 'Founded between the 13th and 16th centuries, its single-nave Gothic church and arcaded cloister are a singular testimony to Riojan mendicant architecture. Today it hosts cultural activities and temporary exhibitions.',
+        mon4_eyebrow: 'Hermitage · 12th c.', mon4_title: 'Hermitage of the <em>Virgin of the Square</em>', mon4_desc: 'The Romanesque hermitage dedicated to the Virgin, spiritual heart of the main square of Santo Domingo de la Calzada.', mon4_cta: 'Discover',
+        mon4_body: 'Dating from the 12th century, the hermitage presided over the public life of the city for centuries. Its sober Romanesque façade contrasts with the devotion inspired by the venerated image of the Virgin inside.',
+        sdlc_title: 'Monuments of <em>Santo Domingo de la Calzada</em>',
+        canas_eyebrow: 'Outside the urban complex · 12th c.', canas_title: 'Monastery of <em>Cañas</em>',
+        canas_intro_title: 'The Cistercian <em>monastery</em>',
+        canas_stat1_label: 'Year of foundation', canas_stat2_label: 'Centuries of history', canas_stat3_label: 'Century of the church', canas_stat4_label: 'Living tradition',
+        canas_lead: 'A few kilometres from Santo Domingo, among the vineyards and orchards of La Rioja, the Monastery of Cañas holds one of the most complete and best-preserved Cistercian complexes in Spain.',
+        canas_body1: 'Founded in 1169 by Doña Urraca López de Haro, the monastery has since housed a community of Bernardine nuns who maintain the Cistercian contemplative tradition. Its Romanesque-Gothic church, the arcaded cloister and the pantheon of the lords of the Cameros are a first-rate visit.',
+        canas_body2: 'The pantheon houses unique 13th-century sculptural pieces: the recumbent effigies of Doña Urraca López and the Blessed Oria de Villavelayo are considered masterpieces of Hispanic medieval sculpture.',
+        canas_card_title: 'Monastery of <em>Cañas</em>', canas_card_desc: 'Cistercian community founded in 1169. Funeral pantheon, arcaded cloister and Romanesque-Gothic church of exceptional medieval beauty.', canas_card_cta: 'Discover the monastery',
+        cta_title: 'Book your <em>visit</em>', cta_sub: 'Buy your ticket online and access all monuments with the tourist wristband.', cta_btn: 'Buy tickets →'
+      },
+      fr: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'Les <em>monuments</em>',
+        page_desc: 'Quatre joyaux patrimoniaux au cœur du Chemin, et un monastère cistercien unique en La Rioja.',
+        sdlc_title: 'Monuments de <em>Santo Domingo de la Calzada</em>',
+        intro_eyebrow: 'Ensemble monumental',
+        intro_title: 'Cinq siècles d\'<em>histoire vivante</em>',
+        intro_body: 'Au cœur du Chemin Français de Compostelle, la ville de Santo Domingo de la Calzada réunit quatre monuments de premier ordre : une cathédrale romano-gothique, une tour baroque indépendante, un couvent franciscain et un ermitage roman dédié à la Vierge.',
+        intro_body2: 'Chaque pierre renferme des siècles d\'histoire, d\'art et de dévotion. Visitez-les séparément ou accédez à tous avec le bracelet touristique.',
+        stat1_label: 'Monuments', stat2_label: 'Siècles d\'histoire', stat3_label: 'Langues disponibles', stat4_label: 'Ans de tradition',
+        mon1_eyebrow: 'Cathédrale · XII–XIV s.', mon1_title: 'La <em>Cathédrale</em>', mon1_desc: 'Joyau du romano-gothique riojane. Huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français.', mon1_cta: 'Découvrir',
+        mon1_body: 'Elle abrite le célèbre poulailler vivant en souvenir du miracle du pendu, le monumental retable de Damián Forment et le tombeau du Saint fondateur. Son cloître et ses chapelles témoignent de huit siècles d\'art et de dévotion.',
+        mon2_eyebrow: 'Tour indépendante · XVIII s.', mon2_title: 'La <em>Tour</em> Indépendante', mon2_desc: '70 mètres de baroque tardif qui dominent l\'horizon du Chemin Français. Le clocher le plus haut de La Rioja.', mon2_cta: 'Découvrir',
+        mon2_body: 'Construite au XVIIIe siècle, sa conception indépendante de la Cathédrale en fait une rareté de l\'architecture baroque hispanique. Depuis son sommet, les vues sur la ville et les champs de La Rioja sont exceptionnelles.',
+        mon3_eyebrow: 'Couvent · XIII–XVI s.', mon3_title: 'Couvent de <em>San Francisco</em>', mon3_desc: 'L\'ancien couvent franciscain conserve une église gothique et un cloître d\'une remarquable valeur historique et artistique.', mon3_cta: 'Découvrir',
+        mon3_body: 'Fondé entre les XIIIe et XVIe siècles, son église gothique à nef unique et son cloître à arcades sont un témoignage singulier de l\'architecture mendiante riojane. Il accueille aujourd\'hui des activités culturelles et des expositions temporaires.',
+        mon4_eyebrow: 'Ermitage · XII s.', mon4_title: 'Ermitage de la <em>Vierge de la Place</em>', mon4_desc: 'L\'ermitage roman dédié à la Vierge, cœur spirituel de la place principale de Santo Domingo de la Calzada.', mon4_cta: 'Découvrir',
+        mon4_body: 'Datant du XIIe siècle, l\'ermitage a présidé pendant des siècles la vie publique de la ville. Sa sobre façade romane contraste avec la dévotion qu\'inspire l\'image vénérée de la Vierge en son intérieur.',
+        canas_eyebrow: 'Hors de l\'ensemble urbain · XII s.', canas_title: 'Monastère de <em>Cañas</em>',
+        canas_intro_title: 'Le monastère <em>cistercien</em>',
+        canas_stat1_label: 'Année de fondation', canas_stat2_label: 'Siècles d\'histoire', canas_stat3_label: 'Siècle de l\'église', canas_stat4_label: 'Tradition vivante',
+        canas_lead: 'À quelques kilomètres de Santo Domingo, parmi les vignes et les vergers de La Rioja, le Monastère de Cañas abrite l\'un des ensembles cisterciens les plus complets et les mieux conservés d\'Espagne.',
+        canas_body1: 'Fondé en 1169 par doña Urraca López de Haro, le monastère accueille depuis lors une communauté de moniales bernardines. Son église romano-gothique, le cloître à arcades et le panthéon des seigneurs de los Cameros constituent une visite de premier ordre.',
+        canas_body2: 'Le panthéon conserve des pièces sculpturales uniques du XIIIe siècle, considérées comme des chefs-d\'œuvre de la sculpture médiévale hispanique.',
+        canas_card_title: 'Monastère de <em>Cañas</em>', canas_card_desc: 'Communauté cistercienne fondée en 1169. Panthéon funéraire, cloître à arcades et église romano-gothique d\'une beauté médiévale exceptionnelle.', canas_card_cta: 'Découvrir le monastère',
+        cta_title: 'Réservez votre <em>visite</em>', cta_sub: 'Achetez votre billet en ligne et accédez à tous les monuments avec le bracelet touristique.', cta_btn: 'Acheter des billets →'
+      },
+      de: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'Die <em>Denkmäler</em>',
+        page_desc: 'Vier Kulturschätze im Herzen des Jakobsweges und ein einzigartiges Zisterzienserkloster in La Rioja.',
+        sdlc_title: 'Denkmäler von <em>Santo Domingo de la Calzada</em>',
+        intro_eyebrow: 'Denkmalkomplex',
+        intro_title: 'Acht Jahrhunderte <em>lebendige Geschichte</em>',
+        intro_body: 'Im Herzen des Französischen Jakobsweges vereint Santo Domingo de la Calzada vier Denkmäler ersten Ranges: eine romanisch-gotische Kathedrale, einen freistehenden Barockturm, ein Franziskanerkloster und eine romanische Kapelle, die der Jungfrau gewidmet ist.',
+        intro_body2: 'Jeder Stein birgt Jahrhunderte Geschichte, Legende und Frömmigkeit. Besuchen Sie sie einzeln oder erkunden Sie sie alle mit dem Tourismusarmband.',
+        stat1_label: 'Denkmäler', stat2_label: 'Jahrhunderte Geschichte', stat3_label: 'Verfügbare Sprachen', stat4_label: 'Jahre Tradition',
+        mon1_eyebrow: 'Kathedrale · 12.–14. Jh.', mon1_title: 'Die <em>Kathedrale</em>', mon1_desc: 'Juwel der riojaner Romanik-Gotik. Acht Jahrhunderte Geschichte, Kunst und Frömmigkeit im Herzen des Französischen Weges.', mon1_cta: 'Entdecken',
+        mon1_body: 'Sie beherbergt den berühmten lebendigen Hühnerstall zum Gedenken an das Wunder des Gehenkten, den monumentalen Altar von Damián Forment und das Grabmal des Gründerheiligen. Kreuzgang und Kapellen zeugen von acht Jahrhunderten Kunst und Frömmigkeit.',
+        mon2_eyebrow: 'Freistehender Turm · 18. Jh.', mon2_title: 'Der <em>Freistehende Turm</em>', mon2_desc: '70 Meter Spätbarock, die den Horizont des Französischen Weges dominieren. Der höchste Glockenturm in La Rioja.', mon2_cta: 'Entdecken',
+        mon2_body: 'Im 18. Jahrhundert erbaut, macht ihr eigenständiges Design unabhängig von der Kathedrale sie zu einer Rarität der hispanischen Barockarchitektur. Von ihrer Spitze aus bieten sich außergewöhnliche Ausblicke über die Stadt und die Felder La Riojas.',
+        mon3_eyebrow: 'Kloster · 13.–16. Jh.', mon3_title: 'Kloster <em>San Francisco</em>', mon3_desc: 'Das ehemalige Franziskanerkloster bewahrt eine gotische Kirche und einen Kreuzgang von bemerkenswertem historischen Wert.', mon3_cta: 'Entdecken',
+        mon3_body: 'Im 13.–16. Jahrhundert gegründet, sind seine gotische Einschiffkirche und sein Bogenkreuzgang ein einzigartiges Zeugnis der riojaner Bettelordensarchitektur. Heute beherbergt es Kulturveranstaltungen und Wechselausstellungen.',
+        mon4_eyebrow: 'Kapelle · 12. Jh.', mon4_title: 'Kapelle der <em>Jungfrau vom Platz</em>', mon4_desc: 'Die romanische Kapelle der Jungfrau, spirituelles Herz des Hauptplatzes von Santo Domingo de la Calzada.', mon4_cta: 'Entdecken',
+        mon4_body: 'Das Heiligtum aus dem 12. Jahrhundert presidierte jahrhundertelang das öffentliche Leben der Stadt. Die schlichte romanische Fassade kontrastiert mit der tiefen Verehrung, die das heilige Bild der Jungfrau in seinem Inneren erweckt.',
+        canas_eyebrow: 'Außerhalb des Stadtzentrums · 12. Jh.', canas_title: 'Kloster <em>Cañas</em>',
+        canas_intro_title: 'Das Zisterzienserkloster <em>Cañas</em>',
+        canas_stat1_label: 'Gründungsjahr', canas_stat2_label: 'Jahrhunderte Geschichte', canas_stat3_label: 'Jahrhundert der Kirche', canas_stat4_label: 'Lebendige Tradition',
+        canas_lead: 'Wenige Kilometer von Santo Domingo entfernt, inmitten der Weinberge und Gärten La Riojas, bewahrt das Kloster Cañas eines der vollständigsten Zisterzienserensembles Spaniens.',
+        canas_body1: 'Im Jahr 1169 von doña Urraca López de Haro gegründet, beherbergt das Kloster seither eine Gemeinschaft bernhardinischer Nonnen. Die romanisch-gotische Kirche, der Kreuzgang und das Pantheon der Herren von Cameros sind eine Reise erster Güte wert.',
+        canas_body2: 'Das Pantheon bewahrt einzigartige Skulpturen aus dem 13. Jahrhundert, die als Meisterwerke der hispanischen mittelalterlichen Plastik gelten.',
+        canas_card_title: 'Kloster <em>Cañas</em>', canas_card_desc: 'Zisterziensische Gemeinschaft, gegründet 1169. Grabpantheon, Kreuzgang und romanisch-gotische Kirche von außergewöhnlicher mittelalterlicher Schönheit.', canas_card_cta: 'Das Kloster entdecken',
+        cta_title: 'Ihren <em>Besuch</em> buchen', cta_sub: 'Kaufen Sie Ihr Ticket online und besuchen Sie alle Denkmäler mit dem Tourismusarmband.', cta_btn: 'Tickets kaufen →'
+      },
+      pt: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'Os <em>monumentos</em>',
+        page_desc: 'Cinco joias patrimoniais que narram oito séculos de arte, devoção e Caminho de Santiago.',
+        intro_eyebrow: 'Conjunto monumental',
+        intro_title: 'Cinco séculos de <em>história viva</em>',
+        intro_body: 'Santo Domingo de la Calzada abriga um dos conjuntos monumentais mais singulares do Caminho de Santiago. Uma catedral românico-gótica, uma torre barroca independente, um convento franciscano, uma ermida românica e um mosteiro cisterciense formam um legado único.',
+        intro_body2: 'Cada pedra guarda séculos de história, lenda e devoção. Planeje sua visita e descubra a alma de La Rioja através da sua arquitetura mais singular.',
+        sdlc_title: 'Monumentos de <em>Santo Domingo de la Calzada</em>',
+        stat1_label: 'Monumentos', stat2_label: 'Séculos de história', stat3_label: 'Idiomas disponíveis', stat4_label: 'Anos de tradição',
+        mon1_eyebrow: 'Catedral · sécs. XII–XIV', mon1_title: 'A <em>Catedral</em>', mon1_desc: 'Joia do românico-gótico riojano. Oito séculos de história, arte e devoção no coração do Caminho Francês.', mon1_cta: 'Descobrir',
+        mon1_body: 'Abriga o famoso galinheiro vivo em memória do milagre do enforcado, o monumental retábulo de Damián Forment e o sepulcro do Santo fundador. Seu claustro e capelas são testemunho de oito séculos de arte e devoção.',
+        mon2_eyebrow: 'Torre independente · séc. XVIII', mon2_title: 'A <em>Torre</em> Independente', mon2_desc: '70 metros de barroco tardio que dominam o horizonte do Caminho Francês. A torre campanário mais alta de La Rioja.', mon2_cta: 'Descobrir',
+        mon2_body: 'Construída no século XVIII, seu design independente em relação à Catedral a torna uma raridade da arquitetura barroca hispânica. De seu cume, as vistas sobre a cidade e os campos de La Rioja são excepcionais.',
+        mon3_eyebrow: 'Convento · sécs. XIII–XVI', mon3_title: 'Convento de <em>São Francisco</em>', mon3_desc: 'O antigo convento franciscano conserva uma igreja gótica e um claustro de notável valor histórico e artístico.', mon3_cta: 'Descobrir',
+        mon3_body: 'Fundado entre os séculos XIII e XVI, sua igreja gótica de nave única e seu claustro porticado são testemunho singular da arquitetura mendicante riojana. Hoje acolhe atividades culturais e exposições temporárias.',
+        mon4_eyebrow: 'Ermida · séc. XII', mon4_title: 'Ermida da <em>Virgem da Praça</em>', mon4_desc: 'A ermida românica dedicada à Virgem, coração espiritual da praça principal de Santo Domingo de la Calzada.', mon4_cta: 'Descobrir',
+        mon4_body: 'Datada do século XII, a ermida presidiu durante séculos a vida pública da cidade. Sua sóbria fachada românica contrasta com a devoção que desperta a imagem venerada da Virgem em seu interior.',
+        canas_eyebrow: 'Fora do conjunto urbano · séc. XII', canas_title: 'Mosteiro de <em>Cañas</em>',
+        canas_intro_title: 'O mosteiro <em>cisterciense</em>',
+        canas_stat1_label: 'Ano de fundação', canas_stat2_label: 'Séculos de história', canas_stat3_label: 'Século da igreja', canas_stat4_label: 'Tradição viva',
+        canas_lead: 'A poucos quilômetros de Santo Domingo, entre vinhedos e hortas de La Rioja, o Mosteiro de Cañas guarda um dos conjuntos cistercienses mais completos da Espanha.',
+        canas_body1: 'Fundado em 1169 por dona Urraca López de Haro, o mosteiro abriga desde então uma comunidade de monjas bernardinas. Sua igreja românico-gótica, o claustro e o panteão dos senhores de Cameros constituem uma visita de primeira ordem.',
+        canas_body2: 'O panteão guarda peças escultóricas únicas do século XIII, consideradas obras-primas da escultura medieval hispânica.',
+        canas_card_title: 'Mosteiro de <em>Cañas</em>', canas_card_desc: 'Comunidade cisterciense fundada em 1169. Panteão funerário, claustro e igreja românico-gótica de excepcional beleza medieval.', canas_card_cta: 'Descobrir o mosteiro',
+        cta_title: 'Reserve sua <em>visita</em>', cta_sub: 'Adquira seu ingresso online e acesse todos os monumentos com a pulseira turística.', cta_btn: 'Comprar ingressos →'
+      },
+      it: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'I <em>monumenti</em>',
+        page_desc: 'Quattro gioielli nel cuore del Cammino e un monastero cistercense unico in La Rioja.',
+        sdlc_title: 'Monumenti di <em>Santo Domingo de la Calzada</em>',
+        intro_eyebrow: 'Complesso monumentale',
+        intro_title: 'Cinque secoli di <em>storia viva</em>',
+        intro_body: 'Nel cuore del Cammino Francese, la città di Santo Domingo de la Calzada riunisce quattro monumenti di primo ordine: una cattedrale romanico-gotica, una torre barocca indipendente, un convento francescano e un eremo romanico dedicato alla Vergine.',
+        intro_body2: 'Ogni pietra custodisce secoli di storia, arte e devozione. Visitateli separatamente o accedete a tutti con il braccialetto turistico.',
+        stat1_label: 'Monumenti', stat2_label: 'Secoli di storia', stat3_label: 'Lingue disponibili', stat4_label: 'Anni di tradizione',
+        mon1_eyebrow: 'Cattedrale · XII–XIV sec.', mon1_title: 'La <em>Cattedrale</em>', mon1_desc: 'Gioiello del romanico-gotico riojano. Otto secoli di storia, arte e devozione nel cuore del Cammino Francese.', mon1_cta: 'Scoprire',
+        mon1_body: 'Ospita il famoso pollaio vivo in memoria del miracolo dell\'impiccato, il monumentale retablo di Damián Forment e il sepolcro del Santo fondatore. Il suo chiostro e le sue cappelle testimoniano otto secoli di arte e devozione.',
+        mon2_eyebrow: 'Torre indipendente · XVIII sec.', mon2_title: 'La <em>Torre</em> Indipendente', mon2_desc: '70 metri di barocco tardivo che dominano l\'orizzonte del Cammino Francese. Il campanile più alto de La Rioja.', mon2_cta: 'Scoprire',
+        mon2_body: 'Costruita nel XVIII secolo, il suo design indipendente dalla Cattedrale la rende una rarità dell\'architettura barocca ispanica. Dalla sua cima, le vedute sulla città e i campi de La Rioja sono eccezionali.',
+        mon3_eyebrow: 'Convento · XIII–XVI sec.', mon3_title: 'Convento di <em>San Francesco</em>', mon3_desc: 'L\'antico convento francescano conserva una chiesa gotica e un chiostro di notevole valore storico e artistico.', mon3_cta: 'Scoprire',
+        mon3_body: 'Fondato tra il XIII e il XVI secolo, la sua chiesa gotica a navata unica e il chiostro porticato sono una testimonianza singolare dell\'architettura mendicante riojana. Oggi ospita attività culturali e mostre temporanee.',
+        mon4_eyebrow: 'Eremo · XII sec.', mon4_title: 'Eremo della <em>Vergine della Piazza</em>', mon4_desc: 'L\'eremo romanico dedicato alla Vergine, cuore spirituale della piazza principale di Santo Domingo de la Calzada.', mon4_cta: 'Scoprire',
+        mon4_body: 'Risalente al XII secolo, l\'eremo ha presieduto per secoli la vita pubblica della città. La sobria facciata romanica contrasta con la devozione che suscita l\'immagine venerata della Vergine al suo interno.',
+        canas_eyebrow: 'Fuori dal centro urbano · XII sec.', canas_title: 'Monastero di <em>Cañas</em>',
+        canas_intro_title: 'Il monastero <em>cistercense</em>',
+        canas_stat1_label: 'Anno di fondazione', canas_stat2_label: 'Secoli di storia', canas_stat3_label: 'Secolo della chiesa', canas_stat4_label: 'Tradizione viva',
+        canas_lead: 'A pochi chilometri da Santo Domingo, tra i vigneti de La Rioja, il Monastero di Cañas custodisce uno dei complessi cistercensi più completi della Spagna.',
+        canas_body1: 'Fondato nel 1169 da doña Urraca López de Haro, il monastero ospita da allora una comunità di monache bernardine. La chiesa romanico-gotica, il chiostro e il pantheon dei signori de Cameros costituiscono una visita di primo ordine.',
+        canas_body2: 'Il pantheon conserva sculture uniche del XIII secolo, considerate capolavori della scultura medievale ispanica.',
+        canas_card_title: 'Monastero di <em>Cañas</em>', canas_card_desc: 'Comunità cistercense fondata nel 1169. Pantheon funerario, chiostro e chiesa romanico-gotica di eccezionale bellezza medievale.', canas_card_cta: 'Scoprire il monastero',
+        cta_title: 'Prenota la tua <em>visita</em>', cta_sub: 'Acquista il tuo biglietto online e accedi a tutti i monumenti con il braccialetto turistico.', cta_btn: 'Acquista biglietti →'
+      },
+      ko: {
+        page_eyebrow: '산토 도밍고 데 라 칼사다 · 라 리오하',
+        page_title: '<em>유적지</em>',
+        page_desc: '순례길 중심의 네 개의 문화유산과 라 리오하의 독보적인 시토회 수도원.',
+        sdlc_title: '<em>산토 도밍고 데 라 칼사다</em>의 기념물',
+        intro_eyebrow: '기념물 단지',
+        intro_title: '다섯 세기의 <em>살아있는 역사</em>',
+        intro_body: '프랑스 순례길의 중심에서 산토 도밍고 데 라 칼사다는 네 개의 주요 기념물을 보유하고 있습니다: 로마네스크-고딕 대성당, 독립형 바로크 종탑, 프란체스코 수도원, 그리고 성모에게 헌정된 로마네스크 예배당.',
+        intro_body2: '모든 건물에는 수세기의 역사, 예술, 신앙이 깃들어 있습니다. 개별적으로 방문하거나 관광 팔찌로 모두 입장하세요.',
+        stat1_label: '기념물', stat2_label: '역사의 세기', stat3_label: '이용 가능 언어', stat4_label: '전통의 세월',
+        mon1_eyebrow: '대성당 · 12–14세기', mon1_title: '<em>대성당</em>', mon1_desc: '리오하나 로마네스크-고딕의 보석. 프랑스 순례길의 중심에서 여덟 세기의 역사, 예술, 신앙을 담고 있습니다.', mon1_cta: '탐색',
+        mon1_body: '교수형 기적을 기념하는 유명한 살아있는 닭장, 다미안 포르멘트의 웅장한 제단화, 성인 창시자의 묘소를 품고 있습니다. 회랑과 예배당은 8세기에 걸친 예술과 신앙의 증거입니다.',
+        mon2_eyebrow: '독립 종탑 · 18세기', mon2_title: '<em>독립</em> 종탑', mon2_desc: '프랑스 순례길의 지평선을 지배하는 70미터의 후기 바로크. 라 리오하에서 가장 높은 종탑입니다.', mon2_cta: '탐색',
+        mon2_body: '18세기에 건축된 이 탑은 대성당과 독립된 설계로 히스패닉 바로크 건축에서 드문 사례입니다. 정상에서 바라보는 도시와 라 리오하 들판의 전경은 탁월합니다.',
+        mon3_eyebrow: '수도원 · 13–16세기', mon3_title: '<em>산 프란치스코</em> 수도원', mon3_desc: '고딕 교회와 주목할 만한 역사적·예술적 가치를 지닌 회랑을 보존하는 옛 프란체스코 수도원입니다.', mon3_cta: '탐색',
+        mon3_body: '13~16세기에 창건된 이 수도원은 단일 신도석을 갖춘 고딕 교회와 아케이드 회랑으로 리오하 탁발 수도원 건축의 독특한 증거입니다. 현재 문화 행사와 임시 전시를 개최합니다.',
+        mon4_eyebrow: '예배당 · 12세기', mon4_title: '<em>광장 성모</em> 예배당', mon4_desc: '성모에게 헌정된 로마네스크 예배당으로, 산토 도밍고 데 라 칼사다 중앙 광장의 정신적 중심입니다.', mon4_cta: '탐색',
+        mon4_body: '12세기에 지어진 이 성당은 수세기 동안 도시의 공공 생활을 주재했습니다. 소박한 로마네스크 파사드는 내부에서 성모 마리아 성상이 불러일으키는 깊은 신앙심과 대조를 이룹니다.',
+        canas_eyebrow: '도심 외곽 · 12세기', canas_title: '<em>카냐스</em> 수도원',
+        canas_intro_title: '시토회 <em>수도원</em>',
+        canas_stat1_label: '설립 연도', canas_stat2_label: '역사의 세기', canas_stat3_label: '교회의 세기', canas_stat4_label: '살아있는 전통',
+        canas_lead: '산토 도밍고에서 몇 킬로미터 떨어진 라 리오하의 포도밭 사이에, 카냐스 수도원은 스페인에서 가장 완전하게 보존된 시토회 수도원 중 하나입니다.',
+        canas_body1: '1169년 우라카 로페스 데 아로 여사에 의해 설립된 이 수도원은 이후 시토회 관상 전통을 이어온 수녀 공동체를 품고 있습니다. 로마네스크-고딕 교회, 회랑, 카메로스 영주들의 판테온은 최고 수준의 방문지입니다.',
+        canas_body2: '판테온에는 13세기의 독보적인 조각품들이 있으며, 이베리아 중세 조각의 걸작으로 평가받습니다.',
+        canas_card_title: '<em>카냐스</em> 수도원', canas_card_desc: '1169년에 설립된 시토회 공동체. 장례 판테온, 회랑, 탁월한 중세 아름다움의 로마네스크-고딕 교회.', canas_card_cta: '수도원 탐색',
+        cta_title: '<em>방문</em>을 예약하세요', cta_sub: '온라인으로 입장권을 구매하고 관광 팔찌로 모든 기념물을 관람하세요.', cta_btn: '입장권 구매 →'
+      },
+      eu: {
+        page_eyebrow: 'Santo Domingo de la Calzada · Errioxa',
+        page_title: '<em>Monumentuak</em>',
+        page_desc: 'Lau ondare harribitxi Bidearen erdigunean eta Errioxako zistertziar monastegi bakarra.',
+        sdlc_title: '<em>Santo Domingo de la Calzadako</em> monumentuak',
+        intro_eyebrow: 'Monumentu multzoa',
+        intro_title: 'Bost mende <em>historia bizia</em>',
+        intro_body: 'Frantziako Bidearen erdigunean, Santo Domingo de la Calzada hiriak lau monumentu nagusi biltzen ditu: katedrale erromaniko-gotikoa, dorre barroko askea, frantziskotarren komentu bat eta Birjinari eskainitako ermita erromanikoa.',
+        intro_body2: 'Harri bakoitzak mendetako historia, arte eta debozio gordetzen ditu. Bisitatu bakoitza bereizita edo turismo-eskumuturreko batekin sar zaitez guztietara.',
+        stat1_label: 'Monumentuak', stat2_label: 'Historia mendeak', stat3_label: 'Hizkuntza erabilgarriak', stat4_label: 'Tradizioko urteak',
+        mon1_eyebrow: 'Katedrala · XII–XIV. m.', mon1_title: '<em>Katedrala</em>', mon1_desc: 'Errioxako erromaniko-gotikoaren harribitxia. Zortzi mende historia, arte eta debozioa Frantziako Bidearen erdigunean.', mon1_cta: 'Aurkitu',
+        mon1_body: 'Urkamendiko mirakuluaren oroitzapenez bizi den oilategia, Damián Formenten aldare nagusia eta Santuaren hilobia biltzen ditu. Klaustroek eta kapailek zortzi mendeko arte eta debozioaren lekuko dira.',
+        mon2_eyebrow: 'Dorre askea · XVIII. m.', mon2_title: '<em>Dorre</em> Askea', mon2_desc: 'Frantziako Bidearen horizontea nagusitzen duten 70 metro barroko berandu. Errioxako kanpandorre altuena.', mon2_cta: 'Aurkitu',
+        mon2_body: 'XVIII. mendean eraikia, katedralaren ondoan modu independentean egoteak hispaniar barroko arkitekturaren bitxikeria bihurtzen du. Gailurretik, hiriari eta Errioxako zelaiei begira, ikuspegia ezin hobea da.',
+        mon3_eyebrow: 'Komentu · XIII–XVI. m.', mon3_title: '<em>San Frantzisko</em> Komentu', mon3_desc: 'Frantziskotarren komentu zaharrak balio historiko eta artistiko nabarmena duen eliza gotikoa eta klaustroa gordetzen ditu.', mon3_cta: 'Aurkitu',
+        mon3_body: 'XIII–XVI. mendeetan sortua, nabe bakarreko elizak eta arkupedun klaustroak errioxar ordenamendur arkitekturaren lekuko bakana dira. Gaur egun ekitaldi kulturalak eta aldi baterako erakusketak hartzen ditu.',
+        mon4_eyebrow: 'Ermita · XII. m.', mon4_title: '<em>Plazako Ama Birjina</em> Ermita', mon4_desc: 'Ama Birjinari eskainitako ermita erromanikoa, Santo Domingo de la Calzadako plaza nagusiaren erdigune espirituala.', mon4_cta: 'Aurkitu',
+        mon4_body: 'XII. mendekoa den ermita honek mendeetako zehar hiriko bizitza publikoaren erdian egon zen. Erromanikoaren fatxada soila barnealdean Ama Birjinaren irudiak sortzen duen debozioarekin kontrastean dago.',
+        canas_eyebrow: 'Hiri-multzotik kanpo · XII. m.', canas_title: '<em>Cañasko</em> Monastegia',
+        canas_intro_title: 'Zistertziar <em>monastegia</em>',
+        canas_stat1_label: 'Fundazio urtea', canas_stat2_label: 'Historia mendeak', canas_stat3_label: 'Elizaren mendea', canas_stat4_label: 'Tradizio bizia',
+        canas_lead: 'Santo Domingotik kilometro gutxira, Errioxako mahastiak eta barazkialdeen artean, Cañasko Monastegiak Espainiako zistertziar multzo osoena eta hobekien gordetakoa gordetzen du.',
+        canas_body1: '1169an Urraca López de Haro andreak sortua, monastegiak ordutik bernadatar monja komunitate bat hartzen du. Bere eliza erromaniko-gotikoa, klaustroa eta Cameroko jaunen panteoiak lehen mailako bisita dira.',
+        canas_body2: 'Panteoak XIII. mendeko eskultura bakarrak ditu, hispaniako Erdi Aroko eskulturaren maisu-lanak direla jotzen direnak.',
+        canas_card_title: '<em>Cañasko</em> Monastegia', canas_card_desc: '1169an sortutako zistertziar komunitatea. Ehorzpeko panteoa, klaustroa eta ezohiko ertaroko edertasuneko eliza erromaniko-gotikoa.', canas_card_cta: 'Monastegia aurkitu',
+        cta_title: 'Erreserba ezazu zure <em>bisita</em>', cta_sub: 'Erosi sarrera online eta sar zaitez monumentu guztietara turismo-eskumuturrekoarekin.', cta_btn: 'Sarrerak erosi →'
+      },
+      ca: {
+        page_eyebrow: 'Santo Domingo de la Calzada · La Rioja',
+        page_title: 'Els <em>monuments</em>',
+        page_desc: 'Quatre joies patrimonials al cor del Camí i un monestir cistercenc únic a La Rioja.',
+        sdlc_title: 'Monuments de <em>Santo Domingo de la Calzada</em>',
+        intro_eyebrow: 'Conjunt monumental',
+        intro_title: 'Cinc segles d\'<em>història viva</em>',
+        intro_body: 'Al cor del Camí Francès, la ciutat de Santo Domingo de la Calzada reuneix quatre monuments de primer ordre: una catedral romànic-gòtica, una torre barroca exenta, un convent franciscà i una ermita romànica dedicada a la Verge.',
+        intro_body2: 'Cada pedra guarda segles d\'història, art i devoció. Visita\'ls per separat o accedeix a tots amb la polsera turística.',
+        stat1_label: 'Monuments', stat2_label: 'Segles d\'història', stat3_label: 'Idiomes disponibles', stat4_label: 'Anys de tradició',
+        mon1_eyebrow: 'Catedral · ss. XII–XIV', mon1_title: 'La <em>Catedral</em>', mon1_desc: 'Joia del romànic-gòtic riojà. Vuit segles d\'història, art i devoció al cor del Camí Francès.', mon1_cta: 'Descobrir',
+        mon1_body: 'Acull el famós galliner viu en record del miracle del penjat, el monumental retaule de Damián Forment i el sepulcre del Sant fundador. El seu claustre i les seves capelles testimonien vuit segles d\'art i devoció.',
+        mon2_eyebrow: 'Torre exenta · s. XVIII', mon2_title: 'La <em>Torre</em> Exenta', mon2_desc: '70 metres de barroc tardà que dominen l\'horitzó del Camí Francès. El campanar més alt de La Rioja.', mon2_cta: 'Descobrir',
+        mon2_body: 'Construïda al segle XVIII, el seu disseny independent respecte a la Catedral la converteix en una raresa de l\'arquitectura barroca hispànica. Des del seu cim, les vistes sobre la ciutat i els camps de La Rioja són excepcionals.',
+        mon3_eyebrow: 'Convent · ss. XIII–XVI', mon3_title: 'Convent de <em>Sant Francesc</em>', mon3_desc: 'L\'antic convent franciscà conserva una església gòtica i un claustre de notable valor històric i artístic.', mon3_cta: 'Descobrir',
+        mon3_body: 'Fundat entre els segles XIII i XVI, la seva església gòtica de nau única i el claustre porticat són un testimoni singular de l\'arquitectura mendicant riojana. Avui acull activitats culturals i exposicions temporals.',
+        mon4_eyebrow: 'Ermita · s. XII', mon4_title: 'Ermita de la <em>Verge de la Plaça</em>', mon4_desc: 'L\'ermita romànica dedicada a la Verge, cor espiritual de la plaça major de Santo Domingo de la Calzada.', mon4_cta: 'Descobrir',
+        mon4_body: 'Datada al segle XII, l\'ermita va presidir durant segles la vida pública de la ciutat. La seva sòbria façana romànica contrasta amb la devoció que desperta la imatge venerada de la Verge en el seu interior.',
+        canas_eyebrow: 'Fora del conjunt urbà · s. XII', canas_title: 'Monestir de <em>Cañas</em>',
+        canas_intro_title: 'El monestir <em>cistercenc</em>',
+        canas_stat1_label: 'Any de fundació', canas_stat2_label: 'Segles d\'història', canas_stat3_label: 'Segle de l\'església', canas_stat4_label: 'Tradició viva',
+        canas_lead: 'A pocs quilòmetres de Santo Domingo, entre vinyes i horts de La Rioja, el Monestir de Cañas guarda un dels conjunts cistercencs més complets d\'Espanya.',
+        canas_body1: 'Fundat el 1169 per dona Urraca López de Haro, el monestir acull des de llavors una comunitat de monges bernardes. La seva església romànic-gòtica, el claustre i el panteó dels senyors de Cameros constitueixen una visita de primer ordre.',
+        canas_body2: 'El panteó conserva peces escultòriques úniques del segle XIII, considerades obres mestres de l\'escultura medieval hispànica.',
+        canas_card_title: 'Monestir de <em>Cañas</em>', canas_card_desc: 'Comunitat cistercenca fundada el 1169. Panteó funerari, claustre i església romànic-gòtica d\'excepcional bellesa medieval.', canas_card_cta: 'Descobrir el monestir',
+        cta_title: 'Reserva la teva <em>visita</em>', cta_sub: 'Adquireix la teva entrada online i accedeix a tots els monuments amb la polsera turística.', cta_btn: 'Comprar entrades →'
+      }
+    };
+
+    window.PAGE_applyLang = function (lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+    };
+
+    /* ── Hero bg zoom-in ─────────────────────────────────────── */
+    setTimeout(() => {
+      const b = document.getElementById('hero-bg');
+      if (b) b.classList.add('loaded');
+    }, 100);
+
+    /* ── Modo Claro / Oscuro ─────────────────────────────────── */
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? 'favicon_black.svg' : 'favicon.svg';
+        localStorage.setItem(KEY, on ? '1' : '0');
+      }
+
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+</body>
+
+</html>

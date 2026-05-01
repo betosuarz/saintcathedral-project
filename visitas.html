@@ -1,0 +1,874 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visitas · Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/diurna.webp');
+      background-size: cover;
+      background-position: center 40%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded { transform: scale(1) }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(14,12,10,.85) 0%, rgba(14,12,10,.52) 45%, rgba(14,12,10,.72) 100%),
+        linear-gradient(to top right, rgba(14,12,10,.92) 0%, rgba(14,12,10,.42) 40%, transparent 70%)
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      width: 100%;
+      max-width: 1400px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      color: var(--white)
+    }
+
+    .page-hero__title em { font-style: italic; color: var(--gold-lt) }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.72);
+      max-width: 540px;
+      margin-bottom: 44px
+    }
+
+    .hero-nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap
+    }
+
+    .hero-nav__link {
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      transition: all .25s ease
+    }
+
+    .hero-nav__link:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold)
+    }
+
+    /* ── HUB INTRO ─────────────────────────────────────────── */
+    .hub-intro {
+      background: var(--carbon);
+      padding: 100px 8vw 80px
+    }
+
+    .hub-intro__inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end
+    }
+
+    .hub-intro__question {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white)
+    }
+
+    .hub-intro__question em { font-style: italic; color: var(--gold-lt) }
+
+    .hub-intro__body {
+      font-size: .95rem;
+      line-height: 1.75;
+      color: rgba(253,250,244,.72);
+      border-left: 1px solid rgba(201,168,76,.3);
+      padding-left: 32px
+    }
+
+    /* ── HUB GRID ──────────────────────────────────────────── */
+    .hub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      background: var(--carbon)
+    }
+
+    .hub-card {
+      position: relative;
+      height: 70vh;
+      min-height: 480px;
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      color: var(--white)
+    }
+
+    .hub-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 1s var(--ease)
+    }
+
+    .hub-card:hover .hub-card__img { transform: scale(1.06) }
+
+    .hub-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14,12,10,.90) 0%, rgba(14,12,10,.45) 50%, rgba(14,12,10,.18) 100%);
+      transition: opacity .4s ease
+    }
+
+    .hub-card:hover::after { opacity: .85 }
+
+    .hub-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 48px 44px
+    }
+
+    .hub-card__num {
+      font-size: .58rem;
+      letter-spacing: .24em;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: block
+    }
+
+    .hub-card__title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      transition: color .3s ease
+    }
+
+    .hub-card__title em { font-style: italic; color: var(--gold-lt) }
+
+    .hub-card:hover .hub-card__title { color: var(--gold-lt) }
+
+    .hub-card__desc {
+      font-size: .88rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 28px;
+      max-width: 380px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .4s ease .05s, transform .4s ease .05s
+    }
+
+    .hub-card:hover .hub-card__desc {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .hub-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 12px 24px;
+      border: 1px solid rgba(201,168,76,.45);
+      transition: all .3s ease
+    }
+
+    .hub-card:hover .hub-card__cta {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold);
+      gap: 16px
+    }
+
+    /* ── LIGHT MODE ────────────────────────────────────────── */
+    body.light-mode .hub-intro { background: #F5F0E8 }
+    body.light-mode .hub-intro__question { color: var(--carbon) }
+    body.light-mode .hub-intro__body { color: rgba(20,18,16,.65) }
+    body.light-mode .hub-grid { background: #F5F0E8 }
+    body.light-mode .hub-card::after {
+      background: linear-gradient(to top, rgba(14,12,10,.92) 0%, rgba(14,12,10,.55) 50%, rgba(14,12,10,.22) 100%)
+    }
+
+    /* ── CTA BAND ──────────────────────────────────────────── */
+    .cta-band {
+      background: var(--gold);
+      padding: 64px 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .cta-band__inner {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap
+    }
+
+    .cta-band__eyebrow {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(20,18,16,.65);
+      margin-bottom: 8px
+    }
+
+    .cta-band__title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--carbon);
+      line-height: 1.15
+    }
+
+    .cta-band__title em { font-style: italic }
+
+    .cta-band__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      background: var(--carbon);
+      color: var(--white);
+      text-decoration: none;
+      transition: background .25s ease, gap .25s ease;
+      white-space: nowrap
+    }
+
+    .cta-band__btn:hover { background: #2a2520; gap: 20px }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hub-intro__inner { grid-template-columns: 1fr; gap: 32px }
+      .hub-grid { grid-template-columns: 1fr }
+      .hub-card { height: 56vh; min-height: 400px }
+      .hub-card__body { padding: 36px 28px }
+      .hub-card__desc { opacity: 1; transform: none }
+      .cta-band__inner { flex-direction: column; align-items: flex-start }
+    }
+
+    @media (max-width: 600px) {
+      .hub-intro { padding: 64px 6vw 56px }
+      .hub-card__body { padding: 28px 24px }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESIBILIDAD -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/>
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/>
+            <line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/>
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/>
+            <line x1="7" y1="10" x2="13" y2="10"/>
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/>
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/>
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/>
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar--transparent" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span>
+          <span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">🏴</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">🏴</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span><span data-i18n="nav_home">Inicio</span></a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span><span data-i18n="nav_monuments">Monumentos</span></a></li>
+        <li class="side-menu__nav-item"><a href="visitas.html" class="side-menu__nav-link side-menu__nav-link--active"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
+        <li class="side-menu__nav-item"><a href="reservas.html" class="side-menu__nav-link"><span class="nav-num">04</span><span data-i18n="nav_reservations">Reservas</span></a></li>
+        <li class="side-menu__nav-item"><a href="actualidad.html" class="side-menu__nav-link"><span class="nav-num">05</span><span data-i18n="nav_news">Actualidad</span></a></li>
+        <li class="side-menu__nav-item"><a href="#tienda" class="side-menu__nav-link"><span class="nav-num">06</span><span data-i18n="nav_shop">Tienda</span></a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" class="side-menu__social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="#" class="side-menu__social-link" aria-label="X">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="side-menu__social-link" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+      </a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="../legal/privacidad.html" data-i18n="footer_legal_2">Política de privacidad</a>
+      <a href="../legal/cookies.html" data-i18n="footer_legal_3">Política de cookies</a>
+      <a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+      <a href="../legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Individuales · Guiadas · Grupos · Escolares</p>
+      <h1 class="page-hero__title" data-i18n-page="hero_title">Planifica tu <em>visita</em></h1>
+      <p class="page-hero__desc" data-i18n-page="hero_desc">Descubre ocho siglos de historia, arte y devoción. Elige la experiencia que mejor se adapta a ti.</p>
+      <nav class="hero-nav" aria-label="Secciones de visita">
+        <a href="#individuales" class="hero-nav__link" data-i18n-page="nav_ind">Visitas individuales</a>
+        <a href="#guiadas" class="hero-nav__link" data-i18n-page="nav_gui">Visitas guiadas</a>
+        <a href="#grupos" class="hero-nav__link" data-i18n-page="nav_grp">Grupos</a>
+        <a href="#escolares" class="hero-nav__link" data-i18n-page="nav_esc">Escolares</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HUB INTRO
+  ════════════════════════════════════════════════════════ -->
+  <section class="hub-intro">
+    <div class="hub-intro__inner">
+      <h2 class="hub-intro__question reveal" data-i18n-page="hub_question">¿Cómo quieres <em>vivir</em> la visita?</h2>
+      <p class="hub-intro__body reveal reveal-delay-1" data-i18n-page="hub_body">Desde un recorrido libre y a tu ritmo hasta una experiencia VIP exclusiva. Tenemos la visita perfecta para peregrinos, familias, grupos y centros educativos.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HUB GRID — 4 tipos de visita
+  ════════════════════════════════════════════════════════ -->
+  <section id="individuales" class="hub-grid">
+
+    <!-- 01 · Individuales -->
+    <a href="individuales.html" class="hub-card reveal">
+      <div class="hub-card__img" style="background-image:url('../assets/img/diurna.webp'); background-position:center 40%"></div>
+      <div class="hub-card__body">
+        <span class="hub-card__num" data-i18n-page="card_num_1">01</span>
+        <h2 class="hub-card__title" data-i18n-page="card_title_1">Visitas <em>individuales</em></h2>
+        <p class="hub-card__desc" data-i18n-page="card_desc_1">Explora la Catedral, la Torre y los cinco espacios patrimoniales a tu propio ritmo, sin guía.</p>
+        <span class="hub-card__cta"><span data-i18n-page="card_cta">Ver más</span> →</span>
+      </div>
+    </a>
+
+    <!-- 02 · Guiadas -->
+    <a id="guiadas" href="guiadas.html" class="hub-card reveal reveal-delay-1">
+      <div class="hub-card__img" style="background-image:url('../assets/img/nocturna.webp'); background-position:center 30%"></div>
+      <div class="hub-card__body">
+        <span class="hub-card__num" data-i18n-page="card_num_2">02</span>
+        <h2 class="hub-card__title" data-i18n-page="card_title_2">Visitas <em>guiadas</em></h2>
+        <p class="hub-card__desc" data-i18n-page="card_desc_2">Diurna, nocturna o VIP. Déjate guiar por expertos y descubre los secretos que no están en los paneles.</p>
+        <span class="hub-card__cta"><span data-i18n-page="card_cta">Ver más</span> →</span>
+      </div>
+    </a>
+
+    <!-- 03 · Grupos -->
+    <a id="grupos" href="grupos.html" class="hub-card reveal">
+      <div class="hub-card__img" style="background-image:url('../assets/img/coro.webp'); background-position:center 50%"></div>
+      <div class="hub-card__body">
+        <span class="hub-card__num" data-i18n-page="card_num_3">03</span>
+        <h2 class="hub-card__title" data-i18n-page="card_title_3">Visitas para <em>grupos</em></h2>
+        <p class="hub-card__desc" data-i18n-page="card_desc_3">Soluciones para agencias, asociaciones y empresas. Visita libre o guiada con atención personalizada.</p>
+        <span class="hub-card__cta"><span data-i18n-page="card_cta">Ver más</span> →</span>
+      </div>
+    </a>
+
+    <!-- 04 · Escolares -->
+    <a id="escolares" href="escolares.html" class="hub-card reveal reveal-delay-1">
+      <div class="hub-card__img" style="background-image:url('../assets/img/retablo.webp'); background-position:center 40%"></div>
+      <div class="hub-card__body">
+        <span class="hub-card__num" data-i18n-page="card_num_4">04</span>
+        <h2 class="hub-card__title" data-i18n-page="card_title_4">Visitas <em>escolares</em></h2>
+        <p class="hub-card__desc" data-i18n-page="card_desc_4">Programas pedagógicos adaptados a Primaria, Secundaria y Bachillerato, con talleres y materiales didácticos.</p>
+        <span class="hub-card__cta"><span data-i18n-page="card_cta">Ver más</span> →</span>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CTA BAND
+  ════════════════════════════════════════════════════════ -->
+  <div class="cta-band reveal">
+    <div class="cta-band__inner">
+      <div>
+        <p class="cta-band__eyebrow" data-i18n-page="cta_eyebrow">Reserva online</p>
+        <h2 class="cta-band__title" data-i18n-page="cta_title">Compra tu entrada <em>ahora</em></h2>
+      </div>
+      <a href="reservas.html" class="cta-band__btn">
+        <span data-i18n-page="cta_btn">Comprar entradas</span> →
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════ -->
+  <div class="ornament-divider"><span class="ornament-divider__symbol">✦</span></div>
+  <footer class="site-footer">
+    <div class="footer-cta reveal">
+      <div>
+        <p class="footer-cta__eyebrow" data-i18n="newsletter_eyebrow">Newsletter semanal</p>
+        <h3 class="footer-cta__title" data-i18n="newsletter_title">El Camino en tu <em>bandeja de entrada</em></h3>
+        <p class="footer-cta__sub" data-i18n="newsletter_sub">Noticias, exposiciones, eventos y ofertas exclusivas cada semana.</p>
+      </div>
+      <form class="newsletter-form">
+        <input class="newsletter-input" type="email" data-i18n-ph="newsletter_ph" placeholder="tu@correo.com" required />
+        <button class="newsletter-submit" type="submit" data-i18n="newsletter_btn">Suscribirme</button>
+      </form>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="individuales.html" data-i18n-page="nav_ind">Visitas individuales</a></li>
+          <li><a href="guiadas.html" data-i18n-page="nav_gui">Visitas guiadas</a></li>
+          <li><a href="grupos.html" data-i18n-page="nav_grp">Grupos</a></li>
+          <li><a href="escolares.html" data-i18n-page="nav_esc">Escolares</a></li>
+          <li><a href="reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="../index.html" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="../monumentos.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="max-width:1400px;margin:0 auto;padding:0 8vw">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+      <div class="footer-bottom__links">
+        <a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+        <a href="../legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+        <a href="../legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+        <a href="../legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    const PAGE_T = {
+      es: {
+        hero_eyebrow: 'Individuales · Guiadas · Grupos · Escolares',
+        hero_title: 'Planifica tu <em>visita</em>',
+        hero_desc: 'Descubre ocho siglos de historia, arte y devoción. Elige la experiencia que mejor se adapta a ti.',
+        nav_ind: 'Visitas individuales', nav_gui: 'Visitas guiadas', nav_grp: 'Grupos', nav_esc: 'Escolares',
+        hub_question: '¿Cómo quieres <em>vivir</em> la visita?',
+        hub_body: 'Desde un recorrido libre y a tu ritmo hasta una experiencia VIP exclusiva. Tenemos la visita perfecta para peregrinos, familias, grupos y centros educativos.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: 'Visitas <em>individuales</em>',
+        card_title_2: 'Visitas <em>guiadas</em>',
+        card_title_3: 'Visitas para <em>grupos</em>',
+        card_title_4: 'Visitas <em>escolares</em>',
+        card_desc_1: 'Explora la Catedral, la Torre y los cinco espacios patrimoniales a tu propio ritmo, sin guía.',
+        card_desc_2: 'Diurna, nocturna o VIP. Déjate guiar por expertos y descubre los secretos que no están en los paneles.',
+        card_desc_3: 'Soluciones para agencias, asociaciones y empresas. Visita libre o guiada con atención personalizada.',
+        card_desc_4: 'Programas pedagógicos adaptados a Primaria, Secundaria y Bachillerato, con talleres y materiales didácticos.',
+        card_cta: 'Ver más',
+        cta_eyebrow: 'Reserva online', cta_title: 'Compra tu entrada <em>ahora</em>', cta_btn: 'Comprar entradas'
+      },
+      en: {
+        hero_eyebrow: 'Individual · Guided · Groups · Schools',
+        hero_title: 'Plan your <em>visit</em>',
+        hero_desc: 'Discover eight centuries of history, art and devotion. Choose the experience that suits you best.',
+        nav_ind: 'Individual visits', nav_gui: 'Guided tours', nav_grp: 'Groups', nav_esc: 'Schools',
+        hub_question: 'How do you want to <em>experience</em> the visit?',
+        hub_body: 'From a free self-guided tour to an exclusive VIP experience. We have the perfect visit for pilgrims, families, groups and schools.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: '<em>Individual</em> visits',
+        card_title_2: '<em>Guided</em> tours',
+        card_title_3: 'Visits for <em>groups</em>',
+        card_title_4: '<em>School</em> visits',
+        card_desc_1: 'Explore the Cathedral, the Tower and five heritage spaces at your own pace, without a guide.',
+        card_desc_2: 'Daytime, night-time or VIP. Be guided by experts and discover secrets not found on the panels.',
+        card_desc_3: 'Solutions for agencies, associations and companies. Free or guided visit with personalised attention.',
+        card_desc_4: 'Educational programmes adapted to Primary, Secondary and Sixth Form, with workshops and teaching materials.',
+        card_cta: 'Learn more',
+        cta_eyebrow: 'Book online', cta_title: 'Buy your ticket <em>now</em>', cta_btn: 'Buy tickets'
+      },
+      fr: {
+        hero_eyebrow: 'Individuelles · Guidées · Groupes · Scolaires',
+        hero_title: 'Planifiez votre <em>visite</em>',
+        hero_desc: 'Découvrez huit siècles d\'histoire, d\'art et de dévotion. Choisissez l\'expérience qui vous convient.',
+        nav_ind: 'Visites individuelles', nav_gui: 'Visites guidées', nav_grp: 'Groupes', nav_esc: 'Scolaires',
+        hub_question: 'Comment voulez-vous <em>vivre</em> la visite ?',
+        hub_body: 'D\'une visite libre à votre rythme à une expérience VIP exclusive. Nous avons la visite parfaite pour pèlerins, familles, groupes et établissements scolaires.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: 'Visites <em>individuelles</em>',
+        card_title_2: 'Visites <em>guidées</em>',
+        card_title_3: 'Visites pour <em>groupes</em>',
+        card_title_4: 'Visites <em>scolaires</em>',
+        card_desc_1: 'Explorez la Cathédrale, la Tour et les cinq espaces patrimoniaux à votre propre rythme, sans guide.',
+        card_desc_2: 'Diurne, nocturne ou VIP. Laissez-vous guider par des experts et découvrez les secrets cachés.',
+        card_desc_3: 'Solutions pour agences, associations et entreprises. Visite libre ou guidée avec attention personnalisée.',
+        card_desc_4: 'Programmes pédagogiques adaptés au Primaire, au Secondaire et au Lycée, avec ateliers et matériaux didactiques.',
+        card_cta: 'En savoir plus',
+        cta_eyebrow: 'Réservation en ligne', cta_title: 'Achetez votre billet <em>maintenant</em>', cta_btn: 'Acheter des billets'
+      },
+      de: {
+        hero_eyebrow: 'Einzelbesuche · Führungen · Gruppen · Schulen',
+        hero_title: 'Planen Sie Ihren <em>Besuch</em>',
+        hero_desc: 'Entdecken Sie acht Jahrhunderte Geschichte, Kunst und Andacht. Wählen Sie das Erlebnis, das am besten zu Ihnen passt.',
+        nav_ind: 'Einzelbesuche', nav_gui: 'Führungen', nav_grp: 'Gruppen', nav_esc: 'Schulen',
+        hub_question: 'Wie möchten Sie den Besuch <em>erleben</em>?',
+        hub_body: 'Von einer freien Besichtigung in Ihrem eigenen Tempo bis zu einem exklusiven VIP-Erlebnis. Wir haben den perfekten Besuch für Pilger, Familien, Gruppen und Schulen.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: '<em>Einzelbesuche</em>',
+        card_title_2: '<em>Geführte</em> Touren',
+        card_title_3: 'Besuche für <em>Gruppen</em>',
+        card_title_4: '<em>Schulbesuche</em>',
+        card_desc_1: 'Erkunden Sie die Kathedrale, den Turm und fünf Kulturstätten in Ihrem eigenen Tempo, ohne Führung.',
+        card_desc_2: 'Tagsüber, nachts oder VIP. Lassen Sie sich von Experten führen und entdecken Sie verborgene Geheimnisse.',
+        card_desc_3: 'Lösungen für Agenturen, Vereine und Unternehmen. Freie oder geführte Besichtigung mit persönlicher Betreuung.',
+        card_desc_4: 'Pädagogische Programme für Grund-, Mittel- und Oberschulen, mit Workshops und Lehrmaterialien.',
+        card_cta: 'Mehr erfahren',
+        cta_eyebrow: 'Online buchen', cta_title: 'Kaufen Sie Ihr Ticket <em>jetzt</em>', cta_btn: 'Tickets kaufen'
+      },
+      pt: {
+        hero_eyebrow: 'Individuais · Guiadas · Grupos · Escolares',
+        hero_title: 'Planeie a sua <em>visita</em>',
+        hero_desc: 'Descubra oito séculos de história, arte e devoção. Escolha a experiência que melhor se adapta a si.',
+        nav_ind: 'Visitas individuais', nav_gui: 'Visitas guiadas', nav_grp: 'Grupos', nav_esc: 'Escolares',
+        hub_question: 'Como quer <em>viver</em> a visita?',
+        hub_body: 'Desde um percurso livre ao seu ritmo até uma experiência VIP exclusiva. Temos a visita perfeita para peregrinos, famílias, grupos e escolas.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: 'Visitas <em>individuais</em>',
+        card_title_2: 'Visitas <em>guiadas</em>',
+        card_title_3: 'Visitas para <em>grupos</em>',
+        card_title_4: 'Visitas <em>escolares</em>',
+        card_desc_1: 'Explore a Catedral, a Torre e os cinco espaços patrimoniais ao seu ritmo, sem guia.',
+        card_desc_2: 'Diurna, noturna ou VIP. Deixe-se guiar por especialistas e descubra segredos escondidos.',
+        card_desc_3: 'Soluções para agências, associações e empresas. Visita livre ou guiada com atenção personalizada.',
+        card_desc_4: 'Programas pedagógicos adaptados ao Ensino Básico, Secundário e Superior, com oficinas e materiais didáticos.',
+        card_cta: 'Saber mais',
+        cta_eyebrow: 'Reserva online', cta_title: 'Compre o seu bilhete <em>agora</em>', cta_btn: 'Comprar bilhetes'
+      },
+      it: {
+        hero_eyebrow: 'Individuali · Guidate · Gruppi · Scolastiche',
+        hero_title: 'Pianifica la tua <em>visita</em>',
+        hero_desc: 'Scopri otto secoli di storia, arte e devozione. Scegli l\'esperienza che fa per te.',
+        nav_ind: 'Visite individuali', nav_gui: 'Visite guidate', nav_grp: 'Gruppi', nav_esc: 'Scolastiche',
+        hub_question: 'Come vuoi <em>vivere</em> la visita?',
+        hub_body: 'Da una visita libera al tuo ritmo a un\'esperienza VIP esclusiva. Abbiamo la visita perfetta per pellegrini, famiglie, gruppi e scuole.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: 'Visite <em>individuali</em>',
+        card_title_2: 'Visite <em>guidate</em>',
+        card_title_3: 'Visite per <em>gruppi</em>',
+        card_title_4: 'Visite <em>scolastiche</em>',
+        card_desc_1: 'Esplora la Cattedrale, la Torre e i cinque spazi patrimonio al tuo ritmo, senza guida.',
+        card_desc_2: 'Diurna, notturna o VIP. Lasciati guidare da esperti e scopri segreti nascosti.',
+        card_desc_3: 'Soluzioni per agenzie, associazioni e aziende. Visita libera o guidata con assistenza personalizzata.',
+        card_desc_4: 'Programmi pedagogici adattati alle scuole Primarie, Secondarie e Superiori, con laboratori e materiali didattici.',
+        card_cta: 'Scopri di più',
+        cta_eyebrow: 'Prenota online', cta_title: 'Acquista il tuo biglietto <em>ora</em>', cta_btn: 'Acquista biglietti'
+      },
+      ko: {
+        hero_eyebrow: '개인 · 가이드 · 단체 · 학교',
+        hero_title: '<em>방문</em>을 계획하세요',
+        hero_desc: '8세기의 역사, 예술, 신앙을 발견하세요. 나에게 맞는 경험을 선택하세요.',
+        nav_ind: '개인 방문', nav_gui: '가이드 투어', nav_grp: '단체', nav_esc: '학교',
+        hub_question: '어떻게 <em>방문</em>을 즐기고 싶으신가요?',
+        hub_body: '자유롭게 나만의 속도로 둘러보는 것부터 독점적인 VIP 경험까지. 순례자, 가족, 단체, 교육기관 모두를 위한 완벽한 방문을 제공합니다.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: '<em>개인</em> 방문',
+        card_title_2: '<em>가이드</em> 투어',
+        card_title_3: '<em>단체</em> 방문',
+        card_title_4: '<em>학교</em> 방문',
+        card_desc_1: '가이드 없이 자신의 속도로 대성당, 탑, 5개의 유산 공간을 탐험하세요.',
+        card_desc_2: '낮, 밤, 또는 VIP. 전문가의 안내로 숨겨진 비밀을 발견하세요.',
+        card_desc_3: '여행사, 협회, 기업을 위한 솔루션. 자유 방문 또는 개인 맞춤 가이드 투어.',
+        card_desc_4: '초등, 중등, 고등 교육에 맞춘 교육 프로그램, 워크숍 및 교육 자료 포함.',
+        card_cta: '더 보기',
+        cta_eyebrow: '온라인 예약', cta_title: '지금 <em>티켓</em>을 구매하세요', cta_btn: '티켓 구매'
+      },
+      eu: {
+        hero_eyebrow: 'Banakakoeak · Gidatuak · Taldeak · Eskolak',
+        hero_title: 'Planifikatu zure <em>bisita</em>',
+        hero_desc: 'Zortzi mende historia, arte eta debozioa aurkitu. Zuretzat egokiena den esperientzia aukeratu.',
+        nav_ind: 'Bisita banakakoeak', nav_gui: 'Bisita gidatuak', nav_grp: 'Taldeak', nav_esc: 'Eskolak',
+        hub_question: 'Nola nahi duzu <em>bisita</em> bizi?',
+        hub_body: 'Zure erritmoan ibilaldi libre batetik esperientzia VIP esklusibo batera arte. Erromeslarientzat, familientzat, taldeentzat eta hezkuntza-zentroetarako bisita perfektoa dugu.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: 'Bisita <em>banakakoeak</em>',
+        card_title_2: 'Bisita <em>gidatuak</em>',
+        card_title_3: '<em>Taldeetarako</em> bisitак',
+        card_title_4: '<em>Eskola</em> bisitак',
+        card_desc_1: 'Katedralа, Dorrea eta bost ondare-espazioак zure erritmoan esploratu, gidari gabe.',
+        card_desc_2: 'Egunekoa, gauekoa edo VIP. Adituek gida zaitzatela eta ezkutuko sekretuak aurkitu.',
+        card_desc_3: 'Agentzia, elkarte eta enpresenrako irtenbideak. Bisita librea edo gidatua arreta pertsonalizatuarekin.',
+        card_desc_4: 'Lehen Hezkuntza, DBH eta Batxilergora egokitutako programa pedagogikoak, tailerrak eta material didaktikoekin.',
+        card_cta: 'Gehiago ikusi',
+        cta_eyebrow: 'Online erreserbа', cta_title: '<em>Orain</em> erosi zure sarrera', cta_btn: 'Sarrerak erosi'
+      },
+      ca: {
+        hero_eyebrow: 'Individuals · Guiades · Grups · Escolars',
+        hero_title: 'Planifica la teva <em>visita</em>',
+        hero_desc: 'Descobreix vuit segles d\'història, art i devoció. Tria l\'experiència que millor s\'adapta a tu.',
+        nav_ind: 'Visites individuals', nav_gui: 'Visites guiades', nav_grp: 'Grups', nav_esc: 'Escolars',
+        hub_question: 'Com vols <em>viure</em> la visita?',
+        hub_body: 'Des d\'un recorregut lliure al teu ritme fins a una experiència VIP exclusiva. Tenim la visita perfecta per a pelegrins, famílies, grups i centres educatius.',
+        card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
+        card_title_1: 'Visites <em>individuals</em>',
+        card_title_2: 'Visites <em>guiades</em>',
+        card_title_3: 'Visites per a <em>grups</em>',
+        card_title_4: 'Visites <em>escolars</em>',
+        card_desc_1: 'Explora la Catedral, la Torre i els cinc espais patrimonials al teu ritme, sense guia.',
+        card_desc_2: 'Diürna, nocturna o VIP. Deixa\'t guiar per experts i descobreix els secrets amagats.',
+        card_desc_3: 'Solucions per a agències, associacions i empreses. Visita lliure o guiada amb atenció personalitzada.',
+        card_desc_4: 'Programes pedagògics adaptats a Primària, Secundària i Batxillerat, amb tallers i materials didàctics.',
+        card_cta: 'Veure més',
+        cta_eyebrow: 'Reserva en línia', cta_title: 'Compra la teva entrada <em>ara</em>', cta_btn: 'Comprar entrades'
+      }
+    };
+
+    window.PAGE_applyLang = function(lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+    };
+
+    /* ── Hero bg zoom-in ─────────────────────────────────── */
+    setTimeout(() => {
+      const b = document.getElementById('hero-bg');
+      if (b) b.classList.add('loaded');
+    }, 100);
+
+    /* ── Modo Claro / Oscuro ─────────────────────────────── */
+    (function() {
+      const btn = document.getElementById('a11y-light-mode');
+      const logoImg = document.getElementById('logo-img');
+      const KEY = 'a11y-light-mode';
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        if (btn) { btn.classList.toggle('is-active', on); btn.setAttribute('aria-pressed', String(on)); }
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        localStorage.setItem(KEY, on ? '1' : '0');
+      }
+      if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
+      const stored = localStorage.getItem(KEY);
+      if (stored === '1') applyLightMode(true);
+    })();
+  </script>
+
+</body>
+</html>
+
+
+

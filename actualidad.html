@@ -1,0 +1,1750 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actualidad · Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/nocturna.webp');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded { transform: scale(1) }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(14,12,10,.82) 0%, rgba(14,12,10,.50) 45%, rgba(14,12,10,.70) 100%),
+        linear-gradient(to top right, rgba(14,12,10,.90) 0%, rgba(14,12,10,.40) 40%, transparent 70%)
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      width: 100%;
+      max-width: 1400px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      color: var(--white)
+    }
+
+    .page-hero__title em { font-style: italic; color: var(--gold-lt) }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.72);
+      max-width: 520px;
+      margin-bottom: 40px
+    }
+
+    .hero-nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap
+    }
+
+    .hero-nav__link {
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      transition: all .25s ease
+    }
+
+    .hero-nav__link:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold)
+    }
+
+    /* ── SECTION BASE ──────────────────────────────────────── */
+    .act-section { padding: 100px 8vw }
+
+    .act-section__inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .act-section--white { background: #FDFAF4; color: var(--carbon) }
+    .act-section--cream { background: var(--cream); color: var(--carbon) }
+    .act-section--dark { background: var(--carbon) }
+
+    .act-eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .act-section--white .act-eyebrow,
+    .act-section--cream .act-eyebrow { color: var(--gold-dk) }
+
+    .act-section--dark .act-eyebrow { color: var(--gold) }
+
+    .act-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 0;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(140,128,112,.2)
+    }
+
+    .act-title em { font-style: italic; color: var(--gold) }
+
+    .act-section--dark .act-title { color: var(--white) }
+
+    /* ── FILTER BAR ────────────────────────────────────────── */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 32px 0 48px;
+      flex-wrap: wrap
+    }
+
+    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap }
+
+    .filter-tab {
+      font-family: var(--sans);
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border: 1px solid rgba(140,128,112,.35);
+      background: transparent;
+      cursor: pointer;
+      transition: all .25s ease;
+      color: var(--stone)
+    }
+
+    .filter-tab.active,
+    .filter-tab:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold)
+    }
+
+    .filter-search {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid rgba(140,128,112,.35)
+    }
+
+    .filter-search__input {
+      font-family: var(--sans);
+      font-size: .82rem;
+      padding: 9px 16px;
+      background: transparent;
+      border: none;
+      color: var(--carbon);
+      outline: none;
+      min-width: 200px
+    }
+
+    .filter-search__input::placeholder { color: var(--stone) }
+
+    .filter-search__btn {
+      padding: 9px 16px;
+      background: var(--gold);
+      color: var(--carbon);
+      border: none;
+      cursor: pointer;
+      font-size: .9rem;
+      transition: background .2s ease
+    }
+
+    .filter-search__btn:hover { background: var(--gold-dk) }
+
+    /* ── FEATURED NEWS ─────────────────────────────────────── */
+    .news-featured {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 480px;
+      margin-bottom: 3px;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden
+    }
+
+    .news-featured__img { position: relative; overflow: hidden }
+
+    .news-featured__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease)
+    }
+
+    .news-featured:hover .news-featured__bg { transform: scale(1.05) }
+
+    .news-featured__body {
+      padding: 52px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: var(--cream)
+    }
+
+    .news-featured__meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px
+    }
+
+    .news-featured__cat {
+      font-size: .58rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .news-featured__cat::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--gold-dk)
+    }
+
+    .news-featured__date { font-size: .58rem; letter-spacing: .1em; color: var(--stone) }
+
+    .news-featured__title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--carbon);
+      margin-bottom: 14px
+    }
+
+    .news-featured__title em { font-style: italic; color: var(--gold-dk) }
+
+    .news-featured__excerpt {
+      font-size: .84rem;
+      line-height: 1.75;
+      color: var(--stone);
+      margin-bottom: 22px;
+      max-width: 400px
+    }
+
+    .news-featured__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .65rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      transition: gap .25s ease
+    }
+
+    .news-featured:hover .news-featured__cta { gap: 14px }
+
+    /* ── NEWS GRID ─────────────────────────────────────────── */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-bottom: 48px
+    }
+
+    .news-card {
+      display: block;
+      text-decoration: none;
+      overflow: hidden;
+      background: #fff;
+      color: var(--carbon)
+    }
+
+    .news-card__img-wrap {
+      height: 210px;
+      overflow: hidden;
+      position: relative
+    }
+
+    .news-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease)
+    }
+
+    .news-card:hover .news-card__img { transform: scale(1.06) }
+
+    .news-card__body { padding: 26px 30px 32px }
+
+    .news-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px
+    }
+
+    .news-card__cat {
+      font-size: .56rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold-dk)
+    }
+
+    .news-card__date { font-size: .56rem; color: var(--stone) }
+
+    .news-card__title {
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      font-weight: 300;
+      line-height: 1.3;
+      color: var(--carbon);
+      margin-bottom: 10px
+    }
+
+    .news-card__excerpt {
+      font-size: .8rem;
+      line-height: 1.72;
+      color: var(--stone);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 18px
+    }
+
+    .news-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(140,128,112,.15)
+    }
+
+    .news-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      transition: gap .25s ease
+    }
+
+    .news-card:hover .news-card__cta { gap: 10px }
+
+    .news-card__share { display: flex; gap: 10px }
+
+    .news-card__share a {
+      font-size: .75rem;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color .2s ease
+    }
+
+    .news-card__share a:hover { color: var(--gold-dk) }
+
+    /* ── LOAD MORE ─────────────────────────────────────────── */
+    .load-more-wrap { text-align: center; padding-top: 8px }
+
+    .load-more {
+      font-family: var(--sans);
+      font-size: .65rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 14px 48px;
+      border: 1px solid rgba(140,128,112,.4);
+      background: transparent;
+      color: var(--carbon);
+      cursor: pointer;
+      transition: all .25s ease
+    }
+
+    .load-more:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold)
+    }
+
+    /* ── EVENTS ────────────────────────────────────────────── */
+    .events-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 24px
+    }
+
+    .event-tabs { display: flex; gap: 4px }
+
+    .event-tab {
+      font-family: var(--sans);
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: transparent;
+      cursor: pointer;
+      transition: all .25s ease;
+      color: rgba(253,250,244,.5)
+    }
+
+    .event-tab.active,
+    .event-tab:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold)
+    }
+
+    .events-list { display: flex; flex-direction: column; gap: 2px }
+
+    .event-item {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 52px;
+      align-items: center;
+      padding: 36px 48px;
+      background: rgba(255,255,255,.04);
+      transition: background .25s ease;
+      text-decoration: none;
+      color: inherit
+    }
+
+    .event-item:hover { background: rgba(255,255,255,.07) }
+
+    .event-date {
+      text-align: center;
+      border-right: 1px solid rgba(201,168,76,.25);
+      padding-right: 40px
+    }
+
+    .event-date__day {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--gold)
+    }
+
+    .event-date__month {
+      font-size: .56rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-top: 4px
+    }
+
+    .event-date__year { font-size: .55rem; color: var(--stone); opacity: .6 }
+
+    .event-info__cat {
+      font-size: .56rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px
+    }
+
+    .event-info__title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 10px
+    }
+
+    .event-info__meta {
+      display: flex;
+      gap: 20px;
+      font-size: .74rem;
+      color: var(--stone);
+      flex-wrap: wrap
+    }
+
+    .event-info__meta span { display: flex; align-items: center; gap: 5px }
+
+    .event-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: gap .25s ease;
+      white-space: nowrap
+    }
+
+    .event-item:hover .event-cta { gap: 14px }
+
+    /* ── GALLERY ───────────────────────────────────────────── */
+    .gallery-filter {
+      display: flex;
+      gap: 4px;
+      padding-top: 32px;
+      margin-bottom: 32px
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 260px 240px;
+      gap: 3px
+    }
+
+    .gallery-item:nth-child(1) { grid-column: 1 / 3 }
+    .gallery-item:nth-child(6) { grid-column: 3 / 5 }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer
+    }
+
+    .gallery-item__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease)
+    }
+
+    .gallery-item:hover .gallery-item__img { transform: scale(1.05) }
+
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(14,12,10,.42);
+      opacity: 0;
+      transition: opacity .3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gallery-item:hover .gallery-item__overlay { opacity: 1 }
+
+    .gallery-item__icon {
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(253,250,244,.65);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white)
+    }
+
+    .gallery-item__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 20px;
+      background: linear-gradient(to top, rgba(14,12,10,.85) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity .3s ease
+    }
+
+    .gallery-item:hover .gallery-item__caption { opacity: 1 }
+
+    .gallery-item__caption-text {
+      font-size: .7rem;
+      color: rgba(253,250,244,.85)
+    }
+
+    /* ── PRENSA ────────────────────────────────────────────── */
+    .prensa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .prensa-card {
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: rgba(255,255,255,.04);
+      transition: background .25s ease
+    }
+
+    .prensa-card:hover { background: rgba(255,255,255,.07) }
+
+    .prensa-card__logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(253,250,244,.4);
+      letter-spacing: .08em
+    }
+
+    .prensa-card__type {
+      font-size: .56rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .prensa-card__title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.35;
+      color: var(--white);
+      flex-grow: 1
+    }
+
+    .prensa-card__date { font-size: .7rem; color: var(--stone) }
+
+    .prensa-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      transition: gap .2s ease
+    }
+
+    .prensa-card:hover .prensa-card__cta { gap: 10px }
+
+    /* ── LIGHT MODE ────────────────────────────────────────── */
+    body.light-mode { background: var(--cream) }
+
+    body.light-mode .navbar--always-solid,
+    body.light-mode .navbar--solid,
+    body.light-mode .navbar.scrolled {
+      background: rgba(245,240,232,.97)
+    }
+
+    body.light-mode .navbar__logo-name,
+    body.light-mode .navbar__logo-sub,
+    body.light-mode .lang-selector__btn,
+    body.light-mode .lang-selector__option { color: var(--carbon) }
+
+    body.light-mode .hamburger-line { background: var(--carbon) }
+
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245,240,232,.97)
+    }
+
+    body.light-mode .side-menu { background: #F9F8F6 }
+
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close { color: var(--carbon) }
+
+    body.light-mode .side-menu__nav-item {
+      border-bottom-color: rgba(20,18,16,.1)
+    }
+
+    .side-menu__nav-link:hover,
+    body.light-mode .side-menu__nav-link:hover { color: var(--gold) }
+
+    body.light-mode .act-section--dark {
+      background: #F9F8F6;
+      color: var(--carbon)
+    }
+
+    body.light-mode .act-section--dark .act-title { color: var(--carbon) }
+    body.light-mode .act-section--dark .act-eyebrow { color: var(--gold-dk) }
+
+    body.light-mode .act-section--white { background: #F5F0E8 }
+    body.light-mode .act-section--cream { background: #fff }
+
+    body.light-mode .news-card { background: var(--cream) }
+    body.light-mode .news-featured__body { background: #F5F0E8 }
+
+    body.light-mode .event-tab {
+      border-color: rgba(140,128,112,.35);
+      color: var(--stone)
+    }
+
+    body.light-mode .event-item {
+      background: rgba(20,18,16,.04)
+    }
+
+    body.light-mode .event-item:hover {
+      background: rgba(20,18,16,.07)
+    }
+
+    body.light-mode .event-info__title { color: var(--carbon) }
+    body.light-mode .event-date { border-right-color: rgba(140,128,112,.3) }
+
+    body.light-mode .prensa-card { background: rgba(20,18,16,.03) }
+    body.light-mode .prensa-card:hover { background: rgba(20,18,16,.06) }
+    body.light-mode .prensa-card__logo { color: rgba(20,18,16,.25) }
+    body.light-mode .prensa-card__title { color: var(--carbon) }
+    body.light-mode .prensa-card__type { color: var(--gold-dk) }
+    body.light-mode .prensa-card__cta { color: var(--gold-dk) }
+
+    body.light-mode .filter-search__input { color: var(--carbon) }
+    body.light-mode .load-more { color: var(--carbon) }
+
+    body.light-mode .site-footer { background: #F9F8F6 }
+
+    body.light-mode .footer-col__title,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a,
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__sub { color: var(--carbon) }
+
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a { color: var(--stone) }
+
+    body.light-mode .footer-bottom { border-top-color: rgba(20,18,16,.1) }
+
+    body.light-mode .cta-band {
+      background: var(--cream);
+      border-top-color: rgba(168,133,46,.3);
+      border-bottom-color: rgba(168,133,46,.3)
+    }
+
+    body.light-mode .cta-band__title,
+    body.light-mode .cta-band__sub { color: var(--carbon) }
+
+    body.light-mode .cta-band__sub { color: var(--stone) }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .prensa-grid { grid-template-columns: 1fr 1fr }
+    }
+
+    @media (max-width: 900px) {
+      .news-featured {
+        grid-template-columns: 1fr;
+        height: auto
+      }
+
+      .news-featured__img { height: 300px }
+
+      .news-grid { grid-template-columns: 1fr 1fr }
+
+      .event-item {
+        grid-template-columns: 70px 1fr;
+        gap: 28px;
+        padding: 28px 32px
+      }
+
+      .event-cta { display: none }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 200px 200px 200px
+      }
+
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(6) { grid-column: auto }
+
+      .filter-bar { flex-direction: column; align-items: stretch }
+      .filter-search { width: 100% }
+      .filter-search__input { flex: 1 }
+    }
+
+    @media (max-width: 640px) {
+      .news-grid { grid-template-columns: 1fr }
+      .news-featured__body { padding: 32px 28px }
+
+      .event-item {
+        grid-template-columns: 60px 1fr;
+        gap: 20px;
+        padding: 24px 24px
+      }
+
+      .event-date__day { font-size: 2.2rem }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 160px 160px 160px
+      }
+
+      .prensa-grid { grid-template-columns: 1fr }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/>
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          Modo Claro / Oscuro
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar--transparent" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="../visitas.html" class="side-menu__nav-link"><span class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="reservas.html" class="side-menu__nav-link"><span class="nav-num">04</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="actualidad.html" class="side-menu__nav-link"><span class="nav-num">05</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="#" class="side-menu__nav-link"><span class="nav-num">06</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="../legal/privacidad.html">Política de privacidad</a><a href="../legal/cookies.html">Política de cookies</a><a href="../legal/aviso-legal.html">Aviso legal</a><a href="../legal/accesibilidad.html">Accesibilidad</a><a href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content reveal">
+      <div class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Noticias · Eventos · Cultura</div>
+      <h1 class="page-hero__title" data-i18n-page="hero_title">La <em>actualidad</em><br>de la Catedral</h1>
+      <p class="page-hero__desc" data-i18n-page="hero_desc">Novedades, exposiciones, conciertos y todo lo que ocurre en el corazón del Camino Francés.</p>
+      <nav class="hero-nav" aria-label="Secciones de actualidad">
+        <a href="#noticias" class="hero-nav__link" data-i18n-page="hero_nav_news">Noticias</a>
+        <a href="#agenda" class="hero-nav__link" data-i18n-page="hero_nav_events">Agenda</a>
+        <a href="#galeria" class="hero-nav__link" data-i18n-page="hero_nav_gallery">Galería</a>
+        <a href="#prensa" class="hero-nav__link" data-i18n-page="hero_nav_press">Prensa</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NOTICIAS
+  ════════════════════════════════════════════════════════ -->
+  <section id="noticias" class="act-section act-section--white">
+    <div class="act-section__inner">
+
+      <p class="act-eyebrow reveal" data-i18n-page="news_eyebrow">Comunicados y novedades</p>
+      <h2 class="act-title reveal" data-i18n-page="news_title">Noticias de <em>la Catedral</em></h2>
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <div class="filter-tabs" role="tablist" aria-label="Filtrar noticias">
+          <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" data-i18n-page="filter_all">Todo</button>
+          <button class="filter-tab" data-filter="comunicado" role="tab" aria-selected="false" data-i18n-page="filter_comm">Comunicados</button>
+          <button class="filter-tab" data-filter="novedad" role="tab" aria-selected="false" data-i18n-page="filter_new">Novedades</button>
+          <button class="filter-tab" data-filter="prensa" role="tab" aria-selected="false" data-i18n-page="filter_press">Prensa</button>
+        </div>
+        <div class="filter-search">
+          <input class="filter-search__input" type="search" id="news-search" data-i18n-ph-page="search_ph" placeholder="Buscar noticias…" aria-label="Buscar noticias" />
+          <button class="filter-search__btn" aria-label="Buscar">→</button>
+        </div>
+      </div>
+
+      <!-- Featured article -->
+      <a href="#" class="news-featured reveal" data-category="novedad">
+        <div class="news-featured__img">
+          <div class="news-featured__bg" style="background-image:url('../assets/img/nocturna.webp'); background-position:center 40%"></div>
+        </div>
+        <div class="news-featured__body">
+          <div class="news-featured__meta">
+            <span class="news-featured__cat" data-i18n-page="cat_novedad">Novedad</span>
+            <span class="news-featured__date">28 abril 2026</span>
+          </div>
+          <h3 class="news-featured__title">La Catedral abre sus puertas de noche por <em>primera vez</em> en su historia</h3>
+          <p class="news-featured__excerpt">Las nuevas visitas nocturnas permiten recorrer la nave central y el gallinero vivo bajo la luz de las velas, en una experiencia única en el Camino de Santiago.</p>
+          <span class="news-featured__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+        </div>
+      </a>
+
+      <!-- News grid -->
+      <div class="news-grid" id="news-grid">
+
+        <a href="#" class="news-card" data-category="comunicado">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background-image:url('../assets/img/diurna.webp')"></div>
+          </div>
+          <div class="news-card__body">
+            <div class="news-card__meta">
+              <span class="news-card__cat" data-i18n-page="cat_comunicado">Comunicado</span>
+              <span class="news-card__date">15 abril 2026</span>
+            </div>
+            <h3 class="news-card__title">Exposición "Ocho Siglos de Arte" abre sus puertas en la nave central</h3>
+            <p class="news-card__excerpt">La muestra recorre la historia artística de la Catedral desde su fundación en el siglo XII hasta la restauración de 2018, con piezas inéditas del archivo diocesano.</p>
+            <div class="news-card__footer">
+              <span class="news-card__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+              <div class="news-card__share">
+                <a href="#" aria-label="Compartir en X">𝕏</a>
+                <a href="#" aria-label="Compartir en Facebook">f</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="news-card" data-category="novedad">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background-image:url('../assets/img/torre.webp'); background-position:center 20%"></div>
+          </div>
+          <div class="news-card__body">
+            <div class="news-card__meta">
+              <span class="news-card__cat" data-i18n-page="cat_novedad">Novedad</span>
+              <span class="news-card__date">28 marzo 2026</span>
+            </div>
+            <h3 class="news-card__title">Nueva visita guiada al interior de la Torre Exenta con audioguía multilingüe</h3>
+            <p class="news-card__excerpt">El recorrido asciende por las 206 escaleras del campanario más alto de La Rioja con paradas interpretativas en cada planta.</p>
+            <div class="news-card__footer">
+              <span class="news-card__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+              <div class="news-card__share">
+                <a href="#" aria-label="Compartir en X">𝕏</a>
+                <a href="#" aria-label="Compartir en Facebook">f</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="news-card" data-category="prensa">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 30%"></div>
+          </div>
+          <div class="news-card__body">
+            <div class="news-card__meta">
+              <span class="news-card__cat" data-i18n-page="cat_prensa">Prensa</span>
+              <span class="news-card__date">10 marzo 2026</span>
+            </div>
+            <h3 class="news-card__title">National Geographic incluye el Monasterio de Cañas entre los 50 tesoros medievales de Europa</h3>
+            <p class="news-card__excerpt">La revista destaca el panteón de los señores de Cameros y la comunidad viva de monjas bernardinas como atractivo único.</p>
+            <div class="news-card__footer">
+              <span class="news-card__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+              <div class="news-card__share">
+                <a href="#" aria-label="Compartir en X">𝕏</a>
+                <a href="#" aria-label="Compartir en Facebook">f</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="news-card" data-category="comunicado">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background-image:url('../assets/img/sanfrancisco.webp')"></div>
+          </div>
+          <div class="news-card__body">
+            <div class="news-card__meta">
+              <span class="news-card__cat" data-i18n-page="cat_comunicado">Comunicado</span>
+              <span class="news-card__date">18 febrero 2026</span>
+            </div>
+            <h3 class="news-card__title">El Convento de San Francisco abre su claustro a visitas guiadas por primera vez</h3>
+            <p class="news-card__excerpt">El espacio, restaurado en 2025, permite ahora recorrer el claustro porticado y la iglesia gótica en grupos reducidos de hasta 15 personas.</p>
+            <div class="news-card__footer">
+              <span class="news-card__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+              <div class="news-card__share">
+                <a href="#" aria-label="Compartir en X">𝕏</a>
+                <a href="#" aria-label="Compartir en Facebook">f</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="news-card" data-category="novedad">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background-image:url('../assets/img/ermitaplaza.webp')"></div>
+          </div>
+          <div class="news-card__body">
+            <div class="news-card__meta">
+              <span class="news-card__cat" data-i18n-page="cat_novedad">Novedad</span>
+              <span class="news-card__date">5 enero 2026</span>
+            </div>
+            <h3 class="news-card__title">Restaurada la fachada románica de la Ermita de la Virgen de la Plaza</h3>
+            <p class="news-card__excerpt">Los trabajos de restauración han recuperado los capiteles y canecillos originales del siglo XII, devolviendo la piedra a su aspecto medieval.</p>
+            <div class="news-card__footer">
+              <span class="news-card__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+              <div class="news-card__share">
+                <a href="#" aria-label="Compartir en X">𝕏</a>
+                <a href="#" aria-label="Compartir en Facebook">f</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="news-card" data-category="comunicado">
+          <div class="news-card__img-wrap">
+            <div class="news-card__img" style="background-image:url('../assets/img/diurna.webp'); background-position:center 60%"></div>
+          </div>
+          <div class="news-card__body">
+            <div class="news-card__meta">
+              <span class="news-card__cat" data-i18n-page="cat_comunicado">Comunicado</span>
+              <span class="news-card__date">12 diciembre 2025</span>
+            </div>
+            <h3 class="news-card__title">La Catedral recibe el Premio Patrimonio Cultural de La Rioja 2025</h3>
+            <p class="news-card__excerpt">El galardón reconoce la labor de conservación y difusión del conjunto monumental realizada durante el último año.</p>
+            <div class="news-card__footer">
+              <span class="news-card__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
+              <div class="news-card__share">
+                <a href="#" aria-label="Compartir en X">𝕏</a>
+                <a href="#" aria-label="Compartir en Facebook">f</a>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="load-more-wrap reveal">
+        <button class="load-more" data-i18n-page="load_more">Cargar más noticias</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       AGENDA Y EVENTOS
+  ════════════════════════════════════════════════════════ -->
+  <section id="agenda" class="act-section act-section--dark">
+    <div class="act-section__inner">
+
+      <div class="events-header">
+        <div>
+          <p class="act-eyebrow" data-i18n-page="events_eyebrow">Agenda cultural</p>
+          <h2 class="act-title reveal" data-i18n-page="events_title">Próximos <em>eventos</em></h2>
+        </div>
+        <div class="event-tabs" role="tablist">
+          <button class="event-tab active" role="tab" aria-selected="true" data-i18n-page="tab_upcoming">Próximos</button>
+          <button class="event-tab" role="tab" aria-selected="false" data-i18n-page="tab_past">Pasados</button>
+        </div>
+      </div>
+
+      <div class="events-list reveal">
+
+        <a href="#" class="event-item">
+          <div class="event-date">
+            <div class="event-date__day">15</div>
+            <div class="event-date__month">MAY</div>
+            <div class="event-date__year">2026</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_concert">Concierto</p>
+            <h3 class="event-info__title">Barroco en el Camino — Concierto de Órgano</h3>
+            <div class="event-info__meta">
+              <span>🕖 19:30 h</span>
+              <span>📍 Nave Central de la Catedral</span>
+              <span data-i18n-page="event_free">Entrada libre</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_add_cal">Añadir al calendario</span> →</span>
+        </a>
+
+        <a href="#" class="event-item">
+          <div class="event-date">
+            <div class="event-date__day">20</div>
+            <div class="event-date__month">MAY</div>
+            <div class="event-date__year">2026</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_visit">Visita especial</p>
+            <h3 class="event-info__title">La Catedral bajo las Estrellas — Visita Nocturna</h3>
+            <div class="event-info__meta">
+              <span>🕙 22:00 h</span>
+              <span>📍 Catedral y Torre Exenta</span>
+              <span data-i18n-page="event_tickets">Con entrada</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_register">Inscribirse</span> →</span>
+        </a>
+
+        <a href="#" class="event-item">
+          <div class="event-date">
+            <div class="event-date__day">01</div>
+            <div class="event-date__month">JUN</div>
+            <div class="event-date__year">2026</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_expo">Exposición</p>
+            <h3 class="event-info__title">Ocho Siglos de Arte — Exposición permanente temporal</h3>
+            <div class="event-info__meta">
+              <span>📅 1 jun – 31 ago 2026</span>
+              <span>📍 Nave central y capillas</span>
+              <span data-i18n-page="event_tickets">Con entrada</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item">
+          <div class="event-date">
+            <div class="event-date__day">05</div>
+            <div class="event-date__month">JUN</div>
+            <div class="event-date__year">2026</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_conf">Conferencia</p>
+            <h3 class="event-info__title">El Camino de Santiago Medieval: rutas, peregrinos y milagros</h3>
+            <div class="event-info__meta">
+              <span>🕡 18:30 h</span>
+              <span>📍 Sala Capitular</span>
+              <span data-i18n-page="event_free">Entrada libre</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_add_cal">Añadir al calendario</span> →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       GALERÍA MULTIMEDIA
+  ════════════════════════════════════════════════════════ -->
+  <section id="galeria" class="act-section act-section--cream">
+    <div class="act-section__inner">
+
+      <p class="act-eyebrow reveal" data-i18n-page="gallery_eyebrow">Fotos y vídeos</p>
+      <h2 class="act-title reveal" data-i18n-page="gallery_title">Galería <em>multimedia</em></h2>
+
+      <div class="gallery-filter">
+        <button class="filter-tab active" data-i18n-page="gal_all">Todo</button>
+        <button class="filter-tab" data-i18n-page="gal_photos">Fotografía</button>
+        <button class="filter-tab" data-i18n-page="gal_video">Vídeo</button>
+      </div>
+
+      <div class="gallery-grid reveal">
+
+        <div class="gallery-item">
+          <div class="gallery-item__img" style="background-image:url('../assets/img/nocturna.webp'); background-position:center 30%"></div>
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </div>
+          <div class="gallery-item__caption">
+            <p class="gallery-item__caption-text">Catedral nocturna · Fotografía de autor</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img" style="background-image:url('../assets/img/torre.webp'); background-position:center 15%"></div>
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </div>
+          <div class="gallery-item__caption">
+            <p class="gallery-item__caption-text">Torre Exenta al atardecer</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img" style="background-image:url('../assets/img/diurna.webp'); background-position:center 50%"></div>
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+          <div class="gallery-item__caption">
+            <p class="gallery-item__caption-text">Vídeo: Recorrido virtual por la Catedral</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img" style="background-image:url('../assets/img/sanfrancisco.webp')"></div>
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </div>
+          <div class="gallery-item__caption">
+            <p class="gallery-item__caption-text">Claustro del Convento de San Francisco</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img" style="background-image:url('../assets/img/ermitaplaza.webp')"></div>
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </div>
+          <div class="gallery-item__caption">
+            <p class="gallery-item__caption-text">Ermita de la Virgen de la Plaza</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 30%"></div>
+          <div class="gallery-item__overlay">
+            <div class="gallery-item__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </div>
+          <div class="gallery-item__caption">
+            <p class="gallery-item__caption-text">Interior del Monasterio de Cañas</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       APARICIONES EN PRENSA
+  ════════════════════════════════════════════════════════ -->
+  <section id="prensa" class="act-section act-section--dark">
+    <div class="act-section__inner">
+
+      <p class="act-eyebrow" data-i18n-page="press_eyebrow">Apariciones en medios</p>
+      <h2 class="act-title reveal" data-i18n-page="press_title">En la <em>prensa</em></h2>
+
+      <div class="prensa-grid reveal">
+
+        <div class="prensa-card">
+          <div class="prensa-card__logo">National Geographic</div>
+          <span class="prensa-card__type" data-i18n-page="press_type_report">Reportaje</span>
+          <p class="prensa-card__title">"Los 50 tesoros medievales de Europa que aún pueden visitarse"</p>
+          <p class="prensa-card__date">Marzo 2026 · National Geographic Traveler</p>
+          <a href="#" class="prensa-card__cta"><span data-i18n-page="press_read">Leer artículo</span> →</a>
+        </div>
+
+        <div class="prensa-card">
+          <div class="prensa-card__logo">El País</div>
+          <span class="prensa-card__type" data-i18n-page="press_type_interview">Entrevista</span>
+          <p class="prensa-card__title">"El gallinero vivo: la tradición que convierte la Catedral en un milagro de piedra y pluma"</p>
+          <p class="prensa-card__date">Febrero 2026 · El País Viajes</p>
+          <a href="#" class="prensa-card__cta"><span data-i18n-page="press_read">Leer artículo</span> →</a>
+        </div>
+
+        <div class="prensa-card">
+          <div class="prensa-card__logo">La Rioja Hoy</div>
+          <span class="prensa-card__type" data-i18n-page="press_type_mention">Mención</span>
+          <p class="prensa-card__title">"La Catedral de Santo Domingo lidera el turismo cultural de La Rioja con más de 180.000 visitas en 2025"</p>
+          <p class="prensa-card__date">Enero 2026 · La Rioja Hoy</p>
+          <a href="#" class="prensa-card__cta"><span data-i18n-page="press_read">Leer artículo</span> →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND (Newsletter) -->
+  <div class="cta-band">
+    <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap">
+      <div>
+        <h3 class="cta-band__title" data-i18n="newsletter_title">El Camino en tu <em>bandeja de entrada</em></h3>
+        <p class="cta-band__sub" data-i18n="newsletter_sub">Noticias, exposiciones, eventos y ofertas exclusivas cada semana.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="return false">
+        <input class="newsletter-input" type="email" data-i18n="newsletter_ph" placeholder="tu@correo.com" required />
+        <button class="newsletter-submit" type="submit" data-i18n="newsletter_btn">Suscribirme</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid" style="max-width:1400px;margin:0 auto;padding:0 8vw">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="../index.html" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+          <li><a href="#" data-i18n="footer_info_2">Tienda</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="max-width:1400px;margin:0 auto;padding:0 8vw">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+      <div class="footer-bottom__links">
+        <a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+        <a href="../legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+        <a href="../legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+        <a href="../legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    const PAGE_T = {
+      es: {
+        hero_eyebrow: 'Noticias · Eventos · Cultura',
+        hero_title: 'La <em>actualidad</em><br>de la Catedral',
+        hero_desc: 'Novedades, exposiciones, conciertos y todo lo que ocurre en el corazón del Camino Francés.',
+        hero_nav_news: 'Noticias', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galería', hero_nav_press: 'Prensa',
+        news_eyebrow: 'Comunicados y novedades', news_title: 'Noticias de <em>la Catedral</em>',
+        filter_all: 'Todo', filter_comm: 'Comunicados', filter_new: 'Novedades', filter_press: 'Prensa',
+        search_ph: 'Buscar noticias…',
+        cat_novedad: 'Novedad', cat_comunicado: 'Comunicado', cat_prensa: 'Prensa',
+        read_more: 'Leer más', load_more: 'Cargar más noticias',
+        events_eyebrow: 'Agenda cultural', events_title: 'Próximos <em>eventos</em>',
+        tab_upcoming: 'Próximos', tab_past: 'Pasados',
+        event_cat_concert: 'Concierto', event_cat_visit: 'Visita especial', event_cat_expo: 'Exposición', event_cat_conf: 'Conferencia',
+        event_free: 'Entrada libre', event_tickets: 'Con entrada',
+        event_register: 'Inscribirse', event_add_cal: 'Añadir al calendario', event_more_info: 'Más información',
+        gallery_eyebrow: 'Fotos y vídeos', gallery_title: 'Galería <em>multimedia</em>',
+        gal_all: 'Todo', gal_photos: 'Fotografía', gal_video: 'Vídeo',
+        press_eyebrow: 'Apariciones en medios', press_title: 'En la <em>prensa</em>',
+        press_type_report: 'Reportaje', press_type_interview: 'Entrevista', press_type_mention: 'Mención',
+        press_read: 'Leer artículo'
+      },
+      en: {
+        hero_eyebrow: 'News · Events · Culture',
+        hero_title: 'What\'s <em>happening</em><br>at the Cathedral',
+        hero_desc: 'News, exhibitions, concerts and everything taking place at the heart of the French Way.',
+        hero_nav_news: 'News', hero_nav_events: 'Events', hero_nav_gallery: 'Gallery', hero_nav_press: 'Press',
+        news_eyebrow: 'Announcements & updates', news_title: 'Cathedral <em>news</em>',
+        filter_all: 'All', filter_comm: 'Announcements', filter_new: 'Updates', filter_press: 'Press',
+        search_ph: 'Search news…',
+        cat_novedad: 'Update', cat_comunicado: 'Announcement', cat_prensa: 'Press',
+        read_more: 'Read more', load_more: 'Load more news',
+        events_eyebrow: 'Cultural calendar', events_title: 'Upcoming <em>events</em>',
+        tab_upcoming: 'Upcoming', tab_past: 'Past',
+        event_cat_concert: 'Concert', event_cat_visit: 'Special visit', event_cat_expo: 'Exhibition', event_cat_conf: 'Conference',
+        event_free: 'Free entry', event_tickets: 'Ticketed',
+        event_register: 'Register', event_add_cal: 'Add to calendar', event_more_info: 'More info',
+        gallery_eyebrow: 'Photos & videos', gallery_title: '<em>Multimedia</em> gallery',
+        gal_all: 'All', gal_photos: 'Photography', gal_video: 'Video',
+        press_eyebrow: 'Media appearances', press_title: 'In the <em>press</em>',
+        press_type_report: 'Feature', press_type_interview: 'Interview', press_type_mention: 'Mention',
+        press_read: 'Read article'
+      },
+      fr: {
+        hero_eyebrow: 'Actualités · Événements · Culture',
+        hero_title: 'L\'<em>actualité</em><br>de la Cathédrale',
+        hero_desc: 'Nouveautés, expositions, concerts et tout ce qui se passe au cœur du Chemin Français.',
+        hero_nav_news: 'Actualités', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galerie', hero_nav_press: 'Presse',
+        news_eyebrow: 'Communiqués et nouveautés', news_title: 'Actualités de <em>la Cathédrale</em>',
+        filter_all: 'Tout', filter_comm: 'Communiqués', filter_new: 'Nouveautés', filter_press: 'Presse',
+        search_ph: 'Rechercher…',
+        cat_novedad: 'Nouveauté', cat_comunicado: 'Communiqué', cat_prensa: 'Presse',
+        read_more: 'Lire plus', load_more: 'Charger plus',
+        events_eyebrow: 'Agenda culturel', events_title: 'Prochains <em>événements</em>',
+        tab_upcoming: 'À venir', tab_past: 'Passés',
+        event_cat_concert: 'Concert', event_cat_visit: 'Visite spéciale', event_cat_expo: 'Exposition', event_cat_conf: 'Conférence',
+        event_free: 'Entrée libre', event_tickets: 'Avec billet',
+        event_register: 'S\'inscrire', event_add_cal: 'Ajouter au calendrier', event_more_info: 'Plus d\'infos',
+        gallery_eyebrow: 'Photos et vidéos', gallery_title: 'Galerie <em>multimédia</em>',
+        gal_all: 'Tout', gal_photos: 'Photographie', gal_video: 'Vidéo',
+        press_eyebrow: 'Présence dans les médias', press_title: 'Dans la <em>presse</em>',
+        press_type_report: 'Reportage', press_type_interview: 'Entretien', press_type_mention: 'Mention',
+        press_read: 'Lire l\'article'
+      },
+      de: {
+        hero_eyebrow: 'Neuigkeiten · Veranstaltungen · Kultur',
+        hero_title: 'Aktuelles aus <em>der Kathedrale</em>',
+        hero_desc: 'Neuigkeiten, Ausstellungen, Konzerte und alles, was im Herzen des Jakobsweges passiert.',
+        hero_nav_news: 'Neuigkeiten', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galerie', hero_nav_press: 'Presse',
+        news_eyebrow: 'Mitteilungen & Neuigkeiten', news_title: 'Aktuelles der <em>Kathedrale</em>',
+        filter_all: 'Alle', filter_comm: 'Mitteilungen', filter_new: 'Neuigkeiten', filter_press: 'Presse',
+        search_ph: 'Suchen…',
+        cat_novedad: 'Neuigkeit', cat_comunicado: 'Mitteilung', cat_prensa: 'Presse',
+        read_more: 'Mehr lesen', load_more: 'Mehr laden',
+        events_eyebrow: 'Kulturkalender', events_title: 'Kommende <em>Veranstaltungen</em>',
+        tab_upcoming: 'Kommende', tab_past: 'Vergangene',
+        event_cat_concert: 'Konzert', event_cat_visit: 'Sonderführung', event_cat_expo: 'Ausstellung', event_cat_conf: 'Vortrag',
+        event_free: 'Freier Eintritt', event_tickets: 'Mit Ticket',
+        event_register: 'Anmelden', event_add_cal: 'Zum Kalender', event_more_info: 'Mehr Info',
+        gallery_eyebrow: 'Fotos & Videos', gallery_title: '<em>Multimedia</em>-Galerie',
+        gal_all: 'Alle', gal_photos: 'Fotografie', gal_video: 'Video',
+        press_eyebrow: 'Medienberichte', press_title: 'In der <em>Presse</em>',
+        press_type_report: 'Reportage', press_type_interview: 'Interview', press_type_mention: 'Erwähnung',
+        press_read: 'Artikel lesen'
+      },
+      pt: {
+        hero_eyebrow: 'Notícias · Eventos · Cultura',
+        hero_title: 'A <em>atualidade</em><br>da Catedral',
+        hero_desc: 'Novidades, exposições, concertos e tudo o que acontece no coração do Caminho Francês.',
+        hero_nav_news: 'Notícias', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Imprensa',
+        news_eyebrow: 'Comunicados e novidades', news_title: 'Notícias da <em>Catedral</em>',
+        filter_all: 'Tudo', filter_comm: 'Comunicados', filter_new: 'Novidades', filter_press: 'Imprensa',
+        search_ph: 'Pesquisar…',
+        cat_novedad: 'Novidade', cat_comunicado: 'Comunicado', cat_prensa: 'Imprensa',
+        read_more: 'Ler mais', load_more: 'Carregar mais',
+        events_eyebrow: 'Agenda cultural', events_title: 'Próximos <em>eventos</em>',
+        tab_upcoming: 'Próximos', tab_past: 'Passados',
+        event_cat_concert: 'Concerto', event_cat_visit: 'Visita especial', event_cat_expo: 'Exposição', event_cat_conf: 'Conferência',
+        event_free: 'Entrada livre', event_tickets: 'Com ingresso',
+        event_register: 'Inscrever-se', event_add_cal: 'Adicionar ao calendário', event_more_info: 'Mais informações',
+        gallery_eyebrow: 'Fotos e vídeos', gallery_title: 'Galeria <em>multimédia</em>',
+        gal_all: 'Tudo', gal_photos: 'Fotografia', gal_video: 'Vídeo',
+        press_eyebrow: 'Aparições na mídia', press_title: 'Na <em>imprensa</em>',
+        press_type_report: 'Reportagem', press_type_interview: 'Entrevista', press_type_mention: 'Menção',
+        press_read: 'Ler artigo'
+      },
+      it: {
+        hero_eyebrow: 'Notizie · Eventi · Cultura',
+        hero_title: 'L\'<em>attualità</em><br>della Cattedrale',
+        hero_desc: 'Novità, mostre, concerti e tutto ciò che accade nel cuore del Cammino Francese.',
+        hero_nav_news: 'Notizie', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galleria', hero_nav_press: 'Stampa',
+        news_eyebrow: 'Comunicati e novità', news_title: 'Notizie della <em>Cattedrale</em>',
+        filter_all: 'Tutto', filter_comm: 'Comunicati', filter_new: 'Novità', filter_press: 'Stampa',
+        search_ph: 'Cerca…',
+        cat_novedad: 'Novità', cat_comunicado: 'Comunicato', cat_prensa: 'Stampa',
+        read_more: 'Leggi di più', load_more: 'Carica altro',
+        events_eyebrow: 'Calendario culturale', events_title: 'Prossimi <em>eventi</em>',
+        tab_upcoming: 'In arrivo', tab_past: 'Passati',
+        event_cat_concert: 'Concerto', event_cat_visit: 'Visita speciale', event_cat_expo: 'Mostra', event_cat_conf: 'Conferenza',
+        event_free: 'Ingresso libero', event_tickets: 'A pagamento',
+        event_register: 'Iscriversi', event_add_cal: 'Aggiungi al calendario', event_more_info: 'Più informazioni',
+        gallery_eyebrow: 'Foto e video', gallery_title: 'Galleria <em>multimediale</em>',
+        gal_all: 'Tutto', gal_photos: 'Fotografia', gal_video: 'Video',
+        press_eyebrow: 'Presenze nei media', press_title: 'Sulla <em>stampa</em>',
+        press_type_report: 'Reportage', press_type_interview: 'Intervista', press_type_mention: 'Menzione',
+        press_read: 'Leggi l\'articolo'
+      },
+      ko: {
+        hero_eyebrow: '뉴스 · 이벤트 · 문화',
+        hero_title: '대성당의 <em>최신 소식</em>',
+        hero_desc: '프랑스 순례길의 중심에서 일어나는 뉴스, 전시, 콘서트와 모든 소식.',
+        hero_nav_news: '뉴스', hero_nav_events: '일정', hero_nav_gallery: '갤러리', hero_nav_press: '언론',
+        news_eyebrow: '공지 및 소식', news_title: '대성당 <em>뉴스</em>',
+        filter_all: '전체', filter_comm: '공지', filter_new: '소식', filter_press: '언론',
+        search_ph: '검색…',
+        cat_novedad: '소식', cat_comunicado: '공지', cat_prensa: '언론',
+        read_more: '더 보기', load_more: '더 불러오기',
+        events_eyebrow: '문화 일정', events_title: '다가오는 <em>이벤트</em>',
+        tab_upcoming: '예정', tab_past: '지난',
+        event_cat_concert: '콘서트', event_cat_visit: '특별 방문', event_cat_expo: '전시', event_cat_conf: '강연',
+        event_free: '무료 입장', event_tickets: '유료',
+        event_register: '등록하기', event_add_cal: '캘린더에 추가', event_more_info: '자세히 보기',
+        gallery_eyebrow: '사진 및 영상', gallery_title: '멀티미디어 <em>갤러리</em>',
+        gal_all: '전체', gal_photos: '사진', gal_video: '영상',
+        press_eyebrow: '미디어 등장', press_title: '<em>언론</em>에서',
+        press_type_report: '특집', press_type_interview: '인터뷰', press_type_mention: '언급',
+        press_read: '기사 읽기'
+      },
+      eu: {
+        hero_eyebrow: 'Berriak · Ekitaldiak · Kultura',
+        hero_title: 'Katedraleko <em>albisteak</em>',
+        hero_desc: 'Berrikuntzak, erakusketak, kontzertoak eta Frantziako Bidearen erdigunean gertatzen den guztia.',
+        hero_nav_news: 'Berriak', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Prentsa',
+        news_eyebrow: 'Jakinarazpenak eta berrikuntzak', news_title: 'Katedraleko <em>berriak</em>',
+        filter_all: 'Dena', filter_comm: 'Jakinarazpenak', filter_new: 'Berrikuntzak', filter_press: 'Prentsa',
+        search_ph: 'Bilatu…',
+        cat_novedad: 'Berrikuntza', cat_comunicado: 'Jakinarazpena', cat_prensa: 'Prentsa',
+        read_more: 'Gehiago irakurri', load_more: 'Gehiago kargatu',
+        events_eyebrow: 'Kultura-agenda', events_title: 'Datozen <em>ekitaldiak</em>',
+        tab_upcoming: 'Datozenak', tab_past: 'Pasatutakoak',
+        event_cat_concert: 'Kontzertu', event_cat_visit: 'Bisita berezia', event_cat_expo: 'Erakusketa', event_cat_conf: 'Hitzaldia',
+        event_free: 'Sarrera doan', event_tickets: 'Sarrerarekin',
+        event_register: 'Izena eman', event_add_cal: 'Egutegian gehitu', event_more_info: 'Informazio gehiago',
+        gallery_eyebrow: 'Argazkiak eta bideoak', gallery_title: 'Multimedia <em>galeria</em>',
+        gal_all: 'Dena', gal_photos: 'Argazkigintza', gal_video: 'Bideoa',
+        press_eyebrow: 'Hedabideetan', press_title: '<em>Prentsan</em>',
+        press_type_report: 'Erreportajea', press_type_interview: 'Elkarrizketa', press_type_mention: 'Aipamena',
+        press_read: 'Artikulua irakurri'
+      },
+      ca: {
+        hero_eyebrow: 'Notícies · Esdeveniments · Cultura',
+        hero_title: 'L\'<em>actualitat</em><br>de la Catedral',
+        hero_desc: 'Novetats, exposicions, concerts i tot el que passa al cor del Camí Francès.',
+        hero_nav_news: 'Notícies', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Premsa',
+        news_eyebrow: 'Comunicats i novetats', news_title: 'Notícies de <em>la Catedral</em>',
+        filter_all: 'Tot', filter_comm: 'Comunicats', filter_new: 'Novetats', filter_press: 'Premsa',
+        search_ph: 'Cercar notícies…',
+        cat_novedad: 'Novetat', cat_comunicado: 'Comunicat', cat_prensa: 'Premsa',
+        read_more: 'Llegir més', load_more: 'Carregar més notícies',
+        events_eyebrow: 'Agenda cultural', events_title: 'Propers <em>esdeveniments</em>',
+        tab_upcoming: 'Propers', tab_past: 'Passats',
+        event_cat_concert: 'Concert', event_cat_visit: 'Visita especial', event_cat_expo: 'Exposició', event_cat_conf: 'Conferència',
+        event_free: 'Entrada lliure', event_tickets: 'Amb entrada',
+        event_register: 'Inscriure\'s', event_add_cal: 'Afegir al calendari', event_more_info: 'Més informació',
+        gallery_eyebrow: 'Fotos i vídeos', gallery_title: 'Galeria <em>multimèdia</em>',
+        gal_all: 'Tot', gal_photos: 'Fotografia', gal_video: 'Vídeo',
+        press_eyebrow: 'Aparicions als mitjans', press_title: 'A la <em>premsa</em>',
+        press_type_report: 'Reportatge', press_type_interview: 'Entrevista', press_type_mention: 'Menció',
+        press_read: 'Llegir article'
+      }
+    };
+
+    window.PAGE_applyLang = function(lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('[data-i18n-ph-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph-page');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+    };
+
+    /* ── Hero bg zoom-in ─────────────────────────────────── */
+    setTimeout(() => {
+      const b = document.getElementById('hero-bg');
+      if (b) b.classList.add('loaded');
+    }, 100);
+
+    /* ── Filter tabs (noticias) ──────────────────────────── */
+    (function() {
+      const tabs = document.querySelectorAll('.filter-tabs .filter-tab');
+      const cards = document.querySelectorAll('#news-grid .news-card');
+      const featured = document.querySelector('.news-featured');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+
+          const filter = tab.dataset.filter;
+          cards.forEach(card => {
+            card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+          });
+          if (featured) {
+            featured.style.display = (filter === 'all' || featured.dataset.category === filter) ? '' : 'none';
+          }
+        });
+      });
+
+      /* Search */
+      const searchInput = document.getElementById('news-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          const q = searchInput.value.toLowerCase();
+          cards.forEach(card => {
+            const title = card.querySelector('.news-card__title');
+            card.style.display = (!q || (title && title.textContent.toLowerCase().includes(q))) ? '' : 'none';
+          });
+        });
+      }
+    })();
+
+    /* ── Event tabs ──────────────────────────────────────── */
+    (function() {
+      const tabs = document.querySelectorAll('.event-tabs .event-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+        });
+      });
+    })();
+
+    /* ── Gallery filter ──────────────────────────────────── */
+    (function() {
+      const tabs = document.querySelectorAll('.gallery-filter .filter-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+        });
+      });
+    })();
+
+    /* ── Modo Claro / Oscuro ─────────────────────────────── */
+    (function() {
+      const btn = document.getElementById('a11y-light-mode');
+      const logoImg = document.getElementById('logo-img');
+      const KEY = 'a11y-light-mode';
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        if (btn) { btn.classList.toggle('is-active', on); btn.setAttribute('aria-pressed', String(on)); }
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        localStorage.setItem(KEY, on ? '1' : '0');
+      }
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+      if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
+    })();
+  </script>
+
+</body>
+</html>
+
+
+
+

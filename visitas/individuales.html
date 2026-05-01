@@ -1,0 +1,1229 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visitas individuales · Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 72vh;
+      min-height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/diurna.webp');
+      background-size: cover;
+      background-position: center 35%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded { transform: scale(1) }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(14,12,10,.80) 0%, rgba(14,12,10,.48) 50%, rgba(14,12,10,.68) 100%),
+                  linear-gradient(to top, rgba(14,12,10,.90) 0%, rgba(14,12,10,.30) 55%, transparent 100%)
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 8vh;
+      width: 100%;
+      max-width: 1400px
+    }
+
+    .page-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color .2s ease
+    }
+
+    .page-hero__back:hover { color: var(--gold) }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 18px
+    }
+
+    .page-hero__title em { font-style: italic; color: var(--gold-lt) }
+
+    .page-hero__desc {
+      font-size: .92rem;
+      line-height: 1.72;
+      color: rgba(255,255,255,.68);
+      max-width: 520px
+    }
+
+    /* ── SECTION BASE ──────────────────────────────────────── */
+    .vis-section { padding: 88px 8vw }
+
+    .vis-section__inner { max-width: 1400px; margin: 0 auto }
+
+    .vis-section--dark { background: var(--carbon) }
+    .vis-section--light { background: #FDFAF4; color: var(--carbon) }
+    .vis-section--cream { background: var(--cream); color: var(--carbon) }
+
+    .vis-eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .vis-section--dark .vis-eyebrow { color: var(--gold) }
+    .vis-section--light .vis-eyebrow,
+    .vis-section--cream .vis-eyebrow { color: var(--gold-dk) }
+
+    .vis-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      margin-bottom: 0;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(140,128,112,.2)
+    }
+
+    .vis-title em { font-style: italic; color: var(--gold) }
+
+    .vis-section--dark .vis-title { color: var(--white) }
+
+    /* ── SPACES GRID ───────────────────────────────────────── */
+    .spaces-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .space-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--carbon);
+      text-decoration: none;
+      color: var(--white);
+      overflow: hidden;
+      transition: transform .4s var(--ease)
+    }
+
+    .space-card:hover { transform: translateY(-4px) }
+
+    .space-card__img-wrap {
+      height: 240px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .space-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease)
+    }
+
+    .space-card:hover .space-card__img { transform: scale(1.07) }
+
+    .space-card__badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: .54rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      background: rgba(14,12,10,.75);
+      border: 1px solid rgba(201,168,76,.5);
+      color: var(--gold);
+      backdrop-filter: blur(4px)
+    }
+
+    .space-card__body {
+      padding: 28px 30px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1
+    }
+
+    .space-card__eyebrow {
+      font-size: .56rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px
+    }
+
+    .space-card__title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: var(--white)
+    }
+
+    .space-card__desc {
+      font-size: .82rem;
+      line-height: 1.7;
+      color: rgba(253,250,244,.65);
+      margin-bottom: 22px;
+      flex: 1
+    }
+
+    .space-card__icons {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap
+    }
+
+    .space-icon {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      color: rgba(253,250,244,.6)
+    }
+
+    .space-icon svg { flex-shrink: 0; opacity: .7 }
+
+    .space-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.08)
+    }
+
+    .space-card__price {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--white)
+    }
+
+    .space-card__price-label {
+      font-size: .56rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(253,250,244,.45);
+      display: block;
+      margin-bottom: 2px
+    }
+
+    .space-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: gap .25s ease
+    }
+
+    .space-card:hover .space-card__cta { gap: 14px }
+
+    /* Cañas — warning badge */
+    .space-card--remote .space-card__badge {
+      background: rgba(201,168,76,.15);
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    /* 5th card centered in row of 3 */
+    .spaces-grid .space-card:nth-child(4) { grid-column: 1 }
+    .spaces-grid .space-card:nth-child(5) { grid-column: 2 }
+
+    /* ── COMBINED TICKETS ──────────────────────────────────── */
+    .combined-section {
+      background: var(--carbon);
+      padding: 88px 8vw
+    }
+
+    .combined-inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .combined-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .combined-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.18);
+      padding: 44px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: background .3s ease, border-color .3s ease
+    }
+
+    .combined-card:hover {
+      background: rgba(201,168,76,.06);
+      border-color: rgba(201,168,76,.42)
+    }
+
+    .combined-card--featured {
+      background: rgba(201,168,76,.10);
+      border-color: rgba(201,168,76,.40)
+    }
+
+    .combined-card--featured:hover {
+      background: rgba(201,168,76,.16)
+    }
+
+    .combined-card__tag {
+      font-size: .54rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .combined-card__tag::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .combined-card__title {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 14px
+    }
+
+    .combined-card__includes {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 28px;
+      flex: 1
+    }
+
+    .combined-card__item {
+      font-size: .8rem;
+      color: rgba(253,250,244,.65);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .combined-card__item::before {
+      content: '✦';
+      font-size: .5rem;
+      color: var(--gold);
+      flex-shrink: 0
+    }
+
+    .combined-card__pricing {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px
+    }
+
+    .combined-card__price {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1
+    }
+
+    .combined-card__price span {
+      font-size: 1.1rem;
+      vertical-align: super
+    }
+
+    .combined-card__saving {
+      font-size: .7rem;
+      color: var(--gold);
+      letter-spacing: .06em
+    }
+
+    .combined-card__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      background: var(--gold);
+      color: var(--carbon);
+      text-decoration: none;
+      align-self: flex-start;
+      transition: background .25s ease, gap .25s ease
+    }
+
+    .combined-card__btn:hover { background: var(--gold-lt); gap: 16px }
+
+    /* ── CTA BAND ──────────────────────────────────────────── */
+    .cta-band {
+      background: var(--gold);
+      padding: 64px 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .cta-band__inner {
+      max-width: 1400px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap
+    }
+
+    .cta-band__eyebrow {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(20,18,16,.6);
+      margin-bottom: 8px
+    }
+
+    .cta-band__title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--carbon);
+      line-height: 1.15
+    }
+
+    .cta-band__title em { font-style: italic }
+
+    .cta-band__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      background: var(--carbon);
+      color: var(--white);
+      text-decoration: none;
+      transition: background .25s ease, gap .25s ease;
+      white-space: nowrap
+    }
+
+    .cta-band__btn:hover { background: #2a2520; gap: 20px }
+
+    /* ── LIGHT MODE ────────────────────────────────────────── */
+    body.light-mode .vis-section--dark { background: #F9F8F6 }
+    body.light-mode .vis-section--dark .vis-eyebrow { color: var(--gold-dk) }
+    body.light-mode .vis-section--dark .vis-title { color: var(--carbon) }
+    body.light-mode .space-card { background: #fff; color: var(--carbon) }
+    body.light-mode .space-card__title { color: var(--carbon) }
+    body.light-mode .space-card__desc { color: rgba(20,18,16,.6) }
+    body.light-mode .space-card__eyebrow { color: var(--gold-dk) }
+    body.light-mode .space-icon { color: rgba(20,18,16,.55) }
+    body.light-mode .space-card__price { color: var(--carbon) }
+    body.light-mode .space-card__price-label { color: rgba(20,18,16,.45) }
+    body.light-mode .space-card__footer { border-top-color: rgba(20,18,16,.08) }
+    body.light-mode .space-card__cta { color: var(--gold-dk) }
+    body.light-mode .combined-section { background: #F5F0E8 }
+    body.light-mode .combined-card { background: rgba(20,18,16,.04); border-color: rgba(20,18,16,.1) }
+    body.light-mode .combined-card:hover { background: rgba(201,168,76,.08) }
+    body.light-mode .combined-card--featured { background: rgba(201,168,76,.12) }
+    body.light-mode .combined-card__title { color: var(--carbon) }
+    body.light-mode .combined-card__item { color: rgba(20,18,16,.65) }
+    body.light-mode .combined-card__price { color: var(--carbon) }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .spaces-grid { grid-template-columns: repeat(2, 1fr) }
+      .spaces-grid .space-card:nth-child(4),
+      .spaces-grid .space-card:nth-child(5) { grid-column: auto }
+      .spaces-grid .space-card:nth-child(5) { grid-column: span 2 }
+    }
+
+    @media (max-width: 700px) {
+      .spaces-grid { grid-template-columns: 1fr }
+      .spaces-grid .space-card:nth-child(5) { grid-column: auto }
+      .combined-grid { grid-template-columns: 1fr }
+      .cta-band__inner { flex-direction: column; align-items: flex-start }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
+
+  <!-- ACCESIBILIDAD -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/></svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
+      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
+      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
+      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
+      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>Subrayar enlaces</button></li>
+      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Fuente legible</button></li>
+      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Leer texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Restablecer</button></li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar--transparent" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">🏴</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">🏴</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div><div class="hamburger-line"></div><div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span><span data-i18n="nav_home">Inicio</span></a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span><span data-i18n="nav_monuments">Monumentos</span></a></li>
+        <li class="side-menu__nav-item"><a href="../visitas.html" class="side-menu__nav-link side-menu__nav-link--active"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
+        <li class="side-menu__nav-item"><a href="../reservas.html" class="side-menu__nav-link"><span class="nav-num">04</span><span data-i18n="nav_reservations">Reservas</span></a></li>
+        <li class="side-menu__nav-item"><a href="../actualidad.html" class="side-menu__nav-link"><span class="nav-num">05</span><span data-i18n="nav_news">Actualidad</span></a></li>
+        <li class="side-menu__nav-item"><a href="#tienda" class="side-menu__nav-link"><span class="nav-num">06</span><span data-i18n="nav_shop">Tienda</span></a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" class="side-menu__social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="#" class="side-menu__social-link" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" class="side-menu__social-link" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="../legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+      <a href="../legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+      <a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <a href="../visitas.html" class="page-hero__back">← <span data-i18n-page="back_visits">Visitas</span></a>
+      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Sin guía · A tu ritmo · 5 espacios</p>
+      <h1 class="page-hero__title" data-i18n-page="hero_title">Visitas <em>individuales</em></h1>
+      <p class="page-hero__desc" data-i18n-page="hero_desc">Explora los cinco espacios patrimoniales de Santo Domingo de la Calzada y el Monasterio de Cañas a tu propio ritmo, con la información que necesitas a mano.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPACES GRID
+  ════════════════════════════════════════════════════════ -->
+  <section class="vis-section vis-section--dark">
+    <div class="vis-section__inner">
+      <p class="vis-eyebrow reveal" data-i18n-page="spaces_eyebrow">Elige tu espacio</p>
+      <h2 class="vis-title reveal" data-i18n-page="spaces_title">Los cinco <em>espacios</em> patrimoniales</h2>
+
+      <div class="spaces-grid">
+
+        <!-- Catedral -->
+        <a href="../monumentos.html" class="space-card reveal">
+          <div class="space-card__img-wrap">
+            <div class="space-card__img" style="background-image:url('../assets/img/diurna.webp'); background-position:center 35%"></div>
+          </div>
+          <div class="space-card__body">
+            <p class="space-card__eyebrow" data-i18n-page="sp1_eyebrow">Catedral</p>
+            <h3 class="space-card__title" data-i18n-page="sp1_title">Catedral de Santo Domingo de la Calzada</h3>
+            <p class="space-card__desc" data-i18n-page="sp1_desc">Joya del románico y gótico riojano. Retablo mayor, sepulcro del Santo, el gallinero vivo y ocho siglos de historia en cada piedra.</p>
+            <div class="space-card__icons">
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n-page="sp1_duration">60–90 min</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span data-i18n-page="sp1_access">Acceso parcial silla de ruedas</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span data-i18n-page="icon_photos_yes">Fotos permitidas</span></span>
+            </div>
+            <div class="space-card__footer">
+              <div>
+                <span class="space-card__price-label" data-i18n-page="from_label">Desde</span>
+                <span class="space-card__price">5 €</span>
+              </div>
+              <span class="space-card__cta"><span data-i18n-page="see_info">Ver horarios y precios</span> →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Torre -->
+        <a href="#torre" class="space-card reveal reveal-delay-1">
+          <div class="space-card__img-wrap">
+            <div class="space-card__img" style="background-image:url('../assets/img/torre.webp'); background-position:center 20%"></div>
+          </div>
+          <div class="space-card__body">
+            <p class="space-card__eyebrow" data-i18n-page="sp2_eyebrow">Torre Exenta</p>
+            <h3 class="space-card__title" data-i18n-page="sp2_title">Torre Exenta de la Catedral</h3>
+            <p class="space-card__desc" data-i18n-page="sp2_desc">La torre campanario independiente más alta de La Rioja. Sube sus 70 metros y disfruta de vistas panorámicas del casco histórico y el Camino de Santiago.</p>
+            <div class="space-card__icons">
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n-page="sp2_duration">30–45 min</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg><span data-i18n-page="sp2_access">Escaleras — sin ascensor</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span data-i18n-page="icon_photos_yes">Fotos permitidas</span></span>
+            </div>
+            <div class="space-card__footer">
+              <div>
+                <span class="space-card__price-label" data-i18n-page="from_label">Desde</span>
+                <span class="space-card__price">3 €</span>
+              </div>
+              <span class="space-card__cta"><span data-i18n-page="see_info">Ver horarios y precios</span> →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Convento San Francisco -->
+        <a href="#sanfrancisco" class="space-card reveal reveal-delay-2">
+          <div class="space-card__img-wrap">
+            <div class="space-card__img" style="background-image:url('../assets/img/sanfrancisco.webp'); background-position:center 50%"></div>
+          </div>
+          <div class="space-card__body">
+            <p class="space-card__eyebrow" data-i18n-page="sp3_eyebrow">Convento</p>
+            <h3 class="space-card__title" data-i18n-page="sp3_title">Convento de San Francisco</h3>
+            <p class="space-card__desc" data-i18n-page="sp3_desc">Antiguo convento franciscano rehabilitado como espacio cultural. Claustro gótico, exposiciones permanentes y el contexto histórico del Camino Francés.</p>
+            <div class="space-card__icons">
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n-page="sp3_duration">30–45 min</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span data-i18n-page="sp3_access">Totalmente accesible</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span data-i18n-page="icon_photos_yes">Fotos permitidas</span></span>
+            </div>
+            <div class="space-card__footer">
+              <div>
+                <span class="space-card__price-label" data-i18n-page="from_label">Desde</span>
+                <span class="space-card__price">3 €</span>
+              </div>
+              <span class="space-card__cta"><span data-i18n-page="see_info">Ver horarios y precios</span> →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Ermita de la Plaza -->
+        <a href="#ermita" class="space-card reveal">
+          <div class="space-card__img-wrap">
+            <div class="space-card__img" style="background-image:url('../assets/img/ermitaplaza.webp'); background-position:center 40%"></div>
+          </div>
+          <div class="space-card__body">
+            <p class="space-card__eyebrow" data-i18n-page="sp4_eyebrow">Ermita</p>
+            <h3 class="space-card__title" data-i18n-page="sp4_title">Ermita de la Virgen de la Plaza</h3>
+            <p class="space-card__desc" data-i18n-page="sp4_desc">Pequeña joya románica en el corazón del casco histórico. Devoción popular y arte medieval a escasos metros de la Catedral.</p>
+            <div class="space-card__icons">
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n-page="sp4_duration">15–20 min</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span data-i18n-page="sp4_access">Accesible</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span data-i18n-page="icon_photos_yes">Fotos permitidas</span></span>
+            </div>
+            <div class="space-card__footer">
+              <div>
+                <span class="space-card__price-label" data-i18n-page="from_label">Desde</span>
+                <span class="space-card__price">2 €</span>
+              </div>
+              <span class="space-card__cta"><span data-i18n-page="see_info">Ver horarios y precios</span> →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Monasterio de Cañas -->
+        <a href="#canas" class="space-card space-card--remote reveal reveal-delay-1">
+          <div class="space-card__img-wrap">
+            <div class="space-card__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 50%"></div>
+            <span class="space-card__badge" data-i18n-page="badge_remote">📍 18 km de la Catedral</span>
+          </div>
+          <div class="space-card__body">
+            <p class="space-card__eyebrow" data-i18n-page="sp5_eyebrow">Monasterio</p>
+            <h3 class="space-card__title" data-i18n-page="sp5_title">Monasterio de Cañas</h3>
+            <p class="space-card__desc" data-i18n-page="sp5_desc">Monasterio cisterciense femenino fundado en 1169. Sepulcro de Doña Urraca, claustro románico y tradición viva de las monjas de clausura.</p>
+            <div class="space-card__icons">
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n-page="sp5_duration">45–60 min</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span data-i18n-page="sp5_access">Accesible</span></span>
+              <span class="space-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span data-i18n-page="icon_photos_no">Sin fotos en clausura</span></span>
+            </div>
+            <div class="space-card__footer">
+              <div>
+                <span class="space-card__price-label" data-i18n-page="from_label">Desde</span>
+                <span class="space-card__price">4 €</span>
+              </div>
+              <span class="space-card__cta"><span data-i18n-page="see_info">Ver horarios y precios</span> →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ENTRADAS COMBINADAS
+  ════════════════════════════════════════════════════════ -->
+  <section class="combined-section">
+    <div class="combined-inner">
+      <p class="vis-eyebrow reveal" data-i18n-page="comb_eyebrow">Ahorra combinando</p>
+      <h2 class="vis-title reveal" data-i18n-page="comb_title" style="color:var(--white)">Entradas <em>combinadas</em></h2>
+
+      <div class="combined-grid">
+
+        <div class="combined-card reveal">
+          <p class="combined-card__tag" data-i18n-page="comb1_tag">Pase Catedral + Torre</p>
+          <h3 class="combined-card__title" data-i18n-page="comb1_title">Los dos iconos de la ciudad</h3>
+          <div class="combined-card__includes">
+            <span class="combined-card__item" data-i18n-page="comb1_inc1">Entrada completa a la Catedral</span>
+            <span class="combined-card__item" data-i18n-page="comb1_inc2">Acceso a la Torre Exenta</span>
+            <span class="combined-card__item" data-i18n-page="comb1_inc3">Validez 2 días</span>
+          </div>
+          <div class="combined-card__pricing">
+            <div class="combined-card__price"><span>€</span>7</div>
+            <span class="combined-card__saving" data-i18n-page="saving_1">Ahorras 1 €</span>
+          </div>
+          <a href="../reservas.html" class="combined-card__btn">
+            <span data-i18n-page="buy_btn">Comprar entrada</span> →
+          </a>
+        </div>
+
+        <div class="combined-card combined-card--featured reveal reveal-delay-1">
+          <p class="combined-card__tag" data-i18n-page="comb2_tag">Pase completo · 5 espacios</p>
+          <h3 class="combined-card__title" data-i18n-page="comb2_title">Todo el patrimonio de la Calzada</h3>
+          <div class="combined-card__includes">
+            <span class="combined-card__item" data-i18n-page="comb2_inc1">Catedral de Santo Domingo</span>
+            <span class="combined-card__item" data-i18n-page="comb2_inc2">Torre Exenta</span>
+            <span class="combined-card__item" data-i18n-page="comb2_inc3">Convento de San Francisco</span>
+            <span class="combined-card__item" data-i18n-page="comb2_inc4">Ermita de la Virgen de la Plaza</span>
+            <span class="combined-card__item" data-i18n-page="comb2_inc5">Monasterio de Cañas</span>
+            <span class="combined-card__item" data-i18n-page="comb2_inc6">Validez 3 días</span>
+          </div>
+          <div class="combined-card__pricing">
+            <div class="combined-card__price"><span>€</span>15</div>
+            <span class="combined-card__saving" data-i18n-page="saving_2">Ahorras 2 €</span>
+          </div>
+          <a href="../reservas.html" class="combined-card__btn">
+            <span data-i18n-page="buy_btn">Comprar entrada</span> →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band reveal">
+    <div class="cta-band__inner">
+      <div>
+        <p class="cta-band__eyebrow" data-i18n-page="cta_eyebrow">Reserva online</p>
+        <h2 class="cta-band__title" data-i18n-page="cta_title">¿Tienes dudas? <em>Consúltanos</em></h2>
+      </div>
+      <a href="../reservas.html" class="cta-band__btn">
+        <span data-i18n-page="cta_btn">Comprar entradas</span> →
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ornament-divider"><span class="ornament-divider__symbol">✦</span></div>
+  <footer class="site-footer">
+    <div class="footer-cta reveal">
+      <div>
+        <p class="footer-cta__eyebrow" data-i18n="newsletter_eyebrow">Newsletter semanal</p>
+        <h3 class="footer-cta__title" data-i18n="newsletter_title">El Camino en tu <em>bandeja de entrada</em></h3>
+        <p class="footer-cta__sub" data-i18n="newsletter_sub">Noticias, exposiciones, eventos y ofertas exclusivas cada semana.</p>
+      </div>
+      <form class="newsletter-form">
+        <input class="newsletter-input" type="email" placeholder="tu@correo.com" required />
+        <button class="newsletter-submit" type="submit" data-i18n="newsletter_btn">Suscribirme</button>
+      </form>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="visitas.html" data-i18n-page="back_visits">Visitas</a></li>
+          <li><a href="guiadas.html" data-i18n-page="nav_gui">Visitas guiadas</a></li>
+          <li><a href="grupos.html" data-i18n-page="nav_grp">Grupos</a></li>
+          <li><a href="escolares.html" data-i18n-page="nav_esc">Escolares</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="../index.html" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="../monumentos.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="../reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="../actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="max-width:1400px;margin:0 auto;padding:0 8vw">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+      <div class="footer-bottom__links">
+        <a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+        <a href="../legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+        <a href="../legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+        <a href="../legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    const PAGE_T = {
+      es: {
+        back_visits: 'Visitas',
+        hero_eyebrow: 'Sin guía · A tu ritmo · 5 espacios',
+        hero_title: 'Visitas <em>individuales</em>',
+        hero_desc: 'Explora los cinco espacios patrimoniales de Santo Domingo de la Calzada y el Monasterio de Cañas a tu propio ritmo, con la información que necesitas a mano.',
+        spaces_eyebrow: 'Elige tu espacio',
+        spaces_title: 'Los cinco <em>espacios</em> patrimoniales',
+        sp1_eyebrow: 'Catedral', sp1_title: 'Catedral de Santo Domingo de la Calzada',
+        sp1_desc: 'Joya del románico y gótico riojano. Retablo mayor, sepulcro del Santo, el gallinero vivo y ocho siglos de historia en cada piedra.',
+        sp1_duration: '60–90 min', sp1_access: 'Acceso parcial silla de ruedas',
+        sp2_eyebrow: 'Torre Exenta', sp2_title: 'Torre Exenta de la Catedral',
+        sp2_desc: 'La torre campanario independiente más alta de La Rioja. Sube sus 70 metros y disfruta de vistas panorámicas del casco histórico.',
+        sp2_duration: '30–45 min', sp2_access: 'Escaleras — sin ascensor',
+        sp3_eyebrow: 'Convento', sp3_title: 'Convento de San Francisco',
+        sp3_desc: 'Antiguo convento franciscano rehabilitado como espacio cultural. Claustro gótico y el contexto histórico del Camino Francés.',
+        sp3_duration: '30–45 min', sp3_access: 'Totalmente accesible',
+        sp4_eyebrow: 'Ermita', sp4_title: 'Ermita de la Virgen de la Plaza',
+        sp4_desc: 'Pequeña joya románica en el corazón del casco histórico. Devoción popular y arte medieval a escasos metros de la Catedral.',
+        sp4_duration: '15–20 min', sp4_access: 'Accesible',
+        sp5_eyebrow: 'Monasterio', sp5_title: 'Monasterio de Cañas',
+        sp5_desc: 'Monasterio cisterciense femenino fundado en 1169. Sepulcro de Doña Urraca, claustro románico y tradición viva de las monjas de clausura.',
+        sp5_duration: '45–60 min', sp5_access: 'Accesible',
+        badge_remote: '📍 18 km de la Catedral',
+        from_label: 'Desde', see_info: 'Ver horarios y precios',
+        icon_photos_yes: 'Fotos permitidas', icon_photos_no: 'Sin fotos en clausura',
+        comb_eyebrow: 'Ahorra combinando', comb_title: 'Entradas <em>combinadas</em>',
+        comb1_tag: 'Pase Catedral + Torre', comb1_title: 'Los dos iconos de la ciudad',
+        comb1_inc1: 'Entrada completa a la Catedral', comb1_inc2: 'Acceso a la Torre Exenta', comb1_inc3: 'Validez 2 días',
+        comb2_tag: 'Pase completo · 5 espacios', comb2_title: 'Todo el patrimonio de la Calzada',
+        comb2_inc1: 'Catedral de Santo Domingo', comb2_inc2: 'Torre Exenta', comb2_inc3: 'Convento de San Francisco',
+        comb2_inc4: 'Ermita de la Virgen de la Plaza', comb2_inc5: 'Monasterio de Cañas', comb2_inc6: 'Validez 3 días',
+        saving_1: 'Ahorras 1 €', saving_2: 'Ahorras 2 €', buy_btn: 'Comprar entrada',
+        nav_gui: 'Visitas guiadas', nav_grp: 'Grupos', nav_esc: 'Escolares',
+        cta_eyebrow: 'Reserva online', cta_title: '¿Tienes dudas? <em>Consúltanos</em>', cta_btn: 'Comprar entradas'
+      },
+      en: {
+        back_visits: 'Visits',
+        hero_eyebrow: 'Self-guided · At your pace · 5 spaces',
+        hero_title: '<em>Individual</em> visits',
+        hero_desc: 'Explore the five heritage spaces of Santo Domingo de la Calzada and the Monastery of Cañas at your own pace.',
+        spaces_eyebrow: 'Choose your space',
+        spaces_title: 'The five <em>heritage</em> spaces',
+        sp1_eyebrow: 'Cathedral', sp1_title: 'Cathedral of Santo Domingo de la Calzada',
+        sp1_desc: 'A jewel of Riojan Romanesque and Gothic. Main altarpiece, tomb of the Saint, the live henhouse and eight centuries of history.',
+        sp1_duration: '60–90 min', sp1_access: 'Partial wheelchair access',
+        sp2_eyebrow: 'Bell Tower', sp2_title: 'Detached Bell Tower',
+        sp2_desc: 'The tallest detached bell tower in La Rioja. Climb its 70 metres for panoramic views of the old town.',
+        sp2_duration: '30–45 min', sp2_access: 'Stairs — no lift',
+        sp3_eyebrow: 'Convent', sp3_title: 'Convent of San Francisco',
+        sp3_desc: 'Former Franciscan convent converted into a cultural space. Gothic cloister and the historical context of the French Way.',
+        sp3_duration: '30–45 min', sp3_access: 'Fully accessible',
+        sp4_eyebrow: 'Chapel', sp4_title: 'Chapel of the Virgin of the Plaza',
+        sp4_desc: 'A small Romanesque gem in the heart of the old town. Popular devotion and medieval art steps from the Cathedral.',
+        sp4_duration: '15–20 min', sp4_access: 'Accessible',
+        sp5_eyebrow: 'Monastery', sp5_title: 'Monastery of Cañas',
+        sp5_desc: 'Cistercian convent founded in 1169. Tomb of Lady Urraca, Romanesque cloister and the living tradition of cloistered nuns.',
+        sp5_duration: '45–60 min', sp5_access: 'Accessible',
+        badge_remote: '📍 18 km from the Cathedral',
+        from_label: 'From', see_info: 'See hours & prices',
+        icon_photos_yes: 'Photos allowed', icon_photos_no: 'No photos in the cloister',
+        comb_eyebrow: 'Save by combining', comb_title: '<em>Combined</em> tickets',
+        comb1_tag: 'Cathedral + Tower pass', comb1_title: 'The two icons of the city',
+        comb1_inc1: 'Full entry to the Cathedral', comb1_inc2: 'Access to the Bell Tower', comb1_inc3: 'Valid for 2 days',
+        comb2_tag: 'Complete pass · 5 spaces', comb2_title: 'All the heritage of La Calzada',
+        comb2_inc1: 'Cathedral of Santo Domingo', comb2_inc2: 'Bell Tower', comb2_inc3: 'Convent of San Francisco',
+        comb2_inc4: 'Chapel of the Virgin', comb2_inc5: 'Monastery of Cañas', comb2_inc6: 'Valid for 3 days',
+        saving_1: 'Save €1', saving_2: 'Save €2', buy_btn: 'Buy ticket',
+        nav_gui: 'Guided tours', nav_grp: 'Groups', nav_esc: 'Schools',
+        cta_eyebrow: 'Book online', cta_title: 'Any questions? <em>Ask us</em>', cta_btn: 'Buy tickets'
+      },
+      fr: {
+        back_visits: 'Visites',
+        hero_eyebrow: 'Sans guide · À votre rythme · 5 espaces',
+        hero_title: 'Visites <em>individuelles</em>',
+        hero_desc: 'Explorez les cinq espaces patrimoniaux de Santo Domingo de la Calzada et le Monastère de Cañas à votre propre rythme.',
+        spaces_eyebrow: 'Choisissez votre espace',
+        spaces_title: 'Les cinq <em>espaces</em> patrimoniaux',
+        sp1_eyebrow: 'Cathédrale', sp1_title: 'Cathédrale de Santo Domingo de la Calzada',
+        sp1_desc: 'Joyau du roman et gothique de La Rioja. Retable majeur, sépulcre du Saint, le poulailler vivant et huit siècles d\'histoire.',
+        sp1_duration: '60–90 min', sp1_access: 'Accès partiel fauteuil roulant',
+        sp2_eyebrow: 'Tour', sp2_title: 'Tour détachée de la Cathédrale',
+        sp2_desc: 'La plus haute tour clocher indépendante de La Rioja. Montez ses 70 mètres pour une vue panoramique sur la vieille ville.',
+        sp2_duration: '30–45 min', sp2_access: 'Escaliers — sans ascenseur',
+        sp3_eyebrow: 'Couvent', sp3_title: 'Couvent de San Francisco',
+        sp3_desc: 'Ancien couvent franciscain reconverti en espace culturel. Cloître gothique et contexte historique du Chemin Français.',
+        sp3_duration: '30–45 min', sp3_access: 'Entièrement accessible',
+        sp4_eyebrow: 'Ermitage', sp4_title: 'Ermitage de la Vierge de la Plaza',
+        sp4_desc: 'Un petit joyau roman au cœur de la vieille ville. Dévotion populaire et art médiéval à deux pas de la Cathédrale.',
+        sp4_duration: '15–20 min', sp4_access: 'Accessible',
+        sp5_eyebrow: 'Monastère', sp5_title: 'Monastère de Cañas',
+        sp5_desc: 'Monastère cistercien féminin fondé en 1169. Sépulcre de Dame Urraca, cloître roman et tradition vivante des moniales.',
+        sp5_duration: '45–60 min', sp5_access: 'Accessible',
+        badge_remote: '📍 18 km de la Cathédrale',
+        from_label: 'À partir de', see_info: 'Voir horaires et tarifs',
+        icon_photos_yes: 'Photos autorisées', icon_photos_no: 'Photos interdites au cloître',
+        comb_eyebrow: 'Économisez en combinant', comb_title: 'Billets <em>combinés</em>',
+        comb1_tag: 'Pass Cathédrale + Tour', comb1_title: 'Les deux icônes de la ville',
+        comb1_inc1: 'Entrée complète à la Cathédrale', comb1_inc2: 'Accès à la Tour', comb1_inc3: 'Valable 2 jours',
+        comb2_tag: 'Pass complet · 5 espaces', comb2_title: 'Tout le patrimoine de La Calzada',
+        comb2_inc1: 'Cathédrale de Santo Domingo', comb2_inc2: 'Tour', comb2_inc3: 'Couvent de San Francisco',
+        comb2_inc4: 'Ermitage de la Vierge', comb2_inc5: 'Monastère de Cañas', comb2_inc6: 'Valable 3 jours',
+        saving_1: 'Économisez 1 €', saving_2: 'Économisez 2 €', buy_btn: 'Acheter un billet',
+        nav_gui: 'Visites guidées', nav_grp: 'Groupes', nav_esc: 'Scolaires',
+        cta_eyebrow: 'Réservation en ligne', cta_title: 'Des questions ? <em>Contactez-nous</em>', cta_btn: 'Acheter des billets'
+      },
+      de: {
+        back_visits: 'Besuche',
+        hero_eyebrow: 'Ohne Führung · In Ihrem Tempo · 5 Räume',
+        hero_title: '<em>Einzelbesuche</em>',
+        hero_desc: 'Erkunden Sie die fünf Kulturstätten von Santo Domingo de la Calzada und das Kloster Cañas in Ihrem eigenen Tempo.',
+        spaces_eyebrow: 'Wählen Sie Ihren Ort',
+        spaces_title: 'Die fünf <em>Kulturstätten</em>',
+        sp1_eyebrow: 'Kathedrale', sp1_title: 'Kathedrale von Santo Domingo de la Calzada',
+        sp1_desc: 'Ein Juwel der riojanischen Romanik und Gotik. Hauptretabel, Grab des Heiligen, der lebende Hühnerstall und acht Jahrhunderte Geschichte.',
+        sp1_duration: '60–90 Min.', sp1_access: 'Teilweiser Rollstuhlzugang',
+        sp2_eyebrow: 'Turm', sp2_title: 'Freistehender Glockenturm',
+        sp2_desc: 'Der höchste freistehende Glockenturm in La Rioja. Erklimmen Sie seine 70 Meter für einen Panoramablick auf die Altstadt.',
+        sp2_duration: '30–45 Min.', sp2_access: 'Treppen — kein Aufzug',
+        sp3_eyebrow: 'Kloster', sp3_title: 'Kloster San Francisco',
+        sp3_desc: 'Ehemaliges Franziskanerkloster, umgebaut zum Kulturzentrum. Gotischer Kreuzgang und historischer Kontext des Jakobswegs.',
+        sp3_duration: '30–45 Min.', sp3_access: 'Vollständig barrierefrei',
+        sp4_eyebrow: 'Kapelle', sp4_title: 'Kapelle der Jungfrau vom Platz',
+        sp4_desc: 'Ein kleines romanisches Juwel im Herzen der Altstadt. Volksfrömmigkeit und mittelalterliche Kunst wenige Schritte vom Dom.',
+        sp4_duration: '15–20 Min.', sp4_access: 'Barrierefrei',
+        sp5_eyebrow: 'Kloster', sp5_title: 'Kloster Cañas',
+        sp5_desc: 'Zisterzienserinnenkloster, gegründet 1169. Grab der Doña Urraca, romanischer Kreuzgang und lebendige Tradition der Klausurnonnen.',
+        sp5_duration: '45–60 Min.', sp5_access: 'Barrierefrei',
+        badge_remote: '📍 18 km vom Dom entfernt',
+        from_label: 'Ab', see_info: 'Zeiten & Preise anzeigen',
+        icon_photos_yes: 'Fotos erlaubt', icon_photos_no: 'Keine Fotos im Klausurbereich',
+        comb_eyebrow: 'Sparen durch Kombination', comb_title: '<em>Kombi</em>-Tickets',
+        comb1_tag: 'Dom + Turm Pass', comb1_title: 'Die zwei Wahrzeichen der Stadt',
+        comb1_inc1: 'Vollständiger Eintritt in den Dom', comb1_inc2: 'Zugang zum Glockenturm', comb1_inc3: 'Gültig 2 Tage',
+        comb2_tag: 'Kompletter Pass · 5 Orte', comb2_title: 'Alles Kulturerbe von La Calzada',
+        comb2_inc1: 'Kathedrale von Santo Domingo', comb2_inc2: 'Glockenturm', comb2_inc3: 'Kloster San Francisco',
+        comb2_inc4: 'Kapelle der Jungfrau', comb2_inc5: 'Kloster Cañas', comb2_inc6: 'Gültig 3 Tage',
+        saving_1: 'Sie sparen 1 €', saving_2: 'Sie sparen 2 €', buy_btn: 'Ticket kaufen',
+        nav_gui: 'Führungen', nav_grp: 'Gruppen', nav_esc: 'Schulen',
+        cta_eyebrow: 'Online buchen', cta_title: 'Fragen? <em>Kontaktieren Sie uns</em>', cta_btn: 'Tickets kaufen'
+      },
+      pt: {
+        back_visits: 'Visitas',
+        hero_eyebrow: 'Sem guia · Ao seu ritmo · 5 espaços',
+        hero_title: 'Visitas <em>individuais</em>',
+        hero_desc: 'Explore os cinco espaços patrimoniais de Santo Domingo de la Calzada e o Mosteiro de Cañas ao seu próprio ritmo.',
+        spaces_eyebrow: 'Escolha o seu espaço',
+        spaces_title: 'Os cinco <em>espaços</em> patrimoniais',
+        sp1_eyebrow: 'Catedral', sp1_title: 'Catedral de Santo Domingo de la Calzada',
+        sp1_desc: 'Joia do românico e gótico riojano. Retábulo maior, sepulcro do Santo, o galinheiro vivo e oito séculos de história.',
+        sp1_duration: '60–90 min', sp1_access: 'Acesso parcial cadeira de rodas',
+        sp2_eyebrow: 'Torre', sp2_title: 'Torre Separada da Catedral',
+        sp2_desc: 'A mais alta torre campanário independente de La Rioja. Suba os seus 70 metros e desfrute de vistas panorâmicas.',
+        sp2_duration: '30–45 min', sp2_access: 'Escadas — sem elevador',
+        sp3_eyebrow: 'Convento', sp3_title: 'Convento de São Francisco',
+        sp3_desc: 'Antigo convento franciscano reabilitado como espaço cultural. Claustro gótico e contexto histórico do Caminho Francês.',
+        sp3_duration: '30–45 min', sp3_access: 'Totalmente acessível',
+        sp4_eyebrow: 'Ermida', sp4_title: 'Ermida da Virgem da Praça',
+        sp4_desc: 'Uma pequena joia românica no coração do centro histórico. Devoção popular e arte medieval perto da Catedral.',
+        sp4_duration: '15–20 min', sp4_access: 'Acessível',
+        sp5_eyebrow: 'Mosteiro', sp5_title: 'Mosteiro de Cañas',
+        sp5_desc: 'Mosteiro cisterciense feminino fundado em 1169. Sepulcro de Dona Urraca, claustro românico e tradição viva das monjas de clausura.',
+        sp5_duration: '45–60 min', sp5_access: 'Acessível',
+        badge_remote: '📍 18 km da Catedral',
+        from_label: 'A partir de', see_info: 'Ver horários e preços',
+        icon_photos_yes: 'Fotos permitidas', icon_photos_no: 'Sem fotos na clausura',
+        comb_eyebrow: 'Poupe combinando', comb_title: 'Bilhetes <em>combinados</em>',
+        comb1_tag: 'Passe Catedral + Torre', comb1_title: 'Os dois ícones da cidade',
+        comb1_inc1: 'Entrada completa na Catedral', comb1_inc2: 'Acesso à Torre', comb1_inc3: 'Válido 2 dias',
+        comb2_tag: 'Passe completo · 5 espaços', comb2_title: 'Todo o património de La Calzada',
+        comb2_inc1: 'Catedral de Santo Domingo', comb2_inc2: 'Torre', comb2_inc3: 'Convento de São Francisco',
+        comb2_inc4: 'Ermida da Virgem', comb2_inc5: 'Mosteiro de Cañas', comb2_inc6: 'Válido 3 dias',
+        saving_1: 'Poupa 1 €', saving_2: 'Poupa 2 €', buy_btn: 'Comprar bilhete',
+        nav_gui: 'Visitas guiadas', nav_grp: 'Grupos', nav_esc: 'Escolares',
+        cta_eyebrow: 'Reserva online', cta_title: 'Tem dúvidas? <em>Contacte-nos</em>', cta_btn: 'Comprar bilhetes'
+      },
+      it: {
+        back_visits: 'Visite',
+        hero_eyebrow: 'Senza guida · Al tuo ritmo · 5 spazi',
+        hero_title: 'Visite <em>individuali</em>',
+        hero_desc: 'Esplora i cinque spazi patrimonio di Santo Domingo de la Calzada e il Monastero di Cañas al tuo ritmo.',
+        spaces_eyebrow: 'Scegli il tuo spazio',
+        spaces_title: 'I cinque <em>spazi</em> patrimonio',
+        sp1_eyebrow: 'Cattedrale', sp1_title: 'Cattedrale di Santo Domingo de la Calzada',
+        sp1_desc: 'Gioiello del romanico e gotico rioiano. Pala d\'altare, sepolcro del Santo, il pollaio vivo e otto secoli di storia.',
+        sp1_duration: '60–90 min', sp1_access: 'Accesso parziale sedia a rotelle',
+        sp2_eyebrow: 'Torre', sp2_title: 'Torre Campanaria Isolata',
+        sp2_desc: 'Il più alto campanile indipendente de La Rioja. Sali i suoi 70 metri per una vista panoramica sul centro storico.',
+        sp2_duration: '30–45 min', sp2_access: 'Scale — senza ascensore',
+        sp3_eyebrow: 'Convento', sp3_title: 'Convento di San Francesco',
+        sp3_desc: 'Ex convento francescano riconvertito in spazio culturale. Chiostro gotico e contesto storico del Cammino Francese.',
+        sp3_duration: '30–45 min', sp3_access: 'Completamente accessibile',
+        sp4_eyebrow: 'Eremo', sp4_title: 'Eremo della Vergine della Piazza',
+        sp4_desc: 'Un piccolo gioiello romanico nel cuore del centro storico. Devozione popolare e arte medievale a pochi passi dalla Cattedrale.',
+        sp4_duration: '15–20 min', sp4_access: 'Accessibile',
+        sp5_eyebrow: 'Monastero', sp5_title: 'Monastero di Cañas',
+        sp5_desc: 'Monastero cistercense femminile fondato nel 1169. Sepolcro di Doña Urraca, chiostro romanico e tradizione viva delle monache di clausura.',
+        sp5_duration: '45–60 min', sp5_access: 'Accessibile',
+        badge_remote: '📍 18 km dalla Cattedrale',
+        from_label: 'Da', see_info: 'Vedi orari e prezzi',
+        icon_photos_yes: 'Foto consentite', icon_photos_no: 'Nessuna foto in clausura',
+        comb_eyebrow: 'Risparmia combinando', comb_title: 'Biglietti <em>combinati</em>',
+        comb1_tag: 'Pass Cattedrale + Torre', comb1_title: 'Le due icone della città',
+        comb1_inc1: 'Ingresso completo alla Cattedrale', comb1_inc2: 'Accesso alla Torre', comb1_inc3: 'Valido 2 giorni',
+        comb2_tag: 'Pass completo · 5 spazi', comb2_title: 'Tutto il patrimonio de La Calzada',
+        comb2_inc1: 'Cattedrale di Santo Domingo', comb2_inc2: 'Torre', comb2_inc3: 'Convento di San Francesco',
+        comb2_inc4: 'Eremo della Vergine', comb2_inc5: 'Monastero di Cañas', comb2_inc6: 'Valido 3 giorni',
+        saving_1: 'Risparmi 1 €', saving_2: 'Risparmi 2 €', buy_btn: 'Acquista biglietto',
+        nav_gui: 'Visite guidate', nav_grp: 'Gruppi', nav_esc: 'Scolastiche',
+        cta_eyebrow: 'Prenota online', cta_title: 'Hai domande? <em>Contattaci</em>', cta_btn: 'Acquista biglietti'
+      },
+      ko: {
+        back_visits: '방문',
+        hero_eyebrow: '자유 관람 · 나만의 속도 · 5개 공간',
+        hero_title: '<em>개인</em> 방문',
+        hero_desc: '산토 도밍고 데 라 칼사다의 5개 유산 공간과 카냐스 수도원을 자신의 속도로 탐험하세요.',
+        spaces_eyebrow: '공간을 선택하세요',
+        spaces_title: '다섯 개의 <em>유산</em> 공간',
+        sp1_eyebrow: '대성당', sp1_title: '산토 도밍고 데 라 칼사다 대성당',
+        sp1_desc: '라 리오하 로마네스크와 고딕의 보석. 주 제단화, 성인의 무덤, 살아있는 닭장과 8세기의 역사.',
+        sp1_duration: '60–90분', sp1_access: '휠체어 부분 접근 가능',
+        sp2_eyebrow: '탑', sp2_title: '독립 종탑',
+        sp2_desc: '라 리오하에서 가장 높은 독립 종탑. 70미터를 올라 구시가지 전경을 즐기세요.',
+        sp2_duration: '30–45분', sp2_access: '계단 — 엘리베이터 없음',
+        sp3_eyebrow: '수도원', sp3_title: '산 프란시스코 수도원',
+        sp3_desc: '문화 공간으로 개조된 옛 프란치스코 수도원. 고딕 회랑과 프랑스 길의 역사적 맥락.',
+        sp3_duration: '30–45분', sp3_access: '완전 접근 가능',
+        sp4_eyebrow: '예배당', sp4_title: '광장의 성모 예배당',
+        sp4_desc: '구시가지 중심의 작은 로마네스크 보석. 대성당에서 몇 걸음 거리의 중세 예술.',
+        sp4_duration: '15–20분', sp4_access: '접근 가능',
+        sp5_eyebrow: '수도원', sp5_title: '카냐스 수도원',
+        sp5_desc: '1169년에 설립된 시토회 여자 수도원. 우라카 부인의 무덤, 로마네스크 회랑, 봉쇄 수녀들의 살아있는 전통.',
+        sp5_duration: '45–60분', sp5_access: '접근 가능',
+        badge_remote: '📍 대성당에서 18km',
+        from_label: '부터', see_info: '시간 및 가격 보기',
+        icon_photos_yes: '사진 허용', icon_photos_no: '봉쇄 구역 사진 금지',
+        comb_eyebrow: '묶음으로 절약', comb_title: '<em>묶음</em> 티켓',
+        comb1_tag: '대성당 + 탑 패스', comb1_title: '도시의 두 상징',
+        comb1_inc1: '대성당 전체 입장', comb1_inc2: '종탑 접근', comb1_inc3: '2일 유효',
+        comb2_tag: '완전 패스 · 5개 공간', comb2_title: '라 칼사다의 모든 유산',
+        comb2_inc1: '산토 도밍고 대성당', comb2_inc2: '종탑', comb2_inc3: '산 프란시스코 수도원',
+        comb2_inc4: '광장의 성모 예배당', comb2_inc5: '카냐스 수도원', comb2_inc6: '3일 유효',
+        saving_1: '1€ 절약', saving_2: '2€ 절약', buy_btn: '티켓 구매',
+        nav_gui: '가이드 투어', nav_grp: '단체', nav_esc: '학교',
+        cta_eyebrow: '온라인 예약', cta_title: '궁금하신가요? <em>문의하세요</em>', cta_btn: '티켓 구매'
+      },
+      eu: {
+        back_visits: 'Bisitак',
+        hero_eyebrow: 'Gidari gabe · Zure erritmoan · 5 espazio',
+        hero_title: 'Bisita <em>banakakoeak</em>',
+        hero_desc: 'Santo Domingo de la Calzadako bost ondare-espazioак eta Cañasko monasterioa zure erritmoan esploratu.',
+        spaces_eyebrow: 'Aukeratu zure espazioa',
+        spaces_title: 'Bost <em>ondare</em>-espazioак',
+        sp1_eyebrow: 'Katedrala', sp1_title: 'Santo Domingo de la Calzadako Katedrala',
+        sp1_desc: 'Errioxako erromaniko eta gotikoaren harribitxia. Altar nagusia, Santuaren hilobia, oilanda bizia eta zortzi mende historia.',
+        sp1_duration: '60–90 min', sp1_access: 'Gurpil-aulki sarbide partziala',
+        sp2_eyebrow: 'Dorrea', sp2_title: 'Kanpai-dorre bereizia',
+        sp2_desc: 'Errioxako kanpai-dorre bereizirik altuena. Igo ezazu 70 metro eta gozatu hiri zaharraren panoramaz.',
+        sp2_duration: '30–45 min', sp2_access: 'Eskailerak — igogailurik gabe',
+        sp3_eyebrow: 'Komentua', sp3_title: 'San Frantzisko Komentua',
+        sp3_desc: 'Kultura-espazio bihurtutako frantziskotar komentu zaharra. Klaustrо gotikoa eta Frantziako Bidearen historia.',
+        sp3_duration: '30–45 min', sp3_access: 'Guztiz irisgarria',
+        sp4_eyebrow: 'Ermita', sp4_title: 'Plazako Andrearen Ermita',
+        sp4_desc: 'Hiri zaharraren bihotzean dagoen erromaniko harribitxia. Herri-debozioа eta arte ertaroa Katedraletik hurbil.',
+        sp4_duration: '15–20 min', sp4_access: 'Irisgarria',
+        sp5_eyebrow: 'Monasterioa', sp5_title: 'Cañasko Monasterioa',
+        sp5_desc: '1169an fundatutako zistertziar emakumezko monasterioa. Doña Urrakaren hilobia, klaustrо erromanikoa eta mojen tradizio bizia.',
+        sp5_duration: '45–60 min', sp5_access: 'Irisgarria',
+        badge_remote: '📍 Katedraletik 18 km',
+        from_label: 'Hemetatik', see_info: 'Ordutegiak eta prezioak ikusi',
+        icon_photos_yes: 'Argazkiak baimenduta', icon_photos_no: 'Klaustroан argazkirik ez',
+        comb_eyebrow: 'Aurreztu konbinatuz', comb_title: '<em>Konbinatu</em>-sarrerak',
+        comb1_tag: 'Katedrala + Dorre-pasa', comb1_title: 'Hiriko bi ikonoak',
+        comb1_inc1: 'Katedrala osoa', comb1_inc2: 'Dorreko sarbidea', comb1_inc3: '2 egunez baliozkoa',
+        comb2_tag: 'Pase osoa · 5 espazio', comb2_title: 'La Calzadako ondare guztia',
+        comb2_inc1: 'Santo Domingoko Katedrala', comb2_inc2: 'Dorrea', comb2_inc3: 'San Frantzisko Komentua',
+        comb2_inc4: 'Plazako Andrearen Ermita', comb2_inc5: 'Cañasko Monasterioa', comb2_inc6: '3 egunez baliozkoa',
+        saving_1: '1 € aurrezten duzu', saving_2: '2 € aurrezten duzu', buy_btn: 'Sarrera erosi',
+        nav_gui: 'Bisita gidatuak', nav_grp: 'Taldeak', nav_esc: 'Eskolak',
+        cta_eyebrow: 'Online erreserba', cta_title: 'Zalantzarik? <em>Galdegin</em>', cta_btn: 'Sarrerak erosi'
+      },
+      ca: {
+        back_visits: 'Visites',
+        hero_eyebrow: 'Sense guia · Al teu ritme · 5 espais',
+        hero_title: 'Visites <em>individuals</em>',
+        hero_desc: 'Explora els cinc espais patrimonials de Santo Domingo de la Calzada i el Monestir de Cañas al teu propi ritme.',
+        spaces_eyebrow: 'Tria el teu espai',
+        spaces_title: 'Els cinc <em>espais</em> patrimonials',
+        sp1_eyebrow: 'Catedral', sp1_title: 'Catedral de Santo Domingo de la Calzada',
+        sp1_desc: 'Joia del romànic i gòtic riojà. Retaule major, sepulcre del Sant, el galliner viu i vuit segles d\'història.',
+        sp1_duration: '60–90 min', sp1_access: 'Accés parcial cadira de rodes',
+        sp2_eyebrow: 'Torre', sp2_title: 'Torre Exempta de la Catedral',
+        sp2_desc: 'El campanar independent més alt de La Rioja. Puja els seus 70 metres i gaudeix de vistes panoràmiques.',
+        sp2_duration: '30–45 min', sp2_access: 'Escales — sense ascensor',
+        sp3_eyebrow: 'Convent', sp3_title: 'Convent de Sant Francesc',
+        sp3_desc: 'Antic convent franciscà rehabilitat com a espai cultural. Claustre gòtic i context històric del Camí Francès.',
+        sp3_duration: '30–45 min', sp3_access: 'Totalment accessible',
+        sp4_eyebrow: 'Ermita', sp4_title: 'Ermita de la Verge de la Plaça',
+        sp4_desc: 'Una petita joia romànica al cor del centre històric. Devoció popular i art medieval a pocs metres de la Catedral.',
+        sp4_duration: '15–20 min', sp4_access: 'Accessible',
+        sp5_eyebrow: 'Monestir', sp5_title: 'Monestir de Cañas',
+        sp5_desc: 'Monestir cistercenc femení fundat el 1169. Sepulcre de la Dona Urraca, claustre romànic i tradició viva de les monges de clausura.',
+        sp5_duration: '45–60 min', sp5_access: 'Accessible',
+        badge_remote: '📍 18 km de la Catedral',
+        from_label: 'Des de', see_info: 'Veure horaris i preus',
+        icon_photos_yes: 'Fotos permeses', icon_photos_no: 'Sense fotos a la clausura',
+        comb_eyebrow: 'Estalvia combinant', comb_title: 'Entrades <em>combinades</em>',
+        comb1_tag: 'Passi Catedral + Torre', comb1_title: 'Les dues icones de la ciutat',
+        comb1_inc1: 'Entrada completa a la Catedral', comb1_inc2: 'Accés a la Torre', comb1_inc3: 'Vàlid 2 dies',
+        comb2_tag: 'Passi complet · 5 espais', comb2_title: 'Tot el patrimoni de La Calzada',
+        comb2_inc1: 'Catedral de Santo Domingo', comb2_inc2: 'Torre', comb2_inc3: 'Convent de Sant Francesc',
+        comb2_inc4: 'Ermita de la Verge', comb2_inc5: 'Monestir de Cañas', comb2_inc6: 'Vàlid 3 dies',
+        saving_1: 'Estalvies 1 €', saving_2: 'Estalvies 2 €', buy_btn: 'Comprar entrada',
+        nav_gui: 'Visites guiades', nav_grp: 'Grups', nav_esc: 'Escolars',
+        cta_eyebrow: 'Reserva en línia', cta_title: 'Tens dubtes? <em>Consulta\'ns</em>', cta_btn: 'Comprar entrades'
+      }
+    };
+
+    window.PAGE_applyLang = function(lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+    };
+
+    setTimeout(() => {
+      const b = document.getElementById('hero-bg');
+      if (b) b.classList.add('loaded');
+    }, 100);
+
+    (function() {
+      const btn = document.getElementById('a11y-light-mode');
+      const logoImg = document.getElementById('logo-img');
+      const KEY = 'a11y-light-mode';
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        if (btn) { btn.classList.toggle('is-active', on); btn.setAttribute('aria-pressed', String(on)); }
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        localStorage.setItem(KEY, on ? '1' : '0');
+      }
+      if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
+      const stored = localStorage.getItem(KEY);
+      if (stored === '1') applyLightMode(true);
+    })();
+  </script>
+
+</body>
+</html>
+
+
+
+

@@ -255,9 +255,20 @@
         linear-gradient(to top right, rgba(14,12,10,.58) 0%, rgba(14,12,10,.22) 40%, transparent 70%);
     }
 
+    body.light-mode .hero-nav__link {
+      border-color: rgba(255,255,255,.55);
+      color: rgba(255,255,255,.92)
+    }
+    body.light-mode .hero-nav__link:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold)
+    }
+
     body.light-mode .hub-intro { background: #F5F0E8 }
     body.light-mode .hub-intro__question { color: var(--carbon) }
     body.light-mode .hub-intro__body { color: rgba(20,18,16,.65) }
+    body.light-mode .hub-intro__body { border-left-color: rgba(201,168,76,.5) }
     body.light-mode .hub-grid { background: #F5F0E8 }
     body.light-mode .hub-card::after {
       background: linear-gradient(to top, rgba(14,12,10,.92) 0%, rgba(14,12,10,.55) 50%, rgba(14,12,10,.22) 100%)
@@ -367,7 +378,6 @@
     @media (max-width: 600px) {
       .hub-intro { padding: 64px 6vw 56px }
       .hub-card__body { padding: 28px 24px }
-      .hero-nav { padding-left: 54px }
       .ornament-divider { display: none }
       .cta-band__inner { align-items: center; text-align: center }
     }

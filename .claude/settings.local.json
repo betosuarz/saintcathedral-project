@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral cultural tourism medieval elegant luxury\" --design-system -p \"Catedral Santo Domingo de la Calzada\" -f markdown)",
+      "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"heritage museum cultural tourism luxury editorial\" --domain style -n 5)",
+      "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"elegant serif luxury timeless\" --domain typography -n 4)",
+      "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"animation accessibility keyboard\" --domain ux -n 6)"
+    ]
+  }
+}

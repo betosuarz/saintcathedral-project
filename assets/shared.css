@@ -395,6 +395,7 @@ button {
   display: block;
   font-family: var(--serif);
   font-size: 2.4rem;
+  line-height: 1.2;
   font-weight: 300;
   color: var(--white);
   padding: 14px 0;
@@ -1150,12 +1151,12 @@ button {
 .a11y-panel {
   position: fixed;
   left: 0;
-  bottom: 102px;
+  bottom: 120px;
   transform: translateY(10px);
-  background: #fff;
-  color: #1a1a1a;
+  background: #1e1c19;
+  color: var(--white);
   border-radius: 0 6px 6px 6px;
-  box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
+  box-shadow: 4px 4px 30px rgba(0, 0, 0, .4);
   z-index: 8999;
   min-width: 240px;
   max-height: calc(100vh - 100px);
@@ -1177,8 +1178,8 @@ button {
   font-weight: 600;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: #666;
-  border-bottom: 1px solid #eee;
+  color: rgba(253, 250, 244, .45);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
   font-family: var(--sans);
 }
 
@@ -1193,7 +1194,7 @@ button {
 
 .a11y-panel__divider {
   height: 1px;
-  background: #eee;
+  background: rgba(255, 255, 255, .08);
   margin: 6px 0;
 }
 
@@ -1204,7 +1205,7 @@ button {
   width: 100%;
   padding: 9px 18px;
   font-size: .875rem;
-  color: #222;
+  color: var(--white);
   background: none;
   border: none;
   text-align: left;
@@ -1213,12 +1214,12 @@ button {
 }
 
 .a11y-option:hover {
-  background: #f5f0e8;
-  color: #7B1C1C;
+  background: rgba(201, 168, 76, .12);
+  color: var(--gold-lt);
 }
 
 .a11y-option.is-active {
-  color: #7B1C1C;
+  color: var(--gold);
   font-weight: 500;
 }
 
@@ -1340,12 +1341,12 @@ body.a11y-high-contrast img {
     height: 100vh;
     max-height: 100vh;
     border-radius: 0;
-    background: #F5F0E8;
+    background: #1e1c19;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    padding-top: 70px;
+    padding-top: 36px;
     transform: translateX(-100%);
     transform-origin: left center;
     box-shadow: none;
@@ -1357,8 +1358,8 @@ body.a11y-high-contrast img {
   }
 
   .a11y-panel__header {
-    color: rgba(20, 18, 16, .5);
-    border-bottom-color: rgba(20, 18, 16, .1);
+    color: rgba(253, 250, 244, .45);
+    border-bottom-color: rgba(255, 255, 255, .08);
     width: 100%;
     max-width: 340px;
     text-align: left;
@@ -1370,7 +1371,7 @@ body.a11y-high-contrast img {
     position: absolute;
     top: 20px;
     right: 20px;
-    color: rgba(20, 18, 16, .45);
+    color: rgba(253, 250, 244, .45);
     background: none;
     border: none;
     font-size: 2rem;
@@ -1381,7 +1382,7 @@ body.a11y-high-contrast img {
   }
 
   .a11y-panel__close:hover {
-    color: #141210;
+    color: var(--white);
   }
 
   .a11y-panel__list {
@@ -1391,22 +1392,76 @@ body.a11y-high-contrast img {
   }
 
   .a11y-option {
-    color: #141210;
+    color: var(--white);
     padding: 10px 16px;
     font-size: 1.05rem;
     border-radius: 8px;
   }
 
   .a11y-option:hover {
-    background: rgba(201, 168, 76, .1);
-    color: #C9A84C;
+    background: rgba(201, 168, 76, .12);
+    color: var(--gold-lt);
   }
 
   .a11y-option.is-active {
-    color: #C9A84C;
+    color: var(--gold);
   }
 
   .a11y-panel__divider {
-    background: rgba(20, 18, 16, .1);
+    background: rgba(255, 255, 255, .08);
   }
+}
+
+/* ── LIGHT MODE — side menu & a11y panel ─────────────────────── */
+body.light-mode .side-menu {
+  background: #F9F8F6;
+  border-left-color: rgba(20, 18, 16, .12);
+}
+
+body.light-mode .side-menu__nav-link,
+body.light-mode .side-menu__close {
+  color: #141210;
+}
+
+body.light-mode .side-menu__nav-item {
+  border-bottom-color: rgba(20, 18, 16, .1);
+}
+
+body.light-mode .side-menu__nav-link:hover {
+  color: var(--gold);
+}
+
+body.light-mode .a11y-panel {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+body.light-mode .a11y-panel__header {
+  color: #666;
+  border-bottom-color: #eee;
+}
+
+body.light-mode .a11y-panel__divider {
+  background: #eee;
+}
+
+body.light-mode .a11y-option {
+  color: #222;
+}
+
+body.light-mode .a11y-option:hover {
+  background: #f5f0e8;
+  color: #7B1C1C;
+}
+
+body.light-mode .a11y-option.is-active {
+  color: #7B1C1C;
+}
+
+body.light-mode .a11y-panel__close {
+  color: rgba(20, 18, 16, .45);
+}
+
+body.light-mode .a11y-panel__close:hover {
+  color: #141210;
 }

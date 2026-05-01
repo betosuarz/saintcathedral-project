@@ -306,8 +306,7 @@ button {
 }
 
 .lang-selector__option .lang-flag {
-  font-size: 1rem;
-  line-height: 1;
+  display: none;
 }
 
 .lang-selector__option .lang-name {

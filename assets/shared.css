@@ -346,7 +346,7 @@ button {
   z-index: 550;
   display: flex;
   flex-direction: column;
-  padding: 100px 52px 48px;
+  padding: 100px 52px 60px;
   transform: translateX(100%);
   transition: transform .6s var(--ease);
   overflow-y: auto;
@@ -355,6 +355,58 @@ button {
 .side-menu.open {
   transform: translateX(0);
 }
+
+.side-menu__a11y-btn {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--sans);
+  user-select: none;
+}
+
+.side-menu__a11y-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  transition: transform .1s ease;
+}
+
+.side-menu__a11y-circle {
+  fill: transparent;
+  transition: fill .2s ease;
+}
+
+.side-menu__a11y-figure {
+  fill: var(--stone);
+  transition: fill .2s ease;
+}
+
+.side-menu__a11y-label {
+  font-size: .55rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--stone);
+  transition: color .2s;
+}
+
+.side-menu__a11y-btn:hover .side-menu__a11y-figure { fill: var(--gold-lt); }
+.side-menu__a11y-btn:hover .side-menu__a11y-label { color: var(--gold-lt); }
+.side-menu__a11y-btn:active .side-menu__a11y-icon { transform: scale(.95); }
+.side-menu__a11y-btn:active .side-menu__a11y-figure { fill: var(--gold-lt); }
+.side-menu__a11y-btn:active .side-menu__a11y-label { color: var(--gold-lt); }
+
+body.light-mode .side-menu__a11y-figure { fill: #141210; }
+body.light-mode .side-menu__a11y-label { color: #141210; }
+body.light-mode .side-menu__a11y-btn:hover .side-menu__a11y-figure { fill: var(--gold-lt); }
+body.light-mode .side-menu__a11y-btn:hover .side-menu__a11y-label { color: var(--gold-lt); }
 
 .side-menu__close {
   position: absolute;
@@ -464,6 +516,13 @@ button {
 
 .side-menu__legal a:hover {
   color: var(--stone-lt);
+}
+
+@media (max-width: 640px) {
+  .side-menu__legal { display: block; }
+  .side-menu__legal a { display: inline; font-size: .65rem; }
+  .side-menu__legal a::after { content: ' \2027 '; color: var(--stone); }
+  .side-menu__legal a:last-child::after { content: ''; }
 }
 
 /* ── INFO BAR ────────────────────────────────────────────────── */
@@ -1056,7 +1115,7 @@ button {
   }
 
   .side-menu {
-    padding: 80px 28px 40px;
+    padding: 100px 28px 40px;
   }
 
   .side-menu__nav-link {
@@ -1145,6 +1204,14 @@ button {
 .nav-open .a11y-toggle {
   opacity: 0;
   pointer-events: none;
+}
+
+/* En mobile se usa el botón del menú; en desktop el botón fijo */
+@media (max-width: 640px) {
+  .a11y-toggle { display: none !important; }
+}
+@media (min-width: 641px) {
+  .side-menu__a11y-btn { display: none !important; }
 }
 
 /* Panel desktop — se despliega hacia arriba desde el botón */

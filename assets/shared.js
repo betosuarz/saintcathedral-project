@@ -41,8 +41,8 @@ const SHARED_T = {
     a11y_readable_font: 'Fuente legible', a11y_read_text: 'Leer texto',
     a11y_stop_read: 'Detener lectura', a11y_reset: 'Restablecer',
     a11y_not_supported: 'No soportado en este navegador',
-    menu_legal_purchase: 'Política de compra', menu_legal_privacy: 'Política de privacidad',
-    menu_legal_cookies: 'Política de cookies', menu_legal_notice: 'Aviso legal',
+    menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privacidad',
+    menu_legal_cookies: 'Cookies', menu_legal_notice: 'Aviso legal',
     menu_legal_a11y: 'Accesibilidad', menu_legal_contact: 'Contacto',
   },
   en: {
@@ -77,8 +77,8 @@ const SHARED_T = {
     a11y_readable_font: 'Readable font', a11y_read_text: 'Read text',
     a11y_stop_read: 'Stop reading', a11y_reset: 'Reset',
     a11y_not_supported: 'Not supported in this browser',
-    menu_legal_purchase: 'Purchase policy', menu_legal_privacy: 'Privacy policy',
-    menu_legal_cookies: 'Cookie policy', menu_legal_notice: 'Legal notice',
+    menu_legal_purchase: 'Purchase', menu_legal_privacy: 'Privacy',
+    menu_legal_cookies: 'Cookies', menu_legal_notice: 'Legal notice',
     menu_legal_a11y: 'Accessibility', menu_legal_contact: 'Contact',
   },
   fr: {
@@ -113,8 +113,8 @@ const SHARED_T = {
     a11y_readable_font: 'Police lisible', a11y_read_text: 'Lire le texte',
     a11y_stop_read: 'Arrêter la lecture', a11y_reset: 'Réinitialiser',
     a11y_not_supported: 'Non pris en charge par ce navigateur',
-    menu_legal_purchase: 'Politique d\'achat', menu_legal_privacy: 'Politique de confidentialité',
-    menu_legal_cookies: 'Politique de cookies', menu_legal_notice: 'Mentions légales',
+    menu_legal_purchase: 'Achats', menu_legal_privacy: 'Confidentialité',
+    menu_legal_cookies: 'Cookies', menu_legal_notice: 'Mentions légales',
     menu_legal_a11y: 'Accessibilité', menu_legal_contact: 'Contact',
   },
   de: {
@@ -149,8 +149,8 @@ const SHARED_T = {
     a11y_readable_font: 'Lesbare Schrift', a11y_read_text: 'Text vorlesen',
     a11y_stop_read: 'Vorlesen stoppen', a11y_reset: 'Zurücksetzen',
     a11y_not_supported: 'In diesem Browser nicht unterstützt',
-    menu_legal_purchase: 'Kaufbedingungen', menu_legal_privacy: 'Datenschutzrichtlinie',
-    menu_legal_cookies: 'Cookie-Richtlinie', menu_legal_notice: 'Impressum',
+    menu_legal_purchase: 'Kauf', menu_legal_privacy: 'Datenschutz',
+    menu_legal_cookies: 'Cookies', menu_legal_notice: 'Impressum',
     menu_legal_a11y: 'Barrierefreiheit', menu_legal_contact: 'Kontakt',
   },
   pt: {
@@ -185,8 +185,8 @@ const SHARED_T = {
     a11y_readable_font: 'Fonte legível', a11y_read_text: 'Ler texto',
     a11y_stop_read: 'Parar leitura', a11y_reset: 'Repor',
     a11y_not_supported: 'Não suportado neste navegador',
-    menu_legal_purchase: 'Política de compra', menu_legal_privacy: 'Política de privacidade',
-    menu_legal_cookies: 'Política de cookies', menu_legal_notice: 'Aviso legal',
+    menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privacidade',
+    menu_legal_cookies: 'Cookies', menu_legal_notice: 'Aviso legal',
     menu_legal_a11y: 'Acessibilidade', menu_legal_contact: 'Contacto',
   },
   it: {
@@ -221,8 +221,8 @@ const SHARED_T = {
     a11y_readable_font: 'Carattere leggibile', a11y_read_text: 'Leggi testo',
     a11y_stop_read: 'Ferma lettura', a11y_reset: 'Ripristina',
     a11y_not_supported: 'Non supportato in questo browser',
-    menu_legal_purchase: 'Politica di acquisto', menu_legal_privacy: 'Informativa sulla privacy',
-    menu_legal_cookies: 'Politica sui cookie', menu_legal_notice: 'Note legali',
+    menu_legal_purchase: 'Acquisto', menu_legal_privacy: 'Privacy',
+    menu_legal_cookies: 'Cookie', menu_legal_notice: 'Note legali',
     menu_legal_a11y: 'Accessibilità', menu_legal_contact: 'Contatto',
   },
   ko: {
@@ -257,8 +257,8 @@ const SHARED_T = {
     a11y_readable_font: '읽기 쉬운 글꼴', a11y_read_text: '텍스트 읽기',
     a11y_stop_read: '읽기 중지', a11y_reset: '초기화',
     a11y_not_supported: '이 브라우저에서 지원되지 않음',
-    menu_legal_purchase: '구매 정책', menu_legal_privacy: '개인정보 처리방침',
-    menu_legal_cookies: '쿠키 정책', menu_legal_notice: '법적 고지',
+    menu_legal_purchase: '구매', menu_legal_privacy: '개인정보',
+    menu_legal_cookies: '쿠키', menu_legal_notice: '법적 고지',
     menu_legal_a11y: '접근성', menu_legal_contact: '연락처',
   },
   eu: {
@@ -293,8 +293,8 @@ const SHARED_T = {
     a11y_readable_font: 'Letra-tipo irakurgarria', a11y_read_text: 'Testua irakurri',
     a11y_stop_read: 'Irakurketa gelditu', a11y_reset: 'Berrezarri',
     a11y_not_supported: 'Nabigatzaile honetan ez da onartzen',
-    menu_legal_purchase: 'Erosketa politika', menu_legal_privacy: 'Pribatutasun politika',
-    menu_legal_cookies: 'Cookie politika', menu_legal_notice: 'Lege oharra',
+    menu_legal_purchase: 'Erosketak', menu_legal_privacy: 'Pribatutasuna',
+    menu_legal_cookies: 'Cookieak', menu_legal_notice: 'Lege oharra',
     menu_legal_a11y: 'Irisgarritasuna', menu_legal_contact: 'Kontaktua',
   },
   ca: {
@@ -329,8 +329,8 @@ const SHARED_T = {
     a11y_readable_font: 'Lletra llegible', a11y_read_text: 'Llegir text',
     a11y_stop_read: 'Aturar lectura', a11y_reset: 'Restablir',
     a11y_not_supported: 'No compatible amb aquest navegador',
-    menu_legal_purchase: 'Política de compra', menu_legal_privacy: 'Política de privacitat',
-    menu_legal_cookies: 'Política de cookies', menu_legal_notice: 'Avís legal',
+    menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privadesa',
+    menu_legal_cookies: 'Cookies', menu_legal_notice: 'Avís legal',
     menu_legal_a11y: 'Accessibilitat', menu_legal_contact: 'Contacte',
   }
 };
@@ -515,6 +515,15 @@ function initMenu() {
   if (overlay) overlay.addEventListener('click', closeMenu);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   sideMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  const a11yShortcut = sideMenu.querySelector('.side-menu__a11y-btn');
+  if (a11yShortcut) {
+    a11yShortcut.addEventListener('click', () => {
+      closeMenu();
+      const toggle = document.getElementById('a11y-toggle');
+      if (toggle) setTimeout(() => toggle.click(), 320);
+    });
+  }
 }
 
 /* ── LANG SELECTOR ───────────────────────────────────────────── */

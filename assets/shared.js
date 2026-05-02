@@ -12,7 +12,7 @@ const SHARED_T = {
   es: {
     nav_tickets: 'Entradas',
     menu_1: 'Inicio', menu_2: 'Monumentos', menu_3: 'Visitas',
-    menu_4: 'Reservas', menu_5: 'Actualidad', menu_6: 'Institución',
+    menu_4: 'Actualidad', menu_5: 'Institución', menu_6: 'Reservas',
     footer_desc: 'Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Cómo llegar', footer_visit_2: 'Horarios', footer_visit_3: 'Tarifas',
@@ -49,7 +49,7 @@ const SHARED_T = {
   en: {
     nav_tickets: 'Tickets',
     menu_1: 'Home', menu_2: 'Monuments', menu_3: 'Visits',
-    menu_4: 'Bookings', menu_5: 'News', menu_6: 'Institution',
+    menu_4: 'News', menu_5: 'Institution', menu_6: 'Bookings',
     footer_desc: 'Eight centuries of history, art and devotion at the heart of the French Way. Living heritage of humanity.',
     footer_col_visit: 'Visit',
     footer_visit_1: 'How to get here', footer_visit_2: 'Opening hours', footer_visit_3: 'Admission',
@@ -86,7 +86,7 @@ const SHARED_T = {
   fr: {
     nav_tickets: 'Billets',
     menu_1: 'Accueil', menu_2: 'Monuments', menu_3: 'Visites',
-    menu_4: 'Réservations', menu_5: 'Actualités', menu_6: 'Institution',
+    menu_4: 'Actualités', menu_5: 'Institution', menu_6: 'Réservations',
     footer_desc: 'Huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français. Patrimoine vivant de l\'humanité.',
     footer_col_visit: 'Visite',
     footer_visit_1: 'Comment y aller', footer_visit_2: 'Horaires', footer_visit_3: 'Tarifs',
@@ -123,7 +123,7 @@ const SHARED_T = {
   de: {
     nav_tickets: 'Tickets',
     menu_1: 'Startseite', menu_2: 'Denkmäler', menu_3: 'Besuche',
-    menu_4: 'Buchungen', menu_5: 'Aktuelles', menu_6: 'Institution',
+    menu_4: 'Aktuelles', menu_5: 'Institution', menu_6: 'Buchungen',
     footer_desc: 'Acht Jahrhunderte Geschichte, Kunst und Andacht im Herzen des Französischen Jakobsweges. Lebendiges Erbe der Menschheit.',
     footer_col_visit: 'Besuch',
     footer_visit_1: 'Anfahrt', footer_visit_2: 'Öffnungszeiten', footer_visit_3: 'Eintrittspreise',
@@ -160,7 +160,7 @@ const SHARED_T = {
   pt: {
     nav_tickets: 'Bilhetes',
     menu_1: 'Início', menu_2: 'Monumentos', menu_3: 'Visitas',
-    menu_4: 'Reservas', menu_5: 'Notícias', menu_6: 'Instituição',
+    menu_4: 'Notícias', menu_5: 'Instituição', menu_6: 'Reservas',
     footer_desc: 'Oito séculos de história, arte e devoção no coração do Caminho Francês. Património vivo da humanidade.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Como chegar', footer_visit_2: 'Horários', footer_visit_3: 'Tarifas',
@@ -197,7 +197,7 @@ const SHARED_T = {
   it: {
     nav_tickets: 'Biglietti',
     menu_1: 'Home', menu_2: 'Monumenti', menu_3: 'Visite',
-    menu_4: 'Prenotazioni', menu_5: 'Notizie', menu_6: 'Istituzione',
+    menu_4: 'Notizie', menu_5: 'Istituzione', menu_6: 'Prenotazioni',
     footer_desc: 'Otto secoli di storia, arte e devozione nel cuore del Cammino Francese. Patrimonio vivente dell\'umanità.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Come arrivare', footer_visit_2: 'Orari', footer_visit_3: 'Tariffe',
@@ -234,7 +234,7 @@ const SHARED_T = {
   ko: {
     nav_tickets: '입장권',
     menu_1: '홈', menu_2: '유적', menu_3: '관람',
-    menu_4: '예약', menu_5: '뉴스', menu_6: '기관',
+    menu_4: '뉴스', menu_5: '기관', menu_6: '예약',
     footer_desc: '프랑스 길의 중심에서 8세기의 역사, 예술, 신앙. 인류의 살아있는 유산.',
     footer_col_visit: '관람',
     footer_visit_1: '오시는 길', footer_visit_2: '운영 시간', footer_visit_3: '요금',
@@ -271,7 +271,7 @@ const SHARED_T = {
   eu: {
     nav_tickets: 'Sarrerak',
     menu_1: 'Hasiera', menu_2: 'Monumentuak', menu_3: 'Bisitaldiak',
-    menu_4: 'Erreserbak', menu_5: 'Albisteak', menu_6: 'Erakundea',
+    menu_4: 'Albisteak', menu_5: 'Erakundea', menu_6: 'Erreserbak',
     footer_desc: 'Zortzi mende historia, arte eta debozio Frantziako Bidearen bihotzean. Gizadiaren ondare bizia.',
     footer_col_visit: 'Bisita',
     footer_visit_1: 'Nola iritsi', footer_visit_2: 'Ordutegia', footer_visit_3: 'Tarifak',
@@ -308,7 +308,7 @@ const SHARED_T = {
   ca: {
     nav_tickets: 'Entrades',
     menu_1: 'Inici', menu_2: 'Monuments', menu_3: 'Visites',
-    menu_4: 'Reserves', menu_5: 'Actualitat', menu_6: 'Institució',
+    menu_4: 'Actualitat', menu_5: 'Institució', menu_6: 'Reserves',
     footer_desc: 'Vuit segles d\'història, art i devoció al cor del Camí Francès. Patrimoni viu de la humanitat.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Com arribar', footer_visit_2: 'Horaris', footer_visit_3: 'Tarifes',

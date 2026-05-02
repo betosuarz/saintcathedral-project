@@ -764,41 +764,6 @@
       background: linear-gradient(to right, transparent, rgba(201,168,76,.25), transparent)
     }
 
-    /* Light mode overrides */
-    body.light-mode .visits-section { background: #F9F8F6 }
-    body.light-mode .visits-section--alt { background: #F5F0E8 }
-    body.light-mode .visits-section__num { color: rgba(201,168,76,.2) }
-    body.light-mode .visits-section__title { color: var(--carbon) }
-    body.light-mode .visits-section__sub { color: rgba(20,18,16,.75) }
-    body.light-mode .visits-section__header { border-bottom-color: rgba(201,168,76,.2) }
-    body.light-mode .price-card { background: rgba(255,255,255,.8); border-color: rgba(201,168,76,.2) }
-    body.light-mode .price-card:hover { background: #fff; border-color: rgba(201,168,76,.5) }
-    body.light-mode .price-card--featured { background: rgba(255,255,255,.95); border-color: rgba(201,168,76,.5) }
-    body.light-mode .price-card__num { color: var(--carbon) }
-    body.light-mode .price-card__cur { color: #9A7020 }
-    body.light-mode .price-card__tag { color: rgba(20,18,16,.68) }
-    body.light-mode .price-card__desc { color: rgba(20,18,16,.72) }
-    body.light-mode .grupo-price { background: rgba(255,255,255,.8); border-color: rgba(201,168,76,.2) }
-    body.light-mode .grupo-price:hover { background: #fff; border-color: rgba(201,168,76,.5) }
-    body.light-mode .grupo-price__num { color: var(--carbon) }
-    body.light-mode .grupo-price__pax { color: var(--carbon) }
-    body.light-mode .grupo-price__tag { color: rgba(20,18,16,.68) }
-    body.light-mode .grupo-price__per { color: rgba(20,18,16,.68) }
-    body.light-mode .grupo-price__desc { color: rgba(20,18,16,.72) }
-    body.light-mode .supp-card { background: rgba(255,255,255,.6); border-color: rgba(20,18,16,.1) }
-    body.light-mode .supp-card__label { color: rgba(20,18,16,.75) }
-    body.light-mode .age-card { background: rgba(255,255,255,.8); border-color: rgba(201,168,76,.2) }
-    body.light-mode .age-card:hover { background: #fff; border-color: rgba(201,168,76,.5) }
-    body.light-mode .age-card--free { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.4) }
-    body.light-mode .age-card__price { color: var(--carbon) }
-    body.light-mode .age-card__price--free { color: #1F6B10 }
-    body.light-mode .age-card__range { color: rgba(20,18,16,.68) }
-    body.light-mode .age-card__desc { color: rgba(20,18,16,.68) }
-    body.light-mode .info-band { border-color: rgba(20,18,16,.1); border-top-color: var(--gold) }
-    body.light-mode .info-band__item { border-right-color: rgba(20,18,16,.1) }
-    body.light-mode .info-band__value { color: rgba(20,18,16,.88) }
-    body.light-mode .info-band__note { color: rgba(20,18,16,.68) }
-
     /* Responsive */
     @media (max-width: 1100px) {
       .info-band { grid-template-columns: 1fr 1fr }
@@ -888,6 +853,662 @@
       .price-card--featured .price-card__tag { grid-row: 2 }
       .price-card--featured .price-card__amount { grid-row: 2 }
       .price-card--featured .price-card__desc { grid-row: 3 }
+    }
+
+    /* ── GUIDED TOUR CARDS ──────────────────────────────── */
+    .tours-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-top: 48px;
+      margin-bottom: 2px
+    }
+    .tour-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      overflow: hidden;
+      transition: border-color .3s ease
+    }
+    .tour-card:hover { border-color: rgba(201,168,76,.3) }
+    .tour-card--vip { border-color: rgba(201,168,76,.35); background: rgba(201,168,76,.06) }
+    .tour-card__img-wrap { height: 240px; position: relative; overflow: hidden }
+    .tour-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease)
+    }
+    .tour-card:hover .tour-card__img { transform: scale(1.07) }
+    .tour-card__badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: .54rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      backdrop-filter: blur(6px)
+    }
+    .tour-card__badge--day { background: rgba(253,250,244,.15); color: rgba(253,250,244,.9); border: 1px solid rgba(253,250,244,.25) }
+    .tour-card__badge--night { background: rgba(14,12,10,.7); color: var(--gold); border: 1px solid rgba(201,168,76,.5) }
+    .tour-card__badge--vip { background: var(--gold); color: var(--carbon) }
+    .tour-card__body { padding: 32px 34px 36px; display: flex; flex-direction: column; flex: 1 }
+    .tour-card__num { font-size: .56rem; letter-spacing: .22em; color: var(--gold); margin-bottom: 10px }
+    .tour-card__title { font-family: var(--serif); font-size: 1.65rem; font-weight: 300; line-height: 1.1; color: var(--white); margin-bottom: 14px }
+    .tour-card__title em { font-style: italic; color: var(--gold-lt) }
+    .tour-card__desc { font-size: .84rem; line-height: 1.72; color: rgba(253,250,244,.65); margin-bottom: 24px; flex: 1 }
+    .tour-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 20px;
+      margin-bottom: 28px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid rgba(255,255,255,.07)
+    }
+    .tour-spec { display: flex; flex-direction: column; gap: 3px }
+    .tour-spec__label { font-size: .54rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(253,250,244,.38) }
+    .tour-spec__value { font-size: .82rem; color: rgba(253,250,244,.82) }
+    .tour-spec__value strong { font-weight: 400; color: var(--white) }
+    .tour-price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 22px }
+    .tour-price__from { font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(253,250,244,.42) }
+    .tour-price__amount { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; color: var(--white); line-height: 1 }
+    .tour-price__amount sup { font-size: 1rem; vertical-align: super }
+    .tour-price__note { font-size: .72rem; color: rgba(253,250,244,.45) }
+    .tour-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: all .3s ease;
+      align-self: flex-start;
+      cursor: pointer
+    }
+    .tour-cta--book { background: var(--gold); color: var(--carbon) }
+    .tour-cta--book:hover { background: var(--gold-lt); gap: 16px }
+
+    /* ── COMPARISON TABLE ───────────────────────────────── */
+    .compare-section { margin-top: 64px; margin-bottom: 2px }
+    .compare-section__label {
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+    .compare-section__label::before { content: ''; width: 24px; height: 1px; background: var(--gold) }
+    .compare-table { width: 100%; border-collapse: collapse }
+    .compare-table thead th { padding: 18px 24px; text-align: left; font-family: var(--sans); font-weight: 400 }
+    .compare-table thead th:first-child { width: 22%; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(253,250,244,.4) }
+    .compare-table thead th:not(:first-child) { font-family: var(--serif); font-size: 1.2rem; font-weight: 300; color: var(--white) }
+    .compare-table thead th:nth-child(3) { color: var(--gold-lt) }
+    .compare-table thead th:last-child { color: var(--gold) }
+    .compare-table tbody tr { border-top: 1px solid rgba(255,255,255,.06) }
+    .compare-table tbody tr:hover { background: rgba(255,255,255,.02) }
+    .compare-table tbody td { padding: 16px 24px; font-size: .84rem; vertical-align: top }
+    .compare-table tbody td:first-child { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(253,250,244,.4); white-space: nowrap }
+    .compare-table tbody td:not(:first-child) { color: rgba(253,250,244,.75) }
+    .compare-check { color: var(--gold) }
+    .compare-dash { color: rgba(253,250,244,.2) }
+
+    /* ── GROUP MODALITY CARDS ───────────────────────────── */
+    .modalities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 48px }
+    .modality-card {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color .3s ease
+    }
+    .modality-card:hover { border-color: rgba(201,168,76,.3) }
+    .modality-card__tag { font-size: .54rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold) }
+    .modality-card__title { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; color: var(--white); line-height: 1.1 }
+    .modality-card__desc { font-size: .82rem; line-height: 1.65; color: rgba(253,250,244,.6); flex: 1 }
+    .modality-specs { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(255,255,255,.07); padding-top: 12px }
+    .modality-spec { display: flex; justify-content: space-between; align-items: baseline; gap: 8px }
+    .modality-spec__label { font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(253,250,244,.38) }
+    .modality-spec__val { font-size: .82rem; color: rgba(253,250,244,.78) }
+    .modality-price { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--gold-lt); margin-top: auto }
+    .modality-price span { font-size: .72rem; color: rgba(253,250,244,.45); font-family: var(--sans) }
+
+    /* ── PROGRAM CARDS (ESCOLARES) ──────────────────────── */
+    .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 48px }
+    .program-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color .3s ease
+    }
+    .program-card:hover { border-color: rgba(201,168,76,.3) }
+    .program-card__stage { font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px }
+    .program-card__stage::before { content: ''; width: 20px; height: 1px; background: var(--gold) }
+    .program-card__title { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--white); line-height: 1.1 }
+    .program-card__title em { font-style: italic; color: var(--gold-lt) }
+    .program-card__desc { font-size: .84rem; line-height: 1.72; color: rgba(253,250,244,.62); flex: 1 }
+    .program-card__includes { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid rgba(255,255,255,.07); padding-top: 16px }
+    .program-include { display: flex; align-items: flex-start; gap: 8px; font-size: .8rem; color: rgba(253,250,244,.65) }
+    .program-include::before { content: '✦'; font-size: .44rem; color: var(--gold); margin-top: 5px; flex-shrink: 0 }
+    .program-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-top: 1px solid rgba(255,255,255,.07); padding-top: 16px }
+    .program-spec__label { font-size: .52rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(253,250,244,.38); margin-bottom: 2px }
+    .program-spec__val { font-size: .82rem; color: rgba(253,250,244,.82) }
+
+    /* ── PULSERA MONUMENT BLOCK ─────────────────────────── */
+    .pulsera-block {
+      background: rgba(201,168,76,.06);
+      border: 1px solid rgba(201,168,76,.22);
+      padding: 48px 44px;
+      margin-top: 2px;
+      margin-bottom: 2px
+    }
+    .pulsera-block__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start }
+    .pulsera-block__tag {
+      font-size: .56rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+    .pulsera-block__tag::before { content: ''; width: 20px; height: 1px; background: var(--gold) }
+    .pulsera-block__title { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 12px }
+    .pulsera-block__title em { font-style: italic; color: var(--gold-lt) }
+    .pulsera-block__desc { font-size: .88rem; line-height: 1.72; color: rgba(253,250,244,.62) }
+    .pulsera-monuments { display: flex; flex-direction: column }
+    .pulsera-monument { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06) }
+    .pulsera-monument:first-child { border-top: 1px solid rgba(255,255,255,.06) }
+    .pulsera-monument__num { font-size: .5rem; letter-spacing: .2em; color: var(--gold); width: 24px; flex-shrink: 0 }
+    .pulsera-monument__name { font-size: .88rem; color: rgba(253,250,244,.85) }
+    .pulsera-monument__detail { margin-left: auto; font-size: .76rem; color: rgba(253,250,244,.42) }
+
+    /* Light mode for new components */
+    body.light-mode .tour-card { background: rgba(255,255,255,.8); border-color: rgba(201,168,76,.2) }
+    body.light-mode .tour-card:hover { background: #fff; border-color: rgba(201,168,76,.45) }
+    body.light-mode .tour-card--vip { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.4) }
+    body.light-mode .tour-card__title { color: var(--carbon) }
+    body.light-mode .tour-card__desc { color: rgba(20,18,16,.65) }
+    body.light-mode .tour-spec__label { color: rgba(20,18,16,.5) }
+    body.light-mode .tour-spec__value { color: rgba(20,18,16,.82) }
+    body.light-mode .tour-spec__value strong { color: var(--carbon) }
+    body.light-mode .tour-specs { border-top-color: rgba(20,18,16,.1); border-bottom-color: rgba(20,18,16,.1) }
+    body.light-mode .tour-price__from { color: rgba(20,18,16,.45) }
+    body.light-mode .tour-price__amount { color: var(--carbon) }
+    body.light-mode .tour-price__note { color: rgba(20,18,16,.48) }
+    body.light-mode .compare-table thead th:first-child { color: rgba(20,18,16,.4) }
+    body.light-mode .compare-table thead th:not(:first-child) { color: var(--carbon) }
+    body.light-mode .compare-table tbody tr { border-top-color: rgba(20,18,16,.08) }
+    body.light-mode .compare-table tbody tr:hover { background: rgba(20,18,16,.02) }
+    body.light-mode .compare-table tbody td:first-child { color: rgba(20,18,16,.45) }
+    body.light-mode .compare-table tbody td:not(:first-child) { color: rgba(20,18,16,.78) }
+    body.light-mode .compare-dash { color: rgba(20,18,16,.2) }
+    body.light-mode .modality-card { background: rgba(255,255,255,.8); border-color: rgba(201,168,76,.2) }
+    body.light-mode .modality-card:hover { background: #fff; border-color: rgba(201,168,76,.45) }
+    body.light-mode .modality-card__title { color: var(--carbon) }
+    body.light-mode .modality-card__desc { color: rgba(20,18,16,.65) }
+    body.light-mode .modality-spec__label { color: rgba(20,18,16,.45) }
+    body.light-mode .modality-spec__val { color: rgba(20,18,16,.78) }
+    body.light-mode .modality-specs { border-top-color: rgba(20,18,16,.1) }
+    body.light-mode .modality-price { color: #7A5A10 }
+    body.light-mode .modality-price span { color: rgba(20,18,16,.5) }
+    body.light-mode .program-card { background: rgba(255,255,255,.8); border-color: rgba(201,168,76,.2) }
+    body.light-mode .program-card:hover { background: #fff; border-color: rgba(201,168,76,.45) }
+    body.light-mode .program-card__title { color: var(--carbon) }
+    body.light-mode .program-card__desc { color: rgba(20,18,16,.65) }
+    body.light-mode .program-card__includes { border-top-color: rgba(20,18,16,.1) }
+    body.light-mode .program-include { color: rgba(20,18,16,.68) }
+    body.light-mode .program-specs { border-top-color: rgba(20,18,16,.1) }
+    body.light-mode .program-spec__label { color: rgba(20,18,16,.45) }
+    body.light-mode .program-spec__val { color: rgba(20,18,16,.82) }
+    body.light-mode .pulsera-block { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.35) }
+    body.light-mode .pulsera-block__title { color: var(--carbon) }
+    body.light-mode .pulsera-block__desc { color: rgba(20,18,16,.68) }
+    body.light-mode .pulsera-monument { border-color: rgba(20,18,16,.1) }
+    body.light-mode .pulsera-monument:first-child { border-top-color: rgba(20,18,16,.1) }
+    body.light-mode .pulsera-monument__name { color: rgba(20,18,16,.85) }
+    body.light-mode .pulsera-monument__detail { color: rgba(20,18,16,.48) }
+
+    /* ── PULSERA COMPARISON TABLE ───────────────────────── */
+    .pulsera-block__inner--col { display: flex; flex-direction: column }
+    .pulsera-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px
+    }
+    .pulsera-table th {
+      font-size: .54rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(253,250,244,.42);
+      padding: 10px 16px 10px 0;
+      text-align: left;
+      font-weight: 400;
+      border-bottom: 1px solid rgba(255,255,255,.12)
+    }
+    .pulsera-table th:not(:first-child) { padding-left: 16px }
+    .pulsera-table td {
+      font-size: .84rem;
+      color: rgba(253,250,244,.75);
+      padding: 13px 16px 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      vertical-align: middle
+    }
+    .pulsera-table td:not(:first-child) { padding-left: 16px }
+    .pulsera-table tbody tr:last-child td { border-bottom: none }
+    .pulsera-table td:first-child {
+      font-family: var(--serif);
+      font-size: .92rem;
+      font-weight: 300;
+      color: var(--white)
+    }
+    .pulsera-table td:nth-child(2) {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--gold-lt);
+      white-space: nowrap
+    }
+    .pulsera-table td:nth-child(3) { font-size: .78rem; white-space: nowrap }
+    .pt-yes { color: var(--gold); font-size: .8rem }
+    .pt-no  { color: rgba(253,250,244,.22); font-size: .9rem }
+    body.light-mode .pulsera-table th { color: rgba(20,18,16,.48); border-bottom-color: rgba(20,18,16,.14) }
+    body.light-mode .pulsera-table td { color: rgba(20,18,16,.72); border-bottom-color: rgba(20,18,16,.07) }
+    body.light-mode .pulsera-table td:first-child { color: var(--carbon) }
+    body.light-mode .pulsera-table td:nth-child(2) { color: #7A5A10 }
+    body.light-mode .pt-no { color: rgba(20,18,16,.2) }
+
+    @media (max-width: 1100px) {
+      .tours-grid { grid-template-columns: 1fr 1fr }
+      .compare-table { display: none }
+      .pulsera-block__inner { grid-template-columns: 1fr }
+      .programs-grid { grid-template-columns: 1fr 1fr }
+      .modalities-grid { grid-template-columns: 1fr 1fr }
+    }
+    @media (max-width: 900px) {
+      .tours-grid { grid-template-columns: 1fr }
+      .tour-card__img-wrap { height: 200px }
+      .programs-grid { grid-template-columns: 1fr }
+      .modalities-grid { grid-template-columns: 1fr }
+      .pulsera-block { padding: 36px 28px }
+    }
+    @media (max-width: 600px) {
+      .pulsera-block { padding: 28px 20px }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       LIGHT MODE — paleta unificada con catedral.html
+       primary #141210 · secondary #5C5048 · label #6B6058
+       eyebrow/tag #8B6A1E · bg #F9F8F6 / #F5F0E8
+    ══════════════════════════════════════════════════════ */
+    body.light-mode .hub-intro__question { color: #141210 }
+    body.light-mode .hub-intro__body { color: #5C5048; border-left-color: rgba(140,110,50,.3) }
+
+    /* Secciones */
+    body.light-mode .visits-section { background: #F9F8F6 }
+    body.light-mode .visits-section--alt { background: #F5F0E8 }
+    body.light-mode .visits-section__num { color: rgba(201,168,76,.16) }
+    body.light-mode .visits-section__title { color: #141210 }
+    body.light-mode .visits-section__sub { color: #5C5048 }
+    body.light-mode .visits-section__header { border-bottom-color: rgba(140,110,50,.18) }
+
+    /* Labels de bloque (eyebrow/tag) */
+    body.light-mode .price-block__label,
+    body.light-mode .compare-section__label,
+    body.light-mode .ind-detail__tag,
+    body.light-mode .pulsera-block__tag,
+    body.light-mode .program-card__stage,
+    body.light-mode .modality-card__tag,
+    body.light-mode .tour-card__num { color: #8B6A1E }
+
+    body.light-mode .compare-section__label::before,
+    body.light-mode .ind-detail__tag::before,
+    body.light-mode .pulsera-block__tag::before,
+    body.light-mode .program-card__stage::before { background: #8B6A1E }
+
+    /* Símbolos check/cross */
+    body.light-mode .compare-check,
+    body.light-mode .program-include::before,
+    body.light-mode .pt-yes { color: #8B6A1E }
+    body.light-mode .compare-dash,
+    body.light-mode .pt-no { color: rgba(20,18,16,.18) }
+
+    /* Price cards */
+    body.light-mode .price-card { background: #fff; border-color: rgba(140,110,50,.18) }
+    body.light-mode .price-card:hover { background: #FDFAF4; border-color: rgba(140,110,50,.42) }
+    body.light-mode .price-card--featured { background: rgba(201,168,76,.07); border-color: rgba(140,110,50,.32) }
+    body.light-mode .price-card__tag { color: #6B6058 }
+    body.light-mode .price-card__num { color: #141210 }
+    body.light-mode .price-card__cur { color: #8B6A1E }
+    body.light-mode .price-card__desc { color: #5C5048 }
+
+    /* Grupo prices */
+    body.light-mode .grupo-price { background: #fff; border-color: rgba(140,110,50,.18) }
+    body.light-mode .grupo-price:hover { background: #FDFAF4; border-color: rgba(140,110,50,.42) }
+    body.light-mode .grupo-price__tag { color: #6B6058 }
+    body.light-mode .grupo-price__pax { color: #141210 }
+    body.light-mode .grupo-price__num { color: #141210 }
+    body.light-mode .grupo-price__cur { color: #8B6A1E }
+    body.light-mode .grupo-price__per { color: #6B6058 }
+    body.light-mode .grupo-price__desc { color: #5C5048 }
+
+    /* Suplementos */
+    body.light-mode .supp-card { background: #F5F0E8; border-color: rgba(20,18,16,.07) }
+    body.light-mode .supp-card__label { color: #5C5048 }
+    body.light-mode .supp-card__price { color: #8B6A1E }
+
+    /* Age cards (escolares) */
+    body.light-mode .age-card { background: #fff; border-color: rgba(140,110,50,.18) }
+    body.light-mode .age-card:hover { background: #FDFAF4; border-color: rgba(140,110,50,.42) }
+    body.light-mode .age-card--free { background: rgba(201,168,76,.07); border-color: rgba(140,110,50,.32) }
+    body.light-mode .age-card--supp { border-color: rgba(140,110,50,.16) }
+    body.light-mode .age-card__range { color: #6B6058 }
+    body.light-mode .age-card__price { color: #141210 }
+    body.light-mode .age-card__price--free { color: #1F6B10 }
+    body.light-mode .age-card__desc { color: #5C5048 }
+
+    /* Info band */
+    body.light-mode .info-band { border-color: rgba(20,18,16,.08); border-top-color: #8B6A1E }
+    body.light-mode .info-band__item { border-right-color: rgba(20,18,16,.08) }
+    body.light-mode .info-band__icon { color: #8B6A1E }
+    body.light-mode .info-band__label { color: #8B6A1E }
+    body.light-mode .info-band__value { color: #141210 }
+    body.light-mode .info-band__note { color: #6B6058 }
+
+    /* Slider individual */
+    body.light-mode .ind-detail { background: #FDFAF4; border-color: rgba(140,110,50,.18) }
+    body.light-mode .ind-detail__tag { color: #8B6A1E }
+    body.light-mode .ind-detail__title { color: #141210 }
+    body.light-mode .ind-detail__price { border-bottom-color: rgba(20,18,16,.1) }
+    body.light-mode .ind-detail__price-label { color: #6B6058 }
+    body.light-mode .ind-detail__price-amount { color: #141210 }
+    body.light-mode .ind-detail__price-cur { color: #8B6A1E }
+    body.light-mode .ind-detail__desc { color: #5C5048 }
+    body.light-mode .ind-spec__label { color: #6B6058 }
+    body.light-mode .ind-spec__val { color: #141210 }
+    body.light-mode .ind-dot { background: rgba(20,18,16,.16) }
+    body.light-mode .ind-dot.is-active { background: #8B6A1E }
+
+    /* Tour cards (guiadas) */
+    body.light-mode .tour-card { background: #fff; border-color: rgba(140,110,50,.18) }
+    body.light-mode .tour-card:hover { background: #FDFAF4; border-color: rgba(140,110,50,.4) }
+    body.light-mode .tour-card--vip { background: rgba(201,168,76,.07); border-color: rgba(140,110,50,.32) }
+    body.light-mode .tour-card__num { color: #8B6A1E }
+    body.light-mode .tour-card__title { color: #141210 }
+    body.light-mode .tour-card__desc { color: #5C5048 }
+    body.light-mode .tour-specs { border-top-color: rgba(20,18,16,.08); border-bottom-color: rgba(20,18,16,.08) }
+    body.light-mode .tour-spec__label { color: #6B6058 }
+    body.light-mode .tour-spec__value { color: #141210 }
+    body.light-mode .tour-spec__value strong { color: #141210 }
+    body.light-mode .tour-price__from { color: #6B6058 }
+    body.light-mode .tour-price__amount { color: #141210 }
+    body.light-mode .tour-price__note { color: #6B6058 }
+
+    /* Tabla comparativa guiadas */
+    body.light-mode .compare-table thead th:first-child { color: #6B6058 }
+    body.light-mode .compare-table thead th:not(:first-child) { color: #141210 }
+    body.light-mode .compare-table tbody tr { border-top-color: rgba(20,18,16,.07) }
+    body.light-mode .compare-table tbody tr:hover { background: rgba(20,18,16,.02) }
+    body.light-mode .compare-table tbody td:first-child { color: #6B6058 }
+    body.light-mode .compare-table tbody td:not(:first-child) { color: #5C5048 }
+
+    /* Modality cards (grupos) */
+    body.light-mode .modality-card { background: #fff; border-color: rgba(140,110,50,.18) }
+    body.light-mode .modality-card:hover { background: #FDFAF4; border-color: rgba(140,110,50,.4) }
+    body.light-mode .modality-card__tag { color: #8B6A1E }
+    body.light-mode .modality-card__title { color: #141210 }
+    body.light-mode .modality-card__desc { color: #5C5048 }
+    body.light-mode .modality-specs { border-top-color: rgba(20,18,16,.08) }
+    body.light-mode .modality-spec__label { color: #6B6058 }
+    body.light-mode .modality-spec__val { color: #141210 }
+    body.light-mode .modality-price { color: #8B6A1E }
+    body.light-mode .modality-price span { color: #6B6058 }
+
+    /* Program cards (escolares) */
+    body.light-mode .program-card { background: #fff; border-color: rgba(140,110,50,.18) }
+    body.light-mode .program-card:hover { background: #FDFAF4; border-color: rgba(140,110,50,.4) }
+    body.light-mode .program-card__stage { color: #8B6A1E }
+    body.light-mode .program-card__title { color: #141210 }
+    body.light-mode .program-card__desc { color: #5C5048 }
+    body.light-mode .program-card__includes { border-top-color: rgba(20,18,16,.08) }
+    body.light-mode .program-include { color: #5C5048 }
+    body.light-mode .program-specs { border-top-color: rgba(20,18,16,.08) }
+    body.light-mode .program-spec__label { color: #6B6058 }
+    body.light-mode .program-spec__val { color: #141210 }
+
+    /* Pulsera block + tabla de entradas */
+    body.light-mode .pulsera-block { background: rgba(201,168,76,.07); border-color: rgba(140,110,50,.28) }
+    body.light-mode .pulsera-block__tag { color: #8B6A1E }
+    body.light-mode .pulsera-block__title { color: #141210 }
+    body.light-mode .pulsera-table th { color: #6B6058; border-bottom-color: rgba(20,18,16,.1) }
+    body.light-mode .pulsera-table td { color: #5C5048; border-bottom-color: rgba(20,18,16,.07) }
+    body.light-mode .pulsera-table td:first-child { color: #141210 }
+    body.light-mode .pulsera-table td:nth-child(2) { color: #8B6A1E }
+    body.light-mode .pt-yes { color: #8B6A1E }
+    body.light-mode .pt-no { color: rgba(20,18,16,.18) }
+
+    /* ── INDIVIDUAL VISIT SLIDER ────────────────────────── */
+    .ind-slider-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 2px;
+      min-height: 500px
+    }
+    .ind-card-col {
+      position: relative;
+      display: flex;
+      align-items: stretch
+    }
+    .ind-card {
+      position: relative;
+      width: 100%;
+      overflow: hidden
+    }
+    .ind-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: opacity .5s ease, transform .8s var(--ease)
+    }
+    .ind-card__img.is-leaving {
+      opacity: 0;
+      transform: scale(1.04)
+    }
+    .ind-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(14,12,10,.95) 0%, rgba(14,12,10,.48) 55%, rgba(14,12,10,.15) 100%)
+    }
+    .ind-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 40px 44px
+    }
+    .ind-card__counter {
+      font-size: .52rem;
+      letter-spacing: .2em;
+      color: rgba(253,250,244,.42);
+      margin-bottom: 14px
+    }
+    .ind-card__name {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 10px
+    }
+    .ind-card__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 3px
+    }
+    .ind-card__amount {
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1
+    }
+    .ind-card__cur {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--gold)
+    }
+    .ind-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 18px
+    }
+    .ind-dot {
+      height: 2px;
+      width: 20px;
+      background: rgba(253,250,244,.25);
+      cursor: pointer;
+      transition: background .25s ease, width .25s ease;
+      border: none;
+      padding: 0
+    }
+    .ind-dot.is-active { background: var(--gold); width: 32px }
+    .ind-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      background: rgba(14,12,10,.6);
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(253,250,244,.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .25s ease, border-color .25s ease, color .25s ease;
+      backdrop-filter: blur(4px)
+    }
+    .ind-arrow:hover { background: var(--gold); color: var(--carbon); border-color: var(--gold) }
+    .ind-arrow--prev { left: 14px }
+    .ind-arrow--next { right: 14px }
+    /* Detail panel */
+    .ind-detail {
+      padding: 56px 52px;
+      background: rgba(255,255,255,.022);
+      border: 1px solid rgba(255,255,255,.065);
+      border-left: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity .3s ease, transform .3s ease
+    }
+    .ind-detail.is-fading { opacity: 0; transform: translateY(8px) }
+    .ind-detail__badge {
+      display: inline-block;
+      font-size: .5rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--carbon);
+      padding: 4px 12px;
+      margin-bottom: 14px;
+      align-self: flex-start
+    }
+    .ind-detail__tag {
+      font-size: .56rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+    .ind-detail__tag::before { content: ''; width: 20px; height: 1px; background: var(--gold) }
+    .ind-detail__title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 24px
+    }
+    .ind-detail__title em { font-style: italic; color: var(--gold-lt) }
+    .ind-detail__price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,.07)
+    }
+    .ind-detail__price-label {
+      font-size: .56rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(253,250,244,.4)
+    }
+    .ind-detail__price-amount {
+      font-family: var(--serif);
+      font-size: 3.2rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1
+    }
+    .ind-detail__price-cur {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--gold)
+    }
+    .ind-detail__desc {
+      font-size: .9rem;
+      line-height: 1.75;
+      color: rgba(253,250,244,.68);
+      margin-bottom: 28px
+    }
+    .ind-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px
+    }
+    .ind-spec__label {
+      font-size: .52rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(253,250,244,.38);
+      margin-bottom: 3px
+    }
+    .ind-spec__val { font-size: .88rem; color: rgba(253,250,244,.82) }
+    @media (max-width: 1000px) {
+      .ind-slider-wrap { grid-template-columns: 1fr }
+      .ind-card { min-height: 380px }
+      .ind-detail { border-left: 1px solid rgba(255,255,255,.065); border-top: none }
+      body.light-mode .ind-detail { border-left-color: rgba(140,110,50,.18) }
+    }
+    @media (max-width: 600px) {
+      .ind-detail { padding: 36px 28px }
+      .ind-card__body { padding: 28px 28px }
     }
 
   </style>
@@ -1118,120 +1739,119 @@
         </div>
       </div>
 
-      <!-- Entradas -->
-      <div class="price-block">
-        <div class="price-block__label">Entradas</div>
-        <div class="price-grid">
-          <div class="price-card reveal">
-            <span class="price-card__tag">Catedral</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">7</span><span class="price-card__cur">€</span>
+      <!-- Slider de visitas individuales -->
+      <div class="ind-slider-wrap reveal">
+
+        <!-- Columna izquierda: card + flechas -->
+        <div class="ind-card-col">
+          <button class="ind-arrow ind-arrow--prev" id="ind-prev" aria-label="Visita anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="ind-card" id="ind-card">
+            <div class="ind-card__img" id="ind-img"></div>
+            <div class="ind-card__body">
+              <div class="ind-card__counter" id="ind-counter">01 / 05</div>
+              <div class="ind-card__name" id="ind-name">Catedral</div>
+              <div class="ind-card__price-row">
+                <span class="ind-card__amount" id="ind-amount">7</span>
+                <span class="ind-card__cur">€</span>
+              </div>
+              <div class="ind-dots" id="ind-dots" role="tablist" aria-label="Navegar entre visitas">
+                <button class="ind-dot is-active" aria-label="Visita 1" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 2" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 3" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 4" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 5" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 6" role="tab"></button>
+              </div>
             </div>
-            <p class="price-card__desc">Acceso completo al recinto catedralicio, claustro y gallinero</p>
           </div>
-          <div class="price-card reveal reveal-delay-1">
-            <span class="price-card__tag">Torre Exenta</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">4</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">Subida a la torre campanario con vistas panorámicas de la ciudad</p>
+          <button class="ind-arrow ind-arrow--next" id="ind-next" aria-label="Visita siguiente">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- Columna derecha: detalle -->
+        <div class="ind-detail" id="ind-detail" aria-live="polite">
+          <span class="ind-detail__badge" id="ind-badge" style="display:none"></span>
+          <div class="ind-detail__tag" id="ind-detail-tag">Entrada individual</div>
+          <h3 class="ind-detail__title" id="ind-detail-title">Catedral de <em>Santo Domingo</em></h3>
+          <div class="ind-detail__price">
+            <span class="ind-detail__price-label">Precio</span>
+            <span class="ind-detail__price-amount" id="ind-detail-price">7</span>
+            <span class="ind-detail__price-cur">€</span>
           </div>
-          <div class="price-card reveal reveal-delay-2">
-            <span class="price-card__tag">San Francisco</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">5</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">Convento de San Francisco y Centro de Arte Contemporáneo</p>
+          <p class="ind-detail__desc" id="ind-detail-desc"></p>
+          <div class="ind-specs" id="ind-specs"></div>
+        </div>
+
+      </div>
+
+      <!-- Tabla comparativa de entradas individuales -->
+      <div class="pulsera-block reveal">
+        <div class="pulsera-block__inner pulsera-block__inner--col">
+          <div>
+            <div class="pulsera-block__tag">Características</div>
+            <h3 class="pulsera-block__title">Nuestras entradas <em>individuales</em></h3>
           </div>
-          <div class="price-card price-card--featured reveal">
-            <span class="price-card__badge">Recomendado</span>
-            <span class="price-card__tag">Pulsera Turística</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">10</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado</p>
-          </div>
-          <div class="price-card reveal reveal-delay-1">
-            <span class="price-card__tag">Pulsera Peregrino</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">5</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">Catedral + Torre. Precio especial con credencial del Camino de Santiago</p>
-          </div>
+          <table class="pulsera-table" aria-label="Comparativa de entradas individuales">
+            <thead>
+              <tr>
+                <th scope="col">Entrada</th>
+                <th scope="col">Tarifa</th>
+                <th scope="col">Horarios</th>
+                <th scope="col">Audioguía</th>
+                <th scope="col">Visita guiada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Catedral</td>
+                <td>€7</td>
+                <td>Mar–Dom 9:30–18:30</td>
+                <td><span class="pt-yes">✦</span></td>
+                <td><span class="pt-no">—</span></td>
+              </tr>
+              <tr>
+                <td>Torre Exenta</td>
+                <td>€4</td>
+                <td>Mar–Dom 9:30–18:30</td>
+                <td><span class="pt-yes">✦</span></td>
+                <td><span class="pt-no">—</span></td>
+              </tr>
+              <tr>
+                <td>Convento San Francisco</td>
+                <td>€5</td>
+                <td>Mar–Dom 10:00–18:00</td>
+                <td><span class="pt-yes">✦</span></td>
+                <td><span class="pt-no">—</span></td>
+              </tr>
+              <tr>
+                <td>Pulsera Turística</td>
+                <td>€10</td>
+                <td>Mar–Dom 9:30–18:00</td>
+                <td><span class="pt-yes">✦</span></td>
+                <td><span class="pt-no">—</span></td>
+              </tr>
+              <tr>
+                <td>Pulsera Peregrino</td>
+                <td>€5</td>
+                <td>Mar–Dom 9:30–18:30</td>
+                <td><span class="pt-yes">✦</span></td>
+                <td><span class="pt-no">—</span></td>
+              </tr>
+              <tr>
+                <td>Pack Familiar</td>
+                <td>€25</td>
+                <td>Mar–Dom 9:30–18:30</td>
+                <td><span class="pt-yes">✦</span></td>
+                <td><span class="pt-yes">✦</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Guiadas -->
-      <div id="guiadas" class="price-block">
-        <div class="price-block__label">Visitas guiadas</div>
-        <div class="price-grid">
-          <div class="price-card reveal">
-            <span class="price-card__tag">Guiada Diurna</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">14</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">Recorrido completo con guía experto. Duración aproximada 90 minutos</p>
-          </div>
-          <div class="price-card reveal reveal-delay-1">
-            <span class="price-card__tag">Guiada VIP</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">15</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">Acceso a zonas privadas, tesoro catedralicio y atención personalizada</p>
-          </div>
-          <div class="price-card reveal reveal-delay-2">
-            <span class="price-card__tag">Guiada Nocturna</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">15</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">La catedral a la luz de las velas. Una experiencia única e irrepetible</p>
-          </div>
-          <div class="price-card price-card--featured reveal">
-            <span class="price-card__badge">Familia</span>
-            <span class="price-card__tag">Pack Familiar</span>
-            <div class="price-card__amount">
-              <span class="price-card__num">25</span><span class="price-card__cur">€</span>
-            </div>
-            <p class="price-card__desc">2 adultos + hasta 3 menores. Guía especializado para familias con niños</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Info individuales -->
-      <div class="info-band reveal">
-        <div class="info-band__item">
-          <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div>
-            <div class="info-band__label">Horario</div>
-            <div class="info-band__value">Mar – Dom · 9:30 – 18:30</div>
-            <div class="info-band__note">Lunes cerrado · Festivos según calendario</div>
-          </div>
-        </div>
-        <div class="info-band__item">
-          <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          <div>
-            <div class="info-band__label">Compra</div>
-            <div class="info-band__value">Online o en taquilla</div>
-            <div class="info-band__note">Sin cargo adicional · Evita esperas</div>
-          </div>
-        </div>
-        <div class="info-band__item">
-          <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <div>
-            <div class="info-band__label">Duración</div>
-            <div class="info-band__value">45 min – 2 horas</div>
-            <div class="info-band__note">Según espacios visitados</div>
-          </div>
-        </div>
-        <div class="info-band__item">
-          <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          <div>
-            <div class="info-band__label">Audioguía</div>
-            <div class="info-band__value">5 idiomas disponibles</div>
-            <div class="info-band__note">Accesible para movilidad reducida</div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </section>
@@ -1239,17 +1859,304 @@
   <div class="section-sep"></div>
 
   <!-- ═══════════════════════════════════════════════════════
-       SECTION 02 — GRUPOS
+       SECTION 02 — VISITAS GUIADAS
   ════════════════════════════════════════════════════════ -->
-  <section id="grupos" class="visits-section visits-section--alt">
+  <section id="guiadas" class="visits-section visits-section--alt">
     <div class="visits-section__inner">
 
       <div class="visits-section__header reveal">
         <span class="visits-section__num">02</span>
         <div>
+          <h2 class="visits-section__title">Visitas <em>guiadas</em></h2>
+          <p class="visits-section__sub">Déjate llevar por guías especializados y descubre los secretos que no encontrarás en los paneles. Diurna, nocturna o exclusiva VIP.</p>
+        </div>
+      </div>
+
+      <!-- Tour cards -->
+      <div class="tours-grid">
+
+        <!-- Diurna -->
+        <div class="tour-card reveal">
+          <div class="tour-card__img-wrap">
+            <div class="tour-card__img" style="background-image:url('../assets/img/diurna.webp')"></div>
+            <span class="tour-card__badge tour-card__badge--day">Visita diurna</span>
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__num">01 · Guiada</div>
+            <h3 class="tour-card__title">Visita guiada <em>diurna</em></h3>
+            <p class="tour-card__desc">Recorre la Catedral con un guía experto y descubre el retablo mayor, el sepulcro del Santo y el famoso gallinero vivo, único en el mundo.</p>
+            <div class="tour-specs">
+              <div class="tour-spec">
+                <span class="tour-spec__label">Duración</span>
+                <span class="tour-spec__value"><strong>90 min</strong></span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Idiomas</span>
+                <span class="tour-spec__value">ES · EN · FR · DE</span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Horario</span>
+                <span class="tour-spec__value">Lun–Dom 11:00 · 13:00 · 17:00</span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Grupo máx.</span>
+                <span class="tour-spec__value"><strong>15 personas</strong></span>
+              </div>
+            </div>
+            <div class="tour-price">
+              <span class="tour-price__from">Desde</span>
+              <span class="tour-price__amount"><sup>€</sup>14</span>
+              <span class="tour-price__note">por persona</span>
+            </div>
+            <a href="reservas.html" class="tour-cta tour-cta--book">Reservar →</a>
+          </div>
+        </div>
+
+        <!-- Nocturna -->
+        <div class="tour-card reveal reveal-delay-1">
+          <div class="tour-card__img-wrap">
+            <div class="tour-card__img" style="background-image:url('../assets/img/nocturna.webp')"></div>
+            <span class="tour-card__badge tour-card__badge--night">★ Visita nocturna</span>
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__num">02 · Guiada</div>
+            <h3 class="tour-card__title">Visita guiada <em>nocturna</em></h3>
+            <p class="tour-card__desc">La Catedral cobra vida a la luz de las velas. Leyendas, misterios y ocho siglos de historia en una experiencia sensorial única e irrepetible.</p>
+            <div class="tour-specs">
+              <div class="tour-spec">
+                <span class="tour-spec__label">Duración</span>
+                <span class="tour-spec__value"><strong>120 min</strong></span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Idiomas</span>
+                <span class="tour-spec__value">ES · EN</span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Horario</span>
+                <span class="tour-spec__value">Vie · Sáb · Dom 22:00</span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Grupo máx.</span>
+                <span class="tour-spec__value"><strong>12 personas</strong></span>
+              </div>
+            </div>
+            <div class="tour-price">
+              <span class="tour-price__from">Desde</span>
+              <span class="tour-price__amount"><sup>€</sup>15</span>
+              <span class="tour-price__note">por persona</span>
+            </div>
+            <a href="reservas.html" class="tour-cta tour-cta--book">Reservar →</a>
+          </div>
+        </div>
+
+        <!-- VIP -->
+        <div class="tour-card tour-card--vip reveal reveal-delay-2">
+          <div class="tour-card__img-wrap">
+            <div class="tour-card__img" style="background-image:url('../assets/img/retablo.webp'); background-position: center 30%"></div>
+            <span class="tour-card__badge tour-card__badge--vip">VIP · Exclusiva</span>
+          </div>
+          <div class="tour-card__body">
+            <div class="tour-card__num">03 · Guiada</div>
+            <h3 class="tour-card__title">Visita <em>VIP</em> exclusiva</h3>
+            <p class="tour-card__desc">Acceso al triforio, al tesoro catedralicio y al archivo histórico. Atención personalizada, sin grupos, con el nivel de detalle que merece cada rincón.</p>
+            <div class="tour-specs">
+              <div class="tour-spec">
+                <span class="tour-spec__label">Duración</span>
+                <span class="tour-spec__value"><strong>2 – 3 horas</strong></span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Idiomas</span>
+                <span class="tour-spec__value">ES · EN · FR · DE</span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Horario</span>
+                <span class="tour-spec__value">A convenir</span>
+              </div>
+              <div class="tour-spec">
+                <span class="tour-spec__label">Grupo máx.</span>
+                <span class="tour-spec__value"><strong>8 personas</strong></span>
+              </div>
+            </div>
+            <div class="tour-price">
+              <span class="tour-price__from">Desde</span>
+              <span class="tour-price__amount"><sup>€</sup>15</span>
+              <span class="tour-price__note">por persona</span>
+            </div>
+            <a href="reservas.html" class="tour-cta tour-cta--book">Reservar →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tabla comparativa -->
+      <div class="compare-section reveal">
+        <div class="compare-section__label">Comparar modalidades</div>
+        <table class="compare-table" aria-label="Comparativa de visitas guiadas">
+          <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">Diurna</th>
+              <th scope="col">Nocturna</th>
+              <th scope="col">VIP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Precio desde</td>
+              <td>€14 / persona</td>
+              <td>€15 / persona</td>
+              <td>€15 / persona</td>
+            </tr>
+            <tr>
+              <td>Duración</td>
+              <td>90 min</td>
+              <td>120 min</td>
+              <td>2 – 3 h</td>
+            </tr>
+            <tr>
+              <td>Idiomas</td>
+              <td>ES · EN · FR · DE</td>
+              <td>ES · EN</td>
+              <td>ES · EN · FR · DE</td>
+            </tr>
+            <tr>
+              <td>Horario</td>
+              <td>11:00 · 13:00 · 17:00</td>
+              <td>Vie–Dom 22:00</td>
+              <td>A convenir</td>
+            </tr>
+            <tr>
+              <td>Grupo máx.</td>
+              <td>15 personas</td>
+              <td>12 personas</td>
+              <td>8 personas</td>
+            </tr>
+            <tr>
+              <td>Nave y retablo</td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+            </tr>
+            <tr>
+              <td>Gallinero vivo</td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+            </tr>
+            <tr>
+              <td>Triforio</td>
+              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
+              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+            </tr>
+            <tr>
+              <td>Tesoro · Archivo</td>
+              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
+              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 03 — GRUPOS
+  ════════════════════════════════════════════════════════ -->
+  <section id="grupos" class="visits-section">
+    <div class="visits-section__inner">
+
+      <div class="visits-section__header reveal">
+        <span class="visits-section__num">03</span>
+        <div>
           <h2 class="visits-section__title">Visitas para <em>grupos</em></h2>
           <p class="visits-section__sub">Soluciones para agencias, asociaciones y empresas. Mínimo 10 personas. Reserva previa obligatoria.</p>
         </div>
+      </div>
+
+      <!-- Modalidades de visita en grupo -->
+      <div class="modalities-grid">
+
+        <div class="modality-card reveal">
+          <div class="modality-card__tag">Modalidad 01</div>
+          <h3 class="modality-card__title">Visita libre</h3>
+          <p class="modality-card__desc">Acceso libre al recinto para el grupo sin guía. Ideal para asociaciones y empresas que prefieren explorar a su ritmo con materiales de apoyo.</p>
+          <div class="modality-specs">
+            <div class="modality-spec">
+              <span class="modality-spec__label">Personas</span>
+              <span class="modality-spec__val">10 – 50</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Duración</span>
+              <span class="modality-spec__val">A discreción</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Idiomas</span>
+              <span class="modality-spec__val">ES · EN · FR · DE</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Reserva</span>
+              <span class="modality-spec__val">72 h antelación</span>
+            </div>
+          </div>
+          <div class="modality-price">Tarifa <span>especial / persona</span></div>
+        </div>
+
+        <div class="modality-card reveal reveal-delay-1">
+          <div class="modality-card__tag">Modalidad 02</div>
+          <h3 class="modality-card__title">Guiada Catedral</h3>
+          <p class="modality-card__desc">Visita guiada por el interior de la Catedral. El guía conduce al grupo a través de los espacios más relevantes con explicaciones en profundidad.</p>
+          <div class="modality-specs">
+            <div class="modality-spec">
+              <span class="modality-spec__label">Personas</span>
+              <span class="modality-spec__val">10 – 30</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Duración</span>
+              <span class="modality-spec__val">90 min</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Idiomas</span>
+              <span class="modality-spec__val">ES · EN · FR · DE</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Reserva</span>
+              <span class="modality-spec__val">7 días antelación</span>
+            </div>
+          </div>
+          <div class="modality-price">Desde €9 <span>/ persona</span></div>
+        </div>
+
+        <div class="modality-card reveal reveal-delay-2">
+          <div class="modality-card__tag">Modalidad 03</div>
+          <h3 class="modality-card__title">Casco histórico + Catedral</h3>
+          <p class="modality-card__desc">Recorrido completo por el conjunto histórico de Santo Domingo de la Calzada: el Camino, las calles medievales y la Catedral. La experiencia más completa.</p>
+          <div class="modality-specs">
+            <div class="modality-spec">
+              <span class="modality-spec__label">Personas</span>
+              <span class="modality-spec__val">10 – 25</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Duración</span>
+              <span class="modality-spec__val">150 min</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Idiomas</span>
+              <span class="modality-spec__val">ES · EN · FR · DE</span>
+            </div>
+            <div class="modality-spec">
+              <span class="modality-spec__label">Reserva</span>
+              <span class="modality-spec__val">10 días antelación</span>
+            </div>
+          </div>
+          <div class="modality-price">Desde €14 <span>/ persona</span></div>
+        </div>
+
       </div>
 
       <!-- Precios grupo -->
@@ -1342,15 +2249,110 @@
   <!-- ═══════════════════════════════════════════════════════
        SECTION 03 — ESCOLARES
   ════════════════════════════════════════════════════════ -->
-  <section id="escolares" class="visits-section">
+  <section id="escolares" class="visits-section visits-section--alt">
     <div class="visits-section__inner">
 
       <div class="visits-section__header reveal">
-        <span class="visits-section__num">03</span>
+        <span class="visits-section__num">04</span>
         <div>
           <h2 class="visits-section__title">Visitas <em>escolares</em></h2>
           <p class="visits-section__sub">Programas pedagógicos adaptados a cada etapa educativa. Materiales didácticos incluidos y talleres disponibles.</p>
         </div>
+      </div>
+
+      <!-- Programas por etapa educativa -->
+      <div class="programs-grid">
+
+        <div class="program-card reveal">
+          <div class="program-card__stage">Primaria</div>
+          <h3 class="program-card__title"><em>6 – 12 años</em></h3>
+          <p class="program-card__desc">Introducción al arte y la historia a través del juego y la leyenda del gallo y la gallina. Los niños descubren la Catedral con los ojos de un peregrino medieval.</p>
+          <div class="program-card__includes">
+            <div class="program-include">Taller "Construye una catedral"</div>
+            <div class="program-include">Cuaderno de actividades</div>
+            <div class="program-include">Guía docente con materiales previos</div>
+            <div class="program-include">Leyenda del gallo de Santo Domingo</div>
+          </div>
+          <div class="program-specs">
+            <div>
+              <div class="program-spec__label">Duración</div>
+              <div class="program-spec__val">90 min</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Precio</div>
+              <div class="program-spec__val">€3 / alumno</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Grupo</div>
+              <div class="program-spec__val">15 – 35 alumnos</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Horario</div>
+              <div class="program-spec__val">Lun–Vie mañanas</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal reveal-delay-1">
+          <div class="program-card__stage">Secundaria</div>
+          <h3 class="program-card__title"><em>12 – 16 años</em></h3>
+          <p class="program-card__desc">Análisis del retablo mayor en relación con el currículo de arte medieval. Trabajo con fuentes históricas primarias y conexión con el Camino de Santiago.</p>
+          <div class="program-card__includes">
+            <div class="program-include">Taller de fuentes históricas</div>
+            <div class="program-include">Análisis del retablo y la iconografía</div>
+            <div class="program-include">Materiales digitales descargables</div>
+            <div class="program-include">Conexión con currículo de Historia del Arte</div>
+          </div>
+          <div class="program-specs">
+            <div>
+              <div class="program-spec__label">Duración</div>
+              <div class="program-spec__val">105 min</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Precio</div>
+              <div class="program-spec__val">€4 / alumno</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Grupo</div>
+              <div class="program-spec__val">15 – 35 alumnos</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Reserva</div>
+              <div class="program-spec__val">15 días ant.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-card reveal reveal-delay-2">
+          <div class="program-card__stage">Bachillerato · Universidad</div>
+          <h3 class="program-card__title"><em>16 años</em> en adelante</h3>
+          <p class="program-card__desc">Recorrido por la Catedral y la Torre Exenta con acceso al archivo histórico. Debate con el guía sobre arquitectura, religiosidad y peregrinación medieval.</p>
+          <div class="program-card__includes">
+            <div class="program-include">Recorrido Catedral + Torre Exenta</div>
+            <div class="program-include">Consulta de fuentes primarias del archivo</div>
+            <div class="program-include">Debate con guía especialista</div>
+            <div class="program-include">Bibliografía académica recomendada</div>
+          </div>
+          <div class="program-specs">
+            <div>
+              <div class="program-spec__label">Duración</div>
+              <div class="program-spec__val">120 min</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Precio</div>
+              <div class="program-spec__val">€5 / alumno</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Grupo</div>
+              <div class="program-spec__val">15 – 30 personas</div>
+            </div>
+            <div>
+              <div class="program-spec__label">Reserva</div>
+              <div class="program-spec__val">15 días ant.</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- Precios por edad -->
@@ -1736,6 +2738,173 @@
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
       const stored = localStorage.getItem(KEY);
       if (stored === '1') applyLightMode(true);
+    })();
+  </script>
+
+  <!-- Individual visits slider -->
+  <script>
+    (function () {
+      const visits = [
+        {
+          name: 'Catedral',
+          title: 'Catedral de <em>Santo Domingo</em>',
+          tag: 'Entrada individual',
+          price: '7',
+          img: '../assets/img/catedral.webp',
+          badge: null,
+          desc: 'Acceso completo al recinto catedralicio: nave principal, claustro gótico y el célebre gallinero vivo, hogar del gallo y la gallina blancos que recuerdan el milagro del Santo.',
+          specs: [
+            { label: 'Duración', val: '60 – 90 min' },
+            { label: 'Accesibilidad', val: 'Acceso parcial' },
+            { label: 'Audioguía', val: '5 idiomas' },
+            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+          ]
+        },
+        {
+          name: 'Torre Exenta',
+          title: 'Torre <em>Exenta</em>',
+          tag: 'Entrada individual',
+          price: '4',
+          img: '../assets/img/torre.webp',
+          badge: null,
+          desc: 'Sube a la torre campanario exenta de 69 m y disfruta de vistas panorámicas sobre el casco histórico, el Camino Francés y las llanuras de La Rioja.',
+          specs: [
+            { label: 'Duración', val: '30 – 45 min' },
+            { label: 'Accesibilidad', val: 'Sin ascensor' },
+            { label: 'Audioguía', val: '5 idiomas' },
+            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+          ]
+        },
+        {
+          name: 'San Francisco',
+          title: 'Convento de <em>San Francisco</em>',
+          tag: 'Entrada individual',
+          price: '5',
+          img: '../assets/img/sanfrancisco.webp',
+          badge: null,
+          desc: 'Antiguo convento franciscano reconvertido en Centro de Arte Contemporáneo. Exposiciones temporales de artistas actuales en un marco arquitectónico excepcional del s. XVI.',
+          specs: [
+            { label: 'Duración', val: '30 – 45 min' },
+            { label: 'Accesibilidad', val: 'Totalmente accesible' },
+            { label: 'Tipo', val: 'Arte contemporáneo' },
+            { label: 'Horario', val: 'Mar–Dom 10:00–18:00' }
+          ]
+        },
+        {
+          name: 'Pulsera Turística',
+          title: 'Pulsera <em>Turística</em>',
+          tag: 'Combinada · Recomendada',
+          price: '10',
+          img: '../assets/img/diurna.webp',
+          badge: 'Recomendado',
+          desc: 'Accede a los tres monumentos principales del conjunto histórico con un único billete. Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado.',
+          specs: [
+            { label: 'Incluye', val: 'Catedral + Torre + San Francisco' },
+            { label: 'Ahorro', val: '6 € respecto compra separada' },
+            { label: 'Validez', val: '1 día' },
+            { label: 'Horario', val: 'Mar–Dom 9:30–18:00' }
+          ]
+        },
+        {
+          name: 'Pulsera Peregrino',
+          title: 'Pulsera <em>Peregrino</em>',
+          tag: 'Tarifa especial · Camino',
+          price: '5',
+          img: '../assets/img/nocturna.webp',
+          badge: null,
+          desc: 'Precio especial para peregrinos del Camino de Santiago acreditados. Con credencial sellada, accede a la Catedral y a la Torre Exenta a precio reducido.',
+          specs: [
+            { label: 'Incluye', val: 'Catedral + Torre Exenta' },
+            { label: 'Requisito', val: 'Credencial del Camino' },
+            { label: 'Validez', val: '1 día' },
+            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+          ]
+        },
+        {
+          name: 'Pack Familiar',
+          title: 'Pack <em>Familiar</em>',
+          tag: 'Entrada familiar',
+          price: '25',
+          img: '../assets/img/diurna.webp',
+          badge: 'Familia',
+          desc: '2 adultos + hasta 3 menores. Visita guiada con un especialista en público familiar, adaptada al ritmo y al nivel de los niños para que la experiencia sea inolvidable.',
+          specs: [
+            { label: 'Incluye', val: '2 adultos + hasta 3 menores' },
+            { label: 'Duración', val: '90 min aprox.' },
+            { label: 'Guía', val: 'Especializado familias' },
+            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+          ]
+        }
+      ];
+
+      let current = 0;
+      let animating = false;
+
+      const imgEl     = document.getElementById('ind-img');
+      const nameEl    = document.getElementById('ind-name');
+      const amountEl  = document.getElementById('ind-amount');
+      const counterEl = document.getElementById('ind-counter');
+      const detailEl  = document.getElementById('ind-detail');
+      const badgeEl   = document.getElementById('ind-badge');
+      const tagEl     = document.getElementById('ind-detail-tag');
+      const titleEl   = document.getElementById('ind-detail-title');
+      const priceEl   = document.getElementById('ind-detail-price');
+      const descEl    = document.getElementById('ind-detail-desc');
+      const specsEl   = document.getElementById('ind-specs');
+      const dots      = document.querySelectorAll('.ind-dot');
+
+      function updateDetail(v) {
+        if (v.badge) { badgeEl.textContent = v.badge; badgeEl.style.display = ''; }
+        else { badgeEl.style.display = 'none'; }
+        tagEl.textContent   = v.tag;
+        titleEl.innerHTML   = v.title;
+        priceEl.textContent = v.price;
+        descEl.textContent  = v.desc;
+        specsEl.innerHTML   = v.specs.map(s =>
+          `<div><div class="ind-spec__label">${s.label}</div><div class="ind-spec__val">${s.val}</div></div>`
+        ).join('');
+      }
+
+      function render(idx, animate) {
+        if (animating) return;
+        const v = visits[idx];
+        current = idx;
+
+        nameEl.textContent    = v.name;
+        amountEl.textContent  = v.price;
+        counterEl.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(visits.length).padStart(2, '0')}`;
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+
+        if (!animate) {
+          imgEl.style.backgroundImage = `url('${v.img}')`;
+          updateDetail(v);
+          return;
+        }
+
+        animating = true;
+        detailEl.classList.add('is-fading');
+        imgEl.classList.add('is-leaving');
+
+        setTimeout(() => {
+          imgEl.style.backgroundImage = `url('${v.img}')`;
+          imgEl.classList.remove('is-leaving');
+          updateDetail(v);
+          detailEl.classList.remove('is-fading');
+          animating = false;
+        }, 320);
+      }
+
+      document.getElementById('ind-prev').addEventListener('click', () => {
+        render((current - 1 + visits.length) % visits.length, true);
+      });
+      document.getElementById('ind-next').addEventListener('click', () => {
+        render((current + 1) % visits.length, true);
+      });
+      dots.forEach((d, i) => d.addEventListener('click', () => {
+        if (i !== current) render(i, true);
+      }));
+
+      render(0, false);
     })();
   </script>
 

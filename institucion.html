@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Institución · Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+  <style>
+    /* ── SECTIONS ─────────────────────────────────────────────── */
+    .section {
+      padding: 100px 8vw
+    }
+
+    .section__inner {
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .section--white {
+      background: #FDFAF4;
+      color: var(--carbon)
+    }
+
+    .section--cream {
+      background: var(--cream);
+      color: var(--carbon)
+    }
+
+    .eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    .section--white .eyebrow,
+    .section--cream .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 48px
+    }
+
+    .section--white .section-title,
+    .section--cream .section-title {
+      color: var(--carbon)
+    }
+
+    /* ── PAGE HERO ───────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, #2a1f14 0%, #1a1210 40%, #0e0c0a 100%);
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded {
+      transform: scale(1)
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.72) 0%,
+          rgba(14, 12, 10, 0.40) 45%,
+          rgba(14, 12, 10, 0.65) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.85) 0%,
+          rgba(14, 12, 10, 0.35) 40%,
+          transparent 70%)
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 9vh;
+      max-width: 900px
+    }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: var(--white)
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .page-hero__desc {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .72);
+      max-width: 540px
+    }
+
+    /* ── INTRO ───────────────────────────────────────────────── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start
+    }
+
+    .intro-lead {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--carbon)
+    }
+
+    .intro-body {
+      font-size: .88rem;
+      line-height: 1.85;
+      color: #5C5249;
+      margin-bottom: 28px
+    }
+
+    .intro-body:last-child { margin-bottom: 0 }
+
+    .inst-page-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--carbon);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(140, 128, 112, .2)
+    }
+
+    .inst-page-title em {
+      font-style: italic;
+      color: var(--gold)
+    }
+
+    /* ── INSTITUTION SECTIONS (dark) ─────────────────────────── */
+    .inst-section {
+      background: var(--carbon);
+      padding: 100px 8vw;
+      border-top: 1px solid rgba(255, 255, 255, .06)
+    }
+
+    .inst-section__inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .inst-header {
+      margin-bottom: 64px
+    }
+
+    .inst-header .eyebrow {
+      color: var(--gold)
+    }
+
+    .inst-header__title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.06;
+      color: var(--white);
+      margin-bottom: 20px
+    }
+
+    .inst-header__title em {
+      font-style: italic;
+      color: var(--gold-lt)
+    }
+
+    .inst-header__desc {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(253, 250, 244, .78);
+      max-width: 780px
+    }
+
+    /* ── INSTITUTION SECTIONS (light) ────────────────────────── */
+    .inst-section--light {
+      background: #FDFAF4;
+      padding: 100px 8vw;
+      border-top: 1px solid rgba(140, 128, 112, .15)
+    }
+
+    .inst-section--light .inst-header .eyebrow {
+      color: var(--gold-dk)
+    }
+
+    .inst-section--light .inst-header__title {
+      color: var(--carbon)
+    }
+
+    .inst-section--light .inst-header__title em {
+      color: var(--gold)
+    }
+
+    .inst-section--light .inst-header__desc {
+      color: #5C5249
+    }
+
+    /* ── INFO CARDS GRID ─────────────────────────────────────── */
+    .inst-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px
+    }
+
+    .inst-card {
+      padding: 40px 44px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .07);
+      transition: background .3s ease;
+      min-width: 0
+    }
+
+    .inst-card:hover {
+      background: rgba(255, 255, 255, .07)
+    }
+
+    .inst-section--light .inst-card {
+      background: rgba(20, 18, 16, .03);
+      border-color: rgba(140, 128, 112, .18)
+    }
+
+    .inst-section--light .inst-card:hover {
+      background: rgba(20, 18, 16, .06)
+    }
+
+    .inst-section--light .inst-card__text {
+      color: #5C5249
+    }
+
+    .inst-card__icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 20px;
+      color: var(--gold)
+    }
+
+    .inst-card__label {
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .inst-card__label::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .inst-section--light .inst-card__label {
+      color: var(--gold-dk)
+    }
+
+    .inst-section--light .inst-card__label::before {
+      background: var(--gold-dk)
+    }
+
+    .inst-card__title {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+      font-weight: 300;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 14px
+    }
+
+    .inst-section--light .inst-card__title {
+      color: var(--carbon)
+    }
+
+    .inst-card__text {
+      font-size: .85rem;
+      line-height: 1.8;
+      color: var(--stone)
+    }
+
+    .inst-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-top: 16px;
+      transition: gap .25s ease;
+      overflow-wrap: break-word;
+      word-break: break-all
+    }
+
+    .inst-card__link:hover { gap: 12px }
+
+    .inst-section--light .inst-card__link {
+      color: var(--gold-dk)
+    }
+
+    /* ── WIDE CARD (spans 2 cols) ─────────────────────────────── */
+    .inst-card--wide {
+      grid-column: span 2
+    }
+
+    /* ── SECTION DIVIDER ─────────────────────────────────────── */
+    .inst-nav {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 0
+    }
+
+    .inst-nav__item {
+      flex: 1;
+      padding: 20px 28px;
+      background: rgba(201, 168, 76, .08);
+      border: 1px solid rgba(201, 168, 76, .18);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .25s ease
+    }
+
+    .inst-nav__item:hover {
+      background: rgba(201, 168, 76, .14)
+    }
+
+    .inst-nav__num {
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 6px
+    }
+
+    .inst-nav__label {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      font-weight: 300;
+      color: var(--carbon)
+    }
+
+    /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
+    body.light-mode {
+      background: #F9F8F6;
+      color: #141210;
+    }
+
+    /* Fondos → claros */
+    body.light-mode .inst-section {
+      background: #F9F8F6;
+      border-top-color: rgba(140, 128, 112, .15);
+    }
+
+    body.light-mode .section--white {
+      background: #F5F0E8;
+    }
+
+    /* Navbar */
+    body.light-mode .navbar.scrolled,
+    body.light-mode .navbar--always-solid {
+      background: rgba(245, 240, 232, .95);
+    }
+
+    body.light-mode .hamburger-line {
+      background: #141210;
+    }
+
+    /* Hero → mantener oscuro; overlay más suave en modo claro */
+    body.light-mode .page-hero__title { color: var(--white); }
+    body.light-mode .page-hero__title em { color: var(--gold-lt); }
+    body.light-mode .page-hero__eyebrow,
+    body.light-mode .page-hero__desc { color: var(--white); }
+
+    body.light-mode .page-hero::after {
+      background:
+        linear-gradient(160deg,
+          rgba(14, 12, 10, 0.52) 0%,
+          rgba(14, 12, 10, 0.24) 45%,
+          rgba(14, 12, 10, 0.44) 100%),
+        linear-gradient(to top right,
+          rgba(14, 12, 10, 0.62) 0%,
+          rgba(14, 12, 10, 0.25) 40%,
+          transparent 70%)
+    }
+
+    /* Texto blanco → negro */
+    body.light-mode .navbar__logo-name,
+    body.light-mode .lang-selector__btn,
+    body.light-mode .lang-selector__option,
+    body.light-mode .inst-header__title,
+    body.light-mode .inst-card__title,
+    body.light-mode .inst-page-title,
+    body.light-mode .intro-lead,
+    body.light-mode .cta-band__title {
+      color: #141210;
+    }
+
+    /* Texto secundario */
+    body.light-mode .inst-header__desc,
+    body.light-mode .inst-card__text,
+    body.light-mode .intro-body,
+    body.light-mode .cta-band__sub {
+      color: #5C5048;
+    }
+
+    /* em en títulos */
+    body.light-mode .inst-header__title em { color: var(--gold); }
+    body.light-mode .inst-page-title em { color: var(--gold); }
+
+    /* Eyebrow en secciones oscuras convertidas */
+    body.light-mode .inst-section .eyebrow { color: #8B6A1E; }
+
+    /* Cards → fondo claro */
+    body.light-mode .inst-section .inst-card {
+      background: rgba(20, 18, 16, .04);
+      border-color: rgba(140, 128, 112, .2);
+    }
+
+    body.light-mode .inst-section .inst-card:hover {
+      background: rgba(20, 18, 16, .08);
+    }
+
+    body.light-mode .inst-section .inst-card__label { color: var(--gold-dk); }
+    body.light-mode .inst-section .inst-card__label::before { background: var(--gold-dk); }
+    body.light-mode .inst-section .inst-card__link { color: var(--gold-dk); }
+
+    /* Nav interno */
+    body.light-mode .inst-nav__item {
+      background: rgba(168, 133, 46, .07);
+      border-color: rgba(168, 133, 46, .2);
+    }
+
+    /* Lang dropdown */
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245, 240, 232, .97);
+    }
+
+    /* CTA band */
+    body.light-mode .cta-band {
+      background: #F5F0E8;
+      border-top-color: rgba(168, 133, 46, .35);
+      border-bottom-color: rgba(168, 133, 46, .35);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .inst-cards { grid-template-columns: repeat(2, 1fr) }
+      .inst-card--wide { grid-column: span 2 }
+    }
+
+    @media (max-width: 900px) {
+      .intro-grid { grid-template-columns: 1fr; gap: 40px }
+    }
+
+    @media (max-width: 700px) {
+      .inst-cards { grid-template-columns: 1fr }
+      .inst-card--wide { grid-column: span 1 }
+      .inst-nav { flex-direction: column }
+      .inst-card { padding: 32px 28px }
+    }
+
+    @media (max-width: 640px) {
+      .page-hero__content { padding-bottom: calc(9vh + 68px) }
+      .inst-section { padding: 72px 6vw }
+      .inst-section--light { padding: 72px 6vw }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ACCESSIBILITY WIDGET -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" /><line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Aumentar texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          Disminuir texto
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          Modo Claro / Oscuro
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Escala de grises
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          Alto contraste
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          Invertir colores
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" /><line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          Subrayar enlaces
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" /><line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          Fuente legible
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          Leer texto
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          Restablecer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar--transparent" id="navbar">
+    <a href="index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="reservas.html" class="navbar__btn-tickets" data-i18n="nav_tickets">Entradas</a>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
+            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__a11y-btn" aria-label="Herramientas de accesibilidad">
+      <svg class="side-menu__a11y-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle class="side-menu__a11y-circle" cx="12" cy="12" r="11"/>
+        <path class="side-menu__a11y-figure" d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+      </svg>
+      <span class="side-menu__a11y-label">Accesibilidad</span>
+    </button>
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="index.html" class="side-menu__nav-link"><span class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="visitas.html" class="side-menu__nav-link"><span class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="actualidad.html" class="side-menu__nav-link"><span class="nav-num">04</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="institucion.html" class="side-menu__nav-link is-active"><span class="nav-num">05</span>Institución</a></li>
+        <li class="side-menu__nav-item"><a href="reservas.html" class="side-menu__nav-link"><span class="nav-num">06</span>Reservas</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg></a>
+      <a href="mailto:entradas@catedralsantodomingo.org" aria-label="Correo electrónico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+      <a href="tel:+34941340033" aria-label="Teléfono"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="legal/privacidad.html" data-i18n="menu_legal_privacy">Privacidad</a>
+      <a href="legal/cookies.html" data-i18n="menu_legal_cookies">Cookies</a>
+      <a href="legal/aviso-legal.html" data-i18n="menu_legal_notice">Aviso legal</a>
+      <a href="#" data-i18n="menu_legal_purchase">Compra</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <div class="page-hero__content">
+      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Catedral · Parroquia · Cabildo · Archivo</div>
+      <h1 class="page-hero__title" data-i18n-page="page_title">La <em>Institución</em></h1>
+      <p class="page-hero__desc" data-i18n-page="page_desc">La comunidad que anima la Catedral: parroquia, cabildo catedralicio y archivo histórico al servicio de la fe y la cultura.</p>
+    </div>
+  </section>
+
+  <!-- INTRO + NAV INTERNO -->
+  <section class="section section--white" id="main-content" tabindex="-1">
+    <div class="section__inner">
+      <h2 class="inst-page-title reveal" data-i18n-page="intro_title">La <em>Institución</em> Catedralicia</h2>
+      <div class="intro-grid">
+        <div class="reveal reveal-delay-1">
+          <p class="intro-lead" data-i18n-page="intro_lead">La Catedral de Santo Domingo de la Calzada es mucho más que un monumento: es una comunidad viva formada por la parroquia, el cabildo y el archivo.</p>
+          <p class="intro-body" style="margin-top:24px" data-i18n-page="intro_body">Desde el siglo XII, la institución catedralicia ha sido el corazón espiritual y cultural de la ciudad. Hoy sigue cumpliendo su misión pastoral, litúrgica y de custodia del patrimonio histórico.</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <nav class="inst-nav" aria-label="Secciones institucionales">
+            <a href="#parroquia" class="inst-nav__item">
+              <span class="inst-nav__num">01</span>
+              <span class="inst-nav__label" data-i18n-page="nav_parroquia">Parroquia</span>
+            </a>
+            <a href="#cabildo" class="inst-nav__item">
+              <span class="inst-nav__num">02</span>
+              <span class="inst-nav__label" data-i18n-page="nav_cabildo">Cabildo</span>
+            </a>
+            <a href="#archivo" class="inst-nav__item">
+              <span class="inst-nav__num">03</span>
+              <span class="inst-nav__label" data-i18n-page="nav_archivo">Archivo</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PARROQUIA
+  ═══════════════════════════════════════════ -->
+  <section class="inst-section" id="parroquia">
+    <div class="inst-section__inner">
+      <div class="inst-header reveal">
+        <p class="eyebrow" data-i18n-page="parroquia_eyebrow">Vida parroquial</p>
+        <h2 class="inst-header__title" data-i18n-page="parroquia_title">Parroquia de <em>Santo Domingo</em></h2>
+        <p class="inst-header__desc" data-i18n-page="parroquia_desc">La parroquia de la Catedral acompaña la vida espiritual de la comunidad. Celebra la Eucaristía diaria, los sacramentos y las fiestas litúrgicas del calendario riojano.</p>
+      </div>
+      <div class="inst-cards">
+        <div class="inst-card reveal">
+          <p class="inst-card__label" data-i18n-page="parroquia_card1_label">Horario de misas</p>
+          <h3 class="inst-card__title" data-i18n-page="parroquia_card1_title">Celebraciones eucarísticas</h3>
+          <p class="inst-card__text" data-i18n-page="parroquia_card1_text">Lunes–Viernes: 10:00 y 19:00<br>Sábados: 12:00 y 19:30<br>Domingos: 11:00, 13:00 y 19:30</p>
+        </div>
+        <div class="inst-card reveal reveal-delay-1">
+          <p class="inst-card__label" data-i18n-page="parroquia_card2_label">Boletín parroquial</p>
+          <h3 class="inst-card__title" data-i18n-page="parroquia_card2_title">Publicación semanal</h3>
+          <p class="inst-card__text" data-i18n-page="parroquia_card2_text">Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.</p>
+          <a href="#" class="inst-card__link" data-i18n-page="parroquia_card2_link">Descargar boletín (PDF) →</a>
+        </div>
+        <div class="inst-card reveal reveal-delay-2">
+          <p class="inst-card__label" data-i18n-page="parroquia_card3_label">Actividades</p>
+          <h3 class="inst-card__title" data-i18n-page="parroquia_card3_title">Vida comunitaria</h3>
+          <p class="inst-card__text" data-i18n-page="parroquia_card3_text">Catequesis · Grupos de jóvenes · Coro parroquial · Escuela de Oración · Grupos de adultos</p>
+        </div>
+        <div class="inst-card reveal">
+          <p class="inst-card__label" data-i18n-page="parroquia_card4_label">Fiestas locales</p>
+          <h3 class="inst-card__title" data-i18n-page="parroquia_card4_title">Calendario festivo</h3>
+          <p class="inst-card__text" data-i18n-page="parroquia_card4_text">Santo Domingo (12 de mayo) · Asunción de la Virgen (15 de agosto) · Navidad y Semana Santa</p>
+        </div>
+        <div class="inst-card inst-card--wide reveal reveal-delay-1">
+          <p class="inst-card__label" data-i18n-page="parroquia_card5_label">Donativos</p>
+          <h3 class="inst-card__title" data-i18n-page="parroquia_card5_title">Apoya la obra pastoral</h3>
+          <p class="inst-card__text" data-i18n-page="parroquia_card5_text">La comunidad parroquial sostiene su actividad gracias a las aportaciones de los fieles. Existe cuenta de donaciones para el mantenimiento de la obra pastoral y el culto catedralicio. Contacta con la parroquia para más información.</p>
+          <a href="mailto:parroquia@catedralsantodomingo.org" class="inst-card__link" data-i18n-page="parroquia_card5_link">parroquia@catedralsantodomingo.org →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CABILDO CATEDRALICIO
+  ═══════════════════════════════════════════ -->
+  <section class="inst-section inst-section--light" id="cabildo">
+    <div class="inst-section__inner">
+      <div class="inst-header reveal">
+        <p class="eyebrow" data-i18n-page="cabildo_eyebrow">Gobierno capitular</p>
+        <h2 class="inst-header__title" data-i18n-page="cabildo_title">Cabildo <em>Catedralicio</em></h2>
+        <p class="inst-header__desc" data-i18n-page="cabildo_desc">El Cabildo es la corporación de presbíteros que asiste al obispo en el gobierno de la diócesis y tiene a su cargo el culto solemne de la Catedral.</p>
+      </div>
+      <div class="inst-cards">
+        <div class="inst-card reveal">
+          <p class="inst-card__label" data-i18n-page="cabildo_card1_label">Composición</p>
+          <h3 class="inst-card__title" data-i18n-page="cabildo_card1_title">Dignidades y canónigos</h3>
+          <p class="inst-card__text" data-i18n-page="cabildo_card1_text">Deán · Arcediano · Chantre · Tesorero · Canónigos (8 plazas)</p>
+        </div>
+        <div class="inst-card reveal reveal-delay-1">
+          <p class="inst-card__label" data-i18n-page="cabildo_card2_label">Competencias</p>
+          <h3 class="inst-card__title" data-i18n-page="cabildo_card2_title">Funciones capitulares</h3>
+          <p class="inst-card__text" data-i18n-page="cabildo_card2_text">Gobierno del culto catedralicio · Custodia y gestión del patrimonio · Asesoramiento episcopal · Representación institucional</p>
+        </div>
+        <div class="inst-card reveal reveal-delay-2">
+          <p class="inst-card__label" data-i18n-page="cabildo_card3_label">Documentos</p>
+          <h3 class="inst-card__title" data-i18n-page="cabildo_card3_title">Documentación oficial</h3>
+          <p class="inst-card__text" data-i18n-page="cabildo_card3_text">Estatutos capitulares y documentos institucionales disponibles para consulta.</p>
+          <a href="#" class="inst-card__link" data-i18n-page="cabildo_card3_link1">Estatutos del Cabildo (PDF) →</a>
+          <br>
+          <a href="#" class="inst-card__link" style="margin-top:8px" data-i18n-page="cabildo_card3_link2">Reseña histórica (PDF) →</a>
+        </div>
+        <div class="inst-card inst-card--wide reveal">
+          <p class="inst-card__label" data-i18n-page="cabildo_card4_label">Contacto institucional</p>
+          <h3 class="inst-card__title" data-i18n-page="cabildo_card4_title">Comunicación con el Cabildo</h3>
+          <p class="inst-card__text" data-i18n-page="cabildo_card4_text">Para asuntos relacionados con el gobierno capitular, solicitudes institucionales o información sobre la actividad del Cabildo Catedralicio de Santo Domingo de la Calzada.</p>
+          <a href="mailto:cabildo@catedralsantodomingo.org" class="inst-card__link" data-i18n-page="cabildo_card4_link">cabildo@catedralsantodomingo.org →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ARCHIVO CATEDRALICIO
+  ═══════════════════════════════════════════ -->
+  <section class="inst-section" id="archivo">
+    <div class="inst-section__inner">
+      <div class="inst-header reveal">
+        <p class="eyebrow" data-i18n-page="archivo_eyebrow">Fondo documental</p>
+        <h2 class="inst-header__title" data-i18n-page="archivo_title">Archivo <em>Catedralicio</em></h2>
+        <p class="inst-header__desc" data-i18n-page="archivo_desc">El Archivo custodia documentos desde el siglo XII. Fondos capitulares, libros de actas, pergaminos, cartularios y colecciones fotográficas de valor histórico excepcional.</p>
+      </div>
+      <div class="inst-cards">
+        <div class="inst-card reveal">
+          <p class="inst-card__label" data-i18n-page="archivo_card1_label">Descripción del fondo</p>
+          <h3 class="inst-card__title" data-i18n-page="archivo_card1_title">Colección histórica</h3>
+          <p class="inst-card__text" data-i18n-page="archivo_card1_text">+12.000 documentos desde 1158 · Pergaminos medievales · Libros sacramentales desde 1540 · Cartularios y fondos capitulares</p>
+        </div>
+        <div class="inst-card reveal reveal-delay-1">
+          <p class="inst-card__label" data-i18n-page="archivo_card2_label">Condiciones de acceso</p>
+          <h3 class="inst-card__title" data-i18n-page="archivo_card2_title">Consulta presencial</h3>
+          <p class="inst-card__text" data-i18n-page="archivo_card2_text">Investigadores acreditados · Cita previa obligatoria · Lunes a viernes 10:00–14:00 · Identificación requerida</p>
+        </div>
+        <div class="inst-card reveal reveal-delay-2">
+          <p class="inst-card__label" data-i18n-page="archivo_card3_label">Publicaciones</p>
+          <h3 class="inst-card__title" data-i18n-page="archivo_card3_title">Bibliografía y catálogos</h3>
+          <p class="inst-card__text" data-i18n-page="archivo_card3_text">Catálogo descriptivo del fondo y publicaciones de investigación disponibles en formato digital.</p>
+          <a href="#" class="inst-card__link" data-i18n-page="archivo_card3_link">Catálogo del fondo (PDF) →</a>
+        </div>
+        <div class="inst-card inst-card--wide reveal">
+          <p class="inst-card__label" data-i18n-page="archivo_card4_label">Consulta previa</p>
+          <h3 class="inst-card__title" data-i18n-page="archivo_card4_title">Solicita tu visita de investigación</h3>
+          <p class="inst-card__text" data-i18n-page="archivo_card4_text">Para acceder al fondo documental es necesario presentar una solicitud previa indicando el objeto de la investigación, las fechas previstas y la acreditación académica o institucional del solicitante.</p>
+          <a href="#" class="inst-card__link" data-i18n-page="archivo_card4_link1">Formulario de solicitud →</a>
+          &emsp;
+          <a href="mailto:archivo@catedralsantodomingo.org" class="inst-card__link" data-i18n-page="archivo_card4_link2">archivo@catedralsantodomingo.org →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-cta reveal">
+      <div>
+        <p class="footer-cta__eyebrow" data-i18n="newsletter_eyebrow">Newsletter semanal</p>
+        <h3 class="footer-cta__title" data-i18n="newsletter_title">El Camino en tu <em>bandeja de entrada</em></h3>
+        <p class="footer-cta__sub" data-i18n="newsletter_sub">Noticias, exposiciones, eventos y ofertas exclusivas cada semana.</p>
+      </div>
+      <form class="newsletter-form">
+        <input class="newsletter-input" type="email" id="newsletter-email" name="email" autocomplete="email" placeholder="tu@correo.com" data-i18n="newsletter_ph" required />
+        <button class="newsletter-submit" type="submit" data-i18n="newsletter_btn">Suscribirme</button>
+      </form>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="mailto:entradas@catedralsantodomingo.org" class="footer-social__link" aria-label="Correo electrónico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+          <a href="tel:+34941340033" class="footer-social__link" aria-label="Teléfono"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+          <li><a href="institucion.html" data-i18n="footer_info_2">Institución</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
+          <li><a href="actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+      <div class="footer-bottom__links">
+        <a href="legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+        <a href="legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+        <a href="legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+        <a href="legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/shared.js"></script>
+  <script>
+    /* ── Modo Claro / Oscuro ─────────────────────────────────── */
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+      const logoImg = document.getElementById('logo-img');
+      const navbar = document.getElementById('navbar');
+
+      function updateLogo() {
+        if (!logoImg) return;
+        const isLight = document.body.classList.contains('light-mode');
+        const isScrolled = navbar && navbar.classList.contains('scrolled');
+        logoImg.src = (isLight && isScrolled) ? 'favicon_black.svg' : 'favicon.svg';
+      }
+
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        updateLogo();
+        localStorage.setItem(KEY, on ? '1' : '0');
+      }
+
+      window.addEventListener('scroll', updateLogo, { passive: true });
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+  <script>
+    const PAGE_T = {
+      es: {
+        page_eyebrow: 'Catedral · Parroquia · Cabildo · Archivo',
+        page_title: 'La <em>Institución</em>',
+        page_desc: 'La comunidad que anima la Catedral: parroquia, cabildo catedralicio y archivo histórico al servicio de la fe y la cultura.',
+        intro_title: 'La <em>Institución</em> Catedralicia',
+        intro_lead: 'La Catedral de Santo Domingo de la Calzada es mucho más que un monumento: es una comunidad viva formada por la parroquia, el cabildo y el archivo.',
+        intro_body: 'Desde el siglo XII, la institución catedralicia ha sido el corazón espiritual y cultural de la ciudad. Hoy sigue cumpliendo su misión pastoral, litúrgica y de custodia del patrimonio histórico.',
+        nav_parroquia: 'Parroquia', nav_cabildo: 'Cabildo', nav_archivo: 'Archivo',
+        parroquia_eyebrow: 'Vida parroquial',
+        parroquia_title: 'Parroquia de <em>Santo Domingo</em>',
+        parroquia_desc: 'La parroquia de la Catedral acompaña la vida espiritual de la comunidad. Celebra la Eucaristía diaria, los sacramentos y las fiestas litúrgicas del calendario riojano.',
+        parroquia_card1_label: 'Horario de misas', parroquia_card1_title: 'Celebraciones eucarísticas',
+        parroquia_card1_text: 'Lunes–Viernes: 10:00 y 19:00<br>Sábados: 12:00 y 19:30<br>Domingos: 11:00, 13:00 y 19:30',
+        parroquia_card2_label: 'Boletín parroquial', parroquia_card2_title: 'Publicación semanal',
+        parroquia_card2_text: 'Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.',
+        parroquia_card2_link: 'Descargar boletín (PDF) →',
+        parroquia_card3_label: 'Actividades', parroquia_card3_title: 'Vida comunitaria',
+        parroquia_card3_text: 'Catequesis · Grupos de jóvenes · Coro parroquial · Escuela de Oración · Grupos de adultos',
+        parroquia_card4_label: 'Fiestas locales', parroquia_card4_title: 'Calendario festivo',
+        parroquia_card4_text: 'Santo Domingo (12 de mayo) · Asunción de la Virgen (15 de agosto) · Navidad y Semana Santa',
+        parroquia_card5_label: 'Donativos', parroquia_card5_title: 'Apoya la obra pastoral',
+        parroquia_card5_text: 'La comunidad parroquial sostiene su actividad gracias a las aportaciones de los fieles. Existe cuenta de donaciones para el mantenimiento de la obra pastoral y el culto catedralicio.',
+        parroquia_card5_link: 'parroquia@catedralsantodomingo.org →',
+        cabildo_eyebrow: 'Gobierno capitular',
+        cabildo_title: 'Cabildo <em>Catedralicio</em>',
+        cabildo_desc: 'El Cabildo es la corporación de presbíteros que asiste al obispo en el gobierno de la diócesis y tiene a su cargo el culto solemne de la Catedral.',
+        cabildo_card1_label: 'Composición', cabildo_card1_title: 'Dignidades y canónigos',
+        cabildo_card1_text: 'Deán · Arcediano · Chantre · Tesorero · Canónigos (8 plazas)',
+        cabildo_card2_label: 'Competencias', cabildo_card2_title: 'Funciones capitulares',
+        cabildo_card2_text: 'Gobierno del culto catedralicio · Custodia y gestión del patrimonio · Asesoramiento episcopal · Representación institucional',
+        cabildo_card3_label: 'Documentos', cabildo_card3_title: 'Documentación oficial',
+        cabildo_card3_text: 'Estatutos capitulares y documentos institucionales disponibles para consulta.',
+        cabildo_card3_link1: 'Estatutos del Cabildo (PDF) →', cabildo_card3_link2: 'Reseña histórica (PDF) →',
+        cabildo_card4_label: 'Contacto institucional', cabildo_card4_title: 'Comunicación con el Cabildo',
+        cabildo_card4_text: 'Para asuntos relacionados con el gobierno capitular, solicitudes institucionales o información sobre la actividad del Cabildo Catedralicio.',
+        cabildo_card4_link: 'cabildo@catedralsantodomingo.org →',
+        archivo_eyebrow: 'Fondo documental',
+        archivo_title: 'Archivo <em>Catedralicio</em>',
+        archivo_desc: 'El Archivo custodia documentos desde el siglo XII. Fondos capitulares, libros de actas, pergaminos, cartularios y colecciones fotográficas de valor histórico excepcional.',
+        archivo_card1_label: 'Descripción del fondo', archivo_card1_title: 'Colección histórica',
+        archivo_card1_text: '+12.000 documentos desde 1158 · Pergaminos medievales · Libros sacramentales desde 1540 · Cartularios y fondos capitulares',
+        archivo_card2_label: 'Condiciones de acceso', archivo_card2_title: 'Consulta presencial',
+        archivo_card2_text: 'Investigadores acreditados · Cita previa obligatoria · Lunes a viernes 10:00–14:00 · Identificación requerida',
+        archivo_card3_label: 'Publicaciones', archivo_card3_title: 'Bibliografía y catálogos',
+        archivo_card3_text: 'Catálogo descriptivo del fondo y publicaciones de investigación disponibles en formato digital.',
+        archivo_card3_link: 'Catálogo del fondo (PDF) →',
+        archivo_card4_label: 'Consulta previa', archivo_card4_title: 'Solicita tu visita de investigación',
+        archivo_card4_text: 'Para acceder al fondo documental es necesario presentar una solicitud previa indicando el objeto de la investigación, las fechas previstas y la acreditación académica o institucional.',
+        archivo_card4_link1: 'Formulario de solicitud →', archivo_card4_link2: 'archivo@catedralsantodomingo.org →',
+        cta_title: '¿Quieres saber <em>más</em>?',
+        cta_sub: 'Contacta con la institución para cualquier consulta sobre la parroquia, el cabildo o el archivo.',
+        cta_btn: 'Contactar →'
+      },
+      en: {
+        page_eyebrow: 'Cathedral · Parish · Chapter · Archive',
+        page_title: 'The <em>Institution</em>',
+        page_desc: 'The community that animates the Cathedral: parish, cathedral chapter and historical archive at the service of faith and culture.',
+        intro_title: 'The Cathedral <em>Institution</em>',
+        intro_lead: 'The Cathedral of Santo Domingo de la Calzada is much more than a monument: it is a living community formed by the parish, the chapter and the archive.',
+        intro_body: 'Since the 12th century, the cathedral institution has been the spiritual and cultural heart of the city. It continues to fulfil its pastoral, liturgical and heritage custodianship mission.',
+        nav_parroquia: 'Parish', nav_cabildo: 'Chapter', nav_archivo: 'Archive',
+        parroquia_eyebrow: 'Parish life',
+        parroquia_title: 'Parish of <em>Santo Domingo</em>',
+        parroquia_desc: 'The cathedral parish accompanies the spiritual life of the community. It celebrates daily Mass, sacraments and the liturgical feasts of the Riojan calendar.',
+        parroquia_card1_label: 'Mass schedule', parroquia_card1_title: 'Eucharistic celebrations',
+        parroquia_card1_text: 'Mon–Fri: 10:00 and 19:00<br>Saturdays: 12:00 and 19:30<br>Sundays: 11:00, 13:00 and 19:30',
+        parroquia_card2_label: 'Parish bulletin', parroquia_card2_title: 'Weekly publication',
+        parroquia_card2_text: 'Community life news, liturgical reflections and parish announcements.',
+        parroquia_card2_link: 'Download bulletin (PDF) →',
+        parroquia_card3_label: 'Activities', parroquia_card3_title: 'Community life',
+        parroquia_card3_text: 'Catechesis · Youth groups · Parish choir · School of Prayer · Adult groups',
+        parroquia_card4_label: 'Local feasts', parroquia_card4_title: 'Festive calendar',
+        parroquia_card4_text: 'Santo Domingo (12 May) · Assumption of the Virgin (15 August) · Christmas and Holy Week',
+        parroquia_card5_label: 'Donations', parroquia_card5_title: 'Support pastoral work',
+        parroquia_card5_text: 'The parish community sustains its activity through the contributions of the faithful. A donation account exists for the maintenance of pastoral work and cathedral worship.',
+        parroquia_card5_link: 'parroquia@catedralsantodomingo.org →',
+        cabildo_eyebrow: 'Capitular government',
+        cabildo_title: 'Cathedral <em>Chapter</em>',
+        cabildo_desc: 'The Chapter is the corporation of presbyters that assists the bishop in the governance of the diocese and is in charge of the solemn worship of the Cathedral.',
+        cabildo_card1_label: 'Composition', cabildo_card1_title: 'Dignitaries and canons',
+        cabildo_card1_text: 'Dean · Archdeacon · Precentor · Treasurer · Canons (8 positions)',
+        cabildo_card2_label: 'Competencies', cabildo_card2_title: 'Capitular functions',
+        cabildo_card2_text: 'Cathedral worship governance · Heritage custody and management · Episcopal advisory · Institutional representation',
+        cabildo_card3_label: 'Documents', cabildo_card3_title: 'Official documentation',
+        cabildo_card3_text: 'Capitular statutes and institutional documents available for consultation.',
+        cabildo_card3_link1: 'Chapter Statutes (PDF) →', cabildo_card3_link2: 'Historical overview (PDF) →',
+        cabildo_card4_label: 'Institutional contact', cabildo_card4_title: 'Contact the Chapter',
+        cabildo_card4_text: 'For matters related to capitular governance, institutional requests or information about the activities of the Cathedral Chapter.',
+        cabildo_card4_link: 'cabildo@catedralsantodomingo.org →',
+        archivo_eyebrow: 'Documentary collection',
+        archivo_title: 'Cathedral <em>Archive</em>',
+        archivo_desc: 'The Archive holds documents dating from the 12th century. Capitular records, minute books, parchments, cartularies and photographic collections of exceptional historical value.',
+        archivo_card1_label: 'Collection overview', archivo_card1_title: 'Historical collection',
+        archivo_card1_text: '+12,000 documents from 1158 · Medieval parchments · Sacramental records from 1540 · Cartularies and capitular funds',
+        archivo_card2_label: 'Access conditions', archivo_card2_title: 'On-site consultation',
+        archivo_card2_text: 'Accredited researchers · Appointment required · Monday to Friday 10:00–14:00 · Identification required',
+        archivo_card3_label: 'Publications', archivo_card3_title: 'Bibliography and catalogues',
+        archivo_card3_text: 'Descriptive catalogue of the collection and research publications available in digital format.',
+        archivo_card3_link: 'Collection catalogue (PDF) →',
+        archivo_card4_label: 'Prior enquiry', archivo_card4_title: 'Request a research visit',
+        archivo_card4_text: 'To access the documentary collection, a prior request must be submitted indicating the research subject, planned dates and academic or institutional accreditation.',
+        archivo_card4_link1: 'Request form →', archivo_card4_link2: 'archivo@catedralsantodomingo.org →',
+        cta_title: 'Want to know <em>more</em>?',
+        cta_sub: 'Contact the institution for any enquiry about the parish, the chapter or the archive.',
+        cta_btn: 'Contact us →'
+      },
+      fr: {
+        page_eyebrow: 'Cathédrale · Paroisse · Chapitre · Archives',
+        page_title: 'L\'<em>Institution</em>',
+        page_desc: 'La communauté qui anime la Cathédrale : paroisse, chapitre cathédral et archives historiques au service de la foi et de la culture.',
+        intro_title: 'L\'<em>Institution</em> Cathédrale',
+        intro_lead: 'La Cathédrale de Santo Domingo de la Calzada est bien plus qu\'un monument : c\'est une communauté vivante formée par la paroisse, le chapitre et les archives.',
+        intro_body: 'Depuis le XIIe siècle, l\'institution cathédrale est le cœur spirituel et culturel de la ville.',
+        nav_parroquia: 'Paroisse', nav_cabildo: 'Chapitre', nav_archivo: 'Archives',
+        parroquia_eyebrow: 'Vie paroissiale', parroquia_title: 'Paroisse de <em>Santo Domingo</em>',
+        parroquia_desc: 'La paroisse de la Cathédrale accompagne la vie spirituelle de la communauté.',
+        parroquia_card1_label: 'Horaires des messes', parroquia_card1_title: 'Célébrations eucharistiques',
+        parroquia_card1_text: 'Lun–Ven : 10h et 19h<br>Samedis : 12h et 19h30<br>Dimanches : 11h, 13h et 19h30',
+        parroquia_card2_label: 'Bulletin paroissial', parroquia_card2_title: 'Publication hebdomadaire',
+        parroquia_card2_text: 'Nouvelles de la vie communautaire, réflexions liturgiques et annonces paroissiales.',
+        parroquia_card2_link: 'Télécharger le bulletin (PDF) →',
+        parroquia_card3_label: 'Activités', parroquia_card3_title: 'Vie communautaire',
+        parroquia_card3_text: 'Catéchèse · Groupes de jeunes · Chorale paroissiale · École de Prière · Groupes d\'adultes',
+        parroquia_card4_label: 'Fêtes locales', parroquia_card4_title: 'Calendrier festif',
+        parroquia_card4_text: 'Saint Dominique (12 mai) · Assomption (15 août) · Noël et Semaine Sainte',
+        parroquia_card5_label: 'Dons', parroquia_card5_title: 'Soutenir l\'œuvre pastorale',
+        parroquia_card5_text: 'La communauté paroissiale soutient ses activités grâce aux contributions des fidèles.',
+        parroquia_card5_link: 'parroquia@catedralsantodomingo.org →',
+        cabildo_eyebrow: 'Gouvernement capitulaire', cabildo_title: 'Chapitre <em>Cathédral</em>',
+        cabildo_desc: 'Le Chapitre est la corporation de prêtres qui assiste l\'évêque dans le gouvernement du diocèse.',
+        cabildo_card1_label: 'Composition', cabildo_card1_title: 'Dignitaires et chanoines',
+        cabildo_card1_text: 'Doyen · Archidiacre · Chantre · Trésorier · Chanoines (8 places)',
+        cabildo_card2_label: 'Compétences', cabildo_card2_title: 'Fonctions capitulaires',
+        cabildo_card2_text: 'Gouvernement du culte cathédral · Gestion du patrimoine · Conseil épiscopal · Représentation institutionnelle',
+        cabildo_card3_label: 'Documents', cabildo_card3_title: 'Documentation officielle',
+        cabildo_card3_text: 'Statuts capitulaires et documents institutionnels disponibles pour consultation.',
+        cabildo_card3_link1: 'Statuts du Chapitre (PDF) →', cabildo_card3_link2: 'Aperçu historique (PDF) →',
+        cabildo_card4_label: 'Contact institutionnel', cabildo_card4_title: 'Contacter le Chapitre',
+        cabildo_card4_text: 'Pour les questions relatives au gouvernement capitulaire ou aux activités du Chapitre Cathédral.',
+        cabildo_card4_link: 'cabildo@catedralsantodomingo.org →',
+        archivo_eyebrow: 'Fonds documentaire', archivo_title: 'Archives <em>Cathédrales</em>',
+        archivo_desc: 'Les Archives conservent des documents depuis le XIIe siècle. Fonds capitulaires, registres, parchemins et collections photographiques de valeur historique exceptionnelle.',
+        archivo_card1_label: 'Description du fonds', archivo_card1_title: 'Collection historique',
+        archivo_card1_text: '+12 000 documents depuis 1158 · Parchemins médiévaux · Registres sacramentaux depuis 1540',
+        archivo_card2_label: 'Conditions d\'accès', archivo_card2_title: 'Consultation sur place',
+        archivo_card2_text: 'Chercheurs accrédités · Rendez-vous obligatoire · Lundi–vendredi 10h–14h',
+        archivo_card3_label: 'Publications', archivo_card3_title: 'Bibliographie et catalogues',
+        archivo_card3_text: 'Catalogue descriptif du fonds et publications de recherche disponibles en format numérique.',
+        archivo_card3_link: 'Catalogue du fonds (PDF) →',
+        archivo_card4_label: 'Demande préalable', archivo_card4_title: 'Demander une visite de recherche',
+        archivo_card4_text: 'Pour accéder au fonds, une demande préalable est nécessaire avec l\'objet de la recherche et l\'accréditation.',
+        archivo_card4_link1: 'Formulaire de demande →', archivo_card4_link2: 'archivo@catedralsantodomingo.org →',
+        cta_title: 'Vous voulez en savoir <em>plus</em>?',
+        cta_sub: 'Contactez l\'institution pour toute question sur la paroisse, le chapitre ou les archives.',
+        cta_btn: 'Nous contacter →'
+      }
+    };
+
+    window.PAGE_applyLang = function(lang, t) {
+      const pt = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const k = el.getAttribute('data-i18n-page');
+        if (pt[k] !== undefined) el.innerHTML = pt[k];
+      });
+    };
+  </script>
+
+</body>
+</html>

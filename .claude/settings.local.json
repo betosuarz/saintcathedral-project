@@ -4,7 +4,25 @@
       "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral cultural tourism medieval elegant luxury\" --design-system -p \"Catedral Santo Domingo de la Calzada\" -f markdown)",
       "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"heritage museum cultural tourism luxury editorial\" --domain style -n 5)",
       "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"elegant serif luxury timeless\" --domain typography -n 4)",
-      "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"animation accessibility keyboard\" --domain ux -n 6)"
+      "Bash(python \"C:\\\\saintcatedral-project\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"animation accessibility keyboard\" --domain ux -n 6)",
+      "Bash(grep -v \"style\\\\|@media\\\\|body\\\\.\\\\|light-mode\\\\|\\\\\\\\.cta\")",
+      "Bash(sed -n '1183,1210p' monumentos.html)",
+      "Bash(sed -n '1535,1560p' reservas.html)",
+      "Bash(sed -n '1,20p' visitas/escolares.html)",
+      "Bash(sed -n '684,690p' visitas/escolares.html)",
+      "Bash(sed -n '528,534p' visitas/grupos.html)",
+      "Bash(sed -n '633,639p' visitas/guiadas.html)",
+      "Bash(sed -n '512,518p' visitas/individuales.html)",
+      "Bash(sed -n '1424,1432p' monumentos/catedral.html)",
+      "Bash(sed -n '1396,1404p' monumentos/torre.html)",
+      "Bash(sed -n '1401,1409p' monumentos/ermitaplaza.html)",
+      "Bash(sed -n '1401,1409p' monumentos/sanfrancisco.html)",
+      "Bash(sed -n '1424,1432p' monumentos/monasteriocanas.html)",
+      "Bash(sed -n '71,78p' legal/accesibilidad.html)",
+      "Bash(sed -n '161,169p' legal/aviso-legal.html)",
+      "Bash(sed -n '67,74p' legal/cookies.html)",
+      "Bash(sed -n '66,73p' legal/privacidad.html)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

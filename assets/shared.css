@@ -1543,6 +1543,64 @@ body.light-mode .a11y-panel__close:hover {
   color: #141210;
 }
 
+/* ── FOOTER — LIGHT MODE ─────────────────────────────────── */
+body.light-mode .site-footer {
+  background: #F5F0E8;
+  border-top-color: rgba(201, 168, 76, .25);
+}
+
+body.light-mode .footer-cta {
+  background: linear-gradient(135deg, #EDE6D6, #E5DCC8);
+  border-color: rgba(201, 168, 76, .35);
+}
+
+body.light-mode .footer-cta__title {
+  color: #141210;
+}
+
+body.light-mode .newsletter-input {
+  background: rgba(255, 255, 255, .7);
+  border-color: rgba(201, 168, 76, .4);
+  color: #141210;
+}
+
+body.light-mode .newsletter-input::placeholder {
+  color: #8C8070;
+}
+
+body.light-mode .footer-grid {
+  border-bottom-color: rgba(20, 18, 16, .1);
+}
+
+body.light-mode .footer-brand__logo {
+  color: #141210;
+}
+
+body.light-mode .footer-social__link {
+  border-color: rgba(20, 18, 16, .2);
+  color: #8C8070;
+}
+
+body.light-mode .footer-col__list a {
+  color: #8C8070;
+}
+
+body.light-mode .footer-col__list a:hover {
+  color: #141210;
+}
+
+body.light-mode .footer-bottom__copy {
+  color: rgba(20, 18, 16, .5);
+}
+
+body.light-mode .footer-bottom__links a {
+  color: rgba(20, 18, 16, .5);
+}
+
+body.light-mode .footer-bottom__links a:hover {
+  color: #141210;
+}
+
 /* ── SKIP LINK ───────────────────────────────────────────── */
 .skip-link {
   position: absolute;

@@ -58,31 +58,21 @@
 
     body {
       font-family: var(--sans);
-      background-color: var(--cream);
-      background: var(--cream);
-      color: var(--carbon);
       min-height: 100vh;
       font-size: 15px;
       line-height: 1.65;
       cursor: auto;
-      /* Noise texture overlay */
+    }
+    body.light-mode {
+      background-color: var(--cream);
+      background: var(--cream);
+      color: var(--carbon);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
     }
 
     button { cursor: pointer; }
 
-    /* ─── NAVBAR OVERRIDES (página con fondo claro) ──────────── */
-    .navbar--always-solid {
-      background: rgba(245, 240, 232, .97);
-      border-bottom-color: rgba(20, 18, 16, .1);
-    }
-    .navbar__logo-name,
-    .navbar__logo-sub,
-    .lang-selector__btn {
-      color: #141210;
-    }
-    .hamburger-line { background: #141210; }
-
+    /* ─── NAVBAR OVERRIDES ───────────────────────────────────── */
     .navbar__tagline {
       font-size: .62rem;
       letter-spacing: .16em;
@@ -105,18 +95,25 @@
       .navbar__tagline-br { display: block; }
     }
 
-    .lang-selector__btn {
+    body.light-mode .navbar--always-solid {
+      background: rgba(245, 240, 232, .97);
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+    body.light-mode .navbar__logo-name,
+    body.light-mode .navbar__logo-sub,
+    body.light-mode .lang-selector__btn {
       color: #141210;
     }
-    .lang-selector__dropdown {
+    body.light-mode .hamburger-line { background: #141210; }
+    body.light-mode .lang-selector__dropdown {
       background: rgba(245, 240, 232, .98);
       border-color: rgba(20, 18, 16, .12);
     }
-    .lang-selector__option {
+    body.light-mode .lang-selector__option {
       color: rgba(20, 18, 16, .75);
     }
-    .lang-selector__option:hover,
-    .lang-selector__option.active {
+    body.light-mode .lang-selector__option:hover,
+    body.light-mode .lang-selector__option.active {
       background: rgba(201, 168, 76, .1);
       color: #141210;
     }
@@ -172,7 +169,7 @@
       font-size: .68rem;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: #7a5e18;
       margin-bottom: 14px;
     }
 
@@ -197,31 +194,6 @@
       font-size: .92rem;
     }
 
-    /* Ornamental divider */
-    .ornament-line {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      justify-content: center;
-      margin: 32px auto;
-      max-width: 320px;
-    }
-
-    .ornament-line::before,
-    .ornament-line::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-lt), transparent);
-    }
-
-    .ornament-line__diamond {
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      transform: rotate(45deg);
-      flex-shrink: 0;
-    }
 
     /* ─── WIZARD STEPPER ──────────────────────────────────────── */
     .wizard-wrapper {
@@ -280,14 +252,14 @@
     .step-item.active .step-num {
       border-color: var(--gold);
       background: var(--gold);
-      color: white;
+      color: var(--carbon);
       box-shadow: 0 0 0 4px rgba(201, 168, 76, .18);
     }
 
     .step-item.done .step-num {
       border-color: var(--gold-dk);
       background: var(--gold-dk);
-      color: white;
+      color: var(--carbon);
     }
 
     .step-item.done .step-num::after {
@@ -309,7 +281,7 @@
     }
 
     .step-item.active .step-label {
-      color: var(--gold-dk);
+      color: #7a5e18;
       font-weight: 500;
     }
 
@@ -384,7 +356,7 @@
       font-size: .72rem;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--stone);
+      color: #594E47;
       font-weight: 500;
     }
 
@@ -526,7 +498,7 @@
       font-size: .68rem;
       letter-spacing: .16em;
       text-transform: uppercase;
-      color: var(--gold-dk);
+      color: #7a5e18;
       margin-bottom: 16px;
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(201, 168, 76, .25);
@@ -639,7 +611,7 @@
 
     .qty-btn:hover {
       background: var(--gold);
-      color: white;
+      color: var(--carbon);
     }
 
     .qty-input {
@@ -776,7 +748,7 @@
 
     .noc-cal-nav:hover {
       background: var(--gold);
-      color: white;
+      color: var(--carbon);
     }
 
     .noc-cal-month {
@@ -836,7 +808,7 @@
 
     .noc-cal-day.avail:hover {
       background: var(--gold);
-      color: white;
+      color: var(--carbon);
     }
 
     .noc-cal-day.past {
@@ -1075,12 +1047,13 @@
 
     .btn--gold {
       background: var(--gold);
-      color: var(--white);
+      color: var(--carbon);
       border: 1.5px solid transparent;
     }
 
     .btn--gold:hover {
       background: var(--gold-dk);
+      color: var(--carbon);
       box-shadow: 0 4px 14px rgba(201, 168, 76, .35);
       transform: translateY(-1px);
     }
@@ -1298,6 +1271,74 @@
       color: var(--gold-dk);
     }
 
+    /* ─── DARK MODE OVERRIDES ────────────────────────────────── */
+    body:not(.light-mode) .page-hero__title { color: var(--cream); }
+    body:not(.light-mode) .panel-title { color: var(--white); }
+    body:not(.light-mode) .noc-cal-month { color: var(--cream); }
+    body:not(.light-mode) .captcha-question { color: var(--white); }
+    body:not(.light-mode) .checkbox-row label { color: var(--stone-lt); }
+    body:not(.light-mode) .btn--ghost:hover { color: var(--white); }
+
+    body:not(.light-mode) .form-panel {
+      background: #1a1610;
+      border-color: rgba(201, 168, 76, .15);
+    }
+    body:not(.light-mode) .step-num {
+      background: #141210;
+      border-color: rgba(255, 255, 255, .2);
+    }
+    body:not(.light-mode) .stepper::before { background: rgba(255, 255, 255, .12); }
+
+    body:not(.light-mode) input[type="text"],
+    body:not(.light-mode) input[type="email"],
+    body:not(.light-mode) input[type="tel"],
+    body:not(.light-mode) input[type="date"],
+    body:not(.light-mode) input[type="number"],
+    body:not(.light-mode) select {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .15);
+      color: var(--white);
+    }
+    body:not(.light-mode) input:focus,
+    body:not(.light-mode) select:focus { background: #221c12; }
+
+    body:not(.light-mode) .radio-card__face { background: #1a1610; }
+    body:not(.light-mode) .radio-card__indicator { background: #0c0a08; }
+    body:not(.light-mode) .monument-card { border-color: rgba(255, 255, 255, .12); }
+    body:not(.light-mode) .monument-card.selected { border-color: var(--gold); }
+    body:not(.light-mode) .monument-card__header { background: #1a1610; }
+    body:not(.light-mode) .monument-card__body {
+      background: #141210;
+      border-top-color: rgba(255, 255, 255, .08);
+    }
+    body:not(.light-mode) .monument-checkbox { background: #0c0a08; border-color: rgba(255, 255, 255, .2); }
+    body:not(.light-mode) .qty-row { background: #1a1610; border-color: rgba(255, 255, 255, .15); }
+    body:not(.light-mode) .qty-input {
+      border-left-color: rgba(255, 255, 255, .15) !important;
+      border-right-color: rgba(255, 255, 255, .15) !important;
+    }
+
+    body:not(.light-mode) .guided-card__face { background: #1a1610; }
+    body:not(.light-mode) .noc-cal-wrap { background: #1a1610; }
+    body:not(.light-mode) .noc-cal-header { background: #0c0a08; border-bottom-color: rgba(255, 255, 255, .08); }
+    body:not(.light-mode) .noc-cal-day.off,
+    body:not(.light-mode) .noc-cal-day.past { color: rgba(255, 255, 255, .2); }
+    body:not(.light-mode) .noc-cal-day.avail { color: var(--white); }
+
+    body:not(.light-mode) .captcha-box { background: #1a1610; border-color: rgba(255, 255, 255, .12); }
+    body:not(.light-mode) .payment-summary-mini { background: #1a1610; }
+    body:not(.light-mode) .confirm-note { background: #1a1610; }
+    body:not(.light-mode) .modal { background: #1c1813; }
+    body:not(.light-mode) .modal p { color: var(--stone-lt); }
+    body:not(.light-mode) .alert--error {
+      background: rgba(192, 57, 43, .12);
+      border-color: rgba(192, 57, 43, .3);
+      color: #e0a09a;
+    }
+    body:not(.light-mode) .summary-block { border-color: rgba(201, 168, 76, .15); }
+    body:not(.light-mode) .summary-block__head { border-bottom-color: rgba(201, 168, 76, .15); }
+    body:not(.light-mode) .btn-row { border-top-color: rgba(255, 255, 255, .08); }
+
     /* ─── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 680px) {
       .form-panel {
@@ -1342,15 +1383,6 @@
       }
     }
 
-    /* ─── FOOTER ──────────────────────────────────────────────── */
-    .site-footer {
-      text-align: center;
-      padding: 36px 20px;
-      font-size: .72rem;
-      color: var(--stone);
-      border-top: 1px solid rgba(201, 168, 76, .18);
-      letter-spacing: .04em;
-    }
   </style>
 </head>
 
@@ -1541,9 +1573,7 @@
       con total comodidad.</p>
   </div>
 
-  <div class="ornament-line">
-    <div class="ornament-line__diamond"></div>
-  </div>
+
 
   <!-- ═══ WIZARD ═════════════════════════════════════════════════════ -->
   <div class="wizard-wrapper" id="main-content" tabindex="-1">

@@ -22,7 +22,8 @@
       "Bash(sed -n '161,169p' legal/aviso-legal.html)",
       "Bash(sed -n '67,74p' legal/cookies.html)",
       "Bash(sed -n '66,73p' legal/privacidad.html)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral tourism tickets pricing elegant dark luxury\" --design-system -p \"Catedral Santo Domingo Visitas\")"
     ]
   }
 }

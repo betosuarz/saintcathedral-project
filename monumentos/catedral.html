@@ -1130,6 +1130,329 @@
       }
     }
 
+    /* ── HISTORIA STATS BAR ─────────────────────────────────── */
+    .hist-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(140, 128, 112, .15);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 56px;
+    }
+
+    .hist-stat {
+      padding: 28px 32px;
+      border-right: 1px solid rgba(140, 128, 112, .15);
+      position: relative;
+    }
+
+    .hist-stat:last-child {
+      border-right: none;
+    }
+
+    .hist-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dk), transparent);
+    }
+
+    .hist-stat__num {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--gold-dk);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .hist-stat__label {
+      font-size: .65rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--stone);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .hist-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hist-stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(140, 128, 112, .15);
+      }
+
+      .hist-stat:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* ── TESOROS BENTO ───────────────────────────────────────── */
+    .tesoros-bento {
+      display: grid;
+      grid-template-columns: 1.65fr 1fr 1fr;
+      grid-template-rows: 520px;
+      gap: 10px;
+    }
+
+    .tesoro-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .tesoro-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--bg);
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease);
+    }
+
+    .tesoro-card:hover::before {
+      transform: scale(1.07);
+    }
+
+    .tesoro-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(165deg, rgba(14, 12, 10, .1) 0%, rgba(14, 12, 10, .6) 55%, rgba(14, 12, 10, .95) 100%);
+      transition: background .5s;
+    }
+
+    .tesoro-card:hover .tesoro-card__overlay {
+      background: linear-gradient(165deg, rgba(14, 12, 10, .18) 0%, rgba(14, 12, 10, .68) 55%, rgba(14, 12, 10, .97) 100%);
+    }
+
+    .tesoro-card__top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent 60%);
+      opacity: 0;
+      transition: opacity .35s;
+      z-index: 3;
+    }
+
+    .tesoro-card:hover .tesoro-card__top-line {
+      opacity: 1;
+    }
+
+    .tesoro-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 28px;
+      z-index: 2;
+    }
+
+    .tesoro-card__cat {
+      font-size: .55rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .tesoro-card__cat::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .tesoro-card__title {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .tesoro-card__text {
+      font-size: .78rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, .58);
+      margin-bottom: 18px;
+      max-width: 280px;
+      transition: color .3s;
+    }
+
+    .tesoro-card:hover .tesoro-card__text {
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .tesoro-card__link {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: var(--sans);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: .75;
+      transition: opacity .25s, gap .25s;
+    }
+
+    .tesoro-card__link:hover {
+      opacity: 1;
+      gap: 10px;
+    }
+
+    .tesoro-card__num {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: var(--serif);
+      font-size: 5rem;
+      font-weight: 300;
+      color: rgba(201, 168, 76, .08);
+      line-height: 1;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      transition: color .5s;
+    }
+
+    .tesoro-card:hover .tesoro-card__num {
+      color: rgba(201, 168, 76, .13);
+    }
+
+    @media (max-width: 960px) {
+      .tesoros-bento {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 380px 320px;
+      }
+
+      .tesoro-card:first-child {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tesoros-bento {
+        grid-template-columns: 1fr;
+        grid-template-rows: 320px 280px 280px;
+      }
+
+      .tesoro-card:first-child {
+        grid-column: span 1;
+      }
+
+      .tesoro-card__text {
+        display: none;
+      }
+    }
+
+    /* ── TIMELINE ENHANCED ───────────────────────────────────── */
+    .timeline-year {
+      font-size: 2.2rem;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-era-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid rgba(201, 168, 76, .2);
+      border-radius: 2px;
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      margin-top: 8px;
+    }
+
+    .timeline-era-badge::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ── HORARIOS VISUAL ENHANCEMENT ────────────────────────── */
+    .ht-section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 52px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(140, 128, 112, .15);
+      flex-wrap: wrap;
+    }
+
+    .ht-section-header__text {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .ht-section-header__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid rgba(201, 168, 76, .35);
+      border-radius: 2px;
+      background: rgba(201, 168, 76, .06);
+      font-family: var(--serif);
+      font-size: .9rem;
+      color: var(--gold-dk);
+      flex-shrink: 0;
+    }
+
+    .ht-section-header__badge strong {
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .ht-block {
+      background: rgba(201, 168, 76, .03);
+      border: 1px solid rgba(140, 128, 112, .12);
+      border-radius: 4px;
+      padding: 32px 36px;
+    }
+
+    .ht-block--schedule {
+      border-top: 2px solid rgba(201, 168, 76, .25);
+    }
+
+    .ht-block--prices {
+      border-top: 2px solid rgba(201, 168, 76, .45);
+    }
+
+    .ht-block__title {
+      border-bottom: 1px solid rgba(140, 128, 112, .2);
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+    }
+
     /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
     body.light-mode {
       background: #F9F8F6;
@@ -1395,6 +1718,30 @@
     /* Entrada gratuita → verde con contraste en fondos claros */
     body.light-mode .ht-row__val--free {
       color: #2E7D32;
+    }
+
+    /* Hist-stats en modo claro */
+    body.light-mode .hist-stat__num {
+      color: var(--gold-dk);
+    }
+
+    body.light-mode .hist-stats {
+      border-color: rgba(140, 128, 112, .2);
+    }
+
+    body.light-mode .hist-stat {
+      border-right-color: rgba(140, 128, 112, .2);
+      border-bottom-color: rgba(140, 128, 112, .2);
+    }
+
+    /* Horarios bloques en modo claro */
+    body.light-mode .ht-block {
+      background: rgba(245, 240, 232, .6);
+      border-color: rgba(140, 128, 112, .18);
+    }
+
+    body.light-mode .ht-section-header {
+      border-bottom-color: rgba(140, 128, 112, .18);
     }
 
     /* Footer CTA (newsletter) → fondo claro + textos oscuros */
@@ -1699,10 +2046,17 @@
   <!-- HORARIOS Y TARIFAS -->
   <section class="section section--white" id="horarios-tarifas">
     <div class="section__inner">
-      <p class="eyebrow reveal" data-i18n-page="sec_ht_eyebrow">Visita</p>
-      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+      <div class="ht-section-header reveal">
+        <div class="ht-section-header__text">
+          <p class="eyebrow" data-i18n-page="sec_ht_eyebrow">Visita</p>
+          <h2 class="section-title" style="margin-bottom:0" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+        </div>
+        <div class="ht-section-header__badge">
+          <strong>365</strong> <span data-i18n-page="ht_open_days">días al año</span>
+        </div>
+      </div>
       <div class="ht-grid reveal reveal-delay-2">
-        <div>
+        <div class="ht-block ht-block--schedule">
           <div class="ht-block__title" data-i18n-page="ht_schedule_title">Horarios de apertura</div>
           <div class="ht-row">
             <span class="ht-row__label" data-i18n-page="ht_lv">Lunes a viernes y domingos<span class="ht-today-badge"
@@ -1718,7 +2072,7 @@
             Catedral permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30
             minutos antes del cierre.</p>
         </div>
-        <div>
+        <div class="ht-block ht-block--prices">
           <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
           <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
               class="ht-row__val ht-row__val--highlight">7 € / persona</span></div>
@@ -1967,6 +2321,20 @@
       <p class="eyebrow reveal" data-i18n-page="sec_hist_eyebrow">Historia y Arte</p>
       <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_hist_title">Una joya del <em>patrimonio
           hispano</em></h2>
+      <div class="hist-stats reveal reveal-delay-2">
+        <div class="hist-stat">
+          <div class="hist-stat__num" data-i18n-page="hist_stat1_num">s. XII</div>
+          <div class="hist-stat__label" data-i18n-page="hist_stat1_label">Fundación románica · Origen</div>
+        </div>
+        <div class="hist-stat">
+          <div class="hist-stat__num" data-i18n-page="hist_stat2_num">8 siglos</div>
+          <div class="hist-stat__label" data-i18n-page="hist_stat2_label">De historia viva ininterrumpida</div>
+        </div>
+        <div class="hist-stat">
+          <div class="hist-stat__num" data-i18n-page="hist_stat3_num">Único</div>
+          <div class="hist-stat__label" data-i18n-page="hist_stat3_label">Gallinero vivo en el mundo</div>
+        </div>
+      </div>
       <div class="text-grid reveal reveal-delay-2">
         <div>
           <p class="text-grid__lead" data-i18n-page="hist_lead">La Catedral de Santo Domingo de la Calzada es uno de los
@@ -2024,6 +2392,56 @@
     </div>
   </section>
 
+  <!-- TESOROS DEL TEMPLO -->
+  <section class="section section--dark" id="tesoros">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_tesoros_eyebrow">Tesoros del templo</p>
+      <h2 class="section-title reveal reveal-delay-1" style="color:var(--white)" data-i18n-page="sec_tesoros_title">Piezas que <em>debes conocer</em></h2>
+      <div class="tesoros-bento reveal reveal-delay-2">
+
+        <!-- Gallinero — carta principal -->
+        <div class="tesoro-card" style="--bg: url('../assets/img/gallinero.webp')">
+          <div class="tesoro-card__top-line"></div>
+          <div class="tesoro-card__overlay"></div>
+          <div class="tesoro-card__body">
+            <span class="tesoro-card__cat" data-i18n-page="tesoro1_cat">Unicidad mundial · s. XIV</span>
+            <h3 class="tesoro-card__title" data-i18n-page="gal_cap_1">Gallinero Gótico</h3>
+            <p class="tesoro-card__text" data-i18n-page="tesoro1_text">El único gallinero vivo del mundo en una catedral. Tradición ininterrumpida desde el siglo XIV en honor al milagro del peregrino ahorcado.</p>
+            <button class="tesoro-card__link" onclick="openGalleryPopup(0)" data-i18n-page="tesoro_discover">Descubrir →</button>
+          </div>
+          <div class="tesoro-card__num">01</div>
+        </div>
+
+        <!-- Retablo Mayor -->
+        <div class="tesoro-card" style="--bg: url('../assets/img/retablo.webp')">
+          <div class="tesoro-card__top-line"></div>
+          <div class="tesoro-card__overlay"></div>
+          <div class="tesoro-card__body">
+            <span class="tesoro-card__cat" data-i18n-page="tesoro2_cat">Plateresco · 1537–1541</span>
+            <h3 class="tesoro-card__title" data-i18n-page="gal_cap_3">Retablo Mayor</h3>
+            <p class="tesoro-card__text" data-i18n-page="tesoro2_text">Obra cumbre de Damián Forment: 24 relieves en alabastro sobre la vida de Cristo.</p>
+            <button class="tesoro-card__link" onclick="openGalleryPopup(2)" data-i18n-page="tesoro_discover">Descubrir →</button>
+          </div>
+          <div class="tesoro-card__num">02</div>
+        </div>
+
+        <!-- Tríptico Flamenco -->
+        <div class="tesoro-card" style="--bg: url('../assets/img/triptico.webp')">
+          <div class="tesoro-card__top-line"></div>
+          <div class="tesoro-card__overlay"></div>
+          <div class="tesoro-card__body">
+            <span class="tesoro-card__cat" data-i18n-page="tesoro3_cat">Flamenco · c. 1515</span>
+            <h3 class="tesoro-card__title" data-i18n-page="gal_cap_6">Tríptico Flamenco</h3>
+            <p class="tesoro-card__text" data-i18n-page="tesoro3_text">Reverso en grisalla único en el arte flamenco. Expuesto en el Museo de Bellas Artes de Bilbao en 2019.</p>
+            <button class="tesoro-card__link" onclick="openGalleryPopup(5)" data-i18n-page="tesoro_discover">Descubrir →</button>
+          </div>
+          <div class="tesoro-card__num">03</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE -->
   <section class="section section--dark">
     <div class="section__inner">
@@ -2031,6 +2449,7 @@
       <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">Ocho
         siglos de <em>historia</em></h2>
       <div class="timeline reveal reveal-delay-2">
+        <div class="timeline-era-badge" data-i18n-page="tl_era1">Era fundacional · ss. XI–XIV</div>
         <div class="timeline-item">
           <div class="timeline-year">1044</div>
           <div>
@@ -2069,6 +2488,7 @@
               alemán Hugonell.</div>
           </div>
         </div>
+        <div class="timeline-era-badge" data-i18n-page="tl_era2">Esplendor artístico · ss. XV–XVI</div>
         <div class="timeline-item">
           <div class="timeline-year">1537</div>
           <div>
@@ -2088,6 +2508,7 @@
               llega a la catedral.</div>
           </div>
         </div>
+        <div class="timeline-era-badge" data-i18n-page="tl_era3">Consolidación · s. XVIII–XXI</div>
         <div class="timeline-item">
           <div class="timeline-year">1762</div>
           <div>
@@ -2378,7 +2799,17 @@
         audio_card_tag: 'Audioguía de prueba • Disponible', audio_card_title: 'El Milagro del Gallo y la Gallina', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentación', sec_pdf_title: 'Folletos y <em>guías en PDF</em>', sec_pdf_desc: 'Visita nuestros monumentos para descubrir nuestro verdadero legado con audioguías y folletos digitales. Disponibles en 7 idiomas escaneando un código QR.',
         pdf_q: '¿Dónde puedo encontrar todos los folletos?', pdf_card_tag: 'Folleto de la Catedral • No Disponible', pdf_card_name: 'Guía de visita — Español',
-        cta_title: 'Reserva tu visita a la <em>Catedral</em>', cta_sub: 'Adquiere tu entrada online y evita colas. Disponible para visita libre, guiada y pulsera turística.', cta_btn: 'Comprar entradas →'
+        cta_title: 'Reserva tu visita a la <em>Catedral</em>', cta_sub: 'Adquiere tu entrada online y evita colas. Disponible para visita libre, guiada y pulsera turística.', cta_btn: 'Comprar entradas →',
+        ht_open_days: 'días al año',
+        hist_stat1_num: 's. XII', hist_stat1_label: 'Fundación románica · Origen',
+        hist_stat2_num: '8 siglos', hist_stat2_label: 'De historia viva ininterrumpida',
+        hist_stat3_num: 'Único', hist_stat3_label: 'Gallinero vivo en el mundo',
+        sec_tesoros_eyebrow: 'Tesoros del templo', sec_tesoros_title: 'Piezas que <em>debes conocer</em>',
+        tesoro1_cat: 'Unicidad mundial · s. XIV', tesoro1_text: 'El único gallinero vivo del mundo en una catedral. Tradición ininterrumpida desde el siglo XIV.',
+        tesoro2_cat: 'Plateresco · 1537–1541', tesoro2_text: 'Obra cumbre de Damián Forment: 24 relieves en alabastro sobre la vida de Cristo.',
+        tesoro3_cat: 'Flamenco · c. 1515', tesoro3_text: 'Reverso en grisalla único en el arte flamenco. Expuesto en Bilbao en 2019.',
+        tesoro_discover: 'Descubrir',
+        tl_era1: 'Era fundacional · ss. XI–XIV', tl_era2: 'Esplendor artístico · ss. XV–XVI', tl_era3: 'Consolidación · s. XVIII–XXI'
       },
       en: {
         page_eyebrow: 'Monuments · Main monument', page_title: 'The <em>Cathedral</em><br>of Santo Domingo', page_desc: 'A jewel of Riojan Romanesque-Gothic style. Eight centuries of history at the heart of the French Way.', meta_entrada: 'Admission', meta_horario: 'Hours', meta_estilos: 'Styles',
@@ -2414,7 +2845,17 @@
         audio_card_tag: 'Sample audio guide • Available', audio_card_title: 'The Miracle of the Rooster and the Hen', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures & <em>PDF guides</em>', sec_pdf_desc: 'Visit our monuments to discover our true heritage with digital audio guides and brochures. Available in 7 languages by scanning a QR code.',
         pdf_q: 'Where can I find all the brochures?', pdf_card_tag: 'Cathedral Brochure • Not Available', pdf_card_name: 'Visit guide — English',
-        cta_title: 'Book your visit to the <em>Cathedral</em>', cta_sub: 'Buy your ticket online and skip the queues. Available for self-guided, guided and wristband visits.', cta_btn: 'Buy tickets →'
+        cta_title: 'Book your visit to the <em>Cathedral</em>', cta_sub: 'Buy your ticket online and skip the queues. Available for self-guided, guided and wristband visits.', cta_btn: 'Buy tickets →',
+        ht_open_days: 'days a year',
+        hist_stat1_num: '12th c.', hist_stat1_label: 'Romanesque foundation · Origins',
+        hist_stat2_num: '8 centuries', hist_stat2_label: 'Of unbroken living history',
+        hist_stat3_num: 'Unique', hist_stat3_label: 'Live hen house in the world',
+        sec_tesoros_eyebrow: 'Temple treasures', sec_tesoros_title: 'Pieces you <em>must discover</em>',
+        tesoro1_cat: 'World unique · 14th c.', tesoro1_text: 'The only live hen house in a cathedral in the world. An unbroken tradition since the 14th century.',
+        tesoro2_cat: 'Plateresque · 1537–1541', tesoro2_text: 'Masterwork by Damián Forment: 24 alabaster reliefs depicting the life of Christ.',
+        tesoro3_cat: 'Flemish · c. 1515', tesoro3_text: 'Grisaille reverse unique in Flemish art. Exhibited at the Bilbao Fine Arts Museum in 2019.',
+        tesoro_discover: 'Discover',
+        tl_era1: 'Founding era · 11th–14th c.', tl_era2: 'Artistic splendour · 15th–16th c.', tl_era3: 'Consolidation · 18th–21st c.'
       },
       fr: {
         page_eyebrow: 'Monuments · Monument principal', page_title: 'La <em>Cathédrale</em><br>de Santo Domingo', page_desc: 'Joyau romano-gothique riojane. Huit siècles d\'histoire au cœur du Chemin Français.', meta_entrada: 'Entrée', meta_horario: 'Horaires', meta_estilos: 'Styles',
@@ -2450,7 +2891,17 @@
         audio_card_tag: 'Audioguide d\'essai • Disponible', audio_card_title: 'Le Miracle du Coq et de la Poule', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentation', sec_pdf_title: 'Brochures et <em>guides PDF</em>', sec_pdf_desc: 'Visitez nos monuments pour découvrir notre véritable héritage avec des audioguides et des brochures numériques. Disponibles en 7 langues en scannant un QR code.',
         pdf_q: 'Où puis-je trouver toutes les brochures ?', pdf_card_tag: 'Brochure de la Cathédrale • Non disponible', pdf_card_name: 'Guide de visite — Français',
-        cta_title: 'Réservez votre visite à la <em>Cathédrale</em>', cta_sub: 'Achetez votre billet en ligne. Disponible pour visite libre, guidée et bracelet touristique.', cta_btn: 'Acheter des billets →'
+        cta_title: 'Réservez votre visite à la <em>Cathédrale</em>', cta_sub: 'Achetez votre billet en ligne. Disponible pour visite libre, guidée et bracelet touristique.', cta_btn: 'Acheter des billets →',
+        ht_open_days: 'jours par an',
+        hist_stat1_num: 'XIIe s.', hist_stat1_label: 'Fondation romane · Origines',
+        hist_stat2_num: '8 siècles', hist_stat2_label: 'D\'histoire vivante ininterrompue',
+        hist_stat3_num: 'Unique', hist_stat3_label: 'Poulailler vivant au monde',
+        sec_tesoros_eyebrow: 'Trésors du temple', sec_tesoros_title: 'Œuvres à <em>ne pas manquer</em>',
+        tesoro1_cat: 'Unicité mondiale · XIVe s.', tesoro1_text: 'Le seul poulailler vivant au monde dans une cathédrale. Tradition ininterrompue depuis le XIVe siècle.',
+        tesoro2_cat: 'Plateresque · 1537–1541', tesoro2_text: 'Chef-d\'œuvre de Damián Forment : 24 reliefs en albâtre sur la vie du Christ.',
+        tesoro3_cat: 'Flamand · v. 1515', tesoro3_text: 'Revers en grisaille unique dans l\'art flamand. Exposé au Musée des Beaux-Arts de Bilbao en 2019.',
+        tesoro_discover: 'Découvrir',
+        tl_era1: 'Ère fondatrice · XIe–XIVe s.', tl_era2: 'Splendeur artistique · XVe–XVIe s.', tl_era3: 'Consolidation · XVIIIe–XXIe s.'
       },
       de: {
         page_eyebrow: 'Denkmäler · Hauptdenkmal', page_title: 'Die <em>Kathedrale</em><br>von Santo Domingo', page_desc: 'Ein Juwel des romanisch-gotischen Stils. Acht Jahrhunderte Geschichte im Herzen des Jakobsweges.', meta_entrada: 'Eintritt', meta_horario: 'Öffnungszeiten', meta_estilos: 'Stile',
@@ -2486,7 +2937,17 @@
         audio_card_tag: 'Audioguide-Probe • Verfügbar', audio_card_title: 'Das Wunder des Hahns und der Henne', audio_card_dur: '0 Min. 38 s',
         sec_pdf_eyebrow: 'Dokumentation', sec_pdf_title: 'Broschüren & <em>PDF-Guides</em>', sec_pdf_desc: 'Besuchen Sie unsere Denkmäler, um unser wahres Erbe mit digitalen Audioguides und Broschüren zu entdecken. In 7 Sprachen per QR-Code verfügbar.',
         pdf_q: 'Wo finde ich alle Broschüren?', pdf_card_tag: 'Kathedrale Broschüre • Nicht verfügbar', pdf_card_name: 'Besucherführer — Deutsch',
-        cta_title: 'Buchen Sie Ihren Besuch in der <em>Kathedrale</em>', cta_sub: 'Kaufen Sie Ihr Ticket online. Verfügbar für Selbstführung, Führung und Tourismusarmband.', cta_btn: 'Tickets kaufen →'
+        cta_title: 'Buchen Sie Ihren Besuch in der <em>Kathedrale</em>', cta_sub: 'Kaufen Sie Ihr Ticket online. Verfügbar für Selbstführung, Führung und Tourismusarmband.', cta_btn: 'Tickets kaufen →',
+        ht_open_days: 'Tage im Jahr',
+        hist_stat1_num: '12. Jh.', hist_stat1_label: 'Romanische Gründung · Ursprung',
+        hist_stat2_num: '8 Jh.', hist_stat2_label: 'Lebendige, ununterbrochene Geschichte',
+        hist_stat3_num: 'Einzigartig', hist_stat3_label: 'Lebender Hühnerstall weltweit',
+        sec_tesoros_eyebrow: 'Schätze des Tempels', sec_tesoros_title: 'Werke die Sie <em>entdecken müssen</em>',
+        tesoro1_cat: 'Welteinzigartig · 14. Jh.', tesoro1_text: 'Der einzige lebende Hühnerstall der Welt in einer Kathedrale. Ununterbrochene Tradition seit dem 14. Jahrhundert.',
+        tesoro2_cat: 'Plateresk · 1537–1541', tesoro2_text: 'Meisterwerk von Damián Forment: 24 Alabasterreliefs über das Leben Christi.',
+        tesoro3_cat: 'Flämisch · c. 1515', tesoro3_text: 'Grisaille-Rückseite einzigartig in der flämischen Kunst. 2019 im Museum der Schönen Künste Bilbao ausgestellt.',
+        tesoro_discover: 'Entdecken',
+        tl_era1: 'Gründungszeit · 11.–14. Jh.', tl_era2: 'Künstlerische Blüte · 15.–16. Jh.', tl_era3: 'Konsolidierung · 18.–21. Jh.'
       },
       pt: {
         page_eyebrow: 'Monumentos · Monumento principal', page_title: 'A <em>Catedral</em><br>de Santo Domingo', page_desc: 'Uma joia do românico-gótico riojano. Oito séculos de história no coração do Caminho Francês.', meta_entrada: 'Entrada', meta_horario: 'Horário', meta_estilos: 'Estilos',
@@ -2522,7 +2983,17 @@
         audio_card_tag: 'Audioguia de teste • Disponível', audio_card_title: 'O Milagre do Galo e da Galinha', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentação', sec_pdf_title: 'Folhetos e <em>guias PDF</em>', sec_pdf_desc: 'Visite os nossos monumentos para descobrir o nosso verdadeiro legado com audioguias e folhetos digitais. Disponíveis em 7 idiomas ao digitalizar um QR code.',
         pdf_q: 'Onde posso encontrar todos os folhetos?', pdf_card_tag: 'Folheto da Catedral • Não disponível', pdf_card_name: 'Guia de visita — Português',
-        cta_title: 'Reserve a sua visita à <em>Catedral</em>', cta_sub: 'Compre o seu bilhete online e evite filas. Disponível para visita livre, guiada e pulseira turística.', cta_btn: 'Comprar bilhetes →'
+        cta_title: 'Reserve a sua visita à <em>Catedral</em>', cta_sub: 'Compre o seu bilhete online e evite filas. Disponível para visita livre, guiada e pulseira turística.', cta_btn: 'Comprar bilhetes →',
+        ht_open_days: 'dias por ano',
+        hist_stat1_num: 's. XII', hist_stat1_label: 'Fundação românica · Origem',
+        hist_stat2_num: '8 séculos', hist_stat2_label: 'De história viva ininterrupta',
+        hist_stat3_num: 'Único', hist_stat3_label: 'Galinheiro vivo no mundo',
+        sec_tesoros_eyebrow: 'Tesouros do templo', sec_tesoros_title: 'Peças que <em>deve conhecer</em>',
+        tesoro1_cat: 'Unicidade mundial · s. XIV', tesoro1_text: 'O único galinheiro vivo do mundo numa catedral. Tradição ininterrupta desde o século XIV.',
+        tesoro2_cat: 'Plateresco · 1537–1541', tesoro2_text: 'Obra-prima de Damián Forment: 24 relevos em alabastro sobre a vida de Cristo.',
+        tesoro3_cat: 'Flamengo · c. 1515', tesoro3_text: 'Reverso em grisalha único na arte flamenga. Exposto no Museu de Belas-Artes de Bilbau em 2019.',
+        tesoro_discover: 'Descobrir',
+        tl_era1: 'Era fundacional · sécs. XI–XIV', tl_era2: 'Esplendor artístico · sécs. XV–XVI', tl_era3: 'Consolidação · sécs. XVIII–XXI'
       },
       it: {
         page_eyebrow: 'Monumenti · Monumento principale', page_title: 'La <em>Cattedrale</em><br>di Santo Domingo', page_desc: 'Un gioiello del romanico-gotico riojano. Otto secoli di storia nel cuore del Cammino Francese.', meta_entrada: 'Ingresso', meta_horario: 'Orario', meta_estilos: 'Stili',
@@ -2558,7 +3029,17 @@
         audio_card_tag: 'Audioguida di prova • Disponibile', audio_card_title: 'Il Miracolo del Gallo e della Gallina', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentazione', sec_pdf_title: 'Opuscoli e <em>guide PDF</em>', sec_pdf_desc: 'Visita i nostri monumenti per scoprire il nostro vero patrimonio con audioguide e opuscoli digitali. Disponibili in 7 lingue scansionando un QR code.',
         pdf_q: 'Dove posso trovare tutti gli opuscoli?', pdf_card_tag: 'Opuscolo della Cattedrale • Non disponibile', pdf_card_name: 'Guida alla visita — Italiano',
-        cta_title: 'Prenota la tua visita alla <em>Cattedrale</em>', cta_sub: 'Acquista il tuo biglietto online ed evita le code. Disponibile per visita libera, guidata e braccialetto turistico.', cta_btn: 'Acquista biglietti →'
+        cta_title: 'Prenota la tua visita alla <em>Cattedrale</em>', cta_sub: 'Acquista il tuo biglietto online ed evita le code. Disponibile per visita libera, guidata e braccialetto turistico.', cta_btn: 'Acquista biglietti →',
+        ht_open_days: 'giorni all\'anno',
+        hist_stat1_num: 'sec. XII', hist_stat1_label: 'Fondazione romanica · Origini',
+        hist_stat2_num: '8 secoli', hist_stat2_label: 'Di storia viva ininterrotta',
+        hist_stat3_num: 'Unico', hist_stat3_label: 'Pollaio vivo al mondo',
+        sec_tesoros_eyebrow: 'Tesori del tempio', sec_tesoros_title: 'Opere da <em>non perdere</em>',
+        tesoro1_cat: 'Unicità mondiale · sec. XIV', tesoro1_text: 'L\'unico pollaio vivo al mondo in una cattedrale. Tradizione ininterrotta dal XIV secolo.',
+        tesoro2_cat: 'Plateresco · 1537–1541', tesoro2_text: 'Capolavoro di Damián Forment: 24 rilievi in alabastro sulla vita di Cristo.',
+        tesoro3_cat: 'Fiammingo · c. 1515', tesoro3_text: 'Retro in grisaille unico nell\'arte fiamminga. Esposto al Museo di Belle Arti di Bilbao nel 2019.',
+        tesoro_discover: 'Scoprire',
+        tl_era1: 'Era fondatrice · secc. XI–XIV', tl_era2: 'Splendore artistico · secc. XV–XVI', tl_era3: 'Consolidamento · secc. XVIII–XXI'
       },
       ko: {
         page_eyebrow: '유적 · 주요 유적', page_title: '산티아고의 <em>대성당</em>', page_desc: '리오하나 로마네스크-고딕 양식의 보석. 산티아고 순례길의 중심에서 8세기의 역사.', meta_entrada: '입장료', meta_horario: '운영 시간', meta_estilos: '양식',
@@ -2594,7 +3075,17 @@
         audio_card_tag: '오디오 가이드 샘플 • 이용 가능', audio_card_title: '수탉과 암탉의 기적', audio_card_dur: '0분 38초',
         sec_pdf_eyebrow: '문서', sec_pdf_title: '브로슈어 및 <em>PDF 가이드</em>', sec_pdf_desc: '저희 유적을 방문하여 QR 코드를 스캔하면 7개 언어로 제공되는 디지털 오디오 가이드와 브로슈어로 진정한 유산을 발견하실 수 있습니다.',
         pdf_q: '브로슈어는 어디서 구할 수 있나요?', pdf_card_tag: '대성당 브로슈어 • 미제공', pdf_card_name: '관람 안내서 — 한국어',
-        cta_title: '<em>대성당</em> 방문 예약', cta_sub: '온라인으로 입장권을 구매하고 줄을 피하세요. 자유 관람, 가이드 투어, 관광 팔찌 이용 가능.', cta_btn: '입장권 구매 →'
+        cta_title: '<em>대성당</em> 방문 예약', cta_sub: '온라인으로 입장권을 구매하고 줄을 피하세요. 자유 관람, 가이드 투어, 관광 팔찌 이용 가능.', cta_btn: '입장권 구매 →',
+        ht_open_days: '일 연중무휴',
+        hist_stat1_num: '12세기', hist_stat1_label: '로마네스크 창건 · 기원',
+        hist_stat2_num: '8세기', hist_stat2_label: '끊김 없는 살아있는 역사',
+        hist_stat3_num: '유일', hist_stat3_label: '세계 유일의 살아있는 닭장',
+        sec_tesoros_eyebrow: '성당의 보물', sec_tesoros_title: '꼭 봐야 할 <em>걸작들</em>',
+        tesoro1_cat: '세계 유일 · 14세기', tesoro1_text: '세계에서 유일하게 대성당 안에 살아있는 닭장. 14세기부터 이어진 끊임없는 전통.',
+        tesoro2_cat: '플라테레스크 · 1537–1541', tesoro2_text: 'Damián Forment의 걸작: 그리스도의 생애를 담은 24개의 설화석고 부조.',
+        tesoro3_cat: '플랑드르 · c. 1515', tesoro3_text: '플랑드르 예술에서 유일한 그리자유 후면. 2019년 빌바오 미술관 전시.',
+        tesoro_discover: '발견하기',
+        tl_era1: '창건 시대 · 11–14세기', tl_era2: '예술의 황금기 · 15–16세기', tl_era3: '공고화 · 18–21세기'
       },
       eu: {
         page_eyebrow: 'Monumentuak · Monumentu nagusia', page_title: 'Santo Domingoko <em>Katedrala</em>', page_desc: 'Errioxako erromantiko-gotikoaren bitxia. Zortzi mende historia Frantziako Bidearen bihotzean.', meta_entrada: 'Sarrera', meta_horario: 'Ordutegia', meta_estilos: 'Estiloak',
@@ -2630,7 +3121,17 @@
         audio_card_tag: 'Proba audiogida • Eskuragarri', audio_card_title: 'Oilarraren eta Oiloaren Miraria', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Dokumentazioa', sec_pdf_title: 'Liburuxkak eta <em>PDF gidak</em>', sec_pdf_desc: 'Bisitatu gure monumentuak QR kode bat eskaneatuz 7 hizkuntzatan eskuragarri dauden audiogida eta liburuxka digitalekin gure ondare benetakoa aurkitzeko.',
         pdf_q: 'Non aurki ditzaket liburuxka guztiak?', pdf_card_tag: 'Katedraleko Liburuxka • Ez dago eskuragarri', pdf_card_name: 'Bisita gida — Euskara',
-        cta_title: '<em>Katedrala</em>ra bisita erreserba', cta_sub: 'Erosi sarrera online eta saihestu ilarrak. Bisita librerako, gidatutakorako eta eskumuturreko turistikorako eskuragarri.', cta_btn: 'Sarrerak erosi →'
+        cta_title: '<em>Katedrala</em>ra bisita erreserba', cta_sub: 'Erosi sarrera online eta saihestu ilarrak. Bisita librerako, gidatutakorako eta eskumuturreko turistikorako eskuragarri.', cta_btn: 'Sarrerak erosi →',
+        ht_open_days: 'egun urtean',
+        hist_stat1_num: 'XII. m.', hist_stat1_label: 'Erromaniko fundazioa · Jatorria',
+        hist_stat2_num: '8 mende', hist_stat2_label: 'Etengabeko historia biziaren',
+        hist_stat3_num: 'Bakarra', hist_stat3_label: 'Oilotegi bizia munduan',
+        sec_tesoros_eyebrow: 'Tenpluko altxorrak', sec_tesoros_title: '<em>Ezagutu beharreko</em> piezak',
+        tesoro1_cat: 'Mundu mailako bakartasuna · XIV. m.', tesoro1_text: 'Munduko katedraletan dagoen oilotegi bizi bakarra. XIV. mendetik etengabeko tradizioa.',
+        tesoro2_cat: 'Platereskoa · 1537–1541', tesoro2_text: 'Damián Formenten obra nagusia: Kristoren bizitzako 24 erliebu alabastroan.',
+        tesoro3_cat: 'Flandestarrak · c. 1515', tesoro3_text: 'Arte flamenkoan bakarra den grisaila atzealdea. 2019an Bilboko Arte Ederren Museoan erakutsia.',
+        tesoro_discover: 'Aurkitu',
+        tl_era1: 'Fundazio aroa · XI–XIV. m.', tl_era2: 'Arte loraldiak · XV–XVI. m.', tl_era3: 'Finkatzea · XVIII–XXI. m.'
       },
       ca: {
         page_eyebrow: 'Monuments · Monument principal', page_title: 'La <em>Catedral</em><br>de Santo Domingo', page_desc: 'Joia del romànic-gòtic riojà. Vuit segles d\'història al cor del Camí Francès.', meta_entrada: 'Entrada', meta_horario: 'Horari', meta_estilos: 'Estils',
@@ -2666,7 +3167,17 @@
         audio_card_tag: 'Audioguia de prova • Disponible', audio_card_title: 'El Miracle del Gall i la Gallina', audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentació', sec_pdf_title: 'Fullets i <em>guies en PDF</em>', sec_pdf_desc: 'Visita els nostres monuments per descobrir el nostre veritable llegat amb audioguies i fullets digitals. Disponibles en 7 idiomes escanejant un codi QR.',
         pdf_q: 'On puc trobar tots els fullets?', pdf_card_tag: 'Fullet de la Catedral • No disponible', pdf_card_name: 'Guia de visita — Català',
-        cta_title: 'Reserva la teva visita a la <em>Catedral</em>', cta_sub: 'Adquireix la teva entrada en línia i evita les cues. Disponible per a visita lliure, guiada i polsera turística.', cta_btn: 'Comprar entrades →'
+        cta_title: 'Reserva la teva visita a la <em>Catedral</em>', cta_sub: 'Adquireix la teva entrada en línia i evita les cues. Disponible per a visita lliure, guiada i polsera turística.', cta_btn: 'Comprar entrades →',
+        ht_open_days: 'dies a l\'any',
+        hist_stat1_num: 's. XII', hist_stat1_label: 'Fundació romànica · Origen',
+        hist_stat2_num: '8 segles', hist_stat2_label: 'D\'història viva ininterrompuda',
+        hist_stat3_num: 'Únic', hist_stat3_label: 'Galliner viu al món',
+        sec_tesoros_eyebrow: 'Tresors del temple', sec_tesoros_title: 'Peces que <em>has de conèixer</em>',
+        tesoro1_cat: 'Unicitat mundial · s. XIV', tesoro1_text: 'L\'únic galliner viu del món en una catedral. Tradició ininterrompuda des del segle XIV.',
+        tesoro2_cat: 'Plateresc · 1537–1541', tesoro2_text: 'Obra mestra de Damián Forment: 24 relleus en alabastre sobre la vida de Crist.',
+        tesoro3_cat: 'Flamenc · c. 1515', tesoro3_text: 'Revers en grisalla únic en l\'art flamenc. Exposat al Museu de Belles Arts de Bilbao el 2019.',
+        tesoro_discover: 'Descobrir',
+        tl_era1: 'Era fundacional · ss. XI–XIV', tl_era2: 'Esplendor artístic · ss. XV–XVI', tl_era3: 'Consolidació · ss. XVIII–XXI'
       },
     };
 

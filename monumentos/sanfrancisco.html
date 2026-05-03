@@ -16,11 +16,18 @@
     /* ── PAGE-HERO ───────────────────────────────────────────── */
     .page-hero {
       position: relative;
-      height: 92vh;
-      min-height: 560px;
+      height: 92svh;
+      min-height: 520px;
       overflow: hidden;
       display: flex;
       align-items: flex-end
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        height: calc(100svh - 68px);
+        min-height: 400px
+      }
     }
 
     .page-hero__bg {

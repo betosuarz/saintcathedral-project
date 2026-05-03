@@ -733,7 +733,270 @@
       transform: translateX(4px)
     }
 
-    /* ── LIGHT MODE ──────────────────────────────────────────── */
+    /* ── INTRO STATS ENHANCED ───────────────────────────────── */
+    .intro-stat {
+      border-left: none;
+      border-top: 2px solid var(--gold-dk);
+      padding-left: 0;
+      padding-top: 16px;
+    }
+
+    .intro-stat__num {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+    }
+
+    /* ── QUICK MONUMENTS GRID ────────────────────────────────── */
+    .mon-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      margin-top: 56px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .mon-quick-card {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+
+    .mon-quick-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease);
+    }
+
+    .mon-quick-card:hover .mon-quick-card__img {
+      transform: scale(1.09);
+    }
+
+    .mon-quick-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(14, 12, 10, .92) 0%,
+        rgba(14, 12, 10, .42) 55%,
+        rgba(14, 12, 10, .12) 100%);
+      transition: background .45s;
+    }
+
+    .mon-quick-card:hover .mon-quick-card__overlay {
+      background: linear-gradient(to top,
+        rgba(14, 12, 10, .97) 0%,
+        rgba(14, 12, 10, .6) 55%,
+        rgba(14, 12, 10, .22) 100%);
+    }
+
+    .mon-quick-card__top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent 60%);
+      opacity: 0;
+      transition: opacity .3s;
+      z-index: 3;
+    }
+
+    .mon-quick-card:hover .mon-quick-card__top-line {
+      opacity: 1;
+    }
+
+    .mon-quick-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 18px;
+      z-index: 2;
+    }
+
+    .mon-quick-card__num {
+      font-size: .52rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mon-quick-card__num::before {
+      content: '';
+      width: 14px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .mon-quick-card__title {
+      font-family: var(--serif);
+      font-size: clamp(.9rem, 1.4vw, 1.05rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .mon-quick-card__sub {
+      font-size: .62rem;
+      color: rgba(255, 255, 255, .42);
+      margin-top: 3px;
+      letter-spacing: .06em;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height .3s, opacity .3s;
+    }
+
+    .mon-quick-card:hover .mon-quick-card__sub {
+      max-height: 24px;
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .mon-quick-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mon-quick-card {
+        height: 160px;
+      }
+    }
+
+    /* ── SDLC SECTION NUMBER DECORATION ─────────────────────── */
+    .sdlc-section {
+      position: relative;
+    }
+
+    .sdlc-section__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sdlc-section__num {
+      position: absolute;
+      right: 4vw;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif);
+      font-size: min(16vw, 16rem);
+      font-weight: 300;
+      color: rgba(255, 255, 255, .03);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    /* ── FEATURE TAGS ────────────────────────────────────────── */
+    .sdlc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .sdlc-tag {
+      font-size: .55rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 5px 11px;
+      border: 1px solid rgba(201, 168, 76, .22);
+      border-radius: 2px;
+      background: rgba(201, 168, 76, .05);
+    }
+
+    /* ── ALTERNATE SPLIT (imagen derecha) ────────────────────── */
+    .sdlc-split--reverse {
+      direction: rtl;
+    }
+
+    .sdlc-split--reverse > * {
+      direction: ltr;
+    }
+
+    /* ── CAÑAS INTRO DISTINCTION ─────────────────────────────── */
+    .canas-section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid rgba(140, 128, 112, .15);
+      flex-wrap: wrap;
+    }
+
+    .canas-section-header .sdlc-title {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .canas-location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border: 1px solid rgba(201, 168, 76, .3);
+      border-radius: 2px;
+      background: rgba(201, 168, 76, .05);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      white-space: nowrap;
+    }
+
+    .canas-location-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-dk);
+      flex-shrink: 0;
+    }
+
+    /* ── LIGHT MODE OVERRIDES ────────────────────────────────── */
+    body.light-mode .sdlc-section__num {
+      color: rgba(20, 18, 16, .025);
+    }
+
+    body.light-mode .sdlc-tag {
+      color: var(--gold-dk);
+      border-color: rgba(122, 94, 20, .22);
+      background: rgba(122, 94, 20, .04);
+    }
+
+    body.light-mode .intro-stat {
+      border-top-color: var(--gold-dk);
+    }
+
+    body.light-mode .canas-section-header {
+      border-bottom-color: rgba(140, 128, 112, .2);
+    }
+
+    body.light-mode .canas-location-badge {
+      color: var(--gold-dk);
+      border-color: rgba(122, 94, 20, .25);
+      background: rgba(122, 94, 20, .04);
+    }
+
+    body.light-mode .canas-location-badge::before {
+      background: var(--gold-dk);
+    }
+
     body.light-mode {
       background: var(--cream)
     }
@@ -1223,6 +1486,51 @@
           <p class="intro-body" data-i18n-page="intro_body2">Cada uno de estos edificios guarda siglos de historia, arte y devoción. Visítalos por separado o accede a todos con la pulsera turística y descubre el legado que ha convertido a esta ciudad en referencia inexcusable del patrimonio riojano.</p>
         </div>
       </div>
+
+      <!-- Grid de navegación rápida -->
+      <div class="mon-quick-grid reveal">
+        <a href="monumentos/catedral.html" class="mon-quick-card">
+          <div class="mon-quick-card__img" style="background-image:url('assets/img/diurna.webp'); background-position:center 40%"></div>
+          <div class="mon-quick-card__overlay"></div>
+          <div class="mon-quick-card__top-line"></div>
+          <div class="mon-quick-card__body">
+            <div class="mon-quick-card__num" data-i18n-page="nav_num_1">01</div>
+            <div class="mon-quick-card__title" data-i18n-page="nav_card_1">Catedral</div>
+            <div class="mon-quick-card__sub" data-i18n-page="nav_sub_1">ss. XII–XIV · Románico-Gótico</div>
+          </div>
+        </a>
+        <a href="monumentos/torre.html" class="mon-quick-card">
+          <div class="mon-quick-card__img" style="background-image:url('assets/img/torre.webp'); background-position:center 20%"></div>
+          <div class="mon-quick-card__overlay"></div>
+          <div class="mon-quick-card__top-line"></div>
+          <div class="mon-quick-card__body">
+            <div class="mon-quick-card__num" data-i18n-page="nav_num_2">02</div>
+            <div class="mon-quick-card__title" data-i18n-page="nav_card_2">Torre Exenta</div>
+            <div class="mon-quick-card__sub" data-i18n-page="nav_sub_2">s. XVIII · 70 m de barroco</div>
+          </div>
+        </a>
+        <a href="monumentos/sanfrancisco.html" class="mon-quick-card">
+          <div class="mon-quick-card__img" style="background-image:url('assets/img/sanfrancisco.webp'); background-position:center"></div>
+          <div class="mon-quick-card__overlay"></div>
+          <div class="mon-quick-card__top-line"></div>
+          <div class="mon-quick-card__body">
+            <div class="mon-quick-card__num" data-i18n-page="nav_num_3">03</div>
+            <div class="mon-quick-card__title" data-i18n-page="nav_card_3">Convento San Francisco</div>
+            <div class="mon-quick-card__sub" data-i18n-page="nav_sub_3">ss. XIII–XVI · Gótico</div>
+          </div>
+        </a>
+        <a href="monumentos/ermitaplaza.html" class="mon-quick-card">
+          <div class="mon-quick-card__img" style="background-image:url('assets/img/ermitaplaza.webp'); background-position:center"></div>
+          <div class="mon-quick-card__overlay"></div>
+          <div class="mon-quick-card__top-line"></div>
+          <div class="mon-quick-card__body">
+            <div class="mon-quick-card__num" data-i18n-page="nav_num_4">04</div>
+            <div class="mon-quick-card__title" data-i18n-page="nav_card_4">Ermita de la Plaza</div>
+            <div class="mon-quick-card__sub" data-i18n-page="nav_sub_4">s. XII · Románico</div>
+          </div>
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -1230,6 +1538,7 @@
 
   <!-- Catedral -->
   <section class="sdlc-section">
+    <div class="sdlc-section__num" aria-hidden="true">01</div>
     <div class="sdlc-section__inner">
       <div class="sdlc-split">
         <a href="monumentos/catedral.html" class="sdlc-split__img-link reveal">
@@ -1244,6 +1553,12 @@
         <div class="sdlc-split__body reveal reveal-delay-1">
           <p class="sdlc-split__eyebrow" data-i18n-page="mon1_eyebrow">Catedral · ss. XII–XIV</p>
           <h2 class="sdlc-split__title" data-i18n-page="mon1_title">La <em>Catedral</em></h2>
+          <div class="sdlc-tags">
+            <span class="sdlc-tag" data-i18n-page="tag1_1">Románico-Gótico</span>
+            <span class="sdlc-tag" data-i18n-page="tag1_2">Gallinero vivo</span>
+            <span class="sdlc-tag" data-i18n-page="tag1_3">Camino de Santiago</span>
+            <span class="sdlc-tag" data-i18n-page="tag1_4">Monumento Nacional</span>
+          </div>
           <p class="sdlc-split__lead" data-i18n-page="mon1_desc">Joya del románico-gótico riojano. Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Gallinero vivo, retablo de Forment y sepulcro del Santo.</p>
           <p class="sdlc-split__text" data-i18n-page="mon1_body">Alberga el famoso gallinero vivo en recuerdo del milagro del ahorcado, el monumental retablo de Damián Forment y el sepulcro del Santo fundador. Su claustro y sus capillas son testimonio de ocho siglos de arte y devoción.</p>
           <a href="monumentos/catedral.html" class="sdlc-split__cta"><span data-i18n-page="mon1_cta">Descubrir</span><span class="sdlc-split__cta-arrow">→</span></a>
@@ -1254,8 +1569,9 @@
 
   <!-- Torre Exenta -->
   <section class="sdlc-section">
+    <div class="sdlc-section__num" aria-hidden="true">02</div>
     <div class="sdlc-section__inner">
-      <div class="sdlc-split">
+      <div class="sdlc-split sdlc-split--reverse">
         <a href="monumentos/torre.html" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/torre.webp'); background-position:center 20%"></div>
           <div class="sdlc-split__img-overlay"></div>
@@ -1268,6 +1584,12 @@
         <div class="sdlc-split__body reveal reveal-delay-1">
           <p class="sdlc-split__eyebrow" data-i18n-page="mon2_eyebrow">Torre exenta · s. XVIII</p>
           <h2 class="sdlc-split__title" data-i18n-page="mon2_title">La <em>Torre</em> Exenta</h2>
+          <div class="sdlc-tags">
+            <span class="sdlc-tag" data-i18n-page="tag2_1">Barroco tardío</span>
+            <span class="sdlc-tag" data-i18n-page="tag2_2">70 metros</span>
+            <span class="sdlc-tag" data-i18n-page="tag2_3">Vistas panorámicas</span>
+            <span class="sdlc-tag" data-i18n-page="tag2_4">La Rioja</span>
+          </div>
           <p class="sdlc-split__lead" data-i18n-page="mon2_desc">70 metros de barroco tardío que dominan el horizonte del Camino Francés. La torre campanario más alta de La Rioja.</p>
           <p class="sdlc-split__text" data-i18n-page="mon2_body">Construida en el siglo XVIII, su diseño independiente respecto a la Catedral la convierte en una rareza de la arquitectura barroca hispánica. Desde su cima, las vistas sobre la ciudad y los campos de La Rioja son excepcionales.</p>
           <a href="monumentos/torre.html" class="sdlc-split__cta"><span data-i18n-page="mon2_cta">Descubrir</span><span class="sdlc-split__cta-arrow">→</span></a>
@@ -1278,6 +1600,7 @@
 
   <!-- Convento San Francisco -->
   <section class="sdlc-section">
+    <div class="sdlc-section__num" aria-hidden="true">03</div>
     <div class="sdlc-section__inner">
       <div class="sdlc-split">
         <a href="monumentos/sanfrancisco.html" class="sdlc-split__img-link reveal">
@@ -1292,6 +1615,12 @@
         <div class="sdlc-split__body reveal reveal-delay-1">
           <p class="sdlc-split__eyebrow" data-i18n-page="mon3_eyebrow">Convento · ss. XIII–XVI</p>
           <h2 class="sdlc-split__title" data-i18n-page="mon3_title">Convento de <em>San Francisco</em></h2>
+          <div class="sdlc-tags">
+            <span class="sdlc-tag" data-i18n-page="tag3_1">Gótico</span>
+            <span class="sdlc-tag" data-i18n-page="tag3_2">Arte medieval</span>
+            <span class="sdlc-tag" data-i18n-page="tag3_3">Claustro porticado</span>
+            <span class="sdlc-tag" data-i18n-page="tag3_4">Exposiciones</span>
+          </div>
           <p class="sdlc-split__lead" data-i18n-page="mon3_desc">El antiguo convento franciscano conserva una iglesia gótica y un claustro de notable valor histórico y artístico.</p>
           <p class="sdlc-split__text" data-i18n-page="mon3_body">Fundado entre los siglos XIII y XVI, su iglesia gótica de nave única y su claustro porticado son testimonio singular de la arquitectura mendicante riojana. Hoy acoge actividades culturales y exposiciones temporales.</p>
           <a href="monumentos/sanfrancisco.html" class="sdlc-split__cta"><span data-i18n-page="mon3_cta">Descubrir</span><span class="sdlc-split__cta-arrow">→</span></a>
@@ -1302,8 +1631,9 @@
 
   <!-- Ermita de la Virgen de la Plaza -->
   <section class="sdlc-section">
+    <div class="sdlc-section__num" aria-hidden="true">04</div>
     <div class="sdlc-section__inner">
-      <div class="sdlc-split">
+      <div class="sdlc-split sdlc-split--reverse">
         <a href="monumentos/ermitaplaza.html" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/ermitaplaza.webp'); background-position:center"></div>
           <div class="sdlc-split__img-overlay"></div>
@@ -1316,6 +1646,12 @@
         <div class="sdlc-split__body reveal reveal-delay-1">
           <p class="sdlc-split__eyebrow" data-i18n-page="mon4_eyebrow">Ermita · s. XII</p>
           <h2 class="sdlc-split__title" data-i18n-page="mon4_title">Ermita de la <em>Virgen de la Plaza</em></h2>
+          <div class="sdlc-tags">
+            <span class="sdlc-tag" data-i18n-page="tag4_1">Románico</span>
+            <span class="sdlc-tag" data-i18n-page="tag4_2">s. XII</span>
+            <span class="sdlc-tag" data-i18n-page="tag4_3">Devoción popular</span>
+            <span class="sdlc-tag" data-i18n-page="tag4_4">Plaza Mayor</span>
+          </div>
           <p class="sdlc-split__lead" data-i18n-page="mon4_desc">La ermita románica dedicada a la Virgen, corazón espiritual de la plaza mayor de Santo Domingo de la Calzada.</p>
           <p class="sdlc-split__text" data-i18n-page="mon4_body">Datada en el siglo XII, la ermita presidió durante siglos la vida pública de la ciudad. Su sobria fachada románica contrasta con la devoción que despierta la imagen venerada de la Virgen en su interior.</p>
           <a href="monumentos/ermitaplaza.html" class="sdlc-split__cta"><span data-i18n-page="mon4_cta">Descubrir</span><span class="sdlc-split__cta-arrow">→</span></a>
@@ -1327,8 +1663,10 @@
   <!-- INTRO MONASTERIO DE CAÑAS -->
   <section class="section section--white">
     <div class="section__inner">
-      <h2 class="sdlc-title reveal" data-i18n-page="canas_title">Monasterio de <em>Cañas</em></h2>
-      <p class="eyebrow reveal" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</p>
+      <div class="canas-section-header reveal">
+        <h2 class="sdlc-title" data-i18n-page="canas_title">Monasterio de <em>Cañas</em></h2>
+        <span class="canas-location-badge" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</span>
+      </div>
       <div class="intro-grid">
         <div>
           <h2 class="section-title reveal reveal-delay-1" data-i18n-page="canas_intro_title">El monasterio <em>cisterciense</em></h2>
@@ -1375,6 +1713,12 @@
         <div class="sdlc-split__body reveal reveal-delay-1">
           <p class="sdlc-split__eyebrow" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</p>
           <h2 class="sdlc-split__title" data-i18n-page="canas_card_title">Monasterio de <em>Cañas</em></h2>
+          <div class="sdlc-tags">
+            <span class="sdlc-tag" data-i18n-page="tag5_1">Cisterciense</span>
+            <span class="sdlc-tag" data-i18n-page="tag5_2">Fundado 1169</span>
+            <span class="sdlc-tag" data-i18n-page="tag5_3">Monjas bernardas</span>
+            <span class="sdlc-tag" data-i18n-page="tag5_4">Panteón medieval</span>
+          </div>
           <p class="sdlc-split__lead" data-i18n-page="canas_lead">A escasos kilómetros de Santo Domingo, entre los viñedos y huertas de La Rioja, el Monasterio de Cañas guarda uno de los conjuntos cistercienses más completos y mejor conservados de España.</p>
           <p class="sdlc-split__text" data-i18n-page="canas_body1">Fundado en 1169 por doña Urraca López de Haro, el monasterio alberga desde entonces una comunidad de monjas bernardas que mantiene la tradición contemplativa cisterciense. Su iglesia románico-gótica, el claustro porticado y el panteón de los señores de los Cameros constituyen una visita de primer orden.</p>
           <a href="monumentos/monasteriocanas.html" class="sdlc-split__cta"><span data-i18n-page="canas_card_cta">Descubrir el monasterio</span><span class="sdlc-split__cta-arrow">→</span></a>
@@ -1501,6 +1845,14 @@
         canas_body1: 'Fundado en 1169 por doña Urraca López de Haro, el monasterio alberga desde entonces una comunidad de monjas bernardas que mantiene la tradición contemplativa cisterciense. Su iglesia románico-gótica, el claustro porticado y el panteón de los señores de los Cameros constituyen una visita de primer orden.',
         canas_body2: 'El panteón atesora piezas escultóricas únicas del siglo XIII: los yacentes de doña Urraca López y de la beata Oria de Villavelayo son considerados obras maestras de la escultura medieval hispana.',
         canas_card_title: 'Monasterio de <em>Cañas</em>', canas_card_desc: 'Comunidad cisterciense fundada en 1169. Panteón funerario, claustro porticado e iglesia románico-gótica de excepcional belleza medieval.', canas_card_cta: 'Descubrir el monasterio',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Catedral', nav_card_2: 'Torre', nav_card_3: 'San Francisco', nav_card_4: 'Ermita',
+        nav_sub_1: 'ss. XII–XIV · Románico-Gótico', nav_sub_2: 's. XVIII · Barroco tardío', nav_sub_3: 'ss. XIII–XVI · Convento gótico', nav_sub_4: 's. XII · Románico',
+        tag1_1: 'Románico-Gótico', tag1_2: 'Gallinero vivo', tag1_3: 'Camino de Santiago', tag1_4: 'Monumento Nacional',
+        tag2_1: 'Barroco tardío', tag2_2: '70 metros', tag2_3: 'Vistas panorámicas', tag2_4: 'La Rioja',
+        tag3_1: 'Gótico', tag3_2: 'Arte medieval', tag3_3: 'Claustro porticado', tag3_4: 'Exposiciones',
+        tag4_1: 'Románico', tag4_2: 's. XII', tag4_3: 'Devoción popular', tag4_4: 'Plaza Mayor',
+        tag5_1: 'Cisterciense', tag5_2: 'Fundado 1169', tag5_3: 'Monjas bernardas', tag5_4: 'Panteón medieval',
         cta_title: 'Reserva tu <em>visita</em>', cta_sub: 'Adquiere tu entrada online y accede a todos los monumentos con la pulsera turística.', cta_btn: 'Comprar entradas →'
       },
       en: {
@@ -1529,6 +1881,14 @@
         canas_body1: 'Founded in 1169 by Doña Urraca López de Haro, the monastery has since housed a community of Bernardine nuns who maintain the Cistercian contemplative tradition. Its Romanesque-Gothic church, the arcaded cloister and the pantheon of the lords of the Cameros are a first-rate visit.',
         canas_body2: 'The pantheon houses unique 13th-century sculptural pieces: the recumbent effigies of Doña Urraca López and the Blessed Oria de Villavelayo are considered masterpieces of Hispanic medieval sculpture.',
         canas_card_title: 'Monastery of <em>Cañas</em>', canas_card_desc: 'Cistercian community founded in 1169. Funeral pantheon, arcaded cloister and Romanesque-Gothic church of exceptional medieval beauty.', canas_card_cta: 'Discover the monastery',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Cathedral', nav_card_2: 'Tower', nav_card_3: 'San Francisco', nav_card_4: 'Hermitage',
+        nav_sub_1: '12th–14th c. · Romanesque-Gothic', nav_sub_2: '18th c. · Late Baroque', nav_sub_3: '13th–16th c. · Gothic Convent', nav_sub_4: '12th c. · Romanesque',
+        tag1_1: 'Romanesque-Gothic', tag1_2: 'Live hen house', tag1_3: 'Way of St. James', tag1_4: 'National Monument',
+        tag2_1: 'Late Baroque', tag2_2: '70 metres', tag2_3: 'Panoramic views', tag2_4: 'La Rioja',
+        tag3_1: 'Gothic', tag3_2: 'Medieval art', tag3_3: 'Arcaded cloister', tag3_4: 'Exhibitions',
+        tag4_1: 'Romanesque', tag4_2: '12th c.', tag4_3: 'Popular devotion', tag4_4: 'Main Square',
+        tag5_1: 'Cistercian', tag5_2: 'Founded 1169', tag5_3: 'Bernardine nuns', tag5_4: 'Medieval pantheon',
         cta_title: 'Book your <em>visit</em>', cta_sub: 'Buy your ticket online and access all monuments with the tourist wristband.', cta_btn: 'Buy tickets →'
       },
       fr: {
@@ -1556,6 +1916,14 @@
         canas_body1: 'Fondé en 1169 par doña Urraca López de Haro, le monastère accueille depuis lors une communauté de moniales bernardines. Son église romano-gothique, le cloître à arcades et le panthéon des seigneurs de los Cameros constituent une visite de premier ordre.',
         canas_body2: 'Le panthéon conserve des pièces sculpturales uniques du XIIIe siècle, considérées comme des chefs-d\'œuvre de la sculpture médiévale hispanique.',
         canas_card_title: 'Monastère de <em>Cañas</em>', canas_card_desc: 'Communauté cistercienne fondée en 1169. Panthéon funéraire, cloître à arcades et église romano-gothique d\'une beauté médiévale exceptionnelle.', canas_card_cta: 'Découvrir le monastère',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Cathédrale', nav_card_2: 'Tour', nav_card_3: 'San Francisco', nav_card_4: 'Ermitage',
+        nav_sub_1: 'XII–XIV s. · Romano-Gothique', nav_sub_2: 'XVIII s. · Baroque tardif', nav_sub_3: 'XIII–XVI s. · Couvent gothique', nav_sub_4: 'XII s. · Roman',
+        tag1_1: 'Romano-Gothique', tag1_2: 'Poulailler vivant', tag1_3: 'Chemin de Compostelle', tag1_4: 'Monument National',
+        tag2_1: 'Baroque tardif', tag2_2: '70 mètres', tag2_3: 'Vues panoramiques', tag2_4: 'La Rioja',
+        tag3_1: 'Gothique', tag3_2: 'Art médiéval', tag3_3: 'Cloître à arcades', tag3_4: 'Expositions',
+        tag4_1: 'Roman', tag4_2: 'XII s.', tag4_3: 'Dévotion populaire', tag4_4: 'Place principale',
+        tag5_1: 'Cistercien', tag5_2: 'Fondé en 1169', tag5_3: 'Moniales bernardines', tag5_4: 'Panthéon médiéval',
         cta_title: 'Réservez votre <em>visite</em>', cta_sub: 'Achetez votre billet en ligne et accédez à tous les monuments avec le bracelet touristique.', cta_btn: 'Acheter des billets →'
       },
       de: {
@@ -1583,6 +1951,14 @@
         canas_body1: 'Im Jahr 1169 von doña Urraca López de Haro gegründet, beherbergt das Kloster seither eine Gemeinschaft bernhardinischer Nonnen. Die romanisch-gotische Kirche, der Kreuzgang und das Pantheon der Herren von Cameros sind eine Reise erster Güte wert.',
         canas_body2: 'Das Pantheon bewahrt einzigartige Skulpturen aus dem 13. Jahrhundert, die als Meisterwerke der hispanischen mittelalterlichen Plastik gelten.',
         canas_card_title: 'Kloster <em>Cañas</em>', canas_card_desc: 'Zisterziensische Gemeinschaft, gegründet 1169. Grabpantheon, Kreuzgang und romanisch-gotische Kirche von außergewöhnlicher mittelalterlicher Schönheit.', canas_card_cta: 'Das Kloster entdecken',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Kathedrale', nav_card_2: 'Turm', nav_card_3: 'San Francisco', nav_card_4: 'Kapelle',
+        nav_sub_1: '12.–14. Jh. · Romanik-Gotik', nav_sub_2: '18. Jh. · Spätbarock', nav_sub_3: '13.–16. Jh. · Gotisches Kloster', nav_sub_4: '12. Jh. · Romanik',
+        tag1_1: 'Romanik-Gotik', tag1_2: 'Lebendiger Hühnerstall', tag1_3: 'Jakobsweg', tag1_4: 'Nationales Denkmal',
+        tag2_1: 'Spätbarock', tag2_2: '70 Meter', tag2_3: 'Panoramablick', tag2_4: 'La Rioja',
+        tag3_1: 'Gotisch', tag3_2: 'Mittelalterliche Kunst', tag3_3: 'Bogenkreuzgang', tag3_4: 'Ausstellungen',
+        tag4_1: 'Romanik', tag4_2: '12. Jh.', tag4_3: 'Volksandacht', tag4_4: 'Hauptplatz',
+        tag5_1: 'Zisterzienser', tag5_2: 'Gegründet 1169', tag5_3: 'Bernhardinische Nonnen', tag5_4: 'Mittelalterliches Pantheon',
         cta_title: 'Ihren <em>Besuch</em> buchen', cta_sub: 'Kaufen Sie Ihr Ticket online und besuchen Sie alle Denkmäler mit dem Tourismusarmband.', cta_btn: 'Tickets kaufen →'
       },
       pt: {
@@ -1610,6 +1986,14 @@
         canas_body1: 'Fundado em 1169 por dona Urraca López de Haro, o mosteiro abriga desde então uma comunidade de monjas bernardinas. Sua igreja românico-gótica, o claustro e o panteão dos senhores de Cameros constituem uma visita de primeira ordem.',
         canas_body2: 'O panteão guarda peças escultóricas únicas do século XIII, consideradas obras-primas da escultura medieval hispânica.',
         canas_card_title: 'Mosteiro de <em>Cañas</em>', canas_card_desc: 'Comunidade cisterciense fundada em 1169. Panteão funerário, claustro e igreja românico-gótica de excepcional beleza medieval.', canas_card_cta: 'Descobrir o mosteiro',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Catedral', nav_card_2: 'Torre', nav_card_3: 'São Francisco', nav_card_4: 'Ermida',
+        nav_sub_1: 'sécs. XII–XIV · Românico-Gótico', nav_sub_2: 'séc. XVIII · Barroco tardio', nav_sub_3: 'sécs. XIII–XVI · Convento gótico', nav_sub_4: 'séc. XII · Românico',
+        tag1_1: 'Românico-Gótico', tag1_2: 'Galinheiro vivo', tag1_3: 'Caminho de Santiago', tag1_4: 'Monumento Nacional',
+        tag2_1: 'Barroco tardio', tag2_2: '70 metros', tag2_3: 'Vistas panorâmicas', tag2_4: 'La Rioja',
+        tag3_1: 'Gótico', tag3_2: 'Arte medieval', tag3_3: 'Claustro porticado', tag3_4: 'Exposições',
+        tag4_1: 'Românico', tag4_2: 'séc. XII', tag4_3: 'Devoção popular', tag4_4: 'Praça Principal',
+        tag5_1: 'Cisterciense', tag5_2: 'Fundado 1169', tag5_3: 'Monjas bernardinas', tag5_4: 'Panteão medieval',
         cta_title: 'Reserve sua <em>visita</em>', cta_sub: 'Adquira seu ingresso online e acesse todos os monumentos com a pulseira turística.', cta_btn: 'Comprar ingressos →'
       },
       it: {
@@ -1637,6 +2021,14 @@
         canas_body1: 'Fondato nel 1169 da doña Urraca López de Haro, il monastero ospita da allora una comunità di monache bernardine. La chiesa romanico-gotica, il chiostro e il pantheon dei signori de Cameros costituiscono una visita di primo ordine.',
         canas_body2: 'Il pantheon conserva sculture uniche del XIII secolo, considerate capolavori della scultura medievale ispanica.',
         canas_card_title: 'Monastero di <em>Cañas</em>', canas_card_desc: 'Comunità cistercense fondata nel 1169. Pantheon funerario, chiostro e chiesa romanico-gotica di eccezionale bellezza medievale.', canas_card_cta: 'Scoprire il monastero',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Cattedrale', nav_card_2: 'Torre', nav_card_3: 'San Francesco', nav_card_4: 'Eremo',
+        nav_sub_1: 'XII–XIV sec. · Romanico-Gotico', nav_sub_2: 'XVIII sec. · Barocco tardivo', nav_sub_3: 'XIII–XVI sec. · Convento gotico', nav_sub_4: 'XII sec. · Romanico',
+        tag1_1: 'Romanico-Gotico', tag1_2: 'Pollaio vivo', tag1_3: 'Cammino di Santiago', tag1_4: 'Monumento Nazionale',
+        tag2_1: 'Barocco tardivo', tag2_2: '70 metri', tag2_3: 'Viste panoramiche', tag2_4: 'La Rioja',
+        tag3_1: 'Gotico', tag3_2: 'Arte medievale', tag3_3: 'Chiostro porticato', tag3_4: 'Mostre',
+        tag4_1: 'Romanico', tag4_2: 'XII sec.', tag4_3: 'Devozione popolare', tag4_4: 'Piazza Principale',
+        tag5_1: 'Cistercense', tag5_2: 'Fondato 1169', tag5_3: 'Monache bernardine', tag5_4: 'Pantheon medievale',
         cta_title: 'Prenota la tua <em>visita</em>', cta_sub: 'Acquista il tuo biglietto online e accedi a tutti i monumenti con il braccialetto turistico.', cta_btn: 'Acquista biglietti →'
       },
       ko: {
@@ -1664,6 +2056,14 @@
         canas_body1: '1169년 우라카 로페스 데 아로 여사에 의해 설립된 이 수도원은 이후 시토회 관상 전통을 이어온 수녀 공동체를 품고 있습니다. 로마네스크-고딕 교회, 회랑, 카메로스 영주들의 판테온은 최고 수준의 방문지입니다.',
         canas_body2: '판테온에는 13세기의 독보적인 조각품들이 있으며, 이베리아 중세 조각의 걸작으로 평가받습니다.',
         canas_card_title: '<em>카냐스</em> 수도원', canas_card_desc: '1169년에 설립된 시토회 공동체. 장례 판테온, 회랑, 탁월한 중세 아름다움의 로마네스크-고딕 교회.', canas_card_cta: '수도원 탐색',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: '대성당', nav_card_2: '종탑', nav_card_3: '산 프란치스코', nav_card_4: '예배당',
+        nav_sub_1: '12–14세기 · 로마네스크-고딕', nav_sub_2: '18세기 · 후기 바로크', nav_sub_3: '13–16세기 · 고딕 수도원', nav_sub_4: '12세기 · 로마네스크',
+        tag1_1: '로마네스크-고딕', tag1_2: '살아있는 닭장', tag1_3: '산티아고 순례길', tag1_4: '국가 기념물',
+        tag2_1: '후기 바로크', tag2_2: '70미터', tag2_3: '파노라마 전망', tag2_4: '라 리오하',
+        tag3_1: '고딕', tag3_2: '중세 예술', tag3_3: '아케이드 회랑', tag3_4: '전시',
+        tag4_1: '로마네스크', tag4_2: '12세기', tag4_3: '민중 신앙', tag4_4: '중앙 광장',
+        tag5_1: '시토회', tag5_2: '1169년 창건', tag5_3: '베르나르디나 수녀회', tag5_4: '중세 판테온',
         cta_title: '<em>방문</em>을 예약하세요', cta_sub: '온라인으로 입장권을 구매하고 관광 팔찌로 모든 기념물을 관람하세요.', cta_btn: '입장권 구매 →'
       },
       eu: {
@@ -1691,6 +2091,14 @@
         canas_body1: '1169an Urraca López de Haro andreak sortua, monastegiak ordutik bernadatar monja komunitate bat hartzen du. Bere eliza erromaniko-gotikoa, klaustroa eta Cameroko jaunen panteoiak lehen mailako bisita dira.',
         canas_body2: 'Panteoak XIII. mendeko eskultura bakarrak ditu, hispaniako Erdi Aroko eskulturaren maisu-lanak direla jotzen direnak.',
         canas_card_title: '<em>Cañasko</em> Monastegia', canas_card_desc: '1169an sortutako zistertziar komunitatea. Ehorzpeko panteoa, klaustroa eta ezohiko ertaroko edertasuneko eliza erromaniko-gotikoa.', canas_card_cta: 'Monastegia aurkitu',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Katedrala', nav_card_2: 'Dorrea', nav_card_3: 'San Frantzisko', nav_card_4: 'Ermita',
+        nav_sub_1: 'XII–XIV. mendea · Erromaniko-Gotiko', nav_sub_2: 'XVIII. mendea · Barrokoa', nav_sub_3: 'XIII–XVI. mendea · Komentua', nav_sub_4: 'XII. mendea · Erromanikoa',
+        tag1_1: 'Erromaniko-Gotiko', tag1_2: 'Oilar bizia', tag1_3: 'Santiago Bidea', tag1_4: 'Monumentu Nazionala',
+        tag2_1: 'Barrokoa', tag2_2: '70 metro', tag2_3: 'Ikuspegi panoramikoa', tag2_4: 'Errioxa',
+        tag3_1: 'Gotikoa', tag3_2: 'Erdi Aroko artea', tag3_3: 'Arkupedun klaustroa', tag3_4: 'Erakusketak',
+        tag4_1: 'Erromanikoa', tag4_2: 'XII. mendea', tag4_3: 'Herri debozio', tag4_4: 'Plaza Nagusia',
+        tag5_1: 'Zistarziarra', tag5_2: '1169an sortua', tag5_3: 'Bernarda monjak', tag5_4: 'Erdi Aroko panteoea',
         cta_title: 'Erreserba ezazu zure <em>bisita</em>', cta_sub: 'Erosi sarrera online eta sar zaitez monumentu guztietara turismo-eskumuturrekoarekin.', cta_btn: 'Sarrerak erosi →'
       },
       ca: {
@@ -1718,6 +2126,14 @@
         canas_body1: 'Fundat el 1169 per dona Urraca López de Haro, el monestir acull des de llavors una comunitat de monges bernardes. La seva església romànic-gòtica, el claustre i el panteó dels senyors de Cameros constitueixen una visita de primer ordre.',
         canas_body2: 'El panteó conserva peces escultòriques úniques del segle XIII, considerades obres mestres de l\'escultura medieval hispànica.',
         canas_card_title: 'Monestir de <em>Cañas</em>', canas_card_desc: 'Comunitat cistercenca fundada el 1169. Panteó funerari, claustre i església romànic-gòtica d\'excepcional bellesa medieval.', canas_card_cta: 'Descobrir el monestir',
+        nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
+        nav_card_1: 'Catedral', nav_card_2: 'Torre', nav_card_3: 'Sant Francesc', nav_card_4: 'Ermita',
+        nav_sub_1: 'ss. XII–XIV · Romànic-Gòtic', nav_sub_2: 's. XVIII · Barroc tardà', nav_sub_3: 'ss. XIII–XVI · Convent gòtic', nav_sub_4: 's. XII · Romànic',
+        tag1_1: 'Romànic-Gòtic', tag1_2: 'Gallineret viu', tag1_3: 'Camí de Santiago', tag1_4: 'Monument Nacional',
+        tag2_1: 'Barroc tardà', tag2_2: '70 metres', tag2_3: 'Vistes panoràmiques', tag2_4: 'La Rioja',
+        tag3_1: 'Gòtic', tag3_2: 'Art medieval', tag3_3: 'Claustre porticat', tag3_4: 'Exposicions',
+        tag4_1: 'Romànic', tag4_2: 's. XII', tag4_3: 'Devoció popular', tag4_4: 'Plaça Major',
+        tag5_1: 'Cistercenc', tag5_2: 'Fundat el 1169', tag5_3: 'Monges bernardes', tag5_4: 'Panteó medieval',
         cta_title: 'Reserva la teva <em>visita</em>', cta_sub: 'Adquireix la teva entrada online i accedeix a tots els monuments amb la polsera turística.', cta_btn: 'Comprar entrades →'
       }
     };

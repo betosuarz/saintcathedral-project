@@ -24,7 +24,8 @@
       "Bash(sed -n '66,73p' legal/privacidad.html)",
       "mcp__Claude_Preview__preview_start",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral tourism tickets pricing elegant dark luxury\" --design-system -p \"Catedral Santo Domingo Visitas\")",
-      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"compact mobile card price title hero booking\" --domain ux -n 4)"
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"compact mobile card price title hero booking\" --domain ux -n 4)",
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral monument cultural tourism editorial premium elegant\" --design-system -p \"Catedral Santo Domingo\" -f markdown)"
     ]
   }
 }

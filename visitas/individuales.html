@@ -1248,7 +1248,7 @@
       }
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
       const stored = localStorage.getItem(KEY);
-      if (stored === '1') applyLightMode(true);
+      if (stored !== '0') applyLightMode(true);
     })();
   </script>
 

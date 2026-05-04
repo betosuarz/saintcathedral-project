@@ -29,7 +29,10 @@
       "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage museum cultural monument elegant luxury minimal\" --design-system -p \"Catedral Santo Domingo\" -f markdown)",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"breadcrumb navigation mobile responsive\" --domain ux)",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"elegant luxury minimal heritage\" --domain style)",
-      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"serif elegant timeless\" --domain typography)"
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"serif elegant timeless\" --domain typography)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"map embed location cta section minimal luxury\" --domain ux)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"map embed section heritage cultural\" --domain landing)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"heritage cultural monument location map elegant dark\" --design-system -p \"Catedral Map Section\" -f markdown)"
     ]
   }
 }

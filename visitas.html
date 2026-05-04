@@ -1695,6 +1695,336 @@
       .compare-table-scroll { margin-top: 12px }
     }
 
+    /* ── VIRTUAL TOUR SECTION ───────────────────────────────── */
+    .vtour-section {
+      background: var(--carbon);
+      padding: 100px 8vw;
+    }
+
+    .vtour-section__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto 48px;
+    }
+
+    .vtour-section__left {
+      flex: 1;
+    }
+
+    .vtour-section__eyebrow {
+      font-family: var(--sans);
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .vtour-section__eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .vtour-section__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--cream);
+    }
+
+    .vtour-section__title em {
+      font-style: italic;
+      color: var(--gold-lt, #d4a84c);
+    }
+
+    .vtour-section__desc {
+      flex: 0 0 360px;
+      font-family: var(--sans);
+      font-size: .9rem;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, .6);
+      text-align: right;
+    }
+
+    .vtour-section__frame-wrap {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: rgba(245, 240, 232, .05);
+      box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.18), 0 32px 64px rgba(0, 0, 0, .5);
+    }
+
+    .vtour-section__frame-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(201, 168, 76, 0.18);
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .vtour-section__iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .vtour-section__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: rgba(245, 240, 232, .35);
+      font-family: var(--sans);
+      font-size: .8rem;
+      letter-spacing: .06em;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .vtour-section__placeholder code {
+      font-family: monospace;
+      font-size: .75rem;
+      background: rgba(245, 240, 232, .1);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 1024px) {
+      .vtour-section__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 36px;
+      }
+
+      .vtour-section__desc {
+        flex: unset;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .vtour-section { padding: 72px 6vw; }
+    }
+
+    body.light-mode .vtour-section {
+      background: var(--carbon);
+    }
+
+    /* ── MAP SECTION ─────────────────────────────────────────── */
+    .map-section {
+      background: var(--cream);
+      padding: 100px 8vw;
+    }
+
+    .map-section__inner {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 72px;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .map-section__eyebrow {
+      font-family: var(--sans);
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: #7B1C1C;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .map-section__eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: #7B1C1C;
+      flex-shrink: 0;
+    }
+
+    .map-section__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--carbon);
+      margin-bottom: 32px;
+    }
+
+    .map-section__title em {
+      font-style: italic;
+      color: #7B1C1C;
+    }
+
+    .map-section__details {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .map-section__detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .map-section__detail-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(20, 18, 16, 0.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--carbon);
+      margin-top: 1px;
+    }
+
+    .map-section__detail-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .map-section__detail-label {
+      font-family: var(--sans);
+      font-size: .6rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(20, 18, 16, .45);
+    }
+
+    .map-section__detail-value {
+      font-family: var(--sans);
+      font-size: .88rem;
+      color: rgba(20, 18, 16, .8);
+      line-height: 1.5;
+    }
+
+    .map-section__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--sans);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--carbon);
+      border: 1px solid rgba(20, 18, 16, 0.3);
+      padding: 13px 24px;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 220ms var(--ease), color 220ms var(--ease), gap 220ms var(--ease);
+    }
+
+    .map-section__btn:hover {
+      background: var(--carbon);
+      color: var(--cream);
+      gap: 16px;
+    }
+
+    .map-section__btn:focus-visible {
+      outline: 2px solid var(--carbon);
+      outline-offset: 3px;
+    }
+
+    .map-section__frame-wrap {
+      position: relative;
+      border-radius: 3px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: rgba(20, 18, 16, .05);
+      box-shadow: 0 24px 64px rgba(20, 18, 16, .14);
+    }
+
+    .map-section__frame-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(20, 18, 16, .1);
+      border-radius: 3px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .map-section__iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .map-section__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: rgba(20, 18, 16, .3);
+      font-family: var(--sans);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .map-section__placeholder svg {
+      opacity: .4;
+    }
+
+    @media (max-width: 1024px) {
+      .map-section__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .map-section__frame-wrap {
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .map-section {
+        padding: 72px 6vw;
+      }
+    }
+
+    /* light mode */
+    body.light-mode .map-section {
+      background: var(--cream);
+    }
+
   </style>
 </head>
 
@@ -1907,6 +2237,7 @@
         <a href="#guiadas" class="hero-nav__link" data-i18n-page="nav_gui">Visitas guiadas</a>
         <a href="#grupos" class="hero-nav__link" data-i18n-page="nav_grp">Grupos</a>
         <a href="#escolares" class="hero-nav__link" data-i18n-page="nav_esc">Escolares</a>
+        <a href="#visita-virtual" class="hero-nav__link" data-i18n-page="nav_vtour">Visita virtual</a>
       </nav>
     </div>
   </header>
@@ -2479,6 +2810,112 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
+       VISITA VIRTUAL 360°
+  ════════════════════════════════════════════════════════ -->
+  <section class="vtour-section reveal" id="visita-virtual" aria-labelledby="vtour-title">
+    <div class="vtour-section__header">
+      <div class="vtour-section__left">
+        <p class="vtour-section__eyebrow">Visita virtual</p>
+        <h2 class="vtour-section__title" id="vtour-title">Explora la Catedral<br>en <em>360°</em></h2>
+      </div>
+      <p class="vtour-section__desc">Recorre el interior de la Catedral de Santo Domingo de la Calzada desde cualquier lugar del mundo antes de planificar tu visita presencial.</p>
+    </div>
+
+    <div class="vtour-section__frame-wrap">
+      <!-- REEMPLAZA el src con tu URL de visita virtual de Google Maps:
+           Google Maps → busca la Catedral → "Ver foto de 360°" o "Street View"
+           → Compartir → Insertar un mapa → copia la URL del src del iframe -->
+      <iframe
+        class="vtour-section__iframe"
+        src=""
+        title="Visita virtual 360° de la Catedral de Santo Domingo de la Calzada"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="vtour-section__placeholder" id="vtour-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span>Pega aquí el embed de la visita virtual de Google Maps<br>sustituyendo el atributo <code>src</code> del iframe</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAPA / CÓMO LLEGAR
+  ════════════════════════════════════════════════════════ -->
+  <section class="map-section reveal" aria-labelledby="map-title">
+    <div class="map-section__inner">
+
+      <!-- Info -->
+      <div class="map-section__info">
+        <p class="map-section__eyebrow">Ubicación</p>
+        <h2 class="map-section__title" id="map-title">Cómo <em>llegar</em></h2>
+
+        <div class="map-section__details">
+          <div class="map-section__detail">
+            <div class="map-section__detail-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="map-section__detail-text">
+              <span class="map-section__detail-label">Dirección</span>
+              <span class="map-section__detail-value">C. de la Mayor, 4<br>26250 Santo Domingo de la Calzada, La Rioja</span>
+            </div>
+          </div>
+
+          <div class="map-section__detail">
+            <div class="map-section__detail-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="map-section__detail-text">
+              <span class="map-section__detail-label">Horario</span>
+              <span class="map-section__detail-value">Lun – Sáb: 9:00 – 20:00 h<br>Domingos: 9:00 – 11:30 · 14:00 – 20:00 h</span>
+            </div>
+          </div>
+
+          <div class="map-section__detail">
+            <div class="map-section__detail-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="map-section__detail-text">
+              <span class="map-section__detail-label">Aparcamiento</span>
+              <span class="map-section__detail-value">Parking gratuito a 5 min a pie<br>Plaza del Santo (zona azul)</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://maps.app.goo.gl/catedral-santo-domingo" target="_blank" rel="noopener noreferrer" class="map-section__btn">
+          Abrir en Google Maps
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <!-- Mapa -->
+      <div class="map-section__frame-wrap">
+        <!-- REEMPLAZA el src con tu URL de embed de Google Maps:
+             Google Maps → Compartir → Insertar un mapa → copia la URL del src del iframe -->
+        <iframe
+          class="map-section__iframe"
+          src=""
+          title="Ubicación de la Catedral de Santo Domingo de la Calzada en Google Maps"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <!-- Placeholder visible mientras no haya src -->
+        <div class="map-section__placeholder" id="map-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Pega aquí el embed de Google Maps<br>sustituyendo el atributo <code>src</code> del iframe</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
        CTA BAND
   ════════════════════════════════════════════════════════ -->
   <div class="cta-band reveal">
@@ -2784,7 +3221,7 @@
       window.addEventListener('scroll', updateLogo, { passive: true });
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
       const stored = localStorage.getItem(KEY);
-      if (stored === '1') applyLightMode(true);
+      if (stored !== '0') applyLightMode(true);
     })();
   </script>
 

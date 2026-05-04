@@ -177,24 +177,33 @@
       margin-top: 100px;
       height: auto;
       min-height: 40px;
-      background: var(--cream);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.18);
     }
 
     @media (max-width: 768px) {
       .breadcrumb-bar { margin-top: 68px; }
     }
 
-    .breadcrumb__link { color: rgba(20, 18, 16, 0.45); }
+    .breadcrumb__link { color: rgba(245, 240, 232, 0.45); }
     .breadcrumb__link:hover,
     .breadcrumb__link:focus-visible { color: var(--gold); text-shadow: none; }
-    .breadcrumb__current { color: var(--carbon); }
+    .breadcrumb__current { color: rgba(245, 240, 232, 0.85); }
     .breadcrumb__sep { color: var(--gold); }
 
     @media (max-width: 640px) {
-      .breadcrumb__back { color: rgba(20, 18, 16, 0.55); }
+      .breadcrumb__back { color: rgba(245, 240, 232, 0.5); }
       .breadcrumb__back:hover,
       .breadcrumb__back:focus-visible { color: var(--gold); text-shadow: none; }
+    }
+
+    body.light-mode .breadcrumb__link { color: rgba(20, 18, 16, 0.45); }
+    body.light-mode .breadcrumb__link:hover,
+    body.light-mode .breadcrumb__link:focus-visible { color: var(--gold); text-shadow: none; }
+    body.light-mode .breadcrumb__current { color: var(--carbon); }
+
+    @media (max-width: 640px) {
+      body.light-mode .breadcrumb__back { color: rgba(20, 18, 16, 0.55); }
+      body.light-mode .breadcrumb__back:hover,
+      body.light-mode .breadcrumb__back:focus-visible { color: var(--gold); text-shadow: none; }
     }
 
     .page-hero__eyebrow {
@@ -2857,10 +2866,10 @@
         document.body.classList.toggle('light-mode', on);
         if (btn) { btn.classList.toggle('is-active', on); btn.setAttribute('aria-pressed', String(on)); }
         if (logoImg) logoImg.src = on ? 'favicon_black.svg' : 'favicon.svg';
-        if (on) localStorage.setItem(KEY, '1'); else localStorage.removeItem(KEY);
+        localStorage.setItem(KEY, on ? '1' : '0');
       }
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
-      if (localStorage.getItem(KEY) === '1') applyLightMode(true);
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
     })();
   </script>
 </body>

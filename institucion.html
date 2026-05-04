@@ -416,8 +416,15 @@
       background: rgba(245, 240, 232, .95);
     }
 
-    body.light-mode .hamburger-line {
+    body.light-mode .navbar.scrolled .hamburger-line {
       background: #141210;
+    }
+
+    body.light-mode .navbar.scrolled .navbar__logo-name,
+    body.light-mode .navbar.scrolled .navbar__logo-sub,
+    body.light-mode .navbar.scrolled .lang-selector__btn,
+    body.light-mode .navbar.scrolled .lang-selector__option {
+      color: #141210;
     }
 
     /* Hero → mantener oscuro; overlay más suave en modo claro */
@@ -439,9 +446,6 @@
     }
 
     /* Texto blanco → negro */
-    body.light-mode .navbar__logo-name,
-    body.light-mode .lang-selector__btn,
-    body.light-mode .lang-selector__option,
     body.light-mode .inst-header__title,
     body.light-mode .inst-card__title,
     body.light-mode .inst-page-title,
@@ -756,6 +760,11 @@
       <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Catedral · Parroquia · Cabildo · Archivo</div>
       <h1 class="page-hero__title" data-i18n-page="page_title">La <em>Institución</em></h1>
       <p class="page-hero__desc" data-i18n-page="page_desc">La comunidad que anima la Catedral: parroquia, cabildo catedralicio y archivo histórico al servicio de la fe y la cultura.</p>
+      <nav class="hero-nav" aria-label="Secciones">
+        <a href="#parroquia" class="hero-nav__link">La Parroquia</a>
+        <a href="#cabildo" class="hero-nav__link">El Cabildo</a>
+        <a href="#archivo" class="hero-nav__link">Archivo</a>
+      </nav>
     </div>
   </section>
 

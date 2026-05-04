@@ -25,7 +25,11 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral tourism tickets pricing elegant dark luxury\" --design-system -p \"Catedral Santo Domingo Visitas\")",
       "Bash(python skills/ui-ux-pro-max/scripts/search.py \"compact mobile card price title hero booking\" --domain ux -n 4)",
-      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral monument cultural tourism editorial premium elegant\" --design-system -p \"Catedral Santo Domingo\" -f markdown)"
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage cathedral monument cultural tourism editorial premium elegant\" --design-system -p \"Catedral Santo Domingo\" -f markdown)",
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"heritage museum cultural monument elegant luxury minimal\" --design-system -p \"Catedral Santo Domingo\" -f markdown)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"breadcrumb navigation mobile responsive\" --domain ux)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"elegant luxury minimal heritage\" --domain style)",
+      "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"serif elegant timeless\" --domain typography)"
     ]
   }
 }

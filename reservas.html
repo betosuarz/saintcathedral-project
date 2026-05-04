@@ -164,11 +164,37 @@
       text-align: center;
       padding: 64px 24px 48px;
       position: relative;
-      margin-top: 100px;
+      margin-top: 0;
     }
 
     @media (max-width: 600px) {
-      .page-hero { margin-top: 70px; }
+      .page-hero { margin-top: 0; }
+    }
+
+    .breadcrumb-bar {
+      position: relative;
+      top: auto;
+      margin-top: 100px;
+      height: auto;
+      min-height: 40px;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-bar { margin-top: 68px; }
+    }
+
+    .breadcrumb__link { color: rgba(20, 18, 16, 0.45); }
+    .breadcrumb__link:hover,
+    .breadcrumb__link:focus-visible { color: var(--gold); text-shadow: none; }
+    .breadcrumb__current { color: var(--carbon); }
+    .breadcrumb__sep { color: var(--gold); }
+
+    @media (max-width: 640px) {
+      .breadcrumb__back { color: rgba(20, 18, 16, 0.55); }
+      .breadcrumb__back:hover,
+      .breadcrumb__back:focus-visible { color: var(--gold); text-shadow: none; }
     }
 
     .page-hero__eyebrow {
@@ -1570,6 +1596,19 @@
       <a href="#">Compra</a>
     </div>
   </aside>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
+    <ol class="breadcrumb__list" role="list">
+      <li><a href="index.html" class="breadcrumb__link">Inicio</a></li>
+      <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
+      <li><span class="breadcrumb__current" aria-current="page">Reservas</span></li>
+    </ol>
+    <a href="index.html" class="breadcrumb__back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>Inicio</span>
+    </a>
+  </nav>
 
   <!-- ═══ PAGE HERO ══════════════════════════════════════════════════ -->
   <div class="page-hero">

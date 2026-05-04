@@ -1741,3 +1741,101 @@ body.light-mode .footer-bottom__links a:hover {
     transition: none;
   }
 }
+
+/* ── BREADCRUMB ─────────────────────────────────────────── */
+.breadcrumb-bar {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  padding: 0 8vw;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-bar { top: 68px; }
+}
+
+.breadcrumb__list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb__link {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color 220ms var(--ease), text-shadow 220ms var(--ease);
+}
+
+.breadcrumb__link:hover,
+.breadcrumb__link:focus-visible {
+  color: var(--gold);
+  text-shadow: 0 0 16px rgba(201, 168, 76, 0.55);
+}
+
+.breadcrumb__link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.breadcrumb__sep {
+  color: var(--gold);
+  opacity: 0.45;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.breadcrumb__current {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.breadcrumb__back { display: none; }
+
+@media (max-width: 640px) {
+  .breadcrumb__list { display: none; }
+
+  .breadcrumb__back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 220ms var(--ease), text-shadow 220ms var(--ease);
+  }
+
+  .breadcrumb__back:hover,
+  .breadcrumb__back:focus-visible {
+    color: var(--gold);
+    text-shadow: 0 0 16px rgba(201, 168, 76, 0.55);
+  }
+
+  .breadcrumb__back:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}

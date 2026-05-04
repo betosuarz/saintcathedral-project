@@ -171,16 +171,28 @@
       .page-hero { margin-top: 0; }
     }
 
+    @media (max-width: 640px) {
+      .page-hero {
+        padding: 20px 24px 36px;
+        background: #F9F8F6;
+        min-height: unset;
+      }
+      .page-hero::before { display: none; }
+      .page-hero__title,
+      .page-hero__eyebrow,
+      .page-hero__desc { text-shadow: none; }
+    }
+
     .breadcrumb-bar {
       position: relative;
       top: auto;
-      margin-top: 100px;
+      margin-top: 104px;
       height: auto;
       min-height: 40px;
     }
 
     @media (max-width: 768px) {
-      .breadcrumb-bar { margin-top: 68px; }
+      .breadcrumb-bar { margin-top: 92px; }
     }
 
     .breadcrumb__link { color: rgba(245, 240, 232, 0.45); }
@@ -1406,6 +1418,10 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .stepper {
+        margin-bottom: 32px;
+      }
+
       .stepper::before {
         display: none;
       }
@@ -1621,8 +1637,8 @@
 
   <!-- ═══ PAGE HERO ══════════════════════════════════════════════════ -->
   <div class="page-hero">
-    <p class="page-hero__eyebrow">Entradas oficiales</p>
     <h1 class="page-hero__title">Reserva tu <em>visita</em></h1>
+    <p class="page-hero__eyebrow">Entradas oficiales</p>
     <p class="page-hero__desc">Adquiere tus entradas para explorar la Catedral, la Torre y el Convento de San Francisco
       con total comodidad.</p>
   </div>

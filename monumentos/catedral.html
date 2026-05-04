@@ -1477,10 +1477,8 @@
       background: #F5F0E8;
     }
 
-    body.light-mode .navbar--solid,
-    body.light-mode .navbar.scrolled,
-    body.light-mode .navbar--always-solid {
-      background: rgba(245, 240, 232, .95);
+    body.light-mode .navbar.scrolled {
+      background: rgba(245, 240, 232, .97);
     }
 
     body.light-mode .side-menu {
@@ -1497,10 +1495,14 @@
       border-bottom-color: rgba(168, 133, 46, .35);
     }
 
+    body.light-mode .navbar.scrolled .navbar__logo-name,
+    body.light-mode .navbar.scrolled .navbar__logo-sub,
+    body.light-mode .navbar.scrolled .lang-selector__btn,
+    body.light-mode .navbar.scrolled .lang-selector__option {
+      color: #141210;
+    }
+
     /* Texto blanco → negro */
-    body.light-mode .navbar__logo-name,
-    body.light-mode .lang-selector__btn,
-    body.light-mode .lang-selector__option,
     body.light-mode .side-menu__nav-link,
     body.light-mode .side-menu__close,
     body.light-mode .footer-brand__logo,
@@ -1608,8 +1610,8 @@
       border-color: rgba(140, 110, 50, .25);
     }
 
-    /* Hamburger → negro en modo claro */
-    body.light-mode .hamburger-line {
+    /* Hamburger → negro en modo claro (solo scrolled) */
+    body.light-mode .navbar.scrolled .hamburger-line {
       background: #141210;
     }
 
@@ -1920,7 +1922,7 @@
   </div>
 
   <!-- NAVBAR (sin hero fullscreen → always-solid) -->
-  <nav class="navbar navbar--always-solid" id="navbar">
+  <nav class="navbar navbar--transparent" id="navbar">
     <a href="../index.html" class="navbar__logo">
       <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
       <div class="navbar__logo-text">
@@ -1969,8 +1971,15 @@
 
   <!-- SIDE MENU -->
   <div class="menu-overlay" id="menu-overlay"></div>
-  <aside class="side-menu" id="side-menu">
-    <button class="side-menu__close" id="menu-close">×</button>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__a11y-btn" aria-label="Herramientas de accesibilidad">
+      <svg class="side-menu__a11y-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle class="side-menu__a11y-circle" cx="12" cy="12" r="11"/>
+        <path class="side-menu__a11y-figure" d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+      </svg>
+      <span class="side-menu__a11y-label">Accesibilidad</span>
+    </button>
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
     <nav class="side-menu__nav">
       <ul class="side-menu__nav-list">
         <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span
@@ -1996,15 +2005,17 @@
           <path
             d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
         </svg></a>
-      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-          <path
-            d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+      <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
         </svg></a>
+      <a href="mailto:entradas@catedralsantodomingo.org" aria-label="Correo electrónico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+      <a href="tel:+34941340033" aria-label="Teléfono"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
     </div>
     <div class="side-menu__legal">
-      <a href="../legal/privacidad.html">Política de privacidad</a><a href="../legal/cookies.html">Política de
-        cookies</a><a href="../legal/aviso-legal.html">Aviso legal</a><a
-        href="../legal/accesibilidad.html">Accesibilidad</a><a href="#">Contacto</a>
+      <a href="../legal/privacidad.html" data-i18n="menu_legal_privacy">Privacidad</a>
+      <a href="../legal/cookies.html" data-i18n="menu_legal_cookies">Cookies</a>
+      <a href="../legal/aviso-legal.html" data-i18n="menu_legal_notice">Aviso legal</a>
+      <a href="#" data-i18n="menu_legal_purchase">Compra</a>
     </div>
   </aside>
 
@@ -2035,8 +2046,8 @@
       </a>
     </nav>
     <div class="page-hero__content">
-      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Monumentos · Monumento principal</div>
       <h1 class="page-hero__title" data-i18n-page="page_title">La <em>Catedral</em><br>de Santo Domingo</h1>
+      <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Monumentos · Monumento principal</div>
       <p class="page-hero__desc" data-i18n-page="page_desc">Joya del románico-gótico riojano. Ocho siglos de historia,
         arte y devoción en el corazón del Camino Francés de Santiago.</p>
       <div class="page-hero__meta">
@@ -3916,18 +3927,25 @@
       const KEY = 'a11y-light-mode';
 
       const logoImg = document.querySelector('.navbar__logo-favicon');
+      const navbar = document.getElementById('navbar');
+
+      function updateLogo() {
+        if (!logoImg) return;
+        const isLight = document.body.classList.contains('light-mode');
+        const isScrolled = navbar && navbar.classList.contains('scrolled');
+        logoImg.src = (isLight && isScrolled) ? '../favicon_black.svg' : '../favicon.svg';
+      }
 
       function applyLightMode(on) {
         document.body.classList.toggle('light-mode', on);
         btn.classList.toggle('is-active', on);
         btn.setAttribute('aria-pressed', String(on));
-        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
-        if (on) localStorage.setItem(KEY, '1');
-        else localStorage.setItem(KEY, '0');
+        updateLogo();
+        localStorage.setItem(KEY, on ? '1' : '0');
       }
 
+      window.addEventListener('scroll', updateLogo, { passive: true });
       if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
-
       btn.addEventListener('click', () => {
         applyLightMode(!document.body.classList.contains('light-mode'));
       });

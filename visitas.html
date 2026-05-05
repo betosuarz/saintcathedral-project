@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/shared.css" />
+  <link rel="stylesheet" href="assets/shared.css" />
   <style>
 
     /* ── PAGE HERO ─────────────────────────────────────────── */
@@ -24,7 +24,7 @@
     .page-hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url('../assets/img/diurna.webp');
+      background-image: url('assets/img/diurna.webp');
       background-size: cover;
       background-position: center 40%;
       transform: scale(1.04);
@@ -2153,8 +2153,8 @@
 
   <!-- NAVBAR -->
   <nav class="navbar navbar--transparent" id="navbar">
-    <a href="../index.html" class="navbar__logo">
-      <img class="navbar__logo-favicon" id="logo-img" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+    <a href="index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
       <div class="navbar__logo-text">
         <span class="navbar__logo-name">Catedral de Santo Domingo</span>
         <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
@@ -2430,7 +2430,7 @@
         <!-- Diurna -->
         <div class="tour-card reveal">
           <div class="tour-card__img-wrap">
-            <div class="tour-card__img" style="background-image:url('../assets/img/diurna.webp')"></div>
+            <div class="tour-card__img" style="background-image:url('assets/img/diurna.webp')"></div>
             <span class="tour-card__badge tour-card__badge--day">Visita diurna</span>
           </div>
           <div class="tour-card__body">
@@ -2467,7 +2467,7 @@
         <!-- Nocturna -->
         <div class="tour-card reveal reveal-delay-1">
           <div class="tour-card__img-wrap">
-            <div class="tour-card__img" style="background-image:url('../assets/img/nocturna.webp')"></div>
+            <div class="tour-card__img" style="background-image:url('assets/img/nocturna.webp')"></div>
             <span class="tour-card__badge tour-card__badge--night">★ Visita nocturna</span>
           </div>
           <div class="tour-card__body">
@@ -2504,7 +2504,7 @@
         <!-- VIP -->
         <div class="tour-card tour-card--vip reveal reveal-delay-2">
           <div class="tour-card__img-wrap">
-            <div class="tour-card__img" style="background-image:url('../assets/img/retablo.webp'); background-position: center 30%"></div>
+            <div class="tour-card__img" style="background-image:url('assets/img/retablo.webp'); background-position: center 30%"></div>
             <span class="tour-card__badge tour-card__badge--vip">VIP · Exclusiva</span>
           </div>
           <div class="tour-card__body">
@@ -3023,7 +3023,7 @@
     </div>
   </footer>
 
-  <script src="../assets/shared.js"></script>
+  <script src="assets/shared.js"></script>
   <script>
     const PAGE_T = {
       es: {
@@ -3223,7 +3223,7 @@
         if (!logoImg) return;
         const isLight = document.body.classList.contains('light-mode');
         const isScrolled = navbar && navbar.classList.contains('scrolled');
-        logoImg.src = (isLight && isScrolled) ? '../favicon_black.svg' : '../favicon.svg';
+        logoImg.src = (isLight && isScrolled) ? 'favicon_black.svg' : 'favicon.svg';
       }
       function applyLightMode(on) {
         document.body.classList.toggle('light-mode', on);
@@ -3247,7 +3247,7 @@
           title: 'Catedral de <em>Santo Domingo</em>',
           tag: 'Entrada individual',
           price: '7',
-          img: '../assets/img/catedral.webp',
+          img: 'assets/img/catedral.webp',
           badge: null,
           desc: 'Acceso completo al recinto catedralicio: nave principal, claustro gótico y el célebre gallinero vivo, hogar del gallo y la gallina blancos que recuerdan el milagro del Santo.',
           specs: [
@@ -3262,7 +3262,7 @@
           title: 'Torre <em>Exenta</em>',
           tag: 'Entrada individual',
           price: '4',
-          img: '../assets/img/torre.webp',
+          img: 'assets/img/torre.webp',
           badge: null,
           desc: 'Sube a la torre campanario exenta de 69 m y disfruta de vistas panorámicas sobre el casco histórico, el Camino Francés y las llanuras de La Rioja.',
           specs: [
@@ -3277,7 +3277,7 @@
           title: 'Convento de <em>San Francisco</em>',
           tag: 'Entrada individual',
           price: '5',
-          img: '../assets/img/sanfrancisco.webp',
+          img: 'assets/img/sanfrancisco.webp',
           badge: null,
           desc: 'Antiguo convento franciscano reconvertido en Centro de Arte Contemporáneo. Exposiciones temporales de artistas actuales en un marco arquitectónico excepcional del s. XVI.',
           specs: [
@@ -3292,7 +3292,7 @@
           title: 'Pulsera <em>Turística</em>',
           tag: 'Combinada · Recomendada',
           price: '10',
-          img: '../assets/img/diurna.webp',
+          img: 'assets/img/diurna.webp',
           badge: 'Recomendado',
           desc: 'Accede a los tres monumentos principales del conjunto histórico con un único billete. Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado.',
           specs: [
@@ -3307,7 +3307,7 @@
           title: 'Pulsera <em>Peregrino</em>',
           tag: 'Tarifa especial · Camino',
           price: '5',
-          img: '../assets/img/nocturna.webp',
+          img: 'assets/img/nocturna.webp',
           badge: null,
           desc: 'Precio especial para peregrinos del Camino de Santiago acreditados. Con credencial sellada, accede a la Catedral y a la Torre Exenta a precio reducido.',
           specs: [
@@ -3322,7 +3322,7 @@
           title: 'Pack <em>Familiar</em>',
           tag: 'Entrada familiar',
           price: '25',
-          img: '../assets/img/diurna.webp',
+          img: 'assets/img/diurna.webp',
           badge: 'Familia',
           desc: '2 adultos + hasta 3 menores. Visita guiada con un especialista en público familiar, adaptada al ritmo y al nivel de los niños para que la experiencia sea inolvidable.',
           specs: [

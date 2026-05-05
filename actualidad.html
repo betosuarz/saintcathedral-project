@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/shared.css" />
+  <link rel="stylesheet" href="assets/shared.css" />
   <style>
     /* ── PAGE HERO ─────────────────────────────────────────── */
     .page-hero {
@@ -23,7 +23,7 @@
     .page-hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url('../assets/img/nocturna.webp');
+      background-image: url('assets/img/nocturna.webp');
       background-size: cover;
       background-position: center 30%;
       transform: scale(1.04);
@@ -176,6 +176,143 @@
       color: var(--carbon);
       border-bottom-color: var(--gold);
       background: transparent
+    }
+
+    /* ── FILTER DROPDOWN (mobile only) ─────────────────────── */
+    .filter-dropdown {
+      display: none;
+      position: relative;
+      margin: 4px 0 24px;
+    }
+
+    .filter-dropdown__btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      min-height: 60px;
+      padding: 14px 22px;
+      background: rgba(201,168,76,.05);
+      border: 1px solid rgba(140,128,112,.22);
+      border-left: 2px solid var(--gold);
+      border-radius: 3px;
+      color: var(--carbon);
+      font-family: var(--sans);
+      cursor: pointer;
+      text-align: left;
+      transition: background .2s, border-color .2s, box-shadow .2s
+    }
+
+    .filter-dropdown__btn:hover {
+      background: rgba(201,168,76,.09);
+      border-color: rgba(201,168,76,.4)
+    }
+
+    .filter-dropdown__btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px
+    }
+
+    .filter-dropdown__btn-text {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .filter-dropdown__eyebrow {
+      font-family: var(--sans);
+      font-size: .54rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-dk)
+    }
+
+    .filter-dropdown__current {
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      font-weight: 400;
+      color: var(--carbon);
+      line-height: 1.05
+    }
+
+    .filter-dropdown__chevron {
+      flex-shrink: 0;
+      color: var(--gold-dk);
+      transition: transform .3s var(--ease)
+    }
+
+    .filter-dropdown.open .filter-dropdown__chevron {
+      transform: rotate(180deg)
+    }
+
+    .filter-dropdown__menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      list-style: none;
+      margin: 0;
+      padding: 6px 0;
+      background: rgba(252,249,243,.98);
+      border: 1px solid rgba(140,128,112,.22);
+      border-radius: 4px;
+      box-shadow: 0 12px 36px rgba(20,18,16,.14);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity .25s, transform .25s var(--ease);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px)
+    }
+
+    .filter-dropdown.open .filter-dropdown__menu {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0)
+    }
+
+    .filter-dropdown__option {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 46px;
+      padding: 12px 22px;
+      font-family: var(--sans);
+      font-size: .66rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(20,18,16,.72);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background .2s, color .2s
+    }
+
+    .filter-dropdown__option::before {
+      content: '';
+      width: 14px;
+      height: 1px;
+      background: transparent;
+      margin-right: 12px;
+      transition: background .2s
+    }
+
+    .filter-dropdown__option:hover {
+      background: rgba(201,168,76,.08);
+      color: var(--carbon)
+    }
+
+    .filter-dropdown__option.active {
+      color: var(--gold-dk);
+      background: rgba(201,168,76,.06)
+    }
+
+    .filter-dropdown__option.active::before {
+      background: var(--gold)
     }
 
     /* ── FEATURED NEWS ─────────────────────────────────────── */
@@ -723,6 +860,24 @@
     body.light-mode .filter-tab.active,
     body.light-mode .filter-tab:hover { color: var(--carbon) }
 
+    body.light-mode .filter-dropdown__btn {
+      background: rgba(201,168,76,.06);
+      border-color: rgba(140,128,112,.22);
+      border-left-color: var(--gold)
+    }
+    body.light-mode .filter-dropdown__btn:hover {
+      background: rgba(201,168,76,.10);
+      border-color: rgba(201,168,76,.45)
+    }
+    body.light-mode .filter-dropdown__menu {
+      background: rgba(253,250,244,.98);
+      border-color: rgba(140,128,112,.22);
+      box-shadow: 0 12px 36px rgba(20,18,16,.10)
+    }
+    body.light-mode .filter-dropdown__option { color: rgba(20,18,16,.72) }
+    body.light-mode .filter-dropdown__option:hover { color: var(--carbon) }
+    body.light-mode .filter-dropdown__option.active { color: var(--gold-dk) }
+
     body.light-mode .news-row__title { color: var(--carbon) }
     body.light-mode .news-row:hover .news-row__title { color: var(--gold-dk) }
 
@@ -821,6 +976,12 @@
       }
 
       .filter-tabs { flex-wrap: wrap }
+    }
+
+    @media (max-width: 720px) {
+      .filter-bar { padding-top: 28px; border-bottom: none; margin-bottom: 0 }
+      .filter-tabs { display: none }
+      .filter-dropdown { display: block }
     }
 
     @media (max-width: 640px) {
@@ -950,8 +1111,8 @@
 
   <!-- NAVBAR -->
   <nav class="navbar navbar--transparent" id="navbar">
-    <a href="../index.html" class="navbar__logo">
-      <img class="navbar__logo-favicon" id="logo-img" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+    <a href="index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
       <div class="navbar__logo-text">
         <span class="navbar__logo-name">Catedral de Santo Domingo</span>
         <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
@@ -1059,6 +1220,26 @@
 
       <!-- Filter bar -->
       <div class="filter-bar">
+        <!-- Mobile: dropdown -->
+        <div class="filter-dropdown" id="news-filter-dropdown">
+          <button class="filter-dropdown__btn" type="button" id="news-filter-btn"
+            aria-haspopup="listbox" aria-expanded="false" aria-controls="news-filter-menu">
+            <span class="filter-dropdown__btn-text">
+              <span class="filter-dropdown__eyebrow" data-i18n-page="filter_label">Filtrar por</span>
+              <span class="filter-dropdown__current" id="news-filter-current" data-i18n-page="filter_all">Todo</span>
+            </span>
+            <svg class="filter-dropdown__chevron" width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+              <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="filter-dropdown__menu" id="news-filter-menu" role="listbox" aria-label="Filtrar noticias">
+            <li><button class="filter-dropdown__option active" type="button" data-filter="all" role="option" aria-selected="true" data-i18n-page="filter_all">Todo</button></li>
+            <li><button class="filter-dropdown__option" type="button" data-filter="comunicado" role="option" aria-selected="false" data-i18n-page="filter_comm">Comunicados</button></li>
+            <li><button class="filter-dropdown__option" type="button" data-filter="novedad" role="option" aria-selected="false" data-i18n-page="filter_new">Novedades</button></li>
+            <li><button class="filter-dropdown__option" type="button" data-filter="prensa" role="option" aria-selected="false" data-i18n-page="filter_press">Prensa</button></li>
+          </ul>
+        </div>
+        <!-- Desktop: tabs -->
         <div class="filter-tabs" role="tablist" aria-label="Filtrar noticias">
           <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" data-i18n-page="filter_all">Todo</button>
           <button class="filter-tab" data-filter="comunicado" role="tab" aria-selected="false" data-i18n-page="filter_comm">Comunicados</button>
@@ -1069,7 +1250,7 @@
 
       <!-- Featured article -->
       <a href="#" class="news-featured reveal" data-category="novedad">
-        <div class="news-featured__bg" style="background-image:url('../assets/img/nocturna.webp'); background-position:center 40%"></div>
+        <div class="news-featured__bg" style="background-image:url('assets/img/nocturna.webp'); background-position:center 40%"></div>
         <div class="news-featured__body">
           <div>
             <div class="news-featured__meta">
@@ -1245,35 +1426,35 @@
       <div class="gallery-grid reveal">
 
         <div class="gallery-item">
-          <div class="gallery-item__img" style="background-image:url('../assets/img/nocturna.webp'); background-position:center 30%"></div>
+          <div class="gallery-item__img" style="background-image:url('assets/img/nocturna.webp'); background-position:center 30%"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Catedral nocturna · Fotografía de autor</p>
           </div>
         </div>
 
         <div class="gallery-item">
-          <div class="gallery-item__img" style="background-image:url('../assets/img/torre.webp'); background-position:center 15%"></div>
+          <div class="gallery-item__img" style="background-image:url('assets/img/torre.webp'); background-position:center 15%"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Torre Exenta al atardecer</p>
           </div>
         </div>
 
         <div class="gallery-item">
-          <div class="gallery-item__img" style="background-image:url('../assets/img/diurna.webp'); background-position:center 50%"></div>
+          <div class="gallery-item__img" style="background-image:url('assets/img/diurna.webp'); background-position:center 50%"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Recorrido virtual por la Catedral</p>
           </div>
         </div>
 
         <div class="gallery-item">
-          <div class="gallery-item__img" style="background-image:url('../assets/img/sanfrancisco.webp')"></div>
+          <div class="gallery-item__img" style="background-image:url('assets/img/sanfrancisco.webp')"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Claustro del Convento de San Francisco</p>
           </div>
         </div>
 
         <div class="gallery-item">
-          <div class="gallery-item__img" style="background-image:url('../assets/img/ermitaplaza.webp')"></div>
+          <div class="gallery-item__img" style="background-image:url('assets/img/ermitaplaza.webp')"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Ermita de la Virgen de la Plaza</p>
           </div>
@@ -1406,7 +1587,7 @@
     </div>
   </footer>
 
-  <script src="../assets/shared.js"></script>
+  <script src="assets/shared.js"></script>
   <script>
     const PAGE_T = {
       es: {
@@ -1618,27 +1799,67 @@
       if (b) b.classList.add('loaded');
     }, 100);
 
-    /* ── Filter tabs (noticias) ──────────────────────────── */
+    /* ── Filter tabs + mobile dropdown (noticias) ────────── */
     (function() {
       const tabs = document.querySelectorAll('.filter-tabs .filter-tab');
+      const options = document.querySelectorAll('.filter-dropdown__option');
       const rows = document.querySelectorAll('#news-grid .news-row');
       const featured = document.querySelector('.news-featured');
+      const dropdown = document.getElementById('news-filter-dropdown');
+      const btn = document.getElementById('news-filter-btn');
+      const current = document.getElementById('news-filter-current');
 
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-          tab.classList.add('active');
-          tab.setAttribute('aria-selected', 'true');
+      function applyFilter(filter, sourceEl) {
+        tabs.forEach(t => {
+          const on = t.dataset.filter === filter;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        options.forEach(o => {
+          const on = o.dataset.filter === filter;
+          o.classList.toggle('active', on);
+          o.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        rows.forEach(row => {
+          row.style.display = (filter === 'all' || row.dataset.category === filter) ? '' : 'none';
+        });
+        if (featured) {
+          featured.style.display = (filter === 'all' || featured.dataset.category === filter) ? '' : 'none';
+        }
+        if (current && sourceEl) {
+          current.textContent = sourceEl.textContent.trim();
+          const i18nKey = sourceEl.getAttribute('data-i18n-page');
+          if (i18nKey) current.setAttribute('data-i18n-page', i18nKey);
+        }
+      }
 
-          const filter = tab.dataset.filter;
-          rows.forEach(row => {
-            row.style.display = (filter === 'all' || row.dataset.category === filter) ? '' : 'none';
-          });
-          if (featured) {
-            featured.style.display = (filter === 'all' || featured.dataset.category === filter) ? '' : 'none';
+      tabs.forEach(tab => tab.addEventListener('click', () => applyFilter(tab.dataset.filter, tab)));
+      options.forEach(opt => opt.addEventListener('click', () => {
+        applyFilter(opt.dataset.filter, opt);
+        if (dropdown) dropdown.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }));
+
+      if (btn && dropdown) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = dropdown.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
           }
         });
-      });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && dropdown.classList.contains('open')) {
+            dropdown.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
+          }
+        });
+      }
     })();
 
     /* ── Event tabs ──────────────────────────────────────── */
@@ -1674,7 +1895,7 @@
         if (!logoImg) return;
         const isLight = document.body.classList.contains('light-mode');
         const isScrolled = navbar && navbar.classList.contains('scrolled');
-        logoImg.src = (isLight && isScrolled) ? '../favicon_black.svg' : '../favicon.svg';
+        logoImg.src = (isLight && isScrolled) ? 'favicon_black.svg' : 'favicon.svg';
       }
       function applyLightMode(on) {
         document.body.classList.toggle('light-mode', on);

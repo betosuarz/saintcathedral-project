@@ -49,14 +49,19 @@
       position: absolute;
       inset: 0;
       background:
+        linear-gradient(180deg,
+          rgba(14, 12, 10, 0.55) 0%,
+          rgba(14, 12, 10, 0.30) 35%,
+          rgba(14, 12, 10, 0.65) 75%,
+          rgba(14, 12, 10, 0.92) 100%),
         linear-gradient(160deg,
-          rgba(14, 12, 10, 0.88) 0%,
-          rgba(14, 12, 10, 0.58) 45%,
-          rgba(14, 12, 10, 0.72) 100%),
+          rgba(14, 12, 10, 0.78) 0%,
+          rgba(14, 12, 10, 0.48) 45%,
+          rgba(14, 12, 10, 0.82) 100%),
         linear-gradient(to top right,
-          rgba(14, 12, 10, 0.88) 0%,
-          rgba(14, 12, 10, 0.45) 40%,
-          transparent 70%);
+          rgba(14, 12, 10, 0.92) 0%,
+          rgba(14, 12, 10, 0.55) 45%,
+          rgba(14, 12, 10, 0.18) 75%);
     }
 
     .page-hero__content {
@@ -1137,6 +1142,329 @@
       }
     }
 
+    /* ── HISTORIA STATS BAR ─────────────────────────────────── */
+    .hist-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(140, 128, 112, .15);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 56px;
+    }
+
+    .hist-stat {
+      padding: 28px 32px;
+      border-right: 1px solid rgba(140, 128, 112, .15);
+      position: relative;
+    }
+
+    .hist-stat:last-child {
+      border-right: none;
+    }
+
+    .hist-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dk), transparent);
+    }
+
+    .hist-stat__num {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--gold-dk);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .hist-stat__label {
+      font-size: .65rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--stone);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .hist-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hist-stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(140, 128, 112, .15);
+      }
+
+      .hist-stat:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* ── TESOROS BENTO ───────────────────────────────────────── */
+    .tesoros-bento {
+      display: grid;
+      grid-template-columns: 1.65fr 1fr 1fr;
+      grid-template-rows: 520px;
+      gap: 10px;
+    }
+
+    .tesoro-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .tesoro-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--bg);
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease);
+    }
+
+    .tesoro-card:hover::before {
+      transform: scale(1.07);
+    }
+
+    .tesoro-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(165deg, rgba(14, 12, 10, .1) 0%, rgba(14, 12, 10, .6) 55%, rgba(14, 12, 10, .95) 100%);
+      transition: background .5s;
+    }
+
+    .tesoro-card:hover .tesoro-card__overlay {
+      background: linear-gradient(165deg, rgba(14, 12, 10, .18) 0%, rgba(14, 12, 10, .68) 55%, rgba(14, 12, 10, .97) 100%);
+    }
+
+    .tesoro-card__top-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent 60%);
+      opacity: 0;
+      transition: opacity .35s;
+      z-index: 3;
+    }
+
+    .tesoro-card:hover .tesoro-card__top-line {
+      opacity: 1;
+    }
+
+    .tesoro-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 28px;
+      z-index: 2;
+    }
+
+    .tesoro-card__cat {
+      font-size: .55rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .tesoro-card__cat::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .tesoro-card__title {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .tesoro-card__text {
+      font-size: .78rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, .72);
+      margin-bottom: 18px;
+      max-width: 280px;
+      transition: color .3s;
+    }
+
+    .tesoro-card:hover .tesoro-card__text {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .tesoro-card__link {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: var(--sans);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: .85;
+      transition: opacity .25s, gap .25s;
+    }
+
+    .tesoro-card__link:hover {
+      opacity: 1;
+      gap: 10px;
+    }
+
+    .tesoro-card__num {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: var(--serif);
+      font-size: 5rem;
+      font-weight: 300;
+      color: rgba(201, 168, 76, .08);
+      line-height: 1;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      transition: color .5s;
+    }
+
+    .tesoro-card:hover .tesoro-card__num {
+      color: rgba(201, 168, 76, .13);
+    }
+
+    @media (max-width: 960px) {
+      .tesoros-bento {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 380px 320px;
+      }
+
+      .tesoro-card:first-child {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tesoros-bento {
+        grid-template-columns: 1fr;
+        grid-template-rows: 320px 280px 280px;
+      }
+
+      .tesoro-card:first-child {
+        grid-column: span 1;
+      }
+
+      .tesoro-card__text {
+        display: none;
+      }
+    }
+
+    /* ── TIMELINE ENHANCED ───────────────────────────────────── */
+    .timeline-year {
+      font-size: 2.2rem;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-era-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid rgba(201, 168, 76, .2);
+      border-radius: 2px;
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      margin-top: 8px;
+    }
+
+    .timeline-era-badge::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ── HORARIOS VISUAL ENHANCEMENT ────────────────────────── */
+    .ht-section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 52px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(140, 128, 112, .15);
+      flex-wrap: wrap;
+    }
+
+    .ht-section-header__text {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .ht-section-header__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid rgba(201, 168, 76, .35);
+      border-radius: 2px;
+      background: rgba(201, 168, 76, .06);
+      font-family: var(--serif);
+      font-size: .9rem;
+      color: var(--gold-dk);
+      flex-shrink: 0;
+    }
+
+    .ht-section-header__badge strong {
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .ht-block {
+      background: rgba(201, 168, 76, .03);
+      border: 1px solid rgba(140, 128, 112, .12);
+      border-radius: 4px;
+      padding: 32px 36px;
+    }
+
+    .ht-block--schedule {
+      border-top: 2px solid rgba(201, 168, 76, .25);
+    }
+
+    .ht-block--prices {
+      border-top: 2px solid rgba(201, 168, 76, .45);
+    }
+
+    .ht-block__title {
+      border-bottom: 1px solid rgba(140, 128, 112, .2);
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+    }
+
     /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
     body.light-mode {
       background: #F9F8F6;
@@ -1404,6 +1732,30 @@
     /* Entrada gratuita → verde con contraste en fondos claros */
     body.light-mode .ht-row__val--free {
       color: #2E7D32;
+    }
+
+    /* Hist-stats en modo claro */
+    body.light-mode .hist-stat__num {
+      color: var(--gold-dk);
+    }
+
+    body.light-mode .hist-stats {
+      border-color: rgba(140, 128, 112, .2);
+    }
+
+    body.light-mode .hist-stat {
+      border-right-color: rgba(140, 128, 112, .2);
+      border-bottom-color: rgba(140, 128, 112, .2);
+    }
+
+    /* Horarios bloques en modo claro */
+    body.light-mode .ht-block {
+      background: rgba(245, 240, 232, .6);
+      border-color: rgba(140, 128, 112, .18);
+    }
+
+    body.light-mode .ht-section-header {
+      border-bottom-color: rgba(140, 128, 112, .18);
     }
 
     /* Footer CTA (newsletter) → fondo claro + textos oscuros */
@@ -1707,6 +2059,7 @@
       <nav class="hero-nav" aria-label="Secciones del Monasterio">
         <a href="#horarios-tarifas" class="hero-nav__link">Horarios y tarifas</a>
         <a href="#galeria" class="hero-nav__link">Galería</a>
+        <a href="#tesoros" class="hero-nav__link">Tesoros</a>
         <a href="#espacios" class="hero-nav__link">Espacios</a>
       </nav>
     </div>
@@ -1738,10 +2091,17 @@
   <!-- HORARIOS Y TARIFAS -->
   <section class="section section--white" id="horarios-tarifas">
     <div class="section__inner">
-      <p class="eyebrow reveal" data-i18n-page="sec_ht_eyebrow">Visita</p>
-      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+      <div class="ht-section-header reveal">
+        <div class="ht-section-header__text">
+          <p class="eyebrow" data-i18n-page="sec_ht_eyebrow">Visita</p>
+          <h2 class="section-title" style="margin-bottom:0" data-i18n-page="sec_ht_title">Horarios y <em>tarifas</em></h2>
+        </div>
+        <div class="ht-section-header__badge">
+          <strong>Mar–Dom</strong> <span data-i18n-page="ht_open_days">visita pública</span>
+        </div>
+      </div>
       <div class="ht-grid reveal reveal-delay-2">
-        <div>
+        <div class="ht-block ht-block--schedule">
           <div class="ht-block__title" data-i18n-page="ht_schedule_title">Horarios de apertura</div>
           <div class="ht-row">
             <span class="ht-row__label" data-i18n-page="ht_lv">Martes a domingo<span class="ht-today-badge"
@@ -1757,7 +2117,7 @@
             Monasterio permanece cerrado los lunes. Las últimas entradas se admiten 15 minutos antes del cierre. La
             comunidad de monjas recibe a los visitantes según disponibilidad.</p>
         </div>
-        <div>
+        <div class="ht-block ht-block--prices">
           <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
           <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
               class="ht-row__val ht-row__val--highlight">5 € / persona</span></div>
@@ -1989,6 +2349,20 @@
     <div class="section__inner">
       <p class="eyebrow reveal" data-i18n-page="sec_hist_eyebrow">Historia y Arte</p>
       <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_hist_title">La <em>Abadía de la Luz</em></h2>
+      <div class="hist-stats reveal reveal-delay-2">
+        <div class="hist-stat">
+          <div class="hist-stat__num" data-i18n-page="hist_stat1_num">1170</div>
+          <div class="hist-stat__label" data-i18n-page="hist_stat1_label">Fundación cisterciense · Origen</div>
+        </div>
+        <div class="hist-stat">
+          <div class="hist-stat__num" data-i18n-page="hist_stat2_num">8 siglos</div>
+          <div class="hist-stat__label" data-i18n-page="hist_stat2_label">Comunidad activa de bernardas</div>
+        </div>
+        <div class="hist-stat">
+          <div class="hist-stat__num" data-i18n-page="hist_stat3_num">Únicas</div>
+          <div class="hist-stat__label" data-i18n-page="hist_stat3_label">Vidrieras de alabastro en Europa</div>
+        </div>
+      </div>
       <div class="text-grid reveal reveal-delay-2">
         <div>
           <p class="text-grid__lead" data-i18n-page="hist_lead">El Monasterio de Cañas es uno de los conjuntos
@@ -2038,6 +2412,63 @@
     </div>
   </section>
 
+  <!-- TESOROS DEL MONASTERIO -->
+  <section class="section section--dark" id="tesoros">
+    <div class="section__inner">
+      <p class="eyebrow reveal" data-i18n-page="sec_tesoros_eyebrow">Tesoros del monasterio</p>
+      <h2 class="section-title reveal reveal-delay-1" style="color:var(--white)" data-i18n-page="sec_tesoros_title">
+        Piezas que <em>debes conocer</em></h2>
+      <div class="tesoros-bento reveal reveal-delay-2">
+
+        <!-- Vidrieras de Alabastro — carta principal -->
+        <div class="tesoro-card" style="--bg: url('../assets/img/canas_vidrieras.webp')">
+          <div class="tesoro-card__top-line"></div>
+          <div class="tesoro-card__overlay"></div>
+          <div class="tesoro-card__body">
+            <span class="tesoro-card__cat" data-i18n-page="tesoro1_cat">Únicas en Europa · s. XIII</span>
+            <h3 class="tesoro-card__title" data-i18n-page="tesoro1_title">Vidrieras de Alabastro</h3>
+            <p class="tesoro-card__text" data-i18n-page="tesoro1_text">El alabastro traslúcido transforma la luz solar
+              en un resplandor blanco y etéreo: la razón del nombre «Abadía de la Luz».</p>
+            <button class="tesoro-card__link" onclick="openGalleryPopup(9)" data-i18n-page="tesoro_discover">Descubrir
+              →</button>
+          </div>
+          <div class="tesoro-card__num">01</div>
+        </div>
+
+        <!-- Sepulcro de Doña Urraca -->
+        <div class="tesoro-card" style="--bg: url('../assets/img/canas_capitular.webp')">
+          <div class="tesoro-card__top-line"></div>
+          <div class="tesoro-card__overlay"></div>
+          <div class="tesoro-card__body">
+            <span class="tesoro-card__cat" data-i18n-page="tesoro2_cat">Gótico · 1262</span>
+            <h3 class="tesoro-card__title" data-i18n-page="tesoro2_title">Sepulcro de Doña Urraca</h3>
+            <p class="tesoro-card__text" data-i18n-page="tesoro2_text">Obra cumbre de la escultura gótica española,
+              dedicada a la abadesa hija de los fundadores.</p>
+            <button class="tesoro-card__link" onclick="openGalleryPopup(6)" data-i18n-page="tesoro_discover">Descubrir
+              →</button>
+          </div>
+          <div class="tesoro-card__num">02</div>
+        </div>
+
+        <!-- Retablo Mayor -->
+        <div class="tesoro-card" style="--bg: url('../assets/img/canas_retablo.webp')">
+          <div class="tesoro-card__top-line"></div>
+          <div class="tesoro-card__overlay"></div>
+          <div class="tesoro-card__body">
+            <span class="tesoro-card__cat" data-i18n-page="tesoro3_cat">Flamenco · 1523–1528</span>
+            <h3 class="tesoro-card__title" data-i18n-page="tesoro3_title">Retablo Mayor</h3>
+            <p class="tesoro-card__text" data-i18n-page="tesoro3_text">Obra de Guillén de Holanda y Jorge de Flandes,
+              cumbre del esplendor renacentista del monasterio.</p>
+            <button class="tesoro-card__link" onclick="openGalleryPopup(7)" data-i18n-page="tesoro_discover">Descubrir
+              →</button>
+          </div>
+          <div class="tesoro-card__num">03</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE -->
   <section class="section section--dark">
     <div class="section__inner">
@@ -2045,6 +2476,7 @@
       <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">Ocho
         siglos de <em>historia</em></h2>
       <div class="timeline reveal reveal-delay-2">
+        <div class="timeline-era-badge" data-i18n-page="tl_era1">Era fundacional · ss. XII–XIII</div>
         <div class="timeline-item">
           <div class="timeline-year">1170</div>
           <div>
@@ -2072,6 +2504,7 @@
               gótica española.</div>
           </div>
         </div>
+        <div class="timeline-era-badge" data-i18n-page="tl_era2">Esplendor renacentista · ss. XVI–XVIII</div>
         <div class="timeline-item">
           <div class="timeline-year">s. XVI</div>
           <div>
@@ -2090,6 +2523,7 @@
               vida cisterciense.</div>
           </div>
         </div>
+        <div class="timeline-era-badge" data-i18n-page="tl_era3">Comunidad activa · Actualidad</div>
         <div class="timeline-item">
           <div class="timeline-year">Hoy</div>
           <div>

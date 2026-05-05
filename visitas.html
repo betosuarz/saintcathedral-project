@@ -1772,12 +1772,14 @@
     .vtour-section__frame-wrap {
       position: relative;
       max-width: 1400px;
+      width: 100%;
       margin: 0 auto;
       border-radius: 4px;
       overflow: hidden;
       aspect-ratio: 16 / 9;
       background: rgba(245, 240, 232, .05);
       box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.18), 0 32px 64px rgba(0, 0, 0, .5);
+      box-sizing: border-box;
     }
 
     .vtour-section__frame-wrap::after {
@@ -1790,37 +1792,149 @@
       z-index: 2;
     }
 
-    .vtour-section__iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-      position: absolute;
-      inset: 0;
-    }
-
-    .vtour-section__placeholder {
+    .vtour-section__launcher {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      color: rgba(245, 240, 232, .35);
-      font-family: var(--sans);
-      font-size: .8rem;
-      letter-spacing: .06em;
+      gap: 28px;
       text-align: center;
       padding: 32px;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,.07) 0%, transparent 70%);
     }
 
-    .vtour-section__placeholder code {
-      font-family: monospace;
-      font-size: .75rem;
-      background: rgba(245, 240, 232, .1);
-      padding: 2px 6px;
-      border-radius: 3px;
+    .vtour-section__launcher-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      transition: border-color .3s, box-shadow .3s;
+    }
+
+    .vtour-section__launcher-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .vtour-section__launcher-title {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: var(--cream);
+      font-weight: 400;
+      letter-spacing: .04em;
+    }
+
+    .vtour-section__launcher-sub {
+      font-family: var(--sans);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.45);
+    }
+
+    .vtour-section__launcher-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--sans);
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background .25s, color .25s;
+    }
+
+    .vtour-section__launcher-btn:hover {
+      background: var(--gold);
+      color: var(--carbon);
+    }
+
+    #vtour-fs-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+    }
+    #vtour-fs-overlay iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #vtour-fs-close {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 10000;
+      width: 40px;
+      height: 40px;
+      background: rgba(20,18,16,.75);
+      border: 1px solid rgba(201,168,76,.5);
+      border-radius: 4px;
+      color: #C9A84C;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    #vtour-fs-btn {
+      display: none;
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      background: rgba(20, 18, 16, .75);
+      border: 1px solid rgba(201, 168, 76, .5);
+      border-radius: 4px;
+      color: var(--gold);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: background .2s;
+    }
+
+    #vtour-fs-btn:hover { background: rgba(201, 168, 76, .2); }
+
+    #vtour-fs-btn {
+      display: none;
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      background: rgba(20, 18, 16, .75);
+      border: 1px solid rgba(201, 168, 76, .5);
+      border-radius: 4px;
+      color: var(--gold);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: background .2s;
+    }
+
+    #vtour-fs-btn:hover {
+      background: rgba(201, 168, 76, .2);
     }
 
     @media (max-width: 1024px) {
@@ -1839,6 +1953,23 @@
 
     @media (max-width: 768px) {
       .vtour-section { padding: 72px 6vw; }
+      .vtour-section__launcher { gap: 20px; }
+      .vtour-section__launcher-icon { width: 60px; height: 60px; }
+      .vtour-section__launcher-icon svg { width: 26px; height: 26px; }
+      .vtour-section__launcher-btn { padding: 12px 24px; font-size: .75rem; }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      .vtour-section {
+        padding: 16px 4vw;
+      }
+      .vtour-section__header {
+        margin-bottom: 12px;
+      }
+      .vtour-section__frame-wrap {
+        max-width: 70vw;
+        margin: 0 auto;
+      }
     }
 
     body.light-mode .vtour-section {
@@ -2835,24 +2966,30 @@
     </div>
 
     <div class="vtour-section__frame-wrap">
-      <!-- REEMPLAZA el src con tu URL de visita virtual de Google Maps:
-           Google Maps → busca la Catedral → "Ver foto de 360°" o "Street View"
-           → Compartir → Insertar un mapa → copia la URL del src del iframe -->
-      <iframe
-        class="vtour-section__iframe"
-        src=""
-        title="Visita virtual 360° de la Catedral de Santo Domingo de la Calzada"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-      <div class="vtour-section__placeholder" id="vtour-placeholder">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="2" y1="12" x2="22" y2="12"/>
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-        </svg>
-        <span>Pega aquí el embed de la visita virtual de Google Maps<br>sustituyendo el atributo <code>src</code> del iframe</span>
+      <button id="vtour-fs-btn" aria-label="Pantalla completa" onclick="vtourFullscreen()">
+        <svg id="vtour-fs-icon-expand" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        <svg id="vtour-fs-icon-exit" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/></svg>
+      </button>
+      <div class="vtour-section__launcher" id="vtour-launcher">
+        <div class="vtour-section__launcher-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="vtour-section__launcher-text">
+          <p class="vtour-section__launcher-title">Visita virtual 360°</p>
+          <p class="vtour-section__launcher-sub">Google Maps Street View</p>
+        </div>
+        <button
+          type="button"
+          class="vtour-section__launcher-btn"
+          aria-label="Iniciar visita virtual 360° de la Catedral"
+          onclick="vtourLaunch()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Iniciar visita virtual
+        </button>
       </div>
     </div>
   </section>
@@ -2875,7 +3012,7 @@
             </div>
             <div class="map-section__detail-text">
               <span class="map-section__detail-label">Dirección</span>
-              <span class="map-section__detail-value">C. de la Mayor, 4<br>26250 Santo Domingo de la Calzada, La Rioja</span>
+              <span class="map-section__detail-value">Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja</span>
             </div>
           </div>
 
@@ -2912,17 +3049,12 @@
              Google Maps → Compartir → Insertar un mapa → copia la URL del src del iframe -->
         <iframe
           class="map-section__iframe"
-          src=""
+          src="https://maps.google.com/maps?q=42.441228,-2.954139&output=embed&z=17"
           title="Ubicación de la Catedral de Santo Domingo de la Calzada en Google Maps"
           allowfullscreen
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-        <!-- Placeholder visible mientras no haya src -->
-        <div class="map-section__placeholder" id="map-placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Pega aquí el embed de Google Maps<br>sustituyendo el atributo <code>src</code> del iframe</span>
-        </div>
       </div>
 
     </div>
@@ -3440,6 +3572,52 @@
       window.addEventListener('resize', init);
       init();
     })();
+  </script>
+
+  <div id="vtour-fs-overlay">
+    <button id="vtour-fs-close" aria-label="Cerrar pantalla completa" onclick="vtourFullscreen()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/></svg>
+    </button>
+  </div>
+
+  <script>
+    function vtourLaunch() {
+      var launcher = document.getElementById('vtour-launcher');
+      if (!launcher) return;
+      var wrap = launcher.parentElement;
+      var iframe = document.createElement('iframe');
+      iframe.id = 'vtour-iframe';
+      iframe.src = 'https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAptXjkPhb3UrSm0ANRUMjF9Gyd-g1bO24&location=42.4418457,-2.9527771&heading=272&pitch=8&fov=90';
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;display:block;';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      iframe.setAttribute('title', 'Visita virtual 360° de la Catedral de Santo Domingo de la Calzada');
+      launcher.style.opacity = '0';
+      launcher.style.transition = 'opacity .3s';
+      setTimeout(function () {
+        wrap.replaceChild(iframe, launcher);
+        var btn = document.getElementById('vtour-fs-btn');
+        if (btn) btn.style.display = 'flex';
+      }, 300);
+    }
+
+    function vtourFullscreen() {
+      var overlay = document.getElementById('vtour-fs-overlay');
+      var iframe = document.getElementById('vtour-iframe');
+      if (!iframe) return;
+      var fsIframe = document.getElementById('vtour-iframe-fs');
+      if (fsIframe) {
+        overlay.removeChild(fsIframe);
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      } else {
+        var clone = iframe.cloneNode(false);
+        clone.id = 'vtour-iframe-fs';
+        overlay.appendChild(clone);
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+    }
   </script>
 
 </body>

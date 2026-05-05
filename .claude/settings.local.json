@@ -33,7 +33,23 @@
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"map embed location cta section minimal luxury\" --domain ux)",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"map embed section heritage cultural\" --domain landing)",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py \"heritage cultural monument location map elegant dark\" --design-system -p \"Catedral Map Section\" -f markdown)",
-      "Bash(python C:/saintcatedral-project/.claude/skills/ui-ux-pro-max/scripts/search.py \"hero text visibility contrast dark overlay heritage\" --domain ux)"
+      "Bash(python C:/saintcatedral-project/.claude/skills/ui-ux-pro-max/scripts/search.py \"hero text visibility contrast dark overlay heritage\" --domain ux)",
+      "WebFetch(domain:fullstackopen.com)",
+      "WebFetch(domain:www.totaltypescript.com)",
+      "WebFetch(domain:tryhackme.com)",
+      "WebFetch(domain:academy.hackthebox.com)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:portswigger.net)",
+      "WebFetch(domain:www.offensive-security.com)",
+      "WebFetch(domain:www.offsec.com)",
+      "WebFetch(domain:opensecuritytraining2.github.io)",
+      "WebFetch(domain:certifications.tcm-sec.com)",
+      "WebFetch(domain:academy.tcm-sec.com)",
+      "WebFetch(domain:p.ost2.fyi)",
+      "WebFetch(domain:tcm-sec.com)",
+      "WebFetch(domain:www.cybrary.it)",
+      "WebFetch(domain:owasp.org)"
     ]
   }
 }

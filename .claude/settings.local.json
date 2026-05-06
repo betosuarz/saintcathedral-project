@@ -49,7 +49,8 @@
       "WebFetch(domain:p.ost2.fyi)",
       "WebFetch(domain:tcm-sec.com)",
       "WebFetch(domain:www.cybrary.it)",
-      "WebFetch(domain:owasp.org)"
+      "WebFetch(domain:owasp.org)",
+      "Bash(python skills/ui-ux-pro-max/scripts/search.py \"cookie consent banner GDPR modal elegant dark religious heritage\" --design-system -p \"Santo Domingo Cathedral\")"
     ]
   }
 }

@@ -3614,6 +3614,79 @@
     actualizarFechaMinima();
     generateCaptcha();
   </script>
+    <!-- COOKIE BANNER + MODAL -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">
+        <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el trafico y recordar tus preferencias.</p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
+        <button id="cookie-btn-customize" class="cookie-btn cookie-btn--ghost">Personalizar</button>
+        <button id="cookie-btn-all" class="cookie-btn cookie-btn--primary">Aceptar todo</button>
+      </div>
+      <a href="#" class="cookie-banner__link" data-cookie-link>Politica de cookies</a>
+    </div>
+  </div>
+  <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+    <div class="cookie-modal__backdrop"></div>
+    <div class="cookie-modal__dialog" tabindex="-1">
+      <div class="cookie-modal__header">
+        <h2 id="cookie-modal-title" class="cookie-modal__title">Preferencias de cookies</h2>
+        <button id="cookie-modal-close" class="cookie-modal__close" aria-label="Cerrar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="cookie-modal__body">
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span id="cookie-cat-necessary-name" class="cookie-cat__name">Necesarias</span>
+              <span class="cookie-cat__badge">Siempre activas</span>
+            </div>
+            <div class="cookie-toggle cookie-toggle--locked" aria-hidden="true"><span class="cookie-toggle__track"></span></div>
+          </div>
+          <p id="cookie-cat-necessary-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analiticas</span>
+            <label class="cookie-toggle" for="cookie-toggle-analytics" aria-labelledby="cookie-cat-analytics-name">
+              <input type="checkbox" id="cookie-toggle-analytics" name="analytics" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-analytics-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-marketing-name" class="cookie-cat__name">Marketing</span>
+            <label class="cookie-toggle" for="cookie-toggle-marketing" aria-labelledby="cookie-cat-marketing-name">
+              <input type="checkbox" id="cookie-toggle-marketing" name="marketing" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-marketing-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-prefs-name" class="cookie-cat__name">Preferencias</span>
+            <label class="cookie-toggle" for="cookie-toggle-prefs" aria-labelledby="cookie-cat-prefs-name">
+              <input type="checkbox" id="cookie-toggle-prefs" name="prefs" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-prefs-desc" class="cookie-cat__desc"></p>
+        </div>
+      </div>
+      <div class="cookie-modal__footer">
+        <button id="cookie-modal-reject" class="cookie-btn cookie-btn--outline">Rechazar opcionales</button>
+        <button id="cookie-modal-save" class="cookie-btn cookie-btn--primary">Guardar preferencias</button>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/shared.js"></script>
   <script>
     (function () {

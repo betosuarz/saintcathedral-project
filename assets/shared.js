@@ -45,6 +45,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privacidad',
     menu_legal_cookies: 'Cookies', menu_legal_notice: 'Aviso legal',
     menu_legal_a11y: 'Accesibilidad', menu_legal_contact: 'Contacto',
+    cookie_title: 'Tu privacidad importa',
+    cookie_desc: 'Usamos cookies para mejorar tu experiencia, analizar el tráfico y recordar tus preferencias. Puedes elegir qué cookies aceptas.',
+    cookie_btn_necessary: 'Solo necesarias',
+    cookie_btn_all: 'Aceptar todo',
+    cookie_btn_customize: 'Personalizar',
+    cookie_modal_title: 'Preferencias de cookies',
+    cookie_cat_necessary: 'Necesarias',
+    cookie_cat_necessary_desc: 'Imprescindibles para el funcionamiento del sitio: seguridad de sesión, idioma y configuración de accesibilidad.',
+    cookie_cat_analytics: 'Analíticas',
+    cookie_cat_analytics_desc: 'Nos ayudan a entender cómo se usa la web para mejorar su contenido. Los datos son anónimos.',
+    cookie_cat_marketing: 'Marketing',
+    cookie_cat_marketing_desc: 'Permiten personalizar la publicidad que ves en otras webs según tu visita a nuestra web.',
+    cookie_cat_prefs: 'Preferencias',
+    cookie_cat_prefs_desc: 'Recuerdan tus ajustes personales como el idioma y el modo visual para futuras visitas.',
+    cookie_always_on: 'Siempre activas',
+    cookie_save: 'Guardar preferencias',
+    cookie_reject_all: 'Rechazar opcionales',
+    cookie_modal_close: 'Cerrar',
+    cookie_link: 'Política de cookies',
   },
   en: {
     nav_tickets: 'Tickets',
@@ -82,6 +101,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Purchase', menu_legal_privacy: 'Privacy',
     menu_legal_cookies: 'Cookies', menu_legal_notice: 'Legal notice',
     menu_legal_a11y: 'Accessibility', menu_legal_contact: 'Contact',
+    cookie_title: 'Your privacy matters',
+    cookie_desc: 'We use cookies to improve your experience, analyse traffic and remember your preferences. You can choose which cookies you accept.',
+    cookie_btn_necessary: 'Necessary only',
+    cookie_btn_all: 'Accept all',
+    cookie_btn_customize: 'Customize',
+    cookie_modal_title: 'Cookie preferences',
+    cookie_cat_necessary: 'Necessary',
+    cookie_cat_necessary_desc: 'Essential for the site to work: session security, language and accessibility settings.',
+    cookie_cat_analytics: 'Analytics',
+    cookie_cat_analytics_desc: 'Help us understand how the site is used so we can improve its content. Data is anonymous.',
+    cookie_cat_marketing: 'Marketing',
+    cookie_cat_marketing_desc: 'Allow us to personalise the adverts you see on other websites based on your visit.',
+    cookie_cat_prefs: 'Preferences',
+    cookie_cat_prefs_desc: 'Remember your personal settings such as language and display mode for future visits.',
+    cookie_always_on: 'Always on',
+    cookie_save: 'Save preferences',
+    cookie_reject_all: 'Reject optional',
+    cookie_modal_close: 'Close',
+    cookie_link: 'Cookie policy',
   },
   fr: {
     nav_tickets: 'Billets',
@@ -119,6 +157,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Achats', menu_legal_privacy: 'Confidentialité',
     menu_legal_cookies: 'Cookies', menu_legal_notice: 'Mentions légales',
     menu_legal_a11y: 'Accessibilité', menu_legal_contact: 'Contact',
+    cookie_title: 'Votre vie privée compte',
+    cookie_desc: 'Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et mémoriser vos préférences. Vous pouvez choisir les cookies que vous acceptez.',
+    cookie_btn_necessary: 'Nécessaires seulement',
+    cookie_btn_all: 'Tout accepter',
+    cookie_btn_customize: 'Personnaliser',
+    cookie_modal_title: 'Préférences cookies',
+    cookie_cat_necessary: 'Nécessaires',
+    cookie_cat_necessary_desc: 'Indispensables au fonctionnement du site : sécurité de session, langue et accessibilité.',
+    cookie_cat_analytics: 'Analytiques',
+    cookie_cat_analytics_desc: 'Nous aident à comprendre comment le site est utilisé pour améliorer son contenu. Les données sont anonymes.',
+    cookie_cat_marketing: 'Marketing',
+    cookie_cat_marketing_desc: 'Permettent de personnaliser les publicités affichées sur d\'autres sites selon votre visite.',
+    cookie_cat_prefs: 'Préférences',
+    cookie_cat_prefs_desc: 'Mémorisent vos réglages personnels comme la langue et le mode d\'affichage pour vos prochaines visites.',
+    cookie_always_on: 'Toujours actives',
+    cookie_save: 'Enregistrer les préférences',
+    cookie_reject_all: 'Refuser les optionnels',
+    cookie_modal_close: 'Fermer',
+    cookie_link: 'Politique des cookies',
   },
   de: {
     nav_tickets: 'Tickets',
@@ -156,6 +213,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Kauf', menu_legal_privacy: 'Datenschutz',
     menu_legal_cookies: 'Cookies', menu_legal_notice: 'Impressum',
     menu_legal_a11y: 'Barrierefreiheit', menu_legal_contact: 'Kontakt',
+    cookie_title: 'Ihre Privatsphäre liegt uns am Herzen',
+    cookie_desc: 'Wir verwenden Cookies, um Ihre Erfahrung zu verbessern, den Datenverkehr zu analysieren und Ihre Einstellungen zu speichern. Sie können wählen, welche Cookies Sie akzeptieren.',
+    cookie_btn_necessary: 'Nur notwendige',
+    cookie_btn_all: 'Alle akzeptieren',
+    cookie_btn_customize: 'Anpassen',
+    cookie_modal_title: 'Cookie-Einstellungen',
+    cookie_cat_necessary: 'Notwendige',
+    cookie_cat_necessary_desc: 'Unverzichtbar für den Betrieb der Website: Sitzungssicherheit, Sprache und Barrierefreiheitseinstellungen.',
+    cookie_cat_analytics: 'Analytische',
+    cookie_cat_analytics_desc: 'Helfen uns zu verstehen, wie die Website genutzt wird, um den Inhalt zu verbessern. Daten sind anonym.',
+    cookie_cat_marketing: 'Marketing',
+    cookie_cat_marketing_desc: 'Ermöglichen personalisierte Werbung auf anderen Websites basierend auf Ihrem Besuch.',
+    cookie_cat_prefs: 'Einstellungen',
+    cookie_cat_prefs_desc: 'Speichern Ihre persönlichen Einstellungen wie Sprache und Anzeigemodus für zukünftige Besuche.',
+    cookie_always_on: 'Immer aktiv',
+    cookie_save: 'Einstellungen speichern',
+    cookie_reject_all: 'Optionale ablehnen',
+    cookie_modal_close: 'Schließen',
+    cookie_link: 'Cookie-Richtlinie',
   },
   pt: {
     nav_tickets: 'Bilhetes',
@@ -193,6 +269,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privacidade',
     menu_legal_cookies: 'Cookies', menu_legal_notice: 'Aviso legal',
     menu_legal_a11y: 'Acessibilidade', menu_legal_contact: 'Contacto',
+    cookie_title: 'A sua privacidade importa',
+    cookie_desc: 'Utilizamos cookies para melhorar a sua experiência, analisar o tráfego e lembrar as suas preferências. Pode escolher quais cookies aceita.',
+    cookie_btn_necessary: 'Só necessários',
+    cookie_btn_all: 'Aceitar tudo',
+    cookie_btn_customize: 'Personalizar',
+    cookie_modal_title: 'Preferências de cookies',
+    cookie_cat_necessary: 'Necessários',
+    cookie_cat_necessary_desc: 'Indispensáveis para o funcionamento do site: segurança de sessão, idioma e acessibilidade.',
+    cookie_cat_analytics: 'Analíticos',
+    cookie_cat_analytics_desc: 'Ajudam-nos a perceber como o site é utilizado para melhorar o seu conteúdo. Os dados são anónimos.',
+    cookie_cat_marketing: 'Marketing',
+    cookie_cat_marketing_desc: 'Permitem personalizar a publicidade que vê noutros sites com base na sua visita.',
+    cookie_cat_prefs: 'Preferências',
+    cookie_cat_prefs_desc: 'Lembram as suas configurações pessoais como idioma e modo de visualização para futuras visitas.',
+    cookie_always_on: 'Sempre ativas',
+    cookie_save: 'Guardar preferências',
+    cookie_reject_all: 'Rejeitar opcionais',
+    cookie_modal_close: 'Fechar',
+    cookie_link: 'Política de cookies',
   },
   it: {
     nav_tickets: 'Biglietti',
@@ -230,6 +325,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Acquisto', menu_legal_privacy: 'Privacy',
     menu_legal_cookies: 'Cookie', menu_legal_notice: 'Note legali',
     menu_legal_a11y: 'Accessibilità', menu_legal_contact: 'Contatto',
+    cookie_title: 'La tua privacy è importante',
+    cookie_desc: 'Utilizziamo cookie per migliorare la tua esperienza, analizzare il traffico e ricordare le tue preferenze. Puoi scegliere quali cookie accettare.',
+    cookie_btn_necessary: 'Solo necessari',
+    cookie_btn_all: 'Accetta tutti',
+    cookie_btn_customize: 'Personalizza',
+    cookie_modal_title: 'Preferenze cookie',
+    cookie_cat_necessary: 'Necessari',
+    cookie_cat_necessary_desc: 'Indispensabili per il funzionamento del sito: sicurezza della sessione, lingua e accessibilità.',
+    cookie_cat_analytics: 'Analitici',
+    cookie_cat_analytics_desc: 'Ci aiutano a capire come il sito viene utilizzato per migliorarne il contenuto. I dati sono anonimi.',
+    cookie_cat_marketing: 'Marketing',
+    cookie_cat_marketing_desc: 'Consentono di personalizzare la pubblicità che vedi su altri siti in base alla tua visita.',
+    cookie_cat_prefs: 'Preferenze',
+    cookie_cat_prefs_desc: 'Ricordano le tue impostazioni personali come lingua e modalità di visualizzazione per le visite future.',
+    cookie_always_on: 'Sempre attivi',
+    cookie_save: 'Salva preferenze',
+    cookie_reject_all: 'Rifiuta opzionali',
+    cookie_modal_close: 'Chiudi',
+    cookie_link: 'Politica sui cookie',
   },
   ko: {
     nav_tickets: '입장권',
@@ -267,6 +381,25 @@ const SHARED_T = {
     menu_legal_purchase: '구매', menu_legal_privacy: '개인정보',
     menu_legal_cookies: '쿠키', menu_legal_notice: '법적 고지',
     menu_legal_a11y: '접근성', menu_legal_contact: '연락처',
+    cookie_title: '개인정보 보호가 중요합니다',
+    cookie_desc: '경험 개선, 트래픽 분석 및 설정 저장을 위해 쿠키를 사용합니다. 수락할 쿠키를 선택할 수 있습니다.',
+    cookie_btn_necessary: '필수 항목만',
+    cookie_btn_all: '모두 수락',
+    cookie_btn_customize: '설정',
+    cookie_modal_title: '쿠키 설정',
+    cookie_cat_necessary: '필수',
+    cookie_cat_necessary_desc: '세션 보안, 언어 및 접근성 설정 등 사이트 운영에 꼭 필요한 쿠키입니다.',
+    cookie_cat_analytics: '분석',
+    cookie_cat_analytics_desc: '콘텐츠 개선을 위해 사이트 이용 방식을 파악하는 데 도움을 줍니다. 데이터는 익명으로 처리됩니다.',
+    cookie_cat_marketing: '마케팅',
+    cookie_cat_marketing_desc: '귀하의 방문을 기반으로 다른 웹사이트에서 맞춤형 광고를 표시할 수 있습니다.',
+    cookie_cat_prefs: '환경 설정',
+    cookie_cat_prefs_desc: '향후 방문을 위해 언어 및 표시 모드 등 개인 설정을 기억합니다.',
+    cookie_always_on: '항상 활성화',
+    cookie_save: '설정 저장',
+    cookie_reject_all: '선택 항목 거부',
+    cookie_modal_close: '닫기',
+    cookie_link: '쿠키 정책',
   },
   eu: {
     nav_tickets: 'Sarrerak',
@@ -304,6 +437,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Erosketak', menu_legal_privacy: 'Pribatutasuna',
     menu_legal_cookies: 'Cookieak', menu_legal_notice: 'Lege oharra',
     menu_legal_a11y: 'Irisgarritasuna', menu_legal_contact: 'Kontaktua',
+    cookie_title: 'Zure pribatutasuna garrantzitsua da',
+    cookie_desc: 'Cookieak erabiltzen ditugu zure esperientzia hobetzeko, trafikoa aztertzeko eta ezarpenak gordetzeko. Zein cookie onartzen dituzun aukera dezakezu.',
+    cookie_btn_necessary: 'Beharrezkoak bakarrik',
+    cookie_btn_all: 'Guztiak onartu',
+    cookie_btn_customize: 'Pertsonalizatu',
+    cookie_modal_title: 'Cookie-hobespenak',
+    cookie_cat_necessary: 'Beharrezkoak',
+    cookie_cat_necessary_desc: 'Webgunearen funtzionamenduarako ezinbestekoak: saioaren segurtasuna, hizkuntza eta irisgarritasun ezarpenak.',
+    cookie_cat_analytics: 'Analitikoak',
+    cookie_cat_analytics_desc: 'Webgunea nola erabiltzen den ulertzen laguntzen digute edukia hobetzeko. Datuak anonimoak dira.',
+    cookie_cat_marketing: 'Marketina',
+    cookie_cat_marketing_desc: 'Beste webguneetan iragarki pertsonalizatuak erakusten uzten dute zure bisitaldiaren arabera.',
+    cookie_cat_prefs: 'Hobespenak',
+    cookie_cat_prefs_desc: 'Zure ezarpen pertsonalak gordetzen dituzte, hala nola hizkuntza eta erakusteko modua, etorkizuneko bisitaldietarako.',
+    cookie_always_on: 'Beti aktibo',
+    cookie_save: 'Hobespenak gorde',
+    cookie_reject_all: 'Aukerakoak ukatu',
+    cookie_modal_close: 'Itxi',
+    cookie_link: 'Cookie politika',
   },
   ca: {
     nav_tickets: 'Entrades',
@@ -341,6 +493,25 @@ const SHARED_T = {
     menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privadesa',
     menu_legal_cookies: 'Cookies', menu_legal_notice: 'Avís legal',
     menu_legal_a11y: 'Accessibilitat', menu_legal_contact: 'Contacte',
+    cookie_title: 'La teva privacitat importa',
+    cookie_desc: 'Utilitzem cookies per millorar la teva experiència, analitzar el tràfic i recordar les teves preferències. Pots triar quines cookies acceptes.',
+    cookie_btn_necessary: 'Només necessàries',
+    cookie_btn_all: 'Acceptar-ho tot',
+    cookie_btn_customize: 'Personalitzar',
+    cookie_modal_title: 'Preferències de cookies',
+    cookie_cat_necessary: 'Necessàries',
+    cookie_cat_necessary_desc: 'Indispensables per al funcionament del lloc: seguretat de sessió, idioma i accessibilitat.',
+    cookie_cat_analytics: 'Analítiques',
+    cookie_cat_analytics_desc: 'Ens ajuden a entendre com s\'utilitza el lloc per millorar-ne el contingut. Les dades són anònimes.',
+    cookie_cat_marketing: 'Màrqueting',
+    cookie_cat_marketing_desc: 'Permeten personalitzar la publicitat que veus en altres llocs web en funció de la teva visita.',
+    cookie_cat_prefs: 'Preferències',
+    cookie_cat_prefs_desc: 'Recorden la teva configuració personal com l\'idioma i el mode de visualització per a futures visites.',
+    cookie_always_on: 'Sempre actives',
+    cookie_save: 'Desar preferències',
+    cookie_reject_all: 'Rebutjar opcionals',
+    cookie_modal_close: 'Tancar',
+    cookie_link: 'Política de cookies',
   }
 };
 
@@ -433,6 +604,9 @@ function _applyShared(lang) {
   _setText('[data-i18n="menu_legal_notice"]', t.menu_legal_notice);
   _setText('[data-i18n="menu_legal_a11y"]', t.menu_legal_a11y);
   _setText('[data-i18n="menu_legal_contact"]', t.menu_legal_contact);
+
+  // Cookie banner / modal labels
+  _cookieApplyLang(t);
 
   // Page title suffix
   const titles = {
@@ -952,6 +1126,137 @@ function initScrollTop() {
   });
 }
 
+/* ── COOKIES ─────────────────────────────────────────────────── */
+function _cookieSet(name, value, days) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = name + '=' + encodeURIComponent(JSON.stringify(value)) + ';expires=' + expires + ';path=/;SameSite=Lax';
+}
+
+function _cookieGet(name) {
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  if (!match) return null;
+  try { return JSON.parse(decodeURIComponent(match[1])); } catch (e) { return null; }
+}
+
+function _cookieApplyLang(t) {
+  const banner = document.getElementById('cookie-banner');
+  const modal = document.getElementById('cookie-modal');
+  if (!banner && !modal) return;
+  if (banner) {
+    _setText('#cookie-banner-title', t.cookie_title);
+    _setText('#cookie-banner-desc', t.cookie_desc);
+    _setText('#cookie-btn-necessary', t.cookie_btn_necessary);
+    _setText('#cookie-btn-all', t.cookie_btn_all);
+    _setText('#cookie-btn-customize', t.cookie_btn_customize);
+    const link = banner.querySelector('.cookie-banner__link');
+    if (link) link.textContent = t.cookie_link;
+  }
+  if (modal) {
+    _setText('#cookie-modal-title', t.cookie_modal_title);
+    const closeBtn = document.getElementById('cookie-modal-close');
+    if (closeBtn) closeBtn.setAttribute('aria-label', t.cookie_modal_close);
+    _setText('#cookie-cat-necessary-name', t.cookie_cat_necessary);
+    _setText('#cookie-cat-necessary-desc', t.cookie_cat_necessary_desc);
+    _setText('#cookie-cat-analytics-name', t.cookie_cat_analytics);
+    _setText('#cookie-cat-analytics-desc', t.cookie_cat_analytics_desc);
+    _setText('#cookie-cat-marketing-name', t.cookie_cat_marketing);
+    _setText('#cookie-cat-marketing-desc', t.cookie_cat_marketing_desc);
+    _setText('#cookie-cat-prefs-name', t.cookie_cat_prefs);
+    _setText('#cookie-cat-prefs-desc', t.cookie_cat_prefs_desc);
+    document.querySelectorAll('.cookie-cat__badge').forEach(el => { el.textContent = t.cookie_always_on; });
+    _setText('#cookie-modal-save', t.cookie_save);
+    _setText('#cookie-modal-reject', t.cookie_reject_all);
+  }
+}
+
+function initCookieBanner() {
+  const banner = document.getElementById('cookie-banner');
+  const modal = document.getElementById('cookie-modal');
+  if (!banner) return;
+
+  const consent = _cookieGet('cat-cookies');
+  const t = SHARED_T[_currentLang] || SHARED_T.es;
+
+  // Fix cookie policy link href based on page depth
+  const policyLink = banner.querySelector('[data-cookie-link]');
+  if (policyLink) {
+    const slashes = (window.location.pathname.match(/\//g) || []).length;
+    const prefix = slashes > 1 ? '../'.repeat(slashes - 1) : '';
+    policyLink.href = prefix + 'legal/cookies.html';
+  }
+
+  _cookieApplyLang(t);
+
+  // Show banner only if no consent recorded yet
+  if (!consent) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => { banner.classList.add('is-visible'); });
+    });
+  }
+
+  function hideBanner() { banner.classList.remove('is-visible'); }
+  function showModal() { if (modal) { modal.classList.add('is-visible'); modal.querySelector('.cookie-modal__dialog')?.focus(); } }
+  function hideModal() { if (modal) modal.classList.remove('is-visible'); }
+
+  function saveConsent(analytics, marketing, prefs) {
+    _cookieSet('cat-cookies', { necessary: true, analytics, marketing, prefs, date: new Date().toISOString().slice(0, 10) }, 365);
+    hideBanner();
+    hideModal();
+  }
+
+  // Banner buttons
+  document.getElementById('cookie-btn-necessary')?.addEventListener('click', () => saveConsent(false, false, false));
+  document.getElementById('cookie-btn-all')?.addEventListener('click', () => saveConsent(true, true, true));
+  document.getElementById('cookie-btn-customize')?.addEventListener('click', showModal);
+
+  // Modal buttons
+  document.getElementById('cookie-modal-save')?.addEventListener('click', () => {
+    const analytics = document.getElementById('cookie-toggle-analytics')?.checked || false;
+    const marketing = document.getElementById('cookie-toggle-marketing')?.checked || false;
+    const prefs = document.getElementById('cookie-toggle-prefs')?.checked || false;
+    saveConsent(analytics, marketing, prefs);
+  });
+  document.getElementById('cookie-modal-reject')?.addEventListener('click', () => saveConsent(false, false, false));
+  document.getElementById('cookie-modal-close')?.addEventListener('click', hideModal);
+
+  // Close modal on backdrop click
+  modal?.querySelector('.cookie-modal__backdrop')?.addEventListener('click', hideModal);
+
+  // If existing consent, restore toggle states
+  if (consent && modal) {
+    const an = document.getElementById('cookie-toggle-analytics');
+    const mk = document.getElementById('cookie-toggle-marketing');
+    const pr = document.getElementById('cookie-toggle-prefs');
+    if (an) an.checked = !!consent.analytics;
+    if (mk) mk.checked = !!consent.marketing;
+    if (pr) pr.checked = !!consent.prefs;
+  }
+
+  // Trap focus inside modal
+  modal?.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const focusable = [...modal.querySelectorAll('button, input, a[href]')].filter(el => !el.disabled);
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  // Expose opener for "Cookies" footer link
+  window.openCookieModal = function () {
+    const c = _cookieGet('cat-cookies');
+    if (c) {
+      const an = document.getElementById('cookie-toggle-analytics');
+      const mk = document.getElementById('cookie-toggle-marketing');
+      const pr = document.getElementById('cookie-toggle-prefs');
+      if (an) an.checked = !!c.analytics;
+      if (mk) mk.checked = !!c.marketing;
+      if (pr) pr.checked = !!c.prefs;
+    }
+    showModal();
+  };
+}
+
 /* ── INIT ALL ────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initCursor();
@@ -965,4 +1270,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initTooltips();
   initA11y();
   initScrollTop();
+  initCookieBanner();
 });

@@ -19,10 +19,6 @@
   <!-- QR Code library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-  <!-- PayPal SDK (sandbox) — Sustituye TU_CLIENT_ID_PAYPAL por tu client-id real -->
-  <script src="https://www.paypal.com/sdk/js?client-id=MDWL7YQRDVE9C&currency=EUR&locale=es_ES"
-    data-sdk-integration-source="button-factory" defer></script>
-
   <style>
     /* ─── TOKENS ──────────────────────────────────────────────── */
     :root {
@@ -328,7 +324,7 @@
       font-size: .62rem;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--stone);
+      color: #6e6356;
       text-align: center;
       line-height: 1.3;
     }
@@ -1236,6 +1232,577 @@
       margin: 0 auto;
     }
 
+    /* ─── FORM SECTION (sub-secciones dentro del Paso 2) ──────── */
+    .form-section { margin-bottom: 32px; }
+    .form-section + .form-section { padding-top: 28px; border-top: 1px solid rgba(26, 26, 26, .08); }
+    .form-section__title {
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
+      font-size: .68rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold-dk, #8a7236);
+      margin: 0 0 18px;
+      font-weight: 500;
+    }
+
+    /* ─── VISIT TYPE CARDS ───────────────────────────────────── */
+    .visit-type-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .visit-type-card {
+      cursor: pointer;
+      position: relative;
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      border-radius: 6px;
+      padding: 22px 20px;
+      background: var(--cream);
+      transition: border-color .25s, box-shadow .25s, transform .25s;
+      display: flex;
+    }
+    .visit-type-card:hover { border-color: var(--gold, #C9A84C); }
+    .visit-type-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .visit-type-card__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+    .visit-type-card__icon { font-size: 1.4rem; line-height: 1; margin-bottom: 4px; }
+    .visit-type-card__label {
+      font-family: var(--font-serif, 'Cormorant Garamond', serif);
+      font-size: 1.12rem;
+      font-weight: 500;
+      color: var(--carbon, #1a1a1a);
+    }
+    .visit-type-card__desc { font-size: .8rem; color: var(--stone, #7a7363); line-height: 1.5; }
+    .visit-type-card__badge {
+      margin-top: 6px;
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold-dk, #8a7236);
+    }
+    .visit-type-card:has(input:checked) {
+      border-color: var(--gold, #C9A84C);
+      box-shadow: 0 0 0 1px var(--gold, #C9A84C), 0 4px 16px rgba(201, 168, 76, .15);
+      background: #faf6ec;
+    }
+
+    /* ─── TARIFA CARDS ───────────────────────────────────────── */
+    .tarifa-card {
+      display: none;
+      background: rgba(201, 168, 76, .04);
+      border: 1px solid rgba(201, 168, 76, .25);
+      border-radius: 4px;
+      padding: 22px 26px;
+      margin-bottom: 24px;
+    }
+    .tarifa-card.visible { display: block; }
+    .tarifa-card__title {
+      font-family: var(--font-serif, 'Cormorant Garamond', serif);
+      font-size: 1.05rem;
+      color: var(--carbon, #1a1a1a);
+      margin: 0 0 14px;
+      font-weight: 500;
+    }
+    /* Desktop: el body siempre visible (sin acordeón) */
+    .tarifa-card__body { display: block; }
+    .tarifa-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .tarifa-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: .85rem;
+      color: var(--carbon, #1a1a1a);
+    }
+    .tarifa-item > span:first-child { flex: 0 0 auto; }
+    .tarifa-item > span:last-child { font-weight: 500; color: var(--gold-dk, #8a7236); white-space: nowrap; }
+    .tarifa-dots {
+      flex: 1;
+      border-bottom: 1px dotted rgba(26, 26, 26, .25);
+      transform: translateY(-4px);
+    }
+    .tarifa-note {
+      font-size: .75rem;
+      color: var(--stone, #7a7363);
+      line-height: 1.6;
+      margin: 6px 0 0;
+    }
+
+    /* ─── INFO NOTE (notas tipo entrada / guiada) ────────────── */
+    .info-note {
+      margin-top: 10px;
+      padding: 12px 16px;
+      background: rgba(201, 168, 76, .06);
+      border-left: 2px solid var(--gold, #C9A84C);
+      border-radius: 0 3px 3px 0;
+    }
+    .info-note p {
+      margin: 0;
+      font-size: .78rem;
+      line-height: 1.65;
+      color: rgba(26, 26, 26, .75);
+    }
+
+    /* ─── FIELD HELPER (texto auxiliar) ───────────────────────── */
+    .field-helper {
+      font-size: .72rem;
+      color: var(--stone, #7a7363);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+    .field-helper.warning {
+      color: #b15a3a;
+      font-weight: 500;
+    }
+    .field-eyebrow {
+      margin: 0 0 12px;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold-dk, #8a7236);
+    }
+
+    /* ─── CHECKBOXES (visita guiada / inline) ─────────────────── */
+    .checkbox-row-double {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .checkbox-card {
+      flex: 1;
+      min-width: 180px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      border-radius: 4px;
+      background: var(--cream);
+      transition: border-color .2s, background .2s;
+    }
+    .checkbox-card:hover { border-color: var(--gold, #C9A84C); }
+    .checkbox-card input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .checkbox-card__box {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      border-radius: 3px;
+      background: #fff;
+      flex: 0 0 18px;
+      transition: background .2s, border-color .2s;
+      position: relative;
+    }
+    .checkbox-card input:checked + .checkbox-card__box {
+      background: var(--gold, #C9A84C);
+      border-color: var(--gold, #C9A84C);
+    }
+    .checkbox-card input:checked + .checkbox-card__box::after {
+      content: '';
+      position: absolute;
+      left: 5px; top: 1px;
+      width: 5px; height: 10px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .checkbox-card__text {
+      font-size: .9rem;
+      color: var(--carbon, #1a1a1a);
+    }
+    .checkbox-card:has(input:checked) {
+      border-color: var(--gold, #C9A84C);
+      background: #faf6ec;
+    }
+    .checkbox-row.inline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: .9rem;
+    }
+
+    /* ─── HORA GRID (botones de horarios) ─────────────────────── */
+    .hora-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .hora-btn {
+      padding: 10px 6px;
+      font-family: var(--font-sans, 'DM Sans', sans-serif);
+      font-size: .82rem;
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      border-radius: 3px;
+      background: var(--cream);
+      color: var(--carbon, #1a1a1a);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .hora-btn.libre { border-color: rgba(80, 185, 115, .75); color: #256038; background: rgba(80, 185, 115, .07); }
+    .hora-btn.libre:hover { background: rgba(80, 185, 115, .18); border-color: rgba(80, 185, 115, .95); }
+    .hora-btn.libre.selected {
+      background: var(--gold, #C9A84C);
+      border-color: var(--gold, #C9A84C);
+      color: var(--carbon, #1a1a1a);
+      box-shadow: 0 0 0 2px rgba(201, 168, 76, .25);
+    }
+    .hora-btn.ocupado, .hora-btn.bloqueado {
+      background: rgba(210, 80, 60, .1);
+      border-color: rgba(210, 80, 60, .55);
+      color: rgba(185, 60, 45, 1);
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    .hora-btn.pasado {
+      background: rgba(0, 0, 0, .04);
+      border-color: rgba(0, 0, 0, .1);
+      color: rgba(120, 110, 95, .6);
+      cursor: not-allowed;
+    }
+    .hora-btn.bloqueado-dur {
+      background: rgba(0, 0, 0, .04);
+      border-color: rgba(0, 0, 0, .14);
+      color: rgba(120, 110, 95, .55);
+      cursor: not-allowed;
+    }
+    .hora-btn.hover-doble {
+      background: rgba(80, 185, 115, .2) !important;
+      border-color: rgba(80, 185, 115, .95) !important;
+      color: #1e5230 !important;
+    }
+    .hora-btn.selected-sig {
+      background: var(--gold, #C9A84C) !important;
+      border-color: var(--gold, #C9A84C) !important;
+      color: var(--carbon, #1a1a1a) !important;
+      opacity: .7;
+    }
+    .hora-grid-msg {
+      font-size: .82rem;
+      color: var(--stone, #7a7363);
+      margin: 8px 0 0;
+      padding: 12px;
+      background: rgba(0, 0, 0, .03);
+      border-radius: 3px;
+      text-align: center;
+    }
+    .hora-grid-msg.err { color: #b15a3a; background: rgba(220, 130, 110, .08); }
+    .hora-leyenda {
+      font-size: .68rem;
+      color: var(--stone, #7a7363);
+      margin: 10px 0 0;
+      letter-spacing: .04em;
+    }
+
+    /* ─── ALERT visible ──────────────────────────────────────── */
+    .alert.alert--error.visible {
+      display: block;
+      margin: 16px 0;
+      padding: 12px 16px;
+      background: rgba(220, 130, 110, .1);
+      border-left: 3px solid #c95a3a;
+      border-radius: 0 3px 3px 0;
+      font-size: .85rem;
+      color: #8a3a1f;
+    }
+    .alert.alert--error { display: none; }
+
+    /* ─── DARK MODE adjustments ──────────────────────────────── */
+    body:not(.light-mode) .form-section + .form-section { border-top-color: rgba(255, 255, 255, .08); }
+    body:not(.light-mode) .visit-type-card,
+    body:not(.light-mode) .checkbox-card,
+    body:not(.light-mode) .hora-btn {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .12);
+      color: var(--cream);
+    }
+    body:not(.light-mode) .visit-type-card:has(input:checked),
+    body:not(.light-mode) .checkbox-card:has(input:checked) {
+      background: rgba(201, 168, 76, .12);
+      border-color: var(--gold, #C9A84C);
+    }
+    body:not(.light-mode) .visit-type-card__label,
+    body:not(.light-mode) .checkbox-card__text { color: var(--cream); }
+    body:not(.light-mode) .visit-type-card__desc,
+    body:not(.light-mode) .field-helper,
+    body:not(.light-mode) .tarifa-note { color: rgba(255, 255, 255, .55); }
+    body:not(.light-mode) .tarifa-card {
+      background: rgba(201, 168, 76, .06);
+      border-color: rgba(201, 168, 76, .2);
+    }
+    body:not(.light-mode) .tarifa-card__title,
+    body:not(.light-mode) .tarifa-item { color: var(--cream); }
+    body:not(.light-mode) .info-note { background: rgba(201, 168, 76, .08); }
+    body:not(.light-mode) .info-note p { color: rgba(255, 255, 255, .75); }
+    body:not(.light-mode) .hora-grid-msg { background: rgba(255, 255, 255, .04); color: rgba(255, 255, 255, .55); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .visit-type-group { grid-template-columns: 1fr; }
+      .checkbox-row-double { flex-direction: column; }
+      .hora-grid { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
+    }
+
+    /* ─── TIPO DE VISITA · radio cards (Paso 1) ──────────────── */
+    /* ─── TIPO DE VISITA · radio cards (Paso 1) ──────────────── */
+    .tipo-visita-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0 28px;
+    }
+    .tipo-visita-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 22px;
+      background: var(--cream);
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      border-radius: 14px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+    .tipo-visita-row::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,.08) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .22s ease;
+      pointer-events: none;
+    }
+    .tipo-visita-row:hover { border-color: rgba(201,168,76,.55); }
+    .tipo-visita-row:hover::after { opacity: 1; }
+    .tipo-visita-row:active { transform: scale(.99); }
+    .tipo-visita-row input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .tipo-visita-row__icon {
+      width: 56px; height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: rgba(201, 168, 76, .1);
+      color: var(--gold-dk, #8a7236);
+      flex-shrink: 0;
+      transition: background .28s cubic-bezier(.16,1,.3,1), color .28s, border-radius .28s cubic-bezier(.16,1,.3,1);
+    }
+    .tipo-visita-row__body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .tipo-visita-row__title {
+      font-family: var(--font-serif, 'Cormorant Garamond', serif);
+      font-size: 1.22rem;
+      font-weight: 600;
+      color: var(--carbon, #1a1a1a);
+      line-height: 1.2;
+    }
+    .tipo-visita-row__desc {
+      font-size: .79rem;
+      color: #6e6356;
+      line-height: 1.45;
+    }
+    .tipo-visita-row__check {
+      position: absolute;
+      top: 12px; right: 14px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      transition: background .28s cubic-bezier(.16,1,.3,1), border-color .22s,
+                  color .22s, transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .28s;
+    }
+    .tipo-visita-row:has(input:checked) {
+      border-color: var(--gold, #C9A84C);
+      background: linear-gradient(155deg, rgba(201,168,76,.09) 0%, var(--cream) 55%);
+      box-shadow: 0 0 0 1px var(--gold, #C9A84C), 0 10px 32px rgba(201,168,76,.14);
+    }
+    .tipo-visita-row:has(input:checked)::after { opacity: 0; }
+    .tipo-visita-row:has(input:checked) .tipo-visita-row__icon {
+      background: var(--gold, #C9A84C);
+      color: var(--carbon, #1a1a1a);
+      border-radius: 50%;
+    }
+    .tipo-visita-row:has(input:checked) .tipo-visita-row__check {
+      background: var(--gold, #C9A84C);
+      border-color: var(--gold, #C9A84C);
+      color: #fff;
+      transform: scale(1.15);
+      box-shadow: 0 3px 10px rgba(201,168,76,.45);
+    }
+    .tipo-visita-row:focus-within { outline: 2px solid rgba(201,168,76,.4); outline-offset: 3px; }
+
+    /* ─── MODALIDAD · sin/con guía (Paso 2) ──────────────────── */
+    .visit-mode-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .visit-mode-row {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto;
+      grid-template-columns: 1fr 22px;
+      align-items: start;
+      gap: 4px 14px;
+      padding: 16px 18px;
+      background: var(--cream);
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color .25s, background .25s, box-shadow .25s;
+    }
+    .visit-mode-row:hover { border-color: var(--gold, #C9A84C); }
+    .visit-mode-row input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .visit-mode-row__title {
+      font-family: var(--font-serif, 'Cormorant Garamond', serif);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--carbon, #1a1a1a);
+      grid-row: 1; grid-column: 1;
+    }
+    .visit-mode-row__desc {
+      font-size: .76rem;
+      color: #6e6356;
+      line-height: 1.4;
+      grid-row: 2; grid-column: 1 / span 2;
+    }
+    .visit-mode-row__check {
+      grid-row: 1; grid-column: 2;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--stone-lt, #d9d2c4);
+      background: #fff;
+      transition: background .25s, border-color .25s;
+      position: relative;
+    }
+    .visit-mode-row:has(input:checked) {
+      border-color: var(--gold, #C9A84C);
+      background: #faf6ec;
+      box-shadow: 0 0 0 1px var(--gold, #C9A84C);
+    }
+    .visit-mode-row:has(input:checked) .visit-mode-row__check {
+      border-color: var(--gold, #C9A84C);
+      background: var(--gold, #C9A84C);
+    }
+    .visit-mode-row:has(input:checked) .visit-mode-row__check::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    /* ─── DARK MODE para tipo-visita y visit-mode ─────────────── */
+    body:not(.light-mode) .tipo-visita-row,
+    body:not(.light-mode) .visit-mode-row {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .12);
+    }
+    body:not(.light-mode) .tipo-visita-row:has(input:checked),
+    body:not(.light-mode) .visit-mode-row:has(input:checked) {
+      background: rgba(201, 168, 76, .12);
+      border-color: var(--gold, #C9A84C);
+    }
+    body:not(.light-mode) .tipo-visita-row__title,
+    body:not(.light-mode) .visit-mode-row__title { color: var(--cream); }
+    body:not(.light-mode) .tipo-visita-row__desc,
+    body:not(.light-mode) .visit-mode-row__desc { color: rgba(255, 255, 255, .55); }
+    body:not(.light-mode) .tipo-visita-row__check,
+    body:not(.light-mode) .visit-mode-row__check {
+      background: rgba(255, 255, 255, .04);
+      border-color: rgba(255, 255, 255, .15);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .visit-mode-group { grid-template-columns: 1fr; }
+
+      /* Tarifa-cards como acordeón en móvil */
+      .tarifa-card { padding: 0; overflow: hidden; }
+      .tarifa-card__title {
+        font-size: 1rem;
+        margin: 0;
+        padding: 16px 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        user-select: none;
+        position: relative;
+      }
+      .tarifa-card__title::after {
+        content: '';
+        flex-shrink: 0;
+        width: 10px; height: 10px;
+        border-right: 1.5px solid var(--gold-dk, #8a7236);
+        border-bottom: 1.5px solid var(--gold-dk, #8a7236);
+        transform: rotate(45deg) translateY(-2px);
+        transform-origin: center;
+        transition: transform .25s ease;
+      }
+      .tarifa-card.is-open .tarifa-card__title::after {
+        transform: rotate(-135deg) translateY(-2px);
+      }
+      .tarifa-card__body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s ease;
+        padding: 0 18px;
+      }
+      .tarifa-card.is-open .tarifa-card__body {
+        max-height: 1200px;
+        padding: 4px 18px 18px;
+      }
+      .tarifa-list { gap: 12px; margin-bottom: 12px; }
+      .tarifa-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        font-size: .85rem;
+        padding: 0;
+        border: none;
+      }
+      .tarifa-item > span:first-child {
+        font-weight: 500;
+        color: var(--carbon, #1a1a1a);
+        line-height: 1.35;
+      }
+      .tarifa-item > span:last-child {
+        font-size: .8rem;
+        color: var(--gold-dk, #8a7236);
+        white-space: normal;
+      }
+      .tarifa-dots { display: none; }
+      .tarifa-note { font-size: .72rem; }
+    }
+
+    /* ─── FACTURA fields grid (Paso 3) ───────────────────────── */
+    #facturaFields { display: grid; }
+
     /* ─── MODAL ───────────────────────────────────────────────── */
     .modal-overlay {
       position: fixed;
@@ -1326,11 +1893,22 @@
 
     /* ─── DARK MODE OVERRIDES ────────────────────────────────── */
     body:not(.light-mode) .page-hero__title { color: var(--cream); }
+    body:not(.light-mode) .page-hero__eyebrow { color: rgba(201, 168, 76, .75); }
+    body:not(.light-mode) .page-hero__desc { color: rgba(245, 240, 232, .58); }
+    body:not(.light-mode) .page-hero { background: transparent; }
     body:not(.light-mode) .panel-title { color: var(--white); }
     body:not(.light-mode) .noc-cal-month { color: var(--cream); }
     body:not(.light-mode) .captcha-question { color: var(--white); }
     body:not(.light-mode) .checkbox-row label { color: var(--stone-lt); }
     body:not(.light-mode) .btn--ghost:hover { color: var(--white); }
+    body:not(.light-mode) label { color: rgba(245, 240, 232, .78); }
+    body:not(.light-mode) .panel-subtitle { color: rgba(245, 240, 232, .62); }
+    body:not(.light-mode) .step-label { color: rgba(245, 240, 232, .55); }
+    body:not(.light-mode) .step-num { color: rgba(245, 240, 232, .7); }
+    body:not(.light-mode) .field-helper { color: rgba(245, 240, 232, .58); }
+    body:not(.light-mode) .field-helper.warning { color: #e89a72; }
+    body:not(.light-mode) .error-msg { color: #e0857a; }
+    body:not(.light-mode) .hora-leyenda { color: rgba(245, 240, 232, .55); }
 
     body:not(.light-mode) .form-panel {
       background: #1a1610;
@@ -1347,13 +1925,15 @@
     body:not(.light-mode) input[type="tel"],
     body:not(.light-mode) input[type="date"],
     body:not(.light-mode) input[type="number"],
-    body:not(.light-mode) select {
+    body:not(.light-mode) select,
+    body:not(.light-mode) textarea {
       background: #1a1610;
       border-color: rgba(255, 255, 255, .15);
       color: var(--white);
     }
     body:not(.light-mode) input:focus,
-    body:not(.light-mode) select:focus { background: #221c12; }
+    body:not(.light-mode) select:focus,
+    body:not(.light-mode) textarea:focus { background: #221c12; }
 
     body:not(.light-mode) .radio-card__face { background: #1a1610; }
     body:not(.light-mode) .radio-card__indicator { background: #0c0a08; }
@@ -1649,10 +2229,10 @@
   <div class="wizard-wrapper" id="main-content" tabindex="-1">
 
     <!-- Stepper -->
-    <div class="stepper" id="stepper">
+    <div class="stepper stepper--5" id="stepper">
       <div class="step-item active" id="si-1">
         <div class="step-num"><span>1</span></div>
-        <div class="step-label">Datos</div>
+        <div class="step-label">Tipo</div>
       </div>
       <div class="step-item" id="si-2">
         <div class="step-num"><span>2</span></div>
@@ -1660,33 +2240,236 @@
       </div>
       <div class="step-item" id="si-3">
         <div class="step-num"><span>3</span></div>
-        <div class="step-label">Resumen</div>
+        <div class="step-label">Datos</div>
       </div>
       <div class="step-item" id="si-4">
         <div class="step-num"><span>4</span></div>
-        <div class="step-label">Seguridad</div>
+        <div class="step-label">Resumen</div>
       </div>
       <div class="step-item" id="si-5">
         <div class="step-num"><span>5</span></div>
-        <div class="step-label">Pago</div>
+        <div class="step-label">Confirmar</div>
       </div>
     </div>
 
-    <!-- ── PASO 1: Datos personales ──────────────────────────────── -->
+    <!-- ── PASO 1: Tipo de visita ──────────────────────────────── -->
     <div class="form-panel active" id="step-1">
-      <h2 class="panel-title">Tus datos</h2>
-      <p class="panel-subtitle">Necesitamos algunos datos para gestionar tu reserva.</p>
+      <h2 class="panel-title">Tipo de visita</h2>
+      <p class="panel-subtitle">¿Cómo quieres organizar tu visita?</p>
+
+      <!-- Tipo de visita: tarjetas radio -->
+      <div class="tipo-visita-list" role="radiogroup" aria-label="Tipo de visita">
+        <label class="tipo-visita-row">
+          <input type="radio" name="tipoVisita" value="individual" />
+          <span class="tipo-visita-row__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+          <span class="tipo-visita-row__body">
+            <span class="tipo-visita-row__title">Visita individual</span>
+            <span class="tipo-visita-row__desc">Familias, turistas, peregrinos y visitas personales.</span>
+          </span>
+          <span class="tipo-visita-row__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+        </label>
+        <label class="tipo-visita-row">
+          <input type="radio" name="tipoVisita" value="grupo" />
+          <span class="tipo-visita-row__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <span class="tipo-visita-row__body">
+            <span class="tipo-visita-row__title">Visita en grupo</span>
+            <span class="tipo-visita-row__desc">Grupos organizados, asociaciones e instituciones.</span>
+          </span>
+          <span class="tipo-visita-row__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+        </label>
+        <label class="tipo-visita-row">
+          <input type="radio" name="tipoVisita" value="escolar" />
+          <span class="tipo-visita-row__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </span>
+          <span class="tipo-visita-row__body">
+            <span class="tipo-visita-row__title">Grupos escolares</span>
+            <span class="tipo-visita-row__desc">Visitas educativas para centros escolares.</span>
+          </span>
+          <span class="tipo-visita-row__check" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+        </label>
+      </div>
+
+      <div class="alert alert--error" id="alert-step1">Selecciona el tipo de visita para continuar.</div>
+
+      <div class="btn-row">
+        <button class="btn btn--gold" onclick="goTo(2)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- ── PASO 2: Datos de visita ─────────────────────────── -->
+    <div class="form-panel" id="step-2">
+      <h2 class="panel-title">Datos de tu visita</h2>
+      <p class="panel-subtitle">Indica la modalidad y los detalles de la reserva.</p>
+
+      <!-- Tarifas info -->
+      <div class="tarifa-card" id="tarifasIndividual">
+        <p class="tarifa-card__title" tabindex="0" role="button" aria-expanded="false">Tarifas · Visita individual</p>
+        <div class="tarifa-card__body">
+          <div class="tarifa-list">
+            <div class="tarifa-item"><span>Ticket Catedral</span><span class="tarifa-dots"></span><span>7 € / persona</span></div>
+            <div class="tarifa-item"><span>Ticket Torre</span><span class="tarifa-dots"></span><span>4 € / persona</span></div>
+            <div class="tarifa-item"><span>Ticket Convento San Francisco</span><span class="tarifa-dots"></span><span>5 € / persona</span></div>
+            <div class="tarifa-item"><span>Pulsera Turística</span><span class="tarifa-dots"></span><span>10 € / persona</span></div>
+            <div class="tarifa-item"><span>Pulsera Peregrino</span><span class="tarifa-dots"></span><span>5 € / persona</span></div>
+            <div class="tarifa-item"><span>Visita Guiada Diurna</span><span class="tarifa-dots"></span><span>14 € / pers · 4 € menores &lt;12</span></div>
+            <div class="tarifa-item"><span>Visita Guiada VIP</span><span class="tarifa-dots"></span><span>15 € / pers · 5 € menores &lt;12</span></div>
+            <div class="tarifa-item"><span>Visita Guiada Nocturna</span><span class="tarifa-dots"></span><span>15 € / pers · 5 € menores &lt;12</span></div>
+            <div class="tarifa-item"><span>Ticket Familiar</span><span class="tarifa-dots"></span><span>25 € / familia</span></div>
+          </div>
+          <p class="tarifa-note">✦ Menores de 12 años: entrada gratuita en Catedral, Torre y Convento San Francisco.</p>
+          <p class="tarifa-note">✦ Ticket Familiar: incluye pulsera turística. Únicamente padres e hijos menores de 21 años.</p>
+        </div>
+      </div>
+
+      <div class="tarifa-card" id="tarifasGrupo">
+        <p class="tarifa-card__title" tabindex="0" role="button" aria-expanded="false">Tarifas · Grupos (pulsera turística incluida)</p>
+        <div class="tarifa-card__body">
+          <div class="tarifa-list">
+            <div class="tarifa-item"><span>Grupo de 25 o más personas</span><span class="tarifa-dots"></span><span>5 € / persona</span></div>
+            <div class="tarifa-item"><span>Grupo reducido (menos de 25 pers.)</span><span class="tarifa-dots"></span><span>125 € (mínimo)</span></div>
+            <div class="tarifa-item"><span>Suplemento visita guiada Catedral</span><span class="tarifa-dots"></span><span>+ 50 € / grupo</span></div>
+            <div class="tarifa-item"><span>Suplemento Visita Guiada Casco Histórico + Catedral</span><span class="tarifa-dots"></span><span>+ 100 € / grupo</span></div>
+          </div>
+          <p class="tarifa-note">✦ La pulsera turística da acceso a los 4 monumentos.</p>
+        </div>
+      </div>
+
+      <div class="tarifa-card" id="tarifasEscolar">
+        <p class="tarifa-card__title" tabindex="0" role="button" aria-expanded="false">Tarifas · Grupos escolares</p>
+        <div class="tarifa-card__body">
+          <div class="tarifa-list">
+            <div class="tarifa-item"><span>Escolares menores de 12 años</span><span class="tarifa-dots"></span><span>Gratuito</span></div>
+            <div class="tarifa-item"><span>Escolares 12–13 años</span><span class="tarifa-dots"></span><span>2 € / alumno</span></div>
+            <div class="tarifa-item"><span>Escolares 14–15 años</span><span class="tarifa-dots"></span><span>3 € / alumno</span></div>
+            <div class="tarifa-item"><span>Estudiantes 16–17 años</span><span class="tarifa-dots"></span><span>4 € / alumno</span></div>
+            <div class="tarifa-item"><span>Estudiantes mayores de 17 años</span><span class="tarifa-dots"></span><span>5 € / alumno</span></div>
+            <div class="tarifa-item"><span>Suplemento visita guiada</span><span class="tarifa-dots"></span><span>+ 50 € / grupo</span></div>
+          </div>
+          <p class="tarifa-note">✦ Acreditar edades con documentación del centro escolar en taquillas.</p>
+        </div>
+      </div>
+
+      <!-- Modalidad -->
+      <div class="form-section">
+        <p class="form-section__title">Modalidad</p>
+        <div class="visit-mode-group" role="radiogroup" aria-label="Modalidad">
+          <label class="visit-mode-row">
+            <input type="radio" name="visitMode" value="sin-guia" />
+            <span class="visit-mode-row__title">Visita sin guía</span>
+            <span class="visit-mode-row__desc">Recorre el monumento por libre.</span>
+            <span class="visit-mode-row__check" aria-hidden="true"></span>
+          </label>
+          <label class="visit-mode-row">
+            <input type="radio" name="visitMode" value="con-guia" />
+            <span class="visit-mode-row__title">Visita guiada</span>
+            <span class="visit-mode-row__desc">Acompañado por un guía oficial.</span>
+            <span class="visit-mode-row__check" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <!-- Tipo de entrada (dinámico según tipoVisita + modalidad) -->
+        <div class="field field--full" id="fieldTipoEntrada" style="display:none;margin-top:18px">
+          <label for="tipoEntrada" id="labelTipoEntrada">Tipo de entrada</label>
+          <select id="tipoEntrada">
+            <option value="" disabled selected>Seleccione tipo</option>
+          </select>
+          <span class="error-msg" id="err-tipoEntrada">Seleccione una opción.</span>
+          <div id="notaTipoEntrada" class="info-note" style="display:none">
+            <p id="notaTipoEntradaTexto"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detalles -->
+      <div class="form-section">
+        <p class="form-section__title">Detalles</p>
+        <div class="field-group">
+
+          <!-- TRAMO EDAD (escolar) -->
+          <div class="field field--full" id="fieldTramoEdad" style="display:none">
+            <label for="tramoEdad">Tramo de edad de los alumnos</label>
+            <select id="tramoEdad">
+              <option value="" disabled selected>Seleccione tramo de edad</option>
+              <option value="menor12">Menores 12 años — gratuidad</option>
+              <option value="e1213">12–13 años — 2 € / alumno</option>
+              <option value="e1415">14–15 años — 3 € / alumno</option>
+              <option value="e1617">16–17 años — 4 € / alumno</option>
+              <option value="mayor17">Mayores 17 años — 5 € / alumno</option>
+            </select>
+            <span class="error-msg" id="err-tramoEdad">Seleccione el tramo de edad.</span>
+          </div>
+
+          <!-- FECHA -->
+          <div class="field">
+            <label for="fechaVisita">Fecha de visita</label>
+            <input type="date" id="fechaVisita" />
+            <span id="fechaHelper" class="field-helper" style="display:none"></span>
+            <span class="error-msg" id="err-fechaVisita">Seleccione una fecha válida.</span>
+          </div>
+
+          <!-- HORA -->
+          <div class="field" id="horaVisitaField">
+            <label for="horaVisita">Hora preferente</label>
+            <select id="horaVisita">
+              <option value="" disabled selected>Seleccione hora</option>
+            </select>
+            <div id="horaGrid"></div>
+            <span class="error-msg" id="err-horaVisita">Seleccione una hora.</span>
+          </div>
+
+          <!-- PERSONAS -->
+          <div class="field">
+            <label for="numPersonas" id="labelNumPersonas">Número de personas</label>
+            <input type="number" id="numPersonas" min="1" max="500" placeholder="Ej: 4" />
+            <span class="field-helper" id="personasHelper"></span>
+            <span class="error-msg" id="err-numPersonas">Indique el número de personas.</span>
+          </div>
+
+          <!-- MENORES -->
+          <div class="field">
+            <label for="menoresTreceAnios">Menores de 12 años</label>
+            <input type="number" id="menoresTreceAnios" min="0" max="500" placeholder="0" value="0" />
+            <span class="field-helper">Acreditar en taquillas con documentación oficial.</span>
+          </div>
+
+          <!-- RESIDENTES -->
+          <div class="field">
+            <label for="residentes">Residentes</label>
+            <input type="number" id="residentes" min="0" max="500" placeholder="0" value="0" />
+            <span class="field-helper">Residentes en Santo Domingo de la Calzada (acreditar).</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert--error" id="alert-step2"></div>
+
+      <div class="btn-row">
+        <button class="btn btn--ghost" onclick="goTo(1)">← Volver</button>
+        <button class="btn btn--gold" onclick="goTo(3)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- ── PASO 3: Datos personales / del grupo + comentarios ── -->
+    <div class="form-panel" id="step-3">
+      <h2 class="panel-title" id="step3Title">Tus datos personales</h2>
+      <p class="panel-subtitle" id="step3Subtitle">Necesitamos algunos datos para gestionar tu reserva.</p>
 
       <div class="field-group">
-        <div class="field">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" placeholder="María" autocomplete="given-name" />
-          <span class="error-msg" id="err-nombre">Introduce tu nombre.</span>
-        </div>
-        <div class="field">
-          <label for="apellidos">Apellidos</label>
-          <input type="text" id="apellidos" placeholder="García López" autocomplete="family-name" />
-          <span class="error-msg" id="err-apellidos">Introduce tus apellidos.</span>
+        <div class="field field--full">
+          <label for="nombre" id="labelNombre">Nombre completo</label>
+          <input type="text" id="nombre" placeholder="María García López" autocomplete="name" />
+          <span class="error-msg" id="err-nombre">Introduce tu nombre completo.</span>
         </div>
         <div class="field">
           <label for="telefono">Teléfono</label>
@@ -1700,383 +2483,83 @@
         </div>
       </div>
 
+      <!-- Facturación (solo grupo / escolar) -->
+      <div class="form-section" id="facturaSection" style="display:none">
+        <p class="form-section__title">Facturación</p>
+        <label class="checkbox-row inline">
+          <input type="checkbox" id="necesitaFactura" value="si" />
+          <span>Necesito factura</span>
+        </label>
+
+        <div class="field-group" id="facturaFields" style="display:none;margin-top:18px">
+          <div class="field">
+            <label for="nombreCentro">Nombre del centro / institución</label>
+            <input type="text" id="nombreCentro" placeholder="Colegio, asociación, empresa…" />
+            <span class="error-msg" id="err-nombreCentro">El nombre del centro es obligatorio.</span>
+          </div>
+          <div class="field">
+            <label for="nifCif">NIF / CIF</label>
+            <input type="text" id="nifCif" placeholder="B12345678" />
+            <span class="error-msg" id="err-nifCif">El NIF/CIF es obligatorio.</span>
+          </div>
+          <div class="field field--full">
+            <label for="calleNumero">Dirección de facturación</label>
+            <input type="text" id="calleNumero" placeholder="Calle y número" />
+            <span class="error-msg" id="err-calleNumero">La dirección es obligatoria.</span>
+          </div>
+          <div class="field">
+            <label for="ciudadFact">Ciudad</label>
+            <input type="text" id="ciudadFact" placeholder="Ciudad" />
+            <span class="error-msg" id="err-ciudadFact">Indique la ciudad.</span>
+          </div>
+          <div class="field">
+            <label for="cpFact">Código postal</label>
+            <input type="text" id="cpFact" placeholder="CP" />
+            <span class="error-msg" id="err-cpFact">Indique el código postal.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comentarios -->
+      <div class="form-section">
+        <p class="form-section__title">Comentarios adicionales</p>
+        <div class="field field--full">
+          <label for="comentarios">Comentarios (opcional)</label>
+          <textarea id="comentarios" rows="4" placeholder="Indique aquí cualquier necesidad especial: accesibilidad, idioma preferente, peticiones concretas…"></textarea>
+        </div>
+      </div>
+
+      <div class="alert alert--error" id="alert-step3"></div>
+
       <div class="btn-row">
-        <button class="btn btn--gold" onclick="goTo(2)">Continuar →</button>
+        <button class="btn btn--ghost" onclick="goTo(2)">← Volver</button>
+        <button class="btn btn--gold" onclick="goTo(4)">Ver resumen →</button>
       </div>
     </div>
 
-    <!-- ── PASO 2: Tipo de visita ─────────────────────────────────── -->
-    <div class="form-panel" id="step-2">
-      <h2 class="panel-title">Tipo de visita</h2>
-      <p class="panel-subtitle">Elige cómo deseas recorrer el conjunto catedralicio.</p>
-
-      <div class="radio-cards" role="radiogroup" aria-labelledby="visit-type-legend">
-        <label class="radio-card">
-          <input type="radio" name="visit-type" value="sin-guia" id="vt-sinGuia" onchange="onVisitTypeChange()" />
-          <div class="radio-card__face">
-            <div class="radio-card__title">Visita libre</div>
-            <div class="radio-card__desc">Explora a tu ritmo los monumentos seleccionados.</div>
-          </div>
-          <div class="radio-card__indicator"></div>
-        </label>
-        <label class="radio-card">
-          <input type="radio" name="visit-type" value="guiada" id="vt-guiada" onchange="onVisitTypeChange()" />
-          <div class="radio-card__face">
-            <div class="radio-card__title">Visita guiada</div>
-            <div class="radio-card__desc">Con guía oficial. Opciones especiales disponibles.</div>
-          </div>
-          <div class="radio-card__indicator"></div>
-        </label>
-      </div>
-
-      <div class="alert alert--error" id="alert-visit-type">Por favor, selecciona el tipo de visita.</div>
-
-      <!-- VISITA SIN GUÍA -->
-      <div id="section-sin-guia" style="display:none">
-        <div class="monument-section">
-          <div class="section-label">Selecciona los monumentos</div>
-
-          <!-- CATEDRAL -->
-          <div class="monument-card" id="mc-catedral">
-            <div class="monument-card__header" onclick="toggleMonument('catedral')">
-              <div class="monument-checkbox" id="cb-catedral"></div>
-              <span class="monument-card__name">Catedral</span>
-              <span class="monument-card__price">7€ adulto · Gratis &lt;12 a. · Gratis residentes</span>
-            </div>
-            <div class="monument-card__body">
-              <div class="qty-grid">
-                <div class="qty-field">
-                  <label>Adultos <small style="color:var(--gold-dk)">7€</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('catedral-adult',-1)">−</button>
-                    <input class="qty-input" type="number" id="catedral-adult" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('catedral-adult',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Menores &lt;12 <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('catedral-child',-1)">−</button>
-                    <input class="qty-input" type="number" id="catedral-child" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('catedral-child',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Residentes <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('catedral-res',-1)">−</button>
-                    <input class="qty-input" type="number" id="catedral-res" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('catedral-res',1)">+</button>
-                  </div>
-                  <p class="qty-note">* Se verificará en taquilla</p>
-                </div>
-              </div>
-              <div class="time-field">
-                <div class="field">
-                  <label for="catedral-date">Fecha de visita</label>
-                  <input type="date" id="catedral-date" onchange="updateTimeSlots('catedral')" />
-                </div>
-                <div class="field">
-                  <label for="catedral-time">Hora de entrada</label>
-                  <div class="select-wrap">
-                    <select id="catedral-time">
-                      <option value="">— Selecciona primero la fecha —</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TORRE -->
-          <div class="monument-card" id="mc-torre">
-            <div class="monument-card__header" onclick="toggleMonument('torre')">
-              <div class="monument-checkbox" id="cb-torre"></div>
-              <span class="monument-card__name">Torre</span>
-              <span class="monument-card__price">4€ adulto · Gratis &lt;12 a. · Gratis residentes</span>
-            </div>
-            <div class="monument-card__body">
-              <div class="qty-grid">
-                <div class="qty-field">
-                  <label>Adultos <small style="color:var(--gold-dk)">4€</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('torre-adult',-1)">−</button>
-                    <input class="qty-input" type="number" id="torre-adult" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('torre-adult',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Menores &lt;12 <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('torre-child',-1)">−</button>
-                    <input class="qty-input" type="number" id="torre-child" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('torre-child',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Residentes <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('torre-res',-1)">−</button>
-                    <input class="qty-input" type="number" id="torre-res" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('torre-res',1)">+</button>
-                  </div>
-                  <p class="qty-note">* Se verificará en taquilla</p>
-                </div>
-              </div>
-              <div class="time-field">
-                <div class="field">
-                  <label for="torre-date">Fecha de visita</label>
-                  <input type="date" id="torre-date" onchange="updateTimeSlots('torre')" />
-                </div>
-                <div class="field">
-                  <label for="torre-time">Hora de entrada</label>
-                  <div class="select-wrap">
-                    <select id="torre-time">
-                      <option value="">— Selecciona primero la fecha —</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CONVENTO -->
-          <div class="monument-card" id="mc-convento">
-            <div class="monument-card__header" onclick="toggleMonument('convento')">
-              <div class="monument-checkbox" id="cb-convento"></div>
-              <span class="monument-card__name">Convento San Francisco</span>
-              <span class="monument-card__price">5€ adulto · Gratis &lt;12 a. · Gratis residentes</span>
-            </div>
-            <div class="monument-card__body">
-              <div class="qty-grid">
-                <div class="qty-field">
-                  <label>Adultos <small style="color:var(--gold-dk)">5€</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('convento-adult',-1)">−</button>
-                    <input class="qty-input" type="number" id="convento-adult" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('convento-adult',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Menores &lt;12 <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('convento-child',-1)">−</button>
-                    <input class="qty-input" type="number" id="convento-child" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('convento-child',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Residentes <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('convento-res',-1)">−</button>
-                    <input class="qty-input" type="number" id="convento-res" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('convento-res',1)">+</button>
-                  </div>
-                  <p class="qty-note">* Se verificará en taquilla</p>
-                </div>
-              </div>
-              <div class="time-field">
-                <div class="field">
-                  <label for="convento-date">Fecha de visita</label>
-                  <input type="date" id="convento-date" onchange="updateTimeSlots('convento')" />
-                </div>
-                <div class="field">
-                  <label for="convento-time">Hora de entrada</label>
-                  <div class="select-wrap">
-                    <select id="convento-time">
-                      <option value="">— Selecciona primero la fecha —</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PULSERA TURÍSTICA -->
-          <div class="monument-card" id="mc-pulsera">
-            <div class="monument-card__header" onclick="toggleMonument('pulsera')">
-              <div class="monument-checkbox" id="cb-pulsera"></div>
-              <span class="monument-card__name">Pulsera Turística</span>
-              <span class="monument-card__price">10€ adulto · todos los monumentos</span>
-            </div>
-            <div class="monument-card__body">
-              <p style="font-size:.82rem;color:var(--stone);margin-bottom:16px">Acceso combinado a Catedral, Torre y
-                Convento San Francisco. La mejor opción si deseas visitar todo el conjunto.</p>
-              <div class="qty-grid">
-                <div class="qty-field">
-                  <label>Adultos <small style="color:var(--gold-dk)">10€</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('pulsera-adult',-1)">−</button>
-                    <input class="qty-input" type="number" id="pulsera-adult" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('pulsera-adult',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Menores &lt;12 <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('pulsera-child',-1)">−</button>
-                    <input class="qty-input" type="number" id="pulsera-child" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('pulsera-child',1)">+</button>
-                  </div>
-                </div>
-                <div class="qty-field">
-                  <label>Residentes <small style="color:var(--stone)">Gratis</small></label>
-                  <div class="qty-row">
-                    <button class="qty-btn" type="button" onclick="changeQty('pulsera-res',-1)">−</button>
-                    <input class="qty-input" type="number" id="pulsera-res" value="0" min="0" onchange="recalc()" />
-                    <button class="qty-btn" type="button" onclick="changeQty('pulsera-res',1)">+</button>
-                  </div>
-                  <p class="qty-note">* Se verificará en taquilla</p>
-                </div>
-              </div>
-              <div class="time-field">
-                <div class="field">
-                  <label for="pulsera-date">Fecha de visita</label>
-                  <input type="date" id="pulsera-date" onchange="updateTimeSlots('pulsera')" />
-                </div>
-                <div class="field">
-                  <label for="pulsera-time">Hora de entrada (Catedral)</label>
-                  <div class="select-wrap">
-                    <select id="pulsera-time">
-                      <option value="">— Selecciona primero la fecha —</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /monument-section -->
-      </div><!-- /section-sin-guia -->
-
-      <!-- VISITA GUIADA -->
-      <div id="section-guiada" style="display:none">
-        <div class="section-label">Selecciona el tipo de visita guiada</div>
-        <div class="guided-options">
-
-          <!-- Visita Nocturna -->
-          <label class="guided-card">
-            <input type="radio" name="guided-type" value="nocturna" id="gt-nocturna" onchange="onGuidedTypeChange()" />
-            <div class="guided-card__face">
-              <div class="guided-card__info">
-                <div class="guided-card__title">Visita Nocturna</div>
-                <div class="guided-card__meta">Viernes 19:45h · Sábados 20:45h &nbsp;—&nbsp; 15€ adulto · 5€ menores
-                  &lt;12 · Gratis residentes</div>
-              </div>
-              <span class="badge badge--gold">Disponible</span>
-            </div>
-          </label>
-
-          <!-- Visita VIP (deshabilitada) -->
-          <div class="guided-card disabled" aria-disabled="true">
-            <div class="guided-card__face">
-              <div class="guided-card__info">
-                <div class="guided-card__title">Visita VIP</div>
-                <div class="guided-card__meta">Experiencia privada y personalizada</div>
-              </div>
-              <span class="badge badge--coming">Próximamente</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Detalle visita nocturna -->
-        <div id="nocturna-detail" style="display:none">
-
-          <!-- Nota informativa -->
-          <div class="noc-info-note">
-            <span class="noc-info-icon">✦</span>
-            <span>Esta entrada incluye la <strong>pulsera turística de visita por libre a todos los monumentos</strong>:
-              Catedral, Torre y Convento de San Francisco.</span>
-          </div>
-
-          <!-- Calendario custom + hora en grid de dos columnas -->
-          <div class="noc-time-row">
-            <div class="field">
-              <label>Fecha (viernes o sábado)</label>
-              <div class="noc-cal-wrap" id="noc-cal-wrap">
-                <div class="noc-cal-header">
-                  <button class="noc-cal-nav" type="button" onclick="nocCalNav(-1)"
-                    aria-label="Mes anterior">&#8249;</button>
-                  <span class="noc-cal-month" id="noc-cal-month-label"></span>
-                  <button class="noc-cal-nav" type="button" onclick="nocCalNav(1)"
-                    aria-label="Mes siguiente">&#8250;</button>
-                </div>
-                <div class="noc-cal-grid" id="noc-cal-grid"></div>
-                <div class="noc-cal-selected-display" id="noc-cal-selected-display">Selecciona un viernes o sábado</div>
-              </div>
-              <!-- valor interno usado por el resto de la lógica -->
-              <input type="hidden" id="nocturna-date" />
-            </div>
-            <div class="field">
-              <label>Hora asignada</label>
-              <input type="text" id="nocturna-time" readonly placeholder="Se asigna según el día"
-                style="background:var(--cream-dark);cursor:default" />
-            </div>
-          </div>
-          <div class="qty-grid">
-            <div class="qty-field">
-              <label>Adultos <small style="color:var(--gold-dk)">15€</small></label>
-              <div class="qty-row">
-                <button class="qty-btn" type="button" onclick="changeQty('noc-adult',-1)">−</button>
-                <input class="qty-input" type="number" id="noc-adult" value="0" min="0" onchange="recalc()" />
-                <button class="qty-btn" type="button" onclick="changeQty('noc-adult',1)">+</button>
-              </div>
-            </div>
-            <div class="qty-field">
-              <label>Menores &lt;12 <small style="color:var(--gold-dk)">5€</small></label>
-              <div class="qty-row">
-                <button class="qty-btn" type="button" onclick="changeQty('noc-child',-1)">−</button>
-                <input class="qty-input" type="number" id="noc-child" value="0" min="0" onchange="recalc()" />
-                <button class="qty-btn" type="button" onclick="changeQty('noc-child',1)">+</button>
-              </div>
-            </div>
-            <div class="qty-field">
-              <label>Residentes <small style="color:var(--stone)">Gratis</small></label>
-              <div class="qty-row">
-                <button class="qty-btn" type="button" onclick="changeQty('noc-res',-1)">−</button>
-                <input class="qty-input" type="number" id="noc-res" value="0" min="0" onchange="recalc()" />
-                <button class="qty-btn" type="button" onclick="changeQty('noc-res',1)">+</button>
-              </div>
-              <p class="qty-note">* Se verificará en taquilla</p>
-            </div>
-          </div>
-        </div>
-      </div><!-- /section-guiada -->
-
-      <div class="alert alert--error" id="alert-step2"></div>
-
-      <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(1)">← Volver</button>
-        <button class="btn btn--gold" onclick="goTo(3)">Ver resumen →</button>
-      </div>
-    </div>
-
-    <!-- ── PASO 3: Resumen ────────────────────────────────────────── -->
-    <div class="form-panel" id="step-3">
+    <!-- ── PASO 4: Resumen ──────────────────────────────────────── -->
+    <div class="form-panel" id="step-4">
       <h2 class="panel-title">Resumen de tu reserva</h2>
-      <p class="panel-subtitle">Revisa todos los detalles antes de confirmar el pago.</p>
+      <p class="panel-subtitle">Revisa todos los detalles antes de enviar la solicitud.</p>
 
       <div id="summary-content"><!-- se rellena dinámicamente --></div>
 
       <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(2)">← Modificar</button>
-        <button class="btn btn--gold" onclick="goTo(4)">Confirmar →</button>
+        <button class="btn btn--ghost" onclick="goTo(3)">← Modificar</button>
+        <button class="btn btn--gold" onclick="goTo(5)">Continuar →</button>
       </div>
     </div>
 
-    <!-- ── PASO 4: Seguridad ──────────────────────────────────────── -->
-    <div class="form-panel" id="step-4">
-      <h2 class="panel-title">Verificación</h2>
-      <p class="panel-subtitle">Responde la pregunta de seguridad y acepta las condiciones para continuar.</p>
+    <!-- ── PASO 5: Confirmar (captcha + términos + envío) ──────── -->
+    <div class="form-panel" id="step-5">
+      <h2 class="panel-title">Confirma tu reserva</h2>
+      <p class="panel-subtitle">Responde la pregunta de seguridad y acepta las condiciones para enviar tu solicitud.</p>
 
-      <!-- Captcha matemático simple (sin API key) -->
-      <!-- INTEGRACIÓN: Sustituir por reCAPTCHA v2 cuando tengas la clave site-key -->
       <div class="captcha-box">
         <div class="captcha-question" id="captcha-question"></div>
         <div style="display:flex;flex-direction:column;gap:4px">
           <input type="number" id="captcha-answer" placeholder="Resultado" style="width:110px" />
-          <span class="error-msg visible" id="err-captcha" style="display:none">Respuesta incorrecta.</span>
+          <span class="error-msg" id="err-captcha">Respuesta incorrecta.</span>
         </div>
         <span class="captcha-hint">Calcula mentalmente y escribe el resultado.</span>
       </div>
@@ -2085,53 +2568,25 @@
         <input type="checkbox" id="accept-terms" />
         <label for="accept-terms">
           He leído y acepto los
-          <a href="#" onclick="openModal('modal-terms'); return false;">términos y condiciones de compra de
-            entradas</a>,
+          <a href="legal/aviso-legal.html" target="_blank" rel="noopener">términos y condiciones de compra de entradas</a>,
           así como la
-          <a href="#" onclick="openModal('modal-privacy'); return false;">política de privacidad</a>.
+          <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.
         </label>
       </div>
 
-      <div class="alert alert--error" id="alert-step4"></div>
-
-      <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(3)">← Volver</button>
-        <button class="btn btn--gold" onclick="goTo(5)">Ir al pago →</button>
-      </div>
-    </div>
-
-    <!-- ── PASO 5: Pago ───────────────────────────────────────────── -->
-    <div class="form-panel" id="step-5">
-      <h2 class="panel-title">Pago seguro</h2>
-      <p class="panel-subtitle">Completa tu reserva con el pago a través de PayPal.</p>
-
-      <div class="payment-summary-mini">
-        <div>
-          <div class="payment-summary-mini__label">Total a pagar</div>
-        </div>
-        <div class="payment-summary-mini__amount" id="pay-total-display">0,00 €</div>
-      </div>
-
-      <!-- PayPal button se renderiza aquí -->
-      <!-- INTEGRACIÓN PAYPAL: El botón se crea dinámicamente con el SDK.
-         Sustituye TU_CLIENT_ID_PAYPAL en la URL del script del <head> por tu client-id real.
-         Para producción cambia &intent=capture y elimina el parámetro sandbox del script. -->
-      <div id="paypal-button-container"></div>
-
-      <p class="paypal-note">
-        Pago 100% seguro procesado por PayPal. Al finalizar recibirás un email de confirmación.
-      </p>
+      <div class="alert alert--error" id="alert-step5"></div>
 
       <div class="btn-row">
         <button class="btn btn--ghost" onclick="goTo(4)">← Volver</button>
+        <button class="btn btn--gold" id="btn-submit" onclick="enviarReserva()">Enviar solicitud →</button>
       </div>
     </div>
 
     <!-- ── CONFIRMACIÓN ───────────────────────────────────────────── -->
     <div class="form-panel" id="step-confirm">
       <div class="confirm-icon">✦</div>
-      <h2 class="confirm-title">¡Reserva confirmada!</h2>
-      <p class="confirm-subtitle">Tu pago ha sido procesado correctamente. Guarda este código para acceder.</p>
+      <h2 class="confirm-title">¡Solicitud enviada!</h2>
+      <p class="confirm-subtitle">Hemos recibido tu reserva. Recibirás la confirmación por email en breve.</p>
 
       <div class="booking-id" id="booking-id-display"></div>
 
@@ -2139,14 +2594,14 @@
 
       <p class="confirm-note">
         📧 Hemos enviado la confirmación a <strong id="confirm-email-display"></strong>.<br />
-        Muestra el código QR en taquilla para acceder a los monumentos.<br />
-        <!-- INTEGRACIÓN EMAIL: Llamar a EmailJS / SendGrid aquí con el ID de reserva y los datos del usuario -->
+        Conserva este identificador para cualquier consulta sobre tu reserva.
       </p>
 
       <div class="confirm-summary" id="confirm-summary-content"></div>
 
-      <div class="btn-row" style="justify-content:center;border:none;padding-top:16px">
+      <div class="btn-row" style="justify-content:center;border:none;padding-top:16px;flex-wrap:wrap;gap:12px">
         <button class="btn btn--ghost" onclick="window.print()">🖨 Imprimir</button>
+        <button class="btn btn--ghost" onclick="resetForm()">↺ Nueva reserva</button>
         <a href="/" class="btn btn--gold" style="text-decoration:none">Volver al inicio</a>
       </div>
     </div>
@@ -2264,613 +2719,900 @@
 
   <!-- ═══ JAVASCRIPT ══════════════════════════════════════════════════ -->
   <script>
-    /* ── Estado global ──────────────────────────────────────────────── */
+    /* ── Endpoint Apps Script ─────────────────────────────────────── */
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVEczVQQ51YyM_9o0SKyafc_LXoL8re47HjWlGljDw3S1lqX3b4aacgmDtV1nXNLPeWA/exec';
+
+    /* ── Estado ──────────────────────────────────────────────────── */
     let currentStep = 1;
     let captchaA, captchaB;
-    let totalAmount = 0;
+    const state = { tipoVisita: null, visitMode: null };
 
-    /* ── Precios ────────────────────────────────────────────────────── */
-    const PRICES = {
-      catedral: { adult: 7, child: 0, res: 0 },
-      torre: { adult: 4, child: 0, res: 0 },
-      convento: { adult: 5, child: 0, res: 0 },
-      pulsera: { adult: 10, child: 0, res: 0 },
-      nocturna: { adult: 15, child: 5, res: 0 },
+    /* ── Precios ─────────────────────────────────────────────────── */
+    const PRECIOS = {
+      'Catedral': 7, 'Torre': 4, 'Convento San Francisco': 5,
+      'Pulsera Turística': 10, 'Pulsera Turística Peregrino': 5,
+      'Visita Guiada Diurna': 14, 'Visita Guiada VIP': 15,
+      'Visita Guiada Nocturna Catedral': 15, 'Ticket Familiar': 25
     };
+    const PRECIOS_MENOR_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
+    const PRECIOS_RESIDENTE_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
+    const PRECIOS_ESCOLAR = { menor12: 0, e1213: 2, e1415: 3, e1617: 4, mayor17: 5 };
+    const LABELS_TRAMO = {
+      menor12: 'Escolares menores de 12 años', e1213: 'Escolares 12–13 años',
+      e1415: 'Escolares 14–15 años', e1617: 'Estudiantes 16–17 años', mayor17: 'Estudiantes mayores de 17 años'
+    };
+    const PRECIO_GRUPO_POR_PERSONA = 5;
+    const PRECIO_GRUPO_MINIMO = 125;
+    const SUPLEMENTO_GUIADA = 50;
+    const SUPLEMENTO_GUIADA_CASCO = 100;
 
-    /* Fecha mínima = hoy */
-    (function setMinDates() {
-      const today = new Date().toISOString().split('T')[0];
-      ['catedral-date', 'torre-date', 'convento-date', 'pulsera-date'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.min = today;
-      });
-    })();
+    const ENTRADAS_INDIVIDUAL_SIN_GUIA = [
+      { value: 'Catedral', label: 'Catedral — 7 €' },
+      { value: 'Torre', label: 'Torre — 4 €' },
+      { value: 'Convento San Francisco', label: 'Convento San Francisco — 5 €' },
+      { value: 'Pulsera Turística', label: 'Pulsera Turística — 10 €' },
+      { value: 'Pulsera Turística Peregrino', label: 'Pulsera Turística Peregrino — 5 €' },
+      { value: 'Ticket Familiar', label: 'Ticket Familiar — 25 €' }
+    ];
+    const ENTRADAS_INDIVIDUAL_CON_GUIA = [
+      { value: 'Visita Guiada Diurna', label: 'Visita Guiada Diurna — 14 €' },
+      { value: 'Visita Guiada VIP', label: 'Visita Guiada VIP — 15 €' },
+      { value: 'Visita Guiada Nocturna Catedral', label: 'Visita Guiada Nocturna Catedral — 15 €' }
+    ];
+    const ENTRADAS_GRUPO_GUIADA = [
+      { value: 'Sí', label: 'Catedral (+50 €)' },
+      { value: 'Casco Histórico + Catedral', label: 'Casco Histórico + Catedral (+100 €)' }
+    ];
 
-    /* ── Qty helpers ────────────────────────────────────────────────── */
-    function changeQty(id, delta) {
-      const el = document.getElementById(id);
-      const newVal = Math.max(0, parseInt(el.value || 0) + delta);
-      el.value = newVal;
-      recalc();
+    /* ── Horarios ────────────────────────────────────────────────── */
+    const DIAS_SEMANA = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const HORAS_TODAS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+    const HORAS_TODAS_SAB = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+    const HORAS_TORRE_CONV = ['10:00','11:00','12:00','13:00','16:00','17:00','18:00','19:00'];
+    const HORAS_GRUPO = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+    const HORAS_GRUPO_SAB = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
+    function horasPorDiaCompleto() { const r = {}; DIAS_SEMANA.forEach(d => { r[d] = d === 'sábado' ? HORAS_TODAS_SAB : HORAS_TODAS; }); return r; }
+    function horasTorreConv() { const r = {}; DIAS_SEMANA.forEach(d => { r[d] = HORAS_TORRE_CONV; }); return r; }
+    const HORARIOS = {
+      'Catedral': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Abierta todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+      'Torre': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
+      'Convento San Francisco': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
+      'Pulsera Turística': { nota: 'Acceso sin guía a los 4 monumentos.', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+      'Pulsera Turística Peregrino': { nota: 'Acceso sin guía a los 4 monumentos.\n⚠ Acreditar con credencial oficial del Camino en taquillas (mín. 4 etapas).', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+      'Visita Guiada Diurna': { nota: 'Incluye pulsera turística.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
+      'Visita Guiada VIP': { nota: 'Incluye pulsera turística. Aforo máximo 15 personas.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
+      'Visita Guiada Nocturna Catedral': { nota: 'Incluye pulsera turística.\nLos demás monumentos en sus horarios normales.', diasInfo: 'Solo viernes y sábados · 20:45 h', soloVieSab: true, horas: { viernes: ['20:45'], sábado: ['20:45'] } },
+      'Ticket Familiar': { nota: 'Incluye pulsera turística. Únicamente padres e hijos menores de 21 años.', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+    };
+    const TIPOS_GUIADA_INDIVIDUAL = ['Visita Guiada Diurna', 'Visita Guiada VIP', 'Visita Guiada Nocturna Catedral'];
+
+    /* ── Hora Madrid ─────────────────────────────────────────────── */
+    function horaActualMadridMin() { const md = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' })); return md.getHours() * 60 + md.getMinutes(); }
+    function fechaHoyMadrid() { return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }); }
+    function slotEsPasado(horaStr, fechaStr) { if (fechaStr !== fechaHoyMadrid()) return false; const [h, m] = horaStr.split(':').map(Number); return (h * 60 + m) < horaActualMadridMin(); }
+    function actualizarFechaMinima() {
+      const fechaInput = document.getElementById('fechaVisita');
+      if (!fechaInput) return;
+      const min = fechaHoyMadrid();
+      fechaInput.min = min;
+      if (fechaInput.value && fechaInput.value < min) fechaInput.value = '';
     }
 
-    /* ── Recalcular total ───────────────────────────────────────────── */
-    function recalc() {
-      const vt = document.querySelector('input[name="visit-type"]:checked')?.value;
-      let total = 0;
+    /* ── Tipo de visita (paso 1) ─────────────────────────────────── */
+    function onTipoVisitaChangeFromRadio() {
+      const radio = document.querySelector('input[name="tipoVisita"]:checked');
+      applyTipoVisita(radio ? radio.value : null);
+    }
+    function applyTipoVisita(v) {
+      state.tipoVisita = v;
+      document.getElementById('alert-step1').classList.remove('visible');
+      const isGrupo = state.tipoVisita === 'grupo';
+      const isEscolar = state.tipoVisita === 'escolar';
+      document.getElementById('tarifasIndividual').classList.toggle('visible', state.tipoVisita === 'individual');
+      document.getElementById('tarifasGrupo').classList.toggle('visible', isGrupo);
+      document.getElementById('tarifasEscolar').classList.toggle('visible', isEscolar);
+      document.getElementById('fieldTramoEdad').style.display = isEscolar ? 'block' : 'none';
+      if (!isEscolar) document.getElementById('tramoEdad').value = '';
+      poblarTipoEntrada();
+      const sel = document.getElementById('horaVisita');
+      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.style.display = '';
+      document.getElementById('horaGrid').innerHTML = '';
+      document.getElementById('fechaHelper').style.display = 'none';
+      updatePersonasHelper();
+      actualizarFechaMinima();
+      actualizarStep3UI();
+    }
 
-      if (vt === 'sin-guia') {
-        ['catedral', 'torre', 'convento', 'pulsera'].forEach(m => {
-          if (document.getElementById('mc-' + m).classList.contains('selected')) {
-            const p = PRICES[m];
-            total += (parseInt(document.getElementById(m + '-adult').value) || 0) * p.adult;
-            total += (parseInt(document.getElementById(m + '-child').value) || 0) * p.child;
-            total += (parseInt(document.getElementById(m + '-res').value) || 0) * p.res;
-          }
-        });
-      } else if (vt === 'guiada') {
-        if (document.getElementById('gt-nocturna')?.checked) {
-          const p = PRICES.nocturna;
-          total += (parseInt(document.getElementById('noc-adult').value) || 0) * p.adult;
-          total += (parseInt(document.getElementById('noc-child').value) || 0) * p.child;
-          total += (parseInt(document.getElementById('noc-res').value) || 0) * p.res;
+    /* ── Modalidad (paso 2) ──────────────────────────────────────── */
+    function onVisitModeChange() {
+      const radio = document.querySelector('input[name="visitMode"]:checked');
+      state.visitMode = radio ? radio.value : null;
+      poblarTipoEntrada();
+      const sel = document.getElementById('horaVisita');
+      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.style.display = '';
+      document.getElementById('horaGrid').innerHTML = '';
+      if (document.getElementById('fechaVisita').value) actualizarHoras();
+      updatePersonasHelper();
+    }
+
+    /* ── Poblar select tipoEntrada según tipoVisita + modalidad ──── */
+    function poblarTipoEntrada() {
+      const sel = document.getElementById('tipoEntrada');
+      const field = document.getElementById('fieldTipoEntrada');
+      const label = document.getElementById('labelTipoEntrada');
+      const tv = state.tipoVisita;
+      const vm = state.visitMode;
+      let opts = null;
+      let labelText = 'Tipo de entrada';
+
+      if (!tv || !vm) { field.style.display = 'none'; sel.innerHTML = '<option value="" disabled selected>Seleccione tipo</option>'; document.getElementById('notaTipoEntrada').style.display = 'none'; return; }
+
+      if (tv === 'individual' && vm === 'sin-guia') opts = ENTRADAS_INDIVIDUAL_SIN_GUIA;
+      else if (tv === 'individual' && vm === 'con-guia') opts = ENTRADAS_INDIVIDUAL_CON_GUIA;
+      else if ((tv === 'grupo' || tv === 'escolar') && vm === 'con-guia') { opts = ENTRADAS_GRUPO_GUIADA; labelText = 'Modalidad guiada'; }
+
+      if (!opts) {
+        field.style.display = 'none';
+        sel.innerHTML = '<option value="" disabled selected>—</option>';
+        document.getElementById('notaTipoEntrada').style.display = 'none';
+        return;
+      }
+      label.textContent = labelText;
+      let html = '<option value="" disabled selected>Seleccione</option>';
+      opts.forEach(o => { html += `<option value="${o.value}">${o.label}</option>`; });
+      sel.innerHTML = html;
+      field.style.display = 'block';
+    }
+
+    /* ── Helper personas ─────────────────────────────────────────── */
+    function updatePersonasHelper() {
+      const helper = document.getElementById('personasHelper');
+      if (!helper) return;
+      const labelNum = document.getElementById('labelNumPersonas');
+      if (labelNum) labelNum.textContent = state.tipoVisita === 'escolar' ? 'Número de alumnos' : 'Número de personas';
+      const n = parseInt(document.getElementById('numPersonas').value);
+      if (!n || !state.tipoVisita) { helper.textContent = ''; helper.className = 'field-helper'; return; }
+      if (state.tipoVisita === 'grupo') {
+        const residentes = parseInt(document.getElementById('residentes').value) || 0;
+        const menoresG = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
+        const pagantes = Math.max(0, n - residentes - menoresG);
+        const exentos = residentes + menoresG;
+        const exentosLabel = exentos > 0 ? ` · ${exentos} gratuidad` : '';
+        if (n < 13) { helper.textContent = '⚠ Mínimo no considerado como grupo. Use Visita Individual.'; helper.className = 'field-helper warning'; return; }
+        if (pagantes >= 25) helper.textContent = `${pagantes} pagantes × 5 €${exentosLabel} = ${pagantes * 5} €`;
+        else helper.textContent = `${pagantes} pagantes · Tarifa mínima: 125 € (grupo reducido)${exentosLabel}`;
+        helper.className = 'field-helper';
+      } else if (state.tipoVisita === 'escolar') {
+        const residentes = parseInt(document.getElementById('residentes').value) || 0;
+        const menoresEsc = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
+        const pagantes = Math.max(0, n - residentes - menoresEsc);
+        const tramo = document.getElementById('tramoEdad').value;
+        const tipoEntradaVal = document.getElementById('tipoEntrada').value;
+        const sup = (state.visitMode === 'con-guia' && tipoEntradaVal === 'Casco Histórico + Catedral') ? 100
+                  : (state.visitMode === 'con-guia' && tipoEntradaVal === 'Sí') ? 50 : 0;
+        const lblSup = sup === 100 ? ' + 100 € casco histórico' : sup === 50 ? ' + 50 € visita guiada' : '';
+        const gratuitos = [];
+        if (menoresEsc > 0) gratuitos.push(`${menoresEsc} menor${menoresEsc > 1 ? 'es' : ''} gratuidad`);
+        if (residentes > 0) gratuitos.push(`${residentes} res. gratuidad`);
+        const lblGrat = gratuitos.length ? ' · ' + gratuitos.join(' · ') : '';
+        if (tramo && PRECIOS_ESCOLAR[tramo] !== undefined) {
+          const p = PRECIOS_ESCOLAR[tramo];
+          const sub = pagantes * p; const tot = sub + sup;
+          helper.textContent = p === 0
+            ? `${n} alumnos · Entrada gratuita${sup ? lblSup + ' = ' + sup + ' € total' : ''}`
+            : `${pagantes} alumnos × ${p} €${lblGrat}${sup ? lblSup + ' = ' + tot + ' €' : ' = ' + sub + ' €'}`;
+        } else helper.textContent = `${n} alumnos · Seleccione tramo de edad para calcular el precio.`;
+        helper.className = 'field-helper';
+      } else {
+        const tipoEntrada = document.getElementById('tipoEntrada').value;
+        const menores = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
+        const residentes = parseInt(document.getElementById('residentes').value) || 0;
+        if (n >= 25) { helper.textContent = '⚠ Considerado como grupo. Realizar como Visita en Grupo.'; helper.className = 'field-helper warning'; return; }
+        if (tipoEntrada === 'Ticket Familiar') { helper.textContent = 'Tarifa familiar: 25 € (precio fijo)'; helper.className = 'field-helper'; return; }
+        const adultos = Math.max(0, n - menores - residentes);
+        if (tipoEntrada === 'Catedral' && adultos >= 18) { helper.textContent = '⚠ Considerado grupo reducido. Realizar como Visita en Grupo.'; helper.className = 'field-helper warning'; return; }
+        if (tipoEntrada === 'Pulsera Turística' && adultos >= 13) { helper.textContent = '⚠ Considerado grupo reducido. Realizar como Visita en Grupo.'; helper.className = 'field-helper warning'; return; }
+        if (!tipoEntrada) { helper.textContent = ''; helper.className = 'field-helper'; return; }
+        const precioAdulto = PRECIOS[tipoEntrada] || 0;
+        const precioMenor = PRECIOS_MENOR_GUIADA[tipoEntrada] !== undefined ? PRECIOS_MENOR_GUIADA[tipoEntrada] : 0;
+        const precioResidente = PRECIOS_RESIDENTE_GUIADA[tipoEntrada] !== undefined ? PRECIOS_RESIDENTE_GUIADA[tipoEntrada] : 0;
+        const total = adultos * precioAdulto + menores * precioMenor + residentes * precioResidente;
+        const partes = [];
+        if (adultos > 0) partes.push(`${adultos} adulto${adultos > 1 ? 's' : ''} × ${precioAdulto} €`);
+        if (menores > 0) partes.push(precioMenor > 0 ? `${menores} menor${menores > 1 ? 'es' : ''} × ${precioMenor} €` : `${menores} menor${menores > 1 ? 'es' : ''} gratuidad`);
+        if (residentes > 0) partes.push(precioResidente > 0 ? `${residentes} residente${residentes > 1 ? 's' : ''} × ${precioResidente} €` : `${residentes} residente${residentes > 1 ? 's' : ''} gratuidad`);
+        helper.textContent = partes.length ? partes.join(' · ') + ` = ${total} €` : '';
+        helper.className = 'field-helper';
+      }
+    }
+
+    /* ── Tipo de entrada change ──────────────────────────────────── */
+    function onTipoEntradaChange() {
+      const tipo = document.getElementById('tipoEntrada').value;
+      const cfg = HORARIOS[tipo];
+      const notaBox = document.getElementById('notaTipoEntrada');
+      const notaTxt = document.getElementById('notaTipoEntradaTexto');
+      const helper = document.getElementById('fechaHelper');
+      if (cfg && cfg.nota) { notaTxt.innerHTML = cfg.nota.replace(/\n/g, '<br>'); notaBox.style.display = 'block'; }
+      else notaBox.style.display = 'none';
+      if (cfg && cfg.diasInfo) { helper.textContent = '✦ ' + cfg.diasInfo; helper.style.color = 'var(--stone)'; helper.style.display = 'block'; }
+      else helper.style.display = 'none';
+      document.getElementById('horaVisita').innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      document.getElementById('horaGrid').innerHTML = '';
+      if (document.getElementById('fechaVisita').value) actualizarHoras();
+      updatePersonasHelper();
+    }
+
+    function validarFechaConTipo() {
+      const tipo = document.getElementById('tipoEntrada').value;
+      const fecha = document.getElementById('fechaVisita').value;
+      const helper = document.getElementById('fechaHelper');
+      const cfg = HORARIOS[tipo];
+      if (!cfg || !fecha) return true;
+      if (cfg.soloVieSab) {
+        const dia = new Date(fecha + 'T00:00:00').getDay();
+        if (dia !== 5 && dia !== 6) {
+          helper.textContent = '⚠ Sólo disponible Viernes y Sábados.';
+          helper.style.color = '#d97c6a'; helper.style.display = 'block';
+          return false;
         }
       }
-
-      totalAmount = total;
-      // actualizar mini-display de pago si existe
-      const el = document.getElementById('pay-total-display');
-      if (el) el.textContent = total.toFixed(2).replace('.', ',') + ' €';
-      return total;
+      helper.textContent = '✦ ' + cfg.diasInfo;
+      helper.style.color = 'var(--stone)'; helper.style.display = 'block';
+      return true;
     }
 
-    /* ── Visit type toggle ──────────────────────────────────────────── */
-    function onVisitTypeChange() {
-      const vt = document.querySelector('input[name="visit-type"]:checked')?.value;
-      document.getElementById('section-sin-guia').style.display = vt === 'sin-guia' ? 'block' : 'none';
-      document.getElementById('section-guiada').style.display = vt === 'guiada' ? 'block' : 'none';
-      recalc();
-    }
-
-    /* ── Monument toggle ────────────────────────────────────────────── */
-    function toggleMonument(name) {
-      const card = document.getElementById('mc-' + name);
-      const cb = document.getElementById('cb-' + name);
-      card.classList.toggle('selected');
-      cb.classList.toggle('checked');
-      recalc();
-    }
-
-    /* ── Time slot generator ────────────────────────────────────────── */
-    function generateSlots(start, end, interval) {
-      const slots = [];
-      let [h, m] = start.split(':').map(Number);
-      const [eh, em] = end.split(':').map(Number);
-      while (h < eh || (h === eh && m <= em)) {
-        slots.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
-        m += interval;
-        if (m >= 60) { h += Math.floor(m / 60); m = m % 60; }
+    /* ── Horas / disponibilidad ──────────────────────────────────── */
+    function actualizarHoras() {
+      const sel = document.getElementById('horaVisita');
+      const grid = document.getElementById('horaGrid');
+      const fecha = document.getElementById('fechaVisita').value;
+      if (!fecha) return;
+      if (!validarFechaConTipo()) {
+        sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
+        grid.innerHTML = ''; return;
       }
-      return slots;
-    }
-
-    function buildOptions(select, slots) {
-      select.innerHTML = '<option value="">— Elige una hora —</option>';
-      slots.forEach(s => {
-        const o = document.createElement('option');
-        o.value = o.textContent = s + 'h';
-        select.appendChild(o);
-      });
-    }
-
-    function updateTimeSlots(monument) {
-      const dateEl = document.getElementById(monument + '-date');
-      const timeEl = document.getElementById(monument + '-time');
-      if (!dateEl.value) return;
-
-      const dow = new Date(dateEl.value + 'T12:00:00').getDay(); // 0=dom 6=sáb
-
-      if (monument === 'catedral' || monument === 'pulsera') {
-        const end = dow === 6 ? '19:00' : '20:00';
-        buildOptions(timeEl, generateSlots('09:00', end, 30));
-      } else {
-        // Torre / Convento: 10:00–14:00 y 16:00–20:00
-        const morning = generateSlots('10:00', '14:00', 30);
-        const afternoon = generateSlots('16:00', '20:00', 30);
-        buildOptions(timeEl, [...morning, ...afternoon]);
+      const tipoEntrada = document.getElementById('tipoEntrada').value;
+      const esGuiadaInd = state.tipoVisita === 'individual' && TIPOS_GUIADA_INDIVIDUAL.includes(tipoEntrada);
+      const esGrupoOEsc = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
+      if (esGrupoOEsc || esGuiadaInd) {
+        sel.style.display = 'none';
+        grid.innerHTML = '<p class="hora-grid-msg">Consultando disponibilidad…</p>';
+        consultarYMostrarDisponibilidad(fecha);
+        return;
       }
-    }
-
-    /* ── Guided type toggle ─────────────────────────────────────────── */
-    function onGuidedTypeChange() {
-      const gt = document.querySelector('input[name="guided-type"]:checked')?.value;
-      if (gt === 'nocturna') {
-        document.getElementById('nocturna-detail').style.display = 'block';
-        nocCalRender(); // render calendar on first open
-      } else {
-        document.getElementById('nocturna-detail').style.display = 'none';
-      }
-      recalc();
-    }
-
-    /* ── Custom nocturna calendar ────────────────────────────────────── */
-    let nocCalYear, nocCalMonth, nocCalSelected = null;
-
-    function nocCalInit() {
-      const now = new Date();
-      nocCalYear = now.getFullYear();
-      nocCalMonth = now.getMonth();
-    }
-
-    function nocCalNav(delta) {
-      nocCalMonth += delta;
-      if (nocCalMonth > 11) { nocCalMonth = 0; nocCalYear++; }
-      if (nocCalMonth < 0) { nocCalMonth = 11; nocCalYear--; }
-      nocCalRender();
-    }
-
-    function nocCalRender() {
-      if (nocCalYear === undefined) nocCalInit();
-
-      const MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      const DOWS = ['L', 'M', 'X', 'J', 'V', 'S', 'D']; // lun→dom display
-
-      document.getElementById('noc-cal-month-label').textContent =
-        MONTHS[nocCalMonth] + ' ' + nocCalYear;
-
-      const grid = document.getElementById('noc-cal-grid');
+      if (!tipoEntrada) return;
+      sel.style.display = '';
       grid.innerHTML = '';
-
-      // Day-of-week headers — highlight V (index 4) and S (index 5)
-      DOWS.forEach((d, i) => {
-        const el = document.createElement('div');
-        el.className = 'noc-cal-dow' + (i === 4 || i === 5 ? ' avail' : '');
-        el.textContent = d;
-        grid.appendChild(el);
+      const d = new Date(fecha + 'T00:00:00');
+      const cfg = HORARIOS[tipoEntrada];
+      const horas = (cfg && cfg.horas && cfg.horas[DIAS_SEMANA[d.getDay()]]) ? cfg.horas[DIAS_SEMANA[d.getDay()]] : [];
+      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      horas.forEach(h => {
+        const opt = document.createElement('option');
+        const pasado = slotEsPasado(h, fecha);
+        opt.value = h; opt.textContent = pasado ? `❌ ${h}` : h;
+        if (pasado) opt.disabled = true;
+        sel.appendChild(opt);
       });
+      if (horas.length === 0) sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
+      fetch(SCRIPT_URL + '?disponibilidad=' + fecha)
+        .then(r => r.json()).then(data => {
+          if (!data.ok) return;
+          if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
+          if (data.horasCierre && data.horasCierre.length) {
+            sel.querySelectorAll('option').forEach(opt => { if (data.horasCierre.includes(opt.value)) { opt.disabled = true; opt.textContent = '🔒 ' + opt.value; } });
+          }
+        }).catch(() => {});
+    }
 
-      // First day of month (convert Sun=0 to Mon=0 grid)
-      const firstDate = new Date(nocCalYear, nocCalMonth, 1);
-      const firstDow = (firstDate.getDay() + 6) % 7; // Mon-based: Mon=0 … Sun=6
-      const daysInMonth = new Date(nocCalYear, nocCalMonth + 1, 0).getDate();
+    function consultarYMostrarDisponibilidad(fecha) {
+      const grid = document.getElementById('horaGrid');
+      fetch(SCRIPT_URL + '?disponibilidad=' + fecha)
+        .then(r => r.json()).then(data => {
+          if (!data.ok) {
+            grid.innerHTML = '<p class="hora-grid-msg err">No se pudo comprobar disponibilidad.</p>';
+            if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') mostrarSelectGrupo(fecha);
+            return;
+          }
+          if (data.esDiaBloqueado) { grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
+          const tipoEntrada = document.getElementById('tipoEntrada').value;
+          const horasCierre = data.horasCierre || [];
+          const horasNoVG = data.horasNoVisitasGuiadas || [];
+          if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar')
+            renderizarHorasDisponibilidad(data.horasOcupadas || [], horasCierre, horasNoVG, fecha);
+          else if (tipoEntrada === 'Visita Guiada Diurna')
+            renderizarHorasGuiadas(data.visitasGuiadas?.Diurna || [], horasCierre, fecha);
+          else if (tipoEntrada === 'Visita Guiada VIP')
+            renderizarHorasGuiadas(data.visitasGuiadas?.VIP || [], horasCierre, fecha);
+          else if (tipoEntrada === 'Visita Guiada Nocturna Catedral')
+            renderizarHorasGuiadas(data.visitasGuiadas?.Nocturna || [], horasCierre, fecha);
+        }).catch(() => {
+          grid.innerHTML = '<p class="hora-grid-msg err">Error de conexión.</p>';
+          if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') mostrarSelectGrupo(fecha);
+        });
+    }
 
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+    function mostrarSelectGrupo(fecha) {
+      const sel = document.getElementById('horaVisita');
+      sel.style.display = '';
+      const d = new Date(fecha + 'T00:00:00');
+      const horas = d.getDay() === 6 ? HORAS_GRUPO_SAB : HORAS_GRUPO;
+      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      horas.forEach(h => {
+        const o = document.createElement('option');
+        const pasado = slotEsPasado(h, fecha);
+        o.value = h; o.textContent = pasado ? `❌ ${h}` : h;
+        if (pasado) o.disabled = true;
+        sel.appendChild(o);
+      });
+    }
 
-      // Empty cells before first day
-      for (let i = 0; i < firstDow; i++) {
-        const el = document.createElement('div');
-        el.className = 'noc-cal-day empty';
-        grid.appendChild(el);
-      }
-
-      for (let d = 1; d <= daysInMonth; d++) {
-        const date = new Date(nocCalYear, nocCalMonth, d);
-        const dow = date.getDay(); // 0=Sun,5=Fri,6=Sat
-        const isPast = date < today;
-        const isFriSat = (dow === 5 || dow === 6);
-
-        const yyyy = date.getFullYear();
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(d).padStart(2, '0');
-        const val = `${yyyy}-${mm}-${dd}`;
-
-        const el = document.createElement('div');
-        el.textContent = d;
-
-        if (!isFriSat) {
-          el.className = 'noc-cal-day off';
-        } else if (isPast) {
-          el.className = 'noc-cal-day past';
-        } else {
-          el.className = 'noc-cal-day avail';
-          if (nocCalSelected === val) el.classList.add('selected');
-          el.onclick = () => nocCalSelect(val, dow, d, nocCalMonth, nocCalYear);
+    function _renderGridBotones(horas, inactivas, bloqueadas, fecha, duracionDoble) {
+      const grid = document.getElementById('horaGrid');
+      const sel = document.getElementById('horaVisita');
+      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>'; sel.value = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'hora-grid';
+      const btns = [];
+      horas.forEach((h, idx) => {
+        const pasado = slotEsPasado(h, fecha);
+        const inactivo = inactivas.includes(h);
+        const bloqueado = !inactivo && (bloqueadas || []).includes(h);
+        let bloqueadoDur = false;
+        if (duracionDoble && !pasado && !inactivo && !bloqueado) {
+          const hSig = horas[idx + 1];
+          if (!hSig) {
+            bloqueadoDur = true;
+          } else {
+            bloqueadoDur = slotEsPasado(hSig, fecha) || inactivas.includes(hSig) || (bloqueadas || []).includes(hSig);
+          }
         }
-
-        // Mark today
-        if (date.toDateString() === today.toDateString()) {
-          el.classList.add('today-marker');
+        const btn = document.createElement('button');
+        btn.type = 'button'; btn.textContent = h;
+        if (pasado) { btn.className = 'hora-btn pasado'; btn.disabled = true; }
+        else if (inactivo) { btn.className = 'hora-btn ocupado'; btn.disabled = true; }
+        else if (bloqueado) { btn.className = 'hora-btn bloqueado'; btn.disabled = true; }
+        else if (bloqueadoDur) { btn.className = 'hora-btn bloqueado-dur'; btn.disabled = true; }
+        else {
+          btn.className = 'hora-btn libre';
+          if (duracionDoble) {
+            btn.addEventListener('mouseenter', () => {
+              if (window.matchMedia('(max-width: 720px)').matches) return;
+              btns[idx]?.classList.add('hover-doble');
+              btns[idx + 1]?.classList.add('hover-doble');
+            });
+            btn.addEventListener('mouseleave', () => {
+              btns.forEach(b => b.classList.remove('hover-doble'));
+            });
+          }
+          btn.addEventListener('click', () => {
+            btns.forEach(b => b.classList.remove('selected', 'selected-sig'));
+            btn.classList.add('selected');
+            if (duracionDoble && btns[idx + 1]) btns[idx + 1].classList.add('selected-sig');
+            sel.innerHTML = '<option value="' + h + '" selected>' + h + '</option>'; sel.value = h;
+          });
         }
+        btns.push(btn);
+        wrap.appendChild(btn);
+      });
+      grid.innerHTML = ''; grid.appendChild(wrap);
+      const leyenda = document.createElement('p');
+      leyenda.className = 'hora-leyenda';
+      leyenda.innerHTML = '<span style="color:#6cd88a">■</span> Disponible &nbsp;<span style="color:rgba(220,130,110,.75)">■</span> No disponible &nbsp;<span style="color:rgba(210,90,60,.7)">■</span> Hora pasada';
+      grid.appendChild(leyenda);
+    }
 
-        grid.appendChild(el);
+    function renderizarHorasDisponibilidad(horasOcupadas, horasCierre, horasNoVG, fecha) {
+      const tieneGuiada = state.visitMode === 'con-guia';
+      const horasDia = new Date(fecha + 'T00:00:00').getDay() === 6 ? HORAS_GRUPO_SAB : HORAS_GRUPO;
+      const ocupadasEf = tieneGuiada ? horasOcupadas.concat(horasNoVG || []) : [];
+      const tipoEntrada = document.getElementById('tipoEntrada').value;
+      const duracionDoble = tieneGuiada && tipoEntrada === 'Casco Histórico + Catedral';
+      _renderGridBotones(horasDia, ocupadasEf.concat(horasCierre || []), [], fecha, duracionDoble);
+    }
+    function renderizarHorasGuiadas(horas, horasCierre, fecha) {
+      const grid = document.getElementById('horaGrid');
+      if (!horas || horas.length === 0) { grid.innerHTML = '<p class="hora-grid-msg">No hay visitas programadas para este día.</p>'; return; }
+      _renderGridBotones(horas, horasCierre || [], [], fecha);
+    }
+
+    /* ── Cálculo de tarifas ──────────────────────────────────────── */
+    function tramoPrecio(tramo) { return PRECIOS_ESCOLAR[tramo] !== undefined ? PRECIOS_ESCOLAR[tramo] : 0; }
+    function visitaGuiadaSeleccionada() {
+      if ((state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') && state.visitMode === 'con-guia') {
+        return document.getElementById('tipoEntrada').value || 'No';
       }
+      return 'No';
+    }
+    function calcularDesglose() {
+      const n = parseInt(document.getElementById('numPersonas').value) || 0;
+      const menores = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
+      const residentes = parseInt(document.getElementById('residentes').value) || 0;
+      if (state.tipoVisita === 'grupo') {
+        const pagantes = Math.max(0, n - residentes - menores);
+        const tarifa = pagantes >= 25 ? pagantes * PRECIO_GRUPO_POR_PERSONA : PRECIO_GRUPO_MINIMO;
+        return { tarifa, adultos: pagantes, menores, residentes, precioAdulto: PRECIO_GRUPO_POR_PERSONA, precioMenor: 0, precioResidente: 0 };
+      }
+      if (state.tipoVisita === 'escolar') {
+        const tramo = document.getElementById('tramoEdad').value;
+        const p = tramoPrecio(tramo);
+        const pagantes = Math.max(0, n - residentes - menores);
+        return { tarifa: pagantes * p, adultos: pagantes, menores, residentes, precioAdulto: p, precioMenor: 0, precioResidente: 0, escolar: true };
+      }
+      const tipoEntrada = document.getElementById('tipoEntrada').value;
+      if (tipoEntrada === 'Ticket Familiar') return { tarifa: 25, adultos: n, menores, residentes, precioAdulto: 25, precioMenor: 0, precioResidente: 0 };
+      const precioResidente = PRECIOS_RESIDENTE_GUIADA[tipoEntrada] !== undefined ? PRECIOS_RESIDENTE_GUIADA[tipoEntrada] : 0;
+      const adultos = Math.max(0, n - menores - residentes);
+      const precioAdulto = PRECIOS[tipoEntrada] || 0;
+      const precioMenor = PRECIOS_MENOR_GUIADA[tipoEntrada] !== undefined ? PRECIOS_MENOR_GUIADA[tipoEntrada] : 0;
+      return { tarifa: adultos * precioAdulto + menores * precioMenor + residentes * precioResidente, adultos, menores, residentes, precioAdulto, precioMenor, precioResidente };
+    }
+    function calcularTotal() {
+      const d = calcularDesglose();
+      const vg = visitaGuiadaSeleccionada();
+      if (vg === 'Casco Histórico + Catedral') return d.tarifa + SUPLEMENTO_GUIADA_CASCO;
+      if (vg === 'Sí') return d.tarifa + SUPLEMENTO_GUIADA;
+      return d.tarifa;
     }
 
-    function nocCalSelect(val, dow, d, month, year) {
-      nocCalSelected = val;
-      const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-      const dayName = dow === 5 ? 'Viernes' : 'Sábado';
-      const hour = dow === 5 ? '19:45h' : '20:45h';
-
-      document.getElementById('nocturna-date').value = val;
-      document.getElementById('nocturna-time').value = hour;
-      document.getElementById('noc-cal-selected-display').textContent =
-        `${dayName} ${d} de ${MONTHS[month]} de ${year} — ${hour}`;
-
-      nocCalRender(); // re-render to update selected highlight
-      recalc();
+    /* ── Step 3 UI (cambia título según tipoVisita) ─────────────── */
+    function actualizarStep3UI() {
+      const isGE = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
+      const t = document.getElementById('step3Title');
+      const s = document.getElementById('step3Subtitle');
+      const ln = document.getElementById('labelNombre');
+      const fact = document.getElementById('facturaSection');
+      if (t) t.textContent = isGE ? 'Datos del grupo' : 'Tus datos personales';
+      if (s) s.textContent = isGE ? 'Necesitamos los datos del responsable y, si lo necesitas, los de facturación.' : 'Necesitamos algunos datos para gestionar tu reserva.';
+      if (ln) ln.textContent = isGE ? 'Nombre del responsable' : 'Nombre completo';
+      if (fact) fact.style.display = isGE ? 'block' : 'none';
     }
 
-    /* kept for backwards compat — no longer triggered by native input */
-    function onNocturnaDateChange() { recalc(); }
-
-    nocCalInit();
-
-    /* ── Captcha ────────────────────────────────────────────────────── */
-    function generateCaptcha() {
-      captchaA = Math.floor(Math.random() * 15) + 1;
-      captchaB = Math.floor(Math.random() * 10) + 1;
-      document.getElementById('captcha-question').textContent = `¿Cuánto es ${captchaA} + ${captchaB}?`;
-      document.getElementById('captcha-answer').value = '';
+    /* ── Factura toggle ──────────────────────────────────────────── */
+    function onFacturaToggle() {
+      const c = document.getElementById('necesitaFactura').checked;
+      document.getElementById('facturaFields').style.display = c ? 'grid' : 'none';
     }
 
-    /* ── Build summary HTML ─────────────────────────────────────────── */
+    /* ── Resumen ─────────────────────────────────────────────────── */
+    function esc(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+    function formatFecha(f) { if (!f) return '—'; const [y, m, d] = f.split('-'); return `${d}/${m}/${y}`; }
+    function tipoVisitaLabel() {
+      if (state.tipoVisita === 'grupo') return 'Grupo';
+      if (state.tipoVisita === 'escolar') return 'Grupo Escolar';
+      return 'Individual';
+    }
+    function modalidadLabel() {
+      if (state.visitMode === 'sin-guia') return 'Sin guía';
+      if (state.visitMode === 'con-guia') return 'Con guía';
+      return '—';
+    }
     function buildSummary() {
-      const nombre = document.getElementById('nombre').value.trim();
-      const apellidos = document.getElementById('apellidos').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const telefono = document.getElementById('telefono').value.trim();
-      const vt = document.querySelector('input[name="visit-type"]:checked')?.value;
+      const d = calcularDesglose();
+      const total = calcularTotal();
+      const vg = visitaGuiadaSeleccionada();
+      const isGE = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
+      const tipoEntradaSel = document.getElementById('tipoEntrada').value;
+      const tramo = document.getElementById('tramoEdad').value;
+      const residentes = document.getElementById('residentes').value || '0';
 
       let html = `
-    <div class="summary-block">
-      <div class="summary-block__head">Datos personales</div>
-      <div class="summary-block__body">
-        <div class="summary-row"><span class="summary-row__label">Nombre</span><span class="summary-row__value">${nombre} ${apellidos}</span></div>
-        <div class="summary-row"><span class="summary-row__label">Email</span><span class="summary-row__value">${email}</span></div>
-        <div class="summary-row"><span class="summary-row__label">Teléfono</span><span class="summary-row__value">${telefono}</span></div>
-      </div>
-    </div>`;
-
-      let lineItems = '';
-      let total = 0;
-
-      if (vt === 'sin-guia') {
-        const monumentNames = { catedral: 'Catedral', torre: 'Torre', convento: 'Convento San Francisco', pulsera: 'Pulsera Turística' };
-        ['catedral', 'torre', 'convento', 'pulsera'].forEach(m => {
-          if (!document.getElementById('mc-' + m).classList.contains('selected')) return;
-          const date = document.getElementById(m + '-date').value || '—';
-          const time = document.getElementById(m + '-time').value || '—';
-          const adult = parseInt(document.getElementById(m + '-adult').value) || 0;
-          const child = parseInt(document.getElementById(m + '-child').value) || 0;
-          const res = parseInt(document.getElementById(m + '-res').value) || 0;
-          const sub = adult * PRICES[m].adult;
-          total += sub;
-          lineItems += `
         <div class="summary-block">
-          <div class="summary-block__head">${monumentNames[m]}</div>
+          <div class="summary-block__head">${isGE ? 'Datos del grupo' : 'Datos personales'}</div>
           <div class="summary-block__body">
-            <div class="summary-row"><span class="summary-row__label">Fecha</span><span class="summary-row__value">${formatDate(date)}</span></div>
-            <div class="summary-row"><span class="summary-row__label">Hora</span><span class="summary-row__value">${time}</span></div>
-            ${adult ? `<div class="summary-row"><span class="summary-row__label">Adultos × ${adult}</span><span class="summary-row__value">${(adult * PRICES[m].adult).toFixed(2)} €</span></div>` : ''}
-            ${child ? `<div class="summary-row"><span class="summary-row__label">Menores &lt;12 × ${child}</span><span class="summary-row__value">Gratis</span></div>` : ''}
-            ${res ? `<div class="summary-row"><span class="summary-row__label">Residentes × ${res}</span><span class="summary-row__value">Gratis *</span></div>` : ''}
+            <div class="summary-row"><span class="summary-row__label">${isGE ? 'Responsable' : 'Nombre'}</span><span class="summary-row__value">${esc(document.getElementById('nombre').value)}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Email</span><span class="summary-row__value">${esc(document.getElementById('email').value)}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Teléfono</span><span class="summary-row__value">${esc(document.getElementById('telefono').value)}</span></div>
+          </div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-block__head">Visita</div>
+          <div class="summary-block__body">
+            <div class="summary-row"><span class="summary-row__label">Tipo de visita</span><span class="summary-row__value">${tipoVisitaLabel()}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Modalidad</span><span class="summary-row__value">${modalidadLabel()}</span></div>
+            ${!isGE && tipoEntradaSel ? `<div class="summary-row"><span class="summary-row__label">Tipo de entrada</span><span class="summary-row__value">${esc(tipoEntradaSel)}</span></div>` : ''}
+            ${isGE && state.visitMode === 'con-guia' ? `<div class="summary-row"><span class="summary-row__label">Visita guiada</span><span class="summary-row__value">${vg === 'Sí' ? 'Catedral (+50 €)' : (vg === 'Casco Histórico + Catedral' ? 'Casco Histórico + Catedral (+100 €)' : '—')}</span></div>` : ''}
+            ${state.tipoVisita === 'escolar' ? `<div class="summary-row"><span class="summary-row__label">Tramo de edad</span><span class="summary-row__value">${LABELS_TRAMO[tramo] || '—'}</span></div>` : ''}
+            <div class="summary-row"><span class="summary-row__label">Fecha</span><span class="summary-row__value">${formatFecha(document.getElementById('fechaVisita').value)}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Hora</span><span class="summary-row__value">${esc(document.getElementById('horaVisita').value || '—')}</span></div>
+            <div class="summary-row"><span class="summary-row__label">${state.tipoVisita === 'escolar' ? 'Nº alumnos' : 'Nº personas'}</span><span class="summary-row__value">${document.getElementById('numPersonas').value || '—'}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Menores &lt;12</span><span class="summary-row__value">${document.getElementById('menoresTreceAnios').value || '0'}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Residentes</span><span class="summary-row__value">${residentes}</span></div>
           </div>
         </div>`;
-        });
-      } else if (vt === 'guiada') {
-        const date = document.getElementById('nocturna-date').value || '—';
-        const time = document.getElementById('nocturna-time').value || '—';
-        const adult = parseInt(document.getElementById('noc-adult').value) || 0;
-        const child = parseInt(document.getElementById('noc-child').value) || 0;
-        const res = parseInt(document.getElementById('noc-res').value) || 0;
-        total = adult * 15 + child * 5;
-        lineItems = `
-      <div class="summary-block">
-        <div class="summary-block__head">Visita Nocturna Guiada</div>
-        <div class="summary-block__body">
-          <div class="summary-row"><span class="summary-row__label">Fecha</span><span class="summary-row__value">${formatDate(date)}</span></div>
-          <div class="summary-row"><span class="summary-row__label">Hora</span><span class="summary-row__value">${time}</span></div>
-          ${adult ? `<div class="summary-row"><span class="summary-row__label">Adultos × ${adult}</span><span class="summary-row__value">${(adult * 15).toFixed(2)} €</span></div>` : ''}
-          ${child ? `<div class="summary-row"><span class="summary-row__label">Menores &lt;12 × ${child}</span><span class="summary-row__value">${(child * 5).toFixed(2)} €</span></div>` : ''}
-          ${res ? `<div class="summary-row"><span class="summary-row__label">Residentes × ${res}</span><span class="summary-row__value">Gratis *</span></div>` : ''}
+
+      if (isGE && document.getElementById('necesitaFactura').checked) {
+        const nc = document.getElementById('nombreCentro').value;
+        const nif = document.getElementById('nifCif').value;
+        const calle = document.getElementById('calleNumero').value;
+        const ciudad = document.getElementById('ciudadFact').value;
+        const cp = document.getElementById('cpFact').value;
+        html += `
+        <div class="summary-block">
+          <div class="summary-block__head">Facturación</div>
+          <div class="summary-block__body">
+            <div class="summary-row"><span class="summary-row__label">Centro / institución</span><span class="summary-row__value">${esc(nc)}</span></div>
+            <div class="summary-row"><span class="summary-row__label">NIF / CIF</span><span class="summary-row__value">${esc(nif)}</span></div>
+            <div class="summary-row"><span class="summary-row__label">Dirección</span><span class="summary-row__value">${esc(calle)}${ciudad ? ', ' + esc(ciudad) : ''}${cp ? ' ' + esc(cp) : ''}</span></div>
+          </div>
+        </div>`;
+      }
+
+      const com = document.getElementById('comentarios').value.trim();
+      if (com) html += `
+        <div class="summary-block">
+          <div class="summary-block__head">Comentarios</div>
+          <div class="summary-block__body"><div style="font-size:.9rem;line-height:1.6">${esc(com)}</div></div>
+        </div>`;
+
+      let lineas = '';
+      if (state.tipoVisita === 'grupo') {
+        if (d.tarifa === PRECIO_GRUPO_MINIMO && d.adultos < 25) {
+          lineas = `<div class="summary-row"><span class="summary-row__label">Grupo reducido (mínimo)</span><span class="summary-row__value">${PRECIO_GRUPO_MINIMO.toFixed(2)} €</span></div>`;
+        } else {
+          lineas = `<div class="summary-row"><span class="summary-row__label">${d.adultos} pers. pagantes × ${PRECIO_GRUPO_POR_PERSONA} €</span><span class="summary-row__value">${d.tarifa.toFixed(2)} €</span></div>`;
+        }
+        if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} menores &lt;12 · gratuidad</span><span class="summary-row__value">0,00 €</span></div>`;
+        if (d.residentes > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} residentes · gratuidad</span><span class="summary-row__value">0,00 €</span></div>`;
+      } else if (state.tipoVisita === 'escolar') {
+        lineas = `<div class="summary-row"><span class="summary-row__label">${d.adultos} alumnos × ${d.precioAdulto} €</span><span class="summary-row__value">${d.tarifa.toFixed(2)} €</span></div>`;
+        if (d.residentes > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} residentes · gratuidad</span><span class="summary-row__value">0,00 €</span></div>`;
+      } else if (tipoEntradaSel === 'Ticket Familiar') {
+        lineas = `<div class="summary-row"><span class="summary-row__label">Ticket Familiar (precio fijo)</span><span class="summary-row__value">25,00 €</span></div>`;
+      } else {
+        if (d.adultos > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.adultos} adultos × ${d.precioAdulto} €</span><span class="summary-row__value">${(d.adultos * d.precioAdulto).toFixed(2)} €</span></div>`;
+        if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} menores × ${d.precioMenor} €</span><span class="summary-row__value">${(d.menores * d.precioMenor).toFixed(2)} €</span></div>`;
+        if (d.residentes > 0 && d.precioResidente > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} residentes × ${d.precioResidente} €</span><span class="summary-row__value">${(d.residentes * d.precioResidente).toFixed(2)} €</span></div>`;
+        if (d.residentes > 0 && d.precioResidente === 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} residentes · gratuidad</span><span class="summary-row__value">0,00 €</span></div>`;
+      }
+      if (vg === 'Sí') lineas += `<div class="summary-row"><span class="summary-row__label">Suplemento visita guiada</span><span class="summary-row__value">+ ${SUPLEMENTO_GUIADA.toFixed(2)} €</span></div>`;
+      if (vg === 'Casco Histórico + Catedral') lineas += `<div class="summary-row"><span class="summary-row__label">Suplemento guiada Casco + Catedral</span><span class="summary-row__value">+ ${SUPLEMENTO_GUIADA_CASCO.toFixed(2)} €</span></div>`;
+
+      html += `
+        <div class="summary-block">
+          <div class="summary-block__head">Desglose</div>
+          <div class="summary-block__body">${lineas}</div>
         </div>
-      </div>`;
-      }
-
-      totalAmount = total;
-
-      html += lineItems;
-      html += `<div class="total-bar">
-    <span class="total-bar__label">Total a pagar</span>
-    <span class="total-bar__amount">${total.toFixed(2).replace('.', ',')} <span>EUR</span></span>
-  </div>`;
-
-      if (total === 0) {
-        html += `<p style="font-size:.8rem;color:var(--stone);margin-top:14px;text-align:right">* Las entradas gratuitas se acreditarán en taquilla con documentación.</p>`;
-      }
-
+        <div class="total-bar">
+          <span class="total-bar__label">Total estimado</span>
+          <span class="total-bar__amount">${total.toFixed(2).replace('.', ',')} <span>EUR</span></span>
+        </div>
+        <p style="font-size:.78rem;color:var(--stone);margin-top:14px;line-height:1.6">El pago se realizará en taquilla o por transferencia tras recibir la confirmación por email. Las tarifas gratuitas para residentes y menores se acreditarán en taquilla.</p>`;
       return html;
     }
 
-    function formatDate(d) {
-      if (!d || d === '—') return '—';
-      const [y, m, day] = d.split('-');
-      return `${day}/${m}/${y}`;
+    /* ── Validaciones ────────────────────────────────────────────── */
+    function setError(id, errId, isErr) {
+      const el = document.getElementById(id);
+      const err = errId ? document.getElementById(errId) : null;
+      if (!el) return;
+      el.classList.toggle('error', isErr);
+      if (err) err.classList.toggle('visible', isErr);
     }
-
-    /* ── Validations ────────────────────────────────────────────────── */
     function validateStep(n) {
       if (n === 1) {
-        let ok = true;
-        const fields = [
-          { id: 'nombre', err: 'err-nombre', check: v => v.length >= 2 },
-          { id: 'apellidos', err: 'err-apellidos', check: v => v.length >= 2 },
-          { id: 'telefono', err: 'err-telefono', check: v => /^[\d\s+\-()]{6,}$/.test(v) },
-          { id: 'email', err: 'err-email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
-        ];
-        fields.forEach(f => {
-          const el = document.getElementById(f.id);
-          const errEl = document.getElementById(f.err);
-          if (!f.check(el.value.trim())) {
-            el.classList.add('error');
-            errEl.classList.add('visible');
-            ok = false;
-          } else {
-            el.classList.remove('error');
-            errEl.classList.remove('visible');
-          }
-        });
+        const ok = !!state.tipoVisita;
+        document.getElementById('alert-step1').classList.toggle('visible', !ok);
         return ok;
       }
-
       if (n === 2) {
-        const vt = document.querySelector('input[name="visit-type"]:checked')?.value;
         const alertEl = document.getElementById('alert-step2');
-
-        if (!vt) {
-          document.getElementById('alert-visit-type').classList.add('visible');
-          return false;
-        }
-        document.getElementById('alert-visit-type').classList.remove('visible');
-
-        if (vt === 'sin-guia') {
-          const selected = ['catedral', 'torre', 'convento', 'pulsera'].filter(m =>
-            document.getElementById('mc-' + m).classList.contains('selected')
-          );
-          if (selected.length === 0) {
-            alertEl.textContent = 'Selecciona al menos un monumento.';
-            alertEl.classList.add('visible');
-            return false;
-          }
-          for (const m of selected) {
-            const adult = parseInt(document.getElementById(m + '-adult').value) || 0;
-            const child = parseInt(document.getElementById(m + '-child').value) || 0;
-            const res = parseInt(document.getElementById(m + '-res').value) || 0;
-            if (adult + child + res === 0) {
-              alertEl.textContent = `Añade al menos una entrada para ${m === 'pulsera' ? 'la Pulsera Turística' : 'el monumento seleccionado'}.`;
-              alertEl.classList.add('visible');
-              return false;
-            }
-            if (!document.getElementById(m + '-date').value) {
-              alertEl.textContent = 'Selecciona una fecha para cada monumento elegido.';
-              alertEl.classList.add('visible');
-              return false;
-            }
-            if (!document.getElementById(m + '-time').value) {
-              alertEl.textContent = 'Selecciona una hora para cada monumento elegido.';
-              alertEl.classList.add('visible');
-              return false;
-            }
-          }
-        }
-
-        if (vt === 'guiada') {
-          const gt = document.querySelector('input[name="guided-type"]:checked')?.value;
-          if (!gt) {
-            alertEl.textContent = 'Selecciona el tipo de visita guiada.';
-            alertEl.classList.add('visible');
-            return false;
-          }
-          if (gt === 'nocturna') {
-            const dateVal = document.getElementById('nocturna-date').value;
-            if (!dateVal) {
-              alertEl.textContent = 'Selecciona una fecha para la visita nocturna.';
-              alertEl.classList.add('visible');
-              return false;
-            }
-            const adult = parseInt(document.getElementById('noc-adult').value) || 0;
-            const child = parseInt(document.getElementById('noc-child').value) || 0;
-            const res = parseInt(document.getElementById('noc-res').value) || 0;
-            if (adult + child + res === 0) {
-              alertEl.textContent = 'Añade al menos una entrada para la visita nocturna.';
-              alertEl.classList.add('visible');
-              return false;
-            }
-          }
-        }
-
         alertEl.classList.remove('visible');
-        return true;
+        let ok = true;
+        if (!state.visitMode) { alertEl.textContent = 'Selecciona la modalidad (sin guía o con guía).'; alertEl.classList.add('visible'); return false; }
+        const tv = state.tipoVisita;
+        const vm = state.visitMode;
+        const requiereSelect = !((tv === 'grupo' || tv === 'escolar') && vm === 'sin-guia');
+        if (requiereSelect) {
+          const v = document.getElementById('tipoEntrada').value;
+          if (!v) { setError('tipoEntrada', 'err-tipoEntrada', true); ok = false; } else setError('tipoEntrada', 'err-tipoEntrada', false);
+        }
+        if (tv === 'escolar') {
+          const v = document.getElementById('tramoEdad').value;
+          if (!v) { setError('tramoEdad', 'err-tramoEdad', true); ok = false; } else setError('tramoEdad', 'err-tramoEdad', false);
+        }
+        const fecha = document.getElementById('fechaVisita').value;
+        if (!fecha) { setError('fechaVisita', 'err-fechaVisita', true); ok = false; } else setError('fechaVisita', 'err-fechaVisita', false);
+        const hora = document.getElementById('horaVisita').value;
+        if (!hora) { setError('horaVisita', 'err-horaVisita', true); ok = false; } else setError('horaVisita', 'err-horaVisita', false);
+        const np = parseInt(document.getElementById('numPersonas').value);
+        if (!np || np < 1) { setError('numPersonas', 'err-numPersonas', true); ok = false; } else setError('numPersonas', 'err-numPersonas', false);
+        if (tv === 'grupo' && np && np <= 12) {
+          alertEl.textContent = 'Mínimo no considerado como grupo. Realice la reserva como Visita Individual.';
+          alertEl.classList.add('visible'); ok = false;
+        }
+        if (!ok && !alertEl.classList.contains('visible')) {
+          alertEl.textContent = 'Revisa los campos marcados en rojo.';
+          alertEl.classList.add('visible');
+        }
+        return ok;
       }
-
-      if (n === 4) {
-        const alertEl = document.getElementById('alert-step4');
-        const answer = parseInt(document.getElementById('captcha-answer').value);
+      if (n === 3) {
+        const alertEl = document.getElementById('alert-step3');
+        alertEl.classList.remove('visible');
+        let ok = true;
+        const checks = [
+          { id: 'nombre', err: 'err-nombre', test: v => v.length >= 3 },
+          { id: 'telefono', err: 'err-telefono', test: v => isTelefonoValido(v) },
+          { id: 'email', err: 'err-email', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+        ];
+        checks.forEach(c => {
+          const v = document.getElementById(c.id).value.trim();
+          const bad = !c.test(v);
+          setError(c.id, c.err, bad);
+          if (bad) ok = false;
+        });
+        const isGE = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
+        if (isGE && document.getElementById('necesitaFactura').checked) {
+          ['nombreCentro','nifCif','calleNumero','ciudadFact','cpFact'].forEach(id => {
+            const v = document.getElementById(id).value.trim();
+            const bad = !v;
+            setError(id, 'err-' + id, bad);
+            if (bad) ok = false;
+          });
+        }
+        if (!ok) { alertEl.textContent = 'Revisa los campos marcados en rojo.'; alertEl.classList.add('visible'); }
+        return ok;
+      }
+      if (n === 5) {
+        const alertEl = document.getElementById('alert-step5');
+        const ans = parseInt(document.getElementById('captcha-answer').value);
         const correct = captchaA + captchaB;
         const terms = document.getElementById('accept-terms').checked;
-
-        if (answer !== correct) {
-          alertEl.textContent = 'La respuesta al captcha no es correcta.';
-          alertEl.classList.add('visible');
-          document.getElementById('captcha-answer').classList.add('error');
-          return false;
-        }
-        if (!terms) {
-          alertEl.textContent = 'Debes aceptar los términos y condiciones para continuar.';
-          alertEl.classList.add('visible');
-          return false;
-        }
+        if (ans !== correct) { alertEl.textContent = 'La respuesta al captcha no es correcta.'; alertEl.classList.add('visible'); document.getElementById('captcha-answer').classList.add('error'); return false; }
+        if (!terms) { alertEl.textContent = 'Debes aceptar los términos y la política de privacidad.'; alertEl.classList.add('visible'); return false; }
         alertEl.classList.remove('visible');
         document.getElementById('captcha-answer').classList.remove('error');
         return true;
       }
-
       return true;
     }
 
-    /* ── Navigation ─────────────────────────────────────────────────── */
+    /* ── Captcha ──────────────────────────────────────────────────── */
+    function generateCaptcha() {
+      captchaA = Math.floor(Math.random() * 15) + 1;
+      captchaB = Math.floor(Math.random() * 10) + 1;
+      const q = document.getElementById('captcha-question');
+      const a = document.getElementById('captcha-answer');
+      if (q) q.textContent = `¿Cuánto es ${captchaA} + ${captchaB}?`;
+      if (a) a.value = '';
+    }
+
+    /* ── Navegación (5 pasos) ────────────────────────────────────── */
     function goTo(n) {
       if (n > currentStep && !validateStep(currentStep)) return;
-
-      // Hide all panels
       document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
-
-      // Special steps
-      if (n === 3) {
-        document.getElementById('summary-content').innerHTML = buildSummary();
-        // Sync pay total
-        document.getElementById('pay-total-display').textContent = totalAmount.toFixed(2).replace('.', ',') + ' €';
-      }
-      if (n === 4) {
-        generateCaptcha();
-      }
-      if (n === 5) {
-        document.getElementById('pay-total-display').textContent = totalAmount.toFixed(2).replace('.', ',') + ' €';
-        renderPayPal();
-      }
-
+      if (n === 4) document.getElementById('summary-content').innerHTML = buildSummary();
+      if (n === 5) generateCaptcha();
       const panel = n <= 5 ? document.getElementById('step-' + n) : document.getElementById('step-confirm');
       panel.classList.add('active');
       panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // Update stepper
       updateStepper(n);
       currentStep = n;
     }
-
     function updateStepper(n) {
       for (let i = 1; i <= 5; i++) {
         const el = document.getElementById('si-' + i);
+        if (!el) continue;
         el.classList.remove('active', 'done');
         if (i < n) el.classList.add('done');
         if (i === n) el.classList.add('active');
       }
     }
 
-    /* ── PayPal SDK ─────────────────────────────────────────────────── */
-    let paypalRendered = false;
-    function renderPayPal() {
-      if (paypalRendered) return;
-      const container = document.getElementById('paypal-button-container');
-      container.innerHTML = '';
+    /* ── Envío al Apps Script ────────────────────────────────────── */
+    async function enviarReserva() {
+      if (!validateStep(5)) return;
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true; btn.textContent = 'Enviando…';
 
-      /* INTEGRACIÓN PAYPAL:
-         - Asegúrate de haber sustituido TU_CLIENT_ID_PAYPAL en la URL del script del <head>
-         - El importe se toma de totalAmount calculado dinámicamente
-         - Cambia el entorno a producción retirando el atributo "data-namespace" y ajustando el client-id
-      */
-      if (typeof paypal === 'undefined') {
-        container.innerHTML = `<div class="alert alert--info visible" style="text-align:center">
-      El SDK de PayPal no está disponible (client-id no configurado).<br/>
-      Sustituye <code>TU_CLIENT_ID_PAYPAL</code> en el &lt;script&gt; del &lt;head&gt; para activar el pago.
-    </div>`;
-        return;
-      }
-
-      paypal.Buttons({
-        style: {
-          layout: 'vertical',
-          color: 'gold',
-          shape: 'rect',
-          label: 'pay',
-          height: 48,
-        },
-        createOrder: function (data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: totalAmount.toFixed(2),
-                currency_code: 'EUR',
-              },
-              description: 'Entradas Catedral de Santo Domingo de la Calzada',
-            }]
-          });
-        },
-        onApprove: function (data, actions) {
-          return actions.order.capture().then(function (details) {
-            showConfirmation(details);
-          });
-        },
-        onError: function (err) {
-          console.error('PayPal error:', err);
-          alert('Ha ocurrido un error en el pago. Por favor, inténtalo de nuevo.');
-        }
-      }).render('#paypal-button-container');
-
-      paypalRendered = true;
-    }
-
-    /* ── Confirmation screen ────────────────────────────────────────── */
-    function showConfirmation(paypalDetails) {
-      // Generate booking ID
+      const isGE = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
+      const tipoEntradaSel = document.getElementById('tipoEntrada').value;
       const now = new Date();
       const datePart = now.toISOString().slice(0, 10).replace(/-/g, '');
       const rand = String(Math.floor(Math.random() * 99999)).padStart(5, '0');
       const bookingId = `CAT-${datePart}-${rand}`;
 
-      /* INTEGRACIÓN EMAIL:
-         Aquí llamar al servicio de email (EmailJS / SendGrid) con:
-         - bookingId
-         - document.getElementById('email').value
-         - Detalles de la reserva (buildSummary())
-         Ejemplo EmailJS:
-           emailjs.send('SERVICE_ID', 'TEMPLATE_ID', {
-             to_email: document.getElementById('email').value,
-             booking_id: bookingId,
-             ...
-           });
-      */
+      let visitaGuiadaPayload = 'No';
+      let tipoEntradaPayload = '—';
+      let monumentos;
+      if (isGE) {
+        tipoEntradaPayload = '—';
+        visitaGuiadaPayload = (state.visitMode === 'con-guia') ? (tipoEntradaSel || 'No') : 'No';
+        monumentos = 'Pulsera turística (4 monumentos)';
+      } else {
+        tipoEntradaPayload = tipoEntradaSel || '';
+        visitaGuiadaPayload = 'No';
+        monumentos = tipoEntradaSel || '';
+      }
+      const necesitaFacturaChecked = isGE && document.getElementById('necesitaFactura').checked;
 
-      // Show confirmation panel
+      const payload = {
+        bookingId,
+        tipoVisita: tipoVisitaLabel(),
+        nombre: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        telefono: document.getElementById('telefono').value,
+        fechaVisita: document.getElementById('fechaVisita').value,
+        horaVisita: document.getElementById('horaVisita').value,
+        numPersonas: document.getElementById('numPersonas').value,
+        menores: document.getElementById('menoresTreceAnios').value || '0',
+        residentes: document.getElementById('residentes').value || '0',
+        tramoEdad: document.getElementById('tramoEdad').value || '',
+        tipoEntrada: tipoEntradaPayload,
+        monumentos,
+        visitaGuiada: visitaGuiadaPayload,
+        nombreCentro: necesitaFacturaChecked ? document.getElementById('nombreCentro').value : '',
+        nifCif: necesitaFacturaChecked ? document.getElementById('nifCif').value : '',
+        calleNumero: necesitaFacturaChecked ? document.getElementById('calleNumero').value : '',
+        ciudad: necesitaFacturaChecked ? document.getElementById('ciudadFact').value : '',
+        cp: necesitaFacturaChecked ? document.getElementById('cpFact').value : '',
+        necesitaFactura: necesitaFacturaChecked ? 'Sí' : 'No',
+        comentarios: document.getElementById('comentarios').value,
+      };
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        showConfirmation(bookingId);
+      } catch (err) {
+        console.error(err);
+        alert('Ha ocurrido un error al enviar la solicitud. Por favor, inténtelo de nuevo.');
+        btn.disabled = false; btn.textContent = 'Enviar solicitud →';
+      }
+    }
+    function showConfirmation(bookingId) {
       document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('step-confirm').classList.add('active');
       document.getElementById('step-confirm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // Update stepper — all done
       for (let i = 1; i <= 5; i++) {
         const el = document.getElementById('si-' + i);
-        el.classList.remove('active');
-        el.classList.add('done');
+        if (el) { el.classList.remove('active'); el.classList.add('done'); }
       }
-
       document.getElementById('booking-id-display').textContent = bookingId;
       document.getElementById('confirm-email-display').textContent = document.getElementById('email').value;
-
-      // Generate QR with qrcode.js
       const qrContainer = document.getElementById('qrcode-container');
       qrContainer.innerHTML = '';
+      const total = calcularTotal();
       new QRCode(qrContainer, {
-        text: `CAT:${bookingId}|${document.getElementById('email').value}|${totalAmount.toFixed(2)}EUR`,
-        width: 180,
-        height: 180,
-        colorDark: '#1A1A1A',
-        colorLight: '#FDFAF4',
+        text: `CAT:${bookingId}|${document.getElementById('email').value}|${total.toFixed(2)}EUR`,
+        width: 180, height: 180,
+        colorDark: '#1A1A1A', colorLight: '#FDFAF4',
         correctLevel: QRCode.CorrectLevel.H,
       });
-
-      // Summary
       document.getElementById('confirm-summary-content').innerHTML = buildSummary();
     }
 
-    /* ── Modal helpers ──────────────────────────────────────────────── */
-    function openModal(id) { document.getElementById(id).classList.add('open'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    /* ── Reset (nueva reserva) ───────────────────────────────────── */
+    function resetForm() {
+      ['nombre','telefono','email','fechaVisita','horaVisita','numPersonas','nombreCentro','nifCif','calleNumero','ciudadFact','cpFact','comentarios','captcha-answer'].forEach(id => {
+        const el = document.getElementById(id); if (el) { el.value = ''; el.classList.remove('error'); }
+      });
+      ['menoresTreceAnios','residentes'].forEach(id => { const el = document.getElementById(id); if (el) { el.value = '0'; el.classList.remove('error'); } });
+      const tramoEl = document.getElementById('tramoEdad'); if (tramoEl) tramoEl.value = '';
+      const teEl = document.getElementById('tipoEntrada'); if (teEl) teEl.innerHTML = '<option value="" disabled selected>Seleccione</option>';
+      document.querySelectorAll('input[name="tipoVisita"]').forEach(r => r.checked = false);
+      document.querySelectorAll('input[name="visitMode"]').forEach(r => r.checked = false);
+      document.getElementById('necesitaFactura').checked = false;
+      document.getElementById('accept-terms').checked = false;
+      document.getElementById('facturaFields').style.display = 'none';
+      document.getElementById('facturaSection').style.display = 'none';
+      document.getElementById('horaGrid').innerHTML = '';
+      document.getElementById('fechaHelper').style.display = 'none';
+      document.getElementById('notaTipoEntrada').style.display = 'none';
+      document.getElementById('personasHelper').textContent = '';
+      ['tarifasIndividual','tarifasGrupo','tarifasEscolar'].forEach(id => document.getElementById(id).classList.remove('visible'));
+      document.getElementById('fieldTramoEdad').style.display = 'none';
+      document.getElementById('fieldTipoEntrada').style.display = 'none';
+      document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('visible'));
+      document.querySelectorAll('.alert--error').forEach(a => a.classList.remove('visible'));
+      state.tipoVisita = null;
+      state.visitMode = null;
+      currentStep = 1;
+      document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('step-1').classList.add('active');
+      updateStepper(1);
+      actualizarStep3UI();
+      actualizarFechaMinima();
+      generateCaptcha();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ── Modales (compatibilidad) ────────────────────────────────── */
+    function openModal(id) { const m = document.getElementById(id); if (m) m.classList.add('open'); }
+    function closeModal(id) { const m = document.getElementById(id); if (m) m.classList.remove('open'); }
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
     });
 
-    /* ── Init ───────────────────────────────────────────────────────── */
-    generateCaptcha();
-
-    /* Live validation on blur */
-    ['nombre', 'apellidos', 'email', 'telefono'].forEach(id => {
-      document.getElementById(id).addEventListener('blur', () => validateStep(1));
+    /* ── Tarifa-cards acordeón en móvil ─────────────────────────── */
+    const tarifaMQ = window.matchMedia('(max-width: 720px)');
+    function isTarifaMobile() { return tarifaMQ.matches; }
+    document.querySelectorAll('.tarifa-card__title').forEach(t => {
+      t.addEventListener('click', () => {
+        if (!isTarifaMobile()) return;
+        const card = t.closest('.tarifa-card');
+        const open = card.classList.toggle('is-open');
+        t.setAttribute('aria-expanded', String(open));
+        // Cerrar las demás
+        if (open) document.querySelectorAll('.tarifa-card.is-open').forEach(c => {
+          if (c !== card) { c.classList.remove('is-open'); c.querySelector('.tarifa-card__title')?.setAttribute('aria-expanded', 'false'); }
+        });
+      });
+      t.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }
+      });
     });
+    // Auto-cerrar al hacer scroll en móvil
+    let _tarifaScrollTimer = null;
+    window.addEventListener('scroll', () => {
+      if (!isTarifaMobile()) return;
+      if (_tarifaScrollTimer) return;
+      _tarifaScrollTimer = setTimeout(() => {
+        document.querySelectorAll('.tarifa-card.is-open').forEach(c => {
+          c.classList.remove('is-open');
+          c.querySelector('.tarifa-card__title')?.setAttribute('aria-expanded', 'false');
+        });
+        _tarifaScrollTimer = null;
+      }, 80);
+    }, { passive: true });
+
+    /* ── Init / listeners ────────────────────────────────────────── */
+    document.querySelectorAll('input[name="tipoVisita"]').forEach(r => r.addEventListener('change', onTipoVisitaChangeFromRadio));
+    document.querySelectorAll('input[name="visitMode"]').forEach(r => r.addEventListener('change', onVisitModeChange));
+    document.getElementById('tipoEntrada').addEventListener('change', onTipoEntradaChange);
+    document.getElementById('tramoEdad').addEventListener('change', updatePersonasHelper);
+    document.getElementById('numPersonas').addEventListener('input', updatePersonasHelper);
+    document.getElementById('menoresTreceAnios').addEventListener('input', updatePersonasHelper);
+    document.getElementById('residentes').addEventListener('input', updatePersonasHelper);
+    document.getElementById('fechaVisita').addEventListener('change', actualizarHoras);
+    document.getElementById('necesitaFactura').addEventListener('change', onFacturaToggle);
+    ['nombre','telefono','email'].forEach(id => document.getElementById(id).addEventListener('blur', () => validateStep(3)));
+
+    /* ── Formateo automático de campos ──────────────────────────── */
+    function toTitleCase(s) {
+      return s.trim().replace(/\s+/g, ' ')
+        .replace(/\S+/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+    }
+    function toSentenceCase(s) {
+      if (!s.trim()) return s;
+      const t = s.trim().replace(/\s+/g, ' ').toLowerCase();
+      return (t.charAt(0).toUpperCase() + t.slice(1))
+        .replace(/([.!?]\s+)([a-záéíóúüñ])/gi, (_, p, c) => p + c.toUpperCase());
+    }
+    function isTelefonoValido(v) {
+      const s = v.replace(/[\s\-().]/g, '');
+      if (/^\+34(\d{9})$/.test(s)) return /^[6789]/.test(s.slice(3));
+      if (/^\+\d{7,15}$/.test(s)) return true;
+      return /^[6789]\d{8}$/.test(s);
+    }
+    function formatTelefono(raw) {
+      const s = raw.trim().replace(/[\s\-().]/g, '');
+      const m34 = s.match(/^\+34(\d{9})$/);
+      if (m34) return /^[6789]/.test(m34[1]) ? m34[1] : raw.trim();
+      return raw.trim();
+    }
+    ['nombre', 'nombreCentro', 'calleNumero', 'ciudadFact'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('blur', () => { if (el.value.trim()) el.value = toTitleCase(el.value); });
+    });
+    const nifEl = document.getElementById('nifCif');
+    if (nifEl) nifEl.addEventListener('blur', () => { if (nifEl.value.trim()) nifEl.value = nifEl.value.trim().toUpperCase(); });
+    const telEl = document.getElementById('telefono');
+    telEl.addEventListener('blur', () => {
+      if (telEl.value.trim()) telEl.value = formatTelefono(telEl.value);
+      validateStep(3);
+    });
+    const comsEl = document.getElementById('comentarios');
+    comsEl.addEventListener('blur', () => { if (comsEl.value.trim()) comsEl.value = toSentenceCase(comsEl.value); });
+
+    actualizarFechaMinima();
+    generateCaptcha();
   </script>
   <script src="assets/shared.js"></script>
   <script>

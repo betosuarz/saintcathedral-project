@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audioguía · Reproductor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --carbon: #141210; --carbon-2: #1c1a17; --carbon-3: #242017;
+      --cream: #F5F0E8; --cream-d: #EDE6D6;
+      --gold: #C9A84C; --gold-lt: #DFC070; --gold-dk: #A8852E;
+      --white: #FDFAF4; --stone: #8C8070; --stone-lt: #BEB5A8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html, body { background: var(--carbon); color: var(--white); font-family: var(--sans); font-weight: 300; }
+    body { display: flex; flex-direction: column; align-items: center; min-height: 100dvh; padding: 6rem 1.2rem 2rem; transition: background .3s, color .3s; }
+    body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.06) 0%, transparent 58%); pointer-events: none; }
+    body.light-mode { background: var(--cream); color: var(--carbon); }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+    /* ── Back ── */
+    .back {
+      position: fixed; top: 1.2rem; left: 1.2rem;
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .6rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(201,168,76,.48); text-decoration: none;
+      transition: color .2s; z-index: 10;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back:hover { color: var(--gold); }
+    body.light-mode .back { color: rgba(168,133,46,.75); }
+    body.light-mode .back:hover { color: var(--gold-dk); }
+
+    /* ── Page header ── */
+    .page-header { text-align: center; margin-bottom: 2rem; width: 100%; max-width: 560px; }
+    .page-over { font-size: .58rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: .55rem; padding-top: 1.4rem; transition: color .3s; }
+    body.light-mode .page-over { color: var(--gold-dk); }
+    .page-title { font-family: var(--serif); font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 300; color: var(--white); margin-bottom: .25rem; transition: color .3s; }
+    body.light-mode .page-title { color: var(--carbon); }
+    .page-sub { font-family: var(--serif); font-size: .88rem; font-style: italic; color: rgba(253,250,244,.68); transition: color .3s; }
+    body.light-mode .page-sub { color: rgba(20,18,16,.72); }
+    .header-divider { width: 28px; height: 1px; background: rgba(201,168,76,.32); margin: 1.1rem auto 0; }
+
+    /* ── Wrapper ── */
+    .player-wrap { width: 100%; max-width: 560px; }
+
+    /* ── Playlist ── */
+    .playlist { width: 100%; margin-bottom: 1.6rem; }
+
+    .track {
+      display: flex; align-items: center; gap: .9rem;
+      padding: .82rem 0;
+      border-bottom: 1px solid rgba(201,168,76,.07);
+      cursor: pointer;
+      transition: background .16s;
+      border-radius: 2px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .track:first-child { border-top: 1px solid rgba(201,168,76,.07); }
+    .track:hover { background: rgba(201,168,76,.04); }
+    .track.active { background: rgba(201,168,76,.06); }
+    body.light-mode .track { border-color: rgba(20,18,16,.08); }
+    body.light-mode .track:hover { background: rgba(20,18,16,.04); }
+    body.light-mode .track.active { background: rgba(201,168,76,.1); }
+
+    .track-num {
+      font-size: .62rem; font-weight: 400; letter-spacing: .08em;
+      color: rgba(201,168,76,.35); width: 1.3rem; text-align: right;
+      flex-shrink: 0; font-variant-numeric: tabular-nums;
+    }
+    .track.active .track-num { color: var(--gold); }
+
+    .track-play-icon {
+      width: 1.2rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(201,168,76,.3);
+    }
+    .track.active .track-play-icon { color: var(--gold); }
+    .track-play-icon svg { display: none; }
+    .track.active .track-play-icon svg { display: block; }
+
+    .track-name { flex: 1; font-size: .82rem; font-weight: 300; color: rgba(253,250,244,.82); letter-spacing: .01em; transition: color .3s; }
+    .track.active .track-name { color: var(--white); font-weight: 400; }
+    body.light-mode .track-name { color: rgba(20,18,16,.82); }
+    body.light-mode .track.active .track-name { color: var(--carbon); }
+
+    .track-dur { font-size: .68rem; color: rgba(201,168,76,.35); font-variant-numeric: tabular-nums; letter-spacing: .04em; flex-shrink: 0; padding-right: 14px; min-width: 2.8rem; text-align: right; }
+    .track.active .track-dur { color: rgba(201,168,76,.65); }
+
+    /* ── Player card ── */
+    .player-card {
+      border: 1px solid rgba(201,168,76,.14);
+      background: var(--carbon-2);
+      padding: 1.15rem 1.35rem 1rem;
+      transition: background .3s, border-color .3s;
+    }
+    body.light-mode .player-card { background: var(--cream-d); border-color: rgba(20,18,16,.12); }
+
+    .player-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+
+    .player-info { display: flex; flex-direction: column; min-width: 0; }
+    .now-label { font-size: .58rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(201,168,76,.4); margin-bottom: .28rem; display: block; transition: color .3s; }
+    body.light-mode .now-label { color: rgba(168,133,46,.78); }
+    .now-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .3s; }
+    body.light-mode .now-title { color: var(--carbon); }
+
+    /* ── Waveform ── */
+    .waveform-wrap { position: relative; height: 50px; cursor: pointer; margin-bottom: .4rem; user-select: none; -webkit-user-select: none; }
+    #waveform-canvas { width: 100%; height: 100%; display: block; }
+
+    /* ── Time row ── */
+    .time-row { display: flex; justify-content: space-between; }
+    .time-cur, .time-rem { font-size: .62rem; font-weight: 400; letter-spacing: .05em; color: rgba(201,168,76,.45); font-variant-numeric: tabular-nums; }
+
+    /* ── Controls ── */
+    .controls { display: flex; align-items: center; gap: .3rem; flex-shrink: 0; }
+    .ctrl-btn {
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer;
+      color: rgba(253,250,244,.45); padding: .28rem;
+      transition: color .18s; -webkit-tap-highlight-color: transparent;
+      min-width: 44px; min-height: 44px;
+    }
+    .ctrl-btn:hover { color: var(--white); }
+    body.light-mode .ctrl-btn { color: rgba(20,18,16,.45); }
+    body.light-mode .ctrl-btn:hover { color: var(--carbon); }
+
+    .ctrl-btn--play {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.28);
+      background: rgba(201,168,76,.07);
+      color: var(--gold);
+      transition: border-color .2s, background .2s, color .2s;
+    }
+    .ctrl-btn--play:hover { border-color: var(--gold); background: rgba(201,168,76,.16); color: var(--white); }
+    body.light-mode .ctrl-btn--play { background: rgba(201,168,76,.12); }
+
+    /* ── Footer ── */
+    .foot { margin-top: 2.2rem; font-size: .6rem; color: rgba(201,168,76,.2); letter-spacing: .08em; text-align: center; transition: color .3s; }
+    body.light-mode .foot { color: rgba(20,18,16,.2); }
+
+    /* ── Mobile layout ── */
+    @media (max-width: 600px) {
+      html, body { height: 100dvh; overflow: hidden; }
+      body { padding: 0; justify-content: flex-start; }
+
+      .page-header { flex-shrink: 0; width: 100%; max-width: 100%; padding: 3.5rem 1.2rem 1.5rem; margin-bottom: 0; background: var(--carbon); position: relative; z-index: 5; transition: background .3s; }
+      body.light-mode .page-header { background: var(--cream); }
+
+      .player-wrap { flex: 1; min-height: 0; width: 100%; max-width: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: .2rem 1.2rem 0; }
+      .foot { display: none; }
+
+      .player-card { position: fixed; bottom: 0; left: 0; right: 0; border-left: none; border-right: none; border-bottom: none; border-radius: 0; z-index: 100; padding: .9rem 1.5rem; }
+      body.light-mode .player-card { background: var(--cream-d); }
+      .now-title { font-size: .98rem; }
+      .waveform-wrap { height: 42px; }
+      .playlist { padding-bottom: 160px; }
+    }
+  </style>
+</head>
+
+<body><script>if(localStorage.getItem('a11y-light-mode')!=='0')document.body.classList.add('light-mode');</script>
+
+  <a id="back-link" href="menu-audio.html?m=catedral" class="back" aria-label="Volver a idiomas">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    <span id="back-label">Idiomas</span>
+  </a>
+
+  <div class="page-header">
+    <span class="page-over" id="page-over">Audioguía · Español</span>
+    <h1 class="page-title" id="page-title">Catedral de Santo Domingo</h1>
+    <p class="page-sub" id="page-sub">Santo Domingo de la Calzada · La Rioja</p>
+    <div class="header-divider"></div>
+  </div>
+
+  <div class="player-wrap">
+    <div class="playlist" id="playlist" role="list"></div>
+
+    <div class="player-card" role="region" aria-label="Reproductor de audio">
+      <div class="player-top">
+        <div class="player-info">
+          <span class="now-label" id="now-label">Reproduciendo</span>
+          <p class="now-title" id="now-title">—</p>
+        </div>
+        <div class="controls">
+          <button class="ctrl-btn" id="btn-prev" aria-label="Pista anterior">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>
+            </svg>
+          </button>
+          <button class="ctrl-btn ctrl-btn--play" id="btn-play" aria-label="Reproducir">
+            <svg id="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <svg id="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none">
+              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+            </svg>
+          </button>
+          <button class="ctrl-btn" id="btn-next" aria-label="Pista siguiente">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="waveform-wrap" id="waveform-wrap" aria-hidden="true">
+        <canvas id="waveform-canvas"></canvas>
+      </div>
+
+      <div class="time-row">
+        <span class="time-cur" id="time-cur">0:00</span>
+        <span class="time-rem" id="time-rem">−0:00</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Catedral de Santo Domingo de la Calzada</p>
+  <audio id="audio-el" preload="none"></audio>
+
+  <script src="audioguia.js"></script>
+  <script>
+    (function () {
+
+      /* ─── Datos por monumento ─────────────────────────────── */
+      /* Los títulos usan español como base. Actualizar con traducciones cuando estén disponibles. */
+      const MONUMENT_DATA = {
+        catedral: {
+          slugs: [
+            '1_introduccion','2_trascoro','3_capilla-martires','4_capilla-santa-teresa',
+            '5-capilla-hermosilla','6_retablo-santo-domingo','7_capilla-inmaculada',
+            '8_gallinero-millagro','9_cripta','10_sepulcro','11_creacion-catedral',
+            '12_girola','13_capilla-santiago','14_capilla-san-andres','15_capilla-san-pedro',
+            '16_capilla-san-bartolome','17_pilastras','18_retablo-mayor','19-vidrieras',
+            '20_coro','21_capilla-cristo','22-vidriera-roseton','23_capilla-magdalena','24_claustro',
+          ],
+          titles: {
+            es: ['Introducción','Trascoro','Capilla de los Mártires','Capilla de Santa Teresa','Capilla Hermosilla','Retablo de Santo Domingo','Capilla de la Inmaculada','Gallinero y el Milagro','La Cripta','El Sepulcro','Creación de la Catedral','La Girola','Capilla de Santiago','Capilla de San Andrés','Capilla de San Pedro','Capilla de San Bartolomé','Las Pilastras','Retablo Mayor','Las Vidrieras','El Coro','Capilla del Cristo','Vidriera Rosetón','Capilla de la Magdalena','El Claustro'],
+            en: ['Introduction','The Choir Screen','Chapel of the Martyrs','Chapel of St. Teresa','Hermosilla Chapel','Altarpiece of Santo Domingo','Chapel of the Immaculate','The Hen House & the Miracle','The Crypt','The Tomb','Creation of the Cathedral','The Ambulatory','Chapel of St. James','Chapel of St. Andrew','Chapel of St. Peter','Chapel of St. Bartholomew','The Pilasters','High Altarpiece','The Stained Glass','The Choir','Chapel of Christ','Rose Window','Chapel of the Magdalene','The Cloister'],
+            de: ['Einführung','Chorschranke','Märtyrerkapelle','Kapelle der Hl. Teresa','Hermosilla-Kapelle','Altarbild des Hl. Domingo','Kapelle der Unbefleckten','Hühnerhaus und das Wunder','Die Krypta','Das Grabmal','Entstehung der Kathedrale','Der Chorumgang','Jakobskapelle','Andreaskapelle','Peterskapelle','Bartholomäuskapelle','Die Pilaster','Hochaltar','Die Glasfenster','Der Chor','Christuskapelle','Rosettenfenster','Magdalenenkapelle','Der Kreuzgang'],
+            fr: ['Introduction','Jubé','Chapelle des Martyrs','Chapelle Sainte-Thérèse','Chapelle Hermosilla','Retable de Saint-Dominique','Chapelle de l\'Immaculée','Le Poulailler et le Miracle','La Crypte','Le Tombeau','Création de la Cathédrale','Le Déambulatoire','Chapelle Saint-Jacques','Chapelle Saint-André','Chapelle Saint-Pierre','Chapelle Saint-Barthélemy','Les Pilastres','Maître-Autel','Les Vitraux','Le Chœur','Chapelle du Christ','Rosace','Chapelle de la Madeleine','Le Cloître'],
+            it: ['Introduzione','Trascoro','Cappella dei Martiri','Cappella di Santa Teresa','Cappella Hermosilla','Retablo di Santo Domingo','Cappella dell\'Immacolata','Il Pollaio e il Miracolo','La Cripta','Il Sepolcro','Creazione della Cattedrale','Il Deambulatorio','Cappella di Santiago','Cappella di Sant\'Andrea','Cappella di San Pietro','Cappella di San Bartolomeo','I Pilastri','Retablo Maggiore','Le Vetrate','Il Coro','Cappella del Cristo','Rosone','Cappella della Maddalena','Il Chiostro'],
+            pt: ['Introdução','Trascoro','Capela dos Mártires','Capela de Santa Teresa','Capela Hermosilla','Retábulo de Santo Domingo','Capela da Imaculada','O Galinheiro e o Milagre','A Cripta','O Sepulcro','Criação da Catedral','A Girola','Capela de Santiago','Capela de São André','Capela de São Pedro','Capela de São Bartolomeu','As Pilastras','Retábulo-Mor','Os Vitrais','O Coro','Capela do Cristo','Vitrail Roseta','Capela da Madalena','O Claustro'],
+            ko: ['소개','트라스코로','순교자 예배당','성 테레사 예배당','에르모실라 예배당','산토 도밍고 제단화','원죄 없는 잉태 예배당','닭장과 기적','지하실','무덤','성당 창건','회랑','산티아고 예배당','성 안드레 예배당','성 베드로 예배당','성 바르톨로메오 예배당','기둥','주 제단화','스테인드 글라스','성가대석','그리스도 예배당','장미창','막달레나 예배당','회랑'],
+          },
+        },
+        torre: {
+          slugs: ['1_monumento','2_andres-porras-temes','3_casa-campanero','4_reloj-torre'],
+          titles: {
+            es: ['El Monumento','Andrés de Porras y Temes','Casa del Campanero','Reloj de la Torre'],
+            en: ['The Monument','Andrés de Porras y Temes','Bell Ringer\'s House','Tower Clock'],
+            de: ['Das Denkmal','Andrés de Porras y Temes','Haus des Glöckners','Turmuhr'],
+            fr: ['Le Monument','Andrés de Porras y Temes','Maison du Sonneur','Horloge de la Tour'],
+            it: ['Il Monumento','Andrés de Porras y Temes','Casa del Campanaro','Orologio della Torre'],
+            pt: ['O Monumento','Andrés de Porras y Temes','Casa do Sineiro','Relógio da Torre'],
+            ko: ['기념물','안드레스 데 포라스 이 테메스','종지기의 집','탑 시계'],
+          },
+        },
+        'san-francisco': {
+          slugs: ['1_edificio','2_fray-bernardo-fresneda','3_tumulo-funerario','4_retablo-cristo','5_retablo-mayor','6_sala-marfiles'],
+          titles: {
+            es: ['El Edificio','Fray Bernardo de Fresneda','Túmulo Funerario','Retablo del Cristo','Retablo Mayor','Sala de Marfiles'],
+            en: ['The Building','Friar Bernardo de Fresneda','Funeral Mound','Altarpiece of Christ','High Altarpiece','Ivory Room'],
+            de: ['Das Gebäude','Bruder Bernardo de Fresneda','Grabhügel','Christus-Altarbild','Hochaltar','Elfenbeinraum'],
+            fr: ['L\'Édifice','Frère Bernardo de Fresneda','Tertre Funéraire','Retable du Christ','Maître-Autel','Salle des Ivoires'],
+            it: ['L\'Edificio','Frate Bernardo de Fresneda','Tumulo Funerario','Retablo del Cristo','Retablo Maggiore','Sala degli Avori'],
+            pt: ['O Edifício','Frei Bernardo de Fresneda','Túmulo Funerário','Retábulo do Cristo','Retábulo-Mor','Sala dos Marfins'],
+            ko: ['건물','프라이 베르나르도 데 프레스네다','장례 봉분','그리스도 제단화','주 제단화','상아 전시실'],
+          },
+        },
+        'ermita-plaza': {
+          slugs: ['1_ermita-plaza'],
+          titles: {
+            es: ['Ermita de la Plaza Mayor'],
+            en: ['Chapel of Plaza Mayor'],
+            de: ['Kapelle der Plaza Mayor'],
+            fr: ['Ermitage de la Plaza Mayor'],
+            it: ['Eremo della Plaza Mayor'],
+            pt: ['Ermida da Praça Maior'],
+            ko: ['플라자 마요르 예배당'],
+          },
+        },
+      };
+
+      /* ─── Labels por idioma ──────────────────────────────── */
+      const LABELS = {
+        es: { nowPlaying: 'Reproduciendo', play: 'Reproducir', pause: 'Pausar', prev: 'Pista anterior', next: 'Pista siguiente', back: 'Idiomas', trackAria: 'Pista' },
+        en: { nowPlaying: 'Now playing', play: 'Play', pause: 'Pause', prev: 'Previous track', next: 'Next track', back: 'Languages', trackAria: 'Track' },
+        de: { nowPlaying: 'Wird abgespielt', play: 'Abspielen', pause: 'Pausieren', prev: 'Vorherige', next: 'Nächste', back: 'Sprachen', trackAria: 'Titel' },
+        fr: { nowPlaying: 'En cours', play: 'Lire', pause: 'Pause', prev: 'Précédent', next: 'Suivant', back: 'Langues', trackAria: 'Piste' },
+        it: { nowPlaying: 'In riproduzione', play: 'Riproduci', pause: 'Pausa', prev: 'Precedente', next: 'Successiva', back: 'Lingue', trackAria: 'Traccia' },
+        pt: { nowPlaying: 'A reproduzir', play: 'Reproduzir', pause: 'Pausar', prev: 'Anterior', next: 'Seguinte', back: 'Idiomas', trackAria: 'Faixa' },
+        ko: { nowPlaying: '재생 중', play: '재생', pause: '일시 정지', prev: '이전 트랙', next: '다음 트랙', back: '언어', trackAria: '트랙' },
+        eu: { nowPlaying: 'Erreproduzitzen', play: 'Erreproduzitu', pause: 'Pausatu', prev: 'Aurrekoa', next: 'Hurrengoa', back: 'Hizkuntzak', trackAria: 'Pista' },
+        ca: { nowPlaying: 'Reproduint', play: 'Reproduir', pause: 'Pausa', prev: 'Pista anterior', next: 'Pista següent', back: 'Idiomes', trackAria: 'Pista' },
+      };
+
+      const PAGE_OVER = {
+        es: 'Audioguía · Español', en: 'Audio Guide · English', de: 'Audioführer · Deutsch',
+        fr: 'Audioguide · Français', it: 'Audioguida · Italiano', pt: 'Audioguia · Português',
+        ko: '오디오 가이드 · 한국어', eu: 'Audiogidaritza · Euskara', ca: 'Audioguia · Català',
+      };
+
+      const MONUMENT_TITLE = {
+        catedral:        { es: 'Catedral de Santo Domingo', en: 'Cathedral of Santo Domingo', de: 'Kathedrale Santo Domingo', fr: 'Cathédrale Saint-Dominique', it: 'Cattedrale di Santo Domingo', pt: 'Catedral de Santo Domingo', ko: '산토 도밍고 대성당', eu: 'Santo Domingoko katedrala', ca: 'Catedral de Sant Domènec' },
+        torre:           { es: 'Torre de la Catedral', en: 'Cathedral Tower', de: 'Kathedralturm', fr: 'Tour de la Cathédrale', it: 'Torre della Cattedrale', pt: 'Torre da Catedral', ko: '대성당 탑', eu: 'Katedral dorrea', ca: 'Torre de la Catedral' },
+        'san-francisco': { es: 'Convento de San Francisco', en: 'Convent of San Francisco', de: 'Kloster San Francisco', fr: 'Couvent Saint-François', it: 'Convento di San Francesco', pt: 'Convento de São Francisco', ko: '산 프란시스코 수도원', eu: 'San Frantzisko monasterioa', ca: 'Convent de Sant Francesc' },
+        'ermita-plaza':  { es: 'Ermita de la Plaza Mayor', en: 'Chapel of Plaza Mayor', de: 'Kapelle der Plaza Mayor', fr: 'Ermitage de la Plaza Mayor', it: 'Eremo della Plaza Mayor', pt: 'Ermida da Praça Maior', ko: '플라자 마요르 예배당', eu: 'Plaza Nagusiko ermita', ca: 'Ermita de la Plaça Major' },
+      };
+
+      /* ─── Init params ────────────────────────────────────── */
+      const params   = new URLSearchParams(location.search);
+      const monument = params.get('m') || 'catedral';
+      const lang     = params.get('lang') || localStorage.getItem('cat-lang') || 'es';
+      /* EU and CA audio doesn't exist yet — fall back to Spanish files */
+      const audioLang = ['eu','ca'].includes(lang) ? 'es' : lang;
+
+      const mData   = MONUMENT_DATA[monument] || MONUMENT_DATA.catedral;
+      const titles  = mData.titles[lang] || mData.titles.es;
+      const slugs   = mData.slugs;
+      const lbl     = LABELS[lang] || LABELS.es;
+      const mTitle  = (MONUMENT_TITLE[monument] || MONUMENT_TITLE.catedral)[lang] || (MONUMENT_TITLE[monument] || MONUMENT_TITLE.catedral).es;
+
+      /* ─── Page text ─────────────────────────────────────── */
+      document.documentElement.lang = lang;
+      document.title = `${PAGE_OVER[lang] || PAGE_OVER.es} · ${mTitle}`;
+      document.getElementById('page-over').textContent  = PAGE_OVER[lang] || PAGE_OVER.es;
+      document.getElementById('page-title').textContent = mTitle;
+      document.getElementById('now-label').textContent  = lbl.nowPlaying;
+      document.getElementById('back-label').textContent = lbl.back;
+      document.getElementById('back-link').href         = `menu-audio.html?m=${monument}`;
+      document.getElementById('btn-prev').setAttribute('aria-label', lbl.prev);
+      document.getElementById('btn-next').setAttribute('aria-label', lbl.next);
+
+      /* ─── Audio state ────────────────────────────────────── */
+      const audio   = document.getElementById('audio-el');
+      let current   = 0;
+      let isPlaying = false;
+      let waveData  = [];
+      let animFrame = null;
+
+      function trackSrc(idx) {
+        const suffix = lang.toUpperCase();
+        return `/assets/audioguia/audio/${monument}/${audioLang}/${slugs[idx]}_${suffix}.mp3`;
+      }
+
+      /* ─── Waveform ──────────────────────────────────────── */
+      const canvas = document.getElementById('waveform-canvas');
+      const ctx2   = canvas.getContext('2d');
+      const wrap   = document.getElementById('waveform-wrap');
+
+      function resizeCanvas() {
+        const dpr = devicePixelRatio || 1;
+        canvas.width  = wrap.clientWidth  * dpr;
+        canvas.height = wrap.clientHeight * dpr;
+        ctx2.scale(dpr, dpr);
+        drawWave();
+      }
+
+      function genWave(n) {
+        const a = [];
+        for (let i = 0; i < n; i++) {
+          const base = .18 + Math.random() * .52;
+          const bump = Math.random() > .82 ? .28 + Math.random() * .28 : 0;
+          a.push(Math.min(1, base + bump));
+        }
+        return a;
+      }
+
+      function drawWave() {
+        const W = wrap.clientWidth;
+        const H = wrap.clientHeight;
+        ctx2.clearRect(0, 0, W, H);
+        const bars  = Math.floor(W / 3);
+        const barW  = 1.5;
+        const gap   = bars > 1 ? (W - bars * barW) / (bars - 1) : 0;
+        const prog  = audio.duration ? audio.currentTime / audio.duration : 0;
+        const progX = prog * W;
+        if (waveData.length !== bars) waveData = genWave(bars);
+        for (let i = 0; i < bars; i++) {
+          const x  = i * (barW + gap);
+          const h  = waveData[i] * H;
+          const y  = (H - h) / 2;
+          const lit = x + barW < progX || (x <= progX && x + barW >= progX);
+          ctx2.fillStyle = lit ? 'rgba(201,168,76,.88)' : 'rgba(253,250,244,.1)';
+          ctx2.fillRect(x, y, barW, h);
+        }
+      }
+
+      function animate() {
+        drawWave(); updateTimes();
+        if (isPlaying) animFrame = requestAnimationFrame(animate);
+      }
+
+      /* ─── Time display ──────────────────────────────────── */
+      function fmt(s) {
+        if (!isFinite(s) || isNaN(s)) return '0:00';
+        return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+      }
+
+      function updateTimes() {
+        const c = audio.currentTime || 0;
+        const d = audio.duration || 0;
+        document.getElementById('time-cur').textContent = fmt(c);
+        document.getElementById('time-rem').textContent = d ? '−' + fmt(d - c) : '−0:00';
+      }
+
+      /* ─── Duration cache ─────────────────────────────────── */
+      const durCache = {};
+
+      function loadDurationAsync(idx) {
+        if (durCache[idx] !== undefined) return;
+        const tmp = new Audio();
+        tmp.preload = 'metadata';
+        tmp.src = trackSrc(idx);
+        tmp.addEventListener('loadedmetadata', () => {
+          durCache[idx] = tmp.duration;
+          const el = document.getElementById(`dur-${idx}`);
+          if (el) el.textContent = fmt(tmp.duration);
+        }, { once: true });
+      }
+
+      /* ─── Playlist render ────────────────────────────────── */
+      function renderPlaylist() {
+        const pl = document.getElementById('playlist');
+        pl.innerHTML = '';
+        slugs.forEach((_, i) => {
+          const row = document.createElement('div');
+          row.className = 'track' + (i === current ? ' active' : '');
+          row.setAttribute('role', 'listitem');
+          row.setAttribute('tabindex', '0');
+          row.setAttribute('aria-label', `${lbl.trackAria} ${i + 1}: ${titles[i]}`);
+          row.innerHTML = `
+            <span class="track-num">${i + 1}</span>
+            <span class="track-play-icon" aria-hidden="true">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </span>
+            <span class="track-name">${titles[i]}</span>
+            <span class="track-dur" id="dur-${i}">${durCache[i] !== undefined ? fmt(durCache[i]) : '—'}</span>`;
+
+          const doAction = () => {
+            if (i === current) togglePlay();
+            else loadTrack(i, true);
+          };
+          row.addEventListener('click', doAction);
+          row.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doAction(); } });
+          pl.appendChild(row);
+
+          loadDurationAsync(i);
+        });
+      }
+
+      /* ─── Load track ─────────────────────────────────────── */
+      function loadTrack(idx, autoplay) {
+        current = idx;
+        audio.src = trackSrc(idx);
+        document.getElementById('now-title').textContent = titles[idx];
+        waveData = [];
+        updateTimes(); drawWave(); renderPlaylist();
+        if (autoplay) {
+          audio.play().then(() => {
+            isPlaying = true; updatePlayBtn();
+            cancelAnimationFrame(animFrame); animate();
+          }).catch(() => {});
+        } else {
+          isPlaying = false; updatePlayBtn();
+        }
+      }
+
+      function togglePlay() {
+        if (isPlaying) {
+          audio.pause(); isPlaying = false;
+          cancelAnimationFrame(animFrame); drawWave();
+        } else {
+          if (!audio.src) { loadTrack(0, true); return; }
+          audio.play().then(() => {
+            isPlaying = true;
+            cancelAnimationFrame(animFrame); animate();
+          }).catch(() => {});
+        }
+        updatePlayBtn();
+      }
+
+      function updatePlayBtn() {
+        document.getElementById('icon-play').style.display  = isPlaying ? 'none'  : 'block';
+        document.getElementById('icon-pause').style.display = isPlaying ? 'block' : 'none';
+        document.getElementById('btn-play').setAttribute('aria-label', isPlaying ? lbl.pause : lbl.play);
+      }
+
+      /* ─── Controls ───────────────────────────────────────── */
+      document.getElementById('btn-play').addEventListener('click', togglePlay);
+      document.getElementById('btn-prev').addEventListener('click', () =>
+        loadTrack((current - 1 + slugs.length) % slugs.length, isPlaying));
+      document.getElementById('btn-next').addEventListener('click', () =>
+        loadTrack((current + 1) % slugs.length, isPlaying));
+
+      wrap.addEventListener('click', e => {
+        if (!audio.duration) return;
+        const r = wrap.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+        drawWave(); updateTimes();
+      });
+
+      audio.addEventListener('ended', () => {
+        if (current < slugs.length - 1) { loadTrack(current + 1, true); }
+        else { isPlaying = false; updatePlayBtn(); cancelAnimationFrame(animFrame); drawWave(); }
+      });
+
+      audio.addEventListener('timeupdate', () => { if (!isPlaying) { drawWave(); updateTimes(); } });
+
+      window.addEventListener('resize', resizeCanvas);
+
+      /* ─── Init ───────────────────────────────────────────── */
+      renderPlaylist();
+      loadTrack(0, false);
+      resizeCanvas();
+      document.getElementById('now-title').textContent = titles[0];
+
+    })();
+  </script>
+</body>
+</html>

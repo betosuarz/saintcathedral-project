@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audioguía · Elige idioma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --carbon: #141210; --cream: #F5F0E8; --cream-d: #EDE6D6;
+      --gold: #C9A84C; --gold-lt: #DFC070; --gold-dk: #A8852E;
+      --white: #FDFAF4; --stone: #8C8070; --stone-lt: #BEB5A8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      background: var(--carbon); color: var(--white);
+      font-family: var(--sans); font-weight: 300;
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 100dvh;
+      padding: 5rem 1.5rem 3rem;
+      transition: background .3s, color .3s;
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    body.light-mode { background: var(--cream); color: var(--carbon); }
+
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+    /* ── Back ── */
+    .back {
+      position: fixed; top: 1.3rem; left: 1.3rem;
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(201,168,76,.5); text-decoration: none;
+      transition: color .2s; z-index: 10;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back:hover { color: var(--gold); }
+    body.light-mode .back { color: rgba(168,133,46,.55); }
+    body.light-mode .back:hover { color: var(--gold-dk); }
+
+    /* ── Header ── */
+    .logo { text-align: center; margin-bottom: 2.6rem; }
+    .logo-l1 { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: .04em; display: block; transition: color .3s; }
+    body.light-mode .logo-l1 { color: var(--carbon); }
+    .logo-l2 { font-size: .57rem; font-weight: 400; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); display: block; margin-top: .18rem; transition: color .3s; }
+    body.light-mode .logo-l2 { color: var(--gold-dk); }
+    .logo-line { width: 26px; height: 1px; background: rgba(201,168,76,.38); margin: .9rem auto 0; }
+
+    .over { font-size: .6rem; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: .85rem; display: block; transition: color .3s; }
+    body.light-mode .over { color: var(--gold-dk); }
+
+    .headline { font-family: var(--serif); font-size: clamp(1.45rem, 5vw, 1.95rem); font-weight: 300; text-align: center; margin-bottom: .5rem; }
+    .subline { font-size: .8rem; color: rgba(253,250,244,.68); text-align: center; margin-bottom: 2.6rem; font-style: italic; font-family: var(--serif); transition: color .3s; }
+    body.light-mode .subline { color: rgba(20,18,16,.72); }
+
+    /* ── Language carousel ── */
+    .lang-grid {
+      display: flex;
+      flex-direction: row;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      gap: .75rem;
+      width: calc(100% + 3rem);
+      margin-left: -1.5rem;
+      padding: .75rem calc(50% - 59px);
+      box-sizing: border-box;
+    }
+    .lang-grid::-webkit-scrollbar { display: none; }
+
+    .lang-btn {
+      flex: 0 0 118px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: .6rem;
+      padding: 1.35rem .6rem;
+      border: 1px solid rgba(201,168,76,.14);
+      background: rgba(201,168,76,.04);
+      text-decoration: none; color: var(--white);
+      cursor: pointer;
+      scroll-snap-align: center;
+      opacity: 0.48;
+      transition: border-color .22s var(--ease), background .22s var(--ease), color .3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body.light-mode .lang-btn { border-color: rgba(20,18,16,.12); background: rgba(20,18,16,.03); color: var(--carbon); }
+
+    .lang-btn:hover, .lang-btn:focus-visible {
+      border-color: rgba(201,168,76,.48);
+      background: rgba(201,168,76,.09);
+    }
+
+    body.light-mode .lang-btn:hover, body.light-mode .lang-btn:focus-visible {
+      border-color: rgba(168,133,46,.4);
+      background: rgba(201,168,76,.1);
+    }
+
+    .lang-flag { font-size: 1.9rem; line-height: 1; }
+
+    .lang-code {
+      font-size: .6rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); transition: color .3s;
+    }
+    body.light-mode .lang-code { color: var(--gold-dk); }
+
+    .lang-native {
+      font-family: var(--serif); font-size: .85rem;
+      font-weight: 300; color: rgba(253,250,244,.68);
+      font-style: italic; text-align: center;
+      transition: color .3s;
+    }
+    body.light-mode .lang-native { color: rgba(20,18,16,.72); }
+
+    /* ── Footer ── */
+    .foot {
+      margin-top: 2.8rem; font-size: .6rem;
+      color: rgba(201,168,76,.22); letter-spacing: .08em; text-align: center;
+      transition: color .3s;
+    }
+    body.light-mode .foot { color: rgba(20,18,16,.22); }
+
+    /* ── Desktop: grid normal (sin carousel) ── */
+    @media (min-width: 641px) {
+      .lang-grid {
+        overflow-x: visible;
+        scroll-snap-type: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 700px;
+        margin-left: 0;
+        padding: .75rem 0;
+      }
+      .lang-btn {
+        opacity: 1 !important;
+        scroll-snap-align: none;
+      }
+    }
+  </style>
+</head>
+
+<body><script>if(localStorage.getItem('a11y-light-mode')!=='0')document.body.classList.add('light-mode');</script>
+
+  <a id="back-link" href="menu-audioguia.html?m=catedral" class="back" aria-label="Volver">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    <span id="back-label">Volver</span>
+  </a>
+
+  <div class="logo">
+    <span class="logo-l1" id="logo-name">Catedral de Santo Domingo</span>
+    <span class="logo-l2">De la Calzada · La Rioja</span>
+    <div class="logo-line"></div>
+  </div>
+
+  <span class="over" id="over-text">Audioguía</span>
+  <h1 class="headline" id="headline-text">Elige tu idioma</h1>
+  <p class="subline">ES · EN · DE · FR · IT · PT · KO</p>
+
+  <div class="lang-grid" id="lang-grid">
+    <a class="lang-btn" data-lang="es" aria-label="Español">
+      <span class="lang-flag" aria-hidden="true">🇪🇸</span>
+      <span class="lang-code">ES</span>
+      <span class="lang-native">Español</span>
+    </a>
+    <a class="lang-btn" data-lang="en" aria-label="English">
+      <span class="lang-flag" aria-hidden="true">🇬🇧</span>
+      <span class="lang-code">EN</span>
+      <span class="lang-native">English</span>
+    </a>
+    <a class="lang-btn" data-lang="de" aria-label="Deutsch">
+      <span class="lang-flag" aria-hidden="true">🇩🇪</span>
+      <span class="lang-code">DE</span>
+      <span class="lang-native">Deutsch</span>
+    </a>
+    <a class="lang-btn" data-lang="fr" aria-label="Français">
+      <span class="lang-flag" aria-hidden="true">🇫🇷</span>
+      <span class="lang-code">FR</span>
+      <span class="lang-native">Français</span>
+    </a>
+    <a class="lang-btn" data-lang="it" aria-label="Italiano">
+      <span class="lang-flag" aria-hidden="true">🇮🇹</span>
+      <span class="lang-code">IT</span>
+      <span class="lang-native">Italiano</span>
+    </a>
+    <a class="lang-btn" data-lang="pt" aria-label="Português">
+      <span class="lang-flag" aria-hidden="true">🇵🇹</span>
+      <span class="lang-code">PT</span>
+      <span class="lang-native">Português</span>
+    </a>
+    <a class="lang-btn" data-lang="ko" aria-label="한국어">
+      <span class="lang-flag" aria-hidden="true">🇰🇷</span>
+      <span class="lang-code">KO</span>
+      <span class="lang-native">한국어</span>
+    </a>
+  </div>
+
+  <p class="foot">Catedral de Santo Domingo de la Calzada</p>
+
+  <script src="audioguia.js"></script>
+  <script>
+    (function () {
+      const MONUMENT_NAMES = {
+        catedral:        { es: 'Catedral de Santo Domingo', en: 'Cathedral of Santo Domingo', de: 'Kathedrale Santo Domingo', fr: 'Cathédrale Saint-Dominique', it: 'Cattedrale di Santo Domingo', pt: 'Catedral de Santo Domingo', ko: '산토 도밍고 대성당', eu: 'Santo Domingoko katedrala', ca: 'Catedral de Sant Domènec' },
+        torre:           { es: 'Torre de la Catedral', en: 'Cathedral Tower', de: 'Kathedralturm', fr: 'Tour de la Cathédrale', it: 'Torre della Cattedrale', pt: 'Torre da Catedral', ko: '대성당 탑', eu: 'Katedral dorrea', ca: 'Torre de la Catedral' },
+        'san-francisco': { es: 'Convento de San Francisco', en: 'Convent of San Francisco', de: 'Kloster San Francisco', fr: 'Couvent Saint-François', it: 'Convento di San Francesco', pt: 'Convento de São Francisco', ko: '산 프란시스코 수도원', eu: 'San Frantzisko monasterioa', ca: 'Convent de Sant Francesc' },
+        'ermita-plaza':  { es: 'Ermita de la Plaza Mayor', en: 'Chapel of Plaza Mayor', de: 'Kapelle der Plaza Mayor', fr: 'Ermitage de la Plaza Mayor', it: 'Eremo della Plaza Mayor', pt: 'Ermida da Praça Maior', ko: '플라자 마요르 예배당', eu: 'Plaza Nagusiko ermita', ca: 'Ermita de la Plaça Major' },
+      };
+
+      const AUDIO_LABELS = {
+        es: 'Audioguía', en: 'Audio Guide', de: 'Audioführer',
+        fr: 'Audioguide', it: 'Audioguida', pt: 'Audioguia', ko: '오디오 가이드', eu: 'Audiogidaritza', ca: 'Audioguia',
+      };
+
+      const CHOOSE_LABELS = {
+        es: 'Elige tu idioma', en: 'Choose your language', de: 'Sprache wählen',
+        fr: 'Choisissez votre langue', it: 'Scegli la tua lingua',
+        pt: 'Escolha o seu idioma', ko: '언어를 선택하세요', eu: 'Aukeratu zure hizkuntza', ca: 'Trieu el vostre idioma',
+      };
+
+      const BACK_LABELS = {
+        es: 'Volver', en: 'Back', de: 'Zurück',
+        fr: 'Retour', it: 'Indietro', pt: 'Voltar', ko: '뒤로', eu: 'Itzuli', ca: 'Tornar',
+      };
+
+      const params = new URLSearchParams(location.search);
+      const monument = params.get('m') || 'catedral';
+
+      const supported = ['es','en','de','fr','it','pt','ko','eu','ca'];
+      const saved = localStorage.getItem('cat-lang');
+      const browserLang = navigator.language.split('-')[0];
+      const uiLang = (saved && supported.includes(saved))
+        ? saved
+        : (supported.includes(browserLang) ? browserLang : 'es');
+
+      const names = MONUMENT_NAMES[monument] || MONUMENT_NAMES.catedral;
+      document.getElementById('logo-name').textContent = names[uiLang] || names.es;
+      document.getElementById('over-text').textContent = AUDIO_LABELS[uiLang] || AUDIO_LABELS.es;
+      document.getElementById('headline-text').textContent = CHOOSE_LABELS[uiLang] || CHOOSE_LABELS.es;
+      document.getElementById('back-label').textContent = BACK_LABELS[uiLang] || BACK_LABELS.es;
+      document.getElementById('back-link').href = `menu-audioguia.html?m=${monument}`;
+      document.title = (names[uiLang] || names.es) + ' · Audioguía';
+      document.documentElement.lang = uiLang;
+
+      /* Construir hrefs dinámicamente */
+      document.querySelectorAll('.lang-btn[data-lang]').forEach(btn => {
+        const lang = btn.dataset.lang;
+        btn.href = `qr-playlist.html?m=${monument}&lang=${lang}`;
+      });
+
+      /* Carousel opacity */
+      const grid = document.getElementById('lang-grid');
+      function updateOpacities() {
+        const gridRect = grid.getBoundingClientRect();
+        const center = gridRect.left + gridRect.width / 2;
+        grid.querySelectorAll('.lang-btn').forEach(btn => {
+          const r = btn.getBoundingClientRect();
+          const dist = Math.abs((r.left + r.width / 2) - center);
+          btn.style.opacity = Math.max(0.42, 1 - dist / 210).toFixed(3);
+        });
+      }
+      grid.addEventListener('scroll', updateOpacities, { passive: true });
+
+      requestAnimationFrame(() => {
+        const target = grid.querySelector(`.lang-btn[data-lang="${uiLang}"]`) || grid.querySelector('.lang-btn');
+        if (target) grid.scrollLeft = target.offsetLeft + target.offsetWidth / 2 - grid.clientWidth / 2;
+        updateOpacities();
+      });
+    })();
+  </script>
+</body>
+</html>

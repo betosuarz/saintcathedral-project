@@ -1,0 +1,12 @@
+# Forzar HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Deshabilitar listado de directorios
+Options -Indexes
+
+# Página de error 404 personalizada (opcional, descomenta si creas la página)
+# ErrorDocument 404 /404.html

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audioguía · Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --carbon: #141210;
+      --cream:  #F5F0E8;
+      --cream-d:#EDE6D6;
+      --gold:   #C9A84C;
+      --gold-lt:#DFC070;
+      --gold-dk:#A8852E;
+      --white:  #FDFAF4;
+      --stone:  #8C8070;
+      --stone-lt:#BEB5A8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'DM Sans', sans-serif;
+      --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background: var(--carbon);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 2.5rem 1.5rem 5rem;
+      transition: background .3s, color .3s;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    body.light-mode { background: var(--cream); color: var(--carbon); }
+
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+    /* ── Logo ── */
+    .logo {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .logo-emblem {
+      width: 48px; height: 48px;
+      margin: 0 auto 1rem;
+      opacity: .7;
+    }
+
+    .logo-l1 {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      display: block;
+      color: var(--white);
+      transition: color .3s;
+    }
+
+    body.light-mode .logo-l1 { color: var(--carbon); }
+
+    .logo-l2 {
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-top: .2rem;
+      transition: color .3s;
+    }
+
+    body.light-mode .logo-l2 { color: var(--gold-dk); }
+
+    .logo-line {
+      width: 28px; height: 1px;
+      background: rgba(201,168,76,.4);
+      margin: 1rem auto 0;
+    }
+
+    /* ── Header text ── */
+    .over {
+      font-size: .6rem;
+      font-weight: 500;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: .9rem;
+      display: block;
+      transition: color .3s;
+    }
+
+    body.light-mode .over { color: var(--gold-dk); }
+
+    .headline {
+      font-family: var(--serif);
+      font-size: clamp(1.55rem, 5vw, 2.1rem);
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: .55rem;
+      letter-spacing: .01em;
+    }
+
+    .subline {
+      font-size: .82rem;
+      color: rgba(253,250,244,.68);
+      text-align: center;
+      margin-bottom: 2.8rem;
+      font-style: italic;
+      font-family: var(--serif);
+      transition: color .3s;
+    }
+
+    body.light-mode .subline { color: rgba(20,18,16,.72); }
+
+    /* ── Cards ── */
+    .cards {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      width: 100%;
+      max-width: 360px;
+      justify-content: center;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 0;
+      max-width: 165px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .9rem;
+      padding: 2rem 1rem 1.7rem;
+      border: 1px solid rgba(201,168,76,.16);
+      background: rgba(201,168,76,.04);
+      text-decoration: none;
+      color: var(--white);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease), color .3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body.light-mode .card {
+      border-color: rgba(20,18,16,.13);
+      background: rgba(20,18,16,.03);
+      color: var(--carbon);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.1), transparent 70%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .card:hover, .card:focus-visible {
+      border-color: rgba(201,168,76,.5);
+      background: rgba(201,168,76,.08);
+      transform: translateY(-3px);
+    }
+
+    body.light-mode .card:hover, body.light-mode .card:focus-visible {
+      border-color: rgba(168,133,46,.45);
+      background: rgba(201,168,76,.1);
+    }
+
+    .card:hover::after { opacity: 1; }
+
+    .card-icon {
+      width: 46px; height: 46px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      transition: color .3s;
+    }
+
+    body.light-mode .card-icon { color: var(--gold-dk); }
+
+    .card-title {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      transition: color .3s;
+    }
+
+    body.light-mode .card-title { color: var(--gold-dk); }
+
+    .card-desc { display: none; }
+
+    /* ── Footer ── */
+    .foot {
+      position: fixed;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .6rem;
+      letter-spacing: .08em;
+      color: rgba(201,168,76,.25);
+      white-space: nowrap;
+      pointer-events: none;
+      transition: color .3s;
+    }
+
+    body.light-mode .foot { color: rgba(20,18,16,.25); }
+  </style>
+</head>
+
+<body><script>if(localStorage.getItem('a11y-light-mode')!=='0')document.body.classList.add('light-mode');</script>
+
+  <div class="logo">
+    <span class="logo-l1" id="logo-name">Catedral de Santo Domingo</span>
+    <span class="logo-l2">De la Calzada · La Rioja</span>
+    <div class="logo-line"></div>
+  </div>
+
+  <span class="over" id="over-text">Bienvenido · Welcome</span>
+  <h1 class="headline" id="headline-text">¿Qué deseas consultar?</h1>
+  <p class="subline" id="subline-text">Selecciona una opción para continuar</p>
+
+  <div class="cards">
+    <a id="card-folleto" href="menu-folleto.html?m=catedral" class="card" aria-label="Folleto-Guía">
+      <div class="card-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <span class="card-title" id="card-folleto-title">Folleto‑Guía</span>
+    </a>
+
+    <a id="card-audio" href="menu-audio.html?m=catedral" class="card" aria-label="Audioguía">
+      <div class="card-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </div>
+      <span class="card-title" id="card-audio-title">Audioguía</span>
+    </a>
+  </div>
+
+  <p class="foot">Catedral de Santo Domingo de la Calzada</p>
+
+  <script src="audioguia.js"></script>
+  <script>
+    (function () {
+      const TEXTS = {
+        es: { over: 'Bienvenido · Welcome', headline: '¿Qué deseas consultar?', subline: 'Selecciona una opción para continuar', folleto: 'Folleto‑Guía', folletodesc: 'Descarga el folleto de visita en tu idioma', audio: 'Audioguía', audiodesc: 'Escucha la guía de audio del monumento' },
+        en: { over: 'Welcome · Bienvenido', headline: 'What would you like?', subline: 'Select an option to continue', folleto: 'Visitor Guide', folletodesc: 'Download the visit guide in your language', audio: 'Audio Guide', audiodesc: 'Listen to the audio guide of the monument' },
+        de: { over: 'Willkommen · Welcome', headline: 'Was möchten Sie?', subline: 'Wählen Sie eine Option', folleto: 'Reiseführer', folletodesc: 'Laden Sie den Besucherführer in Ihrer Sprache herunter', audio: 'Audioführer', audiodesc: 'Hören Sie den Audioführer des Denkmals' },
+        fr: { over: 'Bienvenue · Welcome', headline: 'Que souhaitez-vous ?', subline: 'Sélectionnez une option pour continuer', folleto: 'Guide Visite', folletodesc: 'Téléchargez le guide de visite dans votre langue', audio: 'Audioguide', audiodesc: 'Écoutez l\'audioguide du monument' },
+        it: { over: 'Benvenuto · Welcome', headline: 'Cosa desiderate?', subline: 'Seleziona un\'opzione per continuare', folleto: 'Guida Visita', folletodesc: 'Scarica la guida alla visita nella tua lingua', audio: 'Audioguida', audiodesc: 'Ascolta l\'audioguida del monumento' },
+        pt: { over: 'Bem-vindo · Welcome', headline: 'O que pretende consultar?', subline: 'Selecione uma opção para continuar', folleto: 'Folheto‑Guia', folletodesc: 'Descarregue o folheto de visita no seu idioma', audio: 'Audioguia', audiodesc: 'Ouça o audioguia do monumento' },
+        ko: { over: '환영합니다 · Welcome', headline: '무엇을 원하시나요?', subline: '계속하려면 옵션을 선택하세요', folleto: '방문 가이드', folletodesc: '언어로 방문 가이드를 다운로드하세요', audio: '오디오 가이드', audiodesc: '기념물의 오디오 가이드를 들어보세요' },
+        eu: { over: 'Ongi etorri · Welcome', headline: 'Zer nahi duzu?', subline: 'Jarraitzeko aukera bat hautatu', folleto: 'Bisita gida', folletodesc: 'Deskargatu bisita gida zure hizkuntzan', audio: 'Audiogidaritza', audiodesc: 'Entzun monumentuaren audiogidaritza' },
+        ca: { over: 'Benvingut · Welcome', headline: 'Què voleu consultar?', subline: 'Seleccioneu una opció per continuar', folleto: 'Fullet guia', folletodesc: 'Descarregueu el fullet de visita en el vostre idioma', audio: 'Audioguia', audiodesc: 'Escolteu l\'audioguia del monument' },
+      };
+
+      const MONUMENT_NAMES = {
+        catedral:      { es: 'Catedral de Santo Domingo', en: 'Cathedral of Santo Domingo', de: 'Kathedrale Santo Domingo', fr: 'Cathédrale Saint-Dominique', it: 'Cattedrale di Santo Domingo', pt: 'Catedral de Santo Domingo', ko: '산토 도밍고 대성당', eu: 'Santo Domingoko katedrala', ca: 'Catedral de Sant Domènec' },
+        torre:         { es: 'Torre de la Catedral', en: 'Cathedral Tower', de: 'Kathedralturm', fr: 'Tour de la Cathédrale', it: 'Torre della Cattedrale', pt: 'Torre da Catedral', ko: '대성당 탑', eu: 'Katedral dorrea', ca: 'Torre de la Catedral' },
+        'san-francisco': { es: 'Convento de San Francisco', en: 'Convent of San Francisco', de: 'Kloster San Francisco', fr: 'Couvent Saint-François', it: 'Convento di San Francesco', pt: 'Convento de São Francisco', ko: '산 프란시스코 수도원', eu: 'San Frantzisko monasterioa', ca: 'Convent de Sant Francesc' },
+        'ermita-plaza':  { es: 'Ermita de la Plaza Mayor', en: 'Chapel of Plaza Mayor', de: 'Kapelle der Plaza Mayor', fr: 'Ermitage de la Plaza Mayor', it: 'Eremo della Plaza Mayor', pt: 'Ermida da Praça Maior', ko: '플라자 마요르 예배당', eu: 'Plaza Nagusiko ermita', ca: 'Ermita de la Plaça Major' },
+      };
+
+      const params = new URLSearchParams(location.search);
+      const monument = params.get('m') || 'catedral';
+
+      const supported = ['es','en','de','fr','it','pt','ko','eu','ca'];
+      const saved = localStorage.getItem('cat-lang');
+      const browserLang = navigator.language.split('-')[0];
+      const lang = (saved && supported.includes(saved))
+        ? saved
+        : (supported.includes(browserLang) ? browserLang : 'es');
+
+      const tx = TEXTS[lang] || TEXTS.es;
+      const names = MONUMENT_NAMES[monument] || MONUMENT_NAMES.catedral;
+
+      document.getElementById('logo-name').textContent = names[lang] || names.es;
+      document.getElementById('over-text').textContent = tx.over;
+      document.getElementById('headline-text').textContent = tx.headline;
+      document.getElementById('subline-text').textContent = tx.subline;
+      document.getElementById('card-folleto-title').textContent = tx.folleto;
+      document.getElementById('card-audio-title').textContent = tx.audio;
+
+      document.getElementById('card-folleto').href = `menu-folleto.html?m=${monument}`;
+      document.getElementById('card-audio').href = `menu-audio.html?m=${monument}`;
+
+      document.title = (names[lang] || names.es) + ' · Audioguía';
+      document.documentElement.lang = lang;
+    })();
+  </script>
+</body>
+</html>

@@ -782,14 +782,22 @@
       }
 
       .section-video__eyebrow,
-      .section-video__title { padding: 0 30px }
+      .section-video__title {
+        padding: 0 30px
+      }
 
-      .reviews-slider { padding: 0 30px }
+      .reviews-slider {
+        padding: 0 30px
+      }
 
       .review-nav-btn.prev,
-      .review-nav-btn.next { display: none }
+      .review-nav-btn.next {
+        display: none
+      }
 
-      .review-nav-btn--m { display: flex }
+      .review-nav-btn--m {
+        display: flex
+      }
     }
 
     /* ── MODO CLARO / OSCURO ─────────────────────────────────── */
@@ -802,12 +810,15 @@
     body.light-mode .section-video {
       background: #F5F0E8;
     }
+
     body.light-mode .section-monuments {
       background: #F9F8F6;
     }
+
     body.light-mode .section-visits {
       background: #F5F0E8;
     }
+
     body.light-mode .section-reviews {
       background: #F9F8F6;
     }
@@ -828,9 +839,11 @@
     body.light-mode .side-menu {
       background: #F9F8F6;
     }
+
     body.light-mode .side-menu__nav-item {
       border-bottom-color: rgba(20, 18, 16, .1);
     }
+
     body.light-mode .side-menu__nav-link:hover {
       color: var(--gold);
     }
@@ -840,16 +853,19 @@
       background: #F5F0E8;
       border-color: rgba(20, 18, 16, .1);
     }
+
     body.light-mode .footer-cta__eyebrow,
     body.light-mode .footer-cta__title,
     body.light-mode .footer-cta__sub {
       color: #141210;
     }
+
     body.light-mode .newsletter-input {
       background: #FDFAF4;
       border-color: rgba(20, 18, 16, .25);
       color: #141210;
     }
+
     body.light-mode .newsletter-input::placeholder {
       color: rgba(20, 18, 16, .55);
     }
@@ -868,6 +884,7 @@
     body.light-mode .navbar.scrolled .hamburger-line {
       background: #141210;
     }
+
     body.light-mode .navbar.scrolled .navbar__logo-name,
     body.light-mode .navbar.scrolled .lang-selector__btn {
       color: #141210;
@@ -884,6 +901,7 @@
     body.light-mode .section-video__title {
       color: #141210;
     }
+
     body.light-mode .footer-bottom__copy,
     body.light-mode .footer-bottom__links a {
       color: rgba(20, 18, 16, .65);
@@ -929,10 +947,13 @@
   </div>
 
   <!-- ACCESSIBILITY WIDGET -->
-  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
-    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <circle cx="12" cy="4" r="2"/>
-      <path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/>
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
     </svg>
   </button>
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
@@ -942,18 +963,23 @@
     <ul class="a11y-panel__list">
       <li>
         <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/>
-            <line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
           <span data-i18n="a11y_text_increase">Aumentar texto</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/>
-            <line x1="7" y1="10" x2="13" y2="10"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
           <span data-i18n="a11y_text_decrease">Disminuir texto</span>
         </button>
@@ -961,8 +987,17 @@
       <li class="a11y-panel__divider" role="separator"></li>
       <li>
         <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
           <span>Modo Claro / Oscuro</span>
         </button>
@@ -970,49 +1005,66 @@
       <li class="a11y-panel__divider" role="separator"></li>
       <li>
         <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
           </svg>
           <span data-i18n="a11y_grayscale">Escala de grises</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
           </svg>
           <span data-i18n="a11y_high_contrast">Alto contraste</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-invert" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
           </svg>
           <span data-i18n="a11y_invert">Invertir colores</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" y1="20" x2="20" y2="20" />
           </svg>
           <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" />
+            <line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
           </svg>
           <span data-i18n="a11y_readable_font">Fuente legible</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
           </svg>
           <span data-i18n="a11y_read_text">Leer texto</span>
         </button>
@@ -1020,9 +1072,10 @@
       <li class="a11y-panel__divider" role="separator"></li>
       <li>
         <button class="a11y-option" id="a11y-reset">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-            <path d="M3 3v5h5"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
           </svg>
           <span data-i18n="a11y_reset">Restablecer</span>
         </button>
@@ -1084,8 +1137,9 @@
   <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
     <button class="side-menu__a11y-btn" aria-label="Herramientas de accesibilidad">
       <svg class="side-menu__a11y-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <circle class="side-menu__a11y-circle" cx="12" cy="12" r="11"/>
-        <path class="side-menu__a11y-figure" d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+        <circle class="side-menu__a11y-circle" cx="12" cy="12" r="11" />
+        <path class="side-menu__a11y-figure"
+          d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z" />
       </svg>
       <span class="side-menu__a11y-label">Accesibilidad</span>
     </button>
@@ -1119,8 +1173,16 @@
           <path
             d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
         </svg></a>
-      <a href="mailto:entradas@catedralsantodomingo.org" aria-label="Correo electrónico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-      <a href="tel:+34941340033" aria-label="Teléfono"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+      <a href="mailto:entradas@catedralsantodomingo.org" aria-label="Correo electrónico"><svg viewBox="0 0 24 24"
+          width="14" height="14" fill="currentColor">
+          <path
+            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+        </svg></a>
+      <a href="tel:+34941340033" aria-label="Teléfono"><svg viewBox="0 0 24 24" width="14" height="14"
+          fill="currentColor">
+          <path
+            d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+        </svg></a>
     </div>
     <div class="side-menu__legal">
       <a href="legal/privacidad.html" data-i18n="menu_legal_privacy">Privacidad</a>
@@ -1274,7 +1336,8 @@
         </div>
       </a>
       <a href="monumentos/sanfrancisco.html" class="monument-card-hp"><img class="monument-card-hp__img"
-          src="assets/img/sanfrancisco.webp" alt="Convento San Francisco" data-i18n-alt="mc_convent_name" loading="lazy" />
+          src="assets/img/sanfrancisco.webp" alt="Convento San Francisco" data-i18n-alt="mc_convent_name"
+          loading="lazy" />
         <div class="monument-card-hp__overlay"></div>
         <div class="monument-card-hp__body">
           <div class="monument-card-hp__tag" data-i18n-page="mc_convent_tag">Cultura</div>
@@ -1377,8 +1440,8 @@
           <div class="visit-card__cta" data-i18n-page="vc_cta">Reservar →</div>
         </div>
       </a>
-      <a href="visitas/monasteriocanas.html" class="visit-card"><img class="visit-card__img" src="assets/img/guiadacanas.webp"
-          alt="Visita Guiada Cañas" data-i18n-alt="vc_canas_name" loading="lazy" />
+      <a href="visitas/monasteriocanas.html" class="visit-card"><img class="visit-card__img"
+          src="assets/img/guiadacanas.webp" alt="Visita Guiada Cañas" data-i18n-alt="vc_canas_name" loading="lazy" />
         <div class="visit-card__overlay"></div>
         <div class="visit-card__body">
           <div class="visit-card__tag" data-i18n-page="vc_canas_tag">Visita especial</div>
@@ -1490,7 +1553,8 @@
           semana.</p>
       </div>
       <form class="newsletter-form">
-        <input class="newsletter-input" type="email" id="newsletter-email" name="email" autocomplete="email" placeholder="tu@correo.com" data-i18n="newsletter_ph" required />
+        <input class="newsletter-input" type="email" id="newsletter-email" name="email" autocomplete="email"
+          placeholder="tu@correo.com" data-i18n="newsletter_ph" required />
         <button class="newsletter-submit" type="submit" data-i18n="newsletter_btn">Suscribirme</button>
       </form>
     </div>
@@ -1513,8 +1577,15 @@
               <path
                 d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg></a>
-          <a href="mailto:entradas@catedralsantodomingo.org" class="footer-social__link" aria-label="Correo electrónico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-          <a href="tel:+34941340033" class="footer-social__link" aria-label="Teléfono"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+          <a href="mailto:entradas@catedralsantodomingo.org" class="footer-social__link"
+            aria-label="Correo electrónico"><svg viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg></a>
+          <a href="tel:+34941340033" class="footer-social__link" aria-label="Teléfono"><svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+            </svg></a>
         </div>
       </div>
       <div>
@@ -1551,19 +1622,21 @@
     <div class="footer-bottom">
       <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
         Rioja · España</span>
-      <div class="footer-bottom__links"><a href="legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a><a href="legal/privacidad.html"
-          data-i18n="footer_legal_2">Privacidad</a><a href="legal/cookies.html" data-i18n="footer_legal_3">Cookies</a><a href="legal/accesibilidad.html"
+      <div class="footer-bottom__links"><a href="legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a><a
+          href="legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a><a href="legal/cookies.html"
+          data-i18n="footer_legal_3">Cookies</a><a href="legal/accesibilidad.html"
           data-i18n="footer_legal_4">Accesibilidad</a></div>
     </div>
   </footer>
 
-  
+
   <!-- COOKIE BANNER + MODAL -->
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">
     <div class="cookie-banner__inner">
       <div class="cookie-banner__text">
         <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
-        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el tráfico y recordar tus preferencias.</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el
+          tráfico y recordar tus preferencias.</p>
       </div>
       <div class="cookie-banner__actions">
         <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
@@ -1579,7 +1652,11 @@
       <div class="cookie-modal__header">
         <h2 id="cookie-modal-title" class="cookie-modal__title">Preferencias de cookies</h2>
         <button id="cookie-modal-close" class="cookie-modal__close" aria-label="Cerrar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
       </div>
       <div class="cookie-modal__body">
@@ -1589,7 +1666,8 @@
               <span id="cookie-cat-necessary-name" class="cookie-cat__name">Necesarias</span>
               <span class="cookie-cat__badge">Siempre activas</span>
             </div>
-            <div class="cookie-toggle cookie-toggle--locked" aria-hidden="true"><span class="cookie-toggle__track"></span></div>
+            <div class="cookie-toggle cookie-toggle--locked" aria-hidden="true"><span
+                class="cookie-toggle__track"></span></div>
           </div>
           <p id="cookie-cat-necessary-desc" class="cookie-cat__desc"></p>
         </div>
@@ -1788,6 +1866,3 @@
 </body>
 
 </html>
-
-
-

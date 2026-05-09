@@ -660,6 +660,7 @@ window.applyLang = function (lang) {
     o.classList.toggle('active', o.dataset.lang === lang)
   );
   _applyShared(lang);
+  _updateLangPanelTitle();
 };
 
 /* ── CURSOR ──────────────────────────────────────────────────── */
@@ -720,29 +721,96 @@ function initMenu() {
 }
 
 /* ── LANG SELECTOR ───────────────────────────────────────────── */
+const LANG_TITLES = { es: 'Idioma', en: 'Language', de: 'Sprache', fr: 'Langue', it: 'Lingua', pt: 'Idioma', ko: '언어', eu: 'Hizkuntza', ca: 'Idioma' };
+
+function _upgradeLangPanelStructure(dropdown) {
+  if (dropdown.dataset.upgraded === '1') return;
+  dropdown.dataset.upgraded = '1';
+
+  // Wrap existing options in a grid container if not already
+  const opts = [...dropdown.querySelectorAll(':scope > .lang-selector__option')];
+  if (opts.length) {
+    const group = document.createElement('div');
+    group.className = 'lang-selector__option-group';
+    opts.forEach(o => group.appendChild(o));
+    dropdown.appendChild(group);
+  }
+
+  // Inject header
+  const header = document.createElement('div');
+  header.className = 'lang-panel__header';
+  const title = document.createElement('span');
+  title.id = 'lang-panel-title';
+  title.textContent = LANG_TITLES[_currentLang] || 'Idioma';
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.id = 'lang-panel-close';
+  closeBtn.className = 'lang-panel__close';
+  closeBtn.setAttribute('aria-label', 'Cerrar');
+  closeBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  header.appendChild(title);
+  header.appendChild(closeBtn);
+  dropdown.insertBefore(header, dropdown.firstChild);
+
+  // Portal: mover el panel a body para escapar del stacking context del navbar
+  if (dropdown.parentElement && dropdown.parentElement !== document.body) {
+    document.body.appendChild(dropdown);
+  }
+}
+
+function _ensureLangOverlay() {
+  let overlay = document.getElementById('lang-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'lang-overlay';
+    overlay.className = 'lang-overlay';
+    document.body.appendChild(overlay);
+  }
+  return overlay;
+}
+
+function _updateLangPanelTitle() {
+  const t = document.getElementById('lang-panel-title');
+  if (t) t.textContent = LANG_TITLES[_currentLang] || 'Idioma';
+}
+
 function initLangSelector() {
   const langSelector = document.getElementById('lang-selector');
   const langBtn = document.getElementById('lang-btn');
-  if (!langSelector || !langBtn) return;
+  const dropdown = document.getElementById('lang-dropdown');
+  if (!langSelector || !langBtn || !dropdown) return;
+
+  _upgradeLangPanelStructure(dropdown);
+  const overlay = _ensureLangOverlay();
+
+  function open() {
+    langSelector.classList.add('open');
+    dropdown.classList.add('is-open');
+    overlay.classList.add('is-open');
+    langBtn.setAttribute('aria-expanded', 'true');
+  }
+  function close() {
+    langSelector.classList.remove('open');
+    dropdown.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    langBtn.setAttribute('aria-expanded', 'false');
+  }
 
   langBtn.addEventListener('click', e => {
     e.stopPropagation();
-    langSelector.classList.toggle('open');
-    langBtn.setAttribute('aria-expanded', langSelector.classList.contains('open'));
+    langSelector.classList.contains('open') ? close() : open();
   });
+  document.getElementById('lang-panel-close')?.addEventListener('click', close);
+  overlay.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
   document.querySelectorAll('.lang-selector__option').forEach(opt => {
     opt.addEventListener('click', () => {
       window.applyLang(opt.dataset.lang);
-      langSelector.classList.remove('open');
-      langBtn.setAttribute('aria-expanded', 'false');
+      close();
     });
   });
-  document.addEventListener('click', e => {
-    if (!langSelector.contains(e.target)) {
-      langSelector.classList.remove('open');
-      langBtn.setAttribute('aria-expanded', 'false');
-    }
-  });
+
   // Restore saved language
   try {
     const saved = localStorage.getItem('cat-lang');

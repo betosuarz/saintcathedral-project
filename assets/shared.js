@@ -40,6 +40,7 @@ const SHARED_T = {
     a11y_invert: 'Invertir colores', a11y_underline_links: 'Subrayar enlaces',
     a11y_readable_font: 'Fuente legible', a11y_read_text: 'Leer texto',
     a11y_stop_read: 'Detener lectura', a11y_reset: 'Restablecer',
+    a11y_dark_mode: 'Modo oscuro', a11y_light_mode: 'Modo claro',
     a11y_not_supported: 'No soportado en este navegador',
     skip_to_content: 'Saltar al contenido principal',
     menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privacidad',
@@ -96,6 +97,7 @@ const SHARED_T = {
     a11y_invert: 'Invert colours', a11y_underline_links: 'Underline links',
     a11y_readable_font: 'Readable font', a11y_read_text: 'Read text',
     a11y_stop_read: 'Stop reading', a11y_reset: 'Reset',
+    a11y_dark_mode: 'Dark mode', a11y_light_mode: 'Light mode',
     a11y_not_supported: 'Not supported in this browser',
     skip_to_content: 'Skip to main content',
     menu_legal_purchase: 'Purchase', menu_legal_privacy: 'Privacy',
@@ -152,6 +154,7 @@ const SHARED_T = {
     a11y_invert: 'Inverser les couleurs', a11y_underline_links: 'Souligner les liens',
     a11y_readable_font: 'Police lisible', a11y_read_text: 'Lire le texte',
     a11y_stop_read: 'Arrêter la lecture', a11y_reset: 'Réinitialiser',
+    a11y_dark_mode: 'Mode sombre', a11y_light_mode: 'Mode clair',
     a11y_not_supported: 'Non pris en charge par ce navigateur',
     skip_to_content: 'Aller au contenu principal',
     menu_legal_purchase: 'Achats', menu_legal_privacy: 'Confidentialité',
@@ -208,6 +211,7 @@ const SHARED_T = {
     a11y_invert: 'Farben invertieren', a11y_underline_links: 'Links unterstreichen',
     a11y_readable_font: 'Lesbare Schrift', a11y_read_text: 'Text vorlesen',
     a11y_stop_read: 'Vorlesen stoppen', a11y_reset: 'Zurücksetzen',
+    a11y_dark_mode: 'Dunkler Modus', a11y_light_mode: 'Heller Modus',
     a11y_not_supported: 'In diesem Browser nicht unterstützt',
     skip_to_content: 'Zum Hauptinhalt springen',
     menu_legal_purchase: 'Kauf', menu_legal_privacy: 'Datenschutz',
@@ -264,6 +268,7 @@ const SHARED_T = {
     a11y_invert: 'Inverter cores', a11y_underline_links: 'Sublinhar ligações',
     a11y_readable_font: 'Fonte legível', a11y_read_text: 'Ler texto',
     a11y_stop_read: 'Parar leitura', a11y_reset: 'Repor',
+    a11y_dark_mode: 'Modo escuro', a11y_light_mode: 'Modo claro',
     a11y_not_supported: 'Não suportado neste navegador',
     skip_to_content: 'Saltar para o conteúdo principal',
     menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privacidade',
@@ -320,6 +325,7 @@ const SHARED_T = {
     a11y_invert: 'Inverti colori', a11y_underline_links: 'Sottolinea link',
     a11y_readable_font: 'Carattere leggibile', a11y_read_text: 'Leggi testo',
     a11y_stop_read: 'Ferma lettura', a11y_reset: 'Ripristina',
+    a11y_dark_mode: 'Modalità scura', a11y_light_mode: 'Modalità chiara',
     a11y_not_supported: 'Non supportato in questo browser',
     skip_to_content: 'Vai al contenuto principale',
     menu_legal_purchase: 'Acquisto', menu_legal_privacy: 'Privacy',
@@ -376,6 +382,7 @@ const SHARED_T = {
     a11y_invert: '색 반전', a11y_underline_links: '링크 밑줄',
     a11y_readable_font: '읽기 쉬운 글꼴', a11y_read_text: '텍스트 읽기',
     a11y_stop_read: '읽기 중지', a11y_reset: '초기화',
+    a11y_dark_mode: '어두운 모드', a11y_light_mode: '밝은 모드',
     a11y_not_supported: '이 브라우저에서 지원되지 않음',
     skip_to_content: '주요 콘텐츠로 건너뛰기',
     menu_legal_purchase: '구매', menu_legal_privacy: '개인정보',
@@ -432,6 +439,7 @@ const SHARED_T = {
     a11y_invert: 'Koloreak alderantzikatu', a11y_underline_links: 'Estekak azpimarratu',
     a11y_readable_font: 'Letra-tipo irakurgarria', a11y_read_text: 'Testua irakurri',
     a11y_stop_read: 'Irakurketa gelditu', a11y_reset: 'Berrezarri',
+    a11y_dark_mode: 'Ilun modua', a11y_light_mode: 'Argi modua',
     a11y_not_supported: 'Nabigatzaile honetan ez da onartzen',
     skip_to_content: 'Joan eduki nagusira',
     menu_legal_purchase: 'Erosketak', menu_legal_privacy: 'Pribatutasuna',
@@ -488,6 +496,7 @@ const SHARED_T = {
     a11y_invert: 'Invertir colors', a11y_underline_links: 'Subratllar enllaços',
     a11y_readable_font: 'Lletra llegible', a11y_read_text: 'Llegir text',
     a11y_stop_read: 'Aturar lectura', a11y_reset: 'Restablir',
+    a11y_dark_mode: 'Mode fosc', a11y_light_mode: 'Mode clar',
     a11y_not_supported: 'No compatible amb aquest navegador',
     skip_to_content: 'Anar al contingut principal',
     menu_legal_purchase: 'Compra', menu_legal_privacy: 'Privadesa',
@@ -594,6 +603,7 @@ function _applyShared(lang) {
   _setText('[data-i18n="a11y_readable_font"]', t.a11y_readable_font);
   _setText('[data-i18n="a11y_read_text"]', t.a11y_read_text);
   _setText('[data-i18n="a11y_reset"]', t.a11y_reset);
+  _updateLightModeLabel();
   const readerBtnEl = document.getElementById('a11y-text-reader');
   if (readerBtnEl) readerBtnEl.title = t.a11y_not_supported;
 
@@ -850,8 +860,27 @@ function initTooltips() {
   });
 }
 
+/* ── Modo Claro / Oscuro — label dinámico (estilo audioguía) ──── */
+function _updateLightModeLabel() {
+  const btn = document.getElementById('a11y-light-mode');
+  if (!btn) return;
+  const span = btn.querySelector('span');
+  if (!span) return;
+  const t = SHARED_T[_currentLang] || SHARED_T.es;
+  const isLight = document.body.classList.contains('light-mode');
+  span.textContent = isLight ? t.a11y_dark_mode : t.a11y_light_mode;
+}
+
+function _initLightModeLabelObserver() {
+  if (document.body.dataset.a11yLmObserver === '1') return;
+  document.body.dataset.a11yLmObserver = '1';
+  _updateLightModeLabel();
+  new MutationObserver(_updateLightModeLabel).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+}
+
 /* ── ACCESSIBILITY WIDGET ─────────────────────────────────────── */
 function initA11y() {
+  _initLightModeLabelObserver();
   const toggle   = document.getElementById('a11y-toggle');
   const panel    = document.getElementById('a11y-panel');
   const overlay  = document.getElementById('a11y-overlay');

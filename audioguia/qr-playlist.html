@@ -74,10 +74,12 @@
 
     .track-num {
       font-size: .62rem; font-weight: 400; letter-spacing: .08em;
-      color: rgba(201,168,76,.35); width: 1.3rem; text-align: right;
+      color: rgba(223,192,112,.75); width: 1.3rem; text-align: right;
       flex-shrink: 0; font-variant-numeric: tabular-nums;
     }
     .track.active .track-num { color: var(--gold); }
+    body.light-mode .track-num { color: rgba(120,90,20,.7); }
+    body.light-mode .track.active .track-num { color: var(--gold-dk); }
 
     .track-play-icon {
       width: 1.2rem; flex-shrink: 0;
@@ -93,8 +95,10 @@
     body.light-mode .track-name { color: rgba(20,18,16,.82); }
     body.light-mode .track.active .track-name { color: var(--carbon); }
 
-    .track-dur { font-size: .68rem; color: rgba(201,168,76,.35); font-variant-numeric: tabular-nums; letter-spacing: .04em; flex-shrink: 0; padding-right: 14px; min-width: 2.8rem; text-align: right; }
-    .track.active .track-dur { color: rgba(201,168,76,.65); }
+    .track-dur { font-size: .68rem; color: rgba(223,192,112,.75); font-variant-numeric: tabular-nums; letter-spacing: .04em; flex-shrink: 0; padding-right: 14px; min-width: 2.8rem; text-align: right; }
+    .track.active .track-dur { color: var(--gold-lt); }
+    body.light-mode .track-dur { color: rgba(120,90,20,.7); }
+    body.light-mode .track.active .track-dur { color: var(--gold-dk); }
 
     /* ── Player card ── */
     .player-card {
@@ -119,7 +123,8 @@
 
     /* ── Time row ── */
     .time-row { display: flex; justify-content: space-between; }
-    .time-cur, .time-rem { font-size: .62rem; font-weight: 400; letter-spacing: .05em; color: rgba(201,168,76,.45); font-variant-numeric: tabular-nums; }
+    .time-cur, .time-rem { font-size: .62rem; font-weight: 400; letter-spacing: .05em; color: var(--gold-lt); font-variant-numeric: tabular-nums; }
+    body.light-mode .time-cur, body.light-mode .time-rem { color: var(--gold-dk); }
 
     /* ── Controls ── */
     .controls { display: flex; align-items: center; gap: .3rem; flex-shrink: 0; }
@@ -314,10 +319,10 @@
       };
 
       const MONUMENT_TITLE = {
-        catedral:        { es: 'Catedral de Santo Domingo', en: 'Cathedral of Santo Domingo', de: 'Kathedrale Santo Domingo', fr: 'Cathédrale Saint-Dominique', it: 'Cattedrale di Santo Domingo', pt: 'Catedral de Santo Domingo', ko: '산토 도밍고 대성당', eu: 'Santo Domingoko katedrala', ca: 'Catedral de Sant Domènec' },
+        catedral:        { es: 'Catedral', en: 'Cathedral', de: 'Kathedrale', fr: 'Cathédrale', it: 'Cattedrale', pt: 'Catedral', ko: '대성당', eu: 'Katedrala', ca: 'Catedral' },
         torre:           { es: 'Torre de la Catedral', en: 'Cathedral Tower', de: 'Kathedralturm', fr: 'Tour de la Cathédrale', it: 'Torre della Cattedrale', pt: 'Torre da Catedral', ko: '대성당 탑', eu: 'Katedral dorrea', ca: 'Torre de la Catedral' },
         'san-francisco': { es: 'Convento de San Francisco', en: 'Convent of San Francisco', de: 'Kloster San Francisco', fr: 'Couvent Saint-François', it: 'Convento di San Francesco', pt: 'Convento de São Francisco', ko: '산 프란시스코 수도원', eu: 'San Frantzisko monasterioa', ca: 'Convent de Sant Francesc' },
-        'ermita-plaza':  { es: 'Ermita de la Plaza Mayor', en: 'Chapel of Plaza Mayor', de: 'Kapelle der Plaza Mayor', fr: 'Ermitage de la Plaza Mayor', it: 'Eremo della Plaza Mayor', pt: 'Ermida da Praça Maior', ko: '플라자 마요르 예배당', eu: 'Plaza Nagusiko ermita', ca: 'Ermita de la Plaça Major' },
+        'ermita-plaza':  { es: 'Ermita de la Plaza', en: 'Chapel of the Plaza', de: 'Kapelle der Plaza', fr: 'Ermitage de la Plaza', it: 'Eremo della Plaza', pt: 'Ermida da Praça', ko: '플라자 예배당', eu: 'Plazako ermita', ca: 'Ermita de la Plaça' },
       };
 
       /* ─── Init params ────────────────────────────────────── */

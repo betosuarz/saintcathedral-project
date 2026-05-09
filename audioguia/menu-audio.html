@@ -168,7 +168,7 @@
 
   <div class="logo">
     <span class="logo-l1" id="logo-name">Catedral de Santo Domingo</span>
-    <span class="logo-l2">De la Calzada · La Rioja</span>
+    <span class="logo-l2" id="logo-sub">De la Calzada · La Rioja</span>
     <div class="logo-line"></div>
   </div>
 
@@ -223,7 +223,7 @@
         catedral:        { es: 'Catedral de Santo Domingo', en: 'Cathedral of Santo Domingo', de: 'Kathedrale Santo Domingo', fr: 'Cathédrale Saint-Dominique', it: 'Cattedrale di Santo Domingo', pt: 'Catedral de Santo Domingo', ko: '산토 도밍고 대성당', eu: 'Santo Domingoko katedrala', ca: 'Catedral de Sant Domènec' },
         torre:           { es: 'Torre de la Catedral', en: 'Cathedral Tower', de: 'Kathedralturm', fr: 'Tour de la Cathédrale', it: 'Torre della Cattedrale', pt: 'Torre da Catedral', ko: '대성당 탑', eu: 'Katedral dorrea', ca: 'Torre de la Catedral' },
         'san-francisco': { es: 'Convento de San Francisco', en: 'Convent of San Francisco', de: 'Kloster San Francisco', fr: 'Couvent Saint-François', it: 'Convento di San Francesco', pt: 'Convento de São Francisco', ko: '산 프란시스코 수도원', eu: 'San Frantzisko monasterioa', ca: 'Convent de Sant Francesc' },
-        'ermita-plaza':  { es: 'Ermita de la Plaza Mayor', en: 'Chapel of Plaza Mayor', de: 'Kapelle der Plaza Mayor', fr: 'Ermitage de la Plaza Mayor', it: 'Eremo della Plaza Mayor', pt: 'Ermida da Praça Maior', ko: '플라자 마요르 예배당', eu: 'Plaza Nagusiko ermita', ca: 'Ermita de la Plaça Major' },
+        'ermita-plaza':  { es: 'Ermita de la Plaza', en: 'Chapel of the Plaza', de: 'Kapelle der Plaza', fr: 'Ermitage de la Plaza', it: 'Eremo della Plaza', pt: 'Ermida da Praça', ko: '플라자 예배당', eu: 'Plazako ermita', ca: 'Ermita de la Plaça' },
       };
 
       const AUDIO_LABELS = {
@@ -254,6 +254,9 @@
 
       const names = MONUMENT_NAMES[monument] || MONUMENT_NAMES.catedral;
       document.getElementById('logo-name').textContent = names[uiLang] || names.es;
+      if (monument !== 'catedral') {
+        document.getElementById('logo-sub').textContent = 'Santo Domingo de la Calzada';
+      }
       document.getElementById('over-text').textContent = AUDIO_LABELS[uiLang] || AUDIO_LABELS.es;
       document.getElementById('headline-text').textContent = CHOOSE_LABELS[uiLang] || CHOOSE_LABELS.es;
       document.getElementById('back-label').textContent = BACK_LABELS[uiLang] || BACK_LABELS.es;

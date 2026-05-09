@@ -172,7 +172,7 @@
 
   <div class="logo">
     <span class="logo-l1" id="logo-name">Catedral de Santo Domingo</span>
-    <span class="logo-l2">De la Calzada · La Rioja</span>
+    <span class="logo-l2" id="logo-sub">De la Calzada · La Rioja</span>
     <div class="logo-line"></div>
   </div>
 
@@ -245,6 +245,9 @@
       const slug = FOLLETO_SLUG[monument] || FOLLETO_SLUG.catedral;
 
       document.getElementById('logo-name').textContent = names[uiLang] || names.es;
+      if (monument !== 'catedral') {
+        document.getElementById('logo-sub').textContent = 'Santo Domingo de la Calzada';
+      }
       document.getElementById('over-text').textContent = FOLLETO_LABELS[uiLang] || FOLLETO_LABELS.es;
       document.getElementById('headline-text').textContent = CHOOSE_LABELS[uiLang] || CHOOSE_LABELS.es;
       document.getElementById('subline-text').textContent = SUBLINE_LABELS[uiLang] || SUBLINE_LABELS.es;

@@ -16,6 +16,7 @@ const FOLDER_NAME   = 'Newsletter';
 const FROM_EMAIL    = 'info@catedralsantodomingo.org'; // alias configurado en Gmail
 const FROM_NAME     = 'Catedral Santo Domingo de la Calzada';
 const EMAIL_SUBJECT = 'Newsletter semanal — Catedral de Santo Domingo de la Calzada';
+const TIMEZONE      = 'Europe/Madrid';
 
 // Columnas de la hoja
 const COL_EMAIL    = 1;
@@ -62,7 +63,9 @@ function handleSubscribe(e) {
 
   // Suscriptor nuevo
   sheet.appendRow([email, new Date(), false, '', '✔️ Activo']);
-  sheet.getRange(sheet.getLastRow(), COL_CANCELAR).insertCheckboxes();
+  const newRow = sheet.getLastRow();
+  sheet.getRange(newRow, COL_FECHA).setNumberFormat('dd/MM/yyyy HH:mm:ss');
+  sheet.getRange(newRow, COL_CANCELAR).insertCheckboxes();
   sendWelcomeEmail(email);
   return jsonResponse({ ok: true });
 }
@@ -91,6 +94,7 @@ function handleUnsubscribe(e) {
         const row = i + 2;
         sheet.getRange(row, COL_CANCELAR).setValue(true);
         sheet.getRange(row, COL_BAJA).setValue(new Date());
+        sheet.getRange(row, COL_BAJA).setNumberFormat('dd/MM/yyyy HH:mm:ss');
         sheet.getRange(row, COL_ESTADO).setValue('❌ Cancelado');
         sendCancellationEmail(email);
         return HtmlService.createHtmlOutput(unsubscribePageHtml('success'));
@@ -117,6 +121,7 @@ function onCancelEdit(e) {
 
   if (cancelado === true && estado !== '❌ Cancelado') {
     sheet.getRange(row, COL_BAJA).setValue(new Date());
+    sheet.getRange(row, COL_BAJA).setNumberFormat('dd/MM/yyyy HH:mm:ss');
     sheet.getRange(row, COL_ESTADO).setValue('❌ Cancelado');
     sendCancellationEmail(email);
   } else if (cancelado === false) {
@@ -203,6 +208,8 @@ function createOnEditTrigger() {
 // ── CONFIGURAR HOJA (ejecutar una sola vez) ──────────────────────
 function setupSheet() {
   const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  ss.setSpreadsheetTimeZone(TIMEZONE);
+
   let   sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
 
@@ -215,7 +222,11 @@ function setupSheet() {
   sheet.setColumnWidth(COL_BAJA,      180);
   sheet.setColumnWidth(COL_ESTADO,    120);
 
-  Logger.log('Hoja "Suscriptores" configurada con 5 columnas.');
+  // Formato de fecha (Madrid) en columnas de fechas — para filas existentes y futuras
+  sheet.getRange(2, COL_FECHA, sheet.getMaxRows() - 1, 1).setNumberFormat('dd/MM/yyyy HH:mm:ss');
+  sheet.getRange(2, COL_BAJA,  sheet.getMaxRows() - 1, 1).setNumberFormat('dd/MM/yyyy HH:mm:ss');
+
+  Logger.log('Hoja "Suscriptores" configurada con 5 columnas (zona horaria Europe/Madrid).');
 }
 
 // ── UTILIDADES ───────────────────────────────────────────────────

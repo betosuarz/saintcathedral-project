@@ -481,6 +481,7 @@
       transform: translateY(0)
     }
 
+
     /* ── SPECIAL VISITS ─────────────────────────────── */
     .section-visits {
       background: #000;
@@ -579,6 +580,25 @@
     .visit-card:hover .visit-card__cta {
       opacity: 1;
       transform: translateY(0)
+    }
+
+    @media (max-width: 640px) {
+      .video-frame { padding: 0 16px; }
+
+      .monument-card-hp,
+      .visit-card { width: 260px; border-radius: 6px; }
+      .monument-card-hp__img,
+      .visit-card__img { height: 320px; }
+      .monument-card-hp__body,
+      .visit-card__body { padding: 18px; }
+      .monument-card-hp__tag,
+      .visit-card__tag { font-size: .52rem; margin-bottom: 6px; }
+      .monument-card-hp__name,
+      .visit-card__name { font-size: 1.2rem; margin-bottom: 4px; }
+      .monument-card-hp__desc,
+      .visit-card__desc { font-size: .7rem; margin-bottom: 8px; line-height: 1.45; }
+      .monument-card-hp__price,
+      .visit-card__price { font-size: .74rem; }
     }
 
     /* ── REVIEWS ────────────────────────────────────── */
@@ -1298,16 +1318,18 @@
     <div class="video-frame reveal">
       <div class="video-frame__inner" id="video-inner">
         <video id="catedral-video"
-          src="https://www.catedralsantodomingo.org/wp-content/uploads/2026/03/videoSoloCatedral.mp4" playsinline loop
-          preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:none;"></video>
-        <div id="video-play-btn"
-          style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(14,12,10,.45);cursor:pointer;z-index:2;transition:opacity .5s;">
-          <div
-            style="width:80px;height:80px;border:2px solid rgba(201,168,76,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#C9A84C;transition:transform .3s,border-color .3s;"
-            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">▶</div>
-          <p style="font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);"
-            data-i18n-page="video_play">Reproducir con sonido</p>
-        </div>
+          src="https://www.catedralsantodomingo.org/wp-content/uploads/2026/03/videoSoloCatedral.mp4"
+          autoplay muted loop playsinline preload="metadata" disablepictureinpicture
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:none;"></video>
+        <button id="video-fs-btn" type="button" aria-label="Pantalla completa"
+          style="position:absolute;right:14px;bottom:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(14,12,10,.55);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);transition:background .2s ease, border-color .2s ease;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="4 9 4 4 9 4"/>
+            <polyline points="20 9 20 4 15 4"/>
+            <polyline points="4 15 4 20 9 20"/>
+            <polyline points="20 15 20 20 15 20"/>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -1819,21 +1841,33 @@
     /* ── Video ───────────────────────────────────────────────────── */
     const videoSection = document.querySelector('.section-video');
     const videoEl = document.getElementById('catedral-video');
-    const playBtn = document.getElementById('video-play-btn');
-    if (videoEl && playBtn) {
-      playBtn.addEventListener('click', () => {
-        videoEl.muted = false;
-        videoEl.play().then(() => { playBtn.style.opacity = '0'; setTimeout(() => { playBtn.style.display = 'none'; }, 500); }).catch(() => { });
+    const fsBtn = document.getElementById('video-fs-btn');
+    if (videoEl && videoSection) {
+      const vObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          videoEl.muted = true;
+          videoEl.play().catch(() => {});
+        } else {
+          videoEl.pause();
+        }
+      }, { threshold: 0.25 });
+      vObs.observe(videoSection);
+    }
+    if (fsBtn && videoEl) {
+      fsBtn.addEventListener('click', () => {
+        const target = videoEl;
+        const req = target.requestFullscreen || target.webkitEnterFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen;
+        if (req) {
+          videoEl.muted = false;
+          req.call(target).catch(() => {});
+        }
       });
-      if (videoSection) {
-        const vObs = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) {
-            videoEl.muted = false;
-            videoEl.play().then(() => { playBtn.style.opacity = '0'; setTimeout(() => { playBtn.style.display = 'none'; }, 500); }).catch(() => { playBtn.style.display = 'flex'; });
-          } else { videoEl.pause(); }
-        }, { threshold: 0.3 });
-        vObs.observe(videoSection);
-      }
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) videoEl.muted = true;
+      });
+      document.addEventListener('webkitfullscreenchange', () => {
+        if (!document.webkitFullscreenElement) videoEl.muted = true;
+      });
     }
 
     /* ── Hero overflow lock ──────────────────────────────────────── */

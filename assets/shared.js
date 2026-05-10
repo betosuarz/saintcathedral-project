@@ -981,6 +981,15 @@ function initA11y() {
     if (!panel.contains(e.target) && e.target !== toggle) closePanel();
   });
 
+  // Botón a11y del navbar (mobile) reenvía al toggle existente
+  const navA11yBtn = document.getElementById('navbar-a11y-btn');
+  if (navA11yBtn) {
+    navA11yBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      toggle.click();
+    });
+  }
+
   // ── Tamaño de texto ──────────────────────────────────────────
   let textLevel = parseInt(localStorage.getItem('a11y-text') || '0', 10);
   _a11yApplyText(textLevel);

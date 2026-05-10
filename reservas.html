@@ -81,6 +81,7 @@
       text-align: center;
     }
     .navbar__tagline-br { display: none; }
+    .navbar__tagline-mobile { display: none; }
     @media (max-width: 640px) {
       .navbar__tagline {
         white-space: normal;
@@ -89,6 +90,10 @@
         padding: 8px 0 0 16px;
       }
       .navbar__tagline-br { display: block; }
+      .navbar__tagline-desktop { display: none; }
+      .navbar__tagline-mobile { display: inline; text-transform: uppercase; }
+      .navbar__tagline-gallo { color: var(--gold-dk); }
+      .navbar__tagline-catedral { font-weight: 600; }
     }
 
     body.light-mode .navbar--always-solid {
@@ -2137,8 +2142,20 @@
         <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
       </div>
     </a>
-    <span class="navbar__tagline">Patrimonio ·<span class="navbar__tagline-br"></span> Camino de Santiago</span>
+    <span class="navbar__tagline">
+      <span class="navbar__tagline-desktop">Patrimonio · Camino de Santiago</span>
+      <span class="navbar__tagline-mobile"><span class="navbar__tagline-catedral">Catedral</span><br><span class="navbar__tagline-gallo">del Gallo</span></span>
+    </span>
     <div class="navbar__actions">
+      <button class="navbar__a11y-btn" id="navbar-a11y-btn" aria-label="Herramientas de accesibilidad" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="4" r="2" fill="currentColor" stroke="none"/>
+          <path d="M5 9h14"/>
+          <path d="M9 9v4l-2 7"/>
+          <path d="M15 9v4l2 7"/>
+          <path d="M9 13h6"/>
+        </svg>
+      </button>
       <div class="lang-selector" id="lang-selector">
         <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
           <span id="lang-current-flag">🇪🇸</span>

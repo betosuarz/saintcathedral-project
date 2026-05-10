@@ -3614,6 +3614,48 @@
 
     actualizarFechaMinima();
     generateCaptcha();
+
+    /* ── Prefill por URL params (desde calendario de visitas) ─── */
+    (function applyURLPrefill() {
+      const params = new URLSearchParams(location.search);
+      const tipo = params.get('tipo');
+      if (!tipo) return;
+      const tipoVal = ({ individual: 'individual', grupo: 'grupo', escolar: 'escolar' })[tipo];
+      if (!tipoVal) return;
+      const r1 = document.querySelector(`input[name="tipoVisita"][value="${tipoVal}"]`);
+      if (!r1) return;
+      r1.checked = true;
+      applyTipoVisita(tipoVal);
+
+      const modo = params.get('modo');
+      if (modo === 'con-guia' || modo === 'sin-guia') {
+        const r2 = document.querySelector(`input[name="visitMode"][value="${modo}"]`);
+        if (r2) { r2.checked = true; onVisitModeChange(); }
+      }
+
+      const entradaMap = {
+        nocturna: 'Visita Guiada Nocturna Catedral',
+        diurna: 'Visita Guiada Diurna',
+        vip: 'Visita Guiada VIP'
+      };
+      const entradaVal = entradaMap[params.get('entrada')];
+      if (entradaVal) {
+        const sel = document.getElementById('tipoEntrada');
+        if (sel && [...sel.options].some(o => o.value === entradaVal)) {
+          sel.value = entradaVal;
+          onTipoEntradaChange();
+        }
+      }
+
+      const fecha = params.get('fecha');
+      if (fecha) {
+        const fi = document.getElementById('fechaVisita');
+        if (fi && fecha >= (fi.min || fecha)) {
+          fi.value = fecha;
+          actualizarHoras();
+        }
+      }
+    })();
   </script>
     <!-- COOKIE BANNER + MODAL -->
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">

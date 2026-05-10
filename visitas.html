@@ -123,6 +123,19 @@
       border-color: var(--gold);
     }
 
+    .hero-nav__link--soft {
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.4);
+      color: var(--white);
+      backdrop-filter: blur(4px);
+      font-weight: 500;
+    }
+    .hero-nav__link--soft:hover {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold);
+    }
+
     /* ── HUB INTRO ─────────────────────────────────────────── */
     .hub-intro {
       background: var(--carbon);
@@ -1521,19 +1534,21 @@
       z-index: 10;
       width: 44px;
       height: 44px;
-      background: rgba(14,12,10,.6);
+      background: rgba(20,18,16,.55);
       border: 1px solid rgba(255,255,255,.15);
-      color: rgba(253,250,244,.82);
+      border-radius: 50%;
+      color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background .25s ease, border-color .25s ease, color .25s ease;
-      backdrop-filter: blur(4px)
+      transition: background .2s ease, border-color .25s ease, color .25s ease;
+      backdrop-filter: blur(6px)
     }
-    .ind-arrow:hover { background: var(--gold); color: var(--carbon); border-color: var(--gold) }
+    .ind-arrow:hover { background: rgba(20,18,16,.8) }
     .ind-arrow--prev { left: 14px }
     .ind-arrow--next { right: 14px }
+    body.light-mode .ind-arrow { background: rgba(20,18,16,.5); border-color: rgba(20,18,16,.65); color: var(--white) }
     /* Detail panel */
     .ind-detail {
       padding: 56px 52px;
@@ -1547,15 +1562,26 @@
     }
     .ind-detail.is-fading { opacity: 0; transform: translateY(8px) }
     .ind-detail__badge {
-      display: inline-block;
-      font-size: .5rem;
-      letter-spacing: .14em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .54rem;
+      letter-spacing: .16em;
       text-transform: uppercase;
-      background: var(--gold);
-      color: var(--carbon);
-      padding: 4px 12px;
+      background: rgba(14,12,10,.7);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,.5);
+      backdrop-filter: blur(6px);
+      padding: 6px 14px;
       margin-bottom: 14px;
-      align-self: flex-start
+      align-self: flex-start;
+      font-weight: 500
+    }
+    .ind-detail__badge::before { content: '★'; font-size: .7rem; line-height: 1 }
+    body.light-mode .ind-detail__badge {
+      background: rgba(20,18,16,.85);
+      color: var(--gold-lt);
+      border-color: rgba(201,168,76,.55)
     }
     .ind-detail__tag {
       font-size: .56rem;
@@ -1623,6 +1649,26 @@
       margin-bottom: 3px
     }
     .ind-spec__val { font-size: .88rem; color: rgba(253,250,244,.82) }
+    .ind-detail__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      margin-top: 28px;
+      padding: 14px 26px;
+      background: var(--gold);
+      color: var(--carbon);
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .25s ease, transform .25s ease;
+    }
+    .ind-detail__cta:hover { background: var(--gold-dk); transform: translateY(-1px) }
+    body.light-mode .ind-detail__cta { background: var(--gold-dk); color: var(--white) }
+    body.light-mode .ind-detail__cta:hover { background: var(--gold) }
     @media (max-width: 1000px) {
       .ind-slider-wrap { grid-template-columns: 1fr }
       .ind-card { min-height: 380px }
@@ -1639,14 +1685,24 @@
       top: 12px;
       right: 12px;
       z-index: 5;
-      font-size: .5rem;
-      letter-spacing: .14em;
+      align-items: center;
+      gap: 6px;
+      font-size: .54rem;
+      letter-spacing: .16em;
       text-transform: uppercase;
-      background: var(--gold);
-      color: #141210;
-      padding: 5px 10px;
-      font-weight: 600;
+      background: rgba(14,12,10,.7);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,.5);
+      backdrop-filter: blur(6px);
+      padding: 6px 14px;
+      font-weight: 500;
       font-family: var(--sans)
+    }
+    .ind-badge-img::before { content: '★'; font-size: .7rem; line-height: 1 }
+    body.light-mode .ind-badge-img {
+      background: rgba(20,18,16,.85);
+      color: var(--gold-lt);
+      border-color: rgba(201,168,76,.55)
     }
 
     /* Individual slider mobile — imagen strip + panel (must come last to override base rules) */
@@ -1663,8 +1719,8 @@
       .ind-arrow { top: 100px }
 
       /* Badge: visible en imagen, oculto en panel detail */
-      .ind-badge-img { display: inline-block }
-      #ind-badge { display: none !important }
+      .ind-badge-img { display: inline-flex }
+      #ind-badge, #gui-badge { display: none !important }
 
       /* Detail panel: grid tag+precio en fila, título y resto debajo */
       .ind-detail {
@@ -1693,6 +1749,7 @@
       body.light-mode .ind-detail__desc { border-top-color: rgba(20,18,16,.08) }
       .ind-specs { grid-column: 1/-1; grid-row: 4; gap: 10px 16px }
       .ind-spec__val { font-size: .82rem }
+      .ind-detail__cta { grid-column: 1/-1; grid-row: 5; margin-top: 18px; padding: 13px 22px; font-size: .64rem }
     }
 
     @media (max-width: 1100px) {
@@ -1836,7 +1893,7 @@
       font-size: .8rem;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: rgba(245,240,232,.45);
+      color: rgba(245,240,232,.65);
     }
 
     .vtour-section__launcher-btn {
@@ -2169,6 +2226,674 @@
       background: var(--cream);
     }
 
+    /* ── GUIDED VISITS CALENDAR ─────────────────────────────── */
+    .gv-wrap { max-width: 760px; margin: 0 auto; }
+
+    .gv-cal {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(201,168,76,.18);
+      border-radius: 18px;
+      padding: 24px 22px;
+    }
+    body.light-mode .gv-cal {
+      background: var(--white);
+      border-color: rgba(140,110,50,.18);
+      box-shadow: 0 4px 24px rgba(20,18,16,.05);
+    }
+
+    .gv-cal__head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px; gap: 12px;
+    }
+    .gv-cal__month {
+      font-family: var(--serif); font-size: 1.4rem; font-weight: 400;
+      color: var(--white); text-transform: capitalize;
+      letter-spacing: .005em;
+    }
+    body.light-mode .gv-cal__month { color: var(--carbon); }
+    .gv-cal__nav {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: transparent; border: 1px solid rgba(201,168,76,.3);
+      color: var(--gold); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all .25s ease;
+    }
+    .gv-cal__nav:hover:not(:disabled) {
+      background: var(--gold); color: var(--carbon);
+      border-color: var(--gold);
+    }
+    .gv-cal__nav:disabled { opacity: .25; cursor: not-allowed; }
+    .gv-cal__nav svg { display: block; }
+
+    .gv-cal__weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 4px; margin-bottom: 6px;
+    }
+    .gv-cal__wd {
+      text-align: center; font-size: .58rem; letter-spacing: .18em;
+      text-transform: uppercase; color: rgba(245,240,232,.65);
+      padding: 6px 0; font-weight: 500;
+    }
+    body.light-mode .gv-cal__wd { color: #6e6356; }
+
+    .gv-cal__grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    }
+    .gv-cal__day {
+      aspect-ratio: 1; position: relative;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid transparent;
+      border-radius: 10px;
+      font-family: var(--sans); font-size: .92rem;
+      color: var(--white); cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+      padding: 0;
+    }
+    body.light-mode .gv-cal__day { color: var(--carbon); }
+    .gv-cal__day--empty { visibility: hidden; cursor: default; }
+    .gv-cal__day--past {
+      color: rgba(245,240,232,.22); cursor: not-allowed;
+    }
+    body.light-mode .gv-cal__day--past { color: rgba(20,18,16,.22); }
+    .gv-cal__day--today { border-color: rgba(201,168,76,.5); font-weight: 500; }
+    .gv-cal__day:not(.gv-cal__day--past):not(.gv-cal__day--empty):hover {
+      background: rgba(201,168,76,.1);
+    }
+    body.light-mode .gv-cal__day:not(.gv-cal__day--past):not(.gv-cal__day--empty):hover {
+      background: rgba(168,133,46,.12);
+    }
+    .gv-cal__day--selected {
+      background: var(--gold) !important;
+      color: var(--carbon) !important;
+      font-weight: 500;
+      border-color: var(--gold) !important;
+    }
+    .gv-cal__day--selected .gv-cal__dots span { background: var(--carbon) !important; }
+
+    .gv-cal__dots {
+      display: flex; gap: 3px;
+      position: absolute; bottom: 5px;
+      left: 50%; transform: translateX(-50%);
+    }
+    .gv-cal__dots span {
+      width: 4px; height: 4px; border-radius: 50%;
+    }
+    .gv-cal__dots .d-day { background: var(--gold); }
+    .gv-cal__dots .d-night { background: #8AB0D8; }
+    body.light-mode .gv-cal__dots .d-night { background: #4F6E94; }
+
+    .gv-cal__legend {
+      display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+      margin-top: 18px; padding-top: 16px;
+      border-top: 1px solid rgba(201,168,76,.12);
+      font-size: .7rem; color: rgba(245,240,232,.6);
+    }
+    body.light-mode .gv-cal__legend {
+      color: #6e6356; border-top-color: rgba(140,110,50,.15);
+    }
+    .gv-cal__legend-item { display: inline-flex; align-items: center; gap: 7px; }
+    .gv-cal__legend-item::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+    }
+    .gv-cal__legend-item.d-day::before { background: var(--gold); }
+    .gv-cal__legend-item.d-night::before { background: #8AB0D8; }
+    body.light-mode .gv-cal__legend-item.d-night::before { background: #4F6E94; }
+
+    /* Day panel */
+    .gv-day-panel {
+      position: relative;
+      margin-top: 18px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(201,168,76,.18);
+      border-radius: 18px;
+      padding: 22px;
+      display: none;
+    }
+    .gv-day-panel__close {
+      display: none;
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.28);
+      color: var(--gold);
+      cursor: pointer;
+      align-items: center; justify-content: center;
+      padding: 0;
+      transition: all .2s ease;
+    }
+    .gv-day-panel__close:hover { background: var(--gold); color: var(--carbon); }
+    body.light-mode .gv-day-panel__close {
+      background: rgba(168,133,46,.08);
+      border-color: rgba(140,110,50,.28);
+      color: var(--gold-dk);
+    }
+    .gv-visit__info-inline { display: none; }
+    body.light-mode .gv-day-panel {
+      background: var(--white);
+      border-color: rgba(140,110,50,.18);
+      box-shadow: 0 4px 24px rgba(20,18,16,.05);
+    }
+    .gv-day-panel.is-open {
+      display: block;
+      animation: gvFade .35s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes gvFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .gv-day-panel__sub {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold-lt); margin-bottom: 8px; font-weight: 500;
+    }
+    body.light-mode .gv-day-panel__sub { color: var(--gold-dk); }
+    .gv-day-panel__title {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+      color: var(--white); margin-bottom: 14px; text-transform: capitalize;
+      line-height: 1.2;
+    }
+    body.light-mode .gv-day-panel__title { color: var(--carbon); }
+
+    .gv-day-panel__empty {
+      font-size: .9rem; color: rgba(245,240,232,.55);
+      font-style: italic; padding: 6px 0;
+    }
+    body.light-mode .gv-day-panel__empty { color: #6e6356; }
+
+    .gv-visit {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 14px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(201,168,76,.12);
+    }
+    .gv-visit:first-of-type { border-top-color: rgba(201,168,76,.22); }
+    body.light-mode .gv-visit { border-top-color: rgba(140,110,50,.12); }
+    body.light-mode .gv-visit:first-of-type { border-top-color: rgba(140,110,50,.22); }
+
+    .gv-visit__time {
+      font-family: var(--serif); font-size: 1.55rem; font-weight: 500;
+      color: #EBD68A; min-width: 64px;
+      letter-spacing: -.01em; line-height: 1;
+    }
+    body.light-mode .gv-visit__time { color: #8B6A1E; }
+
+    .gv-visit__main { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .gv-visit__name {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      font-size: .92rem; font-weight: 500; color: var(--white);
+    }
+    body.light-mode .gv-visit__name { color: var(--carbon); }
+
+    .gv-visit__badge {
+      font-size: .54rem; letter-spacing: .16em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 99px; font-weight: 500;
+      white-space: nowrap;
+    }
+    .gv-visit__badge--day { background: rgba(201,168,76,.18); color: var(--gold-lt); }
+    .gv-visit__badge--night { background: rgba(138,176,216,.25); color: #D4E2F2; }
+    body.light-mode .gv-visit__badge--day { background: rgba(168,133,46,.14); color: var(--gold-dk); }
+    body.light-mode .gv-visit__badge--night { background: rgba(80,110,150,.14); color: #2F4D72; }
+
+    .gv-visit__meta {
+      font-size: .78rem; color: rgba(245,240,232,.85);
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    body.light-mode .gv-visit__meta { color: #4a4035; }
+    .gv-visit__meta strong {
+      color: var(--white); font-weight: 500;
+    }
+    body.light-mode .gv-visit__meta strong { color: var(--carbon); }
+    .gv-visit__meta span + span::before {
+      content: '·'; margin-right: 10px; color: rgba(201,168,76,.5);
+    }
+
+    .gv-visit__actions {
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+
+    /* Info button + popover */
+    .gv-info {
+      position: relative;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,.32);
+      color: var(--gold);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all .2s ease;
+      font-family: var(--serif);
+      font-size: .9rem; font-style: italic; font-weight: 500;
+      padding: 0;
+    }
+    .gv-info:hover, .gv-info:focus-visible {
+      background: var(--gold); color: var(--carbon);
+      border-color: var(--gold); outline: none;
+    }
+    .gv-info__pop {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      right: 0;
+      width: min(280px, calc(100vw - 48px));
+      background: #1a1610;
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: .8rem; line-height: 1.55;
+      color: rgba(245,240,232,.85);
+      text-align: left;
+      opacity: 0; visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 14px 32px rgba(0,0,0,.4);
+      cursor: default;
+    }
+    body.light-mode .gv-info__pop {
+      background: var(--white); color: #2a2520;
+      border-color: rgba(140,110,50,.22);
+      box-shadow: 0 14px 32px rgba(20,18,16,.12);
+    }
+    .gv-info__pop::after {
+      content: ''; position: absolute;
+      bottom: -6px; right: 11px;
+      width: 11px; height: 11px;
+      background: inherit;
+      border-right: 1px solid rgba(201,168,76,.25);
+      border-bottom: 1px solid rgba(201,168,76,.25);
+      transform: rotate(45deg);
+    }
+    body.light-mode .gv-info__pop::after {
+      border-right-color: rgba(140,110,50,.22);
+      border-bottom-color: rgba(140,110,50,.22);
+    }
+    .gv-info:hover .gv-info__pop,
+    .gv-info.is-open .gv-info__pop {
+      opacity: 1; visibility: visible; transform: translateY(0);
+      pointer-events: auto;
+    }
+    .gv-info__pop strong {
+      color: var(--gold-lt); display: block; margin-bottom: 4px;
+      font-weight: 500; font-family: var(--sans);
+      font-size: .76rem; letter-spacing: .04em;
+    }
+    body.light-mode .gv-info__pop strong { color: var(--gold-dk); }
+    .gv-info__pop ul { list-style: none; padding: 0; margin: 8px 0 0; }
+    .gv-info__pop li {
+      padding: 3px 0 3px 12px; position: relative;
+      font-size: .76rem; line-height: 1.45;
+    }
+    .gv-info__pop li::before {
+      content: ''; position: absolute; left: 0; top: 11px;
+      width: 4px; height: 1px; background: var(--gold);
+    }
+
+    .gv-visit__cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--sans); font-size: .66rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      font-weight: 500;
+      background: var(--gold); color: var(--carbon);
+      padding: 10px 14px; border-radius: 99px;
+      text-decoration: none;
+      transition: all .25s ease;
+      white-space: nowrap;
+    }
+    .gv-visit__cta:hover {
+      background: var(--gold-dk); transform: translateY(-1px);
+      color: var(--carbon);
+    }
+
+    /* VIP card */
+    .gv-vip {
+      margin-top: 18px;
+      background: linear-gradient(135deg, rgba(201,168,76,.1), rgba(201,168,76,.02));
+      border: 1px solid rgba(201,168,76,.28);
+      border-radius: 18px;
+      padding: 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 18px; flex-wrap: wrap;
+    }
+    body.light-mode .gv-vip {
+      background: linear-gradient(135deg, rgba(168,133,46,.08), rgba(168,133,46,.02));
+      border-color: rgba(140,110,50,.22);
+    }
+    .gv-vip__txt { flex: 1; min-width: 220px; }
+    .gv-vip__eyebrow {
+      font-size: .54rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .gv-vip__title {
+      font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+      color: var(--white); line-height: 1.2;
+    }
+    body.light-mode .gv-vip__title { color: var(--carbon); }
+    .gv-vip__title em { font-style: italic; color: var(--gold-lt); }
+    body.light-mode .gv-vip__title em,
+    body.light-mode .page-hero__title em,
+    body.light-mode .hub-intro__question em,
+    body.light-mode .hub-card__title em,
+    body.light-mode .visits-section__title em,
+    body.light-mode .tour-card__title em,
+    body.light-mode .program-card__title em,
+    body.light-mode .pulsera-block__title em,
+    body.light-mode .ind-detail__title em { color: var(--gold-dk); }
+    .gv-vip__sub { font-size: .82rem; color: rgba(245,240,232,.62); margin-top: 6px; line-height: 1.5; }
+    body.light-mode .gv-vip__sub { color: #6e6356; }
+    .gv-vip__cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--sans); font-size: .66rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      font-weight: 500;
+      background: transparent; color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 11px 18px; border-radius: 99px;
+      text-decoration: none;
+      transition: all .25s ease;
+      white-space: nowrap;
+    }
+    .gv-vip__cta:hover {
+      background: var(--gold); color: var(--carbon);
+    }
+
+    @media (max-width: 540px) {
+      .gv-cal { padding: 18px 14px; border-radius: 14px; }
+      .gv-cal__month { font-size: 1.18rem; }
+      .gv-cal__nav { width: 34px; height: 34px; }
+      .gv-cal__day { font-size: .85rem; border-radius: 8px; }
+      .gv-cal__dots { bottom: 4px; }
+
+      /* Day panel becomes centered modal on mobile */
+      .gv-day-panel {
+        margin-top: 0;
+        border-radius: 18px;
+        padding: 24px 20px 22px;
+      }
+      .gv-day-panel.is-open {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(380px, calc(100vw - 24px));
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        z-index: 9999;
+        background: #1a1610;
+        border-color: rgba(201,168,76,.32);
+        box-shadow: 0 24px 60px rgba(0,0,0,.6);
+        animation: gvFadeOpacity .25s ease;
+      }
+      body.light-mode .gv-day-panel.is-open {
+        background: var(--white);
+        border-color: rgba(140,110,50,.25);
+        box-shadow: 0 24px 60px rgba(20,18,16,.28);
+      }
+      @keyframes gvFadeOpacity {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .gv-day-panel.is-open .gv-day-panel__close { display: inline-flex; }
+      body.gv-day-open { overflow: hidden; }
+      body.gv-day-open::after {
+        content: '';
+        position: fixed; inset: 0;
+        background: rgba(14,12,10,.6);
+        z-index: 9998;
+        animation: gvFade .25s ease;
+      }
+      body.light-mode.gv-day-open::after { background: rgba(20,18,16,.45); }
+
+      .gv-day-panel__title { font-size: 1.18rem; padding-right: 36px; }
+      .gv-visit { grid-template-columns: 1fr; row-gap: 10px; padding: 16px 0; }
+      .gv-visit__time {
+        font-size: 1.4rem; min-width: 0;
+        padding-bottom: 2px;
+      }
+      .gv-visit__info-inline {
+        display: block;
+        font-size: .82rem; line-height: 1.6;
+        color: rgba(253,250,244,.94);
+        background: rgba(201,168,76,.1);
+        border-left: 2px solid var(--gold);
+        border-radius: 0 8px 8px 0;
+        padding: 12px 14px;
+        margin-top: 6px;
+      }
+      body.light-mode .gv-visit__info-inline {
+        background: rgba(168,133,46,.1);
+        color: #2a2520;
+        border-left-color: var(--gold-dk);
+      }
+      .gv-visit__info-inline ul { list-style: none; padding: 0; margin: 0; }
+      .gv-visit__info-inline li {
+        position: relative; padding: 3px 0 3px 12px;
+      }
+      .gv-visit__info-inline li::before {
+        content: ''; position: absolute; left: 0; top: 12px;
+        width: 5px; height: 1px; background: var(--gold);
+      }
+      .gv-info { display: none; }
+      .gv-visit__actions {
+        justify-content: flex-end;
+        padding-top: 4px;
+      }
+      .gv-visit__cta { padding: 11px 18px; font-size: .68rem; }
+      .gv-vip { padding: 18px; border-radius: 14px; }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       MOBILE — HORIZONTAL SCROLL CARDS (grupos · escolares)
+       ───────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .grupo-prices,
+      .supp-grid,
+      .age-table,
+      .info-band {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+        padding: 4px 6vw 22px;
+        margin-left: -6vw;
+        margin-right: -6vw;
+        scroll-padding-left: 6vw;
+        align-items: stretch;
+        border: none !important;
+      }
+      .info-band > .info-band__item {
+        border: none !important;
+      }
+      .grupo-prices::-webkit-scrollbar,
+      .supp-grid::-webkit-scrollbar,
+      .age-table::-webkit-scrollbar,
+      .info-band::-webkit-scrollbar { display: none; height: 0; }
+
+      .grupo-prices > .grupo-price,
+      .supp-grid > .supp-card,
+      .age-table > .age-card,
+      .info-band > .info-band__item {
+        flex: 0 0 80%;
+        max-width: 80%;
+        min-width: 0;
+        scroll-snap-align: start;
+      }
+      .age-table > .age-card { flex: 0 0 64%; max-width: 64%; }
+      .info-band > .info-band__item { flex: 0 0 72%; max-width: 72%; }
+
+      /* Scroll hint — fade on right edge */
+      .price-block,
+      #grupos .info-band,
+      #escolares .info-band {
+        position: relative;
+      }
+      .h-scroll-hint {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin-top: -10px;
+        padding-bottom: 4px;
+        font-size: .58rem;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: rgba(245,240,232,.6);
+      }
+      body.light-mode .h-scroll-hint { color: #6B6058; }
+      .h-scroll-hint svg { width: 10px; height: 10px; }
+
+      #grupos .price-block,
+      #escolares .price-block { margin-bottom: 22px; }
+      #grupos .price-block + .info-band,
+      #escolares .price-block + .info-band { margin-top: -10px; }
+      #grupos .price-block__label,
+      #escolares .price-block__label { margin-bottom: 12px; }
+      #grupos .info-band,
+      #escolares .info-band { margin-top: 0; }
+      #escolares .age-table,
+      #grupos .grupo-prices,
+      #grupos .supp-grid { padding-bottom: 6px; }
+      #grupos.visits-section,
+      #escolares.visits-section { padding-bottom: 32px; }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       MOBILE — COMPARADOR DE PRECIOS (modal)
+       ───────────────────────────────────────────────────────── */
+    .cmp-trigger { display: none; }
+    .cmp-close { display: none; }
+
+    @media (max-width: 600px) {
+      .pulsera-block {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin-top: 12px;
+        overflow: visible;
+      }
+      #guiadas .cmp-trigger { margin-top: 12px; }
+      .cmp-trigger {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 14px;
+        background: linear-gradient(135deg, rgba(201,168,76,.1), rgba(201,168,76,.03));
+        border: 1px solid rgba(201,168,76,.28);
+        border-radius: 16px;
+        padding: 18px 18px 18px 20px;
+        color: var(--white);
+        cursor: pointer;
+        font-family: var(--sans);
+        text-align: left;
+        transition: all .25s ease;
+        margin: 0;
+      }
+      body.light-mode .cmp-trigger {
+        background: linear-gradient(135deg, rgba(168,133,46,.08), rgba(168,133,46,.02));
+        color: var(--carbon);
+        border-color: rgba(140,110,50,.25);
+      }
+      .cmp-trigger:hover, .cmp-trigger:focus-visible {
+        border-color: var(--gold);
+        outline: none;
+        transform: translateY(-1px);
+      }
+      .cmp-trigger__inner {
+        flex: 1; min-width: 0;
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .cmp-trigger__eyebrow {
+        font-size: .54rem; letter-spacing: .22em; text-transform: uppercase;
+        color: var(--gold); font-weight: 500;
+      }
+      body.light-mode .cmp-trigger__eyebrow { color: var(--gold-dk); }
+      .cmp-trigger__label {
+        font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
+        line-height: 1.15;
+      }
+      .cmp-trigger__label em { font-style: italic; color: var(--gold-lt); }
+      body.light-mode .cmp-trigger__label em { color: var(--gold-dk); }
+      .cmp-trigger__sub {
+        font-size: .74rem; line-height: 1.45;
+        color: rgba(245,240,232,.7);
+      }
+      body.light-mode .cmp-trigger__sub { color: #6e6356; }
+      .cmp-trigger__icon {
+        width: 38px; height: 38px; border-radius: 50%;
+        background: var(--gold); color: var(--carbon);
+        display: inline-flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Hide original tables by default on mobile */
+      .pulsera-block .pulsera-block__inner,
+      #guiadas .compare-section { display: none; }
+
+      /* Modal mode */
+      body.cmp-open .cmp-content {
+        display: block !important;
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(440px, calc(100vw - 24px));
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        z-index: 9999;
+        background: #1a1610;
+        border: 1px solid rgba(201,168,76,.32);
+        border-radius: 18px;
+        padding: 28px 20px 22px;
+        box-shadow: 0 24px 60px rgba(0,0,0,.6);
+        animation: gvFadeOpacity .25s ease;
+      }
+      body.light-mode.cmp-open .cmp-content {
+        background: var(--white);
+        border-color: rgba(140,110,50,.25);
+        box-shadow: 0 24px 60px rgba(20,18,16,.28);
+        color: var(--carbon);
+      }
+      body.cmp-open { overflow: hidden; }
+      body.cmp-open::after {
+        content: '';
+        position: fixed; inset: 0;
+        background: rgba(14,12,10,.6);
+        z-index: 9998;
+        animation: gvFade .25s ease;
+      }
+      body.light-mode.cmp-open::after { background: rgba(20,18,16,.45); }
+
+      body.cmp-open .cmp-close {
+        display: inline-flex;
+        position: absolute;
+        top: 12px; right: 12px;
+        width: 34px; height: 34px;
+        border-radius: 50%;
+        background: rgba(201,168,76,.12);
+        border: 1px solid rgba(201,168,76,.32);
+        color: var(--gold);
+        align-items: center; justify-content: center;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1;
+        transition: all .2s ease;
+      }
+      body.cmp-open .cmp-close:hover {
+        background: var(--gold); color: var(--carbon);
+      }
+      body.light-mode.cmp-open .cmp-close {
+        background: rgba(168,133,46,.1);
+        border-color: rgba(140,110,50,.32);
+        color: var(--gold-dk);
+      }
+    }
+
   </style>
 </head>
 
@@ -2378,8 +3103,9 @@
       <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Individuales · Guiadas · Grupos · Escolares</p>
       <p class="page-hero__desc" data-i18n-page="hero_desc">Descubre ocho siglos de historia, arte y devoción. Elige la experiencia que mejor se adapta a ti.</p>
       <nav class="hero-nav" aria-label="Secciones de visita">
-        <a href="#individuales" class="hero-nav__link" data-i18n-page="nav_ind">Visitas individuales</a>
+        <a href="#individuales" class="hero-nav__link" data-i18n-page="nav_ind">Visitas sin guía</a>
         <a href="#guiadas" class="hero-nav__link" data-i18n-page="nav_gui">Visitas guiadas</a>
+        <a href="#calendario-guiadas" class="hero-nav__link hero-nav__link--soft" data-i18n-page="nav_cal">Calendario</a>
         <a href="#grupos" class="hero-nav__link" data-i18n-page="nav_grp">Grupos</a>
         <a href="#escolares" class="hero-nav__link" data-i18n-page="nav_esc">Escolares</a>
         <a href="#visita-virtual" class="hero-nav__link hero-nav__link--gold" data-i18n-page="nav_vtour">Visita virtual</a>
@@ -2463,10 +3189,23 @@
 
       <!-- Tabla comparativa de entradas individuales -->
       <div class="pulsera-block reveal">
-        <div class="pulsera-block__inner pulsera-block__inner--col">
+        <button type="button" class="cmp-trigger" id="cmp-trigger" aria-haspopup="dialog" aria-controls="cmp-content">
+          <span class="cmp-trigger__inner">
+            <span class="cmp-trigger__eyebrow">Tabla comparativa</span>
+            <span class="cmp-trigger__label">Comparador de <em>precios</em></span>
+            <span class="cmp-trigger__sub">Tarifas, horarios, audioguía y guía por modalidad</span>
+          </span>
+          <span class="cmp-trigger__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </span>
+        </button>
+        <div class="pulsera-block__inner pulsera-block__inner--col cmp-content" id="cmp-content" role="dialog" aria-labelledby="cmp-modal-title">
+          <button type="button" class="cmp-close" id="cmp-close" aria-label="Cerrar comparador">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
           <div>
             <div class="pulsera-block__tag">Comparar modalidades</div>
-            <h3 class="pulsera-block__title">Entradas <em>individuales</em></h3>
+            <h3 class="pulsera-block__title" id="cmp-modal-title">Entradas <em>individuales</em></h3>
           </div>
           <div class="pulsera-table-scroll">
           <table class="pulsera-table" aria-label="Comparativa de entradas individuales">
@@ -2549,134 +3288,67 @@
         </div>
       </div>
 
-      <!-- Tour cards -->
-      <div class="tour-slider-mob">
-        <button class="tour-mob-arrow tour-mob-arrow--prev" id="tour-prev" aria-label="Visita anterior">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="tour-mob-arrow tour-mob-arrow--next" id="tour-next" aria-label="Visita siguiente">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      <div class="tours-grid">
-
-        <!-- Diurna -->
-        <div class="tour-card reveal">
-          <div class="tour-card__img-wrap">
-            <div class="tour-card__img" style="background-image:url('assets/img/diurna.webp')"></div>
-            <span class="tour-card__badge tour-card__badge--day">Visita diurna</span>
-          </div>
-          <div class="tour-card__body">
-            <div class="tour-card__num">01 · Guiada</div>
-            <h3 class="tour-card__title">Visita guiada <em>diurna</em></h3>
-            <p class="tour-card__desc">Recorre la Catedral con un guía experto y descubre el retablo mayor, el sepulcro del Santo y el famoso gallinero vivo, único en el mundo.</p>
-            <div class="tour-specs">
-              <div class="tour-spec">
-                <span class="tour-spec__label">Duración</span>
-                <span class="tour-spec__value"><strong>90 min</strong></span>
+      <!-- Slider de visitas guiadas -->
+      <div class="ind-slider-wrap reveal">
+        <div class="ind-card-col">
+          <button class="ind-arrow ind-arrow--prev" id="gui-prev" aria-label="Visita anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="ind-card" id="gui-card">
+            <div class="ind-card__img" id="gui-img"></div>
+            <span class="ind-badge-img" id="gui-badge-img"></span>
+            <div class="ind-card__body">
+              <div class="ind-card__counter" id="gui-counter">01 / 03</div>
+              <div class="ind-card__name" id="gui-name">Diurna</div>
+              <div class="ind-card__price-row">
+                <span class="ind-card__amount" id="gui-amount">14</span>
+                <span class="ind-card__cur">€</span>
               </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Idiomas</span>
-                <span class="tour-spec__value">ES · EN · FR · DE</span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Horario</span>
-                <span class="tour-spec__value">Lun–Dom 11:00 · 13:00 · 17:00</span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Grupo máx.</span>
-                <span class="tour-spec__value"><strong>15 personas</strong></span>
+              <div class="ind-dots" id="gui-dots" role="tablist" aria-label="Navegar entre visitas guiadas">
+                <button class="ind-dot is-active" aria-label="Visita 1" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 2" role="tab"></button>
+                <button class="ind-dot" aria-label="Visita 3" role="tab"></button>
               </div>
             </div>
-            <div class="tour-price">
-              <span class="tour-price__from">Desde</span>
-              <span class="tour-price__amount"><sup>€</sup>14</span>
-              <span class="tour-price__note">por persona</span>
-            </div>
-            <a href="reservas.html" class="tour-cta tour-cta--book">Reservar →</a>
           </div>
+          <button class="ind-arrow ind-arrow--next" id="gui-next" aria-label="Visita siguiente">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
-
-        <!-- Nocturna -->
-        <div class="tour-card reveal reveal-delay-1">
-          <div class="tour-card__img-wrap">
-            <div class="tour-card__img" style="background-image:url('assets/img/nocturna.webp')"></div>
-            <span class="tour-card__badge tour-card__badge--night">★ Visita nocturna</span>
+        <div class="ind-detail" id="gui-detail" aria-live="polite">
+          <span class="ind-detail__badge" id="gui-badge" style="display:none"></span>
+          <div class="ind-detail__tag" id="gui-detail-tag">Visita guiada</div>
+          <h3 class="ind-detail__title" id="gui-detail-title">Visita guiada <em>diurna</em></h3>
+          <div class="ind-detail__price">
+            <span class="ind-detail__price-label">Desde</span>
+            <span class="ind-detail__price-amount" id="gui-detail-price">14</span>
+            <span class="ind-detail__price-cur">€</span>
           </div>
-          <div class="tour-card__body">
-            <div class="tour-card__num">02 · Guiada</div>
-            <h3 class="tour-card__title">Visita guiada <em>nocturna</em></h3>
-            <p class="tour-card__desc">La Catedral cobra vida a la luz de las velas. Leyendas, misterios y ocho siglos de historia en una experiencia sensorial única e irrepetible.</p>
-            <div class="tour-specs">
-              <div class="tour-spec">
-                <span class="tour-spec__label">Duración</span>
-                <span class="tour-spec__value"><strong>120 min</strong></span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Idiomas</span>
-                <span class="tour-spec__value">ES · EN</span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Horario</span>
-                <span class="tour-spec__value">Vie · Sáb · Dom 22:00</span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Grupo máx.</span>
-                <span class="tour-spec__value"><strong>12 personas</strong></span>
-              </div>
-            </div>
-            <div class="tour-price">
-              <span class="tour-price__from">Desde</span>
-              <span class="tour-price__amount"><sup>€</sup>15</span>
-              <span class="tour-price__note">por persona</span>
-            </div>
-            <a href="reservas.html" class="tour-cta tour-cta--book">Reservar →</a>
-          </div>
+          <p class="ind-detail__desc" id="gui-detail-desc"></p>
+          <div class="ind-specs" id="gui-specs"></div>
+          <a class="ind-detail__cta" id="gui-cta" href="reservas.html?tipo=individual&modo=con-guia&entrada=diurna">Reservar →</a>
         </div>
+      </div>
 
-        <!-- VIP -->
-        <div class="tour-card tour-card--vip reveal reveal-delay-2">
-          <div class="tour-card__img-wrap">
-            <div class="tour-card__img" style="background-image:url('assets/img/retablo.webp'); background-position: center 30%"></div>
-            <span class="tour-card__badge tour-card__badge--vip">VIP · Exclusiva</span>
-          </div>
-          <div class="tour-card__body">
-            <div class="tour-card__num">03 · Guiada</div>
-            <h3 class="tour-card__title">Visita <em>VIP</em> exclusiva</h3>
-            <p class="tour-card__desc">Acceso al triforio, al tesoro catedralicio y al archivo histórico. Atención personalizada, sin grupos, con el nivel de detalle que merece cada rincón.</p>
-            <div class="tour-specs">
-              <div class="tour-spec">
-                <span class="tour-spec__label">Duración</span>
-                <span class="tour-spec__value"><strong>2 – 3 horas</strong></span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Idiomas</span>
-                <span class="tour-spec__value">ES · EN · FR · DE</span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Horario</span>
-                <span class="tour-spec__value">A convenir</span>
-              </div>
-              <div class="tour-spec">
-                <span class="tour-spec__label">Grupo máx.</span>
-                <span class="tour-spec__value"><strong>8 personas</strong></span>
-              </div>
-            </div>
-            <div class="tour-price">
-              <span class="tour-price__from">Desde</span>
-              <span class="tour-price__amount"><sup>€</sup>15</span>
-              <span class="tour-price__note">por persona</span>
-            </div>
-            <a href="reservas.html" class="tour-cta tour-cta--book">Reservar →</a>
-          </div>
-        </div>
 
-      </div><!-- /.tours-grid -->
-        <div class="tour-mob-counter" id="tour-counter" aria-live="polite">01 / 03</div>
-      </div><!-- /.tour-slider-mob -->
+      <!-- Trigger comparador (mobile) -->
+      <button type="button" class="cmp-trigger" id="cmp-trigger-2" aria-haspopup="dialog" aria-controls="cmp-content-2">
+        <span class="cmp-trigger__inner">
+          <span class="cmp-trigger__eyebrow">Tabla comparativa</span>
+          <span class="cmp-trigger__label">Comparador de <em>visitas</em></span>
+          <span class="cmp-trigger__sub">Diurna, nocturna y VIP comparadas en detalle</span>
+        </span>
+        <span class="cmp-trigger__icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </span>
+      </button>
 
       <!-- Tabla comparativa -->
-      <div class="compare-section reveal">
-        <div class="compare-section__label">Comparar modalidades</div>
+      <div class="compare-section reveal cmp-content" id="cmp-content-2" role="dialog" aria-labelledby="cmp-2-title">
+        <button type="button" class="cmp-close" aria-label="Cerrar comparador">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="compare-section__label" id="cmp-2-title">Comparar modalidades</div>
         <div class="compare-table-scroll">
         <table class="compare-table" aria-label="Comparativa de visitas guiadas">
           <thead>
@@ -2750,6 +3422,333 @@
 
     </div>
   </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 02·B — CALENDARIO DE DISPONIBILIDAD
+  ════════════════════════════════════════════════════════ -->
+  <section id="calendario-guiadas" class="visits-section" aria-labelledby="cal-title">
+    <div class="visits-section__inner">
+
+      <div class="visits-section__header reveal" style="justify-content:center;text-align:center;flex-direction:column;align-items:center;gap:0;">
+        <div class="visits-section__eyebrow">Disponibilidad</div>
+        <h2 class="visits-section__title" id="cal-title">Calendario de <em>visitas guiadas</em></h2>
+        <p class="visits-section__sub" style="max-width:560px;">Consulta qué visitas hay cada día, infórmate sobre cada modalidad y reserva tu plaza directamente. Las nocturnas se celebran <strong>cada viernes y sábado a las 20:45 h</strong>.</p>
+      </div>
+
+      <div class="gv-wrap reveal">
+
+        <!-- Calendar -->
+        <div class="gv-cal" role="application" aria-label="Calendario de visitas guiadas">
+          <div class="gv-cal__head">
+            <button type="button" class="gv-cal__nav" id="gv-prev" aria-label="Mes anterior">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="gv-cal__month" id="gv-month" aria-live="polite">—</div>
+            <button type="button" class="gv-cal__nav" id="gv-next" aria-label="Mes siguiente">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+
+          <div class="gv-cal__weekdays" aria-hidden="true">
+            <div class="gv-cal__wd">L</div>
+            <div class="gv-cal__wd">M</div>
+            <div class="gv-cal__wd">X</div>
+            <div class="gv-cal__wd">J</div>
+            <div class="gv-cal__wd">V</div>
+            <div class="gv-cal__wd">S</div>
+            <div class="gv-cal__wd">D</div>
+          </div>
+
+          <div class="gv-cal__grid" id="gv-grid" role="grid"></div>
+
+          <div class="gv-cal__legend">
+            <span class="gv-cal__legend-item d-night">Visita guiada nocturna · 20:45 h</span>
+          </div>
+        </div>
+
+        <!-- Day panel -->
+        <div class="gv-day-panel" id="gv-panel" aria-live="polite" role="dialog" aria-labelledby="gv-panel-title">
+          <button type="button" class="gv-day-panel__close" id="gv-panel-close" aria-label="Cerrar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="gv-day-panel__sub" id="gv-panel-sub">Visitas disponibles</div>
+          <div class="gv-day-panel__title" id="gv-panel-title">—</div>
+          <div id="gv-panel-list"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+  (function () {
+    const grid = document.getElementById('gv-grid');
+    const monthLabel = document.getElementById('gv-month');
+    const btnPrev = document.getElementById('gv-prev');
+    const btnNext = document.getElementById('gv-next');
+    const panel = document.getElementById('gv-panel');
+    const panelTitle = document.getElementById('gv-panel-title');
+    const panelList = document.getElementById('gv-panel-list');
+    if (!grid) return;
+
+    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+    const VISITS_INFO = {
+      nocturna: {
+        label: 'Visita guiada nocturna',
+        badgeClass: 'gv-visit__badge--night',
+        priceFrom: 10,
+        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna',
+        bullets: [
+          'La Catedral a la luz de las velas: leyendas, misterios y ocho siglos de historia.',
+          'Duración 120 min · grupo máx. 12 personas',
+          'Solo viernes y sábados a las 20:45 h',
+          'Adulto 10 € · Menor de 13 / Residente 5 €'
+        ]
+      }
+    };
+
+    const HORA_NOCTURNA = '20:45';
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let current = new Date(today.getFullYear(), today.getMonth(), 1);
+    let selectedKey = null;
+
+    const pad = n => String(n).padStart(2, '0');
+    const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+    function visitsForDate(date) {
+      const past = date < today;
+      const wd = date.getDay();
+      const list = [];
+      if (!past && (wd === 5 || wd === 6)) {
+        list.push({ type: 'nocturna', time: HORA_NOCTURNA });
+      }
+      return list;
+    }
+
+    function render() {
+      const y = current.getFullYear();
+      const m = current.getMonth();
+      monthLabel.textContent = `${MESES[m]} ${y}`;
+
+      const isCurrentMonth = (y === today.getFullYear() && m === today.getMonth());
+      btnPrev.disabled = isCurrentMonth;
+
+      const first = new Date(y, m, 1);
+      const startWd = (first.getDay() + 6) % 7;
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+      grid.innerHTML = '';
+      for (let i = 0; i < startWd; i++) {
+        const e = document.createElement('div');
+        e.className = 'gv-cal__day gv-cal__day--empty';
+        grid.appendChild(e);
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(y, m, d);
+        const past = date < today;
+        const visits = visitsForDate(date);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'gv-cal__day';
+        btn.textContent = d;
+        btn.setAttribute('role', 'gridcell');
+        btn.setAttribute('aria-label', `${d} de ${MESES[m]}${visits.length ? ` · ${visits.length} visitas` : ''}`);
+        if (past) btn.classList.add('gv-cal__day--past');
+        if (date.getTime() === today.getTime()) btn.classList.add('gv-cal__day--today');
+
+        if (visits.length) {
+          const dots = document.createElement('span');
+          dots.className = 'gv-cal__dots';
+          const types = new Set(visits.map(v => v.type));
+          if (types.has('diurna')) {
+            const s = document.createElement('span'); s.className = 'd-day'; dots.appendChild(s);
+          }
+          if (types.has('nocturna')) {
+            const s = document.createElement('span'); s.className = 'd-night'; dots.appendChild(s);
+          }
+          btn.appendChild(dots);
+        }
+
+        const key = ymd(date);
+        if (key === selectedKey) btn.classList.add('gv-cal__day--selected');
+
+        if (!past) {
+          btn.addEventListener('click', () => selectDay(date));
+        }
+        grid.appendChild(btn);
+      }
+    }
+
+    function selectDay(date) {
+      selectedKey = ymd(date);
+      const visits = visitsForDate(date);
+      const wdName = DIAS[date.getDay()];
+      panelTitle.textContent = `${wdName} ${date.getDate()} de ${MESES[date.getMonth()]}`;
+      panelList.innerHTML = '';
+
+      if (!visits.length) {
+        const empty = document.createElement('div');
+        empty.className = 'gv-day-panel__empty';
+        empty.textContent = 'No hay visitas guiadas programadas este día.';
+        panelList.appendChild(empty);
+      } else {
+        visits.forEach(v => panelList.appendChild(renderVisit(v, date)));
+      }
+
+      panel.classList.add('is-open');
+      const isMobile = window.matchMedia('(max-width: 540px)').matches;
+      if (isMobile && panel.parentElement !== document.body) {
+        panel._origParent = panel.parentElement;
+        panel._origNext = panel.nextElementSibling;
+        document.body.appendChild(panel);
+      }
+      document.body.classList.toggle('gv-day-open', isMobile);
+      render();
+      if (!isMobile) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closePanel() {
+      panel.classList.remove('is-open');
+      document.body.classList.remove('gv-day-open');
+      if (panel._origParent && panel.parentElement === document.body) {
+        panel._origParent.insertBefore(panel, panel._origNext || null);
+      }
+    }
+
+    function renderVisit(v, date) {
+      const info = VISITS_INFO[v.type];
+      const row = document.createElement('div');
+      row.className = 'gv-visit';
+
+      const time = document.createElement('div');
+      time.className = 'gv-visit__time';
+      time.textContent = v.time;
+
+      const main = document.createElement('div');
+      main.className = 'gv-visit__main';
+      main.innerHTML = `
+        <div class="gv-visit__name">
+          <span class="gv-visit__badge ${info.badgeClass}">★ Nocturna</span>
+          <span>${info.label}</span>
+        </div>
+        <div class="gv-visit__meta">
+          <span>Desde <strong>${info.priceFrom} €</strong> / persona</span>
+          <span>120 min</span>
+        </div>
+        <div class="gv-visit__info-inline">
+          <ul>${info.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+        </div>
+      `;
+
+      const actions = document.createElement('div');
+      actions.className = 'gv-visit__actions';
+
+      const infoBtn = document.createElement('button');
+      infoBtn.type = 'button';
+      infoBtn.className = 'gv-info';
+      infoBtn.setAttribute('aria-label', `Información sobre ${info.label}`);
+      infoBtn.innerHTML = `i<span class="gv-info__pop" role="tooltip">
+        <strong>${info.label}</strong>
+        <ul>${info.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+      </span>`;
+      infoBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        document.querySelectorAll('.gv-info.is-open').forEach(el => { if (el !== infoBtn) el.classList.remove('is-open'); });
+        infoBtn.classList.toggle('is-open');
+        document.body.classList.toggle('gv-info-open', !!document.querySelector('.gv-info.is-open'));
+      });
+
+      const cta = document.createElement('a');
+      cta.className = 'gv-visit__cta';
+      cta.href = `${info.url}&fecha=${ymd(date)}&hora=${encodeURIComponent(v.time)}`;
+      cta.textContent = 'Reservar →';
+
+      actions.appendChild(infoBtn);
+      actions.appendChild(cta);
+
+      row.appendChild(time);
+      row.appendChild(main);
+      row.appendChild(actions);
+      return row;
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.gv-info__pop') && !e.target.closest('.gv-info')) {
+        document.querySelectorAll('.gv-info.is-open').forEach(el => el.classList.remove('is-open'));
+      }
+      if (document.body.classList.contains('gv-day-open')
+          && !e.target.closest('.gv-day-panel')
+          && !e.target.closest('.gv-cal__day')) {
+        closePanel();
+      }
+    });
+
+    document.getElementById('gv-panel-close').addEventListener('click', closePanel);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('gv-day-open')) closePanel();
+    });
+
+    btnPrev.addEventListener('click', () => {
+      if (btnPrev.disabled) return;
+      current = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+      render();
+    });
+    btnNext.addEventListener('click', () => {
+      current = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+      render();
+    });
+
+    render();
+    if (!window.matchMedia('(max-width: 540px)').matches) selectDay(today);
+  })();
+
+  /* ── Comparadores (modal mobile · varios) ───────────────── */
+  (function () {
+    const triggers = document.querySelectorAll('.cmp-trigger');
+    if (!triggers.length) return;
+    let activeContent = null, activeOrigParent = null, activeOrigNext = null;
+
+    function close() {
+      document.body.classList.remove('cmp-open');
+      if (activeContent && activeOrigParent && activeContent.parentElement === document.body) {
+        activeOrigParent.insertBefore(activeContent, activeOrigNext || null);
+      }
+      activeContent = activeOrigParent = activeOrigNext = null;
+    }
+
+    triggers.forEach(trigger => {
+      const id = trigger.getAttribute('aria-controls');
+      const content = document.getElementById(id);
+      if (!content) return;
+      trigger.addEventListener('click', () => {
+        if (activeContent) close();
+        activeContent = content;
+        activeOrigParent = content.parentElement;
+        activeOrigNext = content.nextElementSibling;
+        document.body.appendChild(content);
+        document.body.classList.add('cmp-open');
+      });
+      const closeBtn = content.querySelector('.cmp-close');
+      if (closeBtn) closeBtn.addEventListener('click', close);
+    });
+
+    document.addEventListener('click', e => {
+      if (!document.body.classList.contains('cmp-open')) return;
+      if (e.target.closest('.cmp-content') || e.target.closest('.cmp-trigger')) return;
+      close();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('cmp-open')) close();
+    });
+  })();
+  </script>
 
   <div class="section-sep"></div>
 
@@ -3081,18 +4080,6 @@
   ════════════════════════════════════════════════════════ -->
   <!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
   <footer class="site-footer">
-    <div class="footer-cta reveal">
-      <div>
-        <p class="footer-cta__eyebrow" data-i18n="newsletter_eyebrow">Newsletter semanal</p>
-        <h3 class="footer-cta__title" data-i18n="newsletter_title">El Camino en tu <em>bandeja de entrada</em></h3>
-        <p class="footer-cta__sub" data-i18n="newsletter_sub">Noticias, exposiciones, eventos y ofertas exclusivas cada
-          semana.</p>
-      </div>
-      <form class="newsletter-form">
-        <input class="newsletter-input" type="email" id="newsletter-email" name="email" autocomplete="email" placeholder="tu@correo.com" data-i18n="newsletter_ph" required />
-        <button class="newsletter-submit" type="submit" data-i18n="newsletter_btn">Suscribirme</button>
-      </form>
-    </div>
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
@@ -3555,7 +4542,7 @@
       const priceEl   = document.getElementById('ind-detail-price');
       const descEl    = document.getElementById('ind-detail-desc');
       const specsEl   = document.getElementById('ind-specs');
-      const dots      = document.querySelectorAll('.ind-dot');
+      const dots      = document.querySelectorAll('#ind-dots .ind-dot');
 
       function updateDetail(v) {
         if (v.badge) {
@@ -3616,35 +4603,133 @@
       render(0, false);
     })();
 
-    /* ── TOUR CARDS MOBILE SLIDER ── */
+    /* ── GUIADAS SLIDER ── */
     (function () {
-      const cards   = Array.from(document.querySelectorAll('.tour-slider-mob .tour-card'));
-      const prevBtn = document.getElementById('tour-prev');
-      const nextBtn = document.getElementById('tour-next');
-      const counter = document.getElementById('tour-counter');
-      if (!cards.length || !prevBtn) return;
-      let current = 0;
-
-      function isMobile() { return window.innerWidth <= 768; }
-
-      function show(idx) {
-        current = (idx + cards.length) % cards.length;
-        cards.forEach((c, i) => c.classList.toggle('tc-active', i === current));
-        counter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(cards.length).padStart(2,'0');
-      }
-
-      function init() {
-        if (isMobile()) {
-          show(current);
-        } else {
-          cards.forEach(c => c.classList.remove('tc-active'));
+      const visits = [
+        {
+          name: 'Diurna',
+          title: 'Visita guiada <em>diurna</em>',
+          tag: 'Visita guiada · Diurna',
+          price: '14',
+          img: 'assets/img/diurna.webp',
+          badge: null,
+          url: 'reservas.html?tipo=individual&modo=con-guia&entrada=diurna',
+          desc: 'Recorre la Catedral con un guía experto y descubre el retablo mayor, el sepulcro del Santo y el famoso gallinero vivo, único en el mundo.',
+          specs: [
+            { label: 'Duración', val: '90 min' },
+            { label: 'Idiomas', val: 'ES · EN · FR · DE' },
+            { label: 'Horario', val: 'Lun–Dom 11:00 · 13:00 · 17:00' },
+            { label: 'Grupo máx.', val: '15 personas' }
+          ]
+        },
+        {
+          name: 'Nocturna',
+          title: 'Visita guiada <em>nocturna</em>',
+          tag: 'Visita guiada · Nocturna',
+          price: '15',
+          img: 'assets/img/nocturna.webp',
+          badge: 'Nocturna',
+          url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna',
+          desc: 'La Catedral cobra vida a la luz de las velas. Leyendas, misterios y ocho siglos de historia en una experiencia sensorial única e irrepetible.',
+          specs: [
+            { label: 'Duración', val: '120 min' },
+            { label: 'Idiomas', val: 'ES · EN' },
+            { label: 'Horario', val: 'Vie y Sáb · 20:45 h' },
+            { label: 'Grupo máx.', val: '12 personas' }
+          ]
+        },
+        {
+          name: 'VIP',
+          title: 'Visita <em>VIP</em> exclusiva',
+          tag: 'Visita guiada · VIP',
+          price: '15',
+          img: 'assets/img/retablo.webp',
+          badge: 'VIP',
+          url: 'reservas.html?tipo=individual&modo=con-guia&entrada=vip',
+          desc: 'Acceso al triforio, al tesoro catedralicio y al archivo histórico. Atención personalizada, sin grupos, con el nivel de detalle que merece cada rincón.',
+          specs: [
+            { label: 'Duración', val: '2 – 3 horas' },
+            { label: 'Idiomas', val: 'ES · EN · FR · DE' },
+            { label: 'Horario', val: 'A convenir' },
+            { label: 'Grupo máx.', val: '8 personas' }
+          ]
         }
+      ];
+
+      const imgEl = document.getElementById('gui-img');
+      if (!imgEl) return;
+      const nameEl = document.getElementById('gui-name');
+      const amountEl = document.getElementById('gui-amount');
+      const counterEl = document.getElementById('gui-counter');
+      const detailEl = document.getElementById('gui-detail');
+      const badgeEl = document.getElementById('gui-badge');
+      const badgeImgEl = document.getElementById('gui-badge-img');
+      const tagEl = document.getElementById('gui-detail-tag');
+      const titleEl = document.getElementById('gui-detail-title');
+      const priceEl = document.getElementById('gui-detail-price');
+      const descEl = document.getElementById('gui-detail-desc');
+      const specsEl = document.getElementById('gui-specs');
+      const ctaEl = document.getElementById('gui-cta');
+      const dots = document.querySelectorAll('#gui-dots .ind-dot');
+
+      let current = 0;
+      let animating = false;
+
+      function updateDetail(v) {
+        if (v.badge) {
+          badgeEl.textContent = v.badge; badgeEl.style.display = '';
+          badgeImgEl.textContent = v.badge; badgeImgEl.style.display = '';
+        } else {
+          badgeEl.style.display = 'none';
+          badgeImgEl.style.display = 'none';
+        }
+        tagEl.textContent = v.tag;
+        titleEl.innerHTML = v.title;
+        priceEl.textContent = v.price;
+        descEl.textContent = v.desc;
+        specsEl.innerHTML = v.specs.map(s =>
+          `<div><div class="ind-spec__label">${s.label}</div><div class="ind-spec__val">${s.val}</div></div>`
+        ).join('');
+        ctaEl.href = v.url;
       }
 
-      prevBtn.addEventListener('click', () => { if (isMobile()) show(current - 1); });
-      nextBtn.addEventListener('click', () => { if (isMobile()) show(current + 1); });
-      window.addEventListener('resize', init);
-      init();
+      function render(idx, animate) {
+        if (animating) return;
+        const v = visits[idx];
+        current = idx;
+        nameEl.textContent = v.name;
+        amountEl.textContent = v.price;
+        counterEl.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(visits.length).padStart(2, '0')}`;
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+
+        if (!animate) {
+          imgEl.style.backgroundImage = `url('${v.img}')`;
+          updateDetail(v);
+          return;
+        }
+        animating = true;
+        detailEl.classList.add('is-fading');
+        imgEl.classList.add('is-leaving');
+        setTimeout(() => {
+          imgEl.style.backgroundImage = `url('${v.img}')`;
+          imgEl.classList.remove('is-leaving');
+          updateDetail(v);
+          detailEl.classList.remove('is-fading');
+          animating = false;
+        }, 320);
+      }
+
+      document.getElementById('gui-prev').addEventListener('click', () => {
+        render((current - 1 + visits.length) % visits.length, true);
+      });
+      document.getElementById('gui-next').addEventListener('click', () => {
+        render((current + 1) % visits.length, true);
+      });
+      dots.forEach((d, i) => d.addEventListener('click', () => {
+        if (i !== current) render(i, true);
+      }));
+
+      render(0, false);
     })();
   </script>
 

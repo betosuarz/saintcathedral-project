@@ -687,6 +687,118 @@
       color: rgba(253,250,244,.85)
     }
 
+    /* ── GALLERY LIGHTBOX ─────────────────────────────────── */
+    .gal-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.96);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .gal-lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .gal-lightbox__img-wrap {
+      position: relative;
+      max-width: 92vw;
+      max-height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gal-lightbox__img {
+      max-width: 92vw;
+      max-height: 82vh;
+      object-fit: contain;
+      display: block;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+      transition: opacity .25s ease;
+    }
+    .gal-lightbox__caption {
+      position: fixed;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 90vw;
+      padding: 10px 22px;
+      font-family: var(--serif);
+      font-size: .95rem;
+      letter-spacing: .04em;
+      color: #fff;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(201,168,76,.25);
+      text-align: center;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .gal-lightbox__close,
+    .gal-lightbox__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.22);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+      z-index: 2;
+    }
+    .gal-lightbox__nav:hover,
+    .gal-lightbox__close:hover {
+      background: rgba(201,168,76,.18);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .gal-lightbox__nav--prev { left: 28px }
+    .gal-lightbox__nav--next { right: 28px }
+    .gal-lightbox__close {
+      top: 24px;
+      right: 24px;
+      transform: none;
+      width: 44px;
+      height: 44px;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    .gal-lightbox__counter {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      font-family: var(--serif);
+      font-size: .85rem;
+      letter-spacing: .12em;
+      color: rgba(255,255,255,.55);
+      pointer-events: none;
+    }
+    @media (max-width: 640px) {
+      .gal-lightbox__img-wrap { max-width: 100vw; max-height: 70vh }
+      .gal-lightbox__img { max-width: 92vw; max-height: 70vh }
+      .gal-lightbox__nav { width: 42px; height: 42px }
+      .gal-lightbox__nav--prev { left: 12px }
+      .gal-lightbox__nav--next { right: 12px }
+      .gal-lightbox__close { top: 18px; right: 18px; width: 40px; height: 40px }
+      .gal-lightbox__counter { top: 22px; left: 18px; font-size: .75rem }
+      .gal-lightbox__caption {
+        bottom: 100px;
+        padding: 8px 16px;
+        font-size: .8rem;
+        max-width: 86vw;
+      }
+    }
+
     /* ── PRENSA ────────────────────────────────────────────── */
     .prensa-list {
       display: flex;
@@ -815,6 +927,239 @@
 
     .prensa-card:hover .prensa-card__cta { gap: 10px }
 
+    /* ── NEWS POPUP ────────────────────────────────────────── */
+    .news-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.82);
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px)
+    }
+
+    .news-popup-overlay.open { opacity: 1; pointer-events: all }
+
+    .news-popup {
+      position: relative;
+      background: rgba(14,12,10,.96);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 4px;
+      max-width: 640px;
+      width: 100%;
+      padding: 52px 48px 44px;
+      transform: translateY(20px) scale(.98);
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+      max-height: 90vh;
+      overflow-y: auto
+    }
+
+    .news-popup-overlay.open .news-popup { transform: translateY(0) scale(1) }
+
+    .news-popup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 48px;
+      right: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent)
+    }
+
+    .news-popup__close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.55);
+      font-size: 1.7rem;
+      line-height: 1;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color .2s;
+      font-family: var(--sans)
+    }
+
+    .news-popup__close:hover { color: var(--white) }
+
+    .news-popup__meta {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .news-popup__cat {
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .news-popup__cat::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .news-popup__date {
+      font-size: .68rem;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.5);
+      font-family: var(--sans)
+    }
+
+    .news-popup__title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.18;
+      margin-bottom: 22px
+    }
+
+    .news-popup__divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201,168,76,.3), transparent);
+      margin-bottom: 22px
+    }
+
+    .news-popup__body p {
+      font-size: .9rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,.74);
+      margin-bottom: 14px
+    }
+
+    .news-popup__body p:last-child { margin-bottom: 0 }
+    .news-popup__body strong { color: var(--gold); font-weight: 500 }
+
+    .news-popup__body h4 {
+      font-size: .95rem;
+      font-weight: 400;
+      letter-spacing: .02em;
+      color: var(--gold-lt);
+      margin: 24px 0 10px;
+      font-family: var(--serif);
+    }
+
+    .news-popup__body ul {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      list-style: disc;
+    }
+
+    .news-popup__body li {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.74);
+      margin-bottom: 6px;
+    }
+
+    .news-popup__body li::marker { color: rgba(201,168,76,.6) }
+
+    .news-popup__quote {
+      margin: 22px 0 0;
+      padding: 16px 20px;
+      background: rgba(201,168,76,.10);
+      border-left: 2px solid var(--gold);
+      border-radius: 0 2px 2px 0;
+      font-style: italic;
+      font-size: .85rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,.7)
+    }
+
+    .news-popup__source {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 22px;
+      font-family: var(--sans);
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1px solid rgba(201,168,76,.4);
+      padding: 12px 22px;
+      transition: background .2s, color .2s
+    }
+
+    .news-popup__source:hover {
+      background: var(--gold);
+      color: var(--carbon)
+    }
+
+    body.light-mode .news-popup-overlay {
+      background: rgba(20,18,16,.55)
+    }
+
+    body.light-mode .news-popup {
+      background: #FDFAF4;
+      border-color: rgba(168,133,46,.3)
+    }
+
+    body.light-mode .news-popup__close { color: rgba(20,18,16,.45) }
+    body.light-mode .news-popup__close:hover { color: var(--carbon) }
+    body.light-mode .news-popup__title { color: var(--carbon) }
+    body.light-mode .news-popup__cat { color: var(--gold-dk) }
+    body.light-mode .news-popup__cat::before { background: var(--gold-dk) }
+    body.light-mode .news-popup__date { color: rgba(20,18,16,.55) }
+    body.light-mode .news-popup__body p { color: rgba(20,18,16,.78) }
+    body.light-mode .news-popup__body strong { color: var(--gold-dk) }
+    body.light-mode .news-popup__body h4 { color: var(--gold-dk) }
+    body.light-mode .news-popup__body li { color: rgba(20,18,16,.78) }
+    body.light-mode .news-popup__body li::marker { color: var(--gold-dk) }
+    body.light-mode .news-popup__divider {
+      background: linear-gradient(90deg, rgba(168,133,46,.4), transparent)
+    }
+    body.light-mode .news-popup__quote {
+      background: rgba(201,168,76,.10);
+      color: rgba(20,18,16,.75);
+      border-left-color: var(--gold-dk)
+    }
+    body.light-mode .news-popup__source {
+      color: var(--gold-dk);
+      border-color: rgba(168,133,46,.5)
+    }
+    body.light-mode .news-popup__source:hover {
+      background: var(--gold-dk);
+      color: var(--white)
+    }
+
+    @media (max-width: 900px) {
+      .news-popup { max-width: 85vw }
+    }
+
+    @media (max-width: 640px) {
+      .news-popup-overlay { padding: 20px }
+      .news-popup {
+        max-width: 100%;
+        padding: 44px 24px 28px;
+        max-height: 85vh
+      }
+      .news-popup::before { left: 24px; right: 24px }
+
+      .event-tabs { margin-bottom: 0 !important }
+    }
+
     /* ── LIGHT MODE ────────────────────────────────────────── */
     body.light-mode { background: var(--cream) }
 
@@ -896,6 +1241,34 @@
     body.light-mode .event-item:hover .event-cta { color: var(--gold-dk) }
     body.light-mode .event-item:hover .event-info__title { color: var(--gold-dk) }
     body.light-mode .event-badge { border-color: rgba(168,133,46,.3); color: var(--gold-dk) }
+
+    /* Event-style cards inside light sections must use dark text in dark mode too */
+    .act-section--white .event-item,
+    .act-section--cream .event-item { border-color: rgba(20,18,16,.1) }
+    .act-section--white .event-info__title,
+    .act-section--cream .event-info__title { color: var(--carbon) }
+    .act-section--white .event-info__cat,
+    .act-section--cream .event-info__cat { color: var(--gold-dk) }
+    .act-section--white .event-info__meta,
+    .act-section--cream .event-info__meta { color: rgba(20,18,16,.55) }
+    .act-section--white .event-date__day,
+    .act-section--cream .event-date__day { color: var(--gold-dk) }
+    .act-section--white .event-date__month,
+    .act-section--cream .event-date__month { color: rgba(20,18,16,.55) }
+    .act-section--white .event-cta,
+    .act-section--cream .event-cta { color: rgba(20,18,16,.3) }
+    .act-section--white .event-item:hover .event-cta,
+    .act-section--cream .event-item:hover .event-cta { color: var(--gold-dk) }
+    .act-section--white .event-item:hover .event-info__title,
+    .act-section--cream .event-item:hover .event-info__title { color: var(--gold-dk) }
+    .act-section--white .event-badge,
+    .act-section--cream .event-badge { border-color: rgba(168,133,46,.3); color: var(--gold-dk) }
+    .act-section--white .event-tabs,
+    .act-section--cream .event-tabs { border-bottom-color: rgba(20,18,16,.1) }
+    .act-section--white .event-tab,
+    .act-section--cream .event-tab { color: rgba(20,18,16,.45) }
+    .act-section--white .event-tab.active,
+    .act-section--cream .event-tab.active { color: var(--gold-dk) }
 
     body.light-mode .prensa-list { border-top-color: rgba(20,18,16,.1) }
     body.light-mode .prensa-row { border-bottom-color: rgba(20,18,16,.1) }
@@ -1221,7 +1594,6 @@
         <a href="#noticias" class="hero-nav__link" data-i18n-page="hero_nav_news">Noticias</a>
         <a href="#agenda" class="hero-nav__link" data-i18n-page="hero_nav_events">Agenda</a>
         <a href="#galeria" class="hero-nav__link" data-i18n-page="hero_nav_gallery">Galería</a>
-        <a href="#prensa" class="hero-nav__link" data-i18n-page="hero_nav_press">Prensa</a>
       </nav>
     </div>
   </section>
@@ -1235,100 +1607,224 @@
       <p class="act-eyebrow reveal" data-i18n-page="news_eyebrow">Comunicados y novedades</p>
       <h2 class="act-title reveal" data-i18n-page="news_title">Noticias de <em>la Catedral</em></h2>
 
-      <!-- Filter bar -->
-      <div class="filter-bar">
-        <!-- Mobile: dropdown -->
-        <div class="filter-dropdown" id="news-filter-dropdown">
-          <button class="filter-dropdown__btn" type="button" id="news-filter-btn"
-            aria-haspopup="listbox" aria-expanded="false" aria-controls="news-filter-menu">
-            <span class="filter-dropdown__btn-text">
-              <span class="filter-dropdown__eyebrow" data-i18n-page="filter_label">Filtrar por</span>
-              <span class="filter-dropdown__current" id="news-filter-current" data-i18n-page="filter_all">Todo</span>
-            </span>
-            <svg class="filter-dropdown__chevron" width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
-              <path d="M1 1L7 7L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <ul class="filter-dropdown__menu" id="news-filter-menu" role="listbox" aria-label="Filtrar noticias">
-            <li><button class="filter-dropdown__option active" type="button" data-filter="all" role="option" aria-selected="true" data-i18n-page="filter_all">Todo</button></li>
-            <li><button class="filter-dropdown__option" type="button" data-filter="comunicado" role="option" aria-selected="false" data-i18n-page="filter_comm">Comunicados</button></li>
-            <li><button class="filter-dropdown__option" type="button" data-filter="novedad" role="option" aria-selected="false" data-i18n-page="filter_new">Novedades</button></li>
-            <li><button class="filter-dropdown__option" type="button" data-filter="prensa" role="option" aria-selected="false" data-i18n-page="filter_press">Prensa</button></li>
-          </ul>
-        </div>
-        <!-- Desktop: tabs -->
-        <div class="filter-tabs" role="tablist" aria-label="Filtrar noticias">
-          <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true" data-i18n-page="filter_all">Todo</button>
-          <button class="filter-tab" data-filter="comunicado" role="tab" aria-selected="false" data-i18n-page="filter_comm">Comunicados</button>
-          <button class="filter-tab" data-filter="novedad" role="tab" aria-selected="false" data-i18n-page="filter_new">Novedades</button>
-          <button class="filter-tab" data-filter="prensa" role="tab" aria-selected="false" data-i18n-page="filter_press">Prensa</button>
-        </div>
+      <!-- Próximas / Pasadas tabs (reuse .event-tabs) -->
+      <div class="event-tabs" role="tablist" style="margin-bottom:28px;">
+        <button class="event-tab active" role="tab" aria-selected="true" data-i18n-page="news_tab_recent">Próximas</button>
+        <button class="event-tab" role="tab" aria-selected="false" data-i18n-page="news_tab_older">Pasadas</button>
       </div>
 
-      <!-- Featured article -->
-      <a href="#" class="news-featured reveal" data-category="novedad">
-        <div class="news-featured__bg" style="background-image:url('assets/img/nocturna.webp'); background-position:center 40%"></div>
-        <div class="news-featured__body">
-          <div>
-            <div class="news-featured__meta">
-              <span class="news-featured__cat" data-i18n-page="cat_novedad">Novedad</span>
-              <span class="news-featured__date">28 abril 2026</span>
-            </div>
-            <h3 class="news-featured__title">La Catedral abre sus puertas de noche por <em>primera vez</em> en su historia</h3>
+      <!-- Próximas (2026) -->
+      <div class="events-list reveal" id="news-recent">
+
+        <a href="#" class="event-item" data-category="noticia" data-news-id="news-doncellas">
+          <div class="event-date">
+            <div class="event-date__day">25</div>
+            <div class="event-date__month">ABR</div>
           </div>
-          <span class="news-featured__cta"><span data-i18n-page="read_more">Leer más</span> →</span>
-        </div>
-      </a>
-
-      <!-- News list -->
-      <div class="news-list reveal" id="news-grid">
-
-        <a href="#" class="news-row" data-category="comunicado">
-          <span class="news-row__cat" data-i18n-page="cat_comunicado">Comunicado</span>
-          <h3 class="news-row__title">Exposición "Ocho Siglos de Arte" abre sus puertas en la nave central</h3>
-          <span class="news-row__date">15 abril 2026</span>
-          <span class="news-row__arrow" aria-hidden="true">→</span>
+          <div class="event-info">
+            <p class="event-info__cat">Noticia</p>
+            <h3 class="event-info__title">Santo Domingo señala las Doncellas para las Fiestas del Santo</h3>
+            <div class="event-info__meta">
+              <span>25 abr 2026</span>
+              <span>La Rioja</span>
+              <span class="event-badge">Cofradía</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
-        <a href="#" class="news-row" data-category="novedad">
-          <span class="news-row__cat" data-i18n-page="cat_novedad">Novedad</span>
-          <h3 class="news-row__title">Nueva visita guiada al interior de la Torre Exenta con audioguía multilingüe</h3>
-          <span class="news-row__date">28 marzo 2026</span>
-          <span class="news-row__arrow" aria-hidden="true">→</span>
+        <a href="#" class="event-item" data-category="noticia" data-news-id="news-programa-cofradia">
+          <div class="event-date">
+            <div class="event-date__day">22</div>
+            <div class="event-date__month">ABR</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Noticia</p>
+            <h3 class="event-info__title">La Cofradía del Santo presenta su programa de Fiestas</h3>
+            <div class="event-info__meta">
+              <span>22 abr 2026</span>
+              <span>La Rioja</span>
+              <span class="event-badge">Cofradía</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
-        <a href="#" class="news-row" data-category="prensa">
-          <span class="news-row__cat" data-i18n-page="cat_prensa">Prensa</span>
-          <h3 class="news-row__title">National Geographic incluye el Monasterio de Cañas entre los 50 tesoros medievales de Europa</h3>
-          <span class="news-row__date">10 marzo 2026</span>
-          <span class="news-row__arrow" aria-hidden="true">→</span>
+        <a href="#" class="event-item" data-category="cultura" data-news-id="news-poemario-hilos">
+          <div class="event-date">
+            <div class="event-date__day">01</div>
+            <div class="event-date__month">ABR</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Cultura</p>
+            <h3 class="event-info__title">Presentación del poemario "Los hilos de la noche", de Gonzalo San Ildefonso</h3>
+            <div class="event-info__meta">
+              <span>1 abr 2026</span>
+              <span>Radio Haro</span>
+              <span class="event-badge">Literatura</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
-        <a href="#" class="news-row" data-category="comunicado">
-          <span class="news-row__cat" data-i18n-page="cat_comunicado">Comunicado</span>
-          <h3 class="news-row__title">El Convento de San Francisco abre su claustro a visitas guiadas por primera vez</h3>
-          <span class="news-row__date">18 febrero 2026</span>
-          <span class="news-row__arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="#" class="news-row" data-category="novedad">
-          <span class="news-row__cat" data-i18n-page="cat_novedad">Novedad</span>
-          <h3 class="news-row__title">Restaurada la fachada románica de la Ermita de la Virgen de la Plaza</h3>
-          <span class="news-row__date">5 enero 2026</span>
-          <span class="news-row__arrow" aria-hidden="true">→</span>
-        </a>
-
-        <a href="#" class="news-row" data-category="comunicado">
-          <span class="news-row__cat" data-i18n-page="cat_comunicado">Comunicado</span>
-          <h3 class="news-row__title">La Catedral recibe el Premio Patrimonio Cultural de La Rioja 2025</h3>
-          <span class="news-row__date">12 diciembre 2025</span>
-          <span class="news-row__arrow" aria-hidden="true">→</span>
+        <a href="#" class="event-item" data-category="noticia" data-news-id="news-restauracion-absides">
+          <div class="event-date">
+            <div class="event-date__day">02</div>
+            <div class="event-date__month">FEB</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Noticia</p>
+            <h3 class="event-info__title">La Catedral restaura sus ábsides "losa a losa"</h3>
+            <div class="event-info__meta">
+              <span>2 feb 2026</span>
+              <span>La Rioja</span>
+              <span class="event-badge">Patrimonio</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
       </div>
 
-      <div class="load-more-wrap reveal">
-        <button class="load-more" data-i18n-page="load_more">Cargar más noticias</button>
+      <!-- Pasadas (2025 + evergreen) -->
+      <div class="events-list reveal" id="news-older" style="display:none">
+
+        <a href="#" class="event-item" data-category="noticia" data-news-id="news-capital-belenismo">
+          <div class="event-date">
+            <div class="event-date__day">05</div>
+            <div class="event-date__month">DIC</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Noticia</p>
+            <h3 class="event-info__title">Santo Domingo se transforma en capital del belenismo</h3>
+            <div class="event-info__meta">
+              <span>5 dic 2025</span>
+              <span>COPE La Rioja</span>
+              <span class="event-badge">Belenes</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="exposicion" data-news-id="news-exin-castillos">
+          <div class="event-date">
+            <div class="event-date__day">02</div>
+            <div class="event-date__month">DIC</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Exposición</p>
+            <h3 class="event-info__title">Exposición de castillos hechos con piezas Exin</h3>
+            <div class="event-info__meta">
+              <span>2 dic 2025</span>
+              <span>nuevecuatrouno</span>
+              <span class="event-badge">Cultura</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="noticia" data-news-id="news-belenes-canas-mateo">
+          <div class="event-date">
+            <div class="event-date__day">★</div>
+            <div class="event-date__month">DIC</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Noticia</p>
+            <h3 class="event-info__title">Ruta de belenes Santo Domingo y Cañas</h3>
+            <div class="event-info__meta">
+              <span>Diciembre 2025</span>
+              <span>El Balcón de Mateo</span>
+              <span class="event-badge">Belenes</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="noticia" data-news-id="news-inaugura-ruta-belenes">
+          <div class="event-date">
+            <div class="event-date__day">★</div>
+            <div class="event-date__month">DIC</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Noticia</p>
+            <h3 class="event-info__title">La Rioja inaugura la ruta de belenes con Santo Domingo y Cañas</h3>
+            <div class="event-info__meta">
+              <span>Diciembre 2025</span>
+              <span>Actualidad Rioja Baja</span>
+              <span class="event-badge">Belenes</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="investigacion" data-news-id="news-excavaciones-restos">
+          <div class="event-date">
+            <div class="event-date__day">11</div>
+            <div class="event-date__month">NOV</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Investigación</p>
+            <h3 class="event-info__title">Excavaciones en la Catedral dejan al descubierto restos humanos</h3>
+            <div class="event-info__meta">
+              <span>11 nov 2025</span>
+              <span>La Rioja</span>
+              <span class="event-badge">Arqueología</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="concierto" data-news-id="news-tenor-jorge-elias">
+          <div class="event-date">
+            <div class="event-date__day">11</div>
+            <div class="event-date__month">AGO</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Concierto</p>
+            <h3 class="event-info__title">Concierto del tenor Jorge Elías en Cañas y la Catedral</h3>
+            <div class="event-info__meta">
+              <span>11 ago 2025</span>
+              <span>nuevecuatrouno</span>
+              <span class="event-badge">Música</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="novedad" data-news-id="news-triforio-visitas">
+          <div class="event-date">
+            <div class="event-date__day">26</div>
+            <div class="event-date__month">MAY</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Novedad</p>
+            <h3 class="event-info__title">Visitas al triforio de la Catedral</h3>
+            <div class="event-info__meta">
+              <span>26 may 2025</span>
+              <span>nuevecuatrouno</span>
+              <span class="event-badge">Patrimonio</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-category="prensa" data-news-id="news-gallinero-medieval">
+          <div class="event-date">
+            <div class="event-date__day">★</div>
+            <div class="event-date__month">—</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Prensa</p>
+            <h3 class="event-info__title">El insólito gallinero medieval oculto en la Catedral</h3>
+            <div class="event-info__meta">
+              <span>Reportaje</span>
+              <span>20minutos</span>
+              <span class="event-badge">Curiosidades</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
       </div>
 
     </div>
@@ -1351,74 +1847,159 @@
         </div>
       </div>
 
-      <div class="events-list reveal">
+      <div class="events-list reveal" id="events-upcoming">
 
-        <a href="#" class="event-item">
+        <a href="#" class="event-item" data-news-id="ev-nocturna-circuito">
           <div class="event-date">
-            <div class="event-date__day">15</div>
-            <div class="event-date__month">MAY</div>
-          </div>
-          <div class="event-info">
-            <p class="event-info__cat" data-i18n-page="event_cat_concert">Concierto</p>
-            <h3 class="event-info__title">Barroco en el Camino — Concierto de Órgano</h3>
-            <div class="event-info__meta">
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>19:30 h</span>
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nave Central de la Catedral</span>
-              <span class="event-badge" data-i18n-page="event_free">Entrada libre</span>
-            </div>
-          </div>
-          <span class="event-cta"><span data-i18n-page="event_add_cal">Añadir al calendario</span> →</span>
-        </a>
-
-        <a href="#" class="event-item">
-          <div class="event-date">
-            <div class="event-date__day">20</div>
-            <div class="event-date__month">MAY</div>
+            <div class="event-date__day">★</div>
+            <div class="event-date__month">VIE–SÁB</div>
           </div>
           <div class="event-info">
             <p class="event-info__cat" data-i18n-page="event_cat_visit">Visita especial</p>
-            <h3 class="event-info__title">La Catedral bajo las Estrellas — Visita Nocturna</h3>
+            <h3 class="event-info__title">La Catedral bajo las Estrellas · Visita Nocturna</h3>
             <div class="event-info__meta">
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>22:00 h</span>
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Catedral y Torre Exenta</span>
-              <span class="event-badge" data-i18n-page="event_tickets">Con entrada</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Mayo – octubre · Vie y sáb · 20:45 h</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Catedral de El Salvador</span>
+              <span class="event-badge">15 € · 60 min</span>
             </div>
           </div>
-          <span class="event-cta"><span data-i18n-page="event_register">Inscribirse</span> →</span>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
-        <a href="#" class="event-item">
+        <a href="#" class="event-item" data-news-id="ev-rtve">
           <div class="event-date">
-            <div class="event-date__day">01</div>
+            <div class="event-date__day">26</div>
             <div class="event-date__month">JUN</div>
           </div>
           <div class="event-info">
-            <p class="event-info__cat" data-i18n-page="event_cat_expo">Exposición</p>
-            <h3 class="event-info__title">Ocho Siglos de Arte — Exposición permanente temporal</h3>
+            <p class="event-info__cat">Concierto · Orquesta y Coro RTVE</p>
+            <h3 class="event-info__title">De la Tierra al Cielo · Vivaldi por la Orquesta y Coro RTVE</h3>
             <div class="event-info__meta">
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>1 jun – 31 ago 2026</span>
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nave central y capillas</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Vie 26 jun 2026 · 20:00 h</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Iglesia de San Francisco</span>
+              <span class="event-badge">20 €</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-news-id="ev-rtve-bach">
+          <div class="event-date">
+            <div class="event-date__day">28</div>
+            <div class="event-date__month">JUN</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Concierto · Cámara RTVE</p>
+            <h3 class="event-info__title">Una tarde de Domingo en Leipzig · J. S. Bach por "Selected Bach"</h3>
+            <div class="event-info__meta">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Dom 28 jun 2026 · 21:00 h</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Catedral</span>
+              <span class="event-badge">5 €</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-news-id="ev-vip-secretos">
+          <div class="event-date">
+            <div class="event-date__day">★</div>
+            <div class="event-date__month">JUN</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_visit">Visita especial</p>
+            <h3 class="event-info__title">Visita VIP · Los Secretos de la Catedral</h3>
+            <div class="event-info__meta">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Junio · Consultar disponibilidad</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Triforio, sacristía y defensas medievales</span>
+              <span class="event-badge">15 € · 90 min</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-news-id="ev-belenes-2026">
+          <div class="event-date">
+            <div class="event-date__day">5</div>
+            <div class="event-date__month">DIC</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_expo">Exposición</p>
+            <h3 class="event-info__title">Exposición de belenes · Campaña navideña 2026</h3>
+            <div class="event-info__meta">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Dic 2026 – Ene 2027</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Catedral, Convento y Monasterio de Cañas</span>
               <span class="event-badge" data-i18n-page="event_tickets">Con entrada</span>
             </div>
           </div>
           <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
-        <a href="#" class="event-item">
+      </div>
+
+      <div class="events-list reveal" id="events-past" style="display:none">
+
+        <a href="#" class="event-item" data-news-id="pe-pregon-santo">
           <div class="event-date">
-            <div class="event-date__day">05</div>
-            <div class="event-date__month">JUN</div>
+            <div class="event-date__day">10–15</div>
+            <div class="event-date__month">MAY</div>
           </div>
           <div class="event-info">
-            <p class="event-info__cat" data-i18n-page="event_cat_conf">Conferencia</p>
-            <h3 class="event-info__title">El Camino de Santiago Medieval: rutas, peregrinos y milagros</h3>
+            <p class="event-info__cat" data-i18n-page="event_cat_conf">Fiestas patronales</p>
+            <h3 class="event-info__title">Fiestas del Santo 2026</h3>
             <div class="event-info__meta">
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>18:30 h</span>
-              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Sala Capitular</span>
-              <span class="event-badge" data-i18n-page="event_free">Entrada libre</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>10 – 15 may 2026</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Santo Domingo de la Calzada</span>
             </div>
           </div>
-          <span class="event-cta"><span data-i18n-page="event_add_cal">Añadir al calendario</span> →</span>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-news-id="pe-semana-santa-2026">
+          <div class="event-date">
+            <div class="event-date__day">SS</div>
+            <div class="event-date__month">29 MAR – 5 ABR</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_conf">Liturgia</p>
+            <h3 class="event-info__title">Semana Santa 2026</h3>
+            <div class="event-info__meta">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>29 mar – 5 abr 2026</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Catedral · San Francisco · Ermita de la Plaza</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-news-id="pe-belenes-2025">
+          <div class="event-date">
+            <div class="event-date__day">05</div>
+            <div class="event-date__month">DIC</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat" data-i18n-page="event_cat_expo">Exposición</p>
+            <h3 class="event-info__title">Ciclo navideño de belenes 2025 – 2026</h3>
+            <div class="event-info__meta">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>5 dic 2025 – 5 ene 2026</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Catedral y espacios asociados</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
+        </a>
+
+        <a href="#" class="event-item" data-news-id="pe-pilar">
+          <div class="event-date">
+            <div class="event-date__day">12</div>
+            <div class="event-date__month">OCT</div>
+          </div>
+          <div class="event-info">
+            <p class="event-info__cat">Misa retransmitida · TVE</p>
+            <h3 class="event-info__title">Misa del 12 de octubre · En directo desde el Monasterio de Cañas</h3>
+            <div class="event-info__meta">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>12 oct 2025</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Monasterio de Santa María de Cañas</span>
+            </div>
+          </div>
+          <span class="event-cta"><span data-i18n-page="event_more_info">Más información</span> →</span>
         </a>
 
       </div>
@@ -1440,37 +2021,37 @@
         <button class="filter-tab" data-i18n-page="gal_video">Vídeo</button>
       </div>
 
-      <div class="gallery-grid reveal">
+      <div class="gallery-grid reveal" id="gallery-grid">
 
-        <div class="gallery-item">
+        <div class="gallery-item" data-full-src="assets/img/nocturna.webp" data-caption="Catedral nocturna · Fotografía de autor">
           <div class="gallery-item__img" style="background-image:url('assets/img/nocturna.webp'); background-position:center 30%"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Catedral nocturna · Fotografía de autor</p>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <div class="gallery-item" data-full-src="assets/img/torre.webp" data-caption="Torre Exenta al atardecer">
           <div class="gallery-item__img" style="background-image:url('assets/img/torre.webp'); background-position:center 15%"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Torre Exenta al atardecer</p>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <div class="gallery-item" data-full-src="assets/img/diurna.webp" data-caption="Recorrido virtual por la Catedral">
           <div class="gallery-item__img" style="background-image:url('assets/img/diurna.webp'); background-position:center 50%"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Recorrido virtual por la Catedral</p>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <div class="gallery-item" data-full-src="assets/img/sanfrancisco.webp" data-caption="Claustro del Convento de San Francisco">
           <div class="gallery-item__img" style="background-image:url('assets/img/sanfrancisco.webp')"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Claustro del Convento de San Francisco</p>
           </div>
         </div>
 
-        <div class="gallery-item">
+        <div class="gallery-item" data-full-src="assets/img/ermitaplaza.webp" data-caption="Ermita de la Virgen de la Plaza">
           <div class="gallery-item__img" style="background-image:url('assets/img/ermitaplaza.webp')"></div>
           <div class="gallery-item__overlay">
             <p class="gallery-item__caption-text">Ermita de la Virgen de la Plaza</p>
@@ -1482,49 +2063,42 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
-       APARICIONES EN PRENSA
+       NEWS / EVENT / PRESS POPUP
   ════════════════════════════════════════════════════════ -->
-  <section id="prensa" class="act-section act-section--dark">
-    <div class="act-section__inner">
-
-      <p class="act-eyebrow" data-i18n-page="press_eyebrow">Apariciones en medios</p>
-      <h2 class="act-title reveal" data-i18n-page="press_title">En la <em>prensa</em></h2>
-
-      <div class="prensa-list reveal">
-
-        <a href="#" class="prensa-row">
-          <span class="prensa-row__pub">National Geographic</span>
-          <span class="prensa-row__type" data-i18n-page="press_type_report">Reportaje</span>
-          <p class="prensa-row__title">"Los 50 tesoros medievales de Europa que aún pueden visitarse"</p>
-          <div class="prensa-row__meta">
-            <span class="prensa-row__date">Mar 2026</span>
-            <span class="prensa-row__arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a href="#" class="prensa-row">
-          <span class="prensa-row__pub">El País</span>
-          <span class="prensa-row__type" data-i18n-page="press_type_interview">Entrevista</span>
-          <p class="prensa-row__title">"El gallinero vivo: la tradición que convierte la Catedral en un milagro de piedra y pluma"</p>
-          <div class="prensa-row__meta">
-            <span class="prensa-row__date">Feb 2026</span>
-            <span class="prensa-row__arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
-        <a href="#" class="prensa-row">
-          <span class="prensa-row__pub">La Rioja Hoy</span>
-          <span class="prensa-row__type" data-i18n-page="press_type_mention">Mención</span>
-          <p class="prensa-row__title">"La Catedral de Santo Domingo lidera el turismo cultural de La Rioja con más de 180.000 visitas en 2025"</p>
-          <div class="prensa-row__meta">
-            <span class="prensa-row__date">Ene 2026</span>
-            <span class="prensa-row__arrow" aria-hidden="true">→</span>
-          </div>
-        </a>
-
+  <div class="news-popup-overlay" id="news-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="news-popup-title" aria-hidden="true">
+    <div class="news-popup">
+      <button class="news-popup__close" id="news-popup-close" aria-label="Cerrar">×</button>
+      <div class="news-popup__meta">
+        <span class="news-popup__cat" id="news-popup-cat">Categoría</span>
+        <span class="news-popup__date" id="news-popup-date"></span>
       </div>
+      <h3 class="news-popup__title" id="news-popup-title">Título</h3>
+      <div class="news-popup__divider"></div>
+      <div class="news-popup__body" id="news-popup-body"></div>
+      <blockquote class="news-popup__quote" id="news-popup-quote" style="display:none"></blockquote>
+      <a href="#" class="news-popup__source" id="news-popup-source" style="display:none" target="_blank" rel="noopener">
+        <span>Leer noticia</span> →
+      </a>
     </div>
-  </section>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       GALLERY LIGHTBOX
+  ════════════════════════════════════════════════════════ -->
+  <div class="gal-lightbox" id="gal-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="gal-lightbox__close" id="gal-lightbox-close" aria-label="Cerrar">×</button>
+    <div class="gal-lightbox__counter" id="gal-lightbox-counter">1 / 1</div>
+    <button class="gal-lightbox__nav gal-lightbox__nav--prev" id="gal-lightbox-prev" aria-label="Anterior">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="gal-lightbox__img-wrap">
+      <img class="gal-lightbox__img" id="gal-lightbox-img" alt="" />
+      <div class="gal-lightbox__caption" id="gal-lightbox-caption"></div>
+    </div>
+    <button class="gal-lightbox__nav gal-lightbox__nav--next" id="gal-lightbox-next" aria-label="Siguiente">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
 
   <!-- FOOTER -->
   <!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
@@ -1687,6 +2261,7 @@
         read_more: 'Leer más', load_more: 'Cargar más noticias',
         events_eyebrow: 'Agenda cultural', events_title: 'Próximos <em>eventos</em>',
         tab_upcoming: 'Próximos', tab_past: 'Pasados',
+        news_tab_recent: 'Próximas', news_tab_older: 'Pasadas',
         event_cat_concert: 'Concierto', event_cat_visit: 'Visita especial', event_cat_expo: 'Exposición', event_cat_conf: 'Conferencia',
         event_free: 'Entrada libre', event_tickets: 'Con entrada',
         event_register: 'Inscribirse', event_add_cal: 'Añadir al calendario', event_more_info: 'Más información',
@@ -1708,6 +2283,7 @@
         read_more: 'Read more', load_more: 'Load more news',
         events_eyebrow: 'Cultural calendar', events_title: 'Upcoming <em>events</em>',
         tab_upcoming: 'Upcoming', tab_past: 'Past',
+        news_tab_recent: 'Recent', news_tab_older: 'Older',
         event_cat_concert: 'Concert', event_cat_visit: 'Special visit', event_cat_expo: 'Exhibition', event_cat_conf: 'Conference',
         event_free: 'Free entry', event_tickets: 'Ticketed',
         event_register: 'Register', event_add_cal: 'Add to calendar', event_more_info: 'More info',
@@ -1729,6 +2305,7 @@
         read_more: 'Lire plus', load_more: 'Charger plus',
         events_eyebrow: 'Agenda culturel', events_title: 'Prochains <em>événements</em>',
         tab_upcoming: 'À venir', tab_past: 'Passés',
+        news_tab_recent: 'Récentes', news_tab_older: 'Anciennes',
         event_cat_concert: 'Concert', event_cat_visit: 'Visite spéciale', event_cat_expo: 'Exposition', event_cat_conf: 'Conférence',
         event_free: 'Entrée libre', event_tickets: 'Avec billet',
         event_register: 'S\'inscrire', event_add_cal: 'Ajouter au calendrier', event_more_info: 'Plus d\'infos',
@@ -1750,6 +2327,7 @@
         read_more: 'Mehr lesen', load_more: 'Mehr laden',
         events_eyebrow: 'Kulturkalender', events_title: 'Kommende <em>Veranstaltungen</em>',
         tab_upcoming: 'Kommende', tab_past: 'Vergangene',
+        news_tab_recent: 'Aktuell', news_tab_older: 'Ältere',
         event_cat_concert: 'Konzert', event_cat_visit: 'Sonderführung', event_cat_expo: 'Ausstellung', event_cat_conf: 'Vortrag',
         event_free: 'Freier Eintritt', event_tickets: 'Mit Ticket',
         event_register: 'Anmelden', event_add_cal: 'Zum Kalender', event_more_info: 'Mehr Info',
@@ -1771,6 +2349,7 @@
         read_more: 'Ler mais', load_more: 'Carregar mais',
         events_eyebrow: 'Agenda cultural', events_title: 'Próximos <em>eventos</em>',
         tab_upcoming: 'Próximos', tab_past: 'Passados',
+        news_tab_recent: 'Recentes', news_tab_older: 'Antigas',
         event_cat_concert: 'Concerto', event_cat_visit: 'Visita especial', event_cat_expo: 'Exposição', event_cat_conf: 'Conferência',
         event_free: 'Entrada livre', event_tickets: 'Com ingresso',
         event_register: 'Inscrever-se', event_add_cal: 'Adicionar ao calendário', event_more_info: 'Mais informações',
@@ -1792,6 +2371,7 @@
         read_more: 'Leggi di più', load_more: 'Carica altro',
         events_eyebrow: 'Calendario culturale', events_title: 'Prossimi <em>eventi</em>',
         tab_upcoming: 'In arrivo', tab_past: 'Passati',
+        news_tab_recent: 'Recenti', news_tab_older: 'Passate',
         event_cat_concert: 'Concerto', event_cat_visit: 'Visita speciale', event_cat_expo: 'Mostra', event_cat_conf: 'Conferenza',
         event_free: 'Ingresso libero', event_tickets: 'A pagamento',
         event_register: 'Iscriversi', event_add_cal: 'Aggiungi al calendario', event_more_info: 'Più informazioni',
@@ -1813,6 +2393,7 @@
         read_more: '더 보기', load_more: '더 불러오기',
         events_eyebrow: '문화 일정', events_title: '다가오는 <em>이벤트</em>',
         tab_upcoming: '예정', tab_past: '지난',
+        news_tab_recent: '최신', news_tab_older: '이전',
         event_cat_concert: '콘서트', event_cat_visit: '특별 방문', event_cat_expo: '전시', event_cat_conf: '강연',
         event_free: '무료 입장', event_tickets: '유료',
         event_register: '등록하기', event_add_cal: '캘린더에 추가', event_more_info: '자세히 보기',
@@ -1834,6 +2415,7 @@
         read_more: 'Gehiago irakurri', load_more: 'Gehiago kargatu',
         events_eyebrow: 'Kultura-agenda', events_title: 'Datozen <em>ekitaldiak</em>',
         tab_upcoming: 'Datozenak', tab_past: 'Pasatutakoak',
+        news_tab_recent: 'Berriak', news_tab_older: 'Lehengoak',
         event_cat_concert: 'Kontzertu', event_cat_visit: 'Bisita berezia', event_cat_expo: 'Erakusketa', event_cat_conf: 'Hitzaldia',
         event_free: 'Sarrera doan', event_tickets: 'Sarrerarekin',
         event_register: 'Izena eman', event_add_cal: 'Egutegian gehitu', event_more_info: 'Informazio gehiago',
@@ -1855,6 +2437,7 @@
         read_more: 'Llegir més', load_more: 'Carregar més notícies',
         events_eyebrow: 'Agenda cultural', events_title: 'Propers <em>esdeveniments</em>',
         tab_upcoming: 'Propers', tab_past: 'Passats',
+        news_tab_recent: 'Properes', news_tab_older: 'Passades',
         event_cat_concert: 'Concert', event_cat_visit: 'Visita especial', event_cat_expo: 'Exposició', event_cat_conf: 'Conferència',
         event_free: 'Entrada lliure', event_tickets: 'Amb entrada',
         event_register: 'Inscriure\'s', event_add_cal: 'Afegir al calendari', event_more_info: 'Més informació',
@@ -1947,15 +2530,347 @@
       }
     })();
 
-    /* ── Event tabs ──────────────────────────────────────── */
+    /* ── Event + News tabs (Próximos/Pasados · Próximas/Pasadas) ─ */
     (function() {
-      const tabs = document.querySelectorAll('.event-tabs .event-tab');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-          tab.classList.add('active');
-          tab.setAttribute('aria-selected', 'true');
+      function wireTabs(tabGroup, firstId, secondId) {
+        if (!tabGroup) return;
+        const tabs = tabGroup.querySelectorAll('.event-tab');
+        const first = document.getElementById(firstId);
+        const second = document.getElementById(secondId);
+        tabs.forEach((tab, idx) => {
+          tab.addEventListener('click', () => {
+            tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            const isSecond = idx === 1;
+            if (first) first.style.display = isSecond ? 'none' : '';
+            if (second) second.style.display = isSecond ? '' : 'none';
+          });
         });
+      }
+      const newsRecent = document.getElementById('news-recent');
+      const newsTabs = newsRecent ? newsRecent.parentElement.querySelector('.event-tabs') : null;
+      wireTabs(newsTabs, 'news-recent', 'news-older');
+      const upcoming = document.getElementById('events-upcoming');
+      const eventsTabs = upcoming ? upcoming.parentElement.querySelector('.event-tabs') : null;
+      wireTabs(eventsTabs, 'events-upcoming', 'events-past');
+    })();
+
+    /* ── News / event / press popup ──────────────────────── */
+    const NEWS_INFO = {
+      es: {
+        'news-doncellas': {
+          cat: 'Noticia', date: '25 abr 2026',
+          title: 'Santo Domingo señala las Doncellas para las Fiestas del Santo',
+          body: '<p>La prensa local recoge la designación oficial de las <strong>Doncellas</strong> que participarán en las celebraciones de las <strong>Fiestas del Santo</strong> de Santo Domingo de la Calzada.</p><p>El nombramiento, vinculado a la Cofradía del Santo, es uno de los actos previos más esperados del calendario festivo de mayo y forma parte del programa tradicional que cada año reúne a vecinos, cofrades y peregrinos en torno al santo fundador de la ciudad.</p>',
+          source: 'https://www.larioja.com/comarcas/santo-domingo/santo-domingo-senala-doncellas-20260425183836-nt.html'
+        },
+        'news-programa-cofradia': {
+          cat: 'Noticia', date: '22 abr 2026',
+          title: 'La Cofradía del Santo presenta su programa de Fiestas',
+          body: '<p>La <strong>Cofradía del Santo</strong> ha presentado el programa oficial de las Fiestas del Santo de Santo Domingo de la Calzada, que combina actos litúrgicos, procesiones y tradiciones centenarias.</p><p>La presentación marca el inicio de la cuenta atrás para una de las celebraciones patronales más arraigadas de La Rioja, vinculada al sepulcro del santo en la Catedral.</p>',
+          source: 'https://www.larioja.com/comarcas/santo-domingo/cofradia-santo-presenta-programa-20260422101855-nt.html'
+        },
+        'news-poemario-hilos': {
+          cat: 'Cultura', date: '1 abr 2026',
+          title: 'Presentación del poemario "Los hilos de la noche"',
+          body: '<p>El autor calceatense <strong>Gonzalo San Ildefonso</strong> presenta en Santo Domingo de la Calzada su poemario <em>"Los hilos de la noche"</em>.</p><p>El acto literario se enmarca dentro de la programación cultural de la ciudad y supone un nuevo encuentro entre la creación poética y el público local.</p>',
+          source: 'https://www.radioharo.com/2026/04/01/el-jueves-se-presenta-en-santo-domingo-de-la-calzada-el-poemario-los-hilos-de-la-noche-del-calceatense-gonzalo-san-ildefonso/'
+        },
+        'news-restauracion-absides': {
+          cat: 'Noticia', date: '2 feb 2026',
+          title: 'La Catedral restaura sus ábsides "losa a losa"',
+          body: '<p>La <strong>Catedral de Santo Domingo de la Calzada</strong> afronta una intervención de restauración en sus <strong>ábsides</strong>, descrita por la prensa como un trabajo realizado "losa a losa".</p><p>La actuación se suma a la labor continua de conservación del templo, una de las grandes referencias del Camino de Santiago, y refleja el esfuerzo por preservar uno de los conjuntos románicos y góticos más singulares de La Rioja.</p>',
+          source: 'https://www.larioja.com/comarcas/catedral-santo-domingo-restaura-absides-losa-losa-20260202180501-nt.html'
+        },
+        'news-capital-belenismo': {
+          cat: 'Noticia', date: '5 dic 2025',
+          title: 'Santo Domingo se transforma en capital del belenismo',
+          body: '<p>Santo Domingo de la Calzada se convierte en <strong>capital del belenismo</strong> con una <strong>exposición monumental</strong> que la prensa sitúa entre las más relevantes del norte de España.</p><p>La muestra reúne piezas de gran formato y refuerza el atractivo turístico y cultural de la ciudad durante la campaña navideña.</p>',
+          source: 'https://www.cope.es/emisoras/la-rioja/la-rioja-provincia/logrono/noticias/santo-domingo-calzada-transforma-capital-belenismo-exposicion-monumental-grandes-norte-espana-20251205_3266730.html'
+        },
+        'news-exin-castillos': {
+          cat: 'Exposición', date: '2 dic 2025',
+          title: 'Exposición de castillos hechos con piezas Exin',
+          body: '<p>Santo Domingo de la Calzada acoge una <strong>exposición de castillos</strong> construidos con las piezas <strong>Exin</strong>, evocando un juego de construcción icónico de varias generaciones.</p><p>La muestra combina memoria colectiva, divertimento y patrimonio dentro de la oferta cultural de la ciudad.</p>',
+          source: 'https://nuevecuatrouno.com/2025/12/02/rioja-exposicion-santo-domingo-calzada-castillos-piezas-exin/'
+        },
+        'news-belenes-canas-mateo': {
+          cat: 'Noticia', date: 'Diciembre 2025',
+          title: 'Ruta de belenes Santo Domingo y Cañas',
+          body: '<p>Una crónica recorre los <strong>belenes</strong> de <strong>Santo Domingo de la Calzada y Cañas</strong>, presentándolos como itinerario navideño conjunto en La Rioja.</p><p>El reportaje destaca la riqueza de las propuestas locales y el atractivo cultural de visitar ambos enclaves durante el ciclo navideño.</p>',
+          source: 'https://www.elbalcondemateo.es/belenes-santo-domingo-y-canas/'
+        },
+        'news-inaugura-ruta-belenes': {
+          cat: 'Noticia', date: 'Diciembre 2025',
+          title: 'La Rioja inaugura la ruta de belenes con Santo Domingo y Cañas',
+          body: '<p>La Rioja inaugura una <strong>ruta de belenes</strong> con nuevas propuestas en <strong>Santo Domingo de la Calzada</strong> y <strong>Cañas</strong>.</p><p>La iniciativa institucional refuerza el atractivo navideño regional y consolida ambos enclaves como referencias del belenismo riojano.</p>',
+          source: 'https://actualidadriojabaja.com/la-rioja-inaugura-la-ruta-de-belenes-con-nuevas-propuestas-en-santo-domingo-de-la-calzada-y-canas/'
+        },
+        'news-excavaciones-restos': {
+          cat: 'Investigación', date: '11 nov 2025',
+          title: 'Excavaciones en la Catedral dejan al descubierto restos humanos',
+          body: '<p>Las <strong>excavaciones arqueológicas</strong> en la Catedral calceatense han dejado al descubierto <strong>restos humanos</strong>, según informa la prensa regional.</p><p>El hallazgo se enmarca en los trabajos de investigación y conservación del templo, y aporta nueva información sobre la historia funeraria y patrimonial del conjunto catedralicio.</p>',
+          source: 'https://www.larioja.com/comarcas/santo-domingo/excavaciones-catedral-calceatense-dejan-descubierto-restos-humanos-20251111195742-nt.html'
+        },
+        'news-tenor-jorge-elias': {
+          cat: 'Concierto', date: '11 ago 2025',
+          title: 'Concierto del tenor Jorge Elías en Cañas y la Catedral',
+          body: '<p>El <strong>tenor Jorge Elías</strong> ofrece un concierto en el <strong>Monasterio de Cañas</strong> y la <strong>Catedral de Santo Domingo de la Calzada</strong>, dentro de la programación musical estival de La Rioja.</p>',
+          source: 'https://nuevecuatrouno.com/2025/08/11/rioja-tenor-jorge-elias-concierto-monasterio-canas-catedral-santo-domingo/'
+        },
+        'news-triforio-visitas': {
+          cat: 'Novedad', date: '26 may 2025',
+          title: 'Visitas al triforio de la Catedral',
+          body: '<p>La Catedral de Santo Domingo de la Calzada incorpora <strong>visitas al triforio</strong>, una de las zonas más singulares del templo, permitiendo contemplar la nave desde una perspectiva inédita para el visitante habitual.</p><p>La propuesta amplía la oferta patrimonial del conjunto monumental.</p>',
+          source: 'https://nuevecuatrouno.com/2025/05/26/rioja-santo-domingo-calzada-catedral-triforio-visitas/'
+        },
+        'news-gallinero-medieval': {
+          cat: 'Prensa', date: 'Reportaje',
+          title: 'El insólito gallinero medieval oculto en la Catedral',
+          body: '<p>Un reportaje recorre uno de los rincones más singulares de la Catedral de Santo Domingo de la Calzada: el <strong>gallinero medieval</strong> que custodia, en su interior, un gallo y una gallina vivos en recuerdo del célebre milagro del santo.</p><p>El reportaje subraya la singularidad de esta tradición, prácticamente única en el mundo, y su vínculo con la leyenda jacobea del Camino de Santiago.</p>',
+          source: 'https://www.20minutos.es/viajes/destinos/insolito-gallinero-medieval-oculto-catedral-rioja_6530212_0.html'
+        },
+        'ev-rtve': {
+          cat: 'Concierto · Orquesta y Coro RTVE', date: 'Viernes 26 de junio de 2026 · 20:00 h',
+          title: 'De la Tierra al Cielo · Vivaldi por la Orquesta y Coro RTVE',
+          body: '<p>La <strong>Orquesta y Coro de RTVE</strong> ofrecerá un concierto extraordinario en la <strong>Iglesia de San Francisco</strong> de Santo Domingo de la Calzada, con un programa dedicado a <strong>Antonio Vivaldi (1678–1741)</strong> bajo el título <em>"De la Tierra al Cielo"</em>.</p>'
+            + '<p>La dirección musical correrá a cargo de <strong>Aarón Zapico</strong>, uno de los referentes europeos en la interpretación historicista del Barroco.</p>'
+            + '<h4>Detalles del concierto</h4>'
+            + '<ul>'
+            + '<li><strong>Fecha:</strong> Viernes, 26 de junio de 2026.</li>'
+            + '<li><strong>Hora:</strong> 20:00 h.</li>'
+            + '<li><strong>Lugar:</strong> Iglesia de San Francisco · Santo Domingo de la Calzada.</li>'
+            + '<li><strong>Programa:</strong> Antonio Vivaldi · <em>De la Tierra al Cielo</em>.</li>'
+            + '<li><strong>Director:</strong> Aarón Zapico.</li>'
+            + '<li><strong>Precio:</strong> 20 €.</li>'
+            + '</ul>'
+            + '<h4>Venta de entradas</h4>'
+            + '<ul>'
+            + '<li><strong>Lugar:</strong> Despacho parroquial de Santo Domingo de la Calzada.</li>'
+            + '<li><strong>Fechas:</strong> Del 15 al 25 de junio.</li>'
+            + '<li><strong>Horario:</strong> De 11:00 a 13:00 h, excepto domingo.</li>'
+            + '<li><strong>Teléfono:</strong> 941 126 510.</li>'
+            + '</ul>'
+        },
+        'ev-rtve-bach': {
+          cat: 'Concierto · Cámara RTVE', date: 'Domingo 28 de junio de 2026 · 21:00 h',
+          title: 'Una tarde de Domingo en Leipzig · J. S. Bach por "Selected Bach"',
+          body: '<p>El grupo de cámara <strong>"Selected Bach"</strong>, de la <strong>Orquesta de RTVE</strong>, ofrecerá un programa íntegramente dedicado a <strong>Johann Sebastian Bach (1685–1750)</strong> bajo el título <em>"Una tarde de Domingo en Leipzig"</em>.</p>'
+            + '<p>El concierto evocará el ambiente musical que Bach desplegó durante sus décadas como Kantor en la <strong>Iglesia de Santo Tomás de Leipzig</strong>, recuperando el espíritu de las tardes dominicales en las que el compositor estrenaba sus cantatas y obras instrumentales para la comunidad luterana de la ciudad.</p>'
+            + '<h4>Detalles del concierto</h4>'
+            + '<ul>'
+            + '<li><strong>Fecha:</strong> Domingo, 28 de junio de 2026.</li>'
+            + '<li><strong>Hora:</strong> 21:00 h.</li>'
+            + '<li><strong>Lugar:</strong> Catedral de Santo Domingo de la Calzada.</li>'
+            + '<li><strong>Programa:</strong> J. S. Bach · <em>Una tarde de Domingo en Leipzig</em>.</li>'
+            + '<li><strong>Intérpretes:</strong> Grupo "Selected Bach" (Orquesta RTVE).</li>'
+            + '<li><strong>Precio:</strong> 5 €.</li>'
+            + '</ul>'
+            + '<h4>Venta de entradas</h4>'
+            + '<ul>'
+            + '<li><strong>Lugar:</strong> Despacho parroquial de Santo Domingo de la Calzada.</li>'
+            + '<li><strong>Fechas:</strong> Del 15 al 25 de junio.</li>'
+            + '<li><strong>Horario:</strong> De 11:00 a 13:00 h, excepto domingo.</li>'
+            + '<li><strong>Teléfono:</strong> 941 126 510.</li>'
+            + '</ul>'
+        },
+        'ev-belenes-2026': {
+          cat: 'Exposición', date: 'Dic 2026 – Ene 2027',
+          title: 'Exposición de belenes · Campaña navideña 2026',
+          body: '<p>La <strong>exposición de belenes</strong> regresa en la campaña navideña 2026 con un formato anunciado para diciembre y enero, distribuido entre la Catedral, el Convento de San Francisco y el Monasterio de Cañas.</p><p>La propuesta se vincula además a las <strong>ferias medievales</strong> de diciembre, integrando patrimonio, tradición y gastronomía en una oferta conjunta del conjunto monumental.</p>'
+        },
+        'ev-nocturna-circuito': {
+          cat: 'Visita especial', date: 'Mayo – octubre · Viernes y sábados · 20:45 h',
+          title: 'La Catedral bajo las Estrellas · Visita Nocturna',
+          body: '<p>Cuando la luz del día se apaga, la <strong>Catedral de El Salvador</strong> se transforma. Las piedras centenarias cobran una atmósfera diferente, más íntima, más mágica. Los <strong>viernes y sábados, de mayo a octubre</strong>, sus puertas se abren de noche para vivir una experiencia que pocos olvidan.</p><p>Durante <strong>60 minutos</strong>, un guía especializado conduce al grupo por los rincones más evocadores del templo, desvelando historias, secretos y detalles que a la luz del día pasan desapercibidos. Un recorrido diseñado para sentir la catedral, no solo verla.</p><p><strong>Detalles:</strong> Viernes y sábados a las 20:45 h · Temporada mayo–octubre · 60 minutos aprox. · <strong>15 € por persona</strong> · Aforo máximo 15 personas · Incluye pulsera turística con acceso libre a los 4 monumentos de Santo Domingo de la Calzada.</p>'
+        },
+        'ev-vip-secretos': {
+          cat: 'Visita especial', date: 'Junio · Consultar disponibilidad',
+          title: 'Visita VIP · Los Secretos de la Catedral',
+          body: '<p>Hay lugares dentro de la Catedral que muy pocos han pisado. El <strong>triforio</strong>, desde donde la nave se contempla con una perspectiva que corta el aliento. La <strong>sacristía</strong>, que guarda tesoros artísticos fuera del alcance del visitante habitual. Las <strong>defensas medievales</strong>, testimonio silencioso de una época en que fe y fortaleza caminaban juntas.</p><p>La visita VIP abre esas puertas. <strong>Noventa minutos</strong> de recorrido exclusivo, con guía especializado y grupos reducidos, para descubrir la catedral más allá de lo visible. Una experiencia reservada para quienes quieren ir más lejos.</p><p><strong>Detalles:</strong> Consulta disponibilidad · 90 minutos aprox. · <strong>15 € por persona</strong> · Aforo máximo 15 personas · Incluye pulsera turística con acceso libre a los 4 monumentos de Santo Domingo de la Calzada.</p>'
+        },
+        'pe-semana-santa-2026': {
+          cat: 'Liturgia', date: '29 marzo – 5 abril 2026',
+          title: 'Semana Santa 2026',
+          body: '<p>La <strong>Semana Santa de Santo Domingo de la Calzada</strong> volvió a llenar de fervor el casco histórico de la ciudad. La Cofradía de la Vera Cruz, la Parroquia de la Santísima Trinidad y el Cabildo Catedral organizaron un programa de celebraciones que combinó liturgia, procesiones y música en torno a los grandes templos calceatenses.</p>'
+            + '<p>Bajo el lema del Prior <em>"Vosotros sois testigos de esto" (Lc 24,48)</em>, la comunidad cofrade vivió un tiempo de Cuaresma centrado en la caridad, el acompañamiento y la fe compartida, culminando en la Pascua de Resurrección.</p>'
+            + '<h4>Novena · Virgen de los Dolores</h4>'
+            + '<ul>'
+            + '<li><strong>Del 19 al 27 de marzo.</strong> Santo Rosario, Novena y Eucaristía.</li>'
+            + '</ul>'
+            + '<h4>Viernes 27 de marzo</h4>'
+            + '<ul>'
+            + '<li><strong>19:30 h.</strong> Eucaristía.</li>'
+            + '<li><strong>20:00 h.</strong> Pregón de Semana Santa en San Francisco. Pregonero: <strong>Francis Paniego</strong>, reconocido chef riojano.</li>'
+            + '</ul>'
+            + '<h4>Sábado 28 de marzo</h4>'
+            + '<ul>'
+            + '<li><strong>20:45 h.</strong> Concierto de Marchas Procesionales en la Catedral, a cargo de la Banda Municipal de Música.</li>'
+            + '</ul>'
+            + '<h4>Domingo de Ramos · 29 de marzo</h4>'
+            + '<ul>'
+            + '<li><strong>12:30 h.</strong> Bendición de Ramos en San Francisco y Procesión.</li>'
+            + '<li><strong>13:00 h.</strong> Eucaristía en la S.I. Catedral.</li>'
+            + '</ul>'
+            + '<h4>Martes Santo · 31 de marzo</h4>'
+            + '<ul>'
+            + '<li><strong>20:00 h.</strong> Eucaristía y Celebración Penitencial en San Francisco.</li>'
+            + '</ul>'
+            + '<h4>Miércoles Santo · 1 de abril</h4>'
+            + '<ul>'
+            + '<li><strong>20:00 h.</strong> Eucaristía en San Francisco.</li>'
+            + '<li><strong>20:30 h.</strong> Besamanos a la Virgen de los Dolores en San Francisco.</li>'
+            + '<li><em>Celebración Especial:</em> Homenaje a la Banda de Tambores y Cornetas de la Cofradía de la Vera Cruz por su XV Aniversario.</li>'
+            + '</ul>'
+            + '<h4>Jueves Santo · 2 de abril</h4>'
+            + '<ul>'
+            + '<li><strong>19:30 h.</strong> Misa de la Santa Cena del Señor en la S.I. Catedral. Preside el Sr. Obispo de la Diócesis.</li>'
+            + '<li><strong>21:00 h.</strong> Procesión de la Santa Cena del Señor desde la Plaza del Santo.</li>'
+            + '<li><strong>23:00 h.</strong> Hora Santa en la Ermita de la Virgen de la Plaza.</li>'
+            + '</ul>'
+            + '<h4>Viernes Santo · 3 de abril</h4>'
+            + '<ul>'
+            + '<li><strong>12:00 h.</strong> Viacrucis desde San Francisco.</li>'
+            + '<li><strong>19:30 h.</strong> Santos Oficios en la S.I. Catedral. Preside el Sr. Obispo de la Diócesis.</li>'
+            + '<li><strong>21:00 h.</strong> Procesión del Santo Entierro desde la Plaza del Santo.</li>'
+            + '</ul>'
+            + '<h4>Sábado Santo · 4 de abril</h4>'
+            + '<ul>'
+            + '<li><strong>21:30 h.</strong> Vigilia Pascual en la S.I. Catedral.</li>'
+            + '</ul>'
+            + '<h4>Domingo de Resurrección · 5 de abril</h4>'
+            + '<ul>'
+            + '<li><strong>13:00 h.</strong> Encuentro con el Resucitado y Eucaristía en la S.I. Catedral.</li>'
+            + '</ul>'
+            + '<p style="margin-top:18px;font-size:.82rem;opacity:.7;">Organiza: Cabildo Catedral · Parroquia Santísima Trinidad. Colabora: Cofradía de la Santa Vera Cruz y Ayuntamiento de Santo Domingo de la Calzada.</p>'
+        },
+        'pe-pregon-santo': {
+          cat: 'Fiestas patronales', date: '10 – 15 mayo 2026',
+          title: 'Fiestas del Santo 2026',
+          body: '<p>Las <strong>Fiestas del Santo</strong> son la celebración patronal más importante de Santo Domingo de la Calzada, en honor a su santo fundador. Durante varios días la ciudad vive procesiones, misas, repartos tradicionales y actos cívico-religiosos que reúnen a vecinos, cofrades y peregrinos.</p>'
+            + '<h4 style="margin:24px 0 8px;font-family:var(--serif);color:var(--gold-lt);">Día 10 de mayo</h4>'
+            + '<ul style="margin:0 0 8px;padding-left:18px;line-height:1.7;">'
+            + '<li><strong>17:00 h.</strong> Salida del Convento de San Francisco, desde donde se inicia la procesión de los Ramos, con llegada a la Catedral para su bendición y colocación en el entorno del Sepulcro del Santo.</li>'
+            + '<li><strong>17:45 h.</strong> Salida de la Casa de la Cofradía del Santo para recoger las Hogazas (pan redondo de dos kilos) y proceder a su pesaje y traslado a la Casa.</li>'
+            + '<li><strong>18:45 h.</strong> Salida de la Casa de la Cofradía del Santo para ir a recoger a la Priora a su domicilio particular y regreso.</li>'
+            + '<li><strong>19:30 h.</strong> Procesión de las Prioras, con salida desde la Casa de la Cofradía y recorrido por el Casco Antiguo.</li>'
+            + '</ul>'
+            + '<h4 style="margin:24px 0 8px;font-family:var(--serif);color:var(--gold-lt);">Día 11 de mayo</h4>'
+            + '<ul style="margin:0 0 8px;padding-left:18px;line-height:1.7;">'
+            + '<li><strong>08:30 h.</strong> Misa en la Ermita del Puente.</li>'
+            + '<li><strong>11:15 h.</strong> En la Casa de la Cofradía del Santo, imposición de Medallas y nombramiento de Hermanas del Santo y las Doncellas que participarán en la procesión.</li>'
+            + '<li><strong>Apertura de la mesa:</strong> 09:30 h a 11:15 h y 12:00 h a 14:00 h.</li>'
+            + '<li><strong>12:00 h.</strong> Comienzo de la Procesión del "Pan del Santo y del Peregrino", con salida y regreso a la Casa de la Cofradía.</li>'
+            + '<li><strong>17:00 h.</strong> Procesión Cívico-religiosa de "La Rueda", con salida desde el Convento de San Francisco hasta la Catedral, donde será colgado este exvoto a modo de lámpara frente al sepulcro del Santo.</li>'
+            + '<li><strong>18:45 h.</strong> En la Catedral, rezo de Vísperas Solemnes en honor de Santo Domingo de la Calzada.</li>'
+            + '<li><strong>19:15 h.</strong> En la Casa de la Cofradía, bendición y reparto de la cebolleta.</li>'
+            + '</ul>'
+            + '<h4 style="margin:24px 0 8px;font-family:var(--serif);color:var(--gold-lt);">Día 12 de mayo</h4>'
+            + '<ul style="margin:0 0 8px;padding-left:18px;line-height:1.7;">'
+            + '<li><strong>06:00 h.</strong> En la Casa de la Cofradía, misa, bendición y reparto del Almuerzo del Santo.</li>'
+            + '<li><strong>11:00 h.</strong> En la Catedral, Misa Solemne. A continuación, procesión del Santo.</li>'
+            + '</ul>'
+            + '<h4 style="margin:24px 0 8px;font-family:var(--serif);color:var(--gold-lt);">Día 13 de mayo</h4>'
+            + '<ul style="margin:0 0 8px;padding-left:18px;line-height:1.7;">'
+            + '<li><strong>10:30 h.</strong> En la Catedral, misa de difuntos y posterior procesión por el interior de la misma.</li>'
+            + '<li><strong>11:45 h.</strong> En la Casa de la Cofradía, toma de posesión de la Nueva Cofradía, bendición e imposición de Medallas a los Cofrades entrantes y a los Hermanos que lo hayan solicitado.</li>'
+            + '<li><strong>13:30 h.</strong> En la Casa de la Cofradía, traslado del Cuadro con la imagen de Santo Domingo al domicilio del nuevo Prior.</li>'
+            + '<li><strong>14:00 h.</strong> Reparto de queso.</li>'
+            + '</ul>'
+            + '<h4 style="margin:24px 0 8px;font-family:var(--serif);color:var(--gold-lt);">Día 15 de mayo</h4>'
+            + '<ul style="margin:0 0 0;padding-left:18px;line-height:1.7;">'
+            + '<li><strong>13:00 h.</strong> En la Catedral, Misa Solemne y posterior procesión de San Isidro.</li>'
+            + '</ul>'
+        },
+        'pe-pilar': {
+          cat: 'Retransmisión TVE', date: '12 octubre 2025',
+          title: 'La misa del 12 de octubre, en directo desde el Monasterio de Cañas',
+          body: '<p>El <strong>12 de octubre de 2025</strong>, festividad de la <strong>Virgen del Pilar</strong>, el Monasterio de Santa María de San Salvador de Cañas se convirtió en el escenario de la misa más vista de España. El programa <em>El Día del Señor</em>, de La 2 de Televisión Española, retransmitió en directo la Santa Misa desde el interior de este conjunto gótico cisterciense, considerado una de las joyas medievales más completas y mejor conservadas de Europa.</p>'
+            + '<p>La emisión fue posible gracias a las gestiones del abad de la Catedral de Santo Domingo de la Calzada y responsable de la zona museística del Monasterio, <strong>Francisco José Suárez</strong>, en estrecha colaboración con la <strong>Consejería de Cultura, Turismo, Juventud y Deporte del Gobierno de La Rioja</strong>. Ese mismo día, Radio Nacional de España emitió desde el monasterio el programa <em>No es un día cualquiera</em>, completando una presencia nacional sin precedentes para este enclave riojano.</p>'
+            + '<p>La retransmisión se enmarcó en el programa <strong>Legado de Luz: 800 años de la Beata Urraca</strong>, el gran acontecimiento cultural del año en La Rioja. Con él, el Gobierno regional, la Diócesis de Calahorra y La Calzada-Logroño, el Ayuntamiento de Cañas y el propio Monasterio conmemorarían el 800 aniversario de la elección de la <strong>Beata María Urraca</strong> como abadesa del cenobio en 1225. Una mujer excepcional, hija de los fundadores del monasterio, bajo cuya dirección durante casi cuatro décadas Cañas alcanzó el esplendor artístico y espiritual que lo define hasta hoy: la iglesia gótica, la sala capitular y el sepulcro incorrupto que la custodia son obra directa de su legado.</p>'
+            + '<p>La elección del 12 de octubre no fue casual. La festividad de la Virgen del Pilar, de profundo arraigo en La Rioja, ponía así el foco nacional sobre un monasterio que, iluminado por sus <strong>ventanales de alabastro</strong>, lleva más de ocho siglos en pie como testimonio vivo de fe, arte e historia.</p>'
+        },
+        'pe-belenes-2025': {
+          cat: 'Exposición', date: '5 dic 2025 – 5 ene 2026',
+          title: 'Ciclo navideño de belenes 2025 – 2026',
+          body: '<p>El <strong>ciclo navideño de belenes</strong> se desarrolló del 5 de diciembre de 2025 al 5 de enero de 2026 en la Catedral y los espacios patrimoniales asociados.</p>'
+        },
+        'pr-coral-calceatense': {
+          cat: 'Prensa', date: '2026',
+          title: 'La Coral Calceatense, pregonera de las fiestas del Santo 2026',
+          body: '<p>La prensa local recogió el anuncio de que la <strong>Coral Calceatense</strong> será la encargada del pregón de las Fiestas del Santo 2026, integrando patrimonio, música y Catedral en la programación festiva.</p>',
+          quote: '“La Coral Calceatense pregonará las fiestas del Santo 2026.”'
+        },
+        'pr-semana-santa': {
+          cat: 'Prensa', date: '2026',
+          title: 'Semana Santa calceatense: tradición, cultura y turismo',
+          body: '<p>El reportaje subraya cómo la <strong>Semana Santa calceatense</strong> combina tradición, cultura, patrimonio, ocio y actividad turística, con la Catedral y el Convento como ejes principales del programa.</p>',
+          quote: '“Tradición, cultura, patrimonio, ocio y actividad turística en la Semana Santa calceatense.”'
+        },
+        'pr-belenes-canas': {
+          cat: 'Prensa', date: 'Navidad 2025',
+          title: 'Santo Domingo y Cañas, unidos por sus belenes',
+          body: '<p>La prensa local destacó la <strong>visita conjunta</strong> de los belenes de Santo Domingo de la Calzada y del Monasterio de Cañas, citando Catedral, Convento y Monasterio como un mismo itinerario navideño.</p>',
+          quote: '“Santo Domingo de la Calzada y Cañas, unidos por sus belenes.”'
+        },
+        'pr-puertas-turismo': {
+          cat: 'Prensa', date: 'Antecedente',
+          title: 'La Catedral abre sus puertas a las visitas turísticas',
+          body: '<p>Como antecedente informativo, la prensa recogió el momento en que la <strong>Catedral de Santo Domingo de la Calzada</strong> abrió sus puertas a las visitas turísticas, paso clave para consolidar el templo como referencia patrimonial del Camino.</p>',
+          quote: '“La Catedral de Santo Domingo de la Calzada abre sus puertas a las visitas turísticas.”'
+        },
+        'pr-coral-bilbao': {
+          cat: 'Prensa', date: 'Verano 2025',
+          title: 'La Sociedad Coral de Bilbao cierra el ciclo estival',
+          body: '<p>La prensa local anunció que la <strong>Sociedad Coral de Bilbao</strong> pondría el colofón al ciclo estival de conciertos en la Catedral, una de las citas musicales más esperadas del verano calceatense.</p>',
+          quote: '“La Sociedad Coral de Bilbao pondrá el colofón al ciclo estival de conciertos en la catedral de Santo Domingo.”'
+        }
+      }
+    };
+
+    (function() {
+      const overlay = document.getElementById('news-popup-overlay');
+      const closeBtn = document.getElementById('news-popup-close');
+      const elCat = document.getElementById('news-popup-cat');
+      const elDate = document.getElementById('news-popup-date');
+      const elTitle = document.getElementById('news-popup-title');
+      const elBody = document.getElementById('news-popup-body');
+      const elQuote = document.getElementById('news-popup-quote');
+      const elSource = document.getElementById('news-popup-source');
+
+      function openPopup(id) {
+        const lang = localStorage.getItem('cat-lang') || 'es';
+        const data = (NEWS_INFO[lang] || NEWS_INFO.es)[id] || NEWS_INFO.es[id];
+        if (!data) return;
+        elCat.textContent = data.cat || '';
+        elDate.textContent = data.date || '';
+        elTitle.textContent = data.title || '';
+        elBody.innerHTML = data.body || '';
+        if (data.quote) { elQuote.textContent = data.quote; elQuote.style.display = ''; } else { elQuote.style.display = 'none'; }
+        if (data.source) { elSource.href = data.source; elSource.style.display = ''; } else { elSource.style.display = 'none'; }
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closePopup() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('[data-news-id]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          openPopup(el.getAttribute('data-news-id'));
+        });
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closePopup);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closePopup();
       });
     })();
 
@@ -1991,6 +2906,78 @@
       window.addEventListener('scroll', updateLogo, { passive: true });
       if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
+    })();
+
+    // ── GALLERY LIGHTBOX ────────────────────────────────────
+    (function () {
+      const grid = document.getElementById('gallery-grid');
+      const lb = document.getElementById('gal-lightbox');
+      if (!grid || !lb) return;
+      const imgEl = document.getElementById('gal-lightbox-img');
+      const capEl = document.getElementById('gal-lightbox-caption');
+      const cntEl = document.getElementById('gal-lightbox-counter');
+      const btnClose = document.getElementById('gal-lightbox-close');
+      const btnPrev = document.getElementById('gal-lightbox-prev');
+      const btnNext = document.getElementById('gal-lightbox-next');
+      const items = Array.from(grid.querySelectorAll('.gallery-item[data-full-src]'));
+      let idx = 0;
+
+      function render() {
+        const item = items[idx];
+        if (!item) return;
+        imgEl.style.opacity = '0';
+        const src = item.getAttribute('data-full-src');
+        const cap = item.getAttribute('data-caption') || '';
+        const next = new Image();
+        next.onload = () => {
+          imgEl.src = src;
+          imgEl.alt = cap;
+          requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+        };
+        next.src = src;
+        capEl.textContent = cap;
+        capEl.style.display = cap ? 'block' : 'none';
+        cntEl.textContent = (idx + 1) + ' / ' + items.length;
+        const showNav = items.length > 1;
+        btnPrev.style.display = showNav ? 'flex' : 'none';
+        btnNext.style.display = showNav ? 'flex' : 'none';
+      }
+      function open(i) {
+        idx = (i + items.length) % items.length;
+        render();
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      function prev() { open(idx - 1); }
+      function next() { open(idx + 1); }
+
+      items.forEach((it, i) => {
+        it.addEventListener('click', (e) => { e.preventDefault(); open(i); });
+      });
+      btnClose.addEventListener('click', close);
+      btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+      btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
+      lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') prev();
+        else if (e.key === 'ArrowRight') next();
+      });
+
+      // Swipe gesture (mobile)
+      let touchStartX = 0;
+      lb.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', (e) => {
+        const dx = (e.changedTouches[0].clientX) - touchStartX;
+        if (Math.abs(dx) > 50) { dx > 0 ? prev() : next(); }
+      });
     })();
   </script>
 

@@ -346,66 +346,386 @@
       flex-shrink: 0
     }
 
-    /* ── TIMELINE ────────────────────────────────────────────── */
-    .timeline {
-      position: relative
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 132px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, rgba(201, 168, 76, .3) 10%, rgba(201, 168, 76, .3) 90%, transparent)
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 32px;
-      padding: 32px 0;
-      /* border-bottom: 1px solid rgba(255, 255, 255, .06) */
-    }
-
-    .timeline-item:last-child {
-      border-bottom: none
-    }
-
-    .timeline-year {
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: var(--gold);
-      text-align: right;
+    /* ── TIMELINE HORIZONTAL · zigzag ──────────────────────── */
+    .tl-h {
       position: relative;
-      line-height: 1
+      margin-top: 56px;
+      --tl-axis-half: 230px;
+      --tl-card-w: 240px;
+      --tl-connector: 26px;
+      --tl-dot: 11px;
     }
 
-    .timeline-year::after {
+    .tl-h__scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 8vw 28px;
+      margin: 0 -8vw;
+      scroll-padding-left: 8vw;
+    }
+    .tl-h__scroll::-webkit-scrollbar { display: none; height: 0; }
+
+    .tl-h__track {
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      min-width: max-content;
+      min-height: calc(var(--tl-axis-half) * 2);
+      padding: 0;
+    }
+
+    /* Central horizontal axis — spans full track width */
+    .tl-h__track::before {
       content: '';
       position: absolute;
-      right: -24px;
-      top: 7px;
-      width: 10px;
-      height: 10px;
-      border: 1.5px solid var(--gold);
-      border-radius: 50%;
-      background: var(--carbon)
+      top: var(--tl-axis-half);
+      left: 0;
+      right: 36px; /* leave room for the arrow head */
+      height: 1px;
+      background: rgba(201, 168, 76, .45);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .timeline-title {
+    /* Right-pointing arrow at the end of the axis */
+    .tl-h__track::after {
+      content: '';
+      position: absolute;
+      top: var(--tl-axis-half);
+      right: 14px;
+      width: 12px;
+      height: 12px;
+      border-right: 1.5px solid rgba(201, 168, 76, .55);
+      border-top: 1.5px solid rgba(201, 168, 76, .55);
+      transform: translateY(-50%) rotate(45deg);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Era separator — typographic divider, no border/pill */
+    .tl-h__era {
+      flex: 0 0 auto;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 22px;
+      position: relative;
+      z-index: 2;
+      scroll-snap-align: start;
+    }
+    .tl-h__era::before,
+    .tl-h__era::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      background: rgba(201, 168, 76, .35);
+      transform: translateX(-50%);
+    }
+    .tl-h__era::before {
+      top: 0;
+      height: calc(var(--tl-axis-half) - 56px);
+    }
+    .tl-h__era::after {
+      bottom: 0;
+      height: calc(var(--tl-axis-half) - 56px);
+    }
+    .tl-h__era-period {
+      font-size: .5rem;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .tl-h__era-name {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-style: italic;
+      font-size: 1.15rem;
+      font-weight: 300;
       color: var(--white);
-      margin-bottom: 8px
+      line-height: 1.2;
+      letter-spacing: .01em;
     }
 
-    .timeline-desc {
-      font-size: .82rem;
-      line-height: 1.7;
-      color: var(--stone)
+    /* Year cards · alternating above / below the axis */
+    .tl-h__card {
+      flex: 0 0 var(--tl-card-w);
+      max-width: var(--tl-card-w);
+      padding: 0 16px;
+      position: relative;
+      scroll-snap-align: start;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      z-index: 1;
+      min-height: calc(var(--tl-axis-half) * 2);
+    }
+
+    /* Vertical connector */
+    .tl-h__card::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: var(--tl-connector);
+      background: rgba(201, 168, 76, .65);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    /* Dot · centered exactly at card mid-height (= track axis) */
+    .tl-h__card::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--tl-dot);
+      height: var(--tl-dot);
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: var(--carbon);
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    .tl-h__card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ODD (1st, 3rd, ...): content in TOP half, anchored to its bottom */
+    .tl-h__card:nth-of-type(odd) .tl-h__card-content {
+      grid-row: 1;
+      justify-content: flex-end;
+      padding-top: 8px;
+      padding-bottom: calc(var(--tl-connector) + (var(--tl-dot) / 2) + 14px);
+    }
+    .tl-h__card:nth-of-type(odd)::before {
+      top: calc(50% - var(--tl-connector) - (var(--tl-dot) / 2));
+    }
+
+    /* EVEN (2nd, 4th, ...): content in BOTTOM half, anchored to its top */
+    .tl-h__card:nth-of-type(even) .tl-h__card-content {
+      grid-row: 2;
+      justify-content: flex-start;
+      padding-top: calc(var(--tl-connector) + (var(--tl-dot) / 2) + 14px);
+      padding-bottom: 8px;
+    }
+    .tl-h__card:nth-of-type(even)::before {
+      top: calc(50% + (var(--tl-dot) / 2));
+    }
+
+    .tl-h__year {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .tl-h__title {
+      font-family: var(--serif);
+      font-size: .98rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .tl-h__desc {
+      font-size: .74rem;
+      line-height: 1.6;
+      color: rgba(245, 240, 232, .72);
+      margin: 0;
+      text-align: center;
+    }
+
+    /* Footer · nav arrows + progress in a single row below the track */
+    .tl-h__footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .tl-h__progress {
+      flex: 1;
+      height: 2px;
+      background: rgba(201, 168, 76, .12);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .tl-h__progress-bar {
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+      transition: width .2s ease-out;
+    }
+    .tl-h__nav-group {
+      display: inline-flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .tl-h__nav {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(201, 168, 76, .35);
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease, border-color .2s ease, opacity .2s ease;
+      padding: 0;
+    }
+    .tl-h__nav:hover:not(:disabled),
+    .tl-h__nav:focus-visible {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold);
+      outline: none;
+    }
+    .tl-h__nav:disabled { opacity: .25; cursor: not-allowed; }
+
+    /* Light mode */
+    body.light-mode .tl-h__track::before {
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(140, 110, 50, .4) 3%,
+        rgba(140, 110, 50, .4) 97%,
+        transparent 100%);
+    }
+    body.light-mode .tl-h__track::after {
+      border-right-color: rgba(140, 110, 50, .55);
+      border-top-color: rgba(140, 110, 50, .55);
+    }
+    body.light-mode .tl-h__card::before { background: rgba(140, 110, 50, .55); }
+    body.light-mode .tl-h__card::after {
+      border-color: var(--gold-dk);
+      background: var(--cream);
+    }
+    body.light-mode .tl-h__year { color: var(--gold-dk); }
+    body.light-mode .tl-h__title { color: var(--carbon); }
+    body.light-mode .tl-h__desc { color: rgba(20, 18, 16, .72); }
+    body.light-mode .tl-h__era {
+      background: var(--cream);
+      border-color: rgba(140, 110, 50, .4);
+    }
+    body.light-mode .tl-h__era-name { color: var(--carbon); }
+    body.light-mode .tl-h__era-period { color: var(--gold-dk); }
+    body.light-mode .tl-h__nav {
+      background: rgba(20, 18, 16, .04);
+      border-color: rgba(140, 110, 50, .35);
+      color: var(--gold-dk);
+    }
+    body.light-mode .tl-h__progress { background: rgba(140, 110, 50, .15); }
+    body.light-mode .tl-h__progress-bar { background: var(--gold-dk); }
+
+    @media (max-width: 640px) {
+      .tl-h {
+        margin-top: 36px;
+        --tl-card-w: 230px;
+        --tl-mobile-axis: 36px;
+      }
+      .tl-h__nav { width: 34px; height: 34px; }
+
+      /* Track: axis near the top, no zigzag */
+      .tl-h__track {
+        align-items: flex-start;
+        min-height: 0;
+        min-width: max-content;
+      }
+      .tl-h__track::before {
+        top: var(--tl-mobile-axis);
+        right: 26px;
+      }
+      .tl-h__track::after {
+        top: var(--tl-mobile-axis);
+        right: 8px;
+      }
+
+      /* Cards: block layout, content below the axis */
+      .tl-h__card {
+        display: block;
+        min-height: 0;
+        padding: 60px 10px 16px;
+        max-width: var(--tl-card-w);
+      }
+      .tl-h__card-content,
+      .tl-h__card:nth-of-type(odd) .tl-h__card-content,
+      .tl-h__card:nth-of-type(even) .tl-h__card-content {
+        grid-row: auto;
+        padding: 0 !important;
+        align-items: center;
+        text-align: center;
+      }
+      .tl-h__card::after {
+        top: var(--tl-mobile-axis);
+      }
+      .tl-h__card:nth-of-type(odd)::before,
+      .tl-h__card:nth-of-type(even)::before {
+        top: calc(var(--tl-mobile-axis) + (var(--tl-dot) / 2));
+        height: 18px;
+      }
+
+      /* Era separators: vertical chapter marker · more prominent */
+      .tl-h__era {
+        align-self: flex-start;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 10px 18px 12px;
+        margin: 8px 10px 0;
+        background: var(--carbon);
+        border: 1px solid rgba(201, 168, 76, .55);
+        border-top: 3px solid var(--gold);
+        border-radius: 4px;
+        z-index: 3;
+        white-space: nowrap;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+      }
+      .tl-h__era::before,
+      .tl-h__era::after { display: none; }
+      .tl-h__era-period {
+        margin-bottom: 0;
+        font-size: .46rem;
+        letter-spacing: .26em;
+        color: var(--gold-lt);
+        font-weight: 600;
+      }
+      .tl-h__era-name {
+        font-size: 1.05rem;
+        line-height: 1.1;
+        font-style: italic;
+        color: var(--white);
+        white-space: nowrap;
+      }
+      .tl-h__era-name br { display: none; }
+      body.light-mode .tl-h__era {
+        background: #F9F8F6;
+        border-color: rgba(140, 110, 50, .6);
+        border-top-color: var(--gold-dk);
+        box-shadow: 0 4px 16px rgba(20, 18, 16, .08);
+      }
+      body.light-mode .tl-h__era-period { color: var(--gold-dk); }
+      body.light-mode .tl-h__era-name { color: var(--carbon); }
+
+      .tl-h__year { font-size: 1.4rem; }
+      .tl-h__title { font-size: .95rem; }
+      .tl-h__desc { font-size: .75rem; }
     }
 
     /* ── GALLERY ─────────────────────────────────────────────── */
@@ -439,23 +759,77 @@
       left: 0;
       right: 0;
       padding: 28px 36px;
-      background: linear-gradient(to top, rgba(14, 12, 10, .8), transparent);
+      background: linear-gradient(to top, rgba(14, 12, 10, .88) 0%, rgba(14, 12, 10, .35) 60%, transparent 100%);
       display: flex;
       align-items: flex-end;
-      justify-content: space-between
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .gallery-slide__cap-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .gallery-slide__cap-eyebrow {
+      font-family: var(--sans);
+      font-size: .56rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .gallery-slide__cap-eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
     }
 
     .gallery-slide__cap-title {
       font-family: var(--serif);
-      font-size: 1.3rem;
-      color: var(--white)
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.15;
+    }
+
+    .gallery-slide__cap-cta {
+      align-self: flex-start;
+      margin-top: 4px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-family: var(--sans);
+      font-size: .64rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      cursor: pointer;
+      transition: color .2s ease, gap .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .gallery-slide__cap-cta:hover {
+      color: var(--gold-lt);
+      gap: 10px;
     }
 
     .gallery-slide__cap-num {
       font-size: .62rem;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--gold)
+      color: var(--gold);
+      flex-shrink: 0;
     }
 
     .gallery-dots {
@@ -1031,26 +1405,9 @@
       .text-grid {
         grid-template-columns: 1fr
       }
-
-      .timeline::before {
-        left: 69px
-      }
-
-      .timeline-item {
-        grid-template-columns: 70px 1fr;
-        gap: 20px
-      }
-
-      .timeline-year::after {
-        right: -14px
-      }
     }
 
     @media(max-width:640px) {
-      .timeline::before {
-        left: 78px;
-      }
-
       .section {
         padding: 72px 5vw
       }
@@ -1186,13 +1543,206 @@
 
     @media (max-width: 640px) {
       .hist-stats {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        flex-wrap: nowrap;
+        grid-template-columns: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        border: none;
+        border-radius: 0;
+        margin: 0 -6vw 32px;
+        padding: 2px 6vw 12px;
+        gap: 12px;
+        scroll-padding-left: 6vw;
       }
+      .hist-stats::-webkit-scrollbar { display: none; height: 0; }
 
       .hist-stat {
-        border-right: none;
-        border-bottom: 1px solid rgba(140, 128, 112, .15);
+        flex: 0 0 78%;
+        max-width: 280px;
+        scroll-snap-align: start;
+        border: 1px solid rgba(140, 128, 112, .15);
+        border-radius: 4px;
+        padding: 22px 22px 24px;
       }
+
+      .cta-band .section__inner {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        text-align: center;
+      }
+
+      /* Historia · texto colapsable */
+      .text-grid {
+        gap: 0;
+      }
+      .text-grid__more {
+        margin-top: 0;
+      }
+      .text-grid:not(.is-expanded) .text-grid__more {
+        max-height: 56px;
+      }
+      .text-grid:has(.hist-more-btn:not([aria-expanded="true"])) {
+        margin-bottom: -32px;
+      }
+      .text-grid__quote { margin-top: 15px; }
+
+      /* Horarios + Tarifas · tabs y scroll horizontal */
+      .ht-tabs {
+        display: flex;
+        margin: 0 0 18px;
+        border-bottom: 1px solid rgba(140, 110, 50, .2);
+        gap: 0;
+      }
+      .ht-tab {
+        flex: 1;
+        padding: 12px 14px;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--stone);
+        font-family: var(--sans);
+        font-size: .66rem;
+        font-weight: 500;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color .25s ease, border-color .25s ease;
+        margin-bottom: -1px;
+      }
+      .ht-tab.is-active {
+        color: var(--gold-dk);
+        border-bottom-color: var(--gold-dk);
+      }
+      body:not(.light-mode) .ht-tabs { border-bottom-color: rgba(201, 168, 76, .2); }
+      body:not(.light-mode) .ht-tab { color: rgba(245, 240, 232, .55); }
+      body:not(.light-mode) .ht-tab.is-active { color: var(--gold); border-bottom-color: var(--gold); }
+
+      .ht-grid {
+        display: flex !important;
+        grid-template-columns: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        margin: 0 -5vw;
+        padding: 0 5vw 8px;
+        scroll-padding-left: 5vw;
+      }
+      .ht-grid::-webkit-scrollbar { display: none; height: 0; }
+      .ht-block {
+        flex: 0 0 88%;
+        max-width: 360px;
+        scroll-snap-align: start;
+      }
+      .ht-row__label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: nowrap;
+      }
+      .ht-row__label > span:not(.info-icon) {
+        flex: 0 1 auto;
+        min-width: 0;
+      }
+      .ht-row__label .info-icon {
+        flex: 0 0 auto;
+        align-self: flex-start;
+        margin-top: 3px;
+      }
+      .ht-section-header__badge { display: none !important; }
+      .ht-section-header {
+        margin-bottom: 25px !important;
+        padding-bottom: 0 !important;
+        border-bottom: none !important;
+      }
+
+      /* Ver más toggle (mobile only) */
+      .hist-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin: 4px auto 0;
+        padding: 10px 18px;
+        background: transparent;
+        border: 1px solid rgba(140, 110, 50, .4);
+        border-radius: 99px;
+        color: var(--gold-dk);
+        font-family: var(--sans);
+        font-size: .68rem;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background .2s ease, color .2s ease, border-color .2s ease;
+      }
+      .hist-more-btn:hover {
+        background: var(--gold-dk);
+        color: var(--white);
+        border-color: var(--gold-dk);
+      }
+      .hist-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+      .hist-more-btn svg { transition: transform .25s ease; }
+      body:not(.light-mode) .hist-more-btn {
+        border-color: rgba(201, 168, 76, .4);
+        color: var(--gold);
+      }
+      body:not(.light-mode) .hist-more-btn:hover {
+        background: var(--gold);
+        color: var(--carbon);
+        border-color: var(--gold);
+      }
+
+      .text-grid__more {
+        position: relative;
+        overflow: hidden;
+        max-height: 70px;
+        transition: max-height .45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .text-grid__more::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom,
+          rgba(249, 248, 246, .55) 0%,
+          rgba(249, 248, 246, .92) 55%,
+          #F9F8F6 100%);
+        pointer-events: none;
+        transition: opacity .25s ease;
+      }
+      body:not(.light-mode) .text-grid__more::after {
+        background: linear-gradient(to bottom,
+          rgba(245, 240, 232, .55) 0%,
+          rgba(245, 240, 232, .92) 55%,
+          #F5F0E8 100%);
+      }
+      .text-grid.is-expanded .text-grid__more {
+        max-height: 4000px;
+      }
+      .text-grid.is-expanded .text-grid__more::after {
+        opacity: 0;
+      }
+    }
+
+    /* Desktop: hide the toggle button entirely */
+    @media (min-width: 641px) {
+      .hist-more-btn { display: none !important; }
+      .text-grid__more::after { display: none; }
+      .ht-tabs { display: none !important; }
+    }
 
       .hist-stat:last-child {
         border-bottom: none;
@@ -1359,48 +1909,35 @@
 
     @media (max-width: 600px) {
       .tesoros-bento {
-        grid-template-columns: 1fr;
-        grid-template-rows: 320px 280px 280px;
+        display: flex !important;
+        flex-wrap: nowrap;
+        grid-template-columns: none;
+        grid-template-rows: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        margin: 0 -6vw;
+        padding: 2px 6vw 12px;
+        scroll-padding-left: 6vw;
+        height: auto;
       }
+      .tesoros-bento::-webkit-scrollbar { display: none; height: 0; }
 
+      .tesoro-card,
       .tesoro-card:first-child {
-        grid-column: span 1;
+        flex: 0 0 80%;
+        max-width: 280px;
+        grid-column: auto;
+        height: 320px;
+        scroll-snap-align: start;
       }
 
       .tesoro-card__text {
         display: none;
       }
-    }
-
-    /* ── TIMELINE ENHANCED ───────────────────────────────────── */
-    .timeline-year {
-      font-size: 2.2rem;
-    }
-
-    .timeline-item {
-      position: relative;
-    }
-
-    .timeline-era-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border: 1px solid rgba(201, 168, 76, .2);
-      border-radius: 2px;
-      font-size: .58rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 32px;
-      margin-top: 8px;
-    }
-
-    .timeline-era-badge::before {
-      content: '';
-      width: 16px;
-      height: 1px;
-      background: var(--gold);
     }
 
     /* ── HORARIOS VISUAL ENHANCEMENT ────────────────────────── */
@@ -2078,9 +2615,10 @@
       </div>
       <nav class="hero-nav" aria-label="Secciones de la Catedral">
         <a href="#horarios-tarifas" class="hero-nav__link">Horarios y tarifas</a>
-        <a href="#galeria" class="hero-nav__link">Galería</a>
-        <a href="#tesoros" class="hero-nav__link">Tesoros</a>
+        <a href="#galeria" class="hero-nav__link">Tesoros</a>
+        <a href="#cronologia" class="hero-nav__link">Cronología</a>
         <a href="#espacios" class="hero-nav__link">Espacios</a>
+        <a href="#audioguia" class="hero-nav__link">Audioguía</a>
       </nav>
     </div>
   </section>
@@ -2131,8 +2669,12 @@
           <strong>365</strong> <span data-i18n-page="ht_open_days">días al año</span>
         </div>
       </div>
-      <div class="ht-grid reveal reveal-delay-2">
-        <div class="ht-block ht-block--schedule">
+      <div class="ht-tabs" role="tablist" aria-label="Horarios y tarifas">
+        <button type="button" class="ht-tab is-active" id="ht-tab-horarios" role="tab" aria-controls="ht-horarios" aria-selected="true">Horarios</button>
+        <button type="button" class="ht-tab" id="ht-tab-tarifas" role="tab" aria-controls="ht-tarifas" aria-selected="false">Tarifas</button>
+      </div>
+      <div class="ht-grid reveal reveal-delay-2" id="ht-grid">
+        <div class="ht-block ht-block--schedule" id="ht-horarios" role="tabpanel" aria-labelledby="ht-tab-horarios">
           <div class="ht-block__title" data-i18n-page="ht_schedule_title">Horarios de apertura</div>
           <div class="ht-row">
             <span class="ht-row__label" data-i18n-page="ht_lv">Lunes a viernes y domingos<span class="ht-today-badge"
@@ -2148,7 +2690,7 @@
             Catedral permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30
             minutos antes del cierre.</p>
         </div>
-        <div class="ht-block ht-block--prices">
+        <div class="ht-block ht-block--prices" id="ht-tarifas" role="tabpanel" aria-labelledby="ht-tab-tarifas">
           <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
           <div class="ht-row"><span class="ht-row__label" data-i18n-page="ht_general">Ticket general</span><span
               class="ht-row__val ht-row__val--highlight">7 € / persona</span></div>
@@ -2212,7 +2754,7 @@
 
   <!-- GALERÍA -->
   <section class="section section--carbon" id="galeria">
-    <p class="eyebrow reveal" data-i18n-page="sec_gallery_eyebrow">Galería</p>
+    <p class="eyebrow reveal" data-i18n-page="sec_gallery_eyebrow">Tesoros del templo</p>
     <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_gallery_title">El conjunto <em>catedralicio</em>
     </h2>
     <div class="gallery-wrap reveal reveal-delay-2" id="gallery">
@@ -2222,7 +2764,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/gallinero.webp" alt="El Gallinero" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_1">Gallinero Gótico</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_1">Unicidad mundial · s. XIV</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_1">Gallinero Gótico</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(0)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">01/06</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(0)"
@@ -2236,7 +2782,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/abside.webp" alt="Ábside" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_2">Ábside Románico</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_2">Románico · s. XII</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_2">Ábside Románico</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(1)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">02/06</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(1)"
@@ -2250,7 +2800,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/retablo.webp" alt="Retablo Mayor" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_3">Retablo Mayor</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_3">Plateresco · 1537–1541</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_3">Retablo Mayor</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(2)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">03/06</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(2)" aria-label="Saber más sobre el Retablo Mayor">
@@ -2263,7 +2817,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/sepulcro.webp" alt="Sepulcro" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_4">Sepulcro del Santo</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_4">Renacimiento · 1513</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_4">Sepulcro del Santo</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(3)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">04/06</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(3)"
@@ -2277,7 +2835,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/romanico.webp" alt="Nave Central" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_5">Triforio y Girola</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_5">Arquitectura · ss. XII–XIII</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_5">Triforio y Girola</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(4)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">05/06</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(4)"
@@ -2291,7 +2853,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/triptico.webp" alt="Tríptico" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_6">Tríptico Flamenco</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_6">Flamenco · c. 1515</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_6">Tríptico Flamenco</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(5)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">06/06</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(5)"
@@ -2305,7 +2871,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/cripta.webp" alt="Cripta del Santo" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_7">Cripta del Santo</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_7">Mosaicos · 2019</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_7">Cripta del Santo</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(6)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">07/10</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(6)"
@@ -2319,7 +2889,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/coro.webp" alt="Coro renacentista" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_8">Coro renacentista</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_8">Plateresco · 1521–1527</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_8">Coro renacentista</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(7)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">08/10</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(7)"
@@ -2333,7 +2907,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/tablasmilagros.webp" alt="Tablas de los Milagros" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_9">Tablas de los Milagros</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_9">Pintura · s. XV</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_9">Tablas de los Milagros</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(8)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">09/10</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(8)"
@@ -2347,7 +2925,11 @@
         <div class="gallery-slide">
           <img src="../assets/img/roseton.webp" alt="Vidriera-Rosetón" />
           <div class="gallery-slide__cap">
-            <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_10">Vidriera-Rosetón</span>
+            <div class="gallery-slide__cap-content">
+              <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_10">Contemporáneo · 2017</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_10">Vidriera-Rosetón</span>
+              <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(9)" data-i18n-page="gal_discover">Descubrir →</button>
+            </div>
             <span class="gallery-slide__cap-num">10/10</span>
           </div>
           <button class="gallery-info-btn" onclick="openGalleryPopup(9)"
@@ -2426,15 +3008,15 @@
             cimborrio, las capillas laterales
             con retablos de primer orden y el famoso gallinero —único en el mundo— hacen de este templo una visita
             imprescindible.</p>
-          <ul class="highlight-list" style="margin-top:24px">
+        </div>
+        <div class="text-grid__more">
+          <ul class="highlight-list" style="margin-top:0">
             <li data-i18n-page="hist_li1">Declarada Monumento Histórico-Artístico Nacional en 1917</li>
             <li data-i18n-page="hist_li2">El ábside románico es un ejemplo único en La Rioja</li>
             <li data-i18n-page="hist_li3">El gallinero vivo: tradición ininterrumpida desde el s. XIV</li>
             <li data-i18n-page="hist_li4">Tríptico flamenco de Joos van Cleve (c.1515–1520)</li>
             <li data-i18n-page="hist_li5">Retablo Mayor de Damián Forment (1537–1541)</li>
           </ul>
-        </div>
-        <div>
           <div class="text-grid__quote">
             <p data-i18n-page="hist_quote1">"Aquí yace el que hizo la calzada, el puente y el hospital para socorro de
               los
@@ -2464,163 +3046,301 @@
             las
             colecciones que alberga este templo riojano.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESOROS DEL TEMPLO -->
-  <section class="section section--dark" id="tesoros">
-    <div class="section__inner">
-      <p class="eyebrow reveal" data-i18n-page="sec_tesoros_eyebrow">Tesoros del templo</p>
-      <h2 class="section-title reveal reveal-delay-1" style="color:var(--white)" data-i18n-page="sec_tesoros_title">
-        Piezas que <em>debes conocer</em></h2>
-      <div class="tesoros-bento reveal reveal-delay-2">
-
-        <!-- Gallinero — carta principal -->
-        <div class="tesoro-card" style="--bg: url('../assets/img/gallinero.webp')">
-          <div class="tesoro-card__top-line"></div>
-          <div class="tesoro-card__overlay"></div>
-          <div class="tesoro-card__body">
-            <span class="tesoro-card__cat" data-i18n-page="tesoro1_cat">Unicidad mundial · s. XIV</span>
-            <h3 class="tesoro-card__title" data-i18n-page="gal_cap_1">Gallinero Gótico</h3>
-            <p class="tesoro-card__text" data-i18n-page="tesoro1_text">El único gallinero vivo del mundo en una
-              catedral. Tradición ininterrumpida desde el siglo XIV en honor al milagro del peregrino ahorcado.</p>
-            <button class="tesoro-card__link" onclick="openGalleryPopup(0)" data-i18n-page="tesoro_discover">Descubrir
-              →</button>
-          </div>
-          <div class="tesoro-card__num">01</div>
-        </div>
-
-        <!-- Retablo Mayor -->
-        <div class="tesoro-card" style="--bg: url('../assets/img/retablo.webp')">
-          <div class="tesoro-card__top-line"></div>
-          <div class="tesoro-card__overlay"></div>
-          <div class="tesoro-card__body">
-            <span class="tesoro-card__cat" data-i18n-page="tesoro2_cat">Plateresco · 1537–1541</span>
-            <h3 class="tesoro-card__title" data-i18n-page="gal_cap_3">Retablo Mayor</h3>
-            <p class="tesoro-card__text" data-i18n-page="tesoro2_text">Obra cumbre de Damián Forment: 24 relieves en
-              alabastro sobre la vida de Cristo.</p>
-            <button class="tesoro-card__link" onclick="openGalleryPopup(2)" data-i18n-page="tesoro_discover">Descubrir
-              →</button>
-          </div>
-          <div class="tesoro-card__num">02</div>
-        </div>
-
-        <!-- Tríptico Flamenco -->
-        <div class="tesoro-card" style="--bg: url('../assets/img/triptico.webp')">
-          <div class="tesoro-card__top-line"></div>
-          <div class="tesoro-card__overlay"></div>
-          <div class="tesoro-card__body">
-            <span class="tesoro-card__cat" data-i18n-page="tesoro3_cat">Flamenco · c. 1515</span>
-            <h3 class="tesoro-card__title" data-i18n-page="gal_cap_6">Tríptico Flamenco</h3>
-            <p class="tesoro-card__text" data-i18n-page="tesoro3_text">Reverso en grisalla único en el arte flamenco.
-              Expuesto en el Museo de Bellas Artes de Bilbao en 2019.</p>
-            <button class="tesoro-card__link" onclick="openGalleryPopup(5)" data-i18n-page="tesoro_discover">Descubrir
-              →</button>
-          </div>
-          <div class="tesoro-card__num">03</div>
-        </div>
-
+        <button type="button" class="hist-more-btn" id="hist-more-btn" aria-expanded="false">
+          <span class="hist-more-btn__label">Ver más</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
       </div>
     </div>
   </section>
 
   <!-- TIMELINE -->
-  <section class="section section--dark">
+  <section class="section section--dark" id="cronologia">
     <div class="section__inner">
       <p class="eyebrow reveal" data-i18n-page="sec_time_eyebrow">Cronología</p>
-      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">Ocho
-        siglos de <em>historia</em></h2>
-      <div class="timeline reveal reveal-delay-2">
-        <div class="timeline-era-badge" data-i18n-page="tl_era1">Era fundacional · ss. XI–XIV</div>
-        <div class="timeline-item">
-          <div class="timeline-year">1044</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl1_title">Llegada de Santo Domingo</div>
-            <div class="timeline-desc" data-i18n-page="tl1_desc">Domingo García se retira a la orilla del río Oja y
-              comienza a construir la calzada,
-              el puente y el primer hospital de peregrinos.</div>
+      <h2 class="section-title reveal reveal-delay-1" data-i18n-page="sec_time_title" style="color:var(--white)">Mil
+        años de <em>historia</em></h2>
+
+      <div class="tl-h reveal reveal-delay-2" id="tl-h">
+        <div class="tl-h__scroll" id="tl-scroll">
+          <div class="tl-h__track">
+
+            <!-- ERA 1 -->
+            <div class="tl-h__era">
+              <div class="tl-h__era-period">ss. XI–XII</div>
+              <div class="tl-h__era-name">Era <br>fundacional</div>
+            </div>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1044</div>
+              <h3 class="tl-h__title">Llegada de Santo Domingo</h3>
+              <p class="tl-h__desc">Domingo García se retira a la orilla del río Oja y comienza a construir la calzada, el puente y el primer hospital de peregrinos.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1090</div>
+              <h3 class="tl-h__title">Primera iglesia del Salvador</h3>
+              <p class="tl-h__desc">Con la ayuda de su discípulo Juan de Ortega, Santo Domingo inicia la edificación de un templo dedicado a San Salvador y Santa María, donde reposarían sus restos.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1106</div>
+              <h3 class="tl-h__title">Consagración del templo</h3>
+              <p class="tl-h__desc">El obispo Pedro de Calahorra consagra la iglesia construida por Santo Domingo, dedicándola a El Salvador, apenas tres años antes de la muerte del santo.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1109</div>
+              <h3 class="tl-h__title">Muerte de Santo Domingo</h3>
+              <p class="tl-h__desc">Fallece Domingo García el 12 de mayo. Su sepulcro se convierte de inmediato en lugar de peregrinación y devoción en el Camino de Santiago.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1125</div>
+              <h3 class="tl-h__title">Fundación de la canónica</h3>
+              <p class="tl-h__desc">Se instituye una comunidad canonical en torno a la iglesia del Santo, consolidando el incipiente burgo como centro espiritual y de peregrinaje.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1137</div>
+              <h3 class="tl-h__title">Integración en la diócesis de Calahorra</h3>
+              <p class="tl-h__desc">Tras un litigio con Burgos, la iglesia de San Salvador pasa a pertenecer a la diócesis de Calahorra, reforzando su relevancia eclesiástica.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1158</div>
+              <h3 class="tl-h__title">Inicio de la gran Catedral románica</h3>
+              <p class="tl-h__desc">El obispo Rodrigo de Cascante encarga al maestro Garçión un nuevo templo de mayor envergadura. Comienza la cabecera románica con deambulatorio y capillas absidiales.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1180</div>
+              <h3 class="tl-h__title">Primera celebración del culto</h3>
+              <p class="tl-h__desc">Se celebra culto en el nuevo templo por primera vez, aunque las obras continuarán durante décadas.</p>
+            </div>
+            </article>
+
+            <!-- ERA 2 -->
+            <div class="tl-h__era">
+              <div class="tl-h__era-period">ss. XIII–XIV</div>
+              <div class="tl-h__era-name">Expansión y <br>consolidación</div>
+            </div>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">s. XIII</div>
+              <h3 class="tl-h__title">Ampliación gótica</h3>
+              <p class="tl-h__desc">Se reconstruyen la nave central y las laterales en estilo gótico. Se añaden el crucero, el cimborio y las bóvedas de crucería, configurando la planta de cruz latina que hoy conocemos.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1232</div>
+              <h3 class="tl-h__title">Elevación a sede episcopal</h3>
+              <p class="tl-h__desc">El burgo de Santo Domingo es elevado a cabeza de diócesis episcopal, convirtiendo el templo en Catedral oficialmente.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1250</div>
+              <h3 class="tl-h__title">La villa pasa a la Corona</h3>
+              <p class="tl-h__desc">Los derechos sobre la villa pasan de la canónica a la Corona, marcando un nuevo período en la historia de la ciudad y del templo.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1264</div>
+              <h3 class="tl-h__title">Documentación del claustro</h3>
+              <p class="tl-h__desc">Primera referencia documental al claustro catedralicio, posteriormente reconstruido en 1340 por el obispo Juan del Pino en estilo gótico-mudéjar.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">s. XIV</div>
+              <h3 class="tl-h__title">El gallinero · La leyenda</h3>
+              <p class="tl-h__desc">Un documento papal de 1350 del papa Clemente VI certifica ya la existencia de aves vivas en la catedral, en memoria del milagro del peregrino alemán Hugonell, falsamente acusado y salvado por la intervención del Santo.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">s. XIV</div>
+              <h3 class="tl-h__title">La Catedral-fortaleza</h3>
+              <p class="tl-h__desc">Los enfrentamientos entre Castilla y Navarra obligan a dotar al templo de un pórtico defensivo a los pies de la iglesia y de un paso de ronda interior, convirtiendo la catedral en un ejemplar único en La Rioja.</p>
+            </div>
+            </article>
+
+            <!-- ERA 3 -->
+            <div class="tl-h__era">
+              <div class="tl-h__era-period">ss. XV–XVI</div>
+              <div class="tl-h__era-name">Esplendor <br>artístico</div>
+            </div>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">s. XV</div>
+              <h3 class="tl-h__title">El gallinero gótico</h3>
+              <p class="tl-h__desc">Se construye el actual gallinero gótico en el interior del templo, hogar permanente del gallo y la gallina que recuerdan el milagro más famoso del Camino de Santiago.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1521–1527</div>
+              <h3 class="tl-h__title">Sillería del coro plateresca</h3>
+              <p class="tl-h__desc">Andrés de Nájera y Guillén de Holanda tallan en madera de nogal sin policromar una excepcional sillería renacentista de 59 sillas, considerada una de las mejores piezas platerescas de España.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1537–1541</div>
+              <h3 class="tl-h__title">Retablo Mayor de Damián Forment</h3>
+              <p class="tl-h__desc">Obra cumbre del plateresco español. Nueve metros de ancho por trece de alto en madera de nogal y zócalo de alabastro, con veinticuatro relieves de la vida de Cristo. Policromado por Andrés de Melgar.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">s. XVI</div>
+              <h3 class="tl-h__title">Pórtico defensivo occidental</h3>
+              <p class="tl-h__desc">Se construye el adarve defensivo que protege la portada del Cristo, levantada a finales del siglo XIII, dotando a la catedral de su singular carácter de fortaleza.</p>
+            </div>
+            </article>
+
+            <!-- ERA 4 -->
+            <div class="tl-h__era">
+              <div class="tl-h__era-period">ss. XVII–XVIII</div>
+              <div class="tl-h__era-name">Barroco e <br>Ilustración</div>
+            </div>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1708</div>
+              <h3 class="tl-h__title">Reja barroca del sepulcro</h3>
+              <p class="tl-h__desc">Se forja la monumental reja de hierro barroca que rodea el sepulcro de Santo Domingo, enmarcando uno de los espacios más venerados de toda la catedral.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1761–1765</div>
+              <h3 class="tl-h__title">Portada sur del Santo</h3>
+              <p class="tl-h__desc">Se construye la portada meridional con gran arco de medio punto, hornacinas con las imágenes de Santo Domingo, San Celedonio y San Emeterio, y óculos circulares.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1765</div>
+              <h3 class="tl-h__title">Incendio del órgano</h3>
+              <p class="tl-h__desc">Un incendio destruye el órgano catedralicio. Se adquiere uno nuevo en 1827, rehecho en 1914 y restaurado en profundidad en 1991.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1767–1769</div>
+              <h3 class="tl-h__title">Torre exenta</h3>
+              <p class="tl-h__desc">Se levanta la torre barroca separada del cuerpo de la catedral, de 70 metros de altura, sobre el terreno más firme disponible. Una singularidad arquitectónica única en La Rioja.</p>
+            </div>
+            </article>
+
+            <!-- ERA 5 -->
+            <div class="tl-h__era">
+              <div class="tl-h__era-period">ss. XIX–XXI</div>
+              <div class="tl-h__era-name">Época <br>contemporánea</div>
+            </div>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1931</div>
+              <h3 class="tl-h__title">Monumento Histórico-Artístico</h3>
+              <p class="tl-h__desc">La Catedral de Santo Domingo de la Calzada es declarada oficialmente Monumento Histórico-Artístico Nacional, reconociendo su excepcional valor patrimonial.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1957</div>
+              <h3 class="tl-h__title">Cripta del sepulcro</h3>
+              <p class="tl-h__desc">Se crea la cripta donde se instala el actual sepulcro de Santo Domingo, resultado de la unión de piezas de tres sepulcros de distintas épocas: románico, gótico y tardogótico.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">1984–1987</div>
+              <h3 class="tl-h__title">Restauración del claustro</h3>
+              <p class="tl-h__desc">El claustro gótico-mudéjar es restaurado y reconvertido en espacio de exposición permanente y muestras temporales, enriqueciendo notablemente la visita.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">2017</div>
+              <h3 class="tl-h__title">Rosetón de Marko Rupnik</h3>
+              <p class="tl-h__desc">El padre Marko Rupnik inaugura el 11 de agosto la vidriera-rosetón del muro oeste, sobre la Puerta del Cristo. De 3,20 m de diámetro, representa el Don del Espíritu Santo con los siete sacramentos.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">2019</div>
+              <h3 class="tl-h__title">Mosaicos de la cripta</h3>
+              <p class="tl-h__desc">Con motivo del milenario del nacimiento del Santo, Rupnik recubre los muros de la cripta con mosaicos que narran la vida y los milagros: Sagrada Familia, el peregrino, la gallina, el bautismo y la eucaristía.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">2019</div>
+              <h3 class="tl-h__title">Puerta del Perdón</h3>
+              <p class="tl-h__desc">En el marco del Año Jubilar del Milenario, el equipo de Marko Rupnik esculpe en bronce la Puerta del Perdón, con la parábola del Hijo Pródigo representada en tres niveles sobre estructura de madera de olmo.</p>
+            </div>
+            </article>
+            <article class="tl-h__card">
+              <div class="tl-h__card-content">
+              <div class="tl-h__year">s. XXI</div>
+              <h3 class="tl-h__title">Vidrieras de media altura</h3>
+              <p class="tl-h__desc">El padre Marko Rupnik diseña las vidrieras de media altura de la nave catedralicia, completando un programa iconográfico contemporáneo que dialoga con los siglos de historia del templo.</p>
+            </div>
+            </article>
+
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1109</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl2_title">Inicio de la Catedral románica</div>
-            <div class="timeline-desc" data-i18n-page="tl2_desc">El obispo San Juan de Ortega promueve la construcción
-              de
-              la primera iglesia
-              románica sobre la ermita fundacional.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">s. XIII</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl3_title">Ampliación gótica</div>
-            <div class="timeline-desc" data-i18n-page="tl3_desc">La nave central y las laterales se reconstruyen en
-              estilo
-              gótico. Se añade el
-              crucero y el cimborrio.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">s. XIV</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl4_title">El Gallinero · La leyenda</div>
-            <div class="timeline-desc" data-i18n-page="tl4_desc">Se instala por primera vez el gallinero vivo en memoria
-              del milagro del peregrino
-              alemán Hugonell.</div>
-          </div>
-        </div>
-        <div class="timeline-era-badge" data-i18n-page="tl_era2">Esplendor artístico · ss. XV–XVI</div>
-        <div class="timeline-item">
-          <div class="timeline-year">1537</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl5_title">Retablo Mayor de Damián Forment</div>
-            <div class="timeline-desc" data-i18n-page="tl5_desc">Obra cumbre del plateresco español, concluida en 1541
-              con
-              veinticuatro relieves de
-              la vida de Cristo.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">c.1515</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl6_title">Tríptico flamenco de Joos van Cleve</div>
-            <div class="timeline-desc" data-i18n-page="tl6_desc">El Tríptico de la Anunciación, con reverso en grisalla
-              único en el arte flamenco,
-              llega a la catedral.</div>
-          </div>
-        </div>
-        <div class="timeline-era-badge" data-i18n-page="tl_era3">Consolidación · s. XVIII–XXI</div>
-        <div class="timeline-item">
-          <div class="timeline-year">1762</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl7_title">Torre barroca exenta</div>
-            <div class="timeline-desc" data-i18n-page="tl7_desc">Concluye la torre de Martín de Beratúa, 70 metros de
-              barroco tardío. Gran hito
-              visual del Camino Francés.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1917</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl8_title">Declaración de Monumento Nacional</div>
-            <div class="timeline-desc" data-i18n-page="tl8_desc">La catedral es declarada Monumento Histórico-Artístico
-              Nacional.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2019</div>
-          <div>
-            <div class="timeline-title" data-i18n-page="tl9_title">El Tríptico viaja a Bilbao</div>
-            <div class="timeline-desc" data-i18n-page="tl9_desc">Expuesto en el Museo de Bellas Artes de Bilbao,
-              alcanzando reconocimiento
-              internacional.</div>
+
+        <div class="tl-h__footer">
+          <div class="tl-h__progress"><div class="tl-h__progress-bar" id="tl-progress"></div></div>
+          <div class="tl-h__nav-group">
+            <button class="tl-h__nav" id="tl-prev" type="button" aria-label="Anterior">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="tl-h__nav" id="tl-next" type="button" aria-label="Siguiente">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+  (function () {
+    const scroll = document.getElementById('tl-scroll');
+    const prev = document.getElementById('tl-prev');
+    const next = document.getElementById('tl-next');
+    const progress = document.getElementById('tl-progress');
+    if (!scroll || !prev || !next) return;
+
+    function step() { return Math.max(280, scroll.clientWidth * 0.6); }
+
+    function updateProgress() {
+      const max = scroll.scrollWidth - scroll.clientWidth;
+      const pct = max > 0 ? (scroll.scrollLeft / max) * 100 : 0;
+      if (progress) progress.style.width = pct + '%';
+      prev.disabled = scroll.scrollLeft <= 2;
+      next.disabled = scroll.scrollLeft >= max - 2;
+    }
+
+    prev.addEventListener('click', () => scroll.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => scroll.scrollBy({ left:  step(), behavior: 'smooth' }));
+    scroll.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  })();
+  </script>
 
   <!-- GALERÍA AUTOPLAY -->
   <section class="section section--carbon" id="espacios">
@@ -2659,7 +3379,7 @@
   </section>
 
   <!-- AUDIOGUÍAS + PDFs — dos columnas -->
-  <section class="section section--dark">
+  <section class="section section--dark" id="audioguia">
     <div class="section__inner">
       <div class="audio-pdf-row">
 
@@ -2928,7 +3648,7 @@
         page_eyebrow: 'Monumentos · Monumento principal', page_title: 'La <em>Catedral</em><br>de Santo Domingo', page_desc: 'Joya del románico-gótico riojano. Ocho siglos de historia, arte y devoción en el corazón del Camino Francés de Santiago.', meta_entrada: 'Entrada', meta_horario: 'Horario', meta_estilos: 'Estilos',
         infobar_location_label: 'Ubicación',
         sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horarios y <em>tarifas</em>', ht_schedule_title: 'Horarios de apertura', ht_lv: 'Lunes a viernes y domingos', ht_sat: 'Sábados', ht_note: 'La Catedral permanece abierta todos los días del año, incluyendo festivos. Las últimas entradas se admiten 30 minutos antes del cierre.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Ticket general', ht_pilgrim: 'Peregrinos', ht_group_big: 'Grupos &gt; 25 personas', ht_group_small: 'Grupos &lt; 25 personas', ht_family: 'Entrada familiar', ht_children: 'Menores de 12 años', ht_residents: 'Residentes', ht_free: 'Gratuidad', tip_pilgrim: 'Acreditar debidamente con credencial oficial del Camino, habiendo realizado por lo menos 4 etapas andando o en bicicleta.', tip_group: 'Esta entrada incluye el acceso a todos los monumentos de Santo Domingo de la Calzada con la pulsera turística.', tip_family: 'El precio incluye la entrada a todos los monumentos de Santo Domingo para toda la familia, sin importar el número de hijos.', tip_free: 'Acreditar debidamente con carnet en taquillas.',
-        sec_gallery_eyebrow: 'Galería', sec_gallery_title: 'El conjunto <em>catedralicio</em>',
+        sec_gallery_eyebrow: 'Tesoros del templo', sec_gallery_title: 'El conjunto <em>catedralicio</em>',
         gal_btn: 'Saber más', gal_cap_1: 'Gallinero Gótico', gal_cap_2: 'Ábside Románico', gal_cap_3: 'Retablo Mayor', gal_cap_4: 'Sepulcro del Santo', gal_cap_5: 'Triforio y Girola', gal_cap_6: 'Tríptico Flamenco', gal_cap_7: 'Cripta del Santo', gal_cap_8: 'Coro renacentista', gal_cap_9: 'Tablas de los Milagros', gal_cap_10: 'Vidriera-Rosetón',
         sec_hist_eyebrow: 'Historia y Arte', sec_hist_title: 'Una joya del <em>patrimonio hispano</em>',
         hist_lead: 'La Catedral de Santo Domingo de la Calzada es uno de los monumentos más singulares del Camino de Santiago y del arte medieval español.',
@@ -4033,6 +4753,52 @@
       btn.addEventListener('click', () => {
         applyLightMode(!document.body.classList.contains('light-mode'));
       });
+    })();
+
+    /* Historia · Ver más (mobile) */
+    (function () {
+      const btn = document.getElementById('hist-more-btn');
+      if (!btn) return;
+      const grid = btn.closest('.text-grid');
+      const label = btn.querySelector('.hist-more-btn__label');
+      btn.addEventListener('click', () => {
+        const expanded = grid.classList.toggle('is-expanded');
+        btn.setAttribute('aria-expanded', String(expanded));
+        if (label) label.textContent = expanded ? 'Ver menos' : 'Ver más';
+      });
+    })();
+
+    /* Horarios y Tarifas · tabs (mobile) */
+    (function () {
+      const grid = document.getElementById('ht-grid');
+      const tabs = document.querySelectorAll('.ht-tab');
+      if (!grid || !tabs.length) return;
+
+      function setActive(id) {
+        tabs.forEach(t => {
+          const active = t.getAttribute('aria-controls') === id;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', String(active));
+        });
+      }
+
+      tabs.forEach(t => {
+        t.addEventListener('click', () => {
+          const target = document.getElementById(t.getAttribute('aria-controls'));
+          if (!target) return;
+          const left = target.offsetLeft - grid.offsetLeft;
+          grid.scrollTo({ left, behavior: 'smooth' });
+          setActive(t.getAttribute('aria-controls'));
+        });
+      });
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting && e.intersectionRatio > 0.55) setActive(e.target.id);
+        });
+      }, { root: grid, threshold: [0.55, 0.8] });
+      io.observe(document.getElementById('ht-horarios'));
+      io.observe(document.getElementById('ht-tarifas'));
     })();
   </script>
 </body>

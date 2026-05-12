@@ -1583,7 +1583,7 @@
       </ol>
       <a href="index.html" class="breadcrumb__back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>Inicio</span>
+        <span data-i18n-page="bc_home">Inicio</span>
       </a>
     </nav>
     <div class="page-hero__content reveal">
@@ -2067,17 +2067,17 @@
   ════════════════════════════════════════════════════════ -->
   <div class="news-popup-overlay" id="news-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="news-popup-title" aria-hidden="true">
     <div class="news-popup">
-      <button class="news-popup__close" id="news-popup-close" aria-label="Cerrar">×</button>
+      <button class="news-popup__close" id="news-popup-close" data-i18n-page-attr="aria-label:popup_close" aria-label="Cerrar">×</button>
       <div class="news-popup__meta">
-        <span class="news-popup__cat" id="news-popup-cat">Categoría</span>
+        <span class="news-popup__cat" id="news-popup-cat" data-i18n-page="popup_category">Categoría</span>
         <span class="news-popup__date" id="news-popup-date"></span>
       </div>
-      <h3 class="news-popup__title" id="news-popup-title">Título</h3>
+      <h3 class="news-popup__title" id="news-popup-title" data-i18n-page="popup_title">Título</h3>
       <div class="news-popup__divider"></div>
       <div class="news-popup__body" id="news-popup-body"></div>
       <blockquote class="news-popup__quote" id="news-popup-quote" style="display:none"></blockquote>
       <a href="#" class="news-popup__source" id="news-popup-source" style="display:none" target="_blank" rel="noopener">
-        <span>Leer noticia</span> →
+        <span data-i18n-page="popup_read_news">Leer noticia</span> →
       </a>
     </div>
   </div>
@@ -2086,16 +2086,16 @@
        GALLERY LIGHTBOX
   ════════════════════════════════════════════════════════ -->
   <div class="gal-lightbox" id="gal-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
-    <button class="gal-lightbox__close" id="gal-lightbox-close" aria-label="Cerrar">×</button>
+    <button class="gal-lightbox__close" id="gal-lightbox-close" data-i18n-page-attr="aria-label:popup_close" aria-label="Cerrar">×</button>
     <div class="gal-lightbox__counter" id="gal-lightbox-counter">1 / 1</div>
-    <button class="gal-lightbox__nav gal-lightbox__nav--prev" id="gal-lightbox-prev" aria-label="Anterior">
+    <button class="gal-lightbox__nav gal-lightbox__nav--prev" id="gal-lightbox-prev" data-i18n-page-attr="aria-label:lightbox_prev" aria-label="Anterior">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="gal-lightbox__img-wrap">
       <img class="gal-lightbox__img" id="gal-lightbox-img" alt="" />
       <div class="gal-lightbox__caption" id="gal-lightbox-caption"></div>
     </div>
-    <button class="gal-lightbox__nav gal-lightbox__nav--next" id="gal-lightbox-next" aria-label="Siguiente">
+    <button class="gal-lightbox__nav gal-lightbox__nav--next" id="gal-lightbox-next" data-i18n-page-attr="aria-label:lightbox_next" aria-label="Siguiente">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
@@ -2178,14 +2178,14 @@
     <div class="cookie-banner__inner">
       <div class="cookie-banner__text">
         <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
-        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el trafico y recordar tus preferencias.</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el tráfico y recordar tus preferencias.</p>
       </div>
       <div class="cookie-banner__actions">
         <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
         <button id="cookie-btn-customize" class="cookie-btn cookie-btn--ghost">Personalizar</button>
         <button id="cookie-btn-all" class="cookie-btn cookie-btn--primary">Aceptar todo</button>
       </div>
-      <a href="#" class="cookie-banner__link" data-cookie-link>Politica de cookies</a>
+      <a href="#" class="cookie-banner__link" data-cookie-link>Política de cookies</a>
     </div>
   </div>
   <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
@@ -2210,7 +2210,7 @@
         </div>
         <div class="cookie-cat">
           <div class="cookie-cat__header">
-            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analiticas</span>
+            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analíticas</span>
             <label class="cookie-toggle" for="cookie-toggle-analytics" aria-labelledby="cookie-cat-analytics-name">
               <input type="checkbox" id="cookie-toggle-analytics" name="analytics" role="switch">
               <span class="cookie-toggle__track"></span>
@@ -2269,7 +2269,8 @@
         gal_all: 'Todo', gal_photos: 'Fotografía', gal_video: 'Vídeo',
         press_eyebrow: 'Apariciones en medios', press_title: 'En la <em>prensa</em>',
         press_type_report: 'Reportaje', press_type_interview: 'Entrevista', press_type_mention: 'Mención',
-        press_read: 'Leer artículo'
+        press_read: 'Leer artículo',
+        bc_home: 'Inicio', popup_close: 'Cerrar', popup_category: 'Categoría', popup_title: 'Título', popup_read_news: 'Leer noticia', lightbox_prev: 'Anterior', lightbox_next: 'Siguiente'
       },
       en: {
         hero_eyebrow: 'News · Events · Culture',
@@ -2291,7 +2292,8 @@
         gal_all: 'All', gal_photos: 'Photography', gal_video: 'Video',
         press_eyebrow: 'Media appearances', press_title: 'In the <em>press</em>',
         press_type_report: 'Feature', press_type_interview: 'Interview', press_type_mention: 'Mention',
-        press_read: 'Read article'
+        press_read: 'Read article',
+        bc_home: 'Home', popup_close: 'Close', popup_category: 'Category', popup_title: 'Title', popup_read_news: 'Read the news', lightbox_prev: 'Previous', lightbox_next: 'Next'
       },
       fr: {
         hero_eyebrow: 'Actualités · Événements · Culture',
@@ -2313,7 +2315,8 @@
         gal_all: 'Tout', gal_photos: 'Photographie', gal_video: 'Vidéo',
         press_eyebrow: 'Présence dans les médias', press_title: 'Dans la <em>presse</em>',
         press_type_report: 'Reportage', press_type_interview: 'Entretien', press_type_mention: 'Mention',
-        press_read: 'Lire l\'article'
+        press_read: 'Lire l\'article',
+        bc_home: 'Accueil', popup_close: 'Fermer', popup_category: 'Catégorie', popup_title: 'Titre', popup_read_news: 'Lire l\'article', lightbox_prev: 'Précédent', lightbox_next: 'Suivant'
       },
       de: {
         hero_eyebrow: 'Neuigkeiten · Veranstaltungen · Kultur',
@@ -2335,7 +2338,8 @@
         gal_all: 'Alle', gal_photos: 'Fotografie', gal_video: 'Video',
         press_eyebrow: 'Medienberichte', press_title: 'In der <em>Presse</em>',
         press_type_report: 'Reportage', press_type_interview: 'Interview', press_type_mention: 'Erwähnung',
-        press_read: 'Artikel lesen'
+        press_read: 'Artikel lesen',
+        bc_home: 'Startseite', popup_close: 'Schließen', popup_category: 'Kategorie', popup_title: 'Titel', popup_read_news: 'Artikel lesen', lightbox_prev: 'Zurück', lightbox_next: 'Weiter'
       },
       pt: {
         hero_eyebrow: 'Notícias · Eventos · Cultura',
@@ -2357,7 +2361,8 @@
         gal_all: 'Tudo', gal_photos: 'Fotografia', gal_video: 'Vídeo',
         press_eyebrow: 'Aparições na mídia', press_title: 'Na <em>imprensa</em>',
         press_type_report: 'Reportagem', press_type_interview: 'Entrevista', press_type_mention: 'Menção',
-        press_read: 'Ler artigo'
+        press_read: 'Ler artigo',
+        bc_home: 'Início', popup_close: 'Fechar', popup_category: 'Categoria', popup_title: 'Título', popup_read_news: 'Ler notícia', lightbox_prev: 'Anterior', lightbox_next: 'Seguinte'
       },
       it: {
         hero_eyebrow: 'Notizie · Eventi · Cultura',
@@ -2379,7 +2384,8 @@
         gal_all: 'Tutto', gal_photos: 'Fotografia', gal_video: 'Video',
         press_eyebrow: 'Presenze nei media', press_title: 'Sulla <em>stampa</em>',
         press_type_report: 'Reportage', press_type_interview: 'Intervista', press_type_mention: 'Menzione',
-        press_read: 'Leggi l\'articolo'
+        press_read: 'Leggi l\'articolo',
+        bc_home: 'Home', popup_close: 'Chiudi', popup_category: 'Categoria', popup_title: 'Titolo', popup_read_news: 'Leggi la notizia', lightbox_prev: 'Precedente', lightbox_next: 'Successivo'
       },
       ko: {
         hero_eyebrow: '뉴스 · 이벤트 · 문화',
@@ -2401,7 +2407,8 @@
         gal_all: '전체', gal_photos: '사진', gal_video: '영상',
         press_eyebrow: '미디어 등장', press_title: '<em>언론</em>에서',
         press_type_report: '특집', press_type_interview: '인터뷰', press_type_mention: '언급',
-        press_read: '기사 읽기'
+        press_read: '기사 읽기',
+        bc_home: '홈', popup_close: '닫기', popup_category: '카테고리', popup_title: '제목', popup_read_news: '뉴스 읽기', lightbox_prev: '이전', lightbox_next: '다음'
       },
       eu: {
         hero_eyebrow: 'Berriak · Ekitaldiak · Kultura',
@@ -2423,7 +2430,8 @@
         gal_all: 'Dena', gal_photos: 'Argazkigintza', gal_video: 'Bideoa',
         press_eyebrow: 'Hedabideetan', press_title: '<em>Prentsan</em>',
         press_type_report: 'Erreportajea', press_type_interview: 'Elkarrizketa', press_type_mention: 'Aipamena',
-        press_read: 'Artikulua irakurri'
+        press_read: 'Artikulua irakurri',
+        bc_home: 'Hasiera', popup_close: 'Itxi', popup_category: 'Kategoria', popup_title: 'Izenburua', popup_read_news: 'Albistea irakurri', lightbox_prev: 'Aurrekoa', lightbox_next: 'Hurrengoa'
       },
       ca: {
         hero_eyebrow: 'Notícies · Esdeveniments · Cultura',
@@ -2445,7 +2453,8 @@
         gal_all: 'Tot', gal_photos: 'Fotografia', gal_video: 'Vídeo',
         press_eyebrow: 'Aparicions als mitjans', press_title: 'A la <em>premsa</em>',
         press_type_report: 'Reportatge', press_type_interview: 'Entrevista', press_type_mention: 'Menció',
-        press_read: 'Llegir article'
+        press_read: 'Llegir article',
+        bc_home: 'Inici', popup_close: 'Tancar', popup_category: 'Categoria', popup_title: 'Títol', popup_read_news: 'Llegir la notícia', lightbox_prev: 'Anterior', lightbox_next: 'Següent'
       }
     };
 
@@ -2458,6 +2467,13 @@
       document.querySelectorAll('[data-i18n-ph-page]').forEach(el => {
         const key = el.getAttribute('data-i18n-ph-page');
         if (t[key] !== undefined) el.placeholder = t[key];
+      });
+      document.querySelectorAll('[data-i18n-page-attr]').forEach(el => {
+        const spec = el.getAttribute('data-i18n-page-attr');
+        spec.split(',').forEach(pair => {
+          const [attr, key] = pair.trim().split(':');
+          if (attr && key && t[key] !== undefined) el.setAttribute(attr, t[key]);
+        });
       });
     };
 

@@ -2260,30 +2260,30 @@
     <div class="stepper stepper--5" id="stepper">
       <div class="step-item active" id="si-1">
         <div class="step-num"><span>1</span></div>
-        <div class="step-label">Tipo</div>
+        <div class="step-label" data-i18n-page="step_type">Tipo</div>
       </div>
       <div class="step-item" id="si-2">
         <div class="step-num"><span>2</span></div>
-        <div class="step-label">Visita</div>
+        <div class="step-label" data-i18n-page="step_visit">Visita</div>
       </div>
       <div class="step-item" id="si-3">
         <div class="step-num"><span>3</span></div>
-        <div class="step-label">Datos</div>
+        <div class="step-label" data-i18n-page="step_data">Datos</div>
       </div>
       <div class="step-item" id="si-4">
         <div class="step-num"><span>4</span></div>
-        <div class="step-label">Resumen</div>
+        <div class="step-label" data-i18n-page="step_summary">Resumen</div>
       </div>
       <div class="step-item" id="si-5">
         <div class="step-num"><span>5</span></div>
-        <div class="step-label">Confirmar</div>
+        <div class="step-label" data-i18n-page="step_confirm">Confirmar</div>
       </div>
     </div>
 
     <!-- ── PASO 1: Tipo de visita ──────────────────────────────── -->
     <div class="form-panel active" id="step-1">
-      <h2 class="panel-title">Tipo de visita</h2>
-      <p class="panel-subtitle">¿Cómo quieres organizar tu visita?</p>
+      <h2 class="panel-title" data-i18n-page="s1_title">Tipo de visita</h2>
+      <p class="panel-subtitle" data-i18n-page="s1_sub">¿Cómo quieres organizar tu visita?</p>
 
       <!-- Tipo de visita: tarjetas radio -->
       <div class="tipo-visita-list" role="radiogroup" aria-label="Tipo de visita">
@@ -2293,8 +2293,8 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title">Visita individual</span>
-            <span class="tipo-visita-row__desc">Familias, turistas, peregrinos y visitas personales.</span>
+            <span class="tipo-visita-row__title" data-i18n-page="s1_card1_title">Visita individual</span>
+            <span class="tipo-visita-row__desc" data-i18n-page="s1_card1_desc">Familias, turistas, peregrinos y visitas personales.</span>
           </span>
           <span class="tipo-visita-row__check" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2306,8 +2306,8 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title">Visita en grupo</span>
-            <span class="tipo-visita-row__desc">Grupos organizados, asociaciones e instituciones.</span>
+            <span class="tipo-visita-row__title" data-i18n-page="s1_card2_title">Visita en grupo</span>
+            <span class="tipo-visita-row__desc" data-i18n-page="s1_card2_desc">Grupos organizados, asociaciones e instituciones.</span>
           </span>
           <span class="tipo-visita-row__check" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2319,8 +2319,8 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title">Grupos escolares</span>
-            <span class="tipo-visita-row__desc">Visitas educativas para centros escolares.</span>
+            <span class="tipo-visita-row__title" data-i18n-page="s1_card3_title">Grupos escolares</span>
+            <span class="tipo-visita-row__desc" data-i18n-page="s1_card3_desc">Visitas educativas para centros escolares.</span>
           </span>
           <span class="tipo-visita-row__check" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2328,17 +2328,17 @@
         </label>
       </div>
 
-      <div class="alert alert--error" id="alert-step1">Selecciona el tipo de visita para continuar.</div>
+      <div class="alert alert--error" id="alert-step1" data-i18n-page="s1_err">Selecciona el tipo de visita para continuar.</div>
 
       <div class="btn-row">
-        <button class="btn btn--gold" onclick="goTo(2)">Continuar →</button>
+        <button class="btn btn--gold" onclick="goTo(2)" data-i18n-page="btn_continue">Continuar →</button>
       </div>
     </div>
 
     <!-- ── PASO 2: Datos de visita ─────────────────────────── -->
     <div class="form-panel" id="step-2">
-      <h2 class="panel-title">Datos de tu visita</h2>
-      <p class="panel-subtitle">Indica la modalidad y los detalles de la reserva.</p>
+      <h2 class="panel-title" data-i18n-page="s2_title">Datos de tu visita</h2>
+      <p class="panel-subtitle" data-i18n-page="s2_sub">Indica la modalidad y los detalles de la reserva.</p>
 
       <!-- Tarifas info -->
       <div class="tarifa-card" id="tarifasIndividual">
@@ -2390,29 +2390,29 @@
 
       <!-- Modalidad -->
       <div class="form-section">
-        <p class="form-section__title">Modalidad</p>
+        <p class="form-section__title" data-i18n-page="s2_modality">Modalidad</p>
         <div class="visit-mode-group" role="radiogroup" aria-label="Modalidad">
           <label class="visit-mode-row">
             <input type="radio" name="visitMode" value="sin-guia" />
-            <span class="visit-mode-row__title">Visita sin guía</span>
-            <span class="visit-mode-row__desc">Recorre el monumento por libre.</span>
+            <span class="visit-mode-row__title" data-i18n-page="s2_no_guide_title">Visita sin guía</span>
+            <span class="visit-mode-row__desc" data-i18n-page="s2_no_guide_desc">Recorre el monumento por libre.</span>
             <span class="visit-mode-row__check" aria-hidden="true"></span>
           </label>
           <label class="visit-mode-row">
             <input type="radio" name="visitMode" value="con-guia" />
-            <span class="visit-mode-row__title">Visita guiada</span>
-            <span class="visit-mode-row__desc">Acompañado por un guía oficial.</span>
+            <span class="visit-mode-row__title" data-i18n-page="s2_guide_title">Visita guiada</span>
+            <span class="visit-mode-row__desc" data-i18n-page="s2_guide_desc">Acompañado por un guía oficial.</span>
             <span class="visit-mode-row__check" aria-hidden="true"></span>
           </label>
         </div>
 
         <!-- Tipo de entrada (dinámico según tipoVisita + modalidad) -->
         <div class="field field--full" id="fieldTipoEntrada" style="display:none;margin-top:18px">
-          <label for="tipoEntrada" id="labelTipoEntrada">Tipo de entrada</label>
+          <label for="tipoEntrada" id="labelTipoEntrada" data-i18n-page="s2_ticket_type">Tipo de entrada</label>
           <select id="tipoEntrada">
             <option value="" disabled selected>Seleccione tipo</option>
           </select>
-          <span class="error-msg" id="err-tipoEntrada">Seleccione una opción.</span>
+          <span class="error-msg" id="err-tipoEntrada" data-i18n-page="err_select">Seleccione una opción.</span>
           <div id="notaTipoEntrada" class="info-note" style="display:none">
             <p id="notaTipoEntradaTexto"></p>
           </div>
@@ -2421,12 +2421,12 @@
 
       <!-- Detalles -->
       <div class="form-section">
-        <p class="form-section__title">Detalles</p>
+        <p class="form-section__title" data-i18n-page="s2_details">Detalles</p>
         <div class="field-group">
 
           <!-- TRAMO EDAD (escolar) -->
           <div class="field field--full" id="fieldTramoEdad" style="display:none">
-            <label for="tramoEdad">Tramo de edad de los alumnos</label>
+            <label for="tramoEdad" data-i18n-page="s2_age_range">Tramo de edad de los alumnos</label>
             <select id="tramoEdad">
               <option value="" disabled selected>Seleccione tramo de edad</option>
               <option value="menor12">Menores 12 años — gratuidad</option>
@@ -2435,47 +2435,47 @@
               <option value="e1617">16–17 años — 4 € / alumno</option>
               <option value="mayor17">Mayores 17 años — 5 € / alumno</option>
             </select>
-            <span class="error-msg" id="err-tramoEdad">Seleccione el tramo de edad.</span>
+            <span class="error-msg" id="err-tramoEdad" data-i18n-page="err_age_range">Seleccione el tramo de edad.</span>
           </div>
 
           <!-- FECHA -->
           <div class="field">
-            <label for="fechaVisita">Fecha de visita</label>
+            <label for="fechaVisita" data-i18n-page="s2_date">Fecha de visita</label>
             <input type="date" id="fechaVisita" />
             <span id="fechaHelper" class="field-helper" style="display:none"></span>
-            <span class="error-msg" id="err-fechaVisita">Seleccione una fecha válida.</span>
+            <span class="error-msg" id="err-fechaVisita" data-i18n-page="err_date">Seleccione una fecha válida.</span>
           </div>
 
           <!-- HORA -->
           <div class="field" id="horaVisitaField">
-            <label for="horaVisita">Hora preferente</label>
+            <label for="horaVisita" data-i18n-page="s2_time">Hora preferente</label>
             <select id="horaVisita">
               <option value="" disabled selected>Seleccione hora</option>
             </select>
             <div id="horaGrid"></div>
-            <span class="error-msg" id="err-horaVisita">Seleccione una hora.</span>
+            <span class="error-msg" id="err-horaVisita" data-i18n-page="err_time">Seleccione una hora.</span>
           </div>
 
           <!-- PERSONAS -->
           <div class="field">
-            <label for="numPersonas" id="labelNumPersonas">Número de personas</label>
+            <label for="numPersonas" id="labelNumPersonas" data-i18n-page="s2_persons">Número de personas</label>
             <input type="number" id="numPersonas" min="1" max="500" placeholder="Ej: 4" />
             <span class="field-helper" id="personasHelper"></span>
-            <span class="error-msg" id="err-numPersonas">Indique el número de personas.</span>
+            <span class="error-msg" id="err-numPersonas" data-i18n-page="err_persons">Indique el número de personas.</span>
           </div>
 
           <!-- MENORES -->
           <div class="field">
-            <label for="menoresTreceAnios">Menores de 12 años</label>
+            <label for="menoresTreceAnios" data-i18n-page="s2_minors">Menores de 12 años</label>
             <input type="number" id="menoresTreceAnios" min="0" max="500" placeholder="0" value="0" />
-            <span class="field-helper">Acreditar en taquillas con documentación oficial.</span>
+            <span class="field-helper" data-i18n-page="s2_minors_help">Acreditar en taquillas con documentación oficial.</span>
           </div>
 
           <!-- RESIDENTES -->
           <div class="field">
-            <label for="residentes">Residentes</label>
+            <label for="residentes" data-i18n-page="s2_residents">Residentes</label>
             <input type="number" id="residentes" min="0" max="500" placeholder="0" value="0" />
-            <span class="field-helper">Residentes en Santo Domingo de la Calzada (acreditar).</span>
+            <span class="field-helper" data-i18n-page="s2_residents_help">Residentes en Santo Domingo de la Calzada (acreditar).</span>
           </div>
         </div>
       </div>
@@ -2483,76 +2483,76 @@
       <div class="alert alert--error" id="alert-step2"></div>
 
       <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(1)">← Volver</button>
-        <button class="btn btn--gold" onclick="goTo(3)">Continuar →</button>
+        <button class="btn btn--ghost" onclick="goTo(1)" data-i18n-page="btn_back">← Volver</button>
+        <button class="btn btn--gold" onclick="goTo(3)" data-i18n-page="btn_continue">Continuar →</button>
       </div>
     </div>
 
     <!-- ── PASO 3: Datos personales / del grupo + comentarios ── -->
     <div class="form-panel" id="step-3">
-      <h2 class="panel-title" id="step3Title">Tus datos personales</h2>
-      <p class="panel-subtitle" id="step3Subtitle">Necesitamos algunos datos para gestionar tu reserva.</p>
+      <h2 class="panel-title" id="step3Title" data-i18n-page="s3_title">Tus datos personales</h2>
+      <p class="panel-subtitle" id="step3Subtitle" data-i18n-page="s3_sub">Necesitamos algunos datos para gestionar tu reserva.</p>
 
       <div class="field-group">
         <div class="field field--full">
-          <label for="nombre" id="labelNombre">Nombre completo</label>
+          <label for="nombre" id="labelNombre" data-i18n-page="s3_name">Nombre completo</label>
           <input type="text" id="nombre" placeholder="María García López" autocomplete="name" />
-          <span class="error-msg" id="err-nombre">Introduce tu nombre completo.</span>
+          <span class="error-msg" id="err-nombre" data-i18n-page="err_name">Introduce tu nombre completo.</span>
         </div>
         <div class="field">
-          <label for="telefono">Teléfono</label>
+          <label for="telefono" data-i18n-page="s3_phone">Teléfono</label>
           <input type="tel" id="telefono" placeholder="+34 600 000 000" autocomplete="tel" />
-          <span class="error-msg" id="err-telefono">Introduce un teléfono válido.</span>
+          <span class="error-msg" id="err-telefono" data-i18n-page="err_phone">Introduce un teléfono válido.</span>
         </div>
         <div class="field">
-          <label for="email">Correo electrónico</label>
+          <label for="email" data-i18n-page="s3_email">Correo electrónico</label>
           <input type="email" id="email" placeholder="maria@ejemplo.com" autocomplete="email" />
-          <span class="error-msg" id="err-email">Introduce un email válido.</span>
+          <span class="error-msg" id="err-email" data-i18n-page="err_email">Introduce un email válido.</span>
         </div>
       </div>
 
       <!-- Facturación (solo grupo / escolar) -->
       <div class="form-section" id="facturaSection" style="display:none">
-        <p class="form-section__title">Facturación</p>
+        <p class="form-section__title" data-i18n-page="s3_billing">Facturación</p>
         <label class="checkbox-row inline">
           <input type="checkbox" id="necesitaFactura" value="si" />
-          <span>Necesito factura</span>
+          <span data-i18n-page="s3_need_invoice">Necesito factura</span>
         </label>
 
         <div class="field-group" id="facturaFields" style="display:none;margin-top:18px">
           <div class="field">
-            <label for="nombreCentro">Nombre del centro / institución</label>
+            <label for="nombreCentro" data-i18n-page="s3_center">Nombre del centro / institución</label>
             <input type="text" id="nombreCentro" placeholder="Colegio, asociación, empresa…" />
-            <span class="error-msg" id="err-nombreCentro">El nombre del centro es obligatorio.</span>
+            <span class="error-msg" id="err-nombreCentro" data-i18n-page="err_center">El nombre del centro es obligatorio.</span>
           </div>
           <div class="field">
-            <label for="nifCif">NIF / CIF</label>
+            <label for="nifCif" data-i18n-page="s3_nif">NIF / CIF</label>
             <input type="text" id="nifCif" placeholder="B12345678" />
-            <span class="error-msg" id="err-nifCif">El NIF/CIF es obligatorio.</span>
+            <span class="error-msg" id="err-nifCif" data-i18n-page="err_nif">El NIF/CIF es obligatorio.</span>
           </div>
           <div class="field field--full">
-            <label for="calleNumero">Dirección de facturación</label>
+            <label for="calleNumero" data-i18n-page="s3_address">Dirección de facturación</label>
             <input type="text" id="calleNumero" placeholder="Calle y número" />
-            <span class="error-msg" id="err-calleNumero">La dirección es obligatoria.</span>
+            <span class="error-msg" id="err-calleNumero" data-i18n-page="err_address">La dirección es obligatoria.</span>
           </div>
           <div class="field">
-            <label for="ciudadFact">Ciudad</label>
+            <label for="ciudadFact" data-i18n-page="s3_city">Ciudad</label>
             <input type="text" id="ciudadFact" placeholder="Ciudad" />
-            <span class="error-msg" id="err-ciudadFact">Indique la ciudad.</span>
+            <span class="error-msg" id="err-ciudadFact" data-i18n-page="err_city">Indique la ciudad.</span>
           </div>
           <div class="field">
-            <label for="cpFact">Código postal</label>
+            <label for="cpFact" data-i18n-page="s3_cp">Código postal</label>
             <input type="text" id="cpFact" placeholder="CP" />
-            <span class="error-msg" id="err-cpFact">Indique el código postal.</span>
+            <span class="error-msg" id="err-cpFact" data-i18n-page="err_cp">Indique el código postal.</span>
           </div>
         </div>
       </div>
 
       <!-- Comentarios -->
       <div class="form-section">
-        <p class="form-section__title">Comentarios adicionales</p>
+        <p class="form-section__title" data-i18n-page="s3_comments_section">Comentarios adicionales</p>
         <div class="field field--full">
-          <label for="comentarios">Comentarios (opcional)</label>
+          <label for="comentarios" data-i18n-page="s3_comments">Comentarios (opcional)</label>
           <textarea id="comentarios" rows="4" placeholder="Indique aquí cualquier necesidad especial: accesibilidad, idioma preferente, peticiones concretas…"></textarea>
         </div>
       </div>
@@ -2560,36 +2560,36 @@
       <div class="alert alert--error" id="alert-step3"></div>
 
       <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(2)">← Volver</button>
-        <button class="btn btn--gold" onclick="goTo(4)">Ver resumen →</button>
+        <button class="btn btn--ghost" onclick="goTo(2)" data-i18n-page="btn_back">← Volver</button>
+        <button class="btn btn--gold" onclick="goTo(4)" data-i18n-page="btn_summary">Ver resumen →</button>
       </div>
     </div>
 
     <!-- ── PASO 4: Resumen ──────────────────────────────────────── -->
     <div class="form-panel" id="step-4">
-      <h2 class="panel-title">Resumen de tu reserva</h2>
-      <p class="panel-subtitle">Revisa todos los detalles antes de enviar la solicitud.</p>
+      <h2 class="panel-title" data-i18n-page="s4_title">Resumen de tu reserva</h2>
+      <p class="panel-subtitle" data-i18n-page="s4_sub">Revisa todos los detalles antes de enviar la solicitud.</p>
 
       <div id="summary-content"><!-- se rellena dinámicamente --></div>
 
       <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(3)">← Modificar</button>
-        <button class="btn btn--gold" onclick="goTo(5)">Continuar →</button>
+        <button class="btn btn--ghost" onclick="goTo(3)" data-i18n-page="btn_modify">← Modificar</button>
+        <button class="btn btn--gold" onclick="goTo(5)" data-i18n-page="btn_continue">Continuar →</button>
       </div>
     </div>
 
     <!-- ── PASO 5: Confirmar (captcha + términos + envío) ──────── -->
     <div class="form-panel" id="step-5">
-      <h2 class="panel-title">Confirma tu reserva</h2>
-      <p class="panel-subtitle">Responde la pregunta de seguridad y acepta las condiciones para enviar tu solicitud.</p>
+      <h2 class="panel-title" data-i18n-page="s5_title">Confirma tu reserva</h2>
+      <p class="panel-subtitle" data-i18n-page="s5_sub">Responde la pregunta de seguridad y acepta las condiciones para enviar tu solicitud.</p>
 
       <div class="captcha-box">
         <div class="captcha-question" id="captcha-question"></div>
         <div style="display:flex;flex-direction:column;gap:4px">
           <input type="number" id="captcha-answer" placeholder="Resultado" style="width:110px" />
-          <span class="error-msg" id="err-captcha">Respuesta incorrecta.</span>
+          <span class="error-msg" id="err-captcha" data-i18n-page="err_captcha">Respuesta incorrecta.</span>
         </div>
-        <span class="captcha-hint">Calcula mentalmente y escribe el resultado.</span>
+        <span class="captcha-hint" data-i18n-page="s5_captcha_hint">Calcula mentalmente y escribe el resultado.</span>
       </div>
 
       <div class="checkbox-row">
@@ -2605,16 +2605,16 @@
       <div class="alert alert--error" id="alert-step5"></div>
 
       <div class="btn-row">
-        <button class="btn btn--ghost" onclick="goTo(4)">← Volver</button>
-        <button class="btn btn--gold" id="btn-submit" onclick="enviarReserva()">Enviar solicitud →</button>
+        <button class="btn btn--ghost" onclick="goTo(4)" data-i18n-page="btn_back">← Volver</button>
+        <button class="btn btn--gold" id="btn-submit" onclick="enviarReserva()" data-i18n-page="btn_submit">Enviar solicitud →</button>
       </div>
     </div>
 
     <!-- ── CONFIRMACIÓN ───────────────────────────────────────────── -->
     <div class="form-panel" id="step-confirm">
       <div class="confirm-icon">✦</div>
-      <h2 class="confirm-title">¡Solicitud enviada!</h2>
-      <p class="confirm-subtitle">Hemos recibido tu reserva. Recibirás la confirmación por email en breve.</p>
+      <h2 class="confirm-title" data-i18n-page="confirm_title">¡Solicitud enviada!</h2>
+      <p class="confirm-subtitle" data-i18n-page="confirm_sub">Hemos recibido tu reserva. Recibirás la confirmación por email en breve.</p>
 
       <div class="booking-id" id="booking-id-display"></div>
 
@@ -2628,9 +2628,9 @@
       <div class="confirm-summary" id="confirm-summary-content"></div>
 
       <div class="btn-row" style="justify-content:center;border:none;padding-top:16px;flex-wrap:wrap;gap:12px">
-        <button class="btn btn--ghost" onclick="window.print()">🖨 Imprimir</button>
-        <button class="btn btn--ghost" onclick="resetForm()">↺ Nueva reserva</button>
-        <a href="/" class="btn btn--gold" style="text-decoration:none">Volver al inicio</a>
+        <button class="btn btn--ghost" onclick="window.print()" data-i18n-page="confirm_print">🖨 Imprimir</button>
+        <button class="btn btn--ghost" onclick="resetForm()" data-i18n-page="confirm_new">↺ Nueva reserva</button>
+        <a href="/" class="btn btn--gold" style="text-decoration:none" data-i18n-page="confirm_home">Volver al inicio</a>
       </div>
     </div>
 
@@ -2640,7 +2640,7 @@
   <div class="modal-overlay" id="modal-terms" onclick="closeModal('modal-terms')">
     <div class="modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="terms-title">
       <button class="modal-close" onclick="closeModal('modal-terms')" aria-label="Cerrar">×</button>
-      <h3 class="modal-title" id="terms-title">Términos y condiciones de compra</h3>
+      <h3 class="modal-title" id="terms-title" data-i18n-page="modal_terms_title">Términos y condiciones de compra</h3>
       <p><strong>1. Entradas nominales.</strong> Las entradas son nominales e intransferibles. Se verificará la
         identidad en taquilla.</p>
       <p><strong>2. Devoluciones.</strong> No se admiten cambios ni devoluciones una vez confirmado el pago, salvo
@@ -2658,7 +2658,7 @@
     <div class="modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true"
       aria-labelledby="privacy-title">
       <button class="modal-close" onclick="closeModal('modal-privacy')" aria-label="Cerrar">×</button>
-      <h3 class="modal-title" id="privacy-title">Política de privacidad</h3>
+      <h3 class="modal-title" id="privacy-title" data-i18n-page="modal_privacy_title">Política de privacidad</h3>
       <p>Los datos personales facilitados serán tratados por la Catedral de Santo Domingo de la Calzada con la finalidad
         de gestionar tu reserva y enviarte la confirmación de compra.</p>
       <p>No se cederán datos a terceros salvo obligación legal. Puedes ejercer tus derechos de acceso, rectificación y
@@ -3684,14 +3684,14 @@
     <div class="cookie-banner__inner">
       <div class="cookie-banner__text">
         <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
-        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el trafico y recordar tus preferencias.</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el tráfico y recordar tus preferencias.</p>
       </div>
       <div class="cookie-banner__actions">
         <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
         <button id="cookie-btn-customize" class="cookie-btn cookie-btn--ghost">Personalizar</button>
         <button id="cookie-btn-all" class="cookie-btn cookie-btn--primary">Aceptar todo</button>
       </div>
-      <a href="#" class="cookie-banner__link" data-cookie-link>Politica de cookies</a>
+      <a href="#" class="cookie-banner__link" data-cookie-link>Política de cookies</a>
     </div>
   </div>
   <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
@@ -3716,7 +3716,7 @@
         </div>
         <div class="cookie-cat">
           <div class="cookie-cat__header">
-            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analiticas</span>
+            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analíticas</span>
             <label class="cookie-toggle" for="cookie-toggle-analytics" aria-labelledby="cookie-cat-analytics-name">
               <input type="checkbox" id="cookie-toggle-analytics" name="analytics" role="switch">
               <span class="cookie-toggle__track"></span>
@@ -3752,6 +3752,719 @@
     </div>
   </div>
 
+  <script>
+    const PAGE_T = {
+      es: {
+        step_type: 'Tipo',
+        step_visit: 'Visita',
+        step_data: 'Datos',
+        step_summary: 'Resumen',
+        step_confirm: 'Confirmar',
+        s1_title: 'Tipo de visita',
+        s1_sub: '¿Cómo quieres organizar tu visita?',
+        s1_card1_title: 'Visita individual',
+        s1_card1_desc: 'Familias, turistas, peregrinos y visitas personales.',
+        s1_card2_title: 'Visita en grupo',
+        s1_card2_desc: 'Grupos organizados, asociaciones e instituciones.',
+        s1_card3_title: 'Grupos escolares',
+        s1_card3_desc: 'Visitas educativas para centros escolares.',
+        s1_err: 'Selecciona el tipo de visita para continuar.',
+        btn_continue: 'Continuar →',
+        btn_back: '← Volver',
+        btn_modify: '← Modificar',
+        btn_summary: 'Ver resumen →',
+        btn_submit: 'Enviar solicitud →',
+        s2_title: 'Datos de tu visita',
+        s2_sub: 'Indica la modalidad y los detalles de la reserva.',
+        s2_modality: 'Modalidad',
+        s2_no_guide_title: 'Visita sin guía',
+        s2_no_guide_desc: 'Recorre el monumento por libre.',
+        s2_guide_title: 'Visita guiada',
+        s2_guide_desc: 'Acompañado por un guía oficial.',
+        s2_ticket_type: 'Tipo de entrada',
+        err_select: 'Seleccione una opción.',
+        s2_details: 'Detalles',
+        s2_age_range: 'Tramo de edad de los alumnos',
+        err_age_range: 'Seleccione el tramo de edad.',
+        s2_date: 'Fecha de visita',
+        err_date: 'Seleccione una fecha válida.',
+        s2_time: 'Hora preferente',
+        err_time: 'Seleccione una hora.',
+        s2_persons: 'Número de personas',
+        err_persons: 'Indique el número de personas.',
+        s2_minors: 'Menores de 12 años',
+        s2_minors_help: 'Acreditar en taquillas con documentación oficial.',
+        s2_residents: 'Residentes',
+        s2_residents_help: 'Residentes en Santo Domingo de la Calzada (acreditar).',
+        s3_title: 'Tus datos personales',
+        s3_sub: 'Necesitamos algunos datos para gestionar tu reserva.',
+        s3_name: 'Nombre completo',
+        err_name: 'Introduce tu nombre completo.',
+        s3_phone: 'Teléfono',
+        err_phone: 'Introduce un teléfono válido.',
+        s3_email: 'Correo electrónico',
+        err_email: 'Introduce un email válido.',
+        s3_billing: 'Facturación',
+        s3_need_invoice: 'Necesito factura',
+        s3_center: 'Nombre del centro / institución',
+        err_center: 'El nombre del centro es obligatorio.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'El NIF/CIF es obligatorio.',
+        s3_address: 'Dirección de facturación',
+        err_address: 'La dirección es obligatoria.',
+        s3_city: 'Ciudad',
+        err_city: 'Indique la ciudad.',
+        s3_cp: 'Código postal',
+        err_cp: 'Indique el código postal.',
+        s3_comments_section: 'Comentarios adicionales',
+        s3_comments: 'Comentarios (opcional)',
+        s4_title: 'Resumen de tu reserva',
+        s4_sub: 'Revisa todos los detalles antes de enviar la solicitud.',
+        s5_title: 'Confirma tu reserva',
+        s5_sub: 'Responde la pregunta de seguridad y acepta las condiciones para enviar tu solicitud.',
+        err_captcha: 'Respuesta incorrecta.',
+        s5_captcha_hint: 'Calcula mentalmente y escribe el resultado.',
+        confirm_title: '¡Solicitud enviada!',
+        confirm_sub: 'Hemos recibido tu reserva. Recibirás la confirmación por email en breve.',
+        confirm_print: '🖨 Imprimir',
+        confirm_new: '↺ Nueva reserva',
+        confirm_home: 'Volver al inicio',
+        modal_terms_title: 'Términos y condiciones de compra',
+        modal_privacy_title: 'Política de privacidad'
+      },
+      en: {
+        step_type: 'Type',
+        step_visit: 'Visit',
+        step_data: 'Details',
+        step_summary: 'Summary',
+        step_confirm: 'Confirm',
+        s1_title: 'Type of visit',
+        s1_sub: 'How would you like to organise your visit?',
+        s1_card1_title: 'Individual visit',
+        s1_card1_desc: 'Families, tourists, pilgrims and personal visits.',
+        s1_card2_title: 'Group visit',
+        s1_card2_desc: 'Organised groups, associations and institutions.',
+        s1_card3_title: 'School groups',
+        s1_card3_desc: 'Educational visits for schools.',
+        s1_err: 'Please select the type of visit to continue.',
+        btn_continue: 'Continue →',
+        btn_back: '← Back',
+        btn_modify: '← Edit',
+        btn_summary: 'See summary →',
+        btn_submit: 'Send request →',
+        s2_title: 'Visit details',
+        s2_sub: 'Select the format and the booking details.',
+        s2_modality: 'Format',
+        s2_no_guide_title: 'Self-guided visit',
+        s2_no_guide_desc: 'Explore the monument at your own pace.',
+        s2_guide_title: 'Guided visit',
+        s2_guide_desc: 'Accompanied by an official guide.',
+        s2_ticket_type: 'Ticket type',
+        err_select: 'Please select an option.',
+        s2_details: 'Details',
+        s2_age_range: 'Pupils\\\' age range',
+        err_age_range: 'Please select the age range.',
+        s2_date: 'Visit date',
+        err_date: 'Please select a valid date.',
+        s2_time: 'Preferred time',
+        err_time: 'Please select a time.',
+        s2_persons: 'Number of people',
+        err_persons: 'Please enter the number of people.',
+        s2_minors: 'Under 12',
+        s2_minors_help: 'Show valid ID at the ticket office.',
+        s2_residents: 'Residents',
+        s2_residents_help: 'Residents of Santo Domingo de la Calzada (show ID).',
+        s3_title: 'Your personal details',
+        s3_sub: 'We need some details to manage your booking.',
+        s3_name: 'Full name',
+        err_name: 'Please enter your full name.',
+        s3_phone: 'Phone',
+        err_phone: 'Please enter a valid phone number.',
+        s3_email: 'Email',
+        err_email: 'Please enter a valid email address.',
+        s3_billing: 'Billing',
+        s3_need_invoice: 'I need an invoice',
+        s3_center: 'Centre / institution name',
+        err_center: 'Centre name is required.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'NIF/CIF is required.',
+        s3_address: 'Billing address',
+        err_address: 'Address is required.',
+        s3_city: 'City',
+        err_city: 'Please enter the city.',
+        s3_cp: 'Postcode',
+        err_cp: 'Please enter the postcode.',
+        s3_comments_section: 'Additional comments',
+        s3_comments: 'Comments (optional)',
+        s4_title: 'Booking summary',
+        s4_sub: 'Review all details before submitting your request.',
+        s5_title: 'Confirm your booking',
+        s5_sub: 'Answer the security question and accept the conditions to send your request.',
+        err_captcha: 'Incorrect answer.',
+        s5_captcha_hint: 'Work it out mentally and enter the result.',
+        confirm_title: 'Request sent!',
+        confirm_sub: 'We have received your booking. You will receive the confirmation by email shortly.',
+        confirm_print: '🖨 Print',
+        confirm_new: '↺ New booking',
+        confirm_home: 'Back to home',
+        modal_terms_title: 'Ticket purchase terms and conditions',
+        modal_privacy_title: 'Privacy policy'
+      },
+      fr: {
+        step_type: 'Type',
+        step_visit: 'Visite',
+        step_data: 'Données',
+        step_summary: 'Résumé',
+        step_confirm: 'Confirmer',
+        s1_title: 'Type de visite',
+        s1_sub: 'Comment souhaitez-vous organiser votre visite ?',
+        s1_card1_title: 'Visite individuelle',
+        s1_card1_desc: 'Familles, touristes, pèlerins et visites personnelles.',
+        s1_card2_title: 'Visite en groupe',
+        s1_card2_desc: 'Groupes organisés, associations et institutions.',
+        s1_card3_title: 'Groupes scolaires',
+        s1_card3_desc: 'Visites éducatives pour établissements scolaires.',
+        s1_err: 'Sélectionnez le type de visite pour continuer.',
+        btn_continue: 'Continuer →',
+        btn_back: '← Retour',
+        btn_modify: '← Modifier',
+        btn_summary: 'Voir le résumé →',
+        btn_submit: 'Envoyer la demande →',
+        s2_title: 'Détails de votre visite',
+        s2_sub: 'Indiquez la modalité et les détails de la réservation.',
+        s2_modality: 'Modalité',
+        s2_no_guide_title: 'Visite libre',
+        s2_no_guide_desc: 'Parcourez le monument à votre rythme.',
+        s2_guide_title: 'Visite guidée',
+        s2_guide_desc: 'Accompagné par un guide officiel.',
+        s2_ticket_type: 'Type de billet',
+        err_select: 'Veuillez sélectionner une option.',
+        s2_details: 'Détails',
+        s2_age_range: 'Tranche d\'âge des élèves',
+        err_age_range: 'Sélectionnez la tranche d\'âge.',
+        s2_date: 'Date de la visite',
+        err_date: 'Sélectionnez une date valide.',
+        s2_time: 'Heure préférée',
+        err_time: 'Sélectionnez une heure.',
+        s2_persons: 'Nombre de personnes',
+        err_persons: 'Indiquez le nombre de personnes.',
+        s2_minors: 'Moins de 12 ans',
+        s2_minors_help: 'Présenter un justificatif aux guichets.',
+        s2_residents: 'Résidents',
+        s2_residents_help: 'Résidents de Santo Domingo de la Calzada (justificatif).',
+        s3_title: 'Vos coordonnées',
+        s3_sub: 'Nous avons besoin de quelques données pour gérer votre réservation.',
+        s3_name: 'Nom complet',
+        err_name: 'Indiquez votre nom complet.',
+        s3_phone: 'Téléphone',
+        err_phone: 'Indiquez un téléphone valide.',
+        s3_email: 'Adresse e-mail',
+        err_email: 'Indiquez un e-mail valide.',
+        s3_billing: 'Facturation',
+        s3_need_invoice: 'J\'ai besoin d\'une facture',
+        s3_center: 'Nom de l\'établissement / institution',
+        err_center: 'Le nom de l\'établissement est obligatoire.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'Le NIF/CIF est obligatoire.',
+        s3_address: 'Adresse de facturation',
+        err_address: 'L\'adresse est obligatoire.',
+        s3_city: 'Ville',
+        err_city: 'Indiquez la ville.',
+        s3_cp: 'Code postal',
+        err_cp: 'Indiquez le code postal.',
+        s3_comments_section: 'Commentaires supplémentaires',
+        s3_comments: 'Commentaires (facultatif)',
+        s4_title: 'Résumé de votre réservation',
+        s4_sub: 'Vérifiez tous les détails avant d\'envoyer la demande.',
+        s5_title: 'Confirmez votre réservation',
+        s5_sub: 'Répondez à la question de sécurité et acceptez les conditions pour envoyer votre demande.',
+        err_captcha: 'Réponse incorrecte.',
+        s5_captcha_hint: 'Calculez mentalement et saisissez le résultat.',
+        confirm_title: 'Demande envoyée !',
+        confirm_sub: 'Nous avons reçu votre réservation. Vous recevrez la confirmation par e-mail sous peu.',
+        confirm_print: '🖨 Imprimer',
+        confirm_new: '↺ Nouvelle réservation',
+        confirm_home: 'Retour à l\'accueil',
+        modal_terms_title: 'Conditions générales d\'achat de billets',
+        modal_privacy_title: 'Politique de confidentialité'
+      },
+      de: {
+        step_type: 'Typ',
+        step_visit: 'Besuch',
+        step_data: 'Daten',
+        step_summary: 'Übersicht',
+        step_confirm: 'Bestätigen',
+        s1_title: 'Besuchsart',
+        s1_sub: 'Wie möchten Sie Ihren Besuch organisieren?',
+        s1_card1_title: 'Einzelbesuch',
+        s1_card1_desc: 'Familien, Touristen, Pilger und persönliche Besuche.',
+        s1_card2_title: 'Gruppenbesuch',
+        s1_card2_desc: 'Organisierte Gruppen, Vereine und Institutionen.',
+        s1_card3_title: 'Schulgruppen',
+        s1_card3_desc: 'Bildungsbesuche für Schulen.',
+        s1_err: 'Bitte wählen Sie die Besuchsart aus, um fortzufahren.',
+        btn_continue: 'Weiter →',
+        btn_back: '← Zurück',
+        btn_modify: '← Bearbeiten',
+        btn_summary: 'Übersicht anzeigen →',
+        btn_submit: 'Anfrage senden →',
+        s2_title: 'Daten Ihres Besuchs',
+        s2_sub: 'Geben Sie die Art und die Details der Reservierung an.',
+        s2_modality: 'Art',
+        s2_no_guide_title: 'Besuch ohne Führung',
+        s2_no_guide_desc: 'Erkunden Sie das Denkmal in Ihrem eigenen Tempo.',
+        s2_guide_title: 'Geführter Besuch',
+        s2_guide_desc: 'Begleitet von einem offiziellen Führer.',
+        s2_ticket_type: 'Tickettyp',
+        err_select: 'Bitte wählen Sie eine Option.',
+        s2_details: 'Details',
+        s2_age_range: 'Altersgruppe der Schüler',
+        err_age_range: 'Bitte wählen Sie die Altersgruppe.',
+        s2_date: 'Besuchsdatum',
+        err_date: 'Bitte wählen Sie ein gültiges Datum.',
+        s2_time: 'Bevorzugte Uhrzeit',
+        err_time: 'Bitte wählen Sie eine Uhrzeit.',
+        s2_persons: 'Personenanzahl',
+        err_persons: 'Bitte Personenanzahl angeben.',
+        s2_minors: 'Unter 12 Jahre',
+        s2_minors_help: 'Bitte gültigen Ausweis am Schalter vorzeigen.',
+        s2_residents: 'Einwohner',
+        s2_residents_help: 'Einwohner von Santo Domingo de la Calzada (Nachweis).',
+        s3_title: 'Ihre persönlichen Daten',
+        s3_sub: 'Wir benötigen einige Daten zur Bearbeitung Ihrer Reservierung.',
+        s3_name: 'Vollständiger Name',
+        err_name: 'Bitte vollständigen Namen eingeben.',
+        s3_phone: 'Telefon',
+        err_phone: 'Bitte gültige Telefonnummer eingeben.',
+        s3_email: 'E-Mail',
+        err_email: 'Bitte gültige E-Mail eingeben.',
+        s3_billing: 'Rechnung',
+        s3_need_invoice: 'Ich benötige eine Rechnung',
+        s3_center: 'Name der Einrichtung / Institution',
+        err_center: 'Einrichtungsname ist erforderlich.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'NIF/CIF ist erforderlich.',
+        s3_address: 'Rechnungsadresse',
+        err_address: 'Adresse ist erforderlich.',
+        s3_city: 'Stadt',
+        err_city: 'Bitte Stadt angeben.',
+        s3_cp: 'Postleitzahl',
+        err_cp: 'Bitte PLZ angeben.',
+        s3_comments_section: 'Zusätzliche Kommentare',
+        s3_comments: 'Kommentare (optional)',
+        s4_title: 'Übersicht Ihrer Reservierung',
+        s4_sub: 'Überprüfen Sie alle Details vor dem Absenden der Anfrage.',
+        s5_title: 'Reservierung bestätigen',
+        s5_sub: 'Beantworten Sie die Sicherheitsfrage und akzeptieren Sie die Bedingungen, um Ihre Anfrage zu senden.',
+        err_captcha: 'Falsche Antwort.',
+        s5_captcha_hint: 'Rechnen Sie im Kopf und geben Sie das Ergebnis ein.',
+        confirm_title: 'Anfrage gesendet!',
+        confirm_sub: 'Wir haben Ihre Reservierung erhalten. Sie erhalten die Bestätigung in Kürze per E-Mail.',
+        confirm_print: '🖨 Drucken',
+        confirm_new: '↺ Neue Reservierung',
+        confirm_home: 'Zurück zur Startseite',
+        modal_terms_title: 'Allgemeine Geschäftsbedingungen für den Ticketkauf',
+        modal_privacy_title: 'Datenschutzrichtlinie'
+      },
+      pt: {
+        step_type: 'Tipo',
+        step_visit: 'Visita',
+        step_data: 'Dados',
+        step_summary: 'Resumo',
+        step_confirm: 'Confirmar',
+        s1_title: 'Tipo de visita',
+        s1_sub: 'Como deseja organizar a sua visita?',
+        s1_card1_title: 'Visita individual',
+        s1_card1_desc: 'Famílias, turistas, peregrinos e visitas pessoais.',
+        s1_card2_title: 'Visita em grupo',
+        s1_card2_desc: 'Grupos organizados, associações e instituições.',
+        s1_card3_title: 'Grupos escolares',
+        s1_card3_desc: 'Visitas educativas para escolas.',
+        s1_err: 'Selecione o tipo de visita para continuar.',
+        btn_continue: 'Continuar →',
+        btn_back: '← Voltar',
+        btn_modify: '← Modificar',
+        btn_summary: 'Ver resumo →',
+        btn_submit: 'Enviar pedido →',
+        s2_title: 'Dados da sua visita',
+        s2_sub: 'Indique a modalidade e os detalhes da reserva.',
+        s2_modality: 'Modalidade',
+        s2_no_guide_title: 'Visita sem guia',
+        s2_no_guide_desc: 'Percorra o monumento livremente.',
+        s2_guide_title: 'Visita guiada',
+        s2_guide_desc: 'Acompanhado por um guia oficial.',
+        s2_ticket_type: 'Tipo de bilhete',
+        err_select: 'Selecione uma opção.',
+        s2_details: 'Detalhes',
+        s2_age_range: 'Faixa etária dos alunos',
+        err_age_range: 'Selecione a faixa etária.',
+        s2_date: 'Data da visita',
+        err_date: 'Selecione uma data válida.',
+        s2_time: 'Hora preferida',
+        err_time: 'Selecione uma hora.',
+        s2_persons: 'Número de pessoas',
+        err_persons: 'Indique o número de pessoas.',
+        s2_minors: 'Menores de 12 anos',
+        s2_minors_help: 'Apresentar documentação na bilheteira.',
+        s2_residents: 'Residentes',
+        s2_residents_help: 'Residentes em Santo Domingo de la Calzada (apresentar comprovativo).',
+        s3_title: 'Os seus dados pessoais',
+        s3_sub: 'Precisamos de alguns dados para gerir a sua reserva.',
+        s3_name: 'Nome completo',
+        err_name: 'Introduza o seu nome completo.',
+        s3_phone: 'Telefone',
+        err_phone: 'Introduza um telefone válido.',
+        s3_email: 'Correio eletrónico',
+        err_email: 'Introduza um email válido.',
+        s3_billing: 'Faturação',
+        s3_need_invoice: 'Preciso de fatura',
+        s3_center: 'Nome do centro / instituição',
+        err_center: 'O nome do centro é obrigatório.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'O NIF/CIF é obrigatório.',
+        s3_address: 'Morada de faturação',
+        err_address: 'A morada é obrigatória.',
+        s3_city: 'Cidade',
+        err_city: 'Indique a cidade.',
+        s3_cp: 'Código postal',
+        err_cp: 'Indique o código postal.',
+        s3_comments_section: 'Comentários adicionais',
+        s3_comments: 'Comentários (opcional)',
+        s4_title: 'Resumo da sua reserva',
+        s4_sub: 'Reveja todos os detalhes antes de enviar o pedido.',
+        s5_title: 'Confirme a sua reserva',
+        s5_sub: 'Responda à pergunta de segurança e aceite as condições para enviar o pedido.',
+        err_captcha: 'Resposta incorreta.',
+        s5_captcha_hint: 'Calcule mentalmente e introduza o resultado.',
+        confirm_title: 'Pedido enviado!',
+        confirm_sub: 'Recebemos a sua reserva. Receberá a confirmação por email em breve.',
+        confirm_print: '🖨 Imprimir',
+        confirm_new: '↺ Nova reserva',
+        confirm_home: 'Voltar ao início',
+        modal_terms_title: 'Termos e condições de compra de bilhetes',
+        modal_privacy_title: 'Política de privacidade'
+      },
+      it: {
+        step_type: 'Tipo',
+        step_visit: 'Visita',
+        step_data: 'Dati',
+        step_summary: 'Riepilogo',
+        step_confirm: 'Conferma',
+        s1_title: 'Tipo di visita',
+        s1_sub: 'Come vuoi organizzare la tua visita?',
+        s1_card1_title: 'Visita individuale',
+        s1_card1_desc: 'Famiglie, turisti, pellegrini e visite personali.',
+        s1_card2_title: 'Visita di gruppo',
+        s1_card2_desc: 'Gruppi organizzati, associazioni e istituzioni.',
+        s1_card3_title: 'Gruppi scolastici',
+        s1_card3_desc: 'Visite educative per scuole.',
+        s1_err: 'Seleziona il tipo di visita per continuare.',
+        btn_continue: 'Continua →',
+        btn_back: '← Indietro',
+        btn_modify: '← Modifica',
+        btn_summary: 'Vedi riepilogo →',
+        btn_submit: 'Invia richiesta →',
+        s2_title: 'Dati della tua visita',
+        s2_sub: 'Indica la modalità e i dettagli della prenotazione.',
+        s2_modality: 'Modalità',
+        s2_no_guide_title: 'Visita senza guida',
+        s2_no_guide_desc: 'Esplora il monumento al tuo ritmo.',
+        s2_guide_title: 'Visita guidata',
+        s2_guide_desc: 'Accompagnato da una guida ufficiale.',
+        s2_ticket_type: 'Tipo di biglietto',
+        err_select: 'Seleziona un\\\'opzione.',
+        s2_details: 'Dettagli',
+        s2_age_range: 'Fascia d\'età degli studenti',
+        err_age_range: 'Seleziona la fascia d\'età.',
+        s2_date: 'Data della visita',
+        err_date: 'Seleziona una data valida.',
+        s2_time: 'Ora preferita',
+        err_time: 'Seleziona un\'ora.',
+        s2_persons: 'Numero di persone',
+        err_persons: 'Indica il numero di persone.',
+        s2_minors: 'Minori di 12 anni',
+        s2_minors_help: 'Mostrare documento d\'identità in biglietteria.',
+        s2_residents: 'Residenti',
+        s2_residents_help: 'Residenti a Santo Domingo de la Calzada (mostrare documento).',
+        s3_title: 'I tuoi dati personali',
+        s3_sub: 'Abbiamo bisogno di alcuni dati per gestire la tua prenotazione.',
+        s3_name: 'Nome completo',
+        err_name: 'Inserisci il tuo nome completo.',
+        s3_phone: 'Telefono',
+        err_phone: 'Inserisci un telefono valido.',
+        s3_email: 'E-mail',
+        err_email: 'Inserisci un\'e-mail valida.',
+        s3_billing: 'Fatturazione',
+        s3_need_invoice: 'Mi serve la fattura',
+        s3_center: 'Nome dell\'istituto / istituzione',
+        err_center: 'Il nome dell\'istituto è obbligatorio.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'NIF/CIF è obbligatorio.',
+        s3_address: 'Indirizzo di fatturazione',
+        err_address: 'L\'indirizzo è obbligatorio.',
+        s3_city: 'Città',
+        err_city: 'Indica la città.',
+        s3_cp: 'CAP',
+        err_cp: 'Indica il CAP.',
+        s3_comments_section: 'Commenti aggiuntivi',
+        s3_comments: 'Commenti (facoltativo)',
+        s4_title: 'Riepilogo della prenotazione',
+        s4_sub: 'Rivedi tutti i dettagli prima di inviare la richiesta.',
+        s5_title: 'Conferma la prenotazione',
+        s5_sub: 'Rispondi alla domanda di sicurezza e accetta le condizioni per inviare la richiesta.',
+        err_captcha: 'Risposta errata.',
+        s5_captcha_hint: 'Calcola mentalmente e scrivi il risultato.',
+        confirm_title: 'Richiesta inviata!',
+        confirm_sub: 'Abbiamo ricevuto la tua prenotazione. Riceverai la conferma via e-mail a breve.',
+        confirm_print: '🖨 Stampa',
+        confirm_new: '↺ Nuova prenotazione',
+        confirm_home: 'Torna alla home',
+        modal_terms_title: 'Termini e condizioni d\'acquisto dei biglietti',
+        modal_privacy_title: 'Informativa sulla privacy'
+      },
+      ko: {
+        step_type: '유형',
+        step_visit: '방문',
+        step_data: '정보',
+        step_summary: '요약',
+        step_confirm: '확정',
+        s1_title: '방문 유형',
+        s1_sub: '방문을 어떻게 준비하시겠습니까?',
+        s1_card1_title: '개인 방문',
+        s1_card1_desc: '가족, 관광객, 순례자 및 개인 방문.',
+        s1_card2_title: '단체 방문',
+        s1_card2_desc: '단체, 협회 및 기관.',
+        s1_card3_title: '학교 단체',
+        s1_card3_desc: '학교를 위한 교육 방문.',
+        s1_err: '계속하려면 방문 유형을 선택하세요.',
+        btn_continue: '계속 →',
+        btn_back: '← 뒤로',
+        btn_modify: '← 수정',
+        btn_summary: '요약 보기 →',
+        btn_submit: '신청 보내기 →',
+        s2_title: '방문 정보',
+        s2_sub: '방문 형식과 예약 세부 정보를 입력하세요.',
+        s2_modality: '형식',
+        s2_no_guide_title: '가이드 없는 방문',
+        s2_no_guide_desc: '자유롭게 유적을 둘러보세요.',
+        s2_guide_title: '가이드 투어',
+        s2_guide_desc: '공식 가이드가 동행합니다.',
+        s2_ticket_type: '입장권 유형',
+        err_select: '옵션을 선택하세요.',
+        s2_details: '세부 정보',
+        s2_age_range: '학생 연령대',
+        err_age_range: '연령대를 선택하세요.',
+        s2_date: '방문 날짜',
+        err_date: '유효한 날짜를 선택하세요.',
+        s2_time: '희망 시간',
+        err_time: '시간을 선택하세요.',
+        s2_persons: '인원수',
+        err_persons: '인원수를 입력하세요.',
+        s2_minors: '12세 미만',
+        s2_minors_help: '매표소에서 유효한 신분증을 제시하세요.',
+        s2_residents: '거주자',
+        s2_residents_help: '산토 도밍고 데 라 칼사다 거주자(신분증 제시).',
+        s3_title: '개인 정보',
+        s3_sub: '예약 처리를 위해 몇 가지 정보가 필요합니다.',
+        s3_name: '전체 이름',
+        err_name: '전체 이름을 입력하세요.',
+        s3_phone: '전화번호',
+        err_phone: '유효한 전화번호를 입력하세요.',
+        s3_email: '이메일',
+        err_email: '유효한 이메일을 입력하세요.',
+        s3_billing: '청구',
+        s3_need_invoice: '세금계산서 필요',
+        s3_center: '기관 / 단체 이름',
+        err_center: '기관 이름은 필수입니다.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'NIF/CIF는 필수입니다.',
+        s3_address: '청구 주소',
+        err_address: '주소는 필수입니다.',
+        s3_city: '도시',
+        err_city: '도시를 입력하세요.',
+        s3_cp: '우편번호',
+        err_cp: '우편번호를 입력하세요.',
+        s3_comments_section: '추가 의견',
+        s3_comments: '의견 (선택 사항)',
+        s4_title: '예약 요약',
+        s4_sub: '신청 전에 모든 세부 정보를 검토하세요.',
+        s5_title: '예약 확정',
+        s5_sub: '보안 질문에 답하고 조건에 동의한 후 신청을 보내세요.',
+        err_captcha: '잘못된 답변입니다.',
+        s5_captcha_hint: '암산으로 계산하여 결과를 입력하세요.',
+        confirm_title: '신청이 전송되었습니다!',
+        confirm_sub: '예약을 접수했습니다. 곧 이메일로 확인을 받게 됩니다.',
+        confirm_print: '🖨 인쇄',
+        confirm_new: '↺ 새 예약',
+        confirm_home: '홈으로 돌아가기',
+        modal_terms_title: '입장권 구매 약관',
+        modal_privacy_title: '개인정보 처리방침'
+      },
+      eu: {
+        step_type: 'Mota',
+        step_visit: 'Bisita',
+        step_data: 'Datuak',
+        step_summary: 'Laburpena',
+        step_confirm: 'Baieztatu',
+        s1_title: 'Bisita mota',
+        s1_sub: 'Nola antolatu nahi duzu zure bisita?',
+        s1_card1_title: 'Bisita banakakoa',
+        s1_card1_desc: 'Familiak, turistak, erromesak eta bisita pertsonalak.',
+        s1_card2_title: 'Talde-bisita',
+        s1_card2_desc: 'Antolatutako taldeak, elkarteak eta erakundeak.',
+        s1_card3_title: 'Eskola-taldeak',
+        s1_card3_desc: 'Ikastetxeentzako hezkuntza-bisitak.',
+        s1_err: 'Aukeratu bisita mota jarraitzeko.',
+        btn_continue: 'Jarraitu →',
+        btn_back: '← Itzuli',
+        btn_modify: '← Aldatu',
+        btn_summary: 'Laburpena ikusi →',
+        btn_submit: 'Eskaera bidali →',
+        s2_title: 'Zure bisitaren datuak',
+        s2_sub: 'Adierazi modalitatea eta erreserbaren xehetasunak.',
+        s2_modality: 'Modalitatea',
+        s2_no_guide_title: 'Gidaririk gabeko bisita',
+        s2_no_guide_desc: 'Monumentua libreki bisitatu.',
+        s2_guide_title: 'Bisita gidatua',
+        s2_guide_desc: 'Gida ofizial batek lagunduta.',
+        s2_ticket_type: 'Sarrera mota',
+        err_select: 'Aukeratu aukera bat.',
+        s2_details: 'Xehetasunak',
+        s2_age_range: 'Ikasleen adin-tartea',
+        err_age_range: 'Aukeratu adin-tartea.',
+        s2_date: 'Bisita data',
+        err_date: 'Aukeratu baliozko data.',
+        s2_time: 'Nahiago den ordua',
+        err_time: 'Aukeratu ordu bat.',
+        s2_persons: 'Pertsona kopurua',
+        err_persons: 'Adierazi pertsona kopurua.',
+        s2_minors: '12 urtetik beherakoak',
+        s2_minors_help: 'Egiaztatu dokumentazio ofizialarekin txarteldegian.',
+        s2_residents: 'Bizilagunak',
+        s2_residents_help: 'Santo Domingo de la Calzadako bizilagunak (egiaztatu).',
+        s3_title: 'Zure datu pertsonalak',
+        s3_sub: 'Datu batzuk behar ditugu zure erreserba kudeatzeko.',
+        s3_name: 'Izen-abizenak',
+        err_name: 'Idatzi zure izen-abizenak.',
+        s3_phone: 'Telefonoa',
+        err_phone: 'Idatzi baliozko telefono bat.',
+        s3_email: 'Helbide elektronikoa',
+        err_email: 'Idatzi baliozko helbide elektroniko bat.',
+        s3_billing: 'Fakturazioa',
+        s3_need_invoice: 'Faktura behar dut',
+        s3_center: 'Ikastetxearen / erakundearen izena',
+        err_center: 'Ikastetxearen izena nahitaezkoa da.',
+        s3_nif: 'NAN / IFZ',
+        err_nif: 'NAN/IFZ nahitaezkoa da.',
+        s3_address: 'Fakturazio helbidea',
+        err_address: 'Helbidea nahitaezkoa da.',
+        s3_city: 'Hiria',
+        err_city: 'Adierazi hiria.',
+        s3_cp: 'Posta kodea',
+        err_cp: 'Adierazi posta kodea.',
+        s3_comments_section: 'Oharrak',
+        s3_comments: 'Oharrak (aukerakoa)',
+        s4_title: 'Zure erreserbaren laburpena',
+        s4_sub: 'Berrikusi xehetasun guztiak eskaera bidali aurretik.',
+        s5_title: 'Baieztatu zure erreserba',
+        s5_sub: 'Erantzun segurtasun-galderari eta onartu baldintzak eskaera bidaltzeko.',
+        err_captcha: 'Erantzun okerra.',
+        s5_captcha_hint: 'Buruz kalkulatu eta idatzi emaitza.',
+        confirm_title: 'Eskaera bidalita!',
+        confirm_sub: 'Zure erreserba jaso dugu. Laster jasoko duzu baieztapena posta elektronikoz.',
+        confirm_print: '🖨 Inprimatu',
+        confirm_new: '↺ Erreserba berria',
+        confirm_home: 'Itzuli hasierara',
+        modal_terms_title: 'Sarrerak erosteko baldintza orokorrak',
+        modal_privacy_title: 'Pribatutasun politika'
+      },
+      ca: {
+        step_type: 'Tipus',
+        step_visit: 'Visita',
+        step_data: 'Dades',
+        step_summary: 'Resum',
+        step_confirm: 'Confirmar',
+        s1_title: 'Tipus de visita',
+        s1_sub: 'Com vols organitzar la teva visita?',
+        s1_card1_title: 'Visita individual',
+        s1_card1_desc: 'Famílies, turistes, pelegrins i visites personals.',
+        s1_card2_title: 'Visita en grup',
+        s1_card2_desc: 'Grups organitzats, associacions i institucions.',
+        s1_card3_title: 'Grups escolars',
+        s1_card3_desc: 'Visites educatives per a escoles.',
+        s1_err: 'Selecciona el tipus de visita per continuar.',
+        btn_continue: 'Continuar →',
+        btn_back: '← Tornar',
+        btn_modify: '← Modificar',
+        btn_summary: 'Veure resum →',
+        btn_submit: 'Enviar sol·licitud →',
+        s2_title: 'Dades de la teva visita',
+        s2_sub: 'Indica la modalitat i els detalls de la reserva.',
+        s2_modality: 'Modalitat',
+        s2_no_guide_title: 'Visita sense guia',
+        s2_no_guide_desc: 'Recorre el monument lliurement.',
+        s2_guide_title: 'Visita guiada',
+        s2_guide_desc: 'Acompanyat per un guia oficial.',
+        s2_ticket_type: 'Tipus d\'entrada',
+        err_select: 'Selecciona una opció.',
+        s2_details: 'Detalls',
+        s2_age_range: 'Franja d\'edat dels alumnes',
+        err_age_range: 'Selecciona la franja d\'edat.',
+        s2_date: 'Data de visita',
+        err_date: 'Selecciona una data vàlida.',
+        s2_time: 'Hora preferida',
+        err_time: 'Selecciona una hora.',
+        s2_persons: 'Nombre de persones',
+        err_persons: 'Indica el nombre de persones.',
+        s2_minors: 'Menors de 12 anys',
+        s2_minors_help: 'Cal mostrar documentació oficial a les taquilles.',
+        s2_residents: 'Residents',
+        s2_residents_help: 'Residents a Santo Domingo de la Calzada (acreditar).',
+        s3_title: 'Les teves dades personals',
+        s3_sub: 'Necessitem algunes dades per gestionar la teva reserva.',
+        s3_name: 'Nom complet',
+        err_name: 'Introdueix el teu nom complet.',
+        s3_phone: 'Telèfon',
+        err_phone: 'Introdueix un telèfon vàlid.',
+        s3_email: 'Correu electrònic',
+        err_email: 'Introdueix un correu electrònic vàlid.',
+        s3_billing: 'Facturació',
+        s3_need_invoice: 'Necessito factura',
+        s3_center: 'Nom del centre / institució',
+        err_center: 'El nom del centre és obligatori.',
+        s3_nif: 'NIF / CIF',
+        err_nif: 'El NIF/CIF és obligatori.',
+        s3_address: 'Adreça de facturació',
+        err_address: 'L\'adreça és obligatòria.',
+        s3_city: 'Ciutat',
+        err_city: 'Indica la ciutat.',
+        s3_cp: 'Codi postal',
+        err_cp: 'Indica el codi postal.',
+        s3_comments_section: 'Comentaris addicionals',
+        s3_comments: 'Comentaris (opcional)',
+        s4_title: 'Resum de la teva reserva',
+        s4_sub: 'Revisa tots els detalls abans d\'enviar la sol·licitud.',
+        s5_title: 'Confirma la teva reserva',
+        s5_sub: 'Respon la pregunta de seguretat i accepta les condicions per enviar la sol·licitud.',
+        err_captcha: 'Resposta incorrecta.',
+        s5_captcha_hint: 'Calcula mentalment i escriu el resultat.',
+        confirm_title: 'Sol·licitud enviada!',
+        confirm_sub: 'Hem rebut la teva reserva. Rebràs la confirmació per correu electrònic en breu.',
+        confirm_print: '🖨 Imprimir',
+        confirm_new: '↺ Nova reserva',
+        confirm_home: 'Tornar a l\\\'inici',
+        modal_terms_title: 'Termes i condicions de compra d\'entrades',
+        modal_privacy_title: 'Política de privacitat'
+      },
+    };
+    window.PAGE_applyLang = function(lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+    };
+  </script>
   <script src="assets/shared.js"></script>
   <script>
     (function () {

@@ -3752,7 +3752,279 @@
         fact: 'La bóveda de cañón con lunetos es una solución arquitectónica típica del barroco español que permite iluminar la nave desde lo alto, creando una atmósfera de luz celestial muy en consonancia con la espiritualidad de la época.'
       }
     ];
-    const GALLERY_INFO = { es: _ERMITA_GALLERY_ES, en: _ERMITA_GALLERY_ES, fr: _ERMITA_GALLERY_ES, de: _ERMITA_GALLERY_ES, pt: _ERMITA_GALLERY_ES, it: _ERMITA_GALLERY_ES, ko: _ERMITA_GALLERY_ES, eu: _ERMITA_GALLERY_ES, ca: _ERMITA_GALLERY_ES };
+    const _ERMITA_GALLERY_EN = [
+      {
+        num: '01 / 04 · Gallery',
+        title: 'Baroque Façade',
+        subtitle: 'Baroque-Classicist style · 1710',
+        body: `<p>The façade of the Hermitage of the Virgen de la Plaza is the stone presentation of the faith of Santo Domingo. Built in its current configuration in <strong>1710</strong> on the site of the Saint\'s former oratory, it combines classicist sobriety with Baroque ornamental details that frame the entrance to the sacred precinct.</p>
+               <p>The local stone ashlar, characteristic of Riojan architecture, gives the ensemble a singular warmth and luminosity that vary with the hours of the day. The portal, with balanced proportions, anticipates the serenity of the interior space and is one of the most photographed corners of the Plaza del Santo, the setting for the city\'s main patron-saint festivities.</p>`,
+        fact: 'The hermitage stands on the exact spot where Santo Domingo de la Calzada had his dwelling and built the first hospital for pilgrims of the Camino de Santiago in the 11th century.'
+      },
+      {
+        num: '02 / 04 · Gallery',
+        title: 'Baroque Main Altarpiece',
+        subtitle: 'Polychrome gilded wood · 18th c.',
+        body: `<p>The main altarpiece of the hermitage is the centrepiece of the liturgical space and one of the most notable examples of <strong>Riojan Baroque</strong> from the first half of the 18th century. Carved in polychrome and gilded wood, its exuberant structure contrasts with the sobriety of the single nave, creating a focus of light and devotion that immediately draws the visitor\'s gaze.</p>
+               <p>Organised in tiers and bays articulated by Solomonic columns and gilded foliage decoration, the altarpiece frames in its central niche the <strong>Virgen de la Plaza</strong>, the patron image of the hermitage. The side panels house scenes from the life of the Saint and figures of locally venerated saints, forming a complete iconographic programme of the sacred history of the city.</p>`,
+        fact: 'The Solomonic columns of the altarpiece, characteristic of full Baroque, directly echo Bernini\'s baldachin in Saint Peter\'s in the Vatican, a symbol of the Church\'s triumph during the Counter-Reformation.'
+      },
+      {
+        num: '03 / 04 · Gallery',
+        title: 'Virgen de la Plaza',
+        subtitle: 'Patron image · Patroness of the people of Santo Domingo',
+        body: `<p>The Virgen de la Plaza is the most venerated image of Santo Domingo de la Calzada. Carved in <strong>polychrome wood</strong>, she has presided over the main altarpiece of the hermitage for centuries and is the spiritual centre of the city\'s religious life. Her name directly evokes the square where the hermitage stands, the historical and symbolic heart of the local community.</p>
+               <p>As the <strong>patroness</strong>, the Virgen de la Plaza takes centre stage in the most important festivities of the year, when the image is carried in solemn procession through the streets of the city, accompanied by the municipal band, civil and ecclesiastical authorities and a multitude of the faithful. Devotion to this image transcends generations and brings together emigrants and pilgrims who return to the city each year to honour her.</p>`,
+        fact: 'The feast of the Virgen de la Plaza, celebrated with great fervour every year, is the patron-saint celebration par excellence of Santo Domingo de la Calzada, gathering thousands of devotees from all over La Rioja and the local diaspora.'
+      },
+      {
+        num: '04 / 04 · Gallery',
+        title: 'Interior and Barrel Vault',
+        subtitle: 'Single nave · Lunettes · Choir stalls',
+        body: `<p>The interior of the hermitage is striking for its serene beauty. The <strong>single nave</strong>, covered by an elegant <strong>barrel vault with lunettes</strong>, creates a luminous and intimate space that invites contemplation. The local limestone, in warm tones, and the new lighting bring out the quality of the materials and the harmonious proportions of the architectural ensemble.</p>
+               <p>The <strong>choir stalls</strong>, recently restored, recover their original splendour with hand-carved wood and sculpted finials that depict scenes of Marian devotion. The lunettes, opened at the springing of the vault, bathe the interior in natural light throughout the day, turning the hermitage into a dynamic space that changes with the hours and the seasons, always faithful to its calling as the devotional heart of the city.</p>`,
+        fact: 'The barrel vault with lunettes is a typical solution of Spanish Baroque that allows the nave to be illuminated from above, creating an atmosphere of heavenly light very much in keeping with the spirituality of the period.'
+      }
+    ];
+    const _ERMITA_GALLERY_FR = [
+      {
+        num: '01 / 04 · Galerie',
+        title: 'Façade baroque',
+        subtitle: 'Style baroque-classique · 1710',
+        body: `<p>La façade de l\'Ermitage de la Vierge de la Plaza est la présentation en pierre de la foi de Santo Domingo. Construite dans sa configuration actuelle en <strong>1710</strong> sur l\'emplacement de l\'ancien oratoire du Saint, elle allie la sobriété classique à des détails ornementaux baroques qui encadrent l\'entrée de l\'enceinte sacrée.</p>
+               <p>Le parement de pierre locale, caractéristique de l\'architecture rioja, confère à l\'ensemble une chaleur et une luminosité singulières qui varient au fil des heures. Le portail, aux proportions équilibrées, annonce la sérénité de l\'espace intérieur et constitue l\'un des recoins les plus photographiés de la Plaza del Santo, cadre des grandes fêtes patronales de la ville.</p>`,
+        fact: 'L\'ermitage s\'élève à l\'endroit exact où Santo Domingo de la Calzada avait sa demeure et construisit le premier hôpital pour pèlerins du Chemin de Saint-Jacques au XIe siècle.'
+      },
+      {
+        num: '02 / 04 · Galerie',
+        title: 'Retable principal baroque',
+        subtitle: 'Bois polychrome et doré · XVIIIe s.',
+        body: `<p>Le retable principal de l\'ermitage est la pièce centrale de l\'espace liturgique et l\'un des exemples les plus remarquables du <strong>baroque rioja</strong> de la première moitié du XVIIIe siècle. Sculpté en bois polychrome et doré, sa structure exubérante contraste avec la sobriété de la nef unique, créant un foyer de lumière et de dévotion qui attire immédiatement le regard.</p>
+               <p>Organisé en travées articulées par des colonnes salomoniques et un décor de feuillages dorés, le retable encadre dans sa niche centrale la <strong>Vierge de la Plaza</strong>, image titulaire de l\'ermitage. Les panneaux latéraux abritent des scènes de la vie du Saint et des figures de saints particulièrement vénérés, formant un programme iconographique complet de l\'histoire sacrée de la ville.</p>`,
+        fact: 'Les colonnes salomoniques du retable, caractéristiques du baroque plein, sont un clin d\'œil direct au baldaquin de Saint-Pierre du Vatican, symbole du triomphe de l\'Église à l\'époque de la Contre-Réforme.'
+      },
+      {
+        num: '03 / 04 · Galerie',
+        title: 'Vierge de la Plaza',
+        subtitle: 'Image titulaire · Patronne des habitants',
+        body: `<p>La Vierge de la Plaza est l\'image la plus vénérée de Santo Domingo de la Calzada. Sculptée en <strong>bois polychrome</strong>, elle préside le retable principal de l\'ermitage depuis des siècles et constitue le centre spirituel de la vie religieuse de la ville. Son nom évoque directement la place où s\'élève l\'ermitage, cœur historique et symbolique de la communauté locale.</p>
+               <p>En tant que <strong>patronne</strong>, la Vierge de la Plaza est la grande protagoniste des fêtes patronales les plus importantes de l\'année, lorsque l\'image est portée en procession solennelle dans les rues de la ville, accompagnée de la fanfare municipale, des autorités civiles et religieuses et d\'une foule de fidèles. La dévotion à cette image traverse les générations et rassemble chaque année émigrés et pèlerins qui reviennent en ville pour l\'honorer.</p>`,
+        fact: 'La fête de la Vierge de la Plaza, célébrée avec une grande ferveur, est la fête patronale par excellence de Santo Domingo de la Calzada et réunit des milliers de fidèles venus de toute la Rioja et de la diaspora locale.'
+      },
+      {
+        num: '04 / 04 · Galerie',
+        title: 'Intérieur et voûte en berceau',
+        subtitle: 'Nef unique · Lunettes · Stalles',
+        body: `<p>L\'intérieur de l\'ermitage surprend par sa sereine beauté. La <strong>nef unique</strong>, couverte d\'une élégante <strong>voûte en berceau à lunettes</strong>, crée un espace lumineux et recueilli qui invite à la contemplation. La pierre calcaire locale, aux tons chauds, et le nouvel éclairage soulignent la qualité des matériaux et l\'harmonie des proportions.</p>
+               <p>Les <strong>stalles du chœur</strong>, récemment restaurées, retrouvent leur splendeur originale grâce au bois sculpté à la main et aux fleurons sculptés qui retracent des scènes de dévotion mariale. Les lunettes, ouvertes à la naissance de la voûte, baignent l\'intérieur de lumière naturelle tout au long de la journée, transformant l\'ermitage en un espace dynamique qui change au fil des heures et des saisons.</p>`,
+        fact: 'La voûte en berceau à lunettes est une solution architecturale typique du baroque espagnol qui permet d\'éclairer la nef par le haut, créant une atmosphère de lumière céleste très en accord avec la spiritualité de l\'époque.'
+      }
+    ];
+    const _ERMITA_GALLERY_DE = [
+      {
+        num: '01 / 04 · Galerie',
+        title: 'Barocke Fassade',
+        subtitle: 'Barock-klassizistisch · 1710',
+        body: `<p>Die Fassade der Einsiedelei der Virgen de la Plaza ist die steingewordene Bekundung des Glaubens von Santo Domingo. In ihrer heutigen Gestalt wurde sie <strong>1710</strong> auf dem Grundstück des einstigen Oratoriums des Heiligen errichtet und vereint klassizistische Strenge mit barocken Schmuckdetails, die den Eingang zum heiligen Bezirk einrahmen.</p>
+               <p>Das einheimische Werksteinmauerwerk, typisch für die riojanische Architektur, verleiht dem Ensemble eine besondere Wärme und Leuchtkraft, die sich im Tagesverlauf verändert. Das Portal mit seinen ausgewogenen Proportionen nimmt die Ruhe des Innenraums vorweg und gehört zu den meistfotografierten Winkeln der Plaza del Santo, Schauplatz der wichtigsten Patronatsfeste der Stadt.</p>`,
+        fact: 'Die Einsiedelei steht an der genauen Stelle, an der Santo Domingo de la Calzada seine Wohnstätte hatte und im 11. Jahrhundert das erste Pilgerhospital des Jakobsweges errichtete.'
+      },
+      {
+        num: '02 / 04 · Galerie',
+        title: 'Barocker Hochaltar',
+        subtitle: 'Polychromes vergoldetes Holz · 18. Jh.',
+        body: `<p>Der Hochaltar der Einsiedelei ist das Herzstück des liturgischen Raumes und eines der bemerkenswertesten Beispiele des <strong>riojanischen Barocks</strong> aus der ersten Hälfte des 18. Jahrhunderts. In polychromem und vergoldetem Holz geschnitzt, kontrastiert seine üppige Struktur mit der Schlichtheit des einzigen Schiffes und schafft einen Brennpunkt aus Licht und Andacht, der den Blick des Besuchers sofort auf sich zieht.</p>
+               <p>In Geschossen mit salomonischen Säulen und vergoldetem Blattwerk gegliedert, rahmt der Altar in seiner zentralen Nische die <strong>Virgen de la Plaza</strong>, das Titularbild der Einsiedelei. Die Seitenfelder beherbergen Szenen aus dem Leben des Heiligen sowie Figuren regionaler Heiliger und bilden ein vollständiges ikonografisches Programm der heiligen Geschichte der Stadt.</p>`,
+        fact: 'Die salomonischen Säulen des Altars, kennzeichnend für den Hochbarock, sind eine direkte Anspielung auf Berninis Baldachin in St. Peter im Vatikan, Sinnbild des Triumphes der Kirche zur Zeit der Gegenreformation.'
+      },
+      {
+        num: '03 / 04 · Galerie',
+        title: 'Virgen de la Plaza',
+        subtitle: 'Titularbild · Schutzpatronin der Stadt',
+        body: `<p>Die Virgen de la Plaza ist das am meisten verehrte Bild von Santo Domingo de la Calzada. In <strong>polychromem Holz</strong> geschnitzt, thront sie seit Jahrhunderten auf dem Hochaltar der Einsiedelei und ist das geistliche Zentrum des religiösen Lebens der Stadt. Ihr Name verweist unmittelbar auf den Platz, an dem die Einsiedelei steht – das historische und symbolische Herz der Gemeinde.</p>
+               <p>Als <strong>Schutzpatronin</strong> steht die Virgen de la Plaza im Mittelpunkt der wichtigsten Festtage des Jahres, wenn das Bild in feierlicher Prozession durch die Straßen getragen wird, begleitet von der Stadtkapelle, den weltlichen und kirchlichen Würdenträgern und einer Menge von Gläubigen. Die Verehrung dieses Bildes verbindet die Generationen und versammelt jedes Jahr Auswanderer und Pilger, die zur Stadt zurückkehren, um ihr die Ehre zu erweisen.</p>`,
+        fact: 'Das Fest der Virgen de la Plaza, jedes Jahr mit großer Inbrunst gefeiert, ist das Patronatsfest schlechthin von Santo Domingo de la Calzada und versammelt Tausende von Gläubigen aus ganz La Rioja und der Diaspora.'
+      },
+      {
+        num: '04 / 04 · Galerie',
+        title: 'Innenraum und Tonnengewölbe',
+        subtitle: 'Einschiffig · Stichkappen · Chorgestühl',
+        body: `<p>Das Innere der Einsiedelei überrascht durch seine ruhige Schönheit. Das <strong>einzige Schiff</strong>, von einem eleganten <strong>Tonnengewölbe mit Stichkappen</strong> überspannt, schafft einen lichtdurchfluteten und gesammelten Raum, der zur Andacht einlädt. Der einheimische Kalkstein in warmen Tönen und die neue Beleuchtung unterstreichen die Qualität der Materialien und die harmonischen Proportionen.</p>
+               <p>Das <strong>Chorgestühl</strong>, kürzlich restauriert, erstrahlt mit handgeschnitztem Holz und plastischen Bekrönungen, die Szenen marianischer Andacht zeigen, in seinem ursprünglichen Glanz wieder. Die Stichkappen, am Ansatz des Gewölbes geöffnet, fluten das Innere im Tagesverlauf mit natürlichem Licht und verwandeln die Einsiedelei in einen lebendigen Raum, der sich mit Stunden und Jahreszeiten verändert.</p>`,
+        fact: 'Das Tonnengewölbe mit Stichkappen ist eine typische Lösung des spanischen Barocks, die es ermöglicht, das Schiff von oben zu beleuchten und eine Atmosphäre himmlischen Lichts zu schaffen.'
+      }
+    ];
+    const _ERMITA_GALLERY_PT = [
+      {
+        num: '01 / 04 · Galeria',
+        title: 'Fachada Barroca',
+        subtitle: 'Estilo barroco-classicista · 1710',
+        body: `<p>A fachada da Ermida da Virgem da Praça é a apresentação em pedra da fé calceatense. Construída na sua configuração atual em <strong>1710</strong> sobre o terreno do antigo oratório do Santo, combina a sobriedade classicista com detalhes ornamentais barrocos que emolduram a entrada do recinto sagrado.</p>
+               <p>A cantaria de pedra local, característica da arquitetura riojana, confere ao conjunto uma calidez e uma luminosidade singulares que variam com as horas do dia. O portal, de proporções equilibradas, antecipa a serenidade do espaço interior e constitui um dos recantos mais fotografados da Plaza del Santo, palco das grandes festas patronais da cidade.</p>`,
+        fact: 'A ermida assenta no local exato onde Santo Domingo de la Calzada teve a sua casa e levantou o primeiro hospital para peregrinos do Caminho de Santiago no século XI.'
+      },
+      {
+        num: '02 / 04 · Galeria',
+        title: 'Retábulo-Mor Barroco',
+        subtitle: 'Madeira policromada e dourada · séc. XVIII',
+        body: `<p>O retábulo-mor da ermida é a peça central do espaço litúrgico e um dos exemplos mais notáveis do <strong>barroco riojano</strong> da primeira metade do século XVIII. Talhado em madeira policromada e dourada, a sua estrutura exuberante contrasta com a sobriedade da nave única, criando um foco de luz e devoção que atrai imediatamente o olhar.</p>
+               <p>Organizado em corpos e tramos articulados por colunas salomónicas e decoração de folhagem dourada, o retábulo emoldura na sua hornacina central a <strong>Virgem da Praça</strong>, imagem titular da ermida. Os painéis laterais albergam cenas da vida do Santo e figuras de santos de especial devoção local, formando um programa iconográfico completo da história sagrada da cidade.</p>`,
+        fact: 'As colunas salomónicas do retábulo, características do barroco pleno, são uma referência direta ao baldaquino de São Pedro do Vaticano, símbolo do triunfo da Igreja na Contrarreforma.'
+      },
+      {
+        num: '03 / 04 · Galeria',
+        title: 'Virgem da Praça',
+        subtitle: 'Imagem titular · Padroeira dos calceatenses',
+        body: `<p>A Virgem da Praça é a imagem mais venerada de Santo Domingo de la Calzada. Talhada em <strong>madeira policromada</strong>, preside ao retábulo-mor da ermida há séculos e é o centro espiritual da vida religiosa da cidade. O seu nome evoca diretamente a praça onde se ergue a ermida, coração histórico e simbólico da comunidade calceatense.</p>
+               <p>Como <strong>padroeira</strong>, a Virgem da Praça protagoniza as festas patronais mais importantes do ano, quando a imagem é levada em procissão solene pelas ruas da cidade, acompanhada pela banda municipal, autoridades civis e eclesiásticas e uma multidão de fiéis. A devoção a esta imagem atravessa gerações e reúne todos os anos emigrantes e peregrinos que regressam à cidade para a honrar.</p>`,
+        fact: 'A festa da Virgem da Praça é a festa patronal por excelência de Santo Domingo de la Calzada e reúne milhares de devotos vindos de toda a La Rioja e da diáspora calceatense.'
+      },
+      {
+        num: '04 / 04 · Galeria',
+        title: 'Interior e Abóbada de Berço',
+        subtitle: 'Nave única · Lunetas · Cadeiral',
+        body: `<p>O interior da ermida surpreende pela sua serena beleza. A <strong>nave única</strong>, coberta por uma elegante <strong>abóbada de berço com lunetas</strong>, cria um espaço luminoso e recolhido que convida à contemplação. A pedra calcária local, de tons quentes, e a nova iluminação realçam a qualidade dos materiais e a proporção harmoniosa do conjunto.</p>
+               <p>O <strong>cadeiral</strong>, recentemente restaurado, recupera o seu esplendor original com a madeira talhada à mão e os remates esculpidos que narram cenas de devoção mariana. As lunetas, abertas no arranque da abóbada, banham o interior de luz natural ao longo do dia, transformando a ermida num espaço dinâmico que muda com as horas e as estações.</p>`,
+        fact: 'A abóbada de berço com lunetas é uma solução arquitetónica típica do barroco espanhol que permite iluminar a nave a partir do alto, criando uma atmosfera de luz celestial.'
+      }
+    ];
+    const _ERMITA_GALLERY_IT = [
+      {
+        num: '01 / 04 · Galleria',
+        title: 'Facciata Barocca',
+        subtitle: 'Stile barocco-classicista · 1710',
+        body: `<p>La facciata dell\'Eremo della Vergine della Plaza è la presentazione in pietra della fede calceatense. Costruita nella sua configurazione attuale nel <strong>1710</strong> sul sito dell\'antico oratorio del Santo, combina la sobrietà classicista con dettagli ornamentali barocchi che incorniciano l\'ingresso al recinto sacro.</p>
+               <p>Il bugnato di pietra locale, caratteristico dell\'architettura riojana, conferisce all\'insieme un calore e una luminosità singolari che variano con le ore del giorno. Il portale, dalle proporzioni equilibrate, anticipa la serenità dello spazio interno e costituisce uno degli angoli più fotografati della Plaza del Santo, scenario delle grandi feste patronali della città.</p>`,
+        fact: 'L\'eremo sorge esattamente nel luogo in cui Santo Domingo de la Calzada aveva la sua dimora e costruì il primo ospedale per pellegrini del Cammino di Santiago nell\'XI secolo.'
+      },
+      {
+        num: '02 / 04 · Galleria',
+        title: 'Pala d\'Altare Maggiore Barocca',
+        subtitle: 'Legno policromo e dorato · sec. XVIII',
+        body: `<p>La pala d\'altare maggiore dell\'eremo è il pezzo centrale dello spazio liturgico e uno degli esempi più notevoli del <strong>barocco riojano</strong> della prima metà del XVIII secolo. Intagliata in legno policromo e dorato, la sua struttura esuberante contrasta con la sobrietà dell\'unica navata, creando un fulcro di luce e devozione che attira immediatamente lo sguardo.</p>
+               <p>Organizzata in registri articolati da colonne tortili e decorazioni di fogliame dorato, la pala incornicia nella sua nicchia centrale la <strong>Vergine della Plaza</strong>, immagine titolare dell\'eremo. I pannelli laterali ospitano scene della vita del Santo e figure di santi di particolare devozione locale, formando un programma iconografico completo della storia sacra della città.</p>`,
+        fact: 'Le colonne tortili della pala, caratteristiche del pieno barocco, sono un richiamo diretto al baldacchino di San Pietro in Vaticano, simbolo del trionfo della Chiesa nella Controriforma.'
+      },
+      {
+        num: '03 / 04 · Galleria',
+        title: 'Vergine della Plaza',
+        subtitle: 'Immagine titolare · Patrona dei calceatensi',
+        body: `<p>La Vergine della Plaza è l\'immagine più venerata di Santo Domingo de la Calzada. Intagliata in <strong>legno policromo</strong>, presiede la pala maggiore dell\'eremo da secoli ed è il centro spirituale della vita religiosa della città. Il suo nome evoca direttamente la piazza dove sorge l\'eremo, cuore storico e simbolico della comunità calceatense.</p>
+               <p>Come <strong>patrona</strong>, la Vergine della Plaza è protagonista delle feste patronali più importanti dell\'anno, quando l\'immagine viene portata in solenne processione per le strade della città, accompagnata dalla banda municipale, dalle autorità civili ed ecclesiastiche e da una moltitudine di fedeli. La devozione a questa immagine attraversa le generazioni e riunisce ogni anno emigranti e pellegrini che tornano in città per onorarla.</p>`,
+        fact: 'La festa della Vergine della Plaza è la festa patronale per eccellenza di Santo Domingo de la Calzada e riunisce migliaia di devoti giunti da tutta la Rioja e dalla diaspora calceatense.'
+      },
+      {
+        num: '04 / 04 · Galleria',
+        title: 'Interno e Volta a Botte',
+        subtitle: 'Navata unica · Lunette · Coro',
+        body: `<p>L\'interno dell\'eremo sorprende per la sua serena bellezza. La <strong>navata unica</strong>, coperta da un\'elegante <strong>volta a botte con lunette</strong>, crea uno spazio luminoso e raccolto che invita alla contemplazione. La pietra calcarea locale, dai toni caldi, e la nuova illuminazione esaltano la qualità dei materiali e le proporzioni armoniose dell\'insieme.</p>
+               <p>Il <strong>coro</strong>, recentemente restaurato, recupera il suo splendore originario con il legno intagliato a mano e gli ornamenti scolpiti che narrano scene di devozione mariana. Le lunette, aperte all\'imposta della volta, inondano l\'interno di luce naturale durante la giornata, trasformando l\'eremo in uno spazio dinamico che cambia con le ore e le stagioni.</p>`,
+        fact: 'La volta a botte con lunette è una soluzione architettonica tipica del barocco spagnolo che permette di illuminare la navata dall\'alto, creando un\'atmosfera di luce celestiale.'
+      }
+    ];
+    const _ERMITA_GALLERY_KO = [
+      {
+        num: '01 / 04 · 갤러리',
+        title: '바로크 양식의 정면',
+        subtitle: '바로크-고전주의 양식 · 1710년',
+        body: `<p>플라사 성모 예배당의 정면은 산토 도밍고 신앙의 석조 표현입니다. <strong>1710년</strong>에 성인의 옛 오라토리오 자리에 현재의 모습으로 지어졌으며, 고전주의적 절제와 바로크적 장식 요소가 어우러져 성스러운 공간으로의 입구를 감쌉니다.</p>
+               <p>라 리오하 건축의 특징인 현지 석재 마감은 하루 종일 변화하는 따뜻함과 빛을 더해 줍니다. 균형 잡힌 비례의 정면 포털은 내부의 고요함을 예고하며, 도시의 가장 큰 수호 성인 축제의 무대인 플라사 델 산토에서 가장 많이 사진에 담기는 장소 중 하나입니다.</p>`,
+        fact: '예배당은 산토 도밍고 데 라 칼사다가 거주하며 11세기에 산티아고 순례길 최초의 순례자 병원을 세웠던 바로 그 자리에 세워져 있습니다.'
+      },
+      {
+        num: '02 / 04 · 갤러리',
+        title: '바로크 양식의 주제단화',
+        subtitle: '채색·금박 목재 · 18세기',
+        body: `<p>예배당의 주제단화는 전례 공간의 중심이며 18세기 전반 <strong>라 리오하 바로크</strong>의 가장 주목할 만한 사례 중 하나입니다. 채색과 금박을 입힌 목재로 조각된 이 화려한 구조는 단일 신랑(身廊)의 절제와 대조를 이루며, 방문객의 시선을 즉시 사로잡는 빛과 신앙의 초점을 만들어 냅니다.</p>
+               <p>솔로몬 기둥과 금박 잎사귀 장식으로 구성된 칸막이로 나뉜 제단화는 중앙 벽감에 예배당의 주보 성상인 <strong>플라사 성모</strong>를 모십니다. 좌우 패널에는 성인의 생애 장면과 지역에서 특별히 공경받는 성인들이 배치되어, 도시의 신성한 역사에 대한 완전한 도상 프로그램을 이룹니다.</p>`,
+        fact: '제단화의 솔로몬 기둥은 본격 바로크의 전형으로, 반종교개혁 시대 교회의 승리를 상징하는 바티칸 산 피에트로 대성당의 발다키노를 직접적으로 떠올리게 합니다.'
+      },
+      {
+        num: '03 / 04 · 갤러리',
+        title: '플라사 성모',
+        subtitle: '주보 성상 · 주민들의 수호 성모',
+        body: `<p>플라사 성모는 산토 도밍고 데 라 칼사다에서 가장 공경받는 성상입니다. <strong>채색 목재</strong>로 조각된 이 성모상은 수세기 동안 예배당의 주제단화에 모셔져 왔으며, 도시 종교 생활의 영적 중심입니다. 그 이름은 예배당이 자리한 광장, 즉 지역 공동체의 역사적이고 상징적인 심장부를 직접 떠올리게 합니다.</p>
+               <p><strong>수호 성모</strong>로서 플라사 성모는 매년 가장 중요한 수호 성인 축제의 주인공이며, 그때 성상은 시 악단, 시민 및 교회 관계자들, 그리고 수많은 신자들과 함께 도시 거리를 따라 엄숙한 행렬로 운반됩니다. 이 성상에 대한 신심은 세대를 넘어 매년 도시를 다시 찾는 이주민과 순례자들을 한자리에 모읍니다.</p>`,
+        fact: '플라사 성모 축일은 산토 도밍고 데 라 칼사다의 대표적인 수호 성인 축일로, 라 리오하 전역과 디아스포라에서 수천 명의 신자가 모입니다.'
+      },
+      {
+        num: '04 / 04 · 갤러리',
+        title: '내부와 통형 궁륭',
+        subtitle: '단일 신랑 · 루넷창 · 성가대석',
+        body: `<p>예배당 내부는 고요한 아름다움으로 방문객을 놀라게 합니다. 우아한 <strong>루넷창이 있는 통형 궁륭</strong>이 덮은 <strong>단일 신랑</strong>은 명상으로 초대하는 밝고 아늑한 공간을 만들어 냅니다. 따뜻한 색조의 현지 석회암과 새로운 조명은 재료의 품질과 조화로운 비례를 부각합니다.</p>
+               <p>최근에 복원된 <strong>성가대석</strong>은 손으로 조각된 목재와 성모 신심의 장면을 새긴 조각 상부 장식으로 원래의 광채를 되찾았습니다. 궁륭의 기단에 열린 루넷창은 하루 종일 자연광을 실내에 쏟아부어, 예배당을 시간과 계절에 따라 변하는 역동적인 공간으로 바꾸어 놓습니다.</p>`,
+        fact: '루넷창이 있는 통형 궁륭은 위에서 신랑을 비추어 그 시대의 영성과 잘 어울리는 천상의 빛 분위기를 만드는, 스페인 바로크의 전형적인 건축 해법입니다.'
+      }
+    ];
+    const _ERMITA_GALLERY_EU = [
+      {
+        num: '01 / 04 · Galeria',
+        title: 'Fatxada barrokoa',
+        subtitle: 'Estilo barroko-klasizista · 1710',
+        body: `<p>Plazako Ama Birjinaren ermitaren fatxada Santo Domingoko fedearen harrizko aurkezpena da. <strong>1710ean</strong> jaso zen egungo itxuran, Santuaren oratorio zaharraren lekuan, eta klasizismoaren neurritasuna alderdi apaingarri barrokoekin uztartzen du gune sakratuko sarrera inguratzeko.</p>
+               <p>Bertako harrizko sillerak, Errioxako arkitekturaren ezaugarri, multzoari berotasun eta argitasun berezia eskaintzen dio, eguneko orduekin aldatzen direnak. Sarrera, proportzio orekatukoa, barrualdeko bareago aurreratzen du, eta hiriaren patroi-festen agertokia den Plaza del Santoko txokorik argazkitukoenetako bat da.</p>`,
+        fact: 'Ermita Santo Domingo de la Calzadak bere etxebizitza eta XI. mendeko Donejakue Bideko erromesentzako lehen ospitalea eraiki zuen leku berean dago.'
+      },
+      {
+        num: '02 / 04 · Galeria',
+        title: 'Aldare nagusi barrokoa',
+        subtitle: 'Egur polikromatu eta urreztatua · XVIII. m.',
+        body: `<p>Ermitako aldare nagusia gune liturgikoaren erdigunea da eta XVIII. mende erdialdeko <strong>Errioxako barrokoaren</strong> adibiderik nabarmenetakoa. Egur polikromatu eta urreztatuan landua, bere egitura oparoa nabe bakarraren neurritasunarekin kontrastatzen du, eta bisitariaren begirada berehala erakartzen duen argi eta debozio gune bat sortzen du.</p>
+               <p>Zutabe salomondarrek eta hosto urreztatuen apaindurek antolatutako gorputzetan, aldareak bere erdiko hornacinan <strong>Plazako Ama Birjina</strong> kokatzen du, ermitako irudi titularra. Alboko panelek Santuaren bizitzako eszenak eta bertako debozio bereziko santuen irudiak hartzen dituzte, hiriaren historia sakratuari buruzko programa ikonografiko oso bat osatuz.</p>`,
+        fact: 'Aldareko zutabe salomondarrek, barroko bete-betearen ezaugarri direnak, Vatikanoko San Pedroko baldakinoaren erreferentzia zuzena egiten dute, Kontra-erreformako Elizaren garaipenaren ikur.'
+      },
+      {
+        num: '03 / 04 · Galeria',
+        title: 'Plazako Ama Birjina',
+        subtitle: 'Irudi titularra · Kaltzeatarren zaindaria',
+        body: `<p>Plazako Ama Birjina Santo Domingo de la Calzadako irudi gurtuena da. <strong>Egur polikromatuan</strong> landua, mendez mende ermitako aldare nagusia gainbegiratzen du eta hiriaren bizitza erlijiosoaren erdigune espirituala da. Bere izenak ermita kokatzen den plaza zuzenean ekartzen du gogora, herri komunitatearen historia eta sinbolismoaren bihotza.</p>
+               <p><strong>Zaindari</strong> gisa, Plazako Ama Birjina urteko patroi-festarik garrantzitsuenen protagonista da, irudia hiriko kaleetan zehar prozesio solemnean eramaten denean, udal banda, agintari zibilak eta eliz agintariak eta fededun andana batek lagunduta. Irudi honen gurtzak belaunaldiak gainditzen ditu eta urtero hirira itzultzen diren emigratzaileak eta erromesak biltzen ditu hura ohoratzeko.</p>`,
+        fact: 'Plazako Ama Birjinaren festa Santo Domingo de la Calzadako patroi-festa nagusia da eta Errioxa osoko eta kaltzeatarren diasporako milaka fededun biltzen ditu.'
+      },
+      {
+        num: '04 / 04 · Galeria',
+        title: 'Barrualdea eta kanoi-ganga',
+        subtitle: 'Nabe bakarra · Lunetoak · Koru-aulkitegia',
+        body: `<p>Ermitaren barrualdeak bere edertasun bareagatik harritzen du. <strong>Nabe bakarra</strong>, <strong>lunetodun kanoi-ganga</strong> dotorearekin estalia, gogoeta gonbidatzen duen gune argi eta babesgarria sortzen du. Bertako kareharria, tonu beroduna, eta argiztapen berriak materialen kalitatea eta multzoaren proportzio harmonikoa nabarmentzen dituzte.</p>
+               <p>Berriki zaharberritutako <strong>koru-aulkitegiak</strong> bere jatorrizko distira berreskuratzen du, eskuz landutako egurrarekin eta debozio marianoaren eszenak kontatzen dituzten apaindura eskultorikoekin. Lunetoek, gangaren oinarrian irekiak, egun osoan zehar argi naturalez betetzen dute barrualdea, ermita orduen eta urtaroen arabera aldatzen den gune dinamiko bihurtuz.</p>`,
+        fact: 'Lunetodun kanoi-ganga espainiar barrokoaren irtenbide arkitektoniko tipikoa da, nabea goitik argiztatzeko aukera ematen duena eta garaiko espiritualtasunari oso egokia den argi zerutiarraren giroa sortzen duena.'
+      }
+    ];
+    const _ERMITA_GALLERY_CA = [
+      {
+        num: '01 / 04 · Galeria',
+        title: 'Façana Barroca',
+        subtitle: 'Estil barroc-classicista · 1710',
+        body: `<p>La façana de l\'Ermita de la Mare de Déu de la Plaça és la presentació en pedra de la fe calceatenca. Construïda en la seva configuració actual el <strong>1710</strong> sobre el solar de l\'antic oratori del Sant, combina la sobrietat classicista amb detalls ornamentals barrocs que emmarquen l\'entrada al recinte sagrat.</p>
+               <p>La cantonera de pedra local, característica de l\'arquitectura riojana, confereix al conjunt una calidesa i una lluminositat singulars que varien amb les hores del dia. La portalada, de proporcions equilibrades, anticipa la serenor de l\'espai interior i constitueix un dels racons més fotografiats de la Plaza del Santo, escenari de les grans festes patronals de la ciutat.</p>`,
+        fact: 'L\'ermita s\'assenta sobre el lloc exacte on Santo Domingo de la Calzada tenia la seva vivenda i va aixecar el primer hospital per a pelegrins del Camí de Sant Jaume al segle XI.'
+      },
+      {
+        num: '02 / 04 · Galeria',
+        title: 'Retaule Major Barroc',
+        subtitle: 'Fusta policromada i daurada · s. XVIII',
+        body: `<p>El retaule major de l\'ermita és la peça central de l\'espai litúrgic i un dels exemples més notables del <strong>barroc riojà</strong> de la primera meitat del segle XVIII. Tallat en fusta policromada i daurada, la seva estructura exuberant contrasta amb la sobrietat de la nau única, creant un focus de llum i devoció que atrau immediatament la mirada.</p>
+               <p>Organitzat en cossos i carrers articulats per columnes salomòniques i decoració de fullaraca daurada, el retaule emmarca a la seva fornícula central la <strong>Mare de Déu de la Plaça</strong>, imatge titular de l\'ermita. Els plafons laterals acullen escenes de la vida del Sant i figures de sants d\'especial devoció local, conformant un programa iconogràfic complet de la història sagrada de la ciutat.</p>`,
+        fact: 'Les columnes salomòniques del retaule, característiques del barroc ple, són un guiny directe al baldaquí de Sant Pere del Vaticà, símbol del triomf de l\'Església a l\'època de la Contrareforma.'
+      },
+      {
+        num: '03 / 04 · Galeria',
+        title: 'Mare de Déu de la Plaça',
+        subtitle: 'Imatge titular · Patrona dels calceatencs',
+        body: `<p>La Mare de Déu de la Plaça és la imatge més venerada de Santo Domingo de la Calzada. Tallada en <strong>fusta policromada</strong>, presideix el retaule major de l\'ermita des de fa segles i és el centre espiritual de la vida religiosa de la ciutat. El seu nom evoca directament la plaça on s\'assenta l\'ermita, cor històric i simbòlic de la comunitat calceatenca.</p>
+               <p>Com a <strong>patrona</strong>, la Mare de Déu de la Plaça protagonitza les festes patronals més importants de l\'any, quan la imatge surt en processó solemne pels carrers de la ciutat, acompanyada per la banda municipal, les autoritats civils i eclesiàstiques i una multitud de fidels. La devoció a aquesta imatge travessa generacions i reuneix cada any emigrants i pelegrins que tornen a la ciutat per honrar-la.</p>`,
+        fact: 'La festa de la Mare de Déu de la Plaça és la festa patronal per excel·lència de Santo Domingo de la Calzada i reuneix milers de devots vinguts de tota la Rioja i de la diàspora calceatenca.'
+      },
+      {
+        num: '04 / 04 · Galeria',
+        title: 'Interior i Volta de Canó',
+        subtitle: 'Nau única · Llunetes · Cadirat',
+        body: `<p>L\'interior de l\'ermita sorprèn per la seva serena bellesa. La <strong>nau única</strong>, coberta per una elegant <strong>volta de canó amb llunetes</strong>, crea un espai lluminós i recollit que convida a la contemplació. La pedra calcària local, de tons càlids, i la nova il·luminació ressalten la qualitat dels materials i la proporció harmoniosa del conjunt.</p>
+               <p>El <strong>cadirat del cor</strong>, recentment restaurat, recupera la seva esplendor original amb la fusta tallada a mà i els remats escultòrics que narren escenes de devoció mariana. Les llunetes, obertes als arrencs de la volta, banyen l\'interior de llum natural al llarg del dia, transformant l\'ermita en un espai dinàmic que canvia amb les hores i les estacions.</p>`,
+        fact: 'La volta de canó amb llunetes és una solució arquitectònica típica del barroc espanyol que permet il·luminar la nau des de dalt, creant una atmosfera de llum celestial.'
+      }
+    ];
+    const GALLERY_INFO = { es: _ERMITA_GALLERY_ES, en: _ERMITA_GALLERY_EN, fr: _ERMITA_GALLERY_FR, de: _ERMITA_GALLERY_DE, pt: _ERMITA_GALLERY_PT, it: _ERMITA_GALLERY_IT, ko: _ERMITA_GALLERY_KO, eu: _ERMITA_GALLERY_EU, ca: _ERMITA_GALLERY_CA };
 
     /* ── Horario Ermita: 10–13:30 y 16:30–20 todos los días ──────── */
     function _ermitaIsOpen() {

@@ -1321,6 +1321,19 @@
           src="https://www.catedralsantodomingo.org/wp-content/uploads/2026/03/videoSoloCatedral.mp4"
           autoplay muted loop playsinline preload="metadata" disablepictureinpicture
           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:none;"></video>
+        <button id="video-sound-btn" type="button" aria-label="Activar sonido"
+          style="position:absolute;right:66px;bottom:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(14,12,10,.55);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);transition:background .2s ease, border-color .2s ease;">
+          <svg id="video-sound-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+          <svg id="video-sound-icon-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+        </button>
         <button id="video-fs-btn" type="button" aria-label="Pantalla completa"
           style="position:absolute;right:14px;bottom:14px;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(14,12,10,.55);border:1px solid rgba(255,255,255,.35);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);transition:background .2s ease, border-color .2s ease;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1842,32 +1855,96 @@
     const videoSection = document.querySelector('.section-video');
     const videoEl = document.getElementById('catedral-video');
     const fsBtn = document.getElementById('video-fs-btn');
+    const soundBtn = document.getElementById('video-sound-btn');
+    const iconMuted = document.getElementById('video-sound-icon-muted');
+    const iconOn = document.getElementById('video-sound-icon-on');
+    let userWantsSound = false;
+
+    function refreshSoundIcon() {
+      if (!videoEl || !iconMuted || !iconOn) return;
+      const on = !videoEl.muted;
+      iconMuted.style.display = on ? 'none' : '';
+      iconOn.style.display = on ? '' : 'none';
+      if (soundBtn) soundBtn.setAttribute('aria-label', on ? 'Silenciar' : 'Activar sonido');
+    }
+
     if (videoEl && videoSection) {
       const vObs = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting) {
-          videoEl.muted = true;
-          videoEl.play().catch(() => {});
+          if (userWantsSound) {
+            videoEl.muted = false;
+            videoEl.play().catch(() => { videoEl.muted = true; videoEl.play().catch(() => {}); });
+          } else {
+            videoEl.muted = true;
+            videoEl.play().catch(() => {});
+          }
         } else {
           videoEl.pause();
         }
+        refreshSoundIcon();
       }, { threshold: 0.25 });
       vObs.observe(videoSection);
     }
+
+    if (soundBtn && videoEl) {
+      soundBtn.addEventListener('click', () => {
+        userWantsSound = videoEl.muted;
+        videoEl.muted = !videoEl.muted;
+        if (!videoEl.muted) videoEl.play().catch(() => {});
+        refreshSoundIcon();
+      });
+    }
+
+    // Auto-unmute on first user gesture (browsers block autoplay+sound without interaction)
+    function attemptAutoUnmute() {
+      if (!videoEl || userWantsSound) return;
+      // Only auto-unmute if the video is in view and playing
+      const rect = videoSection ? videoSection.getBoundingClientRect() : null;
+      const inView = rect && rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView && !videoEl.paused) {
+        videoEl.muted = false;
+        userWantsSound = true;
+        videoEl.play().catch(() => { videoEl.muted = true; userWantsSound = false; });
+        refreshSoundIcon();
+      }
+    }
+    ['click', 'touchstart', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, attemptAutoUnmute, { once: true, passive: true });
+    });
+
     if (fsBtn && videoEl) {
       fsBtn.addEventListener('click', () => {
-        const target = videoEl;
-        const req = target.requestFullscreen || target.webkitEnterFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen;
-        if (req) {
-          videoEl.muted = false;
-          req.call(target).catch(() => {});
-        }
+        // Try fullscreen on the inner wrapper first (so our buttons remain visible),
+        // falling back to the video element itself, then to native iOS video fullscreen.
+        const wrapper = document.getElementById('video-inner') || videoEl;
+        videoEl.muted = false;
+        userWantsSound = true;
+        refreshSoundIcon();
+        const tryReq = (el, fn) => {
+          try {
+            const out = fn.call(el);
+            if (out && typeof out.catch === 'function') out.catch(() => {});
+            return true;
+          } catch (_) { return false; }
+        };
+        if (wrapper.requestFullscreen) { tryReq(wrapper, wrapper.requestFullscreen); return; }
+        if (wrapper.webkitRequestFullscreen) { tryReq(wrapper, wrapper.webkitRequestFullscreen); return; }
+        if (wrapper.msRequestFullscreen) { tryReq(wrapper, wrapper.msRequestFullscreen); return; }
+        if (videoEl.requestFullscreen) { tryReq(videoEl, videoEl.requestFullscreen); return; }
+        if (videoEl.webkitRequestFullscreen) { tryReq(videoEl, videoEl.webkitRequestFullscreen); return; }
+        if (videoEl.webkitEnterFullscreen) { tryReq(videoEl, videoEl.webkitEnterFullscreen); return; }
       });
+      function onFsExit() {
+        videoEl.muted = !userWantsSound;
+        refreshSoundIcon();
+      }
       document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) videoEl.muted = true;
+        if (!document.fullscreenElement) onFsExit();
       });
       document.addEventListener('webkitfullscreenchange', () => {
-        if (!document.webkitFullscreenElement) videoEl.muted = true;
+        if (!document.webkitFullscreenElement) onFsExit();
       });
+      videoEl.addEventListener('webkitendfullscreen', onFsExit);
     }
 
     /* ── Hero overflow lock ──────────────────────────────────────── */

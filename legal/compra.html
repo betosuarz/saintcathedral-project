@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Condiciones de Compra — Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    .legal-hero {
+      background: var(--carbon);
+      padding: 120px 0 80px;
+      border-bottom: 1px solid rgba(201, 168, 76, .15);
+    }
+    .legal-hero__inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .legal-eyebrow {
+      font-size: .62rem;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .legal-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .legal-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .legal-title em {
+      font-style: italic;
+      color: var(--gold-lt, #DFC07A);
+    }
+    .legal-meta {
+      font-size: .78rem;
+      color: rgba(245, 240, 232, .45);
+      letter-spacing: .06em;
+    }
+    .legal-body {
+      background: var(--carbon);
+      padding: 80px 0 120px;
+    }
+    .legal-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .legal-lead {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, .85);
+      font-weight: 300;
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(201, 168, 76, .1);
+    }
+    .legal-section {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(201, 168, 76, .1);
+    }
+    .legal-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .legal-section h2 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold-lt, #DFC07A);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .legal-section h2 .num {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .7;
+      flex-shrink: 0;
+    }
+    .legal-section h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--gold-lt, #DFC07A);
+      margin: 28px 0 12px;
+      letter-spacing: .01em;
+    }
+    .legal-section p {
+      font-size: .92rem;
+      line-height: 1.85;
+      color: rgba(245, 240, 232, .72);
+      margin-bottom: 16px;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section strong { color: rgba(245, 240, 232, .9); font-weight: 500; }
+    .legal-section a { color: var(--gold); text-underline-offset: 3px; }
+    .legal-section em { color: var(--gold-lt, #DFC07A); font-style: italic; }
+    .legal-section ul {
+      margin: 12px 0 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .legal-section ul li {
+      font-size: .92rem;
+      line-height: 1.75;
+      color: rgba(245, 240, 232, .72);
+      padding-left: 4px;
+    }
+    /* ── TARIFAS ─────────────────────────────────────── */
+    .tarifa-caption {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .85;
+      margin: 24px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tarifa-caption::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+      opacity: .6;
+    }
+    .tarifa-list {
+      display: flex;
+      flex-direction: column;
+      margin: 8px 0 20px;
+      border-top: 1px solid rgba(201, 168, 76, .15);
+    }
+    .tarifa-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(201, 168, 76, .1);
+    }
+    .tarifa-row__label {
+      font-size: .92rem;
+      line-height: 1.45;
+      color: rgba(245, 240, 232, .82);
+    }
+    .tarifa-row__sub {
+      display: block;
+      font-size: .78rem;
+      color: rgba(245, 240, 232, .55);
+      margin-top: 3px;
+      letter-spacing: .01em;
+    }
+    .tarifa-row__price {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--gold);
+      white-space: nowrap;
+      text-align: right;
+    }
+    .tarifa-row__price small {
+      display: block;
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .04em;
+      color: rgba(245, 240, 232, .5);
+      margin-top: 3px;
+      font-weight: 400;
+    }
+    .tarifa-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .84rem;
+      line-height: 1.65;
+      color: rgba(245, 240, 232, .65);
+      margin-top: 10px;
+    }
+    .tarifa-note::before {
+      content: '✦';
+      color: var(--gold);
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .policy-callout {
+      background: rgba(201, 168, 76, .06);
+      border: 1px solid rgba(201, 168, 76, .18);
+      border-left: 3px solid var(--gold);
+      border-radius: 2px;
+      padding: 24px 28px;
+      margin: 20px 0;
+    }
+    .policy-callout p {
+      margin-bottom: 6px !important;
+      font-size: .9rem !important;
+    }
+    .policy-callout p:last-child { margin-bottom: 0 !important; }
+
+    /* ── MODO CLARO ────────────────────────────────── */
+    body.light-mode { background: #F9F8F6; color: #141210; }
+    body.light-mode .legal-hero { background: #F5F0E8; border-bottom-color: rgba(20,18,16,.1); }
+    body.light-mode .legal-title { color: #141210; }
+    body.light-mode .legal-meta { color: rgba(20,18,16,.45); }
+    body.light-mode .legal-body { background: #F9F8F6; }
+    body.light-mode .legal-lead { color: rgba(20,18,16,.78); border-bottom-color: rgba(20,18,16,.08); }
+    body.light-mode .legal-section h2 { color: #7A6025; }
+    body.light-mode .legal-section h3 { color: #7A6025; }
+    body.light-mode .legal-section p,
+    body.light-mode .legal-section ul li { color: rgba(20,18,16,.75); }
+    body.light-mode .legal-section strong { color: #141210; }
+    body.light-mode .legal-section em { color: #7A6025; }
+    body.light-mode .legal-section { border-bottom-color: rgba(20,18,16,.08); }
+    body.light-mode .tarifa-caption { color: #7A6025; }
+    body.light-mode .tarifa-caption::before { background: #7A6025; }
+    body.light-mode .tarifa-list { border-top-color: rgba(20,18,16,.1); }
+    body.light-mode .tarifa-row { border-bottom-color: rgba(20,18,16,.08); }
+    body.light-mode .tarifa-row__label { color: rgba(20,18,16,.82); }
+    body.light-mode .tarifa-row__sub { color: rgba(20,18,16,.5); }
+    body.light-mode .tarifa-row__price { color: #7A6025; }
+    body.light-mode .tarifa-row__price small { color: rgba(20,18,16,.5); }
+    body.light-mode .tarifa-note { color: rgba(20,18,16,.65); }
+    body.light-mode .tarifa-note::before { color: #7A6025; }
+    body.light-mode .policy-callout { background: rgba(201,168,76,.05); border-color: rgba(201,168,76,.2); }
+    body.light-mode .navbar--always-solid,
+    body.light-mode .navbar.scrolled { background: rgba(245,240,232,.95); }
+    body.light-mode .navbar--always-solid .hamburger-line,
+    body.light-mode .navbar.scrolled .hamburger-line { background: #141210; }
+    body.light-mode .navbar--always-solid .navbar__logo-name,
+    body.light-mode .navbar--always-solid .lang-selector__btn,
+    body.light-mode .navbar.scrolled .navbar__logo-name,
+    body.light-mode .navbar.scrolled .lang-selector__btn { color: #141210; }
+    body.light-mode .side-menu { background: #F9F8F6; }
+    body.light-mode .side-menu__nav-item { border-bottom-color: rgba(20,18,16,.1); }
+    body.light-mode .side-menu__nav-link:hover { color: var(--gold); }
+    body.light-mode .side-menu__nav-link,
+    body.light-mode .side-menu__close,
+    body.light-mode .lang-selector__option { color: #141210; }
+    body.light-mode .lang-selector__dropdown { background: rgba(245,240,232,.97); }
+    body.light-mode .site-footer { background: #F9F8F6; }
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a,
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a { color: rgba(20,18,16,.75); }
+  </style>
+</head>
+
+<body class="light-mode">
+
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/>
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
+      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Modo Claro / Oscuro</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
+      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
+      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
+      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>Subrayar enlaces</button></li>
+      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Fuente legible</button></li>
+      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Leer texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Restablecer</button></li>
+    </ul>
+  </div>
+
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas.html" class="navbar__btn-tickets">
+        <svg class="navbar__btn-ticket-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v2a2 2 0 0 0 0 4v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-2a2 2 0 0 0 0-4z"/>
+          <line x1="13" y1="6" x2="13" y2="18" stroke-dasharray="2 2"/>
+        </svg>
+        <span class="navbar__btn-tickets-text" data-i18n="nav_tickets">Entradas</span>
+      </a>
+      <button class="navbar__a11y-btn" id="navbar-a11y-btn" aria-label="Herramientas de accesibilidad" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="4" r="2" fill="currentColor" stroke="none"/>
+          <path d="M5 9h14"/>
+          <path d="M9 9v4l-2 7"/>
+          <path d="M15 9v4l2 7"/>
+          <path d="M9 13h6"/>
+        </svg>
+      </button>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__a11y-btn" aria-label="Herramientas de accesibilidad">
+      <svg class="side-menu__a11y-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle class="side-menu__a11y-circle" cx="12" cy="12" r="11"/>
+        <path class="side-menu__a11y-figure" d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+      </svg>
+      <span class="side-menu__a11y-label">Accesibilidad</span>
+    </button>
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos/catedral.html" class="side-menu__nav-link"><span class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="../visitas.html" class="side-menu__nav-link"><span class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="../actualidad.html" class="side-menu__nav-link"><span class="nav-num">04</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="../institucion.html" class="side-menu__nav-link"><span class="nav-num">05</span>Institución</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas.html" class="side-menu__nav-link"><span class="nav-num">06</span>Reservas</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" aria-label="X / Twitter"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="mailto:entradas@catedralsantodomingo.org" aria-label="Correo electrónico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+      <a href="tel:+34941340033" aria-label="Teléfono"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="privacidad.html" data-i18n="menu_legal_privacy">Privacidad</a>
+      <a href="cookies.html" data-i18n="menu_legal_cookies">Cookies</a>
+      <a href="aviso-legal.html" data-i18n="menu_legal_notice">Aviso legal</a>
+      <a href="compra.html" data-i18n="menu_legal_purchase">Compra</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="legal-hero">
+    <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
+      <ol class="breadcrumb__list" role="list">
+        <li><a href="../index.html" class="breadcrumb__link">Inicio</a></li>
+        <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
+        <li><span class="breadcrumb__current" aria-current="page">Condiciones de Compra</span></li>
+      </ol>
+      <a href="../index.html" class="breadcrumb__back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        <span>Inicio</span>
+      </a>
+    </nav>
+    <div class="legal-hero__inner">
+      <p class="legal-eyebrow" data-i18n="cp_eyebrow">Legal · Entradas y visitas</p>
+      <h1 class="legal-title" data-i18n-html="cp_title">Condiciones <em>de Compra</em></h1>
+      <p class="legal-meta" data-i18n="cp_meta">Última actualización: 12 de mayo de 2026</p>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="legal-body" id="main-content" tabindex="-1">
+    <div class="legal-content">
+
+      <p class="legal-lead" data-i18n="cp_lead">Visitar la Catedral de Santo Domingo de la Calzada y sus monumentos es una experiencia que comienza mucho antes de cruzar sus puertas. Para que todo salga perfecto, te explicamos cómo funciona la compra de entradas y qué debes tener en cuenta antes de tu visita.</p>
+
+      <section class="legal-section">
+        <h2><span class="num">01</span> <span data-i18n="cp_s1_h">Visitas individuales y familias</span></h2>
+        <p data-i18n="cp_s1_p1">Compra tu entrada de forma rápida y sencilla a través de nuestra web. También puedes adquirirla directamente en taquilla el mismo día de tu visita, sujeta a disponibilidad.</p>
+
+        <p class="tarifa-caption" data-i18n="cp_s1_caption">Tarifas · Visita individual</p>
+        <div class="tarifa-list">
+          <div class="tarifa-row"><span class="tarifa-row__label">Ticket Catedral</span><span class="tarifa-row__price">7 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Ticket Torre</span><span class="tarifa-row__price">4 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Ticket Convento San Francisco</span><span class="tarifa-row__price">5 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Pulsera Turística<span class="tarifa-row__sub">Acceso a los 4 monumentos</span></span><span class="tarifa-row__price">10 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Pulsera Peregrino</span><span class="tarifa-row__price">5 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Visita Guiada Diurna<span class="tarifa-row__sub">4 € menores de 12 años</span></span><span class="tarifa-row__price">14 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Visita Guiada VIP<span class="tarifa-row__sub">5 € menores de 12 años</span></span><span class="tarifa-row__price">15 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Visita Guiada Nocturna<span class="tarifa-row__sub">5 € menores de 12 años</span></span><span class="tarifa-row__price">15 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Ticket Familiar<span class="tarifa-row__sub">Pulsera turística incluida</span></span><span class="tarifa-row__price">25 €<small>/ familia</small></span></div>
+        </div>
+
+        <p class="tarifa-note" data-i18n="cp_s1_note1"><span>Menores de 12 años: entrada gratuita en Catedral, Torre y Convento San Francisco.</span></p>
+        <p class="tarifa-note" data-i18n="cp_s1_note2"><span>Ticket Familiar: válido únicamente para padres e hijos menores de 21 años.</span></p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">02</span> <span data-i18n="cp_s2_h">Grupos · 25 personas o más</span></h2>
+        <p data-i18n="cp_s2_p1">Para grupos organizados, recomendamos realizar la reserva con antelación a través de nuestra web. El pago puede efectuarse en taquilla el día de la visita o, si lo prefieres, mediante transferencia bancaria previa.</p>
+
+        <p class="tarifa-caption" data-i18n="cp_s2_caption">Tarifas · Grupos (pulsera turística incluida · acceso a los 4 monumentos)</p>
+        <div class="tarifa-list">
+          <div class="tarifa-row"><span class="tarifa-row__label">Grupo de 25 o más personas</span><span class="tarifa-row__price">5 €<small>/ persona</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Grupo reducido<span class="tarifa-row__sub">Menos de 25 personas</span></span><span class="tarifa-row__price">125 €<small>mínimo</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Suplemento Visita Guiada Catedral</span><span class="tarifa-row__price">+ 50 €<small>/ grupo</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Suplemento Visita Guiada Casco Histórico + Catedral</span><span class="tarifa-row__price">+ 100 €<small>/ grupo</small></span></div>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">03</span> <span data-i18n="cp_s3_h">Grupos escolares</span></h2>
+        <p data-i18n="cp_s3_p1">La historia cobra vida cuando se experimenta en primera persona. Para centros educativos, disponemos de tarifas adaptadas a cada etapa escolar.</p>
+
+        <p class="tarifa-caption" data-i18n="cp_s3_caption">Tarifas · Grupos escolares</p>
+        <div class="tarifa-list">
+          <div class="tarifa-row"><span class="tarifa-row__label">Escolares menores de 12 años</span><span class="tarifa-row__price">Gratuito</span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Escolares 12–13 años</span><span class="tarifa-row__price">2 €<small>/ alumno</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Escolares 14–15 años</span><span class="tarifa-row__price">3 €<small>/ alumno</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Estudiantes 16–17 años</span><span class="tarifa-row__price">4 €<small>/ alumno</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Estudiantes mayores de 17 años</span><span class="tarifa-row__price">5 €<small>/ alumno</small></span></div>
+          <div class="tarifa-row"><span class="tarifa-row__label">Suplemento visita guiada</span><span class="tarifa-row__price">+ 50 €<small>/ grupo</small></span></div>
+        </div>
+
+        <p class="tarifa-note" data-i18n="cp_s3_note"><span>Las edades deben acreditarse con documentación del centro escolar en taquillas.</span></p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">04</span> <span data-i18n="cp_s4_h">Agencias, touroperadores y asociaciones</span></h2>
+        <p data-i18n="cp_s4_p1">Las tarifas aplicables son las tarifas generales de grupo establecidas para todos los visitantes. No obstante, aquellas agencias, touroperadores o asociaciones que traigan un volumen mínimo de grupos de forma recurrente a lo largo del año pueden ponerse en contacto con nosotros para estudiar conjuntamente un ajuste de tarifas, según la viabilidad de cada caso.</p>
+        <p data-i18n="cp_s4_p2">Creemos en las relaciones a largo plazo. Si tu proyecto encaja con nuestra misión de acercar el patrimonio a más personas, <a href="mailto:entradas@catedralsantodomingo.org">hablemos</a>.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2><span class="num">05</span> <span data-i18n="cp_s5_h">Política de compra · Lee esto antes de pagar</span></h2>
+        <p data-i18n="cp_s5_p1">Queremos que tu visita sea perfecta, y para ello es fundamental planificarla bien. Por eso te pedimos que tengas en cuenta lo siguiente:</p>
+
+        <div class="policy-callout">
+          <p data-i18n="cp_s5_cb1"><strong>Confirma el número exacto de personas antes de pagar.</strong></p>
+          <p data-i18n="cp_s5_cb2">Una vez realizado el pago, <strong>no se efectúan devoluciones bajo ningún concepto</strong>. Ni cancelaciones de última hora, ni reducciones de aforo, ni cambios de fecha dan derecho a reembolso.</p>
+        </div>
+
+        <h3 data-i18n="cp_s5_h2">¿Cuándo pagar?</h3>
+        <p data-i18n="cp_s5_p2">Te recomendamos realizar el pago entre <strong>4 y 5 días antes</strong> de la fecha de visita, una vez conozcas con certeza el número definitivo de personas que acudirán.</p>
+
+        <h3 data-i18n="cp_s5_h3">Sin excepciones</h3>
+        <p data-i18n="cp_s5_p3">La Catedral de Santo Domingo de la Calzada no se hace responsable de las cantidades abonadas por grupos que, una vez efectuado el pago, cancelen o modifiquen su visita por cualquier motivo. Esta política aplica <strong>sin excepción</strong> a grupos, centros escolares, agencias, touroperadores y cualquier otra entidad.</p>
+
+        <p data-i18n="cp_s5_p4"><em>Entendemos que los imprevistos ocurren. Precisamente por eso insistimos: paga solo cuando tengas la confirmación definitiva.</em></p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del
+          Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="mailto:entradas@catedralsantodomingo.org" class="footer-social__link" aria-label="Correo electrónico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+          <a href="tel:+34941340033" class="footer-social__link" aria-label="Teléfono"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="../reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+          <li><a href="../institucion.html" data-i18n="footer_info_2">Institución</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
+          <li><a href="../actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_terms">Términos</div>
+        <ul class="footer-col__list">
+          <li><a href="aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a></li>
+          <li><a href="privacidad.html" data-i18n="footer_legal_2">Privacidad</a></li>
+          <li><a href="cookies.html" data-i18n="footer_legal_3">Cookies</a></li>
+          <li><a href="compra.html" data-i18n="footer_legal_5">Compra</a></li>
+          <li><a href="accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
+        Rioja · España</span>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER + MODAL -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">
+        <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el trafico y recordar tus preferencias.</p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
+        <button id="cookie-btn-customize" class="cookie-btn cookie-btn--ghost">Personalizar</button>
+        <button id="cookie-btn-all" class="cookie-btn cookie-btn--primary">Aceptar todo</button>
+      </div>
+      <a href="cookies.html" class="cookie-banner__link" data-cookie-link>Politica de cookies</a>
+    </div>
+  </div>
+  <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+    <div class="cookie-modal__backdrop"></div>
+    <div class="cookie-modal__dialog" tabindex="-1">
+      <div class="cookie-modal__header">
+        <h2 id="cookie-modal-title" class="cookie-modal__title">Preferencias de cookies</h2>
+        <button id="cookie-modal-close" class="cookie-modal__close" aria-label="Cerrar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="cookie-modal__body">
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span id="cookie-cat-necessary-name" class="cookie-cat__name">Necesarias</span>
+              <span class="cookie-cat__badge">Siempre activas</span>
+            </div>
+            <div class="cookie-toggle cookie-toggle--locked" aria-hidden="true"><span class="cookie-toggle__track"></span></div>
+          </div>
+          <p id="cookie-cat-necessary-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analiticas</span>
+            <label class="cookie-toggle" for="cookie-toggle-analytics" aria-labelledby="cookie-cat-analytics-name">
+              <input type="checkbox" id="cookie-toggle-analytics" name="analytics" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-analytics-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-marketing-name" class="cookie-cat__name">Marketing</span>
+            <label class="cookie-toggle" for="cookie-toggle-marketing" aria-labelledby="cookie-cat-marketing-name">
+              <input type="checkbox" id="cookie-toggle-marketing" name="marketing" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-marketing-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-prefs-name" class="cookie-cat__name">Preferencias</span>
+            <label class="cookie-toggle" for="cookie-toggle-prefs" aria-labelledby="cookie-cat-prefs-name">
+              <input type="checkbox" id="cookie-toggle-prefs" name="prefs" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-prefs-desc" class="cookie-cat__desc"></p>
+        </div>
+      </div>
+      <div class="cookie-modal__footer">
+        <button id="cookie-modal-reject" class="cookie-btn cookie-btn--outline">Rechazar opcionales</button>
+        <button id="cookie-modal-save" class="cookie-btn cookie-btn--primary">Guardar preferencias</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    const PAGE_T = {
+      es: {
+        cp_eyebrow: 'Legal · Entradas y visitas',
+        cp_title: 'Condiciones <em>de Compra</em>',
+        cp_meta: 'Última actualización: 12 de mayo de 2026',
+      }
+    };
+    window.PAGE_applyLang = function(lang, t) {
+      const pt = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const k = el.getAttribute('data-i18n-page');
+        if (pt[k] !== undefined) el.innerHTML = pt[k];
+      });
+    };
+  </script>
+  <script>
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      if (!btn) return;
+      const KEY = 'a11y-light-mode';
+      const logoImg = document.querySelector('.navbar__logo-favicon');
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        btn.classList.toggle('is-active', on);
+        btn.setAttribute('aria-pressed', String(on));
+        if (logoImg) logoImg.src = on ? '../favicon_black.svg' : '../favicon.svg';
+        if (on) localStorage.setItem(KEY, '1');
+        else localStorage.setItem(KEY, '0');
+      }
+      applyLightMode(localStorage.getItem(KEY) !== '0');
+      btn.addEventListener('click', () => {
+        applyLightMode(!document.body.classList.contains('light-mode'));
+      });
+    })();
+  </script>
+
+</body>
+</html>

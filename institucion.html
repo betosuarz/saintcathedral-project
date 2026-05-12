@@ -328,7 +328,7 @@
     .inst-card__text {
       font-size: .85rem;
       line-height: 1.8;
-      color: var(--stone)
+      color: rgba(253, 250, 244, 0.78)
     }
 
     .inst-card__link {
@@ -391,6 +391,9 @@
       font-family: var(--serif);
       font-size: clamp(1rem, 1.4vw, 1.2rem);
       font-weight: 300;
+      color: var(--white)
+    }
+    body.light-mode .inst-nav__label {
       color: var(--carbon)
     }
 
@@ -467,7 +470,7 @@
     body.light-mode .inst-page-title em { color: var(--gold); }
 
     /* Eyebrow en secciones oscuras convertidas */
-    body.light-mode .inst-section .eyebrow { color: #8B6A1E; }
+    body.light-mode .inst-section .eyebrow { color: #7A6025; }
 
     /* Cards → fondo claro */
     body.light-mode .inst-section .inst-card {
@@ -479,9 +482,9 @@
       background: rgba(20, 18, 16, .08);
     }
 
-    body.light-mode .inst-section .inst-card__label { color: var(--gold-dk); }
+    body.light-mode .inst-section .inst-card__label { color: #7A6025; }
     body.light-mode .inst-section .inst-card__label::before { background: var(--gold-dk); }
-    body.light-mode .inst-section .inst-card__link { color: var(--gold-dk); }
+    body.light-mode .inst-section .inst-card__link { color: #7A6025; }
 
     /* Nav interno */
     body.light-mode .inst-nav__item {
@@ -637,6 +640,9 @@
         font-size: 1.35rem;
         font-weight: 300;
         line-height: 1.15;
+        color: var(--white);
+      }
+      body.light-mode .inst-nav__label {
         color: var(--carbon);
       }
     }
@@ -647,7 +653,7 @@
       body.light-mode .inst-nav__item { border-bottom-color: rgba(168, 133, 46, .35) }
       body.light-mode .inst-nav__item:hover,
       body.light-mode .inst-nav__item:active { background: rgba(168, 133, 46, .08) }
-      body.light-mode .inst-nav__num { color: var(--gold-dk) }
+      body.light-mode .inst-nav__num { color: #7A6025 }
       body.light-mode .inst-nav__item::before { background: var(--gold-dk) }
       body.light-mode .inst-nav__item::after { color: var(--gold-dk) }
     }
@@ -857,9 +863,9 @@
       border-color: var(--gold-dk);
       background: rgba(20,18,16,.05);
     }
-    body.light-mode .fiestas-form__label { color: var(--gold-dk) }
+    body.light-mode .fiestas-form__label { color: #7A6025 }
     body.light-mode .fiestas-form__check { color: rgba(20,18,16,.7) }
-    body.light-mode .fiestas-form__check a { color: var(--gold-dk) }
+    body.light-mode .fiestas-form__check a { color: #7A6025 }
     body.light-mode .fiestas-form__submit { color: #fff; background: var(--gold-dk) }
     body.light-mode .fiestas-form__submit:hover { background: var(--carbon) }
     body.light-mode .fiestas-form__status { color: rgba(20,18,16,.65) }

@@ -12,10 +12,12 @@
   --cream-d: #EDE6D6;
   --stone: #8C8070;
   --stone-lt: #BEB5A8;
+  --stone-d: #5C5249;      /* AA on cream: 7:1 (a11y) */
   --carbon: #141210;
   --gold: #C9A84C;
   --gold-lt: #DFC070;
   --gold-dk: #A8852E;
+  --gold-text: #7A6025;    /* AA on cream: 6.6:1 (a11y) */
   --white: #FDFAF4;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'DM Sans', sans-serif;
@@ -2696,4 +2698,214 @@ body.light-mode .cookie-toggle--locked .cookie-toggle__track { background: rgba(
   .cookie-banner,
   .cookie-modal,
   .cookie-modal__dialog { transition: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WCAG AA CONTRAST OVERRIDES — light mode fixes
+   Token policy:
+   - On cream/white backgrounds, body text MUST use --carbon, --stone-d,
+     or --gold-text (NOT --gold, --gold-lt, --stone, --gold-dk for normal text).
+   - --gold-dk is acceptable ONLY for large text (≥18pt / ≥14pt bold).
+═══════════════════════════════════════════════════════════════ */
+
+/* ── EM accent inside titles on light backgrounds ─────────────── */
+body.light-mode .page-hero__title em,
+body.light-mode .section-title em,
+body.light-mode .vis-title em,
+body.light-mode .act-title em,
+body.light-mode .form-info__title em,
+body.light-mode .cta-band__title em,
+body.light-mode .footer-cta__title em,
+body.light-mode .intro-strip__title em,
+body.light-mode .mod-card__title em,
+body.light-mode .tour-card__title em,
+body.light-mode .stage-card__title em,
+body.light-mode .info-item__value em,
+body.light-mode .monument-card__name em,
+body.light-mode .info-col__subtitle em,
+body.light-mode .vip-info__title em {
+  color: var(--gold-text);
+}
+
+/* ── Section eyebrows / small accents on light bg ─────────────── */
+body.light-mode .section-eyebrow,
+body.light-mode .vis-eyebrow,
+body.light-mode .act-eyebrow,
+body.light-mode .stage-card__eyebrow,
+body.light-mode .form-info__tag,
+body.light-mode .resource-card__tag,
+body.light-mode .cta-band__eyebrow,
+body.light-mode .price-eyebrow,
+body.light-mode .events-eyebrow,
+body.light-mode .news-eyebrow,
+body.light-mode .gallery-eyebrow,
+body.light-mode .press-eyebrow,
+body.light-mode .compare-section__label {
+  color: var(--gold-text);
+}
+
+/* ── Stone-coloured body text on light bg ─────────────────────── */
+body.light-mode .section-scroll-hint,
+body.light-mode .review-author-origin,
+body.light-mode .reviews-platform,
+body.light-mode .reviews-counter,
+body.light-mode .review-nav-btn,
+body.light-mode .hub-intro__meta,
+body.light-mode .info-bar__label,
+body.light-mode .lamp-label,
+body.light-mode .ht-row__label,
+body.light-mode .hist-stat__label,
+body.light-mode .page-hero__meta-label,
+body.light-mode .stage-spec__label,
+body.light-mode .stage-card__sub,
+body.light-mode .resource-card__desc,
+body.light-mode .form-note,
+body.light-mode .info-item__sub,
+body.light-mode .prensa-card__date,
+body.light-mode .prensa-row__pub,
+body.light-mode .audio-card__dur,
+body.light-mode .audio-time,
+body.light-mode .pdf-size {
+  color: var(--stone-d);
+}
+
+/* ── Side menu / footer in light mode (stone-d for legibility) ── */
+body.light-mode .side-menu__a11y-label,
+body.light-mode .side-menu__social-label,
+body.light-mode .side-menu__social a,
+body.light-mode .side-menu__legal a,
+body.light-mode .footer-brand__desc,
+body.light-mode .footer-col__list a,
+body.light-mode .footer-cta__sub,
+body.light-mode .cta-band__sub {
+  color: var(--stone-d);
+}
+body.light-mode .side-menu__legal a:hover,
+body.light-mode .side-menu__social a:hover,
+body.light-mode .footer-col__list a:hover {
+  color: var(--gold-text);
+}
+
+/* ── Footer / navbar eyebrows and headings in light ───────────── */
+body.light-mode .footer-col__title,
+body.light-mode .footer-cta__eyebrow,
+body.light-mode .footer-brand__name,
+body.light-mode .newsletter-msg {
+  color: var(--gold-text);
+}
+
+/* ── Card accents that fail on white/cream backgrounds ────────── */
+body.light-mode .space-card__cta,
+body.light-mode .space-card--remote .space-card__badge,
+body.light-mode .combined-card__tag,
+body.light-mode .combined-card__saving,
+body.light-mode .tour-card__num,
+body.light-mode .tour-card--vip .tour-card__num,
+body.light-mode .monument-card__num,
+body.light-mode .stage-card__num,
+body.light-mode .stage-card__cta,
+body.light-mode .stage-card__age,
+body.light-mode .price-card__include,
+body.light-mode .price-card__accent,
+body.light-mode .compare-check,
+body.light-mode .audio-card__num,
+body.light-mode .audio-info-icon,
+body.light-mode .pdf-info-icon,
+body.light-mode .pdf-dl,
+body.light-mode .pdf-icon,
+body.light-mode .gallery-info-btn,
+body.light-mode .gallery-slide__cap-cta,
+body.light-mode .mod-card__cta,
+body.light-mode .canas-location-badge,
+body.light-mode .sdlc-tag,
+body.light-mode .intro-strip__title em,
+body.light-mode .tl-h__era-period,
+body.light-mode .ht-tab.is-active {
+  color: var(--gold-text);
+}
+
+/* ── Buttons: text on gold-dk must be carbon, not white ───────── */
+body.light-mode .hist-more-btn:hover,
+body.light-mode .form-submit:hover,
+body.light-mode .btn--gold:hover {
+  color: var(--carbon);
+}
+
+/* ── Form labels / placeholders in light mode (visibility) ────── */
+body.light-mode .form-label,
+body.light-mode .esc-form__title {
+  color: rgba(20, 18, 16, 0.78);
+}
+body.light-mode .form-input::placeholder,
+body.light-mode .form-textarea::placeholder,
+body.light-mode .form-select option:disabled {
+  color: rgba(20, 18, 16, 0.55);
+}
+
+/* ── Legal-section anchor (gold) needs darker tone in light ───── */
+body.light-mode .legal-section a,
+body.light-mode .legal-section a:visited {
+  color: var(--gold-text);
+  text-decoration: underline;
+}
+body.light-mode .a11y-feature-card__title,
+body.light-mode .cookie-badge--third {
+  color: var(--gold-text);
+}
+
+/* ── Breadcrumb hover in light ────────────────────────────────── */
+body.light-mode .breadcrumb__link:hover,
+body.light-mode .breadcrumb__sep,
+body.light-mode .breadcrumb__back:hover {
+  color: var(--gold-text);
+}
+
+/* ── a11y panel in light: active/hover states need contrast ───── */
+body.light-mode .a11y-option:hover,
+body.light-mode .a11y-option.is-active,
+body.light-mode .a11y-panel__close:hover {
+  color: var(--gold-text);
+}
+
+/* ── Cookie banner light: switch gold accents to gold-text ────── */
+body.light-mode .cookie-banner__title,
+body.light-mode .cookie-modal__title,
+body.light-mode .cookie-btn--outline,
+body.light-mode .cookie-btn--outline:hover,
+body.light-mode .cookie-btn--ghost,
+body.light-mode .cookie-btn--ghost:hover,
+body.light-mode .cookie-banner__link,
+body.light-mode .cookie-banner__link:hover {
+  color: var(--gold-text);
+}
+
+/* ── Dark-mode fixes: stone text on carbon (3.5:1 → fail) ─────── */
+body:not(.light-mode) .inst-card__text,
+body:not(.light-mode) .sdlc-body,
+body:not(.light-mode) .sdlc-split__text,
+body:not(.light-mode) .canas-body,
+body:not(.light-mode) .text-grid__body,
+body:not(.light-mode) .text-grid__meta,
+body:not(.light-mode) .highlight-list li,
+body:not(.light-mode) .hist-stat__label,
+body:not(.light-mode) .page-hero__meta-label,
+body:not(.light-mode) .audio-card__dur,
+body:not(.light-mode) .audio-time,
+body:not(.light-mode) .prensa-row__pub,
+body:not(.light-mode) .prensa-card__date {
+  color: rgba(253, 250, 244, 0.78);
+}
+
+/* ── Dark-mode form label / placeholder visibility ────────────── */
+body:not(.light-mode) .form-label {
+  color: rgba(253, 250, 244, 0.72);
+}
+body:not(.light-mode) .form-input::placeholder,
+body:not(.light-mode) .form-textarea::placeholder {
+  color: rgba(253, 250, 244, 0.55);
+}
+
+/* ── inst-nav__label was carbon-on-carbon (invisible) ─────────── */
+body:not(.light-mode) .inst-nav__label {
+  color: var(--white);
 }

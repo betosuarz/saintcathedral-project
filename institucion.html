@@ -217,9 +217,9 @@
 
     .inst-header__desc {
       font-family: var(--serif);
-      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
       font-weight: 300;
-      line-height: 1.65;
+      line-height: 1.5;
       color: rgba(253, 250, 244, .78);
       max-width: 780px
     }
@@ -514,17 +514,349 @@
     }
 
     @media (max-width: 700px) {
-      .inst-cards { grid-template-columns: 1fr }
-      .inst-card--wide { grid-column: span 1 }
       .inst-nav { flex-direction: column }
-      .inst-card { padding: 32px 28px }
+    }
+
+    @media (max-width: 640px) {
+      .inst-cards {
+        display: flex !important;
+        grid-template-columns: none;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 14px;
+        margin: 0 -20px;
+        padding: 4px 20px 14px;
+        scroll-padding-left: 20px;
+      }
+      .inst-cards::-webkit-scrollbar { display: none; height: 0 }
+
+      .inst-card,
+      .inst-card--wide {
+        flex: 0 0 82%;
+        max-width: 320px;
+        grid-column: auto;
+        scroll-snap-align: start;
+        padding: 28px 24px;
+        border-radius: 4px;
+      }
     }
 
     @media (max-width: 640px) {
       .page-hero__content { padding-bottom: 9vh }
-      .inst-section { padding: 72px 6vw }
-      .inst-section--light { padding: 72px 6vw }
+      .inst-section { padding: 72px 20px }
+      .inst-section--light { padding: 72px 20px }
+
+      /* ── Editorial chapter list (Parroquia / Cabildo / Archivo) ── */
+      .inst-nav {
+        flex-direction: column;
+        gap: 0;
+        margin: 8px -4px 0;
+        border-top: 1px solid rgba(201, 168, 76, .22);
+      }
+
+      .inst-nav__item {
+        position: relative;
+        display: grid;
+        grid-template-columns: 64px 1fr 24px;
+        align-items: center;
+        gap: 18px;
+        padding: 22px 14px 22px 6px;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid rgba(201, 168, 76, .22);
+        min-height: 88px;
+        overflow: hidden;
+        transition: background .25s ease, padding-left .25s ease;
+      }
+
+      .inst-nav__item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 18%;
+        bottom: 18%;
+        width: 2px;
+        background: var(--gold);
+        transform: scaleY(0);
+        transform-origin: center;
+        transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+      }
+
+      .inst-nav__item:hover,
+      .inst-nav__item:active {
+        background: rgba(201, 168, 76, .06);
+        padding-left: 16px;
+      }
+
+      .inst-nav__item:hover::before,
+      .inst-nav__item:active::before {
+        transform: scaleY(1);
+      }
+
+      .inst-nav__item::after {
+        content: "→";
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        color: var(--gold);
+        opacity: .55;
+        transition: transform .25s ease, opacity .25s ease;
+        justify-self: end;
+      }
+
+      .inst-nav__item:hover::after,
+      .inst-nav__item:active::after {
+        opacity: 1;
+        transform: translateX(4px);
+      }
+
+      .inst-nav__num {
+        font-family: var(--serif);
+        font-size: 2.4rem;
+        font-weight: 300;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--gold);
+        line-height: 1;
+        margin: 0;
+        opacity: .85;
+        text-align: center;
+      }
+
+      .inst-nav__label {
+        font-family: var(--serif);
+        font-size: 1.35rem;
+        font-weight: 300;
+        line-height: 1.15;
+        color: var(--carbon);
+      }
     }
+
+    /* Light mode tweak for mobile chapter list */
+    @media (max-width: 640px) {
+      body.light-mode .inst-nav { border-top-color: rgba(168, 133, 46, .35) }
+      body.light-mode .inst-nav__item { border-bottom-color: rgba(168, 133, 46, .35) }
+      body.light-mode .inst-nav__item:hover,
+      body.light-mode .inst-nav__item:active { background: rgba(168, 133, 46, .08) }
+      body.light-mode .inst-nav__num { color: var(--gold-dk) }
+      body.light-mode .inst-nav__item::before { background: var(--gold-dk) }
+      body.light-mode .inst-nav__item::after { color: var(--gold-dk) }
+    }
+
+    /* ── FIESTAS POPUP ──────────────────────────────────── */
+    .fiestas-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(6px);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .fiestas-overlay.open { opacity: 1; pointer-events: auto }
+    .fiestas-popup {
+      position: relative;
+      background: rgba(14,12,10,.97);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 4px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 52px 48px 44px;
+      transform: translateY(20px) scale(.98);
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .fiestas-overlay.open .fiestas-popup { transform: translateY(0) scale(1) }
+    .fiestas-popup__close {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 44px; height: 44px;
+      background: transparent;
+      border: 0;
+      color: rgba(255,255,255,.55);
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: color .2s ease;
+    }
+    .fiestas-popup__close:hover { color: var(--gold) }
+    .fiestas-popup__eyebrow {
+      font-size: .6rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .fiestas-popup__title {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.15;
+      margin: 0 0 24px;
+    }
+    .fiestas-popup__divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201,168,76,.4), transparent);
+      margin: 0 0 24px;
+    }
+    .fiestas-popup__group { margin-bottom: 26px }
+    .fiestas-popup__group:last-child { margin-bottom: 0 }
+    .fiestas-popup__group-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--gold-lt);
+      margin: 0 0 10px;
+    }
+    .fiestas-popup__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .fiestas-popup__list li {
+      font-size: .88rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.74);
+      padding: 4px 0;
+    }
+    .fiestas-popup__list li strong { color: var(--gold); font-weight: 500 }
+    .fiestas-popup__para {
+      font-size: .92rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.78);
+      margin: 0 0 16px;
+    }
+    .fiestas-popup__para:last-child { margin-bottom: 0 }
+    .fiestas-popup__para strong { color: var(--gold); font-weight: 500 }
+    .fiestas-popup__note {
+      font-size: .78rem;
+      color: rgba(255,255,255,.5);
+      font-style: italic;
+      margin-top: 18px;
+    }
+
+    body.light-mode .fiestas-popup {
+      background: #FDFAF4;
+      border-color: rgba(168,133,46,.3);
+    }
+    body.light-mode .fiestas-popup__close { color: rgba(20,18,16,.55) }
+    body.light-mode .fiestas-popup__close:hover { color: var(--gold-dk) }
+    body.light-mode .fiestas-popup__title { color: var(--carbon) }
+    body.light-mode .fiestas-popup__eyebrow { color: var(--gold-dk) }
+    body.light-mode .fiestas-popup__group-title { color: var(--gold-dk) }
+    body.light-mode .fiestas-popup__list li { color: rgba(20,18,16,.78) }
+    body.light-mode .fiestas-popup__list li strong { color: var(--gold-dk) }
+    body.light-mode .fiestas-popup__para { color: rgba(20,18,16,.78) }
+    body.light-mode .fiestas-popup__para strong { color: var(--gold-dk) }
+    body.light-mode .fiestas-popup__note { color: rgba(20,18,16,.5) }
+    body.light-mode .fiestas-popup__divider {
+      background: linear-gradient(90deg, rgba(168,133,46,.4), transparent);
+    }
+
+    @media (max-width: 640px) {
+      .fiestas-overlay { padding: 20px }
+      .fiestas-popup {
+        max-width: 100%;
+        padding: 44px 24px 28px;
+        max-height: 85vh;
+      }
+    }
+
+    /* ── CONTACT FORM (inside fiestas-popup) ───────────── */
+    .fiestas-form { margin: 0 }
+    .fiestas-form__row { margin-bottom: 14px }
+    .fiestas-form__label {
+      display: block;
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .fiestas-form__input,
+    .fiestas-form__textarea {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: var(--sans);
+      font-size: .9rem;
+      color: #fff;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.22);
+      border-radius: 3px;
+      outline: none;
+      transition: border-color .2s ease, background .2s ease;
+      box-sizing: border-box;
+    }
+    .fiestas-form__textarea { min-height: 110px; resize: vertical }
+    .fiestas-form__input:focus,
+    .fiestas-form__textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,.06);
+    }
+    .fiestas-form__check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .82rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,.7);
+      margin: 16px 0 18px;
+      cursor: pointer;
+    }
+    .fiestas-form__check input { margin-top: 4px; accent-color: var(--gold) }
+    .fiestas-form__check a { color: var(--gold); text-decoration: underline }
+    .fiestas-form__submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--carbon);
+      background: var(--gold);
+      border: 0;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background .25s ease, transform .15s ease;
+    }
+    .fiestas-form__submit:hover { background: var(--gold-lt) }
+    .fiestas-form__submit:disabled { opacity: .5; cursor: not-allowed }
+    .fiestas-form__status {
+      font-size: .8rem;
+      color: rgba(255,255,255,.7);
+      margin-top: 12px;
+      min-height: 1em;
+    }
+
+    body.light-mode .fiestas-form__input,
+    body.light-mode .fiestas-form__textarea {
+      color: var(--carbon);
+      background: rgba(20,18,16,.03);
+      border-color: rgba(168,133,46,.3);
+    }
+    body.light-mode .fiestas-form__input:focus,
+    body.light-mode .fiestas-form__textarea:focus {
+      border-color: var(--gold-dk);
+      background: rgba(20,18,16,.05);
+    }
+    body.light-mode .fiestas-form__label { color: var(--gold-dk) }
+    body.light-mode .fiestas-form__check { color: rgba(20,18,16,.7) }
+    body.light-mode .fiestas-form__check a { color: var(--gold-dk) }
+    body.light-mode .fiestas-form__submit { color: #fff; background: var(--gold-dk) }
+    body.light-mode .fiestas-form__submit:hover { background: var(--carbon) }
+    body.light-mode .fiestas-form__status { color: rgba(20,18,16,.65) }
   </style>
 </head>
 
@@ -778,9 +1110,9 @@
       <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Catedral · Parroquia · Cabildo · Archivo</div>
       <p class="page-hero__desc" data-i18n-page="page_desc">La comunidad que anima la Catedral: parroquia, cabildo catedralicio y archivo histórico al servicio de la fe y la cultura.</p>
       <nav class="hero-nav" aria-label="Secciones">
-        <a href="#parroquia" class="hero-nav__link">La Parroquia</a>
-        <a href="#cabildo" class="hero-nav__link">El Cabildo</a>
-        <a href="#archivo" class="hero-nav__link">Archivo</a>
+        <a href="#parroquia" class="hero-nav__link" data-i18n-page="hero_nav_parroquia">La Parroquia</a>
+        <a href="#cabildo" class="hero-nav__link" data-i18n-page="hero_nav_cabildo">El Cabildo</a>
+        <a href="#archivo" class="hero-nav__link" data-i18n-page="hero_nav_archivo">Archivo</a>
       </nav>
     </div>
   </section>
@@ -828,29 +1160,31 @@
         <div class="inst-card reveal">
           <p class="inst-card__label" data-i18n-page="parroquia_card1_label">Horario de misas</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card1_title">Celebraciones eucarísticas</h3>
-          <p class="inst-card__text" data-i18n-page="parroquia_card1_text">Lunes–Viernes: 10:00 y 19:00<br>Sábados: 12:00 y 19:30<br>Domingos: 11:00, 13:00 y 19:30</p>
+          <p class="inst-card__text" data-i18n-page="parroquia_card1_text"><strong>Ermita de la Plaza:</strong> De lunes a sábados, 9:30 h · De lunes a viernes, 20:00 h<br><strong>Catedral:</strong> Sábados, 20:00 h<br><strong>Convento de San Francisco:</strong> Domingos, 13:00 h</p>
         </div>
-        <div class="inst-card reveal reveal-delay-1">
-          <p class="inst-card__label" data-i18n-page="parroquia_card2_label">Boletín parroquial</p>
+        <a href="assets/newsletter/newsletter2739.pdf" download class="inst-card reveal reveal-delay-1" style="display:block;text-decoration:none;color:inherit;">
+          <p class="inst-card__label" data-i18n-page="parroquia_card2_label">Newsletter parroquial</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card2_title">Publicación semanal</h3>
-          <p class="inst-card__text" data-i18n-page="parroquia_card2_text">Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.</p>
-          <a href="#" class="inst-card__link" data-i18n-page="parroquia_card2_link">Descargar boletín (PDF) →</a>
-        </div>
+          <p class="inst-card__text" data-i18n-page="parroquia_card2_text">Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.<span style="display:block;margin-top:.7em">Descarga la newsletter para que estés al tanto de todas nuestras actividades y eventos.</span></p>
+          <span class="inst-card__link" data-i18n-page="parroquia_card2_link">Descargar (PDF) →</span>
+        </a>
         <div class="inst-card reveal reveal-delay-2">
           <p class="inst-card__label" data-i18n-page="parroquia_card3_label">Actividades</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card3_title">Vida comunitaria</h3>
-          <p class="inst-card__text" data-i18n-page="parroquia_card3_text">Catequesis · Grupos de jóvenes · Coro parroquial · Escuela de Oración · Grupos de adultos</p>
+          <p class="inst-card__text" data-i18n-page="parroquia_card3_text">Catequesis · Bautizos · Comuniones · Confirmaciones · Bodas · Coro parroquial<span style="display:block;margin-top:.7em">Si quieres más información, ponte en contacto:</span></p>
+          <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" data-i18n-page="parroquia_card3_link">Más información →</a>
         </div>
-        <div class="inst-card reveal">
+        <a href="#" class="inst-card reveal" id="open-fiestas" style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="parroquia_card4_label">Fiestas locales</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card4_title">Calendario festivo</h3>
-          <p class="inst-card__text" data-i18n-page="parroquia_card4_text">Santo Domingo (12 de mayo) · Asunción de la Virgen (15 de agosto) · Navidad y Semana Santa</p>
-        </div>
+          <p class="inst-card__text" data-i18n-page="parroquia_card4_text">Consulta las fechas de las fiestas locales y religiosas de Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Ven y vive las fiestas con nosotros en familia.</span></p>
+          <span class="inst-card__link" data-i18n-page="parroquia_card4_link">Más información →</span>
+        </a>
         <div class="inst-card inst-card--wide reveal reveal-delay-1">
           <p class="inst-card__label" data-i18n-page="parroquia_card5_label">Donativos</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card5_title">Apoya la obra pastoral</h3>
-          <p class="inst-card__text" data-i18n-page="parroquia_card5_text">La comunidad parroquial sostiene su actividad gracias a las aportaciones de los fieles. Existe cuenta de donaciones para el mantenimiento de la obra pastoral y el culto catedralicio. Contacta con la parroquia para más información.</p>
-          <a href="mailto:parroquia@catedralsantodomingo.org" class="inst-card__link" data-i18n-page="parroquia_card5_link">parroquia@catedralsantodomingo.org →</a>
+          <p class="inst-card__text" data-i18n-page="parroquia_card5_text">La comunidad parroquial sostiene su actividad gracias a las aportaciones de los fieles.<span style="display:block;margin-top:.7em">Si estás interesado, ponte en contacto.</span></p>
+          <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" data-i18n-page="parroquia_card5_link">Más información →</a>
         </div>
       </div>
     </div>
@@ -867,16 +1201,12 @@
         <p class="inst-header__desc" data-i18n-page="cabildo_desc">El Cabildo es la corporación de presbíteros que asiste al obispo en el gobierno de la diócesis y tiene a su cargo el culto solemne de la Catedral.</p>
       </div>
       <div class="inst-cards">
-        <div class="inst-card reveal">
-          <p class="inst-card__label" data-i18n-page="cabildo_card1_label">Composición</p>
-          <h3 class="inst-card__title" data-i18n-page="cabildo_card1_title">Dignidades y canónigos</h3>
-          <p class="inst-card__text" data-i18n-page="cabildo_card1_text">Deán · Arcediano · Chantre · Tesorero · Canónigos (8 plazas)</p>
-        </div>
-        <div class="inst-card reveal reveal-delay-1">
+        <a href="#" class="inst-card reveal" id="open-cabildo" style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="cabildo_card2_label">Competencias</p>
           <h3 class="inst-card__title" data-i18n-page="cabildo_card2_title">Funciones capitulares</h3>
           <p class="inst-card__text" data-i18n-page="cabildo_card2_text">Gobierno del culto catedralicio · Custodia y gestión del patrimonio · Asesoramiento episcopal · Representación institucional</p>
-        </div>
+          <span class="inst-card__link" data-i18n-page="cabildo_card2_link">Más información →</span>
+        </a>
         <div class="inst-card reveal reveal-delay-2">
           <p class="inst-card__label" data-i18n-page="cabildo_card3_label">Documentos</p>
           <h3 class="inst-card__title" data-i18n-page="cabildo_card3_title">Documentación oficial</h3>
@@ -889,7 +1219,7 @@
           <p class="inst-card__label" data-i18n-page="cabildo_card4_label">Contacto institucional</p>
           <h3 class="inst-card__title" data-i18n-page="cabildo_card4_title">Comunicación con el Cabildo</h3>
           <p class="inst-card__text" data-i18n-page="cabildo_card4_text">Para asuntos relacionados con el gobierno capitular, solicitudes institucionales o información sobre la actividad del Cabildo Catedralicio de Santo Domingo de la Calzada.</p>
-          <a href="mailto:cabildo@catedralsantodomingo.org" class="inst-card__link" data-i18n-page="cabildo_card4_link">cabildo@catedralsantodomingo.org →</a>
+          <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" data-i18n-page="cabildo_card4_link">Más información →</a>
         </div>
       </div>
     </div>
@@ -906,30 +1236,24 @@
         <p class="inst-header__desc" data-i18n-page="archivo_desc">El Archivo custodia documentos desde el siglo XII. Fondos capitulares, libros de actas, pergaminos, cartularios y colecciones fotográficas de valor histórico excepcional.</p>
       </div>
       <div class="inst-cards">
-        <div class="inst-card reveal">
+        <a href="#" class="inst-card reveal" id="open-archivo-coleccion" style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="archivo_card1_label">Descripción del fondo</p>
           <h3 class="inst-card__title" data-i18n-page="archivo_card1_title">Colección histórica</h3>
           <p class="inst-card__text" data-i18n-page="archivo_card1_text">+12.000 documentos desde 1158 · Pergaminos medievales · Libros sacramentales desde 1540 · Cartularios y fondos capitulares</p>
-        </div>
-        <div class="inst-card reveal reveal-delay-1">
-          <p class="inst-card__label" data-i18n-page="archivo_card2_label">Condiciones de acceso</p>
-          <h3 class="inst-card__title" data-i18n-page="archivo_card2_title">Consulta presencial</h3>
-          <p class="inst-card__text" data-i18n-page="archivo_card2_text">Investigadores acreditados · Cita previa obligatoria · Lunes a viernes 10:00–14:00 · Identificación requerida</p>
-        </div>
-        <div class="inst-card reveal reveal-delay-2">
+          <span class="inst-card__link" data-i18n-page="archivo_card1_link">Más información →</span>
+        </a>
+        <a href="#" class="inst-card reveal reveal-delay-1" id="open-archivo-biblio" style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="archivo_card3_label">Publicaciones</p>
           <h3 class="inst-card__title" data-i18n-page="archivo_card3_title">Bibliografía y catálogos</h3>
           <p class="inst-card__text" data-i18n-page="archivo_card3_text">Catálogo descriptivo del fondo y publicaciones de investigación disponibles en formato digital.</p>
-          <a href="#" class="inst-card__link" data-i18n-page="archivo_card3_link">Catálogo del fondo (PDF) →</a>
-        </div>
-        <div class="inst-card inst-card--wide reveal">
+          <span class="inst-card__link" data-i18n-page="archivo_card3_link">Más información →</span>
+        </a>
+        <a href="#" class="inst-card inst-card--wide reveal" id="open-archivo" style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="archivo_card4_label">Consulta previa</p>
           <h3 class="inst-card__title" data-i18n-page="archivo_card4_title">Solicita tu visita de investigación</h3>
-          <p class="inst-card__text" data-i18n-page="archivo_card4_text">Para acceder al fondo documental es necesario presentar una solicitud previa indicando el objeto de la investigación, las fechas previstas y la acreditación académica o institucional del solicitante.</p>
-          <a href="#" class="inst-card__link" data-i18n-page="archivo_card4_link1">Formulario de solicitud →</a>
-          &emsp;
-          <a href="mailto:archivo@catedralsantodomingo.org" class="inst-card__link" data-i18n-page="archivo_card4_link2">archivo@catedralsantodomingo.org →</a>
-        </div>
+          <p class="inst-card__text" data-i18n-page="archivo_card4_text">Para acceder al fondo documental envía una solicitud previa rellenando el formulario.</p>
+          <span class="inst-card__link" data-i18n-page="archivo_card4_link1">Formulario de solicitud →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1104,6 +1428,7 @@
     const PAGE_T = {
       es: {
         page_eyebrow: 'Catedral · Parroquia · Cabildo · Archivo',
+        hero_nav_parroquia: 'La Parroquia', hero_nav_cabildo: 'El Cabildo', hero_nav_archivo: 'Archivo',
         page_title: 'La <em>Institución</em>',
         page_desc: 'La comunidad que anima la Catedral: parroquia, cabildo catedralicio y archivo histórico al servicio de la fe y la cultura.',
         intro_title: 'La <em>Institución</em> Catedralicia',
@@ -1114,149 +1439,478 @@
         parroquia_title: 'Parroquia de <em>Santo Domingo</em>',
         parroquia_desc: 'La parroquia de la Catedral acompaña la vida espiritual de la comunidad. Celebra la Eucaristía diaria, los sacramentos y las fiestas litúrgicas del calendario riojano.',
         parroquia_card1_label: 'Horario de misas', parroquia_card1_title: 'Celebraciones eucarísticas',
-        parroquia_card1_text: 'Lunes–Viernes: 10:00 y 19:00<br>Sábados: 12:00 y 19:30<br>Domingos: 11:00, 13:00 y 19:30',
-        parroquia_card2_label: 'Boletín parroquial', parroquia_card2_title: 'Publicación semanal',
-        parroquia_card2_text: 'Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.',
-        parroquia_card2_link: 'Descargar boletín (PDF) →',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> De lunes a sábados, 9:30 h · De lunes a viernes, 20:00 h<br><strong>Catedral:</strong> Sábados, 20:00 h<br><strong>Convento de San Francisco:</strong> Domingos, 13:00 h',
+        parroquia_card2_label: 'Newsletter parroquial', parroquia_card2_title: 'Publicación semanal',
+        parroquia_card2_text: 'Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.<span style="display:block;margin-top:.7em">Descarga la newsletter para que estés al tanto de todas nuestras actividades y eventos.</span>',
+        parroquia_card2_link: 'Descargar (PDF) →',
         parroquia_card3_label: 'Actividades', parroquia_card3_title: 'Vida comunitaria',
-        parroquia_card3_text: 'Catequesis · Grupos de jóvenes · Coro parroquial · Escuela de Oración · Grupos de adultos',
+        parroquia_card3_text: 'Catequesis · Bautizos · Comuniones · Confirmaciones · Bodas · Coro parroquial<span style="display:block;margin-top:.7em">Si quieres más información, ponte en contacto:</span>',
+        parroquia_card3_link: 'Más información →',
         parroquia_card4_label: 'Fiestas locales', parroquia_card4_title: 'Calendario festivo',
-        parroquia_card4_text: 'Santo Domingo (12 de mayo) · Asunción de la Virgen (15 de agosto) · Navidad y Semana Santa',
+        parroquia_card4_text: 'Consulta las fechas de las fiestas locales y religiosas de Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Ven y vive las fiestas con nosotros en familia.</span>',
+        parroquia_card4_link: 'Más información →',
         parroquia_card5_label: 'Donativos', parroquia_card5_title: 'Apoya la obra pastoral',
-        parroquia_card5_text: 'La comunidad parroquial sostiene su actividad gracias a las aportaciones de los fieles. Existe cuenta de donaciones para el mantenimiento de la obra pastoral y el culto catedralicio.',
-        parroquia_card5_link: 'parroquia@catedralsantodomingo.org →',
+        parroquia_card5_text: 'La comunidad parroquial sostiene su actividad gracias a las aportaciones de los fieles.<span style="display:block;margin-top:.7em">Si estás interesado, ponte en contacto.</span>',
+        parroquia_card5_link: 'Más información →',
         cabildo_eyebrow: 'Gobierno capitular',
         cabildo_title: 'Cabildo <em>Catedralicio</em>',
         cabildo_desc: 'El Cabildo es la corporación de presbíteros que asiste al obispo en el gobierno de la diócesis y tiene a su cargo el culto solemne de la Catedral.',
-        cabildo_card1_label: 'Composición', cabildo_card1_title: 'Dignidades y canónigos',
-        cabildo_card1_text: 'Deán · Arcediano · Chantre · Tesorero · Canónigos (8 plazas)',
         cabildo_card2_label: 'Competencias', cabildo_card2_title: 'Funciones capitulares',
         cabildo_card2_text: 'Gobierno del culto catedralicio · Custodia y gestión del patrimonio · Asesoramiento episcopal · Representación institucional',
+        cabildo_card2_link: 'Más información →',
         cabildo_card3_label: 'Documentos', cabildo_card3_title: 'Documentación oficial',
         cabildo_card3_text: 'Estatutos capitulares y documentos institucionales disponibles para consulta.',
         cabildo_card3_link1: 'Estatutos del Cabildo (PDF) →', cabildo_card3_link2: 'Reseña histórica (PDF) →',
         cabildo_card4_label: 'Contacto institucional', cabildo_card4_title: 'Comunicación con el Cabildo',
         cabildo_card4_text: 'Para asuntos relacionados con el gobierno capitular, solicitudes institucionales o información sobre la actividad del Cabildo Catedralicio.',
-        cabildo_card4_link: 'cabildo@catedralsantodomingo.org →',
+        cabildo_card4_link: 'Más información →',
         archivo_eyebrow: 'Fondo documental',
         archivo_title: 'Archivo <em>Catedralicio</em>',
         archivo_desc: 'El Archivo custodia documentos desde el siglo XII. Fondos capitulares, libros de actas, pergaminos, cartularios y colecciones fotográficas de valor histórico excepcional.',
         archivo_card1_label: 'Descripción del fondo', archivo_card1_title: 'Colección histórica',
         archivo_card1_text: '+12.000 documentos desde 1158 · Pergaminos medievales · Libros sacramentales desde 1540 · Cartularios y fondos capitulares',
-        archivo_card2_label: 'Condiciones de acceso', archivo_card2_title: 'Consulta presencial',
-        archivo_card2_text: 'Investigadores acreditados · Cita previa obligatoria · Lunes a viernes 10:00–14:00 · Identificación requerida',
+        archivo_card1_link: 'Más información →',
         archivo_card3_label: 'Publicaciones', archivo_card3_title: 'Bibliografía y catálogos',
         archivo_card3_text: 'Catálogo descriptivo del fondo y publicaciones de investigación disponibles en formato digital.',
-        archivo_card3_link: 'Catálogo del fondo (PDF) →',
+        archivo_card3_link: 'Más información →',
         archivo_card4_label: 'Consulta previa', archivo_card4_title: 'Solicita tu visita de investigación',
-        archivo_card4_text: 'Para acceder al fondo documental es necesario presentar una solicitud previa indicando el objeto de la investigación, las fechas previstas y la acreditación académica o institucional.',
-        archivo_card4_link1: 'Formulario de solicitud →', archivo_card4_link2: 'archivo@catedralsantodomingo.org →',
+        archivo_card4_text: 'Para acceder al fondo documental envía una solicitud previa rellenando el formulario.',
+        archivo_card4_link1: 'Formulario de solicitud →',
         cta_title: '¿Quieres saber <em>más</em>?',
         cta_sub: 'Contacta con la institución para cualquier consulta sobre la parroquia, el cabildo o el archivo.',
         cta_btn: 'Contactar →'
       },
       en: {
         page_eyebrow: 'Cathedral · Parish · Chapter · Archive',
+        hero_nav_parroquia: 'The Parish', hero_nav_cabildo: 'The Chapter', hero_nav_archivo: 'Archive',
         page_title: 'The <em>Institution</em>',
         page_desc: 'The community that animates the Cathedral: parish, cathedral chapter and historical archive at the service of faith and culture.',
         intro_title: 'The Cathedral <em>Institution</em>',
         intro_lead: 'The Cathedral of Santo Domingo de la Calzada is much more than a monument: it is a living community formed by the parish, the chapter and the archive.',
-        intro_body: 'Since the 12th century, the cathedral institution has been the spiritual and cultural heart of the city. It continues to fulfil its pastoral, liturgical and heritage custodianship mission.',
+        intro_body: 'Since the 12th century, the cathedral institution has been the spiritual and cultural heart of the city. It still fulfils its pastoral and liturgical mission, and safeguards a heritage of exceptional value.',
         nav_parroquia: 'Parish', nav_cabildo: 'Chapter', nav_archivo: 'Archive',
         parroquia_eyebrow: 'Parish life',
         parroquia_title: 'Parish of <em>Santo Domingo</em>',
         parroquia_desc: 'The cathedral parish accompanies the spiritual life of the community. It celebrates daily Mass, sacraments and the liturgical feasts of the Riojan calendar.',
         parroquia_card1_label: 'Mass schedule', parroquia_card1_title: 'Eucharistic celebrations',
-        parroquia_card1_text: 'Mon–Fri: 10:00 and 19:00<br>Saturdays: 12:00 and 19:30<br>Sundays: 11:00, 13:00 and 19:30',
-        parroquia_card2_label: 'Parish bulletin', parroquia_card2_title: 'Weekly publication',
-        parroquia_card2_text: 'Community life news, liturgical reflections and parish announcements.',
-        parroquia_card2_link: 'Download bulletin (PDF) →',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> Monday to Saturday, 9:30 · Monday to Friday, 20:00<br><strong>Catedral:</strong> Saturdays, 20:00<br><strong>Convento de San Francisco:</strong> Sundays, 13:00',
+        parroquia_card2_label: 'Parish newsletter', parroquia_card2_title: 'Weekly publication',
+        parroquia_card2_text: 'News from the life of the community, liturgical reflections and parish announcements.<span style="display:block;margin-top:.7em">Download the newsletter to keep up to date with all our activities and events.</span>',
+        parroquia_card2_link: 'Download (PDF) →',
         parroquia_card3_label: 'Activities', parroquia_card3_title: 'Community life',
-        parroquia_card3_text: 'Catechesis · Youth groups · Parish choir · School of Prayer · Adult groups',
+        parroquia_card3_text: 'Catechesis · Baptisms · First Communions · Confirmations · Weddings · Parish choir<span style="display:block;margin-top:.7em">If you would like more information, get in touch:</span>',
+        parroquia_card3_link: 'More information →',
         parroquia_card4_label: 'Local feasts', parroquia_card4_title: 'Festive calendar',
-        parroquia_card4_text: 'Santo Domingo (12 May) · Assumption of the Virgin (15 August) · Christmas and Holy Week',
-        parroquia_card5_label: 'Donations', parroquia_card5_title: 'Support pastoral work',
-        parroquia_card5_text: 'The parish community sustains its activity through the contributions of the faithful. A donation account exists for the maintenance of pastoral work and cathedral worship.',
-        parroquia_card5_link: 'parroquia@catedralsantodomingo.org →',
+        parroquia_card4_text: 'Check the dates of the local and religious feasts of Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Come and celebrate the feasts with us as one family.</span>',
+        parroquia_card4_link: 'More information →',
+        parroquia_card5_label: 'Donations', parroquia_card5_title: 'Support the pastoral work',
+        parroquia_card5_text: 'The parish community sustains its activity thanks to the contributions of the faithful.<span style="display:block;margin-top:.7em">If you are interested, please get in touch.</span>',
+        parroquia_card5_link: 'More information →',
         cabildo_eyebrow: 'Capitular government',
         cabildo_title: 'Cathedral <em>Chapter</em>',
         cabildo_desc: 'The Chapter is the corporation of presbyters that assists the bishop in the governance of the diocese and is in charge of the solemn worship of the Cathedral.',
-        cabildo_card1_label: 'Composition', cabildo_card1_title: 'Dignitaries and canons',
-        cabildo_card1_text: 'Dean · Archdeacon · Precentor · Treasurer · Canons (8 positions)',
         cabildo_card2_label: 'Competencies', cabildo_card2_title: 'Capitular functions',
         cabildo_card2_text: 'Cathedral worship governance · Heritage custody and management · Episcopal advisory · Institutional representation',
+        cabildo_card2_link: 'More information →',
         cabildo_card3_label: 'Documents', cabildo_card3_title: 'Official documentation',
         cabildo_card3_text: 'Capitular statutes and institutional documents available for consultation.',
         cabildo_card3_link1: 'Chapter Statutes (PDF) →', cabildo_card3_link2: 'Historical overview (PDF) →',
         cabildo_card4_label: 'Institutional contact', cabildo_card4_title: 'Contact the Chapter',
         cabildo_card4_text: 'For matters related to capitular governance, institutional requests or information about the activities of the Cathedral Chapter.',
-        cabildo_card4_link: 'cabildo@catedralsantodomingo.org →',
+        cabildo_card4_link: 'More information →',
         archivo_eyebrow: 'Documentary collection',
         archivo_title: 'Cathedral <em>Archive</em>',
         archivo_desc: 'The Archive holds documents dating from the 12th century. Capitular records, minute books, parchments, cartularies and photographic collections of exceptional historical value.',
         archivo_card1_label: 'Collection overview', archivo_card1_title: 'Historical collection',
         archivo_card1_text: '+12,000 documents from 1158 · Medieval parchments · Sacramental records from 1540 · Cartularies and capitular funds',
-        archivo_card2_label: 'Access conditions', archivo_card2_title: 'On-site consultation',
-        archivo_card2_text: 'Accredited researchers · Appointment required · Monday to Friday 10:00–14:00 · Identification required',
+        archivo_card1_link: 'More information →',
         archivo_card3_label: 'Publications', archivo_card3_title: 'Bibliography and catalogues',
         archivo_card3_text: 'Descriptive catalogue of the collection and research publications available in digital format.',
-        archivo_card3_link: 'Collection catalogue (PDF) →',
+        archivo_card3_link: 'More information →',
         archivo_card4_label: 'Prior enquiry', archivo_card4_title: 'Request a research visit',
-        archivo_card4_text: 'To access the documentary collection, a prior request must be submitted indicating the research subject, planned dates and academic or institutional accreditation.',
-        archivo_card4_link1: 'Request form →', archivo_card4_link2: 'archivo@catedralsantodomingo.org →',
+        archivo_card4_text: 'To access the documentary collection, submit a prior request by filling in the form.',
+        archivo_card4_link1: 'Request form →',
         cta_title: 'Want to know <em>more</em>?',
         cta_sub: 'Contact the institution for any enquiry about the parish, the chapter or the archive.',
         cta_btn: 'Contact us →'
       },
       fr: {
         page_eyebrow: 'Cathédrale · Paroisse · Chapitre · Archives',
+        hero_nav_parroquia: 'La Paroisse', hero_nav_cabildo: 'Le Chapitre', hero_nav_archivo: 'Archives',
         page_title: 'L\'<em>Institution</em>',
         page_desc: 'La communauté qui anime la Cathédrale : paroisse, chapitre cathédral et archives historiques au service de la foi et de la culture.',
         intro_title: 'L\'<em>Institution</em> Cathédrale',
         intro_lead: 'La Cathédrale de Santo Domingo de la Calzada est bien plus qu\'un monument : c\'est une communauté vivante formée par la paroisse, le chapitre et les archives.',
-        intro_body: 'Depuis le XIIe siècle, l\'institution cathédrale est le cœur spirituel et culturel de la ville.',
+        intro_body: 'Depuis le XIIe siècle, l\'institution cathédrale est le cœur spirituel et culturel de la ville. Elle poursuit aujourd\'hui sa mission pastorale, liturgique et la garde de son patrimoine historique.',
         nav_parroquia: 'Paroisse', nav_cabildo: 'Chapitre', nav_archivo: 'Archives',
-        parroquia_eyebrow: 'Vie paroissiale', parroquia_title: 'Paroisse de <em>Santo Domingo</em>',
-        parroquia_desc: 'La paroisse de la Cathédrale accompagne la vie spirituelle de la communauté.',
+        parroquia_eyebrow: 'Vie paroissiale',
+        parroquia_title: 'Paroisse de <em>Santo Domingo</em>',
+        parroquia_desc: 'La paroisse de la Cathédrale accompagne la vie spirituelle de la communauté. Elle célèbre l\'Eucharistie quotidienne, les sacrements et les fêtes liturgiques du calendrier riojan.',
         parroquia_card1_label: 'Horaires des messes', parroquia_card1_title: 'Célébrations eucharistiques',
-        parroquia_card1_text: 'Lun–Ven : 10h et 19h<br>Samedis : 12h et 19h30<br>Dimanches : 11h, 13h et 19h30',
+        parroquia_card1_text: '<strong>Ermita de la Plaza :</strong> du lundi au samedi, 9h30 · du lundi au vendredi, 20h<br><strong>Catedral :</strong> samedis, 20h<br><strong>Convento de San Francisco :</strong> dimanches, 13h',
         parroquia_card2_label: 'Bulletin paroissial', parroquia_card2_title: 'Publication hebdomadaire',
-        parroquia_card2_text: 'Nouvelles de la vie communautaire, réflexions liturgiques et annonces paroissiales.',
-        parroquia_card2_link: 'Télécharger le bulletin (PDF) →',
+        parroquia_card2_text: 'Informations sur la vie de la communauté, réflexions liturgiques et annonces paroissiales.<span style="display:block;margin-top:.7em">Téléchargez le bulletin pour être au courant de toutes nos activités et événements.</span>',
+        parroquia_card2_link: 'Télécharger (PDF) →',
         parroquia_card3_label: 'Activités', parroquia_card3_title: 'Vie communautaire',
-        parroquia_card3_text: 'Catéchèse · Groupes de jeunes · Chorale paroissiale · École de Prière · Groupes d\'adultes',
+        parroquia_card3_text: 'Catéchèse · Baptêmes · Premières communions · Confirmations · Mariages · Chorale paroissiale<span style="display:block;margin-top:.7em">Pour plus d\'informations, prenez contact :</span>',
+        parroquia_card3_link: 'Plus d\'informations →',
         parroquia_card4_label: 'Fêtes locales', parroquia_card4_title: 'Calendrier festif',
-        parroquia_card4_text: 'Saint Dominique (12 mai) · Assomption (15 août) · Noël et Semaine Sainte',
+        parroquia_card4_text: 'Consultez les dates des fêtes locales et religieuses de Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Venez vivre les fêtes avec nous, en famille.</span>',
+        parroquia_card4_link: 'Plus d\'informations →',
         parroquia_card5_label: 'Dons', parroquia_card5_title: 'Soutenir l\'œuvre pastorale',
-        parroquia_card5_text: 'La communauté paroissiale soutient ses activités grâce aux contributions des fidèles.',
-        parroquia_card5_link: 'parroquia@catedralsantodomingo.org →',
-        cabildo_eyebrow: 'Gouvernement capitulaire', cabildo_title: 'Chapitre <em>Cathédral</em>',
-        cabildo_desc: 'Le Chapitre est la corporation de prêtres qui assiste l\'évêque dans le gouvernement du diocèse.',
-        cabildo_card1_label: 'Composition', cabildo_card1_title: 'Dignitaires et chanoines',
-        cabildo_card1_text: 'Doyen · Archidiacre · Chantre · Trésorier · Chanoines (8 places)',
+        parroquia_card5_text: 'La communauté paroissiale soutient son activité grâce aux contributions des fidèles.<span style="display:block;margin-top:.7em">Si cela vous intéresse, prenez contact.</span>',
+        parroquia_card5_link: 'Plus d\'informations →',
+        cabildo_eyebrow: 'Gouvernement capitulaire',
+        cabildo_title: 'Chapitre <em>Cathédral</em>',
+        cabildo_desc: 'Le Chapitre est la corporation de prêtres qui assiste l\'évêque dans le gouvernement du diocèse et qui a la charge du culte solennel de la Cathédrale.',
         cabildo_card2_label: 'Compétences', cabildo_card2_title: 'Fonctions capitulaires',
-        cabildo_card2_text: 'Gouvernement du culte cathédral · Gestion du patrimoine · Conseil épiscopal · Représentation institutionnelle',
+        cabildo_card2_text: 'Gouvernement du culte cathédral · Garde et gestion du patrimoine · Conseil épiscopal · Représentation institutionnelle',
+        cabildo_card2_link: 'Plus d\'informations →',
         cabildo_card3_label: 'Documents', cabildo_card3_title: 'Documentation officielle',
         cabildo_card3_text: 'Statuts capitulaires et documents institutionnels disponibles pour consultation.',
         cabildo_card3_link1: 'Statuts du Chapitre (PDF) →', cabildo_card3_link2: 'Aperçu historique (PDF) →',
-        cabildo_card4_label: 'Contact institutionnel', cabildo_card4_title: 'Contacter le Chapitre',
-        cabildo_card4_text: 'Pour les questions relatives au gouvernement capitulaire ou aux activités du Chapitre Cathédral.',
-        cabildo_card4_link: 'cabildo@catedralsantodomingo.org →',
-        archivo_eyebrow: 'Fonds documentaire', archivo_title: 'Archives <em>Cathédrales</em>',
-        archivo_desc: 'Les Archives conservent des documents depuis le XIIe siècle. Fonds capitulaires, registres, parchemins et collections photographiques de valeur historique exceptionnelle.',
+        cabildo_card4_label: 'Contact institutionnel', cabildo_card4_title: 'Communication avec le Chapitre',
+        cabildo_card4_text: 'Pour les questions relatives au gouvernement capitulaire, aux demandes institutionnelles ou aux activités du Chapitre Cathédral.',
+        cabildo_card4_link: 'Plus d\'informations →',
+        archivo_eyebrow: 'Fonds documentaire',
+        archivo_title: 'Archives <em>Cathédrales</em>',
+        archivo_desc: 'Les Archives conservent des documents depuis le XIIe siècle. Fonds capitulaires, registres, parchemins, cartulaires et collections photographiques de valeur historique exceptionnelle.',
         archivo_card1_label: 'Description du fonds', archivo_card1_title: 'Collection historique',
-        archivo_card1_text: '+12 000 documents depuis 1158 · Parchemins médiévaux · Registres sacramentaux depuis 1540',
-        archivo_card2_label: 'Conditions d\'accès', archivo_card2_title: 'Consultation sur place',
-        archivo_card2_text: 'Chercheurs accrédités · Rendez-vous obligatoire · Lundi–vendredi 10h–14h',
+        archivo_card1_text: '+12 000 documents depuis 1158 · Parchemins médiévaux · Registres sacramentaux depuis 1540 · Cartulaires et fonds capitulaires',
+        archivo_card1_link: 'Plus d\'informations →',
         archivo_card3_label: 'Publications', archivo_card3_title: 'Bibliographie et catalogues',
         archivo_card3_text: 'Catalogue descriptif du fonds et publications de recherche disponibles en format numérique.',
-        archivo_card3_link: 'Catalogue du fonds (PDF) →',
+        archivo_card3_link: 'Plus d\'informations →',
         archivo_card4_label: 'Demande préalable', archivo_card4_title: 'Demander une visite de recherche',
-        archivo_card4_text: 'Pour accéder au fonds, une demande préalable est nécessaire avec l\'objet de la recherche et l\'accréditation.',
-        archivo_card4_link1: 'Formulaire de demande →', archivo_card4_link2: 'archivo@catedralsantodomingo.org →',
+        archivo_card4_text: 'Pour accéder au fonds documentaire, envoyez une demande préalable en remplissant le formulaire.',
+        archivo_card4_link1: 'Formulaire de demande →',
         cta_title: 'Vous voulez en savoir <em>plus</em>?',
         cta_sub: 'Contactez l\'institution pour toute question sur la paroisse, le chapitre ou les archives.',
         cta_btn: 'Nous contacter →'
+      },
+      de: {
+        page_eyebrow: 'Kathedrale · Pfarrei · Domkapitel · Archiv',
+        hero_nav_parroquia: 'Die Pfarrei', hero_nav_cabildo: 'Das Domkapitel', hero_nav_archivo: 'Archiv',
+        page_title: 'Die <em>Institution</em>',
+        page_desc: 'Die Gemeinschaft, die die Kathedrale belebt: Pfarrei, Domkapitel und historisches Archiv im Dienst von Glaube und Kultur.',
+        intro_title: 'Die <em>Institution</em> der Kathedrale',
+        intro_lead: 'Die Kathedrale von Santo Domingo de la Calzada ist weit mehr als ein Denkmal: Sie ist eine lebendige Gemeinschaft aus Pfarrei, Domkapitel und Archiv.',
+        intro_body: 'Seit dem 12. Jahrhundert ist die Institution der Kathedrale das geistliche und kulturelle Herz der Stadt. Sie erfüllt weiterhin ihren pastoralen und liturgischen Auftrag und hütet das historische Erbe.',
+        nav_parroquia: 'Pfarrei', nav_cabildo: 'Domkapitel', nav_archivo: 'Archiv',
+        parroquia_eyebrow: 'Pfarrleben',
+        parroquia_title: 'Pfarrei von <em>Santo Domingo</em>',
+        parroquia_desc: 'Die Pfarrei der Kathedrale begleitet das geistliche Leben der Gemeinschaft. Sie feiert die tägliche Eucharistie, die Sakramente und die liturgischen Feste des riojanischen Kalenders.',
+        parroquia_card1_label: 'Gottesdienstzeiten', parroquia_card1_title: 'Eucharistiefeiern',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> Montag bis Samstag, 9:30 Uhr · Montag bis Freitag, 20:00 Uhr<br><strong>Catedral:</strong> samstags, 20:00 Uhr<br><strong>Convento de San Francisco:</strong> sonntags, 13:00 Uhr',
+        parroquia_card2_label: 'Pfarrnewsletter', parroquia_card2_title: 'Wöchentliche Veröffentlichung',
+        parroquia_card2_text: 'Informationen aus dem Leben der Gemeinschaft, liturgische Betrachtungen und Pfarrmitteilungen.<span style="display:block;margin-top:.7em">Laden Sie den Newsletter herunter, um über alle unsere Aktivitäten und Veranstaltungen auf dem Laufenden zu bleiben.</span>',
+        parroquia_card2_link: 'Herunterladen (PDF) →',
+        parroquia_card3_label: 'Aktivitäten', parroquia_card3_title: 'Gemeinschaftsleben',
+        parroquia_card3_text: 'Katechese · Taufen · Erstkommunionen · Firmungen · Hochzeiten · Pfarrchor<span style="display:block;margin-top:.7em">Wenn Sie mehr erfahren möchten, nehmen Sie Kontakt auf:</span>',
+        parroquia_card3_link: 'Mehr Informationen →',
+        parroquia_card4_label: 'Lokale Feste', parroquia_card4_title: 'Festkalender',
+        parroquia_card4_text: 'Sehen Sie die Termine der lokalen und religiösen Feste von Santo Domingo de la Calzada ein.<span style="display:block;margin-top:.7em">Kommen Sie und erleben Sie die Feste mit uns wie in einer Familie.</span>',
+        parroquia_card4_link: 'Mehr Informationen →',
+        parroquia_card5_label: 'Spenden', parroquia_card5_title: 'Pastorale Arbeit unterstützen',
+        parroquia_card5_text: 'Die Pfarrgemeinde finanziert ihre Tätigkeit dank der Beiträge der Gläubigen.<span style="display:block;margin-top:.7em">Bei Interesse nehmen Sie bitte Kontakt mit uns auf.</span>',
+        parroquia_card5_link: 'Mehr Informationen →',
+        cabildo_eyebrow: 'Kapitelregierung',
+        cabildo_title: '<em>Domkapitel</em>',
+        cabildo_desc: 'Das Domkapitel ist die Körperschaft der Priester, die den Bischof bei der Leitung der Diözese unterstützt und für den feierlichen Gottesdienst der Kathedrale verantwortlich ist.',
+        cabildo_card2_label: 'Zuständigkeiten', cabildo_card2_title: 'Aufgaben des Kapitels',
+        cabildo_card2_text: 'Leitung des Kathedralgottesdienstes · Verwaltung und Erhalt des Kulturerbes · Beratung des Bischofs · Institutionelle Vertretung',
+        cabildo_card2_link: 'Mehr Informationen →',
+        cabildo_card3_label: 'Dokumente', cabildo_card3_title: 'Offizielle Dokumentation',
+        cabildo_card3_text: 'Kapitelstatuten und institutionelle Dokumente stehen zur Einsicht zur Verfügung.',
+        cabildo_card3_link1: 'Statuten des Domkapitels (PDF) →', cabildo_card3_link2: 'Historischer Überblick (PDF) →',
+        cabildo_card4_label: 'Institutioneller Kontakt', cabildo_card4_title: 'Kontakt mit dem Domkapitel',
+        cabildo_card4_text: 'Für Angelegenheiten der Kapitelregierung, institutionelle Anfragen oder Informationen über die Tätigkeit des Domkapitels.',
+        cabildo_card4_link: 'Mehr Informationen →',
+        archivo_eyebrow: 'Dokumentenbestand',
+        archivo_title: '<em>Domarchiv</em>',
+        archivo_desc: 'Das Archiv bewahrt Dokumente seit dem 12. Jahrhundert: Kapitelakten, Sitzungsbücher, Pergamente, Kartulare und Fotosammlungen von außergewöhnlichem historischen Wert.',
+        archivo_card1_label: 'Beschreibung des Bestands', archivo_card1_title: 'Historische Sammlung',
+        archivo_card1_text: '+12.000 Dokumente seit 1158 · Mittelalterliche Pergamente · Sakramentsbücher seit 1540 · Kartulare und Kapitelbestände',
+        archivo_card1_link: 'Mehr Informationen →',
+        archivo_card3_label: 'Veröffentlichungen', archivo_card3_title: 'Bibliografie und Kataloge',
+        archivo_card3_text: 'Beschreibender Katalog des Bestands und Forschungspublikationen in digitalem Format verfügbar.',
+        archivo_card3_link: 'Mehr Informationen →',
+        archivo_card4_label: 'Voranfrage', archivo_card4_title: 'Forschungsbesuch beantragen',
+        archivo_card4_text: 'Um Zugang zum Dokumentenbestand zu erhalten, senden Sie bitte eine Voranfrage über das Formular.',
+        archivo_card4_link1: 'Antragsformular →',
+        cta_title: 'Möchten Sie <em>mehr</em> erfahren?',
+        cta_sub: 'Wenden Sie sich an die Institution für jede Anfrage zur Pfarrei, zum Domkapitel oder zum Archiv.',
+        cta_btn: 'Kontakt →'
+      },
+      pt: {
+        page_eyebrow: 'Catedral · Paróquia · Cabido · Arquivo',
+        hero_nav_parroquia: 'A Paróquia', hero_nav_cabildo: 'O Cabido', hero_nav_archivo: 'Arquivo',
+        page_title: 'A <em>Instituição</em>',
+        page_desc: 'A comunidade que dá vida à Catedral: paróquia, cabido catedralício e arquivo histórico ao serviço da fé e da cultura.',
+        intro_title: 'A <em>Instituição</em> Catedralícia',
+        intro_lead: 'A Catedral de Santo Domingo de la Calzada é muito mais do que um monumento: é uma comunidade viva formada pela paróquia, pelo cabido e pelo arquivo.',
+        intro_body: 'Desde o século XII, a instituição catedralícia tem sido o coração espiritual e cultural da cidade. Hoje continua a cumprir a sua missão pastoral, litúrgica e de custódia do património histórico.',
+        nav_parroquia: 'Paróquia', nav_cabildo: 'Cabido', nav_archivo: 'Arquivo',
+        parroquia_eyebrow: 'Vida paroquial',
+        parroquia_title: 'Paróquia de <em>Santo Domingo</em>',
+        parroquia_desc: 'A paróquia da Catedral acompanha a vida espiritual da comunidade. Celebra a Eucaristia diária, os sacramentos e as festas litúrgicas do calendário riojano.',
+        parroquia_card1_label: 'Horário das missas', parroquia_card1_title: 'Celebrações eucarísticas',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> de segunda-feira a sábado, 9h30 · de segunda a sexta-feira, 20h00<br><strong>Catedral:</strong> sábados, 20h00<br><strong>Convento de San Francisco:</strong> domingos, 13h00',
+        parroquia_card2_label: 'Boletim paroquial', parroquia_card2_title: 'Publicação semanal',
+        parroquia_card2_text: 'Informações sobre a vida da comunidade, reflexões litúrgicas e anúncios paroquiais.<span style="display:block;margin-top:.7em">Descarregue o boletim para se manter a par de todas as nossas atividades e eventos.</span>',
+        parroquia_card2_link: 'Descarregar (PDF) →',
+        parroquia_card3_label: 'Atividades', parroquia_card3_title: 'Vida comunitária',
+        parroquia_card3_text: 'Catequese · Batizados · Primeiras Comunhões · Confirmações · Casamentos · Coro paroquial<span style="display:block;margin-top:.7em">Se quiser mais informações, entre em contacto:</span>',
+        parroquia_card3_link: 'Mais informações →',
+        parroquia_card4_label: 'Festas locais', parroquia_card4_title: 'Calendário festivo',
+        parroquia_card4_text: 'Consulte as datas das festas locais e religiosas de Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Venha viver as festas connosco em família.</span>',
+        parroquia_card4_link: 'Mais informações →',
+        parroquia_card5_label: 'Donativos', parroquia_card5_title: 'Apoie a obra pastoral',
+        parroquia_card5_text: 'A comunidade paroquial sustenta a sua atividade graças aos donativos dos fiéis.<span style="display:block;margin-top:.7em">Se estiver interessado, entre em contacto.</span>',
+        parroquia_card5_link: 'Mais informações →',
+        cabildo_eyebrow: 'Governo capitular',
+        cabildo_title: 'Cabido <em>Catedralício</em>',
+        cabildo_desc: 'O Cabido é a corporação de presbíteros que assiste o bispo no governo da diocese e tem a seu cargo o culto solene da Catedral.',
+        cabildo_card2_label: 'Competências', cabildo_card2_title: 'Funções capitulares',
+        cabildo_card2_text: 'Governo do culto catedralício · Custódia e gestão do património · Assessoria episcopal · Representação institucional',
+        cabildo_card2_link: 'Mais informações →',
+        cabildo_card3_label: 'Documentos', cabildo_card3_title: 'Documentação oficial',
+        cabildo_card3_text: 'Estatutos capitulares e documentos institucionais disponíveis para consulta.',
+        cabildo_card3_link1: 'Estatutos do Cabido (PDF) →', cabildo_card3_link2: 'Resenha histórica (PDF) →',
+        cabildo_card4_label: 'Contacto institucional', cabildo_card4_title: 'Comunicação com o Cabido',
+        cabildo_card4_text: 'Para assuntos relacionados com o governo capitular, pedidos institucionais ou informações sobre a atividade do Cabido Catedralício.',
+        cabildo_card4_link: 'Mais informações →',
+        archivo_eyebrow: 'Fundo documental',
+        archivo_title: 'Arquivo <em>Catedralício</em>',
+        archivo_desc: 'O Arquivo custodia documentos desde o século XII. Fundos capitulares, livros de atas, pergaminhos, cartulários e coleções fotográficas de valor histórico excecional.',
+        archivo_card1_label: 'Descrição do fundo', archivo_card1_title: 'Coleção histórica',
+        archivo_card1_text: '+12.000 documentos desde 1158 · Pergaminhos medievais · Livros sacramentais desde 1540 · Cartulários e fundos capitulares',
+        archivo_card1_link: 'Mais informações →',
+        archivo_card3_label: 'Publicações', archivo_card3_title: 'Bibliografia e catálogos',
+        archivo_card3_text: 'Catálogo descritivo do fundo e publicações de investigação disponíveis em formato digital.',
+        archivo_card3_link: 'Mais informações →',
+        archivo_card4_label: 'Pedido prévio', archivo_card4_title: 'Solicite a sua visita de investigação',
+        archivo_card4_text: 'Para aceder ao fundo documental envie um pedido prévio preenchendo o formulário.',
+        archivo_card4_link1: 'Formulário de pedido →',
+        cta_title: 'Quer saber <em>mais</em>?',
+        cta_sub: 'Contacte a instituição para qualquer questão sobre a paróquia, o cabido ou o arquivo.',
+        cta_btn: 'Contactar →'
+      },
+      it: {
+        page_eyebrow: 'Cattedrale · Parrocchia · Capitolo · Archivio',
+        hero_nav_parroquia: 'La Parrocchia', hero_nav_cabildo: 'Il Capitolo', hero_nav_archivo: 'Archivio',
+        page_title: 'L\'<em>Istituzione</em>',
+        page_desc: 'La comunità che anima la Cattedrale: parrocchia, capitolo cattedrale e archivio storico al servizio della fede e della cultura.',
+        intro_title: 'L\'<em>Istituzione</em> Cattedrale',
+        intro_lead: 'La Cattedrale di Santo Domingo de la Calzada è molto più di un monumento: è una comunità viva formata dalla parrocchia, dal capitolo e dall\'archivio.',
+        intro_body: 'Dal XII secolo l\'istituzione cattedrale è il cuore spirituale e culturale della città. Oggi continua a compiere la sua missione pastorale, liturgica e di custodia del patrimonio storico.',
+        nav_parroquia: 'Parrocchia', nav_cabildo: 'Capitolo', nav_archivo: 'Archivio',
+        parroquia_eyebrow: 'Vita parrocchiale',
+        parroquia_title: 'Parrocchia di <em>Santo Domingo</em>',
+        parroquia_desc: 'La parrocchia della Cattedrale accompagna la vita spirituale della comunità. Celebra l\'Eucaristia quotidiana, i sacramenti e le feste liturgiche del calendario riojano.',
+        parroquia_card1_label: 'Orari delle messe', parroquia_card1_title: 'Celebrazioni eucaristiche',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> dal lunedì al sabato, 9:30 · dal lunedì al venerdì, 20:00<br><strong>Catedral:</strong> sabato, 20:00<br><strong>Convento de San Francisco:</strong> domenica, 13:00',
+        parroquia_card2_label: 'Newsletter parrocchiale', parroquia_card2_title: 'Pubblicazione settimanale',
+        parroquia_card2_text: 'Informazioni sulla vita della comunità, riflessioni liturgiche e avvisi parrocchiali.<span style="display:block;margin-top:.7em">Scarica la newsletter per restare aggiornato su tutte le nostre attività ed eventi.</span>',
+        parroquia_card2_link: 'Scarica (PDF) →',
+        parroquia_card3_label: 'Attività', parroquia_card3_title: 'Vita comunitaria',
+        parroquia_card3_text: 'Catechesi · Battesimi · Prime Comunioni · Cresime · Matrimoni · Coro parrocchiale<span style="display:block;margin-top:.7em">Se desideri maggiori informazioni, mettiti in contatto:</span>',
+        parroquia_card3_link: 'Maggiori informazioni →',
+        parroquia_card4_label: 'Feste locali', parroquia_card4_title: 'Calendario festivo',
+        parroquia_card4_text: 'Consulta le date delle feste locali e religiose di Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Vieni e vivi le feste con noi in famiglia.</span>',
+        parroquia_card4_link: 'Maggiori informazioni →',
+        parroquia_card5_label: 'Donazioni', parroquia_card5_title: 'Sostieni l\'opera pastorale',
+        parroquia_card5_text: 'La comunità parrocchiale sostiene la propria attività grazie ai contributi dei fedeli.<span style="display:block;margin-top:.7em">Se sei interessato, mettiti in contatto.</span>',
+        parroquia_card5_link: 'Maggiori informazioni →',
+        cabildo_eyebrow: 'Governo capitolare',
+        cabildo_title: 'Capitolo <em>Cattedrale</em>',
+        cabildo_desc: 'Il Capitolo è la corporazione di presbiteri che assiste il vescovo nel governo della diocesi e ha la responsabilità del culto solenne della Cattedrale.',
+        cabildo_card2_label: 'Competenze', cabildo_card2_title: 'Funzioni capitolari',
+        cabildo_card2_text: 'Governo del culto cattedrale · Custodia e gestione del patrimonio · Consulenza episcopale · Rappresentanza istituzionale',
+        cabildo_card2_link: 'Maggiori informazioni →',
+        cabildo_card3_label: 'Documenti', cabildo_card3_title: 'Documentazione ufficiale',
+        cabildo_card3_text: 'Statuti capitolari e documenti istituzionali disponibili per la consultazione.',
+        cabildo_card3_link1: 'Statuti del Capitolo (PDF) →', cabildo_card3_link2: 'Sintesi storica (PDF) →',
+        cabildo_card4_label: 'Contatto istituzionale', cabildo_card4_title: 'Comunicazione con il Capitolo',
+        cabildo_card4_text: 'Per questioni relative al governo capitolare, richieste istituzionali o informazioni sull\'attività del Capitolo Cattedrale.',
+        cabildo_card4_link: 'Maggiori informazioni →',
+        archivo_eyebrow: 'Fondo documentale',
+        archivo_title: 'Archivio <em>Cattedrale</em>',
+        archivo_desc: 'L\'Archivio custodisce documenti dal XII secolo. Fondi capitolari, libri dei verbali, pergamene, cartolari e collezioni fotografiche di valore storico eccezionale.',
+        archivo_card1_label: 'Descrizione del fondo', archivo_card1_title: 'Collezione storica',
+        archivo_card1_text: '+12.000 documenti dal 1158 · Pergamene medievali · Libri sacramentali dal 1540 · Cartolari e fondi capitolari',
+        archivo_card1_link: 'Maggiori informazioni →',
+        archivo_card3_label: 'Pubblicazioni', archivo_card3_title: 'Bibliografia e cataloghi',
+        archivo_card3_text: 'Catalogo descrittivo del fondo e pubblicazioni di ricerca disponibili in formato digitale.',
+        archivo_card3_link: 'Maggiori informazioni →',
+        archivo_card4_label: 'Richiesta preventiva', archivo_card4_title: 'Richiedi la tua visita di ricerca',
+        archivo_card4_text: 'Per accedere al fondo documentale invia una richiesta preventiva compilando il modulo.',
+        archivo_card4_link1: 'Modulo di richiesta →',
+        cta_title: 'Vuoi saperne <em>di più</em>?',
+        cta_sub: 'Contatta l\'istituzione per qualsiasi domanda sulla parrocchia, il capitolo o l\'archivio.',
+        cta_btn: 'Contattaci →'
+      },
+      ko: {
+        page_eyebrow: '대성당 · 본당 · 참사회 · 기록보관소',
+        hero_nav_parroquia: '본당', hero_nav_cabildo: '참사회', hero_nav_archivo: '기록보관소',
+        page_title: '<em>기관</em>',
+        page_desc: '대성당에 활력을 불어넣는 공동체: 본당, 대성당 참사회 그리고 신앙과 문화를 위한 역사 기록보관소.',
+        intro_title: '대성당 <em>기관</em>',
+        intro_lead: '산토 도밍고 데 라 칼사다 대성당은 단순한 기념물이 아닙니다. 본당, 참사회, 기록보관소로 이루어진 살아있는 공동체입니다.',
+        intro_body: '12세기 이래로 대성당 기관은 도시의 영적·문화적 중심이었습니다. 오늘날에도 사목과 전례의 사명, 그리고 역사 유산의 수호를 계속하고 있습니다.',
+        nav_parroquia: '본당', nav_cabildo: '참사회', nav_archivo: '기록보관소',
+        parroquia_eyebrow: '본당 생활',
+        parroquia_title: '<em>산토 도밍고</em> 본당',
+        parroquia_desc: '대성당 본당은 공동체의 영적 삶을 함께합니다. 매일의 미사와 성사, 라리오하 전례력의 축일을 거행합니다.',
+        parroquia_card1_label: '미사 시간', parroquia_card1_title: '성찬례',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> 월요일~토요일 9:30 · 월요일~금요일 20:00<br><strong>Catedral:</strong> 토요일 20:00<br><strong>Convento de San Francisco:</strong> 일요일 13:00',
+        parroquia_card2_label: '본당 소식지', parroquia_card2_title: '주간 발행물',
+        parroquia_card2_text: '공동체 생활 소식, 전례 묵상과 본당 공지사항.<span style="display:block;margin-top:.7em">모든 활동과 행사에 대한 소식을 받아보시려면 소식지를 내려받으세요.</span>',
+        parroquia_card2_link: '내려받기 (PDF) →',
+        parroquia_card3_label: '활동', parroquia_card3_title: '공동체 생활',
+        parroquia_card3_text: '교리교육 · 세례 · 첫영성체 · 견진 · 혼인 · 본당 성가대<span style="display:block;margin-top:.7em">자세한 정보를 원하시면 연락해 주세요:</span>',
+        parroquia_card3_link: '자세히 보기 →',
+        parroquia_card4_label: '지역 축제', parroquia_card4_title: '축제 일정',
+        parroquia_card4_text: '산토 도밍고 데 라 칼사다의 지역 축제와 종교 축일의 일정을 확인하세요.<span style="display:block;margin-top:.7em">가족과 함께 오셔서 저희와 축제를 즐기세요.</span>',
+        parroquia_card4_link: '자세히 보기 →',
+        parroquia_card5_label: '후원', parroquia_card5_title: '사목 활동 후원',
+        parroquia_card5_text: '본당 공동체는 신자들의 후원 덕분에 활동을 이어가고 있습니다.<span style="display:block;margin-top:.7em">관심이 있으시면 연락해 주세요.</span>',
+        parroquia_card5_link: '자세히 보기 →',
+        cabildo_eyebrow: '참사회 운영',
+        cabildo_title: '대성당 <em>참사회</em>',
+        cabildo_desc: '참사회는 교구의 운영에서 주교를 보좌하고 대성당의 장엄한 전례를 담당하는 사제단입니다.',
+        cabildo_card2_label: '권한', cabildo_card2_title: '참사회의 임무',
+        cabildo_card2_text: '대성당 전례 운영 · 문화유산의 보존과 관리 · 주교 자문 · 기관 대표',
+        cabildo_card2_link: '자세히 보기 →',
+        cabildo_card3_label: '문서', cabildo_card3_title: '공식 문서',
+        cabildo_card3_text: '참사회 정관과 기관 문서를 열람하실 수 있습니다.',
+        cabildo_card3_link1: '참사회 정관 (PDF) →', cabildo_card3_link2: '역사 개요 (PDF) →',
+        cabildo_card4_label: '기관 연락처', cabildo_card4_title: '참사회와의 소통',
+        cabildo_card4_text: '참사회 운영과 관련된 사안, 기관 요청, 또는 대성당 참사회 활동에 관한 문의를 위한 연락처입니다.',
+        cabildo_card4_link: '자세히 보기 →',
+        archivo_eyebrow: '문서 컬렉션',
+        archivo_title: '대성당 <em>기록보관소</em>',
+        archivo_desc: '기록보관소는 12세기부터의 문서를 보관하고 있습니다. 참사회 기록, 회의록, 양피지, 문서집, 사진 자료 등 역사적 가치가 매우 높은 자료입니다.',
+        archivo_card1_label: '소장 자료 소개', archivo_card1_title: '역사 컬렉션',
+        archivo_card1_text: '1158년 이래 12,000여 점의 문서 · 중세 양피지 · 1540년 이래의 성사록 · 문서집과 참사회 자료',
+        archivo_card1_link: '자세히 보기 →',
+        archivo_card3_label: '간행물', archivo_card3_title: '서지와 목록',
+        archivo_card3_text: '소장 자료의 해설 목록과 연구 간행물을 디지털 형식으로 이용하실 수 있습니다.',
+        archivo_card3_link: '자세히 보기 →',
+        archivo_card4_label: '사전 신청', archivo_card4_title: '연구 방문 신청',
+        archivo_card4_text: '문서 자료에 접근하시려면 양식을 작성하여 사전 신청서를 보내주세요.',
+        archivo_card4_link1: '신청서 양식 →',
+        cta_title: '<em>더</em> 알고 싶으신가요?',
+        cta_sub: '본당, 참사회, 기록보관소에 관한 문의는 기관으로 연락해 주세요.',
+        cta_btn: '문의하기 →'
+      },
+      eu: {
+        page_eyebrow: 'Katedrala · Parrokia · Kabildoa · Artxiboa',
+        hero_nav_parroquia: 'Parrokia', hero_nav_cabildo: 'Kabildoa', hero_nav_archivo: 'Artxiboa',
+        page_title: '<em>Erakundea</em>',
+        page_desc: 'Katedrala biziarazten duen komunitatea: parrokia, katedraleko kabildoa eta artxibo historikoa, fedearen eta kulturaren zerbitzura.',
+        intro_title: 'Katedraleko <em>Erakundea</em>',
+        intro_lead: 'Santo Domingo de la Calzadako Katedrala monumentu bat baino askoz gehiago da: parrokiak, kabildoak eta artxiboak osatzen duten komunitate bizia da.',
+        intro_body: 'XII. mendetik, katedraleko erakundea hiriaren bihotz espirituala eta kulturala izan da. Gaur egun ere bere artzain-eginkizuna, liturgikoa eta ondare historikoaren zaintzaileari eusten dio.',
+        nav_parroquia: 'Parrokia', nav_cabildo: 'Kabildoa', nav_archivo: 'Artxiboa',
+        parroquia_eyebrow: 'Parrokia bizitza',
+        parroquia_title: '<em>Santo Domingo</em>ren parrokia',
+        parroquia_desc: 'Katedraleko parrokiak komunitatearen bizitza espirituala laguntzen du. Eguneroko Eukaristia, sakramentuak eta Errioxako egutegiko jai liturgikoak ospatzen ditu.',
+        parroquia_card1_label: 'Mezen ordutegia', parroquia_card1_title: 'Ospakizun eukaristikoak',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> astelehenetik larunbatera, 9:30 · astelehenetik ostiralera, 20:00<br><strong>Catedral:</strong> larunbatetan, 20:00<br><strong>Convento de San Francisco:</strong> igandeetan, 13:00',
+        parroquia_card2_label: 'Parrokiako buletina', parroquia_card2_title: 'Asteroko argitalpena',
+        parroquia_card2_text: 'Komunitatearen bizitzari buruzko informazioa, liturgi gogoetak eta parrokiako oharrak.<span style="display:block;margin-top:.7em">Deskargatu buletina gure jarduera eta ekitaldi guztien berri izateko.</span>',
+        parroquia_card2_link: 'Deskargatu (PDF) →',
+        parroquia_card3_label: 'Jarduerak', parroquia_card3_title: 'Komunitate bizitza',
+        parroquia_card3_text: 'Katekesia · Bataioak · Lehen Jaunartzeak · Sendotzak · Ezkontzak · Parrokiako abesbatza<span style="display:block;margin-top:.7em">Informazio gehiago nahi baduzu, jarri harremanetan:</span>',
+        parroquia_card3_link: 'Informazio gehiago →',
+        parroquia_card4_label: 'Tokiko jaiak', parroquia_card4_title: 'Jai egutegia',
+        parroquia_card4_text: 'Ezagutu Santo Domingo de la Calzadako tokiko eta erlijio jaien datak.<span style="display:block;margin-top:.7em">Etorri eta bizi itzazu jaiak gurekin familian.</span>',
+        parroquia_card4_link: 'Informazio gehiago →',
+        parroquia_card5_label: 'Dohaintzak', parroquia_card5_title: 'Artzain-lana lagundu',
+        parroquia_card5_text: 'Parrokia komunitateak bere jarduerari eusten dio fededunen ekarpenei esker.<span style="display:block;margin-top:.7em">Interesa baduzu, jarri harremanetan.</span>',
+        parroquia_card5_link: 'Informazio gehiago →',
+        cabildo_eyebrow: 'Kapituluko gobernua',
+        cabildo_title: 'Katedraleko <em>Kabildoa</em>',
+        cabildo_desc: 'Kabildoa apaizen erakundea da, gotzainari diozesiaren gobernuan laguntzen diona eta Katedraleko kultu solemnea bere gain hartzen duena.',
+        cabildo_card2_label: 'Eskumenak', cabildo_card2_title: 'Kapituluko eginkizunak',
+        cabildo_card2_text: 'Katedraleko kultuaren gobernua · Ondarearen zaintza eta kudeaketa · Gotzainaren aholkularitza · Erakundeen ordezkaritza',
+        cabildo_card2_link: 'Informazio gehiago →',
+        cabildo_card3_label: 'Dokumentuak', cabildo_card3_title: 'Dokumentazio ofiziala',
+        cabildo_card3_text: 'Kabildoaren estatutuak eta erakundeko dokumentuak kontsultatzeko eskuragarri.',
+        cabildo_card3_link1: 'Kabildoaren estatutuak (PDF) →', cabildo_card3_link2: 'Laburpen historikoa (PDF) →',
+        cabildo_card4_label: 'Erakundearen harremana', cabildo_card4_title: 'Kabildoarekiko komunikazioa',
+        cabildo_card4_text: 'Kapituluko gobernuarekin lotutako gaietarako, erakundeen eskaeretarako edo Katedraleko Kabildoaren jarduerari buruzko informaziorako.',
+        cabildo_card4_link: 'Informazio gehiago →',
+        archivo_eyebrow: 'Dokumentu funtsa',
+        archivo_title: 'Katedraleko <em>Artxiboa</em>',
+        archivo_desc: 'Artxiboak XII. mendetik aurrerako dokumentuak gordetzen ditu. Kabildoko funtsak, akta liburuak, pergaminoak, kartularioak eta argazki bildumak, balio historiko aparta dutenak.',
+        archivo_card1_label: 'Funtsaren deskribapena', archivo_card1_title: 'Bilduma historikoa',
+        archivo_card1_text: '+12.000 dokumentu 1158tik · Erdi Aroko pergaminoak · Sakramentu liburuak 1540tik · Kartularioak eta kabildoko funtsak',
+        archivo_card1_link: 'Informazio gehiago →',
+        archivo_card3_label: 'Argitalpenak', archivo_card3_title: 'Bibliografia eta katalogoak',
+        archivo_card3_text: 'Funtsaren katalogo deskribatzailea eta ikerketa argitalpenak formatu digitalean eskuragarri.',
+        archivo_card3_link: 'Informazio gehiago →',
+        archivo_card4_label: 'Aurretiko eskaera', archivo_card4_title: 'Eskatu ikerketa bisita',
+        archivo_card4_text: 'Dokumentu funtsean sartzeko, bidali aurretiko eskaera inprimakia beteta.',
+        archivo_card4_link1: 'Eskaera inprimakia →',
+        cta_title: '<em>Gehiago</em> jakin nahi duzu?',
+        cta_sub: 'Jarri harremanetan erakundearekin parrokiari, kabildoari edo artxiboari buruzko edozein zalantza argitzeko.',
+        cta_btn: 'Harremanetan jarri →'
+      },
+      ca: {
+        page_eyebrow: 'Catedral · Parròquia · Capítol · Arxiu',
+        hero_nav_parroquia: 'La Parròquia', hero_nav_cabildo: 'El Capítol', hero_nav_archivo: 'Arxiu',
+        page_title: 'La <em>Institució</em>',
+        page_desc: 'La comunitat que anima la Catedral: parròquia, capítol catedralici i arxiu històric al servei de la fe i la cultura.',
+        intro_title: 'La <em>Institució</em> Catedralícia',
+        intro_lead: 'La Catedral de Santo Domingo de la Calzada és molt més que un monument: és una comunitat viva formada per la parròquia, el capítol i l\'arxiu.',
+        intro_body: 'Des del segle XII, la institució catedralícia ha estat el cor espiritual i cultural de la ciutat. Avui continua complint la seva missió pastoral, litúrgica i de custòdia del patrimoni històric.',
+        nav_parroquia: 'Parròquia', nav_cabildo: 'Capítol', nav_archivo: 'Arxiu',
+        parroquia_eyebrow: 'Vida parroquial',
+        parroquia_title: 'Parròquia de <em>Santo Domingo</em>',
+        parroquia_desc: 'La parròquia de la Catedral acompanya la vida espiritual de la comunitat. Celebra l\'Eucaristia diària, els sagraments i les festes litúrgiques del calendari riojà.',
+        parroquia_card1_label: 'Horari de misses', parroquia_card1_title: 'Celebracions eucarístiques',
+        parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> de dilluns a dissabte, 9:30 h · de dilluns a divendres, 20:00 h<br><strong>Catedral:</strong> dissabtes, 20:00 h<br><strong>Convento de San Francisco:</strong> diumenges, 13:00 h',
+        parroquia_card2_label: 'Butlletí parroquial', parroquia_card2_title: 'Publicació setmanal',
+        parroquia_card2_text: 'Informació sobre la vida de la comunitat, reflexions litúrgiques i anuncis parroquials.<span style="display:block;margin-top:.7em">Descarrega el butlletí per estar al corrent de totes les nostres activitats i esdeveniments.</span>',
+        parroquia_card2_link: 'Descarregar (PDF) →',
+        parroquia_card3_label: 'Activitats', parroquia_card3_title: 'Vida comunitària',
+        parroquia_card3_text: 'Catequesi · Baptismes · Primeres Comunions · Confirmacions · Casaments · Cor parroquial<span style="display:block;margin-top:.7em">Si vols més informació, posa\'t en contacte:</span>',
+        parroquia_card3_link: 'Més informació →',
+        parroquia_card4_label: 'Festes locals', parroquia_card4_title: 'Calendari festiu',
+        parroquia_card4_text: 'Consulta les dates de les festes locals i religioses de Santo Domingo de la Calzada.<span style="display:block;margin-top:.7em">Vine i viu les festes amb nosaltres en família.</span>',
+        parroquia_card4_link: 'Més informació →',
+        parroquia_card5_label: 'Donatius', parroquia_card5_title: 'Dóna suport a l\'obra pastoral',
+        parroquia_card5_text: 'La comunitat parroquial sosté la seva activitat gràcies a les aportacions dels fidels.<span style="display:block;margin-top:.7em">Si hi estàs interessat, posa\'t en contacte.</span>',
+        parroquia_card5_link: 'Més informació →',
+        cabildo_eyebrow: 'Govern capitular',
+        cabildo_title: 'Capítol <em>Catedralici</em>',
+        cabildo_desc: 'El Capítol és la corporació de preveres que assisteix el bisbe en el govern de la diòcesi i té al seu càrrec el culte solemne de la Catedral.',
+        cabildo_card2_label: 'Competències', cabildo_card2_title: 'Funcions capitulars',
+        cabildo_card2_text: 'Govern del culte catedralici · Custòdia i gestió del patrimoni · Assessorament episcopal · Representació institucional',
+        cabildo_card2_link: 'Més informació →',
+        cabildo_card3_label: 'Documents', cabildo_card3_title: 'Documentació oficial',
+        cabildo_card3_text: 'Estatuts capitulars i documents institucionals disponibles per a consulta.',
+        cabildo_card3_link1: 'Estatuts del Capítol (PDF) →', cabildo_card3_link2: 'Ressenya històrica (PDF) →',
+        cabildo_card4_label: 'Contacte institucional', cabildo_card4_title: 'Comunicació amb el Capítol',
+        cabildo_card4_text: 'Per a afers relacionats amb el govern capitular, sol·licituds institucionals o informació sobre l\'activitat del Capítol Catedralici.',
+        cabildo_card4_link: 'Més informació →',
+        archivo_eyebrow: 'Fons documental',
+        archivo_title: 'Arxiu <em>Catedralici</em>',
+        archivo_desc: 'L\'Arxiu custodia documents des del segle XII. Fons capitulars, llibres d\'actes, pergamins, cartularis i col·leccions fotogràfiques de valor històric excepcional.',
+        archivo_card1_label: 'Descripció del fons', archivo_card1_title: 'Col·lecció històrica',
+        archivo_card1_text: '+12.000 documents des de 1158 · Pergamins medievals · Llibres sacramentals des de 1540 · Cartularis i fons capitulars',
+        archivo_card1_link: 'Més informació →',
+        archivo_card3_label: 'Publicacions', archivo_card3_title: 'Bibliografia i catàlegs',
+        archivo_card3_text: 'Catàleg descriptiu del fons i publicacions de recerca disponibles en format digital.',
+        archivo_card3_link: 'Més informació →',
+        archivo_card4_label: 'Consulta prèvia', archivo_card4_title: 'Sol·licita la teva visita de recerca',
+        archivo_card4_text: 'Per accedir al fons documental envia una sol·licitud prèvia omplint el formulari.',
+        archivo_card4_link1: 'Formulari de sol·licitud →',
+        cta_title: 'Vols saber-ne <em>més</em>?',
+        cta_sub: 'Contacta amb la institució per a qualsevol consulta sobre la parròquia, el capítol o l\'arxiu.',
+        cta_btn: 'Contactar →'
       }
     };
 
@@ -1267,6 +1921,260 @@
         if (pt[k] !== undefined) el.innerHTML = pt[k];
       });
     };
+
+    // ── GENERIC INFO POPUPS ──────────────────────────────
+    function wireInfoPopup(triggerId, overlayId) {
+      const trigger = document.getElementById(triggerId);
+      const overlay = document.getElementById(overlayId);
+      if (!trigger || !overlay) return;
+      const closeBtn = overlay.querySelector('.fiestas-popup__close');
+      function open(e) {
+        if (e) e.preventDefault();
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      trigger.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      wireInfoPopup('open-fiestas', 'fiestas-overlay');
+      wireInfoPopup('open-cabildo', 'cabildo-overlay');
+      wireInfoPopup('open-archivo-coleccion', 'archivo-coleccion-overlay');
+      wireInfoPopup('open-archivo-biblio', 'archivo-biblio-overlay');
+    });
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FIESTAS POPUP
+  ════════════════════════════════════════════════════════ -->
+  <div class="fiestas-overlay" id="fiestas-overlay" role="dialog" aria-modal="true" aria-labelledby="fiestas-popup-title" aria-hidden="true">
+    <div class="fiestas-popup">
+      <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
+      <p class="fiestas-popup__eyebrow">Calendario festivo</p>
+      <h3 class="fiestas-popup__title" id="fiestas-popup-title">Fiestas locales y religiosas · Santo Domingo de la Calzada</h3>
+      <div class="fiestas-popup__divider"></div>
+
+      <div class="fiestas-popup__group">
+        <h4 class="fiestas-popup__group-title">Fiestas locales oficiales</h4>
+        <ul class="fiestas-popup__list">
+          <li><strong>12 de mayo</strong> · Festividad de Santo Domingo (patrón de la ciudad).</li>
+          <li><strong>18 de septiembre</strong> · Fiestas de Gracias.</li>
+        </ul>
+      </div>
+
+      <div class="fiestas-popup__group">
+        <h4 class="fiestas-popup__group-title">Fiestas del Santo · Interés Turístico Nacional</h4>
+        <ul class="fiestas-popup__list">
+          <li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li>
+          <li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del Peregrino) y Procesión de la Rueda.</li>
+          <li><strong>11 de mayo</strong> · Reparto del Pan del Santo y del Peregrino.</li>
+          <li><strong>12 de mayo</strong> · Día grande: Misa Solemne, Procesión del Santo y reparto del Almuerzo del Santo.</li>
+          <li><strong>15 de mayo</strong> · Procesión de San Isidro.</li>
+        </ul>
+      </div>
+
+      <div class="fiestas-popup__group">
+        <h4 class="fiestas-popup__group-title">Virgen de la Plaza</h4>
+        <ul class="fiestas-popup__list">
+          <li><strong>5 de agosto</strong> · Festividad de la Virgen de la Plaza, patrona de los calceatenses.</li>
+        </ul>
+      </div>
+
+      <div class="fiestas-popup__group">
+        <h4 class="fiestas-popup__group-title">Fiestas de Gracias y San Jerónimo Hermosilla</h4>
+        <ul class="fiestas-popup__list">
+          <li><strong>17 – 19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico calceatense.</li>
+          <li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li>
+        </ul>
+      </div>
+
+      <div class="fiestas-popup__group">
+        <h4 class="fiestas-popup__group-title">Otras celebraciones religiosas</h4>
+        <ul class="fiestas-popup__list">
+          <li>Cuaresma y Semana Santa: pregón, procesiones (Domingo de Ramos, Borriquita, Santa Cena, Viacrucis, Santo Entierro, Vigilia Pascual, Resurrección).</li>
+          <li>Corpus Christi: procesión por las calles del casco antiguo.</li>
+          <li>Solemnidades patronales y de Cristo Rey en la S. I. Catedral.</li>
+        </ul>
+      </div>
+
+      <p class="fiestas-popup__note">Las fechas pueden variar ligeramente cada año en función del calendario litúrgico. Consulta la programación oficial para confirmar horarios y ubicaciones.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CABILDO · FUNCIONES CAPITULARES POPUP
+  ════════════════════════════════════════════════════════ -->
+  <div class="fiestas-overlay" id="cabildo-overlay" role="dialog" aria-modal="true" aria-labelledby="cabildo-popup-title" aria-hidden="true">
+    <div class="fiestas-popup">
+      <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
+      <p class="fiestas-popup__eyebrow">Competencias del Cabildo</p>
+      <h3 class="fiestas-popup__title" id="cabildo-popup-title">Funciones capitulares</h3>
+      <div class="fiestas-popup__divider"></div>
+
+      <div class="fiestas-popup__group">
+        <p class="fiestas-popup__para">El <strong>Cabildo Catedralicio</strong> es un órgano colegiado de clérigos con personalidad jurídica propia, instituido para asistir al obispo con su consejo y para asumir el culto solemne de la Catedral. Su existencia y competencias están reguladas por los cánones 503 a 510 del Código de Derecho Canónico de 1983 y por los estatutos aprobados por el obispo diocesano.</p>
+
+        <p class="fiestas-popup__para">Su tarea primaria es <strong>litúrgica</strong>: organiza, promueve y celebra el culto ordinario y extraordinario, las grandes solemnidades del calendario eclesiástico y las celebraciones más significativas de la vida diocesana. A esta misión se suma la <strong>custodia y gestión del patrimonio</strong> religioso, histórico y artístico que se conserva en el templo, el archivo capitular y los museos catedralicios.</p>
+
+        <p class="fiestas-popup__para">El Cabildo desempeña además funciones de <strong>asesoramiento episcopal</strong>, representación institucional y atención pastoral a quienes solicitan servicios religiosos en la Catedral. En Santo Domingo de la Calzada, lo integran el Deán, el Arcediano, el Chantre, el Tesorero y los canónigos, conforme a sus estatutos propios.</p>
+      </div>
+
+      <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px">Más información →</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ARCHIVO · COLECCIÓN HISTÓRICA POPUP
+  ════════════════════════════════════════════════════════ -->
+  <div class="fiestas-overlay" id="archivo-coleccion-overlay" role="dialog" aria-modal="true" aria-labelledby="archivo-coleccion-popup-title" aria-hidden="true">
+    <div class="fiestas-popup">
+      <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
+      <p class="fiestas-popup__eyebrow">Descripción del fondo</p>
+      <h3 class="fiestas-popup__title" id="archivo-coleccion-popup-title">Colección histórica del Archivo Catedralicio</h3>
+      <div class="fiestas-popup__divider"></div>
+
+      <div class="fiestas-popup__group">
+        <p class="fiestas-popup__para">El <strong>Archivo Catedralicio de Santo Domingo de la Calzada</strong> nació con las primeras donaciones documentadas que reyes y particulares otorgaron al templo y al abad de la antigua colegiata desde <strong>1120</strong>. Se consolidó a partir de <strong>1229</strong>, cuando la iglesia fue elevada a sede episcopal y comenzó a generar y custodiar el patrimonio documental de la nueva diócesis.</p>
+
+        <p class="fiestas-popup__para">Su colección conserva <strong>377 pergaminos sueltos</strong> fechados entre <strong>1135</strong> y el siglo XIX, junto con <strong>16 volúmenes encuadernados</strong> y <strong>3 cartularios</strong> con un total de 255 folios. A ellos se suman <strong>cinco códices medievales</strong> de los siglos XI al XIV, los libros sacramentales desde <strong>1540</strong> y los fondos capitulares con actas, cuentas y documentación administrativa del Cabildo.</p>
+
+        <p class="fiestas-popup__para">A finales del siglo XIX, el archivero <strong>Ángel Manso</strong> reunió y organizó las colecciones que habían quedado dispersas, devolviéndolas al espacio donde hoy se conservan. El edición en tres volúmenes de los cartularios, preparada por el medievalista <strong>Antonio Ubieto Arteta</strong>, constituye una fuente fundamental para el estudio de la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
+      </div>
+
+      <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px">Más información →</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ARCHIVO · BIBLIOGRAFÍA Y CATÁLOGOS POPUP
+  ════════════════════════════════════════════════════════ -->
+  <div class="fiestas-overlay" id="archivo-biblio-overlay" role="dialog" aria-modal="true" aria-labelledby="archivo-biblio-popup-title" aria-hidden="true">
+    <div class="fiestas-popup">
+      <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
+      <p class="fiestas-popup__eyebrow">Publicaciones</p>
+      <h3 class="fiestas-popup__title" id="archivo-biblio-popup-title">Bibliografía y catálogos del Archivo</h3>
+      <div class="fiestas-popup__divider"></div>
+
+      <div class="fiestas-popup__group">
+        <p class="fiestas-popup__para">El fondo del Archivo Catedralicio cuenta con un <strong>catálogo descriptivo</strong> elaborado a lo largo del siglo XX, que organiza los pergaminos sueltos, los volúmenes encuadernados, los cartularios y los libros sacramentales en series cronológicas y temáticas. Constituye la herramienta básica de consulta para investigadores acreditados y para la propia administración del Cabildo.</p>
+
+        <p class="fiestas-popup__para">La obra de referencia para el estudio del fondo medieval es la edición en tres volúmenes <em>Cartularios (I, II y III) de Santo Domingo de la Calzada</em>, preparada por el medievalista <strong>Agustín Ubieto Arteta</strong> y publicada por Ediciones Anubar en <strong>1978</strong>. Recoge y sistematiza los cartularios del antiguo monasterio y la sede episcopal, ofreciendo una fuente esencial para la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
+
+        <p class="fiestas-popup__para">A esta edición se suman estudios complementarios como los <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n.º 82, 1972) del mismo autor, el inventario del <strong>Archivo Musical</strong> realizado por el musicólogo <strong>José López Calo</strong>, y diversas publicaciones de investigación accesibles en formato digital a través del <strong>Censo-Guía de Archivos</strong> del Ministerio de Cultura.</p>
+      </div>
+
+      <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px">Más información →</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ARCHIVO · FORMULARIO DE CONSULTA POPUP
+  ════════════════════════════════════════════════════════ -->
+  <div class="fiestas-overlay" id="archivo-overlay" role="dialog" aria-modal="true" aria-labelledby="archivo-popup-title" aria-hidden="true">
+    <div class="fiestas-popup">
+      <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
+      <p class="fiestas-popup__eyebrow">Consulta previa</p>
+      <h3 class="fiestas-popup__title" id="archivo-popup-title">Solicita tu visita de investigación</h3>
+      <div class="fiestas-popup__divider"></div>
+
+      <p class="fiestas-popup__para">Completa el formulario y nos pondremos en contacto contigo para confirmar tu visita al Archivo Catedralicio.</p>
+
+      <form class="fiestas-form" id="archivo-form" novalidate>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="archivo-form-name">Nombre completo</label>
+          <input class="fiestas-form__input" type="text" id="archivo-form-name" name="nombre" required autocomplete="name" />
+        </div>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="archivo-form-phone">Teléfono</label>
+          <input class="fiestas-form__input" type="tel" id="archivo-form-phone" name="telefono" required autocomplete="tel" />
+        </div>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="archivo-form-email">Correo electrónico</label>
+          <input class="fiestas-form__input" type="email" id="archivo-form-email" name="correo" required autocomplete="email" />
+        </div>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="archivo-form-comments">Comentarios</label>
+          <textarea class="fiestas-form__textarea" id="archivo-form-comments" name="comentarios" required placeholder="Indica el objeto de la investigación, las fechas previstas y tu acreditación académica o institucional."></textarea>
+        </div>
+        <label class="fiestas-form__check">
+          <input type="checkbox" id="archivo-form-terms" required />
+          <span>Acepto la <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y las <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condiciones de uso</a>.</span>
+        </label>
+        <button type="submit" class="fiestas-form__submit">Enviar solicitud →</button>
+        <p class="fiestas-form__status" id="archivo-form-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ── ARCHIVO CONTACT FORM ─────────────────────────────
+    (function () {
+      const trigger = document.getElementById('open-archivo');
+      const overlay = document.getElementById('archivo-overlay');
+      if (!trigger || !overlay) return;
+      const closeBtn = overlay.querySelector('.fiestas-popup__close');
+      const form = document.getElementById('archivo-form');
+      const status = document.getElementById('archivo-form-status');
+      const TO = 'archivosantodomingo@iglesiaenlarioja.org';
+
+      function open(e) {
+        if (e) e.preventDefault();
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (status) status.textContent = '';
+      }
+      trigger.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      });
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = document.getElementById('archivo-form-name').value.trim();
+          const phone = document.getElementById('archivo-form-phone').value.trim();
+          const email = document.getElementById('archivo-form-email').value.trim();
+          const comments = document.getElementById('archivo-form-comments').value.trim();
+          const terms = document.getElementById('archivo-form-terms').checked;
+          if (!name || !phone || !email || !comments) {
+            status.textContent = 'Por favor, completa todos los campos.';
+            return;
+          }
+          if (!terms) {
+            status.textContent = 'Debes aceptar la política de privacidad y las condiciones.';
+            return;
+          }
+          const subject = encodeURIComponent('Solicitud de visita · Archivo Catedralicio');
+          const body = encodeURIComponent(
+            'Nombre completo: ' + name + '\n' +
+            'Teléfono: ' + phone + '\n' +
+            'Correo electrónico: ' + email + '\n\n' +
+            'Comentarios:\n' + comments + '\n\n' +
+            '— Enviado desde el formulario web del Archivo Catedralicio.'
+          );
+          status.textContent = 'Abriendo tu cliente de correo…';
+          window.location.href = 'mailto:' + TO + '?subject=' + subject + '&body=' + body;
+        });
+      }
+    })();
   </script>
 
 </body>

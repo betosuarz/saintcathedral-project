@@ -9,6 +9,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/shared.css" />
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
+    function _jumpTop() {
+      const h = document.documentElement;
+      const prev = h.style.scrollBehavior;
+      h.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => { h.style.scrollBehavior = prev; });
+    }
+    _jumpTop();
+    document.addEventListener('DOMContentLoaded', _jumpTop);
+    window.addEventListener('load', _jumpTop);
+  </script>
   <style>
 
     /* ── PAGE HERO ─────────────────────────────────────────── */
@@ -1007,18 +1021,18 @@
     }
     .compare-section__label::before { content: ''; width: 24px; height: 1px; background: var(--gold) }
     .compare-table { width: 100%; border-collapse: collapse }
-    .compare-table thead th { padding: 18px 24px; text-align: left; font-family: var(--sans); font-weight: 400 }
-    .compare-table thead th:first-child { width: 22%; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(253,250,244,.55) }
+    .compare-table thead th { padding: 18px 24px; text-align: center; font-family: var(--sans); font-weight: 400 }
+    .compare-table thead th:first-child { width: 22%; font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(253,250,244,.55); text-align: left }
     .compare-table thead th:not(:first-child) { font-family: var(--serif); font-size: 1.2rem; font-weight: 300; color: var(--white) }
     .compare-table thead th:nth-child(3) { color: var(--gold-lt) }
     .compare-table thead th:last-child { color: var(--gold) }
     .compare-table tbody tr { border-top: 1px solid rgba(255,255,255,.06) }
     .compare-table tbody tr:hover { background: rgba(255,255,255,.02) }
-    .compare-table tbody td { padding: 16px 24px; font-size: .84rem; vertical-align: top }
-    .compare-table tbody td:first-child { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(253,250,244,.55); white-space: nowrap }
+    .compare-table tbody td { padding: 16px 24px; font-size: .84rem; vertical-align: middle; text-align: center }
+    .compare-table tbody td:first-child { font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(253,250,244,.55); white-space: nowrap; text-align: left }
     .compare-table tbody td:not(:first-child) { color: rgba(253,250,244,.75) }
-    .compare-check { color: var(--gold) }
-    .compare-dash { color: rgba(253,250,244,.55) }
+    .compare-check { color: #4ade80 }
+    .compare-dash { color: #f87171 }
     .compare-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; max-width: 100% }
     .compare-table-scroll::-webkit-scrollbar { height: 4px }
     .compare-table-scroll::-webkit-scrollbar-track { background: transparent }
@@ -1166,20 +1180,19 @@
       letter-spacing: .16em;
       text-transform: uppercase;
       color: rgba(253,250,244,.55);
-      padding: 10px 16px 10px 0;
-      text-align: left;
+      padding: 10px 16px;
+      text-align: center;
       font-weight: 400;
       border-bottom: 1px solid rgba(255,255,255,.12)
     }
-    .pulsera-table th:not(:first-child) { padding-left: 16px }
     .pulsera-table td {
       font-size: .84rem;
       color: rgba(253,250,244,.75);
-      padding: 13px 16px 13px 0;
+      padding: 13px 16px;
       border-bottom: 1px solid rgba(255,255,255,.06);
-      vertical-align: middle
+      vertical-align: middle;
+      text-align: center
     }
-    .pulsera-table td:not(:first-child) { padding-left: 16px }
     .pulsera-table tbody tr:last-child td { border-bottom: none }
     .pulsera-table td:first-child {
       font-family: var(--serif);
@@ -1195,8 +1208,8 @@
       white-space: nowrap
     }
     .pulsera-table td:nth-child(3) { font-size: .78rem; white-space: nowrap }
-    .pt-yes { color: var(--gold); font-size: .8rem }
-    .pt-no  { color: rgba(253,250,244,.55); font-size: .9rem }
+    .pt-yes { color: #4ade80; font-size: .9rem }
+    .pt-no  { color: #f87171; font-size: .9rem }
     body.light-mode .pulsera-table th { color: rgba(20,18,16,.65); border-bottom-color: rgba(20,18,16,.14) }
     body.light-mode .pulsera-table td { color: rgba(20,18,16,.72); border-bottom-color: rgba(20,18,16,.07) }
     body.light-mode .pulsera-table td:first-child { color: var(--carbon) }
@@ -1561,6 +1574,7 @@
       transition: opacity .3s ease, transform .3s ease
     }
     .ind-detail.is-fading { opacity: 0; transform: translateY(8px) }
+    .ind-detail { position: relative }
     .ind-detail__badge {
       display: inline-flex;
       align-items: center;
@@ -1576,6 +1590,15 @@
       margin-bottom: 14px;
       align-self: flex-start;
       font-weight: 500
+    }
+    @media (min-width: 769px) {
+      .ind-detail__badge {
+        position: absolute;
+        top: 56px;
+        right: 52px;
+        margin-bottom: 0;
+        transform: translateY(-25%)
+      }
     }
     .ind-detail__badge::before { content: '★'; font-size: .7rem; line-height: 1 }
     body.light-mode .ind-detail__badge {
@@ -2575,7 +2598,6 @@
     body.light-mode .gv-vip__title { color: var(--carbon); }
     .gv-vip__title em { font-style: italic; color: var(--gold-lt); }
     body.light-mode .gv-vip__title em,
-    body.light-mode .page-hero__title em,
     body.light-mode .hub-intro__question em,
     body.light-mode .hub-card__title em,
     body.light-mode .visits-section__title em,
@@ -2583,6 +2605,10 @@
     body.light-mode .program-card__title em,
     body.light-mode .pulsera-block__title em,
     body.light-mode .ind-detail__title em { color: #7A6025; }
+    body.light-mode .page-hero__title { color: var(--white); text-shadow: 0 2px 18px rgba(14,12,10,.55); }
+    body.light-mode .page-hero__title em { color: var(--gold-lt); text-shadow: 0 2px 18px rgba(14,12,10,.6); }
+    body.light-mode .page-hero__eyebrow { color: var(--gold-lt); text-shadow: 0 1px 8px rgba(14,12,10,.5); }
+    body.light-mode .page-hero__desc { color: rgba(255,255,255,.88); text-shadow: 0 1px 12px rgba(14,12,10,.5); }
     .gv-vip__sub { font-size: .82rem; color: rgba(245,240,232,.62); margin-top: 6px; line-height: 1.5; }
     body.light-mode .gv-vip__sub { color: #6e6356; }
     .gv-vip__cta {
@@ -3077,7 +3103,7 @@
       <ul class="side-menu__nav-list">
         <li class="side-menu__nav-item"><a href="index.html" class="side-menu__nav-link"><span class="nav-num">01</span><span data-i18n="nav_home">Inicio</span></a></li>
         <li class="side-menu__nav-item"><a href="monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span><span data-i18n="nav_monuments">Monumentos</span></a></li>
-        <li class="side-menu__nav-item"><a href="visitas.html" class="side-menu__nav-link side-menu__nav-link--active"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
+        <li class="side-menu__nav-item"><a href="visitas.html" class="side-menu__nav-link side-menu__nav-link--active" onclick="event.preventDefault(); _jumpTop();"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
         <li class="side-menu__nav-item"><a href="actualidad.html" class="side-menu__nav-link"><span class="nav-num">04</span><span data-i18n="nav_news">Actualidad</span></a></li>
         <li class="side-menu__nav-item"><a href="institucion.html" class="side-menu__nav-link"><span class="nav-num">05</span>Institución</a></li>
         <li class="side-menu__nav-item"><a href="reservas.html" class="side-menu__nav-link"><span class="nav-num">06</span><span data-i18n="nav_reservations">Reservas</span></a></li>
@@ -3106,13 +3132,13 @@
     <!-- BREADCRUMB -->
     <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
       <ol class="breadcrumb__list" role="list">
-        <li><a href="index.html" class="breadcrumb__link">Inicio</a></li>
+        <li><a href="index.html" class="breadcrumb__link" data-i18n-page="bc_home">Inicio</a></li>
         <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
-        <li><span class="breadcrumb__current" aria-current="page">Visitas</span></li>
+        <li><span class="breadcrumb__current" aria-current="page" data-i18n-page="bc_visitas">Visitas</span></li>
       </ol>
       <a href="index.html" class="breadcrumb__back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>Inicio</span>
+        <span data-i18n-page="bc_home">Inicio</span>
       </a>
     </nav>
     <div class="page-hero__content">
@@ -3149,9 +3175,9 @@
       <div class="visits-section__header reveal">
         <span class="visits-section__num">01</span>
         <div>
-          <div class="visits-section__eyebrow">Visitas Individuales</div>
-          <h2 class="visits-section__title">Visitas <em>sin guía</em></h2>
-          <p class="visits-section__sub">Explora la Catedral y sus espacios patrimoniales a tu propio ritmo, sin reserva previa.</p>
+          <div class="visits-section__eyebrow" data-i18n-page="s1_eyebrow">Visitas Individuales</div>
+          <h2 class="visits-section__title" data-i18n-page="s1_title">Visitas <em>sin guía</em></h2>
+          <p class="visits-section__sub" data-i18n-page="s1_sub">Explora la Catedral y sus espacios patrimoniales a tu propio ritmo, sin reserva previa.</p>
         </div>
       </div>
 
@@ -3191,10 +3217,10 @@
         <!-- Columna derecha: detalle -->
         <div class="ind-detail" id="ind-detail" aria-live="polite">
           <span class="ind-detail__badge" id="ind-badge" style="display:none"></span>
-          <div class="ind-detail__tag" id="ind-detail-tag">Entrada individual</div>
+          <div class="ind-detail__tag" id="ind-detail-tag" data-i18n-page="ind_tag">Entrada individual</div>
           <h3 class="ind-detail__title" id="ind-detail-title">Catedral de <em>Santo Domingo</em></h3>
           <div class="ind-detail__price">
-            <span class="ind-detail__price-label">Precio</span>
+            <span class="ind-detail__price-label" data-i18n-page="ind_price_label">Precio</span>
             <span class="ind-detail__price-amount" id="ind-detail-price">7</span>
             <span class="ind-detail__price-cur">€</span>
           </div>
@@ -3208,9 +3234,9 @@
       <div class="pulsera-block reveal">
         <button type="button" class="cmp-trigger" id="cmp-trigger" aria-haspopup="dialog" aria-controls="cmp-content">
           <span class="cmp-trigger__inner">
-            <span class="cmp-trigger__eyebrow">Tabla comparativa</span>
-            <span class="cmp-trigger__label">Comparador de <em>precios</em></span>
-            <span class="cmp-trigger__sub">Tarifas, horarios, audioguía y guía por modalidad</span>
+            <span class="cmp-trigger__eyebrow" data-i18n-page="cmp_eyebrow">Tabla comparativa</span>
+            <span class="cmp-trigger__label" data-i18n-page="cmp_label">Comparador de <em>precios</em></span>
+            <span class="cmp-trigger__sub" data-i18n-page="cmp_sub">Tarifas, horarios, audioguía y guía por modalidad</span>
           </span>
           <span class="cmp-trigger__icon" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -3221,62 +3247,62 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
           <div>
-            <div class="pulsera-block__tag">Comparar modalidades</div>
-            <h3 class="pulsera-block__title" id="cmp-modal-title">Entradas <em>individuales</em></h3>
+            <div class="pulsera-block__tag" data-i18n-page="cmp_tag">Comparar modalidades</div>
+            <h3 class="pulsera-block__title" id="cmp-modal-title" data-i18n-page="cmp_title">Entradas <em>individuales</em></h3>
           </div>
           <div class="pulsera-table-scroll">
           <table class="pulsera-table" aria-label="Comparativa de entradas individuales">
             <thead>
               <tr>
-                <th scope="col">Entrada</th>
-                <th scope="col">Tarifa</th>
-                <th scope="col">Horarios</th>
-                <th scope="col">Audioguía</th>
-                <th scope="col">Visita guiada</th>
+                <th scope="col" data-i18n-page="th_entrada">Entrada</th>
+                <th scope="col" data-i18n-page="th_tarifa">Tarifa</th>
+                <th scope="col" data-i18n-page="th_horarios">Horarios</th>
+                <th scope="col" data-i18n-page="th_audioguia">Audioguía</th>
+                <th scope="col" data-i18n-page="th_visita_guiada">Visita guiada</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Catedral</td>
-                <td>€7</td>
-                <td>Mar–Dom 9:30–18:30</td>
-                <td><span class="pt-yes">✦</span></td>
-                <td><span class="pt-no">—</span></td>
+                <td data-i18n-page="name_cat">Catedral</td>
+                <td data-i18n-page="price_7">7 €</td>
+                <td data-i18n-page="tbl_hor_cat">9:00–20:00 / Sáb 9:00–19:00</td>
+                <td><span class="pt-yes">✔</span></td>
+                <td><span class="pt-yes">✔</span></td>
               </tr>
               <tr>
-                <td>Torre Exenta</td>
-                <td>€4</td>
-                <td>Mar–Dom 9:30–18:30</td>
-                <td><span class="pt-yes">✦</span></td>
-                <td><span class="pt-no">—</span></td>
+                <td data-i18n-page="name_torre">Torre Exenta</td>
+                <td data-i18n-page="price_4">4 €</td>
+                <td data-i18n-page="tbl_hor_split">10:00–13:30 y 16:00–19:30</td>
+                <td><span class="pt-yes">✔</span></td>
+                <td><span class="pt-no">✖</span></td>
               </tr>
               <tr>
-                <td>Convento San Francisco</td>
-                <td>€5</td>
-                <td>Mar–Dom 10:00–18:00</td>
-                <td><span class="pt-yes">✦</span></td>
-                <td><span class="pt-no">—</span></td>
+                <td data-i18n-page="name_sf">Convento San Francisco</td>
+                <td data-i18n-page="price_5">5 €</td>
+                <td data-i18n-page="tbl_hor_split">10:00–13:30 y 16:00–19:30</td>
+                <td><span class="pt-yes">✔</span></td>
+                <td><span class="pt-no">✖</span></td>
               </tr>
               <tr>
-                <td>Pulsera Turística</td>
-                <td>€10</td>
-                <td>Mar–Dom 9:30–18:00</td>
-                <td><span class="pt-yes">✦</span></td>
-                <td><span class="pt-no">—</span></td>
+                <td data-i18n-page="name_pul_tur">Pulsera Turística</td>
+                <td data-i18n-page="price_10">10 €</td>
+                <td data-i18n-page="tbl_hor_mon">Según monumento</td>
+                <td><span class="pt-yes">✔</span></td>
+                <td data-i18n-page="tbl_consultar">Consultar</td>
               </tr>
               <tr>
-                <td>Pulsera Peregrino</td>
-                <td>€5</td>
-                <td>Mar–Dom 9:30–18:30</td>
-                <td><span class="pt-yes">✦</span></td>
-                <td><span class="pt-no">—</span></td>
+                <td data-i18n-page="name_pul_per">Pulsera Peregrino</td>
+                <td data-i18n-page="price_5">5 €</td>
+                <td data-i18n-page="tbl_hor_mon">Según monumento</td>
+                <td><span class="pt-yes">✔</span></td>
+                <td data-i18n-page="tbl_consultar">Consultar</td>
               </tr>
               <tr>
-                <td>Pack Familiar</td>
-                <td>€25</td>
-                <td>Mar–Dom 9:30–18:30</td>
-                <td><span class="pt-yes">✦</span></td>
-                <td><span class="pt-yes">✦</span></td>
+                <td data-i18n-page="tbl_ticket_fam">Ticket Familiar</td>
+                <td data-i18n-page="price_25">25 €</td>
+                <td data-i18n-page="tbl_hor_mon">Según monumento</td>
+                <td><span class="pt-yes">✔</span></td>
+                <td data-i18n-page="tbl_consultar">Consultar</td>
               </tr>
             </tbody>
           </table>
@@ -3299,9 +3325,9 @@
       <div class="visits-section__header reveal">
         <span class="visits-section__num">02</span>
         <div>
-          <div class="visits-section__eyebrow">Visitas Individuales</div>
-          <h2 class="visits-section__title">Visitas <em>Guiadas</em></h2>
-          <p class="visits-section__sub">Déjate llevar por guías especializados y descubre los secretos que no encontrarás en los paneles. Diurna, nocturna o exclusiva VIP.</p>
+          <div class="visits-section__eyebrow" data-i18n-page="s2_eyebrow">Visitas Guiadas</div>
+          <h2 class="visits-section__title" data-i18n-page="s2_title">Visitas <em>Guiadas</em></h2>
+          <p class="visits-section__sub" data-i18n-page="s2_sub">Déjate llevar por guías especializados y descubre los secretos que no encontrarás en los paneles. Diurna, nocturna o exclusiva VIP.</p>
         </div>
       </div>
 
@@ -3334,16 +3360,16 @@
         </div>
         <div class="ind-detail" id="gui-detail" aria-live="polite">
           <span class="ind-detail__badge" id="gui-badge" style="display:none"></span>
-          <div class="ind-detail__tag" id="gui-detail-tag">Visita guiada</div>
+          <div class="ind-detail__tag" id="gui-detail-tag" data-i18n-page="gui_tag">Visita guiada</div>
           <h3 class="ind-detail__title" id="gui-detail-title">Visita guiada <em>diurna</em></h3>
           <div class="ind-detail__price">
-            <span class="ind-detail__price-label">Desde</span>
+            <span class="ind-detail__price-label" data-i18n-page="gui_price_label">Desde</span>
             <span class="ind-detail__price-amount" id="gui-detail-price">14</span>
             <span class="ind-detail__price-cur">€</span>
           </div>
           <p class="ind-detail__desc" id="gui-detail-desc"></p>
           <div class="ind-specs" id="gui-specs"></div>
-          <a class="ind-detail__cta" id="gui-cta" href="reservas.html?tipo=individual&modo=con-guia&entrada=diurna">Reservar →</a>
+          <a class="ind-detail__cta" id="gui-cta" href="reservas.html?tipo=individual&modo=con-guia&entrada=diurna" data-i18n-page="reservar_btn">Reservar →</a>
         </div>
       </div>
 
@@ -3351,9 +3377,9 @@
       <!-- Trigger comparador (mobile) -->
       <button type="button" class="cmp-trigger" id="cmp-trigger-2" aria-haspopup="dialog" aria-controls="cmp-content-2">
         <span class="cmp-trigger__inner">
-          <span class="cmp-trigger__eyebrow">Tabla comparativa</span>
-          <span class="cmp-trigger__label">Comparador de <em>visitas</em></span>
-          <span class="cmp-trigger__sub">Diurna, nocturna y VIP comparadas en detalle</span>
+          <span class="cmp-trigger__eyebrow" data-i18n-page="cmp2_eyebrow">Tabla comparativa</span>
+          <span class="cmp-trigger__label" data-i18n-page="cmp2_label">Comparador de <em>visitas</em></span>
+          <span class="cmp-trigger__sub" data-i18n-page="cmp2_sub">Diurna, nocturna y VIP comparadas en detalle</span>
         </span>
         <span class="cmp-trigger__icon" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -3365,71 +3391,89 @@
         <button type="button" class="cmp-close" aria-label="Cerrar comparador">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="compare-section__label" id="cmp-2-title">Comparar modalidades</div>
+        <div class="compare-section__label" id="cmp-2-title" data-i18n-page="cmp2_title">Comparar modalidades</div>
         <div class="compare-table-scroll">
         <table class="compare-table" aria-label="Comparativa de visitas guiadas">
           <thead>
             <tr>
               <th scope="col"> </th>
-              <th scope="col">Diurna</th>
-              <th scope="col">Nocturna</th>
-              <th scope="col">VIP</th>
+              <th scope="col" data-i18n-page="col_diurna">Diurna</th>
+              <th scope="col" data-i18n-page="col_nocturna">Nocturna</th>
+              <th scope="col" data-i18n-page="col_vip">VIP</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Precio desde</td>
-              <td>€14 / persona</td>
-              <td>€15 / persona</td>
-              <td>€15 / persona</td>
+              <td data-i18n-page="row_precio">Precio</td>
+              <td data-i18n-page="precio_14">€ 14 / persona</td>
+              <td data-i18n-page="precio_15">€ 15 / persona</td>
+              <td data-i18n-page="precio_15">€ 15 / persona</td>
             </tr>
             <tr>
-              <td>Duración</td>
+              <td data-i18n-page="row_duracion">Duración</td>
+              <td>45 min</td>
+              <td>60 min</td>
               <td>90 min</td>
-              <td>120 min</td>
-              <td>2 – 3 h</td>
             </tr>
             <tr>
-              <td>Idiomas</td>
-              <td>ES · EN · FR · DE</td>
-              <td>ES · EN</td>
-              <td>ES · EN · FR · DE</td>
+              <td data-i18n-page="row_idiomas">Idiomas</td>
+              <td>ES</td>
+              <td>ES</td>
+              <td>ES</td>
             </tr>
             <tr>
-              <td>Horario</td>
-              <td>11:00 · 13:00 · 17:00</td>
-              <td>Vie–Dom 22:00</td>
-              <td>A convenir</td>
+              <td data-i18n-page="row_horario">Horario</td>
+              <td data-i18n-page="row_consultar">Consultar</td>
+              <td data-i18n-page="row_consultar">Consultar</td>
+              <td data-i18n-page="row_consultar">Consultar</td>
             </tr>
             <tr>
-              <td>Grupo máx.</td>
-              <td>15 personas</td>
-              <td>12 personas</td>
-              <td>8 personas</td>
+              <td data-i18n-page="row_grupo_max">Grupo máx.</td>
+              <td><span class="compare-dash" aria-label="No aplica">✖</span></td>
+              <td><span class="compare-dash" aria-label="No aplica">✖</span></td>
+              <td data-i18n-page="val_15_personas">15 personas</td>
             </tr>
             <tr>
-              <td>Nave y retablo</td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td data-i18n-page="row_recorrido">Recorrido básico Catedral</td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
             </tr>
             <tr>
-              <td>Gallinero vivo</td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td data-i18n-page="row_nave">Nave y Retablo</td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
             </tr>
             <tr>
-              <td>Triforio</td>
-              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
-              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td data-i18n-page="row_gallinero">Gallinero vivo y Milagro</td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
             </tr>
             <tr>
-              <td>Tesoro · Archivo</td>
-              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
-              <td><span class="compare-dash" aria-label="No incluido">—</span></td>
-              <td><span class="compare-check" aria-label="Incluido">✦</span></td>
+              <td data-i18n-page="row_proyeccion">Proyección Retablo</td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+            </tr>
+            <tr>
+              <td data-i18n-page="row_triforio">Triforio</td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+            </tr>
+            <tr>
+              <td data-i18n-page="row_sacristia">Sacristía</td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
+            </tr>
+            <tr>
+              <td data-i18n-page="row_defensas">Defensas medievales</td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-dash" aria-label="No incluido">✖</span></td>
+              <td><span class="compare-check" aria-label="Incluido">✔</span></td>
             </tr>
           </tbody>
         </table>
@@ -3449,9 +3493,9 @@
     <div class="visits-section__inner">
 
       <div class="visits-section__header reveal" style="justify-content:center;text-align:center;flex-direction:column;align-items:center;gap:0;">
-        <div class="visits-section__eyebrow">Disponibilidad</div>
-        <h2 class="visits-section__title" id="cal-title">Calendario de <em>visitas guiadas</em></h2>
-        <p class="visits-section__sub" style="max-width:560px;">Consulta qué visitas hay cada día, infórmate sobre cada modalidad y reserva tu plaza directamente. Las nocturnas se celebran <strong>cada viernes y sábado a las 20:45 h</strong>.</p>
+        <div class="visits-section__eyebrow" data-i18n-page="cal_eyebrow">Disponibilidad</div>
+        <h2 class="visits-section__title" id="cal-title" data-i18n-page="cal_title">Calendario de <em>visitas guiadas</em></h2>
+        <p class="visits-section__sub" style="max-width:560px;" data-i18n-page="cal_sub">Consulta qué visitas hay cada día, infórmate sobre cada modalidad y reserva tu plaza directamente. Las nocturnas se celebran <strong>cada viernes y sábado a las 20:45 h</strong>.</p>
       </div>
 
       <div class="gv-wrap reveal">
@@ -3481,7 +3525,7 @@
           <div class="gv-cal__grid" id="gv-grid" role="grid"></div>
 
           <div class="gv-cal__legend">
-            <span class="gv-cal__legend-item d-night">Visita guiada nocturna · 20:45 h</span>
+            <span class="gv-cal__legend-item d-night" data-i18n-page="cal_legend_night">Visita guiada nocturna · 20:45 h</span>
           </div>
         </div>
 
@@ -3490,7 +3534,7 @@
           <button type="button" class="gv-day-panel__close" id="gv-panel-close" aria-label="Cerrar">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
-          <div class="gv-day-panel__sub" id="gv-panel-sub">Visitas disponibles</div>
+          <div class="gv-day-panel__sub" id="gv-panel-sub" data-i18n-page="cal_panel_sub">Visitas disponibles</div>
           <div class="gv-day-panel__title" id="gv-panel-title">—</div>
           <div id="gv-panel-list"></div>
         </div>
@@ -3511,21 +3555,115 @@
     const panelList = document.getElementById('gv-panel-list');
     if (!grid) return;
 
-    const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-    const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    const MESES_I18N = {
+      es: ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+      en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+      fr: ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
+      de: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+      pt: ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'],
+      it: ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'],
+      ko: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+      eu: ['urtarrila','otsaila','martxoa','apirila','maiatza','ekaina','uztaila','abuztua','iraila','urria','azaroa','abendua'],
+      ca: ['gener','febrer','març','abril','maig','juny','juliol','agost','setembre','octubre','novembre','desembre']
+    };
+    const DIAS_I18N = {
+      es: ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],
+      en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      fr: ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],
+      de: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+      pt: ['domingo','segunda','terça','quarta','quinta','sexta','sábado'],
+      it: ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'],
+      ko: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
+      eu: ['igandea','astelehena','asteartea','asteazkena','osteguna','ostirala','larunbata'],
+      ca: ['diumenge','dilluns','dimarts','dimecres','dijous','divendres','dissabte']
+    };
+    const CAL_T = {
+      es: { dateOf: 'de', no_visits: 'No hay visitas guiadas programadas este día.', badge_night: '★ Nocturna',
+            label_noc: 'Visita guiada nocturna', from: 'Desde', per: '/ persona', mins: 'min',
+            bullets_noc: [
+              'La Catedral a la luz de las velas: leyendas, misterios y ocho siglos de historia.',
+              'Duración 120 min · grupo máx. 12 personas',
+              'Solo viernes y sábados a las 20:45 h',
+              'Adulto 10 € · Menor de 13 / Residente 5 €'
+            ] },
+      en: { dateOf: 'of', no_visits: 'No guided tours scheduled this day.', badge_night: '★ Night-time',
+            label_noc: 'Night-time guided tour', from: 'From', per: '/ person', mins: 'min',
+            bullets_noc: [
+              'The Cathedral by candlelight: legends, mysteries and eight centuries of history.',
+              'Duration 120 min · max group 12 people',
+              'Only Fridays and Saturdays at 8:45 pm',
+              'Adult €10 · Under 13 / Resident €5'
+            ] },
+      fr: { dateOf: '', no_visits: 'Aucune visite guidée programmée ce jour.', badge_night: '★ Nocturne',
+            label_noc: 'Visite guidée nocturne', from: 'À partir de', per: '/ personne', mins: 'min',
+            bullets_noc: [
+              'La Cathédrale à la lueur des bougies : légendes, mystères et huit siècles d\'histoire.',
+              'Durée 120 min · groupe max 12 personnes',
+              'Seulement vendredis et samedis à 20h45',
+              'Adulte 10 € · Moins de 13 ans / Résident 5 €'
+            ] },
+      de: { dateOf: '', no_visits: 'An diesem Tag sind keine Führungen geplant.', badge_night: '★ Nachttour',
+            label_noc: 'Nachtführung', from: 'Ab', per: '/ Person', mins: 'Min',
+            bullets_noc: [
+              'Die Kathedrale bei Kerzenschein: Legenden, Mysterien und acht Jahrhunderte Geschichte.',
+              'Dauer 120 Min · max. Gruppe 12 Personen',
+              'Nur freitags und samstags um 20:45 Uhr',
+              'Erwachsene 10 € · Unter 13 / Einheimische 5 €'
+            ] },
+      pt: { dateOf: 'de', no_visits: 'Não há visitas guiadas marcadas neste dia.', badge_night: '★ Noturna',
+            label_noc: 'Visita guiada noturna', from: 'Desde', per: '/ pessoa', mins: 'min',
+            bullets_noc: [
+              'A Catedral à luz das velas: lendas, mistérios e oito séculos de história.',
+              'Duração 120 min · grupo máx. 12 pessoas',
+              'Só sextas e sábados às 20h45',
+              'Adulto 10 € · Menor de 13 / Residente 5 €'
+            ] },
+      it: { dateOf: '', no_visits: 'Nessuna visita guidata in programma in questo giorno.', badge_night: '★ Notturna',
+            label_noc: 'Visita guidata notturna', from: 'Da', per: '/ persona', mins: 'min',
+            bullets_noc: [
+              'La Cattedrale a lume di candela: leggende, misteri e otto secoli di storia.',
+              'Durata 120 min · gruppo max 12 persone',
+              'Solo venerdì e sabato alle 20:45',
+              'Adulti 10 € · Sotto i 13 / Residenti 5 €'
+            ] },
+      ko: { dateOf: '', no_visits: '이 날 예정된 가이드 투어가 없습니다.', badge_night: '★ 야간',
+            label_noc: '야간 가이드 투어', from: '시작가', per: '/ 1인', mins: '분',
+            bullets_noc: [
+              '촛불에 비친 대성당: 전설, 신비, 그리고 8세기에 걸친 역사.',
+              '소요 시간 120분 · 최대 12명',
+              '금·토요일 20:45만 운영',
+              '성인 10 € · 13세 미만 / 거주자 5 €'
+            ] },
+      eu: { dateOf: 'ko', no_visits: 'Egun honetan ez dago bisita gidaturik programatuta.', badge_night: '★ Gauekoa',
+            label_noc: 'Gaueko bisita gidatua', from: 'Hasierako prezioa', per: '/ pertsonako', mins: 'min',
+            bullets_noc: [
+              'Katedrala kandela argitan: kondairak, misterioak eta zortzi mendeko historia.',
+              'Iraupena 120 min · talde max 12 lagun',
+              'Ostiral eta larunbatetan soilik, 20:45ean',
+              'Heldua 10 € · 13 urtetik beherakoa / Bizilaguna 5 €'
+            ] },
+      ca: { dateOf: 'de', no_visits: 'No hi ha visites guiades programades aquest dia.', badge_night: '★ Nocturna',
+            label_noc: 'Visita guiada nocturna', from: 'Des de', per: '/ persona', mins: 'min',
+            bullets_noc: [
+              'La Catedral a la llum de les espelmes: llegendes, misteris i vuit segles d\'història.',
+              'Durada 120 min · grup màx. 12 persones',
+              'Només divendres i dissabtes a les 20:45 h',
+              'Adult 10 € · Menor de 13 / Resident 5 €'
+            ] }
+    };
+
+    function _cLang() { return localStorage.getItem('cat-lang') || 'es'; }
+    function MESES() { return MESES_I18N[_cLang()] || MESES_I18N.es; }
+    function DIAS() { return DIAS_I18N[_cLang()] || DIAS_I18N.es; }
+    function _CT() { return CAL_T[_cLang()] || CAL_T.es; }
 
     const VISITS_INFO = {
       nocturna: {
-        label: 'Visita guiada nocturna',
+        get label() { return _CT().label_noc; },
         badgeClass: 'gv-visit__badge--night',
         priceFrom: 10,
         url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna',
-        bullets: [
-          'La Catedral a la luz de las velas: leyendas, misterios y ocho siglos de historia.',
-          'Duración 120 min · grupo máx. 12 personas',
-          'Solo viernes y sábados a las 20:45 h',
-          'Adulto 10 € · Menor de 13 / Residente 5 €'
-        ]
+        get bullets() { return _CT().bullets_noc; }
       }
     };
 
@@ -3552,7 +3690,7 @@
     function render() {
       const y = current.getFullYear();
       const m = current.getMonth();
-      monthLabel.textContent = `${MESES[m]} ${y}`;
+      monthLabel.textContent = `${MESES()[m]} ${y}`;
 
       const isCurrentMonth = (y === today.getFullYear() && m === today.getMonth());
       btnPrev.disabled = isCurrentMonth;
@@ -3576,7 +3714,7 @@
         btn.className = 'gv-cal__day';
         btn.textContent = d;
         btn.setAttribute('role', 'gridcell');
-        btn.setAttribute('aria-label', `${d} de ${MESES[m]}${visits.length ? ` · ${visits.length} visitas` : ''}`);
+        btn.setAttribute('aria-label', `${d} ${_CT().dateOf} ${MESES()[m]}${visits.length ? ` · ${visits.length}` : ''}`);
         if (past) btn.classList.add('gv-cal__day--past');
         if (date.getTime() === today.getTime()) btn.classList.add('gv-cal__day--today');
 
@@ -3606,14 +3744,16 @@
     function selectDay(date) {
       selectedKey = ymd(date);
       const visits = visitsForDate(date);
-      const wdName = DIAS[date.getDay()];
-      panelTitle.textContent = `${wdName} ${date.getDate()} de ${MESES[date.getMonth()]}`;
+      const wdName = DIAS()[date.getDay()];
+      const ct = _CT();
+      const dateOf = ct.dateOf ? ` ${ct.dateOf} ` : ' ';
+      panelTitle.textContent = `${wdName} ${date.getDate()}${dateOf}${MESES()[date.getMonth()]}`;
       panelList.innerHTML = '';
 
       if (!visits.length) {
         const empty = document.createElement('div');
         empty.className = 'gv-day-panel__empty';
-        empty.textContent = 'No hay visitas guiadas programadas este día.';
+        empty.textContent = ct.no_visits;
         panelList.appendChild(empty);
       } else {
         visits.forEach(v => panelList.appendChild(renderVisit(v, date)));
@@ -3650,14 +3790,15 @@
 
       const main = document.createElement('div');
       main.className = 'gv-visit__main';
+      const ct = _CT();
       main.innerHTML = `
         <div class="gv-visit__name">
-          <span class="gv-visit__badge ${info.badgeClass}">★ Nocturna</span>
+          <span class="gv-visit__badge ${info.badgeClass}">${ct.badge_night}</span>
           <span>${info.label}</span>
         </div>
         <div class="gv-visit__meta">
-          <span>Desde <strong>${info.priceFrom} €</strong> / persona</span>
-          <span>120 min</span>
+          <span>${ct.from} <strong>${info.priceFrom} €</strong> ${ct.per}</span>
+          <span>120 ${ct.mins}</span>
         </div>
         <div class="gv-visit__info-inline">
           <ul>${info.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
@@ -3685,7 +3826,7 @@
       const cta = document.createElement('a');
       cta.className = 'gv-visit__cta';
       cta.href = `${info.url}&fecha=${ymd(date)}&hora=${encodeURIComponent(v.time)}`;
-      cta.textContent = 'Reservar →';
+      cta.textContent = (PAGE_T[_cLang()] && PAGE_T[_cLang()].reservar_btn) || 'Reservar →';
 
       actions.appendChild(infoBtn);
       actions.appendChild(cta);
@@ -3724,6 +3865,30 @@
 
     render();
     if (!window.matchMedia('(max-width: 540px)').matches) selectDay(today);
+
+    const _origCalApplyLang = window.PAGE_applyLang;
+    window.PAGE_applyLang = function(lang) {
+      if (_origCalApplyLang) _origCalApplyLang(lang);
+      render();
+      if (selectedKey) {
+        const [y,m,d] = selectedKey.split('-').map(Number);
+        const date = new Date(y, m-1, d);
+        const wd = DIAS()[date.getDay()];
+        const ct = _CT();
+        const dateOf = ct.dateOf ? ` ${ct.dateOf} ` : ' ';
+        panelTitle.textContent = `${wd} ${d}${dateOf}${MESES()[m-1]}`;
+        const visits = visitsForDate(date);
+        panelList.innerHTML = '';
+        if (!visits.length) {
+          const empty = document.createElement('div');
+          empty.className = 'gv-day-panel__empty';
+          empty.textContent = ct.no_visits;
+          panelList.appendChild(empty);
+        } else {
+          visits.forEach(v => panelList.appendChild(renderVisit(v, date)));
+        }
+      }
+    };
   })();
 
   /* ── Comparadores (modal mobile · varios) ───────────────── */
@@ -3778,56 +3943,56 @@
       <div class="visits-section__header reveal">
         <span class="visits-section__num">03</span>
         <div>
-          <h2 class="visits-section__title">Visitas para <em>grupos</em></h2>
-          <p class="visits-section__sub">Soluciones para agencias, asociaciones y empresas. Mínimo 10 personas. Reserva previa obligatoria.</p>
+          <h2 class="visits-section__title" data-i18n-page="s3_title">Visitas para <em>grupos</em></h2>
+          <p class="visits-section__sub" data-i18n-page="s3_sub">Soluciones para agencias, asociaciones y empresas. Mínimo 10 personas. Reserva previa obligatoria.</p>
         </div>
       </div>
 
       <!-- Visita sin guía -->
       <div class="price-block">
-        <div class="price-block__label">Visita sin guía</div>
+        <div class="price-block__label" data-i18n-page="grp_no_guide_label">Visita sin guía</div>
         <div class="grupo-prices">
           <div class="grupo-price reveal">
-            <span class="grupo-price__tag">Grupo pequeño</span>
-            <div class="grupo-price__pax">Hasta 24 personas</div>
+            <span class="grupo-price__tag" data-i18n-page="grp_small_tag">Grupo pequeño</span>
+            <div class="grupo-price__pax" data-i18n-page="grp_small_pax">Hasta 24 personas</div>
             <div class="grupo-price__amount">
               <span class="grupo-price__num">125</span><span class="grupo-price__cur">€</span>
             </div>
-            <p class="grupo-price__per">precio fijo por grupo</p>
-            <p class="grupo-price__desc">Tarifa plana independientemente del número de asistentes. Incluye acceso libre a la Catedral.</p>
-            <p class="grupo-price__desc">Incluye pulsera turística de acceso a los 4 monumentos.</p>
+            <p class="grupo-price__per" data-i18n-page="grp_small_per">precio fijo por grupo</p>
+            <p class="grupo-price__desc" data-i18n-page="grp_small_desc1">Tarifa plana para grupos de hasta 24 personas.</p>
+            <p class="grupo-price__desc" data-i18n-page="grp_small_desc2">Incluye pulsera turística de visita a los 3 monumentos: Catedral + Torre + San Francisco.</p>
           </div>
           <div class="grupo-price reveal reveal-delay-1">
-            <span class="grupo-price__tag">Grupo grande</span>
-            <div class="grupo-price__pax">25 personas o más</div>
+            <span class="grupo-price__tag" data-i18n-page="grp_big_tag">Grupo grande</span>
+            <div class="grupo-price__pax" data-i18n-page="grp_big_pax">25 personas o más</div>
             <div class="grupo-price__amount">
               <span class="grupo-price__num">5</span><span class="grupo-price__cur">€</span>
             </div>
-            <p class="grupo-price__per">por persona</p>
-            <p class="grupo-price__desc">Precio reducido por persona para grupos numerosos. Sin límite máximo de asistentes.</p>
-            <p class="grupo-price__desc">Incluye pulsera turística de acceso a los 4 monumentos.</p>
+            <p class="grupo-price__per" data-i18n-page="grp_big_per">por persona</p>
+            <p class="grupo-price__desc" data-i18n-page="grp_big_desc1">Precio reducido por persona para grupos numerosos. Sin límite máximo de asistentes.</p>
+            <p class="grupo-price__desc" data-i18n-page="grp_big_desc2">Incluye pulsera turística de acceso a los 4 monumentos.</p>
           </div>
         </div>
       </div>
 
       <!-- Suplementos -->
       <div class="price-block">
-        <div class="price-block__label">Suplemento de visita guiada</div>
+        <div class="price-block__label" data-i18n-page="supp_label">Suplemento de visita guiada</div>
         <div class="supp-grid">
           <div class="supp-card reveal">
             <svg class="supp-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <div>
-              <div class="supp-card__label">Visita guiada · Catedral</div>
+              <div class="supp-card__label" data-i18n-page="supp1_label">Visita guiada · Catedral</div>
               <div class="supp-card__price">+ 50 €/grupo</div>
-              <div class="supp-card__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Duración aproximada: 45 minutos</div>
+              <div class="supp-card__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span data-i18n-page="supp1_note">Duración aproximada: 45 minutos</span></div>
             </div>
           </div>
           <div class="supp-card reveal reveal-delay-1">
             <svg class="supp-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="10" width="5" height="11"/><rect x="9" y="4" width="6" height="17"/><rect x="17" y="8" width="5" height="13"/><path d="M1 21h22"/></svg>
             <div>
-              <div class="supp-card__label">Visita guiada · Casco histórico + Catedral</div>
+              <div class="supp-card__label" data-i18n-page="supp2_label">Visita guiada · Casco histórico + Catedral</div>
               <div class="supp-card__price">+ 100 €/grupo</div>
-              <div class="supp-card__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Duración aproximada: 100 minutos</div>
+              <div class="supp-card__note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><span data-i18n-page="supp2_note">Duración aproximada: 100 minutos</span></div>
             </div>
           </div>
         </div>
@@ -3838,33 +4003,32 @@
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           <div>
-            <div class="info-band__label">Reserva</div>
-            <div class="info-band__value">Previa y obligatoria</div>
-            <div class="info-band__note">Con al menos 48 h de antelación</div>
+            <div class="info-band__label" data-i18n-page="grp_info_reserva_label">Reserva</div>
+            <div class="info-band__value" data-i18n-page="grp_info_reserva_val">Previa y obligatoria</div>
+            <div class="info-band__note" data-i18n-page="grp_info_reserva_note">Con al menos 48 h de antelación</div>
           </div>
         </div>
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <div>
-            <div class="info-band__label">Mínimo</div>
-            <div class="info-band__value">10 personas</div>
-            <div class="info-band__note">Sin límite máximo de asistentes</div>
+            <div class="info-band__label" data-i18n-page="grp_info_min_label">Mínimo</div>
+            <div class="info-band__value" data-i18n-page="grp_info_min_val">10 personas</div>
+            <div class="info-band__note" data-i18n-page="grp_info_min_note">Sin límite máximo de asistentes</div>
           </div>
         </div>
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <div>
-            <div class="info-band__label">Horario grupos</div>
-            <div class="info-band__value">Mar – Dom · 9:30 – 17:00</div>
-            <div class="info-band__note">Última entrada con antelación suficiente</div>
+            <div class="info-band__label" data-i18n-page="grp_info_hor_label">Horario grupos</div>
+            <div class="info-band__value" data-i18n-page="grp_info_hor_val">Todos los días, 9:00 – 20:00<br>Sábados, 9:00 – 19:00</div>
           </div>
         </div>
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.98-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <div>
-            <div class="info-band__label">Contacto grupos</div>
-            <div class="info-band__value">+34 941 340 033</div>
-            <div class="info-band__note">grupos@catedralsantodomingo.org</div>
+            <div class="info-band__label" data-i18n-page="grp_info_contact_label">Contacto grupos</div>
+            <div class="info-band__value">34 941 34 00 33</div>
+            <div class="info-band__note">entradas@catedralsantodomingo.org</div>
           </div>
         </div>
       </div>
@@ -3883,50 +4047,50 @@
       <div class="visits-section__header reveal">
         <span class="visits-section__num">04</span>
         <div>
-          <h2 class="visits-section__title">Visitas <em>escolares</em></h2>
-          <p class="visits-section__sub">Tarifas de acceso adaptadas por edad para grupos escolares. Reserva previa con al menos 5 días de antelación.</p>
+          <h2 class="visits-section__title" data-i18n-page="s4_title">Visitas <em>escolares</em></h2>
+          <p class="visits-section__sub" data-i18n-page="s4_sub">Tarifas de acceso adaptadas por edad para grupos escolares. Reserva previa con al menos 5 días de antelación.</p>
         </div>
       </div>
 
       <!-- Precios por edad -->
       <div class="price-block">
-        <div class="price-block__label">Precio por alumno</div>
+        <div class="price-block__label" data-i18n-page="esc_price_label">Precio por alumno</div>
         <div class="age-table">
           <div class="age-card age-card--free reveal">
-            <span class="age-card__range">Menores de 12 años</span>
-            <span class="age-card__sub">Acceso libre</span>
-            <div class="age-card__price age-card__price--free">Gratis</div>
-            <div class="age-card__desc">Sin coste de entrada</div>
+            <span class="age-card__range" data-i18n-page="esc_age1">Menores de 12 años</span>
+            <span class="age-card__sub" data-i18n-page="esc_age1_sub">Acceso libre</span>
+            <div class="age-card__price age-card__price--free" data-i18n-page="esc_age1_price">Gratis</div>
+            <div class="age-card__desc" data-i18n-page="esc_age1_desc">Sin coste de entrada</div>
           </div>
           <div class="age-card reveal reveal-delay-1">
-            <span class="age-card__range">12 – 13 años</span>
-            <span class="age-card__sub">Tarifa escolar</span>
+            <span class="age-card__range" data-i18n-page="esc_age2">12 – 13 años</span>
+            <span class="age-card__sub" data-i18n-page="esc_age_school">Tarifa escolar</span>
             <div class="age-card__price">2 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
-            <div class="age-card__desc">por alumno</div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal reveal-delay-2">
-            <span class="age-card__range">13 – 14 años</span>
-            <span class="age-card__sub">Tarifa escolar</span>
+            <span class="age-card__range" data-i18n-page="esc_age3">13 – 14 años</span>
+            <span class="age-card__sub" data-i18n-page="esc_age_school">Tarifa escolar</span>
             <div class="age-card__price">3 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
-            <div class="age-card__desc">por alumno</div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal">
-            <span class="age-card__range">15 – 16 años</span>
-            <span class="age-card__sub">Tarifa escolar</span>
+            <span class="age-card__range" data-i18n-page="esc_age4">15 – 16 años</span>
+            <span class="age-card__sub" data-i18n-page="esc_age_school">Tarifa escolar</span>
             <div class="age-card__price">4 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
-            <div class="age-card__desc">por alumno</div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal reveal-delay-1">
-            <span class="age-card__range">17 años o más</span>
-            <span class="age-card__sub">Tarifa general</span>
-            <div class="age-card__price age-card__price--text">Entrada<br>normal</div>
-            <div class="age-card__desc">misma tarifa que el público general</div>
+            <span class="age-card__range" data-i18n-page="esc_age5">17 años o más</span>
+            <span class="age-card__sub" data-i18n-page="esc_age5_sub">Tarifa general</span>
+            <div class="age-card__price age-card__price--text" data-i18n-page="esc_age5_price">Entrada<br>normal</div>
+            <div class="age-card__desc" data-i18n-page="esc_age5_desc">misma tarifa que el público general</div>
           </div>
           <div class="age-card age-card--supp reveal reveal-delay-2">
-            <span class="age-card__range">Supl. Guiada · Catedral</span>
-            <span class="age-card__sub">Opcional</span>
+            <span class="age-card__range" data-i18n-page="esc_supp_range">Supl. Guiada · Catedral</span>
+            <span class="age-card__sub" data-i18n-page="esc_supp_sub">Opcional</span>
             <div class="age-card__price">+50 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
-            <div class="age-card__desc">por grupo · visita con guía experto</div>
+            <div class="age-card__desc" data-i18n-page="esc_supp_desc">por grupo · visita con guía experto</div>
           </div>
         </div>
       </div>
@@ -3936,33 +4100,33 @@
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           <div>
-            <div class="info-band__label">Materiales</div>
-            <div class="info-band__value">Incluidos en la visita</div>
-            <div class="info-band__note">Cuadernos didácticos para el aula</div>
+            <div class="info-band__label" data-i18n-page="esc_info_guided_label">Visitas guiadas</div>
+            <div class="info-band__value" data-i18n-page="esc_info_guided_val">Adaptadas por edades</div>
+            <div class="info-band__note" data-i18n-page="esc_info_guided_note">según grupos escolares.</div>
           </div>
         </div>
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <div>
-            <div class="info-band__label">Talleres</div>
-            <div class="info-band__value">Disponibles bajo reserva</div>
-            <div class="info-band__note">Adaptados por nivel educativo</div>
+            <div class="info-band__label" data-i18n-page="esc_info_gallo_label">Gallinero vivo</div>
+            <div class="info-band__value" data-i18n-page="esc_info_gallo_val">Historia del Milagro</div>
+            <div class="info-band__note" data-i18n-page="esc_info_gallo_note">del Gallo y la Gallina para niños.</div>
           </div>
         </div>
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           <div>
-            <div class="info-band__label">Reserva escolar</div>
-            <div class="info-band__value">Con 5 días de antelación</div>
-            <div class="info-band__note">Online o por teléfono</div>
+            <div class="info-band__label" data-i18n-page="esc_info_reserva_label">Reserva escolar</div>
+            <div class="info-band__value" data-i18n-page="esc_info_reserva_val">Con 5 días de antelación</div>
+            <div class="info-band__note" data-i18n-page="esc_info_reserva_note">desde la web oficial.</div>
           </div>
         </div>
         <div class="info-band__item">
           <svg class="info-band__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.98-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <div>
-            <div class="info-band__label">Contacto educativo</div>
-            <div class="info-band__value">+34 941 340 033</div>
-            <div class="info-band__note">educacion@catedralsantodomingo.org</div>
+            <div class="info-band__label" data-i18n-page="esc_info_contact_label">Contacto educativo</div>
+            <div class="info-band__value">34 941 34 00 33</div>
+            <div class="info-band__note">entradas@catedralsantodomingo.org</div>
           </div>
         </div>
       </div>
@@ -3976,10 +4140,10 @@
   <section class="vtour-section reveal" id="visita-virtual" aria-labelledby="vtour-title">
     <div class="vtour-section__header">
       <div class="vtour-section__left">
-        <p class="vtour-section__eyebrow">Visita virtual</p>
-        <h2 class="vtour-section__title" id="vtour-title">Explora la Catedral<br>en <em>360°</em></h2>
+        <p class="vtour-section__eyebrow" data-i18n-page="vtour_eyebrow">Visita virtual</p>
+        <h2 class="vtour-section__title" id="vtour-title" data-i18n-page="vtour_title">Explora la Catedral<br>en <em>360°</em></h2>
       </div>
-      <p class="vtour-section__desc">Recorre el interior de la Catedral de Santo Domingo de la Calzada desde cualquier lugar del mundo antes de planificar tu visita presencial.</p>
+      <p class="vtour-section__desc" data-i18n-page="vtour_desc">Recorre el interior de la Catedral de Santo Domingo de la Calzada desde cualquier lugar del mundo antes de planificar tu visita presencial.</p>
     </div>
 
     <div class="vtour-section__frame-wrap">
@@ -3996,7 +4160,7 @@
           </svg>
         </div>
         <div class="vtour-section__launcher-text">
-          <p class="vtour-section__launcher-title">Visita virtual 360°</p>
+          <p class="vtour-section__launcher-title" data-i18n-page="vtour_launcher_title">Visita virtual 360°</p>
           <p class="vtour-section__launcher-sub">Google Maps Street View</p>
         </div>
         <button
@@ -4005,7 +4169,7 @@
           aria-label="Iniciar visita virtual 360° de la Catedral"
           onclick="vtourLaunch()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Iniciar visita virtual
+          <span data-i18n-page="vtour_launcher_btn">Iniciar visita virtual</span>
         </button>
       </div>
     </div>
@@ -4019,8 +4183,8 @@
 
       <!-- Info -->
       <div class="map-section__info">
-        <p class="map-section__eyebrow">Ubicación</p>
-        <h2 class="map-section__title" id="map-title">Cómo <em>llegar</em></h2>
+        <p class="map-section__eyebrow" data-i18n-page="map_eyebrow">Ubicación</p>
+        <h2 class="map-section__title" id="map-title" data-i18n-page="map_title">Cómo <em>llegar</em></h2>
 
         <div class="map-section__details">
           <div class="map-section__detail">
@@ -4028,8 +4192,8 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div class="map-section__detail-text">
-              <span class="map-section__detail-label">Dirección</span>
-              <span class="map-section__detail-value">Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja</span>
+              <span class="map-section__detail-label" data-i18n-page="map_dir_label">Dirección</span>
+              <span class="map-section__detail-value" data-i18n-page="map_dir_val">Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja</span>
             </div>
           </div>
 
@@ -4038,8 +4202,8 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div class="map-section__detail-text">
-              <span class="map-section__detail-label">Horario</span>
-              <span class="map-section__detail-value">Lun – Sáb: 9:00 – 20:00 h<br>Domingos: 9:00 – 11:30 · 14:00 – 20:00 h</span>
+              <span class="map-section__detail-label" data-i18n-page="map_hor_label">Horario</span>
+              <span class="map-section__detail-value" data-i18n-page="map_hor_val">Todos los días, 9:00 – 20:00<br>Sábados, 9:00 – 19:00</span>
             </div>
           </div>
 
@@ -4048,13 +4212,13 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
             </div>
             <div class="map-section__detail-text">
-              <span class="map-section__detail-label">Aparcamiento</span>
-              <span class="map-section__detail-value">Parking gratuito a 5 min a pie<br>Plaza del Santo (zona azul)</span>
+              <span class="map-section__detail-label" data-i18n-page="map_park_label">Aparcamiento</span>
+              <span class="map-section__detail-value" data-i18n-page="map_park_val">Párking a 5 minutos a pie</span>
             </div>
           </div>
         </div>
 
-        <a href="https://maps.app.goo.gl/catedral-santo-domingo" target="_blank" rel="noopener noreferrer" class="map-section__btn">
+        <a href="https://maps.app.goo.gl/catedral-santo-domingo" target="_blank" rel="noopener noreferrer" class="map-section__btn" data-i18n-page="map_btn">
           Abrir en Google Maps
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
@@ -4244,10 +4408,11 @@
   <script>
     const PAGE_T = {
       es: {
+        bc_home: 'Inicio', bc_visitas: 'Visitas',
         hero_eyebrow: 'Individuales · Guiadas · Grupos · Escolares',
         hero_title: 'Planifica tu <em>visita</em>',
         hero_desc: 'Descubre ocho siglos de historia, arte y devoción. Elige la experiencia que mejor se adapta a ti.',
-        nav_ind: 'Visitas individuales', nav_gui: 'Visitas guiadas', nav_grp: 'Grupos', nav_esc: 'Escolares',
+        nav_ind: 'Visitas sin guía', nav_gui: 'Visitas guiadas', nav_cal: 'Calendario', nav_grp: 'Grupos', nav_esc: 'Escolares', nav_vtour: 'Visita virtual',
         hub_question: '¿Cómo <em>visitarnos</em>?',
         hub_body: 'Desde un recorrido libre y a tu ritmo hasta una experiencia VIP exclusiva. Tenemos la visita perfecta para peregrinos, familias, grupos y centros educativos.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4260,13 +4425,65 @@
         card_desc_3: 'Soluciones para agencias, asociaciones y empresas. Visita libre o guiada con atención personalizada.',
         card_desc_4: 'Programas pedagógicos adaptados a Primaria, Secundaria y Bachillerato, con talleres y materiales didácticos.',
         card_cta: 'Ver más',
-        cta_eyebrow: 'Reserva online', cta_title: 'Compra tu entrada <em>ahora</em>', cta_btn: 'Comprar entradas'
+        cta_eyebrow: 'Reserva online', cta_title: 'Compra tu entrada <em>ahora</em>', cta_btn: 'Comprar entradas',
+        tbl_hor_cat: '9:00–20:00 / Sáb 9:00–19:00', tbl_hor_split: '10:00–13:30 y 16:00–19:30', tbl_hor_mon: 'Según monumento', tbl_consultar: 'Consultar', tbl_ticket_fam: 'Ticket Familiar',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Visitas Individuales', s1_title: 'Visitas <em>sin guía</em>', s1_sub: 'Explora la Catedral y sus espacios patrimoniales a tu propio ritmo, sin reserva previa.',
+        ind_tag: 'Entrada individual', ind_price_label: 'Precio',
+        cmp_eyebrow: 'Tabla comparativa', cmp_label: 'Comparador de <em>precios</em>', cmp_sub: 'Tarifas, horarios, audioguía y guía por modalidad',
+        cmp_tag: 'Comparar modalidades', cmp_title: 'Entradas <em>individuales</em>',
+        th_entrada: 'Entrada', th_tarifa: 'Tarifa', th_horarios: 'Horarios', th_audioguia: 'Audioguía', th_visita_guiada: 'Visita guiada',
+        name_cat: 'Catedral', name_torre: 'Torre Exenta', name_sf: 'Convento San Francisco', name_pul_tur: 'Pulsera Turística', name_pul_per: 'Pulsera Peregrino',
+        s2_eyebrow: 'Visitas Guiadas', s2_title: 'Visitas <em>Guiadas</em>', s2_sub: 'Déjate llevar por guías especializados y descubre los secretos que no encontrarás en los paneles. Diurna, nocturna o exclusiva VIP.',
+        gui_tag: 'Visita guiada', gui_price_label: 'Desde', reservar_btn: 'Reservar →',
+        cmp2_eyebrow: 'Tabla comparativa', cmp2_label: 'Comparador de <em>visitas</em>', cmp2_sub: 'Diurna, nocturna y VIP comparadas en detalle', cmp2_title: 'Comparar modalidades',
+        col_diurna: 'Diurna', col_nocturna: 'Nocturna', col_vip: 'VIP',
+        row_precio: 'Precio', row_duracion: 'Duración', row_idiomas: 'Idiomas', row_horario: 'Horario', row_consultar: 'Consultar', row_grupo_max: 'Grupo máx.',
+        row_recorrido: 'Recorrido básico Catedral', row_nave: 'Nave y Retablo', row_gallinero: 'Gallinero vivo y Milagro', row_proyeccion: 'Proyección Retablo', row_triforio: 'Triforio', row_sacristia: 'Sacristía', row_defensas: 'Defensas medievales',
+        precio_14: '€ 14 / persona', precio_15: '€ 15 / persona', val_15_personas: '15 personas',
+        cal_eyebrow: 'Disponibilidad', cal_title: 'Calendario de <em>visitas guiadas</em>', cal_sub: 'Consulta qué visitas hay cada día, infórmate sobre cada modalidad y reserva tu plaza directamente. Las nocturnas se celebran <strong>cada viernes y sábado a las 20:45 h</strong>.',
+        cal_legend_night: 'Visita guiada nocturna · 20:45 h', cal_panel_sub: 'Visitas disponibles',
+        s3_title: 'Visitas para <em>grupos</em>', s3_sub: 'Soluciones para agencias, asociaciones y empresas. Mínimo 10 personas. Reserva previa obligatoria.',
+        grp_no_guide_label: 'Visita sin guía',
+        grp_small_tag: 'Grupo pequeño', grp_small_pax: 'Hasta 24 personas', grp_small_per: 'precio fijo por grupo',
+        grp_small_desc1: 'Tarifa plana para grupos de hasta 24 personas.',
+        grp_small_desc2: 'Incluye pulsera turística de visita a los 3 monumentos: Catedral + Torre + San Francisco.',
+        grp_big_tag: 'Grupo grande', grp_big_pax: '25 personas o más', grp_big_per: 'por persona',
+        grp_big_desc1: 'Precio reducido por persona para grupos numerosos. Sin límite máximo de asistentes.',
+        grp_big_desc2: 'Incluye pulsera turística de acceso a los 4 monumentos.',
+        supp_label: 'Suplemento de visita guiada',
+        supp1_label: 'Visita guiada · Catedral', supp1_note: 'Duración aproximada: 45 minutos',
+        supp2_label: 'Visita guiada · Casco histórico + Catedral', supp2_note: 'Duración aproximada: 100 minutos',
+        grp_info_reserva_label: 'Reserva', grp_info_reserva_val: 'Previa y obligatoria', grp_info_reserva_note: 'Con al menos 48 h de antelación',
+        grp_info_min_label: 'Mínimo', grp_info_min_val: '10 personas', grp_info_min_note: 'Sin límite máximo de asistentes',
+        grp_info_hor_label: 'Horario grupos', grp_info_hor_val: 'Todos los días, 9:00 – 20:00<br>Sábados, 9:00 – 19:00',
+        grp_info_contact_label: 'Contacto grupos',
+        s4_title: 'Visitas <em>escolares</em>', s4_sub: 'Tarifas de acceso adaptadas por edad para grupos escolares. Reserva previa con al menos 5 días de antelación.',
+        esc_price_label: 'Precio por alumno',
+        esc_age1: 'Menores de 12 años', esc_age1_sub: 'Acceso libre', esc_age1_price: 'Gratis', esc_age1_desc: 'Sin coste de entrada',
+        esc_age2: '12 – 13 años', esc_age3: '13 – 14 años', esc_age4: '15 – 16 años', esc_age5: '17 años o más',
+        esc_age_school: 'Tarifa escolar', esc_per_alumno: 'por alumno',
+        esc_age5_sub: 'Tarifa general', esc_age5_price: 'Entrada<br>normal', esc_age5_desc: 'misma tarifa que el público general',
+        esc_supp_range: 'Supl. Guiada · Catedral', esc_supp_sub: 'Opcional', esc_supp_desc: 'por grupo · visita con guía experto',
+        esc_info_guided_label: 'Visitas guiadas', esc_info_guided_val: 'Adaptadas por edades', esc_info_guided_note: 'según grupos escolares.',
+        esc_info_gallo_label: 'Gallinero vivo', esc_info_gallo_val: 'Historia del Milagro', esc_info_gallo_note: 'del Gallo y la Gallina para niños.',
+        esc_info_reserva_label: 'Reserva escolar', esc_info_reserva_val: 'Con 5 días de antelación', esc_info_reserva_note: 'desde la web oficial.',
+        esc_info_contact_label: 'Contacto educativo',
+        vtour_eyebrow: 'Visita virtual', vtour_title: 'Explora la Catedral<br>en <em>360°</em>',
+        vtour_desc: 'Recorre el interior de la Catedral de Santo Domingo de la Calzada desde cualquier lugar del mundo antes de planificar tu visita presencial.',
+        vtour_launcher_title: 'Visita virtual 360°', vtour_launcher_btn: 'Iniciar visita virtual',
+        map_eyebrow: 'Ubicación', map_title: 'Cómo <em>llegar</em>',
+        map_dir_label: 'Dirección', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Horario', map_hor_val: 'Todos los días, 9:00 – 20:00<br>Sábados, 9:00 – 19:00',
+        map_park_label: 'Aparcamiento', map_park_val: 'Párking a 5 minutos a pie',
+        map_btn: 'Abrir en Google Maps'
       },
       en: {
+        bc_home: 'Home', bc_visitas: 'Visits',
         hero_eyebrow: 'Individual · Guided · Groups · Schools',
         hero_title: 'Plan your <em>visit</em>',
         hero_desc: 'Discover eight centuries of history, art and devotion. Choose the experience that suits you best.',
-        nav_ind: 'Individual visits', nav_gui: 'Guided tours', nav_grp: 'Groups', nav_esc: 'Schools',
+        nav_ind: 'Self-guided visits', nav_gui: 'Guided tours', nav_cal: 'Calendar', nav_grp: 'Groups', nav_esc: 'Schools', nav_vtour: 'Virtual tour',
         hub_question: 'How do you want to <em>experience</em> the visit?',
         hub_body: 'From a free self-guided tour to an exclusive VIP experience. We have the perfect visit for pilgrims, families, groups and schools.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4279,13 +4496,65 @@
         card_desc_3: 'Solutions for agencies, associations and companies. Free or guided visit with personalised attention.',
         card_desc_4: 'Educational programmes adapted to Primary, Secondary and Sixth Form, with workshops and teaching materials.',
         card_cta: 'Learn more',
-        cta_eyebrow: 'Book online', cta_title: 'Buy your ticket <em>now</em>', cta_btn: 'Buy tickets'
+        cta_eyebrow: 'Book online', cta_title: 'Buy your ticket <em>now</em>', cta_btn: 'Buy tickets',
+        tbl_hor_cat: '9:00–20:00 / Sat 9:00–19:00', tbl_hor_split: '10:00–13:30 & 16:00–19:30', tbl_hor_mon: 'Depends on monument', tbl_consultar: 'On request', tbl_ticket_fam: 'Family Ticket',
+        price_4: '€ 4', price_5: '€ 5', price_7: '€ 7', price_10: '€ 10', price_25: '€ 25',
+        s1_eyebrow: 'Individual visits', s1_title: 'Self-<em>guided</em> visits', s1_sub: 'Explore the Cathedral and its heritage spaces at your own pace, without prior booking.',
+        ind_tag: 'Individual ticket', ind_price_label: 'Price',
+        cmp_eyebrow: 'Comparison table', cmp_label: 'Price <em>comparator</em>', cmp_sub: 'Rates, hours, audio guide and guided tour per type',
+        cmp_tag: 'Compare options', cmp_title: 'Individual <em>tickets</em>',
+        th_entrada: 'Ticket', th_tarifa: 'Price', th_horarios: 'Hours', th_audioguia: 'Audio guide', th_visita_guiada: 'Guided tour',
+        name_cat: 'Cathedral', name_torre: 'Free-standing Tower', name_sf: 'San Francisco Convent', name_pul_tur: 'Tourist Bracelet', name_pul_per: 'Pilgrim Bracelet',
+        s2_eyebrow: 'Guided Tours', s2_title: '<em>Guided</em> Tours', s2_sub: 'Let yourself be led by expert guides and discover secrets you won\'t find on the panels. Daytime, night-time or exclusive VIP.',
+        gui_tag: 'Guided tour', gui_price_label: 'From', reservar_btn: 'Book →',
+        cmp2_eyebrow: 'Comparison table', cmp2_label: 'Tour <em>comparator</em>', cmp2_sub: 'Daytime, night-time and VIP compared in detail', cmp2_title: 'Compare options',
+        col_diurna: 'Daytime', col_nocturna: 'Night-time', col_vip: 'VIP',
+        row_precio: 'Price', row_duracion: 'Duration', row_idiomas: 'Languages', row_horario: 'Hours', row_consultar: 'On request', row_grupo_max: 'Max group',
+        row_recorrido: 'Cathedral basic route', row_nave: 'Nave and Altarpiece', row_gallinero: 'Live henhouse & Miracle', row_proyeccion: 'Altarpiece projection', row_triforio: 'Triforium', row_sacristia: 'Sacristy', row_defensas: 'Medieval defences',
+        precio_14: '€ 14 / person', precio_15: '€ 15 / person', val_15_personas: '15 people',
+        cal_eyebrow: 'Availability', cal_title: 'Calendar of <em>guided tours</em>', cal_sub: 'Check which tours are available each day, learn about each option and book your spot directly. Night-time tours run <strong>every Friday and Saturday at 8:45 pm</strong>.',
+        cal_legend_night: 'Night-time guided tour · 8:45 pm', cal_panel_sub: 'Available tours',
+        s3_title: 'Visits for <em>groups</em>', s3_sub: 'Solutions for agencies, associations and companies. Minimum 10 people. Booking required in advance.',
+        grp_no_guide_label: 'Self-guided visit',
+        grp_small_tag: 'Small group', grp_small_pax: 'Up to 24 people', grp_small_per: 'flat price per group',
+        grp_small_desc1: 'Flat rate for groups of up to 24 people.',
+        grp_small_desc2: 'Includes tourist bracelet for the 3 monuments: Cathedral + Tower + San Francisco.',
+        grp_big_tag: 'Large group', grp_big_pax: '25 people or more', grp_big_per: 'per person',
+        grp_big_desc1: 'Reduced price per person for large groups. No maximum attendee limit.',
+        grp_big_desc2: 'Includes tourist bracelet with access to the 4 monuments.',
+        supp_label: 'Guided tour supplement',
+        supp1_label: 'Guided tour · Cathedral', supp1_note: 'Approximate duration: 45 minutes',
+        supp2_label: 'Guided tour · Old town + Cathedral', supp2_note: 'Approximate duration: 100 minutes',
+        grp_info_reserva_label: 'Booking', grp_info_reserva_val: 'In advance and required', grp_info_reserva_note: 'At least 48 h in advance',
+        grp_info_min_label: 'Minimum', grp_info_min_val: '10 people', grp_info_min_note: 'No maximum attendee limit',
+        grp_info_hor_label: 'Group hours', grp_info_hor_val: 'Every day, 9:00 – 20:00<br>Saturdays, 9:00 – 19:00',
+        grp_info_contact_label: 'Group contact',
+        s4_title: '<em>School</em> visits', s4_sub: 'Age-adapted access rates for school groups. Booking required at least 5 days in advance.',
+        esc_price_label: 'Price per student',
+        esc_age1: 'Under 12 years old', esc_age1_sub: 'Free access', esc_age1_price: 'Free', esc_age1_desc: 'No entry cost',
+        esc_age2: '12 – 13 years', esc_age3: '13 – 14 years', esc_age4: '15 – 16 years', esc_age5: '17 years or older',
+        esc_age_school: 'School rate', esc_per_alumno: 'per student',
+        esc_age5_sub: 'General rate', esc_age5_price: 'Standard<br>ticket', esc_age5_desc: 'same rate as general public',
+        esc_supp_range: 'Guided supp. · Cathedral', esc_supp_sub: 'Optional', esc_supp_desc: 'per group · visit with expert guide',
+        esc_info_guided_label: 'Guided tours', esc_info_guided_val: 'Adapted by age', esc_info_guided_note: 'for school groups.',
+        esc_info_gallo_label: 'Live henhouse', esc_info_gallo_val: 'Story of the Miracle', esc_info_gallo_note: 'of the Rooster and Hen for children.',
+        esc_info_reserva_label: 'School booking', esc_info_reserva_val: '5 days in advance', esc_info_reserva_note: 'from the official website.',
+        esc_info_contact_label: 'Educational contact',
+        vtour_eyebrow: 'Virtual tour', vtour_title: 'Explore the Cathedral<br>in <em>360°</em>',
+        vtour_desc: 'Walk through the interior of the Cathedral of Santo Domingo de la Calzada from anywhere in the world before planning your in-person visit.',
+        vtour_launcher_title: 'Virtual tour 360°', vtour_launcher_btn: 'Start virtual tour',
+        map_eyebrow: 'Location', map_title: 'How to <em>get there</em>',
+        map_dir_label: 'Address', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Hours', map_hor_val: 'Every day, 9:00 – 20:00<br>Saturdays, 9:00 – 19:00',
+        map_park_label: 'Parking', map_park_val: 'Parking 5 minutes walk away',
+        map_btn: 'Open in Google Maps'
       },
       fr: {
+        bc_home: 'Accueil', bc_visitas: 'Visites',
         hero_eyebrow: 'Individuelles · Guidées · Groupes · Scolaires',
         hero_title: 'Planifiez votre <em>visite</em>',
         hero_desc: 'Découvrez huit siècles d\'histoire, d\'art et de dévotion. Choisissez l\'expérience qui vous convient.',
-        nav_ind: 'Visites individuelles', nav_gui: 'Visites guidées', nav_grp: 'Groupes', nav_esc: 'Scolaires',
+        nav_ind: 'Visites libres', nav_gui: 'Visites guidées', nav_cal: 'Calendrier', nav_grp: 'Groupes', nav_esc: 'Scolaires', nav_vtour: 'Visite virtuelle',
         hub_question: 'Comment voulez-vous <em>vivre</em> la visite ?',
         hub_body: 'D\'une visite libre à votre rythme à une expérience VIP exclusive. Nous avons la visite parfaite pour pèlerins, familles, groupes et établissements scolaires.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4298,13 +4567,65 @@
         card_desc_3: 'Solutions pour agences, associations et entreprises. Visite libre ou guidée avec attention personnalisée.',
         card_desc_4: 'Programmes pédagogiques adaptés au Primaire, au Secondaire et au Lycée, avec ateliers et matériaux didactiques.',
         card_cta: 'En savoir plus',
-        cta_eyebrow: 'Réservation en ligne', cta_title: 'Achetez votre billet <em>maintenant</em>', cta_btn: 'Acheter des billets'
+        cta_eyebrow: 'Réservation en ligne', cta_title: 'Achetez votre billet <em>maintenant</em>', cta_btn: 'Acheter des billets',
+        tbl_hor_cat: '9h00–20h00 / Sam 9h00–19h00', tbl_hor_split: '10h00–13h30 et 16h00–19h30', tbl_hor_mon: 'Selon le monument', tbl_consultar: 'Sur demande', tbl_ticket_fam: 'Billet Famille',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Visites individuelles', s1_title: 'Visites <em>libres</em>', s1_sub: 'Explorez la Cathédrale et ses espaces patrimoniaux à votre rythme, sans réservation préalable.',
+        ind_tag: 'Billet individuel', ind_price_label: 'Prix',
+        cmp_eyebrow: 'Tableau comparatif', cmp_label: 'Comparateur de <em>prix</em>', cmp_sub: 'Tarifs, horaires, audioguide et visite guidée par modalité',
+        cmp_tag: 'Comparer les modalités', cmp_title: 'Billets <em>individuels</em>',
+        th_entrada: 'Billet', th_tarifa: 'Tarif', th_horarios: 'Horaires', th_audioguia: 'Audioguide', th_visita_guiada: 'Visite guidée',
+        name_cat: 'Cathédrale', name_torre: 'Tour Indépendante', name_sf: 'Couvent San Francisco', name_pul_tur: 'Bracelet Touristique', name_pul_per: 'Bracelet Pèlerin',
+        s2_eyebrow: 'Visites Guidées', s2_title: 'Visites <em>Guidées</em>', s2_sub: 'Laissez-vous accompagner par des guides spécialisés et découvrez les secrets que vous ne trouverez pas sur les panneaux. Diurne, nocturne ou VIP exclusive.',
+        gui_tag: 'Visite guidée', gui_price_label: 'À partir de', reservar_btn: 'Réserver →',
+        cmp2_eyebrow: 'Tableau comparatif', cmp2_label: 'Comparateur de <em>visites</em>', cmp2_sub: 'Diurne, nocturne et VIP comparées en détail', cmp2_title: 'Comparer les modalités',
+        col_diurna: 'Diurne', col_nocturna: 'Nocturne', col_vip: 'VIP',
+        row_precio: 'Prix', row_duracion: 'Durée', row_idiomas: 'Langues', row_horario: 'Horaires', row_consultar: 'Sur demande', row_grupo_max: 'Groupe max.',
+        row_recorrido: 'Parcours de base Cathédrale', row_nave: 'Nef et Retable', row_gallinero: 'Poulailler vivant et Miracle', row_proyeccion: 'Projection du Retable', row_triforio: 'Triforium', row_sacristia: 'Sacristie', row_defensas: 'Défenses médiévales',
+        precio_14: '€ 14 / personne', precio_15: '€ 15 / personne', val_15_personas: '15 personnes',
+        cal_eyebrow: 'Disponibilité', cal_title: 'Calendrier des <em>visites guidées</em>', cal_sub: 'Consultez les visites disponibles chaque jour, renseignez-vous sur chaque modalité et réservez votre place directement. Les visites nocturnes ont lieu <strong>chaque vendredi et samedi à 20h45</strong>.',
+        cal_legend_night: 'Visite guidée nocturne · 20h45', cal_panel_sub: 'Visites disponibles',
+        s3_title: 'Visites pour <em>groupes</em>', s3_sub: 'Solutions pour agences, associations et entreprises. Minimum 10 personnes. Réservation préalable obligatoire.',
+        grp_no_guide_label: 'Visite sans guide',
+        grp_small_tag: 'Petit groupe', grp_small_pax: 'Jusqu\'à 24 personnes', grp_small_per: 'prix fixe par groupe',
+        grp_small_desc1: 'Tarif unique pour groupes jusqu\'à 24 personnes.',
+        grp_small_desc2: 'Inclut le bracelet touristique pour les 3 monuments : Cathédrale + Tour + San Francisco.',
+        grp_big_tag: 'Grand groupe', grp_big_pax: '25 personnes ou plus', grp_big_per: 'par personne',
+        grp_big_desc1: 'Prix réduit par personne pour grands groupes. Sans limite maximale de participants.',
+        grp_big_desc2: 'Inclut le bracelet touristique d\'accès aux 4 monuments.',
+        supp_label: 'Supplément de visite guidée',
+        supp1_label: 'Visite guidée · Cathédrale', supp1_note: 'Durée approximative : 45 minutes',
+        supp2_label: 'Visite guidée · Centre historique + Cathédrale', supp2_note: 'Durée approximative : 100 minutes',
+        grp_info_reserva_label: 'Réservation', grp_info_reserva_val: 'Préalable et obligatoire', grp_info_reserva_note: 'Au moins 48 h à l\'avance',
+        grp_info_min_label: 'Minimum', grp_info_min_val: '10 personnes', grp_info_min_note: 'Sans limite maximale de participants',
+        grp_info_hor_label: 'Horaires groupes', grp_info_hor_val: 'Tous les jours, 9h00 – 20h00<br>Samedis, 9h00 – 19h00',
+        grp_info_contact_label: 'Contact groupes',
+        s4_title: 'Visites <em>scolaires</em>', s4_sub: 'Tarifs d\'accès adaptés par âge pour groupes scolaires. Réservation préalable au moins 5 jours à l\'avance.',
+        esc_price_label: 'Prix par élève',
+        esc_age1: 'Moins de 12 ans', esc_age1_sub: 'Accès libre', esc_age1_price: 'Gratuit', esc_age1_desc: 'Sans coût d\'entrée',
+        esc_age2: '12 – 13 ans', esc_age3: '13 – 14 ans', esc_age4: '15 – 16 ans', esc_age5: '17 ans et plus',
+        esc_age_school: 'Tarif scolaire', esc_per_alumno: 'par élève',
+        esc_age5_sub: 'Tarif général', esc_age5_price: 'Billet<br>normal', esc_age5_desc: 'même tarif que le public général',
+        esc_supp_range: 'Suppl. Guidée · Cathédrale', esc_supp_sub: 'Optionnel', esc_supp_desc: 'par groupe · visite avec guide expert',
+        esc_info_guided_label: 'Visites guidées', esc_info_guided_val: 'Adaptées par âge', esc_info_guided_note: 'selon groupes scolaires.',
+        esc_info_gallo_label: 'Poulailler vivant', esc_info_gallo_val: 'Histoire du Miracle', esc_info_gallo_note: 'du Coq et de la Poule pour les enfants.',
+        esc_info_reserva_label: 'Réservation scolaire', esc_info_reserva_val: '5 jours à l\'avance', esc_info_reserva_note: 'depuis le site officiel.',
+        esc_info_contact_label: 'Contact éducatif',
+        vtour_eyebrow: 'Visite virtuelle', vtour_title: 'Explorez la Cathédrale<br>en <em>360°</em>',
+        vtour_desc: 'Parcourez l\'intérieur de la Cathédrale de Santo Domingo de la Calzada depuis n\'importe où dans le monde avant de planifier votre visite en présentiel.',
+        vtour_launcher_title: 'Visite virtuelle 360°', vtour_launcher_btn: 'Démarrer la visite virtuelle',
+        map_eyebrow: 'Emplacement', map_title: 'Comment <em>venir</em>',
+        map_dir_label: 'Adresse', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Horaires', map_hor_val: 'Tous les jours, 9h00 – 20h00<br>Samedis, 9h00 – 19h00',
+        map_park_label: 'Parking', map_park_val: 'Parking à 5 minutes à pied',
+        map_btn: 'Ouvrir dans Google Maps'
       },
       de: {
+        bc_home: 'Startseite', bc_visitas: 'Besuche',
         hero_eyebrow: 'Einzelbesuche · Führungen · Gruppen · Schulen',
         hero_title: 'Planen Sie Ihren <em>Besuch</em>',
         hero_desc: 'Entdecken Sie acht Jahrhunderte Geschichte, Kunst und Andacht. Wählen Sie das Erlebnis, das am besten zu Ihnen passt.',
-        nav_ind: 'Einzelbesuche', nav_gui: 'Führungen', nav_grp: 'Gruppen', nav_esc: 'Schulen',
+        nav_ind: 'Besuche ohne Führung', nav_gui: 'Führungen', nav_cal: 'Kalender', nav_grp: 'Gruppen', nav_esc: 'Schulen', nav_vtour: 'Virtueller Rundgang',
         hub_question: 'Wie möchten Sie den Besuch <em>erleben</em>?',
         hub_body: 'Von einer freien Besichtigung in Ihrem eigenen Tempo bis zu einem exklusiven VIP-Erlebnis. Wir haben den perfekten Besuch für Pilger, Familien, Gruppen und Schulen.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4317,13 +4638,65 @@
         card_desc_3: 'Lösungen für Agenturen, Vereine und Unternehmen. Freie oder geführte Besichtigung mit persönlicher Betreuung.',
         card_desc_4: 'Pädagogische Programme für Grund-, Mittel- und Oberschulen, mit Workshops und Lehrmaterialien.',
         card_cta: 'Mehr erfahren',
-        cta_eyebrow: 'Online buchen', cta_title: 'Kaufen Sie Ihr Ticket <em>jetzt</em>', cta_btn: 'Tickets kaufen'
+        cta_eyebrow: 'Online buchen', cta_title: 'Kaufen Sie Ihr Ticket <em>jetzt</em>', cta_btn: 'Tickets kaufen',
+        tbl_hor_cat: '9:00–20:00 / Sa 9:00–19:00', tbl_hor_split: '10:00–13:30 und 16:00–19:30', tbl_hor_mon: 'Je nach Monument', tbl_consultar: 'Auf Anfrage', tbl_ticket_fam: 'Familienticket',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Einzelbesuche', s1_title: 'Besuche <em>ohne Führung</em>', s1_sub: 'Erkunden Sie die Kathedrale und ihre Kulturstätten in Ihrem eigenen Tempo, ohne vorherige Reservierung.',
+        ind_tag: 'Einzelticket', ind_price_label: 'Preis',
+        cmp_eyebrow: 'Vergleichstabelle', cmp_label: 'Preis<em>vergleich</em>', cmp_sub: 'Preise, Öffnungszeiten, Audioguide und Führung je nach Variante',
+        cmp_tag: 'Varianten vergleichen', cmp_title: '<em>Einzeltickets</em>',
+        th_entrada: 'Ticket', th_tarifa: 'Preis', th_horarios: 'Öffnungszeiten', th_audioguia: 'Audioguide', th_visita_guiada: 'Führung',
+        name_cat: 'Kathedrale', name_torre: 'Freistehender Turm', name_sf: 'Kloster San Francisco', name_pul_tur: 'Touristen-Armband', name_pul_per: 'Pilger-Armband',
+        s2_eyebrow: 'Geführte Touren', s2_title: '<em>Geführte</em> Touren', s2_sub: 'Lassen Sie sich von Fachführern begleiten und entdecken Sie Geheimnisse, die nicht auf den Tafeln stehen. Tages-, Nacht- oder exklusive VIP-Führung.',
+        gui_tag: 'Führung', gui_price_label: 'Ab', reservar_btn: 'Buchen →',
+        cmp2_eyebrow: 'Vergleichstabelle', cmp2_label: 'Touren<em>vergleich</em>', cmp2_sub: 'Tages-, Nacht- und VIP-Tour im Detail verglichen', cmp2_title: 'Varianten vergleichen',
+        col_diurna: 'Tagestour', col_nocturna: 'Nachttour', col_vip: 'VIP',
+        row_precio: 'Preis', row_duracion: 'Dauer', row_idiomas: 'Sprachen', row_horario: 'Öffnungszeiten', row_consultar: 'Auf Anfrage', row_grupo_max: 'Max. Gruppe',
+        row_recorrido: 'Basisrundgang Kathedrale', row_nave: 'Schiff und Altarbild', row_gallinero: 'Lebender Hühnerstall und Wunder', row_proyeccion: 'Altarbild-Projektion', row_triforio: 'Triforium', row_sacristia: 'Sakristei', row_defensas: 'Mittelalterliche Befestigungen',
+        precio_14: '€ 14 / Person', precio_15: '€ 15 / Person', val_15_personas: '15 Personen',
+        cal_eyebrow: 'Verfügbarkeit', cal_title: 'Kalender der <em>Führungen</em>', cal_sub: 'Sehen Sie, welche Touren an welchen Tagen angeboten werden, informieren Sie sich über jede Variante und buchen Sie Ihren Platz direkt. Nachtführungen finden <strong>jeden Freitag und Samstag um 20:45 Uhr</strong> statt.',
+        cal_legend_night: 'Nachtführung · 20:45 Uhr', cal_panel_sub: 'Verfügbare Touren',
+        s3_title: 'Besuche für <em>Gruppen</em>', s3_sub: 'Lösungen für Agenturen, Vereine und Unternehmen. Mindestens 10 Personen. Vorherige Reservierung erforderlich.',
+        grp_no_guide_label: 'Besuch ohne Führung',
+        grp_small_tag: 'Kleine Gruppe', grp_small_pax: 'Bis zu 24 Personen', grp_small_per: 'Festpreis pro Gruppe',
+        grp_small_desc1: 'Pauschalpreis für Gruppen bis zu 24 Personen.',
+        grp_small_desc2: 'Beinhaltet das Touristen-Armband für die 3 Monumente: Kathedrale + Turm + San Francisco.',
+        grp_big_tag: 'Große Gruppe', grp_big_pax: '25 Personen oder mehr', grp_big_per: 'pro Person',
+        grp_big_desc1: 'Reduzierter Preis pro Person für große Gruppen. Keine maximale Teilnehmerzahl.',
+        grp_big_desc2: 'Beinhaltet das Touristen-Armband mit Zugang zu den 4 Monumenten.',
+        supp_label: 'Führungszuschlag',
+        supp1_label: 'Führung · Kathedrale', supp1_note: 'Ungefähre Dauer: 45 Minuten',
+        supp2_label: 'Führung · Altstadt + Kathedrale', supp2_note: 'Ungefähre Dauer: 100 Minuten',
+        grp_info_reserva_label: 'Reservierung', grp_info_reserva_val: 'Im Voraus und erforderlich', grp_info_reserva_note: 'Mindestens 48 Stunden im Voraus',
+        grp_info_min_label: 'Mindestens', grp_info_min_val: '10 Personen', grp_info_min_note: 'Keine maximale Teilnehmerzahl',
+        grp_info_hor_label: 'Gruppenzeiten', grp_info_hor_val: 'Täglich, 9:00 – 20:00<br>Samstags, 9:00 – 19:00',
+        grp_info_contact_label: 'Gruppenkontakt',
+        s4_title: '<em>Schulbesuche</em>', s4_sub: 'Altersgerechte Zugangstarife für Schulgruppen. Vorherige Reservierung mindestens 5 Tage im Voraus.',
+        esc_price_label: 'Preis pro Schüler',
+        esc_age1: 'Unter 12 Jahren', esc_age1_sub: 'Freier Zugang', esc_age1_price: 'Kostenlos', esc_age1_desc: 'Kein Eintrittspreis',
+        esc_age2: '12 – 13 Jahre', esc_age3: '13 – 14 Jahre', esc_age4: '15 – 16 Jahre', esc_age5: '17 Jahre oder älter',
+        esc_age_school: 'Schultarif', esc_per_alumno: 'pro Schüler',
+        esc_age5_sub: 'Normaltarif', esc_age5_price: 'Normales<br>Ticket', esc_age5_desc: 'gleicher Tarif wie für die Allgemeinheit',
+        esc_supp_range: 'Führungszuschlag · Kathedrale', esc_supp_sub: 'Optional', esc_supp_desc: 'pro Gruppe · Besuch mit Expertenführung',
+        esc_info_guided_label: 'Führungen', esc_info_guided_val: 'Altersgerecht', esc_info_guided_note: 'für Schulgruppen.',
+        esc_info_gallo_label: 'Lebender Hühnerstall', esc_info_gallo_val: 'Geschichte des Wunders', esc_info_gallo_note: 'von Hahn und Henne für Kinder.',
+        esc_info_reserva_label: 'Schulreservierung', esc_info_reserva_val: '5 Tage im Voraus', esc_info_reserva_note: 'über die offizielle Website.',
+        esc_info_contact_label: 'Bildungskontakt',
+        vtour_eyebrow: 'Virtueller Rundgang', vtour_title: 'Erkunden Sie die Kathedrale<br>in <em>360°</em>',
+        vtour_desc: 'Erleben Sie das Innere der Kathedrale von Santo Domingo de la Calzada von überall auf der Welt aus, bevor Sie Ihren persönlichen Besuch planen.',
+        vtour_launcher_title: 'Virtueller 360°-Rundgang', vtour_launcher_btn: 'Virtuellen Rundgang starten',
+        map_eyebrow: 'Standort', map_title: 'Wie Sie <em>uns finden</em>',
+        map_dir_label: 'Adresse', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Öffnungszeiten', map_hor_val: 'Täglich, 9:00 – 20:00<br>Samstags, 9:00 – 19:00',
+        map_park_label: 'Parken', map_park_val: 'Parkplatz 5 Gehminuten entfernt',
+        map_btn: 'In Google Maps öffnen'
       },
       pt: {
+        bc_home: 'Início', bc_visitas: 'Visitas',
         hero_eyebrow: 'Individuais · Guiadas · Grupos · Escolares',
         hero_title: 'Planeie a sua <em>visita</em>',
         hero_desc: 'Descubra oito séculos de história, arte e devoção. Escolha a experiência que melhor se adapta a si.',
-        nav_ind: 'Visitas individuais', nav_gui: 'Visitas guiadas', nav_grp: 'Grupos', nav_esc: 'Escolares',
+        nav_ind: 'Visitas sem guia', nav_gui: 'Visitas guiadas', nav_cal: 'Calendário', nav_grp: 'Grupos', nav_esc: 'Escolares', nav_vtour: 'Visita virtual',
         hub_question: 'Como quer <em>viver</em> a visita?',
         hub_body: 'Desde um percurso livre ao seu ritmo até uma experiência VIP exclusiva. Temos a visita perfeita para peregrinos, famílias, grupos e escolas.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4336,13 +4709,65 @@
         card_desc_3: 'Soluções para agências, associações e empresas. Visita livre ou guiada com atenção personalizada.',
         card_desc_4: 'Programas pedagógicos adaptados ao Ensino Básico, Secundário e Superior, com oficinas e materiais didáticos.',
         card_cta: 'Saber mais',
-        cta_eyebrow: 'Reserva online', cta_title: 'Compre o seu bilhete <em>agora</em>', cta_btn: 'Comprar bilhetes'
+        cta_eyebrow: 'Reserva online', cta_title: 'Compre o seu bilhete <em>agora</em>', cta_btn: 'Comprar bilhetes',
+        tbl_hor_cat: '9:00–20:00 / Sáb 9:00–19:00', tbl_hor_split: '10:00–13:30 e 16:00–19:30', tbl_hor_mon: 'Conforme o monumento', tbl_consultar: 'Consultar', tbl_ticket_fam: 'Bilhete Família',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Visitas individuais', s1_title: 'Visitas <em>sem guia</em>', s1_sub: 'Explore a Catedral e os seus espaços patrimoniais ao seu ritmo, sem reserva prévia.',
+        ind_tag: 'Bilhete individual', ind_price_label: 'Preço',
+        cmp_eyebrow: 'Tabela comparativa', cmp_label: 'Comparador de <em>preços</em>', cmp_sub: 'Tarifas, horários, audioguia e visita guiada por modalidade',
+        cmp_tag: 'Comparar modalidades', cmp_title: 'Bilhetes <em>individuais</em>',
+        th_entrada: 'Bilhete', th_tarifa: 'Tarifa', th_horarios: 'Horários', th_audioguia: 'Audioguia', th_visita_guiada: 'Visita guiada',
+        name_cat: 'Catedral', name_torre: 'Torre Isolada', name_sf: 'Convento de San Francisco', name_pul_tur: 'Pulseira Turística', name_pul_per: 'Pulseira Peregrino',
+        s2_eyebrow: 'Visitas Guiadas', s2_title: 'Visitas <em>Guiadas</em>', s2_sub: 'Deixe-se conduzir por guias especializados e descubra os segredos que não encontrará nos painéis. Diurna, noturna ou VIP exclusiva.',
+        gui_tag: 'Visita guiada', gui_price_label: 'Desde', reservar_btn: 'Reservar →',
+        cmp2_eyebrow: 'Tabela comparativa', cmp2_label: 'Comparador de <em>visitas</em>', cmp2_sub: 'Diurna, noturna e VIP comparadas em detalhe', cmp2_title: 'Comparar modalidades',
+        col_diurna: 'Diurna', col_nocturna: 'Noturna', col_vip: 'VIP',
+        row_precio: 'Preço', row_duracion: 'Duração', row_idiomas: 'Idiomas', row_horario: 'Horário', row_consultar: 'Consultar', row_grupo_max: 'Grupo máx.',
+        row_recorrido: 'Percurso básico Catedral', row_nave: 'Nave e Retábulo', row_gallinero: 'Galinheiro vivo e Milagre', row_proyeccion: 'Projeção do Retábulo', row_triforio: 'Trifório', row_sacristia: 'Sacristia', row_defensas: 'Defesas medievais',
+        precio_14: '€ 14 / pessoa', precio_15: '€ 15 / pessoa', val_15_personas: '15 pessoas',
+        cal_eyebrow: 'Disponibilidade', cal_title: 'Calendário de <em>visitas guiadas</em>', cal_sub: 'Consulte que visitas há em cada dia, informe-se sobre cada modalidade e reserve o seu lugar diretamente. As noturnas realizam-se <strong>todas as sextas e sábados às 20h45</strong>.',
+        cal_legend_night: 'Visita guiada noturna · 20h45', cal_panel_sub: 'Visitas disponíveis',
+        s3_title: 'Visitas para <em>grupos</em>', s3_sub: 'Soluções para agências, associações e empresas. Mínimo 10 pessoas. Reserva prévia obrigatória.',
+        grp_no_guide_label: 'Visita sem guia',
+        grp_small_tag: 'Grupo pequeno', grp_small_pax: 'Até 24 pessoas', grp_small_per: 'preço fixo por grupo',
+        grp_small_desc1: 'Tarifa única para grupos até 24 pessoas.',
+        grp_small_desc2: 'Inclui pulseira turística de visita aos 3 monumentos: Catedral + Torre + San Francisco.',
+        grp_big_tag: 'Grupo grande', grp_big_pax: '25 pessoas ou mais', grp_big_per: 'por pessoa',
+        grp_big_desc1: 'Preço reduzido por pessoa para grupos numerosos. Sem limite máximo de participantes.',
+        grp_big_desc2: 'Inclui pulseira turística de acesso aos 4 monumentos.',
+        supp_label: 'Suplemento de visita guiada',
+        supp1_label: 'Visita guiada · Catedral', supp1_note: 'Duração aproximada: 45 minutos',
+        supp2_label: 'Visita guiada · Centro histórico + Catedral', supp2_note: 'Duração aproximada: 100 minutos',
+        grp_info_reserva_label: 'Reserva', grp_info_reserva_val: 'Prévia e obrigatória', grp_info_reserva_note: 'Com pelo menos 48 h de antecedência',
+        grp_info_min_label: 'Mínimo', grp_info_min_val: '10 pessoas', grp_info_min_note: 'Sem limite máximo de participantes',
+        grp_info_hor_label: 'Horário grupos', grp_info_hor_val: 'Todos os dias, 9:00 – 20:00<br>Sábados, 9:00 – 19:00',
+        grp_info_contact_label: 'Contacto grupos',
+        s4_title: 'Visitas <em>escolares</em>', s4_sub: 'Tarifas de acesso adaptadas por idade para grupos escolares. Reserva prévia com pelo menos 5 dias de antecedência.',
+        esc_price_label: 'Preço por aluno',
+        esc_age1: 'Menores de 12 anos', esc_age1_sub: 'Acesso livre', esc_age1_price: 'Grátis', esc_age1_desc: 'Sem custo de entrada',
+        esc_age2: '12 – 13 anos', esc_age3: '13 – 14 anos', esc_age4: '15 – 16 anos', esc_age5: '17 anos ou mais',
+        esc_age_school: 'Tarifa escolar', esc_per_alumno: 'por aluno',
+        esc_age5_sub: 'Tarifa geral', esc_age5_price: 'Bilhete<br>normal', esc_age5_desc: 'mesma tarifa do público geral',
+        esc_supp_range: 'Supl. Guiada · Catedral', esc_supp_sub: 'Opcional', esc_supp_desc: 'por grupo · visita com guia especializado',
+        esc_info_guided_label: 'Visitas guiadas', esc_info_guided_val: 'Adaptadas por idades', esc_info_guided_note: 'consoante grupos escolares.',
+        esc_info_gallo_label: 'Galinheiro vivo', esc_info_gallo_val: 'História do Milagre', esc_info_gallo_note: 'do Galo e da Galinha para crianças.',
+        esc_info_reserva_label: 'Reserva escolar', esc_info_reserva_val: '5 dias de antecedência', esc_info_reserva_note: 'a partir do site oficial.',
+        esc_info_contact_label: 'Contacto educativo',
+        vtour_eyebrow: 'Visita virtual', vtour_title: 'Explore a Catedral<br>em <em>360°</em>',
+        vtour_desc: 'Percorra o interior da Catedral de Santo Domingo de la Calzada a partir de qualquer lugar do mundo antes de planear a sua visita presencial.',
+        vtour_launcher_title: 'Visita virtual 360°', vtour_launcher_btn: 'Iniciar visita virtual',
+        map_eyebrow: 'Localização', map_title: 'Como <em>chegar</em>',
+        map_dir_label: 'Endereço', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Horário', map_hor_val: 'Todos os dias, 9:00 – 20:00<br>Sábados, 9:00 – 19:00',
+        map_park_label: 'Estacionamento', map_park_val: 'Estacionamento a 5 minutos a pé',
+        map_btn: 'Abrir no Google Maps'
       },
       it: {
+        bc_home: 'Home', bc_visitas: 'Visite',
         hero_eyebrow: 'Individuali · Guidate · Gruppi · Scolastiche',
         hero_title: 'Pianifica la tua <em>visita</em>',
         hero_desc: 'Scopri otto secoli di storia, arte e devozione. Scegli l\'esperienza che fa per te.',
-        nav_ind: 'Visite individuali', nav_gui: 'Visite guidate', nav_grp: 'Gruppi', nav_esc: 'Scolastiche',
+        nav_ind: 'Visite senza guida', nav_gui: 'Visite guidate', nav_cal: 'Calendario', nav_grp: 'Gruppi', nav_esc: 'Scolastiche', nav_vtour: 'Visita virtuale',
         hub_question: 'Come vuoi <em>vivere</em> la visita?',
         hub_body: 'Da una visita libera al tuo ritmo a un\'esperienza VIP esclusiva. Abbiamo la visita perfetta per pellegrini, famiglie, gruppi e scuole.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4355,13 +4780,65 @@
         card_desc_3: 'Soluzioni per agenzie, associazioni e aziende. Visita libera o guidata con assistenza personalizzata.',
         card_desc_4: 'Programmi pedagogici adattati alle scuole Primarie, Secondarie e Superiori, con laboratori e materiali didattici.',
         card_cta: 'Scopri di più',
-        cta_eyebrow: 'Prenota online', cta_title: 'Acquista il tuo biglietto <em>ora</em>', cta_btn: 'Acquista biglietti'
+        cta_eyebrow: 'Prenota online', cta_title: 'Acquista il tuo biglietto <em>ora</em>', cta_btn: 'Acquista biglietti',
+        tbl_hor_cat: '9:00–20:00 / Sab 9:00–19:00', tbl_hor_split: '10:00–13:30 e 16:00–19:30', tbl_hor_mon: 'Secondo il monumento', tbl_consultar: 'Su richiesta', tbl_ticket_fam: 'Biglietto Famiglia',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Visite individuali', s1_title: 'Visite <em>senza guida</em>', s1_sub: 'Esplora la Cattedrale e i suoi spazi patrimoniali al tuo ritmo, senza prenotazione.',
+        ind_tag: 'Biglietto individuale', ind_price_label: 'Prezzo',
+        cmp_eyebrow: 'Tabella comparativa', cmp_label: 'Comparatore di <em>prezzi</em>', cmp_sub: 'Tariffe, orari, audioguida e visita guidata per modalità',
+        cmp_tag: 'Confronta modalità', cmp_title: 'Biglietti <em>individuali</em>',
+        th_entrada: 'Biglietto', th_tarifa: 'Tariffa', th_horarios: 'Orari', th_audioguia: 'Audioguida', th_visita_guiada: 'Visita guidata',
+        name_cat: 'Cattedrale', name_torre: 'Torre Isolata', name_sf: 'Convento San Francisco', name_pul_tur: 'Braccialetto Turistico', name_pul_per: 'Braccialetto Pellegrino',
+        s2_eyebrow: 'Visite Guidate', s2_title: 'Visite <em>Guidate</em>', s2_sub: 'Lasciati condurre da guide specializzate e scopri i segreti che non troverai sui pannelli. Diurna, notturna o VIP esclusiva.',
+        gui_tag: 'Visita guidata', gui_price_label: 'Da', reservar_btn: 'Prenota →',
+        cmp2_eyebrow: 'Tabella comparativa', cmp2_label: 'Comparatore di <em>visite</em>', cmp2_sub: 'Diurna, notturna e VIP confrontate in dettaglio', cmp2_title: 'Confronta modalità',
+        col_diurna: 'Diurna', col_nocturna: 'Notturna', col_vip: 'VIP',
+        row_precio: 'Prezzo', row_duracion: 'Durata', row_idiomas: 'Lingue', row_horario: 'Orari', row_consultar: 'Su richiesta', row_grupo_max: 'Gruppo max.',
+        row_recorrido: 'Percorso base Cattedrale', row_nave: 'Navata e Pala', row_gallinero: 'Pollaio vivo e Miracolo', row_proyeccion: 'Proiezione della Pala', row_triforio: 'Triforio', row_sacristia: 'Sacrestia', row_defensas: 'Difese medievali',
+        precio_14: '€ 14 / persona', precio_15: '€ 15 / persona', val_15_personas: '15 persone',
+        cal_eyebrow: 'Disponibilità', cal_title: 'Calendario delle <em>visite guidate</em>', cal_sub: 'Consulta quali visite ci sono ogni giorno, informati su ogni modalità e prenota direttamente il tuo posto. Le notturne si svolgono <strong>ogni venerdì e sabato alle 20:45</strong>.',
+        cal_legend_night: 'Visita guidata notturna · 20:45', cal_panel_sub: 'Visite disponibili',
+        s3_title: 'Visite per <em>gruppi</em>', s3_sub: 'Soluzioni per agenzie, associazioni e aziende. Minimo 10 persone. Prenotazione anticipata obbligatoria.',
+        grp_no_guide_label: 'Visita senza guida',
+        grp_small_tag: 'Piccolo gruppo', grp_small_pax: 'Fino a 24 persone', grp_small_per: 'prezzo fisso per gruppo',
+        grp_small_desc1: 'Tariffa unica per gruppi fino a 24 persone.',
+        grp_small_desc2: 'Include il braccialetto turistico per i 3 monumenti: Cattedrale + Torre + San Francisco.',
+        grp_big_tag: 'Grande gruppo', grp_big_pax: '25 persone o più', grp_big_per: 'a persona',
+        grp_big_desc1: 'Prezzo ridotto a persona per grandi gruppi. Senza limite massimo di partecipanti.',
+        grp_big_desc2: 'Include il braccialetto turistico con accesso ai 4 monumenti.',
+        supp_label: 'Supplemento di visita guidata',
+        supp1_label: 'Visita guidata · Cattedrale', supp1_note: 'Durata approssimativa: 45 minuti',
+        supp2_label: 'Visita guidata · Centro storico + Cattedrale', supp2_note: 'Durata approssimativa: 100 minuti',
+        grp_info_reserva_label: 'Prenotazione', grp_info_reserva_val: 'Anticipata e obbligatoria', grp_info_reserva_note: 'Almeno 48 h in anticipo',
+        grp_info_min_label: 'Minimo', grp_info_min_val: '10 persone', grp_info_min_note: 'Senza limite massimo di partecipanti',
+        grp_info_hor_label: 'Orari gruppi', grp_info_hor_val: 'Tutti i giorni, 9:00 – 20:00<br>Sabato, 9:00 – 19:00',
+        grp_info_contact_label: 'Contatto gruppi',
+        s4_title: 'Visite <em>scolastiche</em>', s4_sub: 'Tariffe di accesso adattate per età per gruppi scolastici. Prenotazione anticipata di almeno 5 giorni.',
+        esc_price_label: 'Prezzo per alunno',
+        esc_age1: 'Minori di 12 anni', esc_age1_sub: 'Accesso libero', esc_age1_price: 'Gratis', esc_age1_desc: 'Senza costo d\'ingresso',
+        esc_age2: '12 – 13 anni', esc_age3: '13 – 14 anni', esc_age4: '15 – 16 anni', esc_age5: '17 anni o più',
+        esc_age_school: 'Tariffa scolastica', esc_per_alumno: 'per alunno',
+        esc_age5_sub: 'Tariffa generale', esc_age5_price: 'Biglietto<br>normale', esc_age5_desc: 'stessa tariffa del pubblico generale',
+        esc_supp_range: 'Suppl. Guidata · Cattedrale', esc_supp_sub: 'Opzionale', esc_supp_desc: 'per gruppo · visita con guida esperta',
+        esc_info_guided_label: 'Visite guidate', esc_info_guided_val: 'Adattate per età', esc_info_guided_note: 'in base ai gruppi scolastici.',
+        esc_info_gallo_label: 'Pollaio vivo', esc_info_gallo_val: 'Storia del Miracolo', esc_info_gallo_note: 'del Gallo e della Gallina per bambini.',
+        esc_info_reserva_label: 'Prenotazione scolastica', esc_info_reserva_val: '5 giorni in anticipo', esc_info_reserva_note: 'dal sito ufficiale.',
+        esc_info_contact_label: 'Contatto educativo',
+        vtour_eyebrow: 'Visita virtuale', vtour_title: 'Esplora la Cattedrale<br>in <em>360°</em>',
+        vtour_desc: 'Percorri l\'interno della Cattedrale di Santo Domingo de la Calzada da qualsiasi parte del mondo prima di pianificare la tua visita in presenza.',
+        vtour_launcher_title: 'Visita virtuale 360°', vtour_launcher_btn: 'Avvia visita virtuale',
+        map_eyebrow: 'Posizione', map_title: 'Come <em>arrivare</em>',
+        map_dir_label: 'Indirizzo', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Orari', map_hor_val: 'Tutti i giorni, 9:00 – 20:00<br>Sabato, 9:00 – 19:00',
+        map_park_label: 'Parcheggio', map_park_val: 'Parcheggio a 5 minuti a piedi',
+        map_btn: 'Apri in Google Maps'
       },
       ko: {
+        bc_home: '홈', bc_visitas: '관람',
         hero_eyebrow: '개인 · 가이드 · 단체 · 학교',
         hero_title: '<em>방문</em>을 계획하세요',
         hero_desc: '8세기의 역사, 예술, 신앙을 발견하세요. 나에게 맞는 경험을 선택하세요.',
-        nav_ind: '개인 방문', nav_gui: '가이드 투어', nav_grp: '단체', nav_esc: '학교',
+        nav_ind: '가이드 없는 방문', nav_gui: '가이드 투어', nav_cal: '캘린더', nav_grp: '단체', nav_esc: '학교', nav_vtour: '가상 투어',
         hub_question: '어떻게 <em>방문</em>을 즐기고 싶으신가요?',
         hub_body: '자유롭게 나만의 속도로 둘러보는 것부터 독점적인 VIP 경험까지. 순례자, 가족, 단체, 교육기관 모두를 위한 완벽한 방문을 제공합니다.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4374,13 +4851,65 @@
         card_desc_3: '여행사, 협회, 기업을 위한 솔루션. 자유 방문 또는 개인 맞춤 가이드 투어.',
         card_desc_4: '초등, 중등, 고등 교육에 맞춘 교육 프로그램, 워크숍 및 교육 자료 포함.',
         card_cta: '더 보기',
-        cta_eyebrow: '온라인 예약', cta_title: '지금 <em>티켓</em>을 구매하세요', cta_btn: '티켓 구매'
+        cta_eyebrow: '온라인 예약', cta_title: '지금 <em>티켓</em>을 구매하세요', cta_btn: '티켓 구매',
+        tbl_hor_cat: '9:00–20:00 / 토 9:00–19:00', tbl_hor_split: '10:00–13:30 및 16:00–19:30', tbl_hor_mon: '기념물에 따라 다름', tbl_consultar: '문의', tbl_ticket_fam: '가족 티켓',
+        price_4: '€ 4', price_5: '€ 5', price_7: '€ 7', price_10: '€ 10', price_25: '€ 25',
+        s1_eyebrow: '개인 방문', s1_title: '<em>가이드 없는</em> 방문', s1_sub: '사전 예약 없이 대성당과 유산 공간을 자신의 속도로 둘러보세요.',
+        ind_tag: '개인 티켓', ind_price_label: '가격',
+        cmp_eyebrow: '비교 표', cmp_label: '가격 <em>비교</em>', cmp_sub: '모달리티별 요금, 시간, 오디오 가이드 및 가이드 투어',
+        cmp_tag: '옵션 비교', cmp_title: '<em>개인</em> 티켓',
+        th_entrada: '티켓', th_tarifa: '요금', th_horarios: '운영시간', th_audioguia: '오디오 가이드', th_visita_guiada: '가이드 투어',
+        name_cat: '대성당', name_torre: '독립 종탑', name_sf: '산프란시스코 수도원', name_pul_tur: '관광 팔찌', name_pul_per: '순례자 팔찌',
+        s2_eyebrow: '가이드 투어', s2_title: '<em>가이드</em> 투어', s2_sub: '전문 가이드와 함께 안내판에 없는 비밀을 발견하세요. 주간, 야간 또는 단독 VIP 투어.',
+        gui_tag: '가이드 투어', gui_price_label: '시작가', reservar_btn: '예약 →',
+        cmp2_eyebrow: '비교 표', cmp2_label: '투어 <em>비교</em>', cmp2_sub: '주간, 야간, VIP 상세 비교', cmp2_title: '옵션 비교',
+        col_diurna: '주간', col_nocturna: '야간', col_vip: 'VIP',
+        row_precio: '가격', row_duracion: '소요시간', row_idiomas: '언어', row_horario: '운영시간', row_consultar: '문의', row_grupo_max: '최대 인원',
+        row_recorrido: '대성당 기본 코스', row_nave: '본당과 제단화', row_gallinero: '닭장과 기적', row_proyeccion: '제단화 영상', row_triforio: '트리포리움', row_sacristia: '제의실', row_defensas: '중세 방어시설',
+        precio_14: '€ 14 / 1인', precio_15: '€ 15 / 1인', val_15_personas: '15명',
+        cal_eyebrow: '예약 가능', cal_title: '<em>가이드 투어</em> 캘린더', cal_sub: '날짜별로 진행되는 투어를 확인하고 각 옵션에 대한 정보를 얻은 뒤 직접 예약하세요. 야간 투어는 <strong>매주 금요일과 토요일 20:45</strong>에 진행됩니다.',
+        cal_legend_night: '야간 가이드 투어 · 20:45', cal_panel_sub: '예약 가능한 투어',
+        s3_title: '<em>단체</em> 방문', s3_sub: '여행사, 협회, 기업을 위한 솔루션. 최소 10명. 사전 예약 필수.',
+        grp_no_guide_label: '가이드 없는 방문',
+        grp_small_tag: '소규모 단체', grp_small_pax: '최대 24명', grp_small_per: '단체 정액',
+        grp_small_desc1: '최대 24명까지 정액 요금.',
+        grp_small_desc2: '관광 팔찌로 3개 기념물 입장 포함: 대성당 + 탑 + 산프란시스코.',
+        grp_big_tag: '대규모 단체', grp_big_pax: '25명 이상', grp_big_per: '1인당',
+        grp_big_desc1: '대규모 단체용 1인당 할인 가격. 인원 상한 없음.',
+        grp_big_desc2: '관광 팔찌로 4개 기념물 입장 포함.',
+        supp_label: '가이드 투어 추가 요금',
+        supp1_label: '가이드 투어 · 대성당', supp1_note: '예상 소요 시간: 45분',
+        supp2_label: '가이드 투어 · 구시가지 + 대성당', supp2_note: '예상 소요 시간: 100분',
+        grp_info_reserva_label: '예약', grp_info_reserva_val: '사전 필수', grp_info_reserva_note: '최소 48시간 전',
+        grp_info_min_label: '최소', grp_info_min_val: '10명', grp_info_min_note: '인원 상한 없음',
+        grp_info_hor_label: '단체 운영시간', grp_info_hor_val: '매일 9:00 – 20:00<br>토요일 9:00 – 19:00',
+        grp_info_contact_label: '단체 문의',
+        s4_title: '<em>학교</em> 방문', s4_sub: '학생 단체용 연령별 입장 요금. 최소 5일 전 사전 예약 필요.',
+        esc_price_label: '학생 1인당 요금',
+        esc_age1: '12세 미만', esc_age1_sub: '무료 입장', esc_age1_price: '무료', esc_age1_desc: '입장료 없음',
+        esc_age2: '12 – 13세', esc_age3: '13 – 14세', esc_age4: '15 – 16세', esc_age5: '17세 이상',
+        esc_age_school: '학생 요금', esc_per_alumno: '학생 1인당',
+        esc_age5_sub: '일반 요금', esc_age5_price: '일반<br>티켓', esc_age5_desc: '일반 관람객과 동일한 요금',
+        esc_supp_range: '가이드 추가 · 대성당', esc_supp_sub: '선택', esc_supp_desc: '단체당 · 전문 가이드 동반',
+        esc_info_guided_label: '가이드 투어', esc_info_guided_val: '연령별 맞춤', esc_info_guided_note: '학생 단체용.',
+        esc_info_gallo_label: '닭장', esc_info_gallo_val: '기적 이야기', esc_info_gallo_note: '어린이용 닭과 수탉 이야기.',
+        esc_info_reserva_label: '학교 예약', esc_info_reserva_val: '5일 전 예약', esc_info_reserva_note: '공식 웹사이트에서.',
+        esc_info_contact_label: '교육 문의',
+        vtour_eyebrow: '가상 투어', vtour_title: '대성당을<br><em>360°</em>로 탐험',
+        vtour_desc: '직접 방문을 계획하기 전에 세계 어디서나 산토 도밍고 데 라 칼사다 대성당 내부를 둘러보세요.',
+        vtour_launcher_title: '360° 가상 투어', vtour_launcher_btn: '가상 투어 시작',
+        map_eyebrow: '위치', map_title: '<em>찾아오시는 길</em>',
+        map_dir_label: '주소', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: '운영시간', map_hor_val: '매일 9:00 – 20:00<br>토요일 9:00 – 19:00',
+        map_park_label: '주차', map_park_val: '도보 5분 거리 주차장',
+        map_btn: 'Google Maps에서 열기'
       },
       eu: {
+        bc_home: 'Hasiera', bc_visitas: 'Bisitaldiak',
         hero_eyebrow: 'Banakakoeak · Gidatuak · Taldeak · Eskolak',
         hero_title: 'Planifikatu zure <em>bisita</em>',
         hero_desc: 'Zortzi mende historia, arte eta debozioa aurkitu. Zuretzat egokiena den esperientzia aukeratu.',
-        nav_ind: 'Bisita banakakoak', nav_gui: 'Bisita gidatuak', nav_grp: 'Taldeak', nav_esc: 'Eskolak',
+        nav_ind: 'Gidaririk gabeko bisitak', nav_gui: 'Bisita gidatuak', nav_cal: 'Egutegia', nav_grp: 'Taldeak', nav_esc: 'Eskolak', nav_vtour: 'Bisita birtuala',
         hub_question: 'Nola nahi duzu <em>bisita</em> bizi?',
         hub_body: 'Zure erritmoan ibilaldi libre batetik esperientzia VIP esklusibo batera arte. Erromeslarientzat, familientzat, taldeentzat eta hezkuntza-zentroetarako bisita perfektoa dugu.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4393,13 +4922,65 @@
         card_desc_3: 'Agentzia, elkarte eta enpresenrako irtenbideak. Bisita librea edo gidatua arreta pertsonalizatuarekin.',
         card_desc_4: 'Lehen Hezkuntza, DBH eta Batxilergora egokitutako programa pedagogikoak, tailerrak eta material didaktikoekin.',
         card_cta: 'Gehiago ikusi',
-        cta_eyebrow: 'Online erreserba', cta_title: '<em>Orain</em> erosi zure sarrera', cta_btn: 'Sarrerak erosi'
+        cta_eyebrow: 'Online erreserba', cta_title: '<em>Orain</em> erosi zure sarrera', cta_btn: 'Sarrerak erosi',
+        tbl_hor_cat: '9:00–20:00 / Lr. 9:00–19:00', tbl_hor_split: '10:00–13:30 eta 16:00–19:30', tbl_hor_mon: 'Monumentuaren arabera', tbl_consultar: 'Galdetu', tbl_ticket_fam: 'Familia Sarrera',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Bisita banakakoak', s1_title: 'Bisita <em>gidari gabe</em>', s1_sub: 'Esploratu Katedrala eta haren ondare-espazioak zure erritmoan, aurretiazko erreserbarik gabe.',
+        ind_tag: 'Banakako sarrera', ind_price_label: 'Prezioa',
+        cmp_eyebrow: 'Konparazio-taula', cmp_label: 'Prezioen <em>konparagailua</em>', cmp_sub: 'Tarifak, ordutegiak, audiogida eta bisita gidatua modalitatearen arabera',
+        cmp_tag: 'Modalitateak konparatu', cmp_title: '<em>Banakako</em> sarrerak',
+        th_entrada: 'Sarrera', th_tarifa: 'Tarifa', th_horarios: 'Ordutegiak', th_audioguia: 'Audiogida', th_visita_guiada: 'Bisita gidatua',
+        name_cat: 'Katedrala', name_torre: 'Dorre Exentua', name_sf: 'San Frantzisko Komentua', name_pul_tur: 'Pultsera Turistikoa', name_pul_per: 'Pultsera Erromesa',
+        s2_eyebrow: 'Bisita Gidatuak', s2_title: 'Bisita <em>Gidatuak</em>', s2_sub: 'Utzi gidari espezializatuek zuzenduta eta aurkitu paneletan ez dauden sekretuak. Egunekoa, gauekoa edo VIP esklusiboa.',
+        gui_tag: 'Bisita gidatua', gui_price_label: 'Hasierako prezioa', reservar_btn: 'Erreserbatu →',
+        cmp2_eyebrow: 'Konparazio-taula', cmp2_label: 'Bisiten <em>konparagailua</em>', cmp2_sub: 'Egunekoa, gauekoa eta VIP xehetasunez konparatuta', cmp2_title: 'Modalitateak konparatu',
+        col_diurna: 'Egunekoa', col_nocturna: 'Gauekoa', col_vip: 'VIP',
+        row_precio: 'Prezioa', row_duracion: 'Iraupena', row_idiomas: 'Hizkuntzak', row_horario: 'Ordutegia', row_consultar: 'Galdetu', row_grupo_max: 'Talde max.',
+        row_recorrido: 'Katedralaren oinarrizko ibilbidea', row_nave: 'Nabea eta Erretaula', row_gallinero: 'Oilategi bizia eta Miraria', row_proyeccion: 'Erretaularen proiekzioa', row_triforio: 'Triforioa', row_sacristia: 'Sakristia', row_defensas: 'Erdi Aroko defentsak',
+        precio_14: '€ 14 / pertsonako', precio_15: '€ 15 / pertsonako', val_15_personas: '15 lagun',
+        cal_eyebrow: 'Eskuragarritasuna', cal_title: '<em>Bisita gidatuen</em> egutegia', cal_sub: 'Egunero zer bisita dauden ikusi, modalitate bakoitzari buruz informatu eta zuzenean lekua erreserbatu. Gauekoak <strong>ostiral eta larunbatero 20:45ean</strong> egiten dira.',
+        cal_legend_night: 'Gaueko bisita gidatua · 20:45', cal_panel_sub: 'Bisita eskuragarriak',
+        s3_title: '<em>Taldeentzako</em> bisitak', s3_sub: 'Agentzia, elkarte eta enpresentzako irtenbideak. Gutxienez 10 lagun. Aurretiazko erreserba derrigorrezkoa.',
+        grp_no_guide_label: 'Bisita gidari gabe',
+        grp_small_tag: 'Talde txikia', grp_small_pax: '24 lagunera arte', grp_small_per: 'taldeko prezio finkoa',
+        grp_small_desc1: 'Tarifa lauarra 24 lagunera arteko taldeentzat.',
+        grp_small_desc2: 'Pultsera turistikoa barne, 3 monumentuetarako: Katedrala + Dorrea + San Frantzisko.',
+        grp_big_tag: 'Talde handia', grp_big_pax: '25 lagun edo gehiago', grp_big_per: 'pertsonako',
+        grp_big_desc1: 'Pertsonako prezio murriztua talde handientzat. Parte-hartzaileen muga gabe.',
+        grp_big_desc2: 'Pultsera turistikoa barne, 4 monumentuetarako sarbidea.',
+        supp_label: 'Bisita gidatuaren gehigarria',
+        supp1_label: 'Bisita gidatua · Katedrala', supp1_note: 'Gutxi gorabeherako iraupena: 45 minutu',
+        supp2_label: 'Bisita gidatua · Hirigune historikoa + Katedrala', supp2_note: 'Gutxi gorabeherako iraupena: 100 minutu',
+        grp_info_reserva_label: 'Erreserba', grp_info_reserva_val: 'Aurretik eta derrigorrezkoa', grp_info_reserva_note: 'Gutxienez 48 ordu aurretik',
+        grp_info_min_label: 'Gutxienez', grp_info_min_val: '10 lagun', grp_info_min_note: 'Parte-hartzaileen muga gabe',
+        grp_info_hor_label: 'Talde ordutegia', grp_info_hor_val: 'Egunero, 9:00 – 20:00<br>Larunbatak, 9:00 – 19:00',
+        grp_info_contact_label: 'Talde kontaktua',
+        s4_title: '<em>Eskola</em> bisitak', s4_sub: 'Eskola-taldeentzako adinaren araberako sarbide-tarifak. Gutxienez 5 egun lehenago erreserbatu beharra.',
+        esc_price_label: 'Prezioa ikasleko',
+        esc_age1: '12 urtetik beherakoak', esc_age1_sub: 'Sarbide librea', esc_age1_price: 'Doan', esc_age1_desc: 'Sarrera kosturik gabe',
+        esc_age2: '12 – 13 urte', esc_age3: '13 – 14 urte', esc_age4: '15 – 16 urte', esc_age5: '17 urte edo gehiago',
+        esc_age_school: 'Eskola tarifa', esc_per_alumno: 'ikasleko',
+        esc_age5_sub: 'Tarifa orokorra', esc_age5_price: 'Sarrera<br>arrunta', esc_age5_desc: 'jendaurreko publikoaren tarifa berdina',
+        esc_supp_range: 'Gidaturako gehig. · Katedrala', esc_supp_sub: 'Aukerakoa', esc_supp_desc: 'taldeko · gidari adituarekin',
+        esc_info_guided_label: 'Bisita gidatuak', esc_info_guided_val: 'Adinetara egokituak', esc_info_guided_note: 'eskola-taldeen arabera.',
+        esc_info_gallo_label: 'Oilategi bizia', esc_info_gallo_val: 'Mirariaren historia', esc_info_gallo_note: 'Oilar eta oiloaren istorioa haurrentzat.',
+        esc_info_reserva_label: 'Eskola erreserba', esc_info_reserva_val: '5 egun lehenago', esc_info_reserva_note: 'webgune ofizialetik.',
+        esc_info_contact_label: 'Hezkuntza kontaktua',
+        vtour_eyebrow: 'Bisita birtuala', vtour_title: 'Esploratu Katedrala<br><em>360°</em>-n',
+        vtour_desc: 'Munduko edozein lekutik Santo Domingo de la Calzadako Katedralaren barrualdea ibili, bisita aurretiko egin baino lehen.',
+        vtour_launcher_title: '360° bisita birtuala', vtour_launcher_btn: 'Bisita birtuala hasi',
+        map_eyebrow: 'Kokapena', map_title: 'Nola <em>iritsi</em>',
+        map_dir_label: 'Helbidea', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Ordutegia', map_hor_val: 'Egunero, 9:00 – 20:00<br>Larunbatak, 9:00 – 19:00',
+        map_park_label: 'Aparkalekua', map_park_val: 'Aparkalekua 5 minututara oinez',
+        map_btn: 'Google Mapsen ireki'
       },
       ca: {
+        bc_home: 'Inici', bc_visitas: 'Visites',
         hero_eyebrow: 'Individuals · Guiades · Grups · Escolars',
         hero_title: 'Planifica la teva <em>visita</em>',
         hero_desc: 'Descobreix vuit segles d\'història, art i devoció. Tria l\'experiència que millor s\'adapta a tu.',
-        nav_ind: 'Visites individuals', nav_gui: 'Visites guiades', nav_grp: 'Grups', nav_esc: 'Escolars',
+        nav_ind: 'Visites sense guia', nav_gui: 'Visites guiades', nav_cal: 'Calendari', nav_grp: 'Grups', nav_esc: 'Escolars', nav_vtour: 'Visita virtual',
         hub_question: 'Com vols <em>viure</em> la visita?',
         hub_body: 'Des d\'un recorregut lliure al teu ritme fins a una experiència VIP exclusiva. Tenim la visita perfecta per a pelegrins, famílies, grups i centres educatius.',
         card_num_1: '01', card_num_2: '02', card_num_3: '03', card_num_4: '04',
@@ -4412,7 +4993,58 @@
         card_desc_3: 'Solucions per a agències, associacions i empreses. Visita lliure o guiada amb atenció personalitzada.',
         card_desc_4: 'Programes pedagògics adaptats a Primària, Secundària i Batxillerat, amb tallers i materials didàctics.',
         card_cta: 'Veure més',
-        cta_eyebrow: 'Reserva en línia', cta_title: 'Compra la teva entrada <em>ara</em>', cta_btn: 'Comprar entrades'
+        cta_eyebrow: 'Reserva en línia', cta_title: 'Compra la teva entrada <em>ara</em>', cta_btn: 'Comprar entrades',
+        tbl_hor_cat: '9:00–20:00 / Dis 9:00–19:00', tbl_hor_split: '10:00–13:30 i 16:00–19:30', tbl_hor_mon: 'Segons monument', tbl_consultar: 'Consultar', tbl_ticket_fam: 'Tiquet Familiar',
+        price_4: '4 €', price_5: '5 €', price_7: '7 €', price_10: '10 €', price_25: '25 €',
+        s1_eyebrow: 'Visites individuals', s1_title: 'Visites <em>sense guia</em>', s1_sub: 'Explora la Catedral i els seus espais patrimonials al teu ritme, sense reserva prèvia.',
+        ind_tag: 'Entrada individual', ind_price_label: 'Preu',
+        cmp_eyebrow: 'Taula comparativa', cmp_label: 'Comparador de <em>preus</em>', cmp_sub: 'Tarifes, horaris, audioguia i visita guiada per modalitat',
+        cmp_tag: 'Comparar modalitats', cmp_title: 'Entrades <em>individuals</em>',
+        th_entrada: 'Entrada', th_tarifa: 'Tarifa', th_horarios: 'Horaris', th_audioguia: 'Audioguia', th_visita_guiada: 'Visita guiada',
+        name_cat: 'Catedral', name_torre: 'Torre Exempta', name_sf: 'Convent de Sant Francesc', name_pul_tur: 'Polsera Turística', name_pul_per: 'Polsera Pelegrí',
+        s2_eyebrow: 'Visites Guiades', s2_title: 'Visites <em>Guiades</em>', s2_sub: 'Deixa\'t portar per guies especialitzats i descobreix els secrets que no trobaràs als panells. Diürna, nocturna o VIP exclusiva.',
+        gui_tag: 'Visita guiada', gui_price_label: 'Des de', reservar_btn: 'Reservar →',
+        cmp2_eyebrow: 'Taula comparativa', cmp2_label: 'Comparador de <em>visites</em>', cmp2_sub: 'Diürna, nocturna i VIP comparades al detall', cmp2_title: 'Comparar modalitats',
+        col_diurna: 'Diürna', col_nocturna: 'Nocturna', col_vip: 'VIP',
+        row_precio: 'Preu', row_duracion: 'Durada', row_idiomas: 'Idiomes', row_horario: 'Horari', row_consultar: 'Consultar', row_grupo_max: 'Grup màx.',
+        row_recorrido: 'Recorregut bàsic Catedral', row_nave: 'Nau i Retaule', row_gallinero: 'Galliner viu i Miracle', row_proyeccion: 'Projecció del Retaule', row_triforio: 'Trifori', row_sacristia: 'Sagristia', row_defensas: 'Defenses medievals',
+        precio_14: '€ 14 / persona', precio_15: '€ 15 / persona', val_15_personas: '15 persones',
+        cal_eyebrow: 'Disponibilitat', cal_title: 'Calendari de <em>visites guiades</em>', cal_sub: 'Consulta quines visites hi ha cada dia, informa\'t sobre cada modalitat i reserva la teva plaça directament. Les nocturnes es fan <strong>cada divendres i dissabte a les 20:45 h</strong>.',
+        cal_legend_night: 'Visita guiada nocturna · 20:45 h', cal_panel_sub: 'Visites disponibles',
+        s3_title: 'Visites per a <em>grups</em>', s3_sub: 'Solucions per a agències, associacions i empreses. Mínim 10 persones. Reserva prèvia obligatòria.',
+        grp_no_guide_label: 'Visita sense guia',
+        grp_small_tag: 'Grup petit', grp_small_pax: 'Fins a 24 persones', grp_small_per: 'preu fix per grup',
+        grp_small_desc1: 'Tarifa plana per a grups de fins a 24 persones.',
+        grp_small_desc2: 'Inclou polsera turística per als 3 monuments: Catedral + Torre + San Francisco.',
+        grp_big_tag: 'Grup gran', grp_big_pax: '25 persones o més', grp_big_per: 'per persona',
+        grp_big_desc1: 'Preu reduït per persona per a grups nombrosos. Sense límit màxim d\'assistents.',
+        grp_big_desc2: 'Inclou polsera turística d\'accés als 4 monuments.',
+        supp_label: 'Suplement de visita guiada',
+        supp1_label: 'Visita guiada · Catedral', supp1_note: 'Durada aproximada: 45 minuts',
+        supp2_label: 'Visita guiada · Centre històric + Catedral', supp2_note: 'Durada aproximada: 100 minuts',
+        grp_info_reserva_label: 'Reserva', grp_info_reserva_val: 'Prèvia i obligatòria', grp_info_reserva_note: 'Amb almenys 48 h d\'antelació',
+        grp_info_min_label: 'Mínim', grp_info_min_val: '10 persones', grp_info_min_note: 'Sense límit màxim d\'assistents',
+        grp_info_hor_label: 'Horari grups', grp_info_hor_val: 'Tots els dies, 9:00 – 20:00<br>Dissabtes, 9:00 – 19:00',
+        grp_info_contact_label: 'Contacte grups',
+        s4_title: 'Visites <em>escolars</em>', s4_sub: 'Tarifes d\'accés adaptades per edat per a grups escolars. Reserva prèvia amb almenys 5 dies d\'antelació.',
+        esc_price_label: 'Preu per alumne',
+        esc_age1: 'Menors de 12 anys', esc_age1_sub: 'Accés lliure', esc_age1_price: 'Gratis', esc_age1_desc: 'Sense cost d\'entrada',
+        esc_age2: '12 – 13 anys', esc_age3: '13 – 14 anys', esc_age4: '15 – 16 anys', esc_age5: '17 anys o més',
+        esc_age_school: 'Tarifa escolar', esc_per_alumno: 'per alumne',
+        esc_age5_sub: 'Tarifa general', esc_age5_price: 'Entrada<br>normal', esc_age5_desc: 'mateixa tarifa que el públic general',
+        esc_supp_range: 'Supl. Guiada · Catedral', esc_supp_sub: 'Opcional', esc_supp_desc: 'per grup · visita amb guia expert',
+        esc_info_guided_label: 'Visites guiades', esc_info_guided_val: 'Adaptades per edats', esc_info_guided_note: 'segons grups escolars.',
+        esc_info_gallo_label: 'Galliner viu', esc_info_gallo_val: 'Història del Miracle', esc_info_gallo_note: 'del Gall i la Gallina per a nens.',
+        esc_info_reserva_label: 'Reserva escolar', esc_info_reserva_val: 'Amb 5 dies d\'antelació', esc_info_reserva_note: 'des del web oficial.',
+        esc_info_contact_label: 'Contacte educatiu',
+        vtour_eyebrow: 'Visita virtual', vtour_title: 'Explora la Catedral<br>en <em>360°</em>',
+        vtour_desc: 'Recorre l\'interior de la Catedral de Santo Domingo de la Calzada des de qualsevol lloc del món abans de planificar la teva visita presencial.',
+        vtour_launcher_title: 'Visita virtual 360°', vtour_launcher_btn: 'Iniciar visita virtual',
+        map_eyebrow: 'Ubicació', map_title: 'Com <em>arribar</em>',
+        map_dir_label: 'Adreça', map_dir_val: 'Calle del Cristo, s/n<br>26250 Santo Domingo de la Calzada, La Rioja',
+        map_hor_label: 'Horari', map_hor_val: 'Tots els dies, 9:00 – 20:00<br>Dissabtes, 9:00 – 19:00',
+        map_park_label: 'Aparcament', map_park_val: 'Pàrquing a 5 minuts a peu',
+        map_btn: 'Obrir a Google Maps'
       }
     };
 
@@ -4466,12 +5098,13 @@
           price: '7',
           img: 'assets/img/catedral.webp',
           badge: null,
-          desc: 'Acceso completo al recinto catedralicio: nave principal, claustro gótico y el célebre gallinero vivo, hogar del gallo y la gallina blancos que recuerdan el milagro del Santo.',
+          key: 'cat',
+          desc: 'Acceso completo al recinto catedralicio: nave principal, Retablo Mayor, Cripta y Mausoleo del Santo, claustro gótico y el célebre gallinero vivo, hogar del gallo y la gallina blancos que recuerdan el milagro del Santo.',
           specs: [
-            { label: 'Duración', val: '60 – 90 min' },
-            { label: 'Accesibilidad', val: 'Acceso parcial' },
-            { label: 'Audioguía', val: '5 idiomas' },
-            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+            { l: 'val', v: 'fam_val' },
+            { l: 'acc', v: 'acc_cat' },
+            { l: 'aud', v: 'aud_7' },
+            { l: 'hor', v: 'hor_cat' }
           ]
         },
         {
@@ -4481,12 +5114,13 @@
           price: '4',
           img: 'assets/img/torre.webp',
           badge: null,
-          desc: 'Sube a la torre campanario exenta de 69 m y disfruta de vistas panorámicas sobre el casco histórico, el Camino Francés y las llanuras de La Rioja.',
+          key: 'torre',
+          desc: 'Sube a la torre campanario exenta de 69 m y disfruta de vistas panorámicas sobre el casco histórico, el Camino Francés y las llanuras de La Rioja. Visita el Museo de Relojes y Campanas.',
           specs: [
-            { label: 'Duración', val: '30 – 45 min' },
-            { label: 'Accesibilidad', val: 'Sin ascensor' },
-            { label: 'Audioguía', val: '5 idiomas' },
-            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+            { l: 'val', v: 'fam_val' },
+            { l: 'acc', v: 'acc_torre' },
+            { l: 'aud', v: 'aud_7' },
+            { l: 'hor', v: 'hor_split' }
           ]
         },
         {
@@ -4496,12 +5130,13 @@
           price: '5',
           img: 'assets/img/sanfrancisco.webp',
           badge: null,
-          desc: 'Antiguo convento franciscano reconvertido en Centro de Arte Contemporáneo. Exposiciones temporales de artistas actuales en un marco arquitectónico excepcional del s. XVI.',
+          key: 'sf',
+          desc: 'Antiguo convento franciscano reconvertido en Centro de Arte Contemporáneo. Exposiciones temporales y la magnífica Sala de Marfiles religiosos en un marco arquitectónico excepcional del s. XVI.',
           specs: [
-            { label: 'Duración', val: '30 – 45 min' },
-            { label: 'Accesibilidad', val: 'Totalmente accesible' },
-            { label: 'Tipo', val: 'Arte contemporáneo' },
-            { label: 'Horario', val: 'Mar–Dom 10:00–18:00' }
+            { l: 'val', v: 'fam_val' },
+            { l: 'acc', v: 'acc_full' },
+            { l: 'aud', v: 'aud_7' },
+            { l: 'hor', v: 'hor_split' }
           ]
         },
         {
@@ -4511,12 +5146,13 @@
           price: '10',
           img: 'assets/img/diurna.webp',
           badge: 'Recomendado',
-          desc: 'Accede a los tres monumentos principales del conjunto histórico con un único billete. Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado.',
+          key: 'pul_tur',
+          desc: 'Accede libremente a los tres monumentos principales del conjunto histórico con una única entrada: Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado.',
           specs: [
-            { label: 'Incluye', val: 'Catedral + Torre + San Francisco' },
-            { label: 'Ahorro', val: '6 € respecto compra separada' },
-            { label: 'Validez', val: '1 día' },
-            { label: 'Horario', val: 'Mar–Dom 9:30–18:00' }
+            { l: 'inc', v: 'pul_tur_inc' },
+            { l: 'aho', v: 'pul_tur_aho' },
+            { l: 'val', v: 'val_puls' },
+            { l: 'hor', v: 'hor_mon' }
           ]
         },
         {
@@ -4526,27 +5162,29 @@
           price: '5',
           img: 'assets/img/nocturna.webp',
           badge: null,
-          desc: 'Precio especial para peregrinos del Camino de Santiago acreditados. Con credencial sellada, accede a la Catedral y a la Torre Exenta a precio reducido.',
+          key: 'pul_per',
+          desc: 'Precio especial para peregrinos del Camino de Santiago acreditados con credencial oficial del Camino, que hagan el Camino andando o en bicicleta. Incluye los 3 monumentos.',
           specs: [
-            { label: 'Incluye', val: 'Catedral + Torre Exenta' },
-            { label: 'Requisito', val: 'Credencial del Camino' },
-            { label: 'Validez', val: '1 día' },
-            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+            { l: 'inc', v: 'pul_per_inc' },
+            { l: 'req', v: 'pul_per_req' },
+            { l: 'val', v: 'val_puls' },
+            { l: 'hor', v: 'hor_mon' }
           ]
         },
         {
-          name: 'Pack Familiar',
-          title: 'Pack <em>Familiar</em>',
+          name: 'Ticket Familiar',
+          title: 'Ticket <em>Familiar</em>',
           tag: 'Entrada familiar',
           price: '25',
           img: 'assets/img/diurna.webp',
           badge: 'Familia',
-          desc: '2 adultos + hasta 3 menores. Visita guiada con un especialista en público familiar, adaptada al ritmo y al nivel de los niños para que la experiencia sea inolvidable.',
+          key: 'fam',
+          desc: '2 padres + hijos menores de 21 años. Incluye pulsera turística de acceso por libre a los 3 monumentos principales: Catedral + Torre + San Francisco.',
           specs: [
-            { label: 'Incluye', val: '2 adultos + hasta 3 menores' },
-            { label: 'Duración', val: '90 min aprox.' },
-            { label: 'Guía', val: 'Especializado familias' },
-            { label: 'Horario', val: 'Mar–Dom 9:30–18:30' }
+            { l: 'inc', v: 'fam_inc' },
+            { l: 'val', v: 'fam_val' },
+            { l: 'aud', v: 'aud_7' },
+            { l: 'hor', v: 'hor_mon' }
           ]
         }
       ];
@@ -4568,21 +5206,210 @@
       const specsEl   = document.getElementById('ind-specs');
       const dots      = document.querySelectorAll('#ind-dots .ind-dot');
 
+      const IND_DESCS = {
+        cat: {
+          es: 'Acceso completo al recinto catedralicio: nave principal, Retablo Mayor, Cripta y Mausoleo del Santo, claustro gótico y el célebre gallinero vivo, hogar del gallo y la gallina blancos que recuerdan el milagro del Santo.',
+          en: 'Full access to the cathedral complex: main nave, High Altarpiece, Crypt and Mausoleum of the Saint, Gothic cloister and the famous live henhouse, home to the white rooster and hen that recall the Saint’s miracle.',
+          fr: 'Accès complet à l’enceinte de la cathédrale : nef principale, Retable majeur, Crypte et Mausolée du Saint, cloître gothique et le célèbre poulailler vivant, demeure du coq et de la poule blancs qui rappellent le miracle du Saint.',
+          de: 'Vollständiger Zugang zum Kathedralenbereich: Hauptschiff, Hochaltar, Krypta und Mausoleum des Heiligen, gotischer Kreuzgang und der berühmte lebende Hühnerstall, Heimat des weißen Hahns und der weißen Henne, die an das Wunder des Heiligen erinnern.',
+          pt: 'Acesso completo ao recinto da catedral: nave principal, Retábulo-Mor, Cripta e Mausoléu do Santo, claustro gótico e o célebre galinheiro vivo, lar do galo e da galinha brancos que recordam o milagre do Santo.',
+          it: 'Accesso completo al complesso della cattedrale: navata principale, Pala Maggiore, Cripta e Mausoleo del Santo, chiostro gotico e il celebre pollaio vivo, dimora del gallo e della gallina bianchi che ricordano il miracolo del Santo.',
+          ko: '대성당 전 구역 완전 입장: 본당, 대제단화, 성인의 지하실과 묘소, 고딕 회랑, 그리고 성인의 기적을 기리는 흰 수탉과 암탉이 사는 유명한 닭장까지.',
+          eu: 'Katedraleko esparru osora sarrera: nabe nagusia, Erretaula Nagusia, Santuaren Kripta eta Mausoleoa, klaustro gotikoa eta oilategi bizi ospetsua, Santuaren mirariaren oroigarri diren oilar eta oilo zurien etxea.',
+          ca: 'Accés complet al recinte catedralici: nau principal, Retaule Major, Cripta i Mausoleu del Sant, claustre gòtic i el cèlebre galliner viu, llar del gall i la gallina blancs que recorden el miracle del Sant.'
+        },
+        torre: {
+          es: 'Sube a la torre campanario exenta de 69 m y disfruta de vistas panorámicas sobre el casco histórico, el Camino Francés y las llanuras de La Rioja. Visita el Museo de Relojes y Campanas.',
+          en: 'Climb the freestanding 69 m bell tower and enjoy panoramic views over the old town, the French Way and the plains of La Rioja. Visit the Clock and Bell Museum.',
+          fr: 'Montez à la tour-clocher indépendante de 69 m et profitez de vues panoramiques sur le centre historique, le Chemin Français et les plaines de la Rioja. Visitez le Musée des Horloges et des Cloches.',
+          de: 'Steigen Sie auf den freistehenden 69 m hohen Glockenturm und genießen Sie Panoramablicke über die Altstadt, den Französischen Weg und die Ebenen von La Rioja. Besuchen Sie das Uhren- und Glockenmuseum.',
+          pt: 'Suba à torre sineira exenta de 69 m e desfrute de vistas panorâmicas sobre o centro histórico, o Caminho Francês e as planícies de La Rioja. Visite o Museu de Relógios e Sinos.',
+          it: 'Sali sulla torre campanaria isolata di 69 m e goditi viste panoramiche sul centro storico, sul Cammino Francese e sulle pianure della Rioja. Visita il Museo degli Orologi e delle Campane.',
+          ko: '69m 높이의 독립된 종탑에 올라 구시가지, 프랑스 길, 라리오하 평원의 파노라마 전경을 감상하세요. 시계와 종 박물관도 방문하세요.',
+          eu: 'Igo 69 metroko kanpandorre exentura eta gozatu hirigune historikoaren, Frantziar Bidearen eta Errioxako lautaden panoramaz. Bisitatu Erloju eta Kanpaien Museoa.',
+          ca: 'Puja a la torre campanar exempta de 69 m i gaudeix de vistes panoràmiques sobre el casc històric, el Camí Francès i les planes de La Rioja. Visita el Museu de Rellotges i Campanes.'
+        },
+        sf: {
+          es: 'Antiguo convento franciscano reconvertido en Centro de Arte Contemporáneo. Exposiciones temporales y la magnífica Sala de Marfiles religiosos en un marco arquitectónico excepcional del s. XVI.',
+          en: 'Former Franciscan convent transformed into a Contemporary Art Centre. Temporary exhibitions and the magnificent Hall of Religious Ivories in an exceptional 16th-century architectural setting.',
+          fr: 'Ancien couvent franciscain reconverti en Centre d’Art Contemporain. Expositions temporaires et la magnifique Salle des Ivoires religieux dans un cadre architectural exceptionnel du XVIe siècle.',
+          de: 'Ehemaliges Franziskanerkloster, umgewandelt in ein Zentrum für zeitgenössische Kunst. Wechselausstellungen und der prachtvolle Saal der religiösen Elfenbeinarbeiten in einem außergewöhnlichen architektonischen Rahmen aus dem 16. Jahrhundert.',
+          pt: 'Antigo convento franciscano reconvertido em Centro de Arte Contemporânea. Exposições temporárias e a magnífica Sala de Marfins religiosos num enquadramento arquitetónico excecional do séc. XVI.',
+          it: 'Antico convento francescano riconvertito in Centro di Arte Contemporanea. Mostre temporanee e la magnifica Sala degli Avori religiosi in una cornice architettonica eccezionale del XVI secolo.',
+          ko: '프란치스코 수도원이 현대 미술 센터로 재탄생했습니다. 임시 전시와 종교적 상아 컬렉션의 웅장한 전시실을 16세기의 뛰어난 건축 공간에서 만나보세요.',
+          eu: 'Frantziskotar komentu zaharra Arte Garaikideko Zentro bilakatua. Aldi baterako erakusketak eta marfil erlijiosoen areto bikaina, XVI. mendeko arkitektura-eremu paregabean.',
+          ca: 'Antic convent franciscà reconvertit en Centre d’Art Contemporani. Exposicions temporals i la magnífica Sala de Marfils religiosos en un marc arquitectònic excepcional del s. XVI.'
+        },
+        pul_tur: {
+          es: 'Accede libremente a los tres monumentos principales del conjunto histórico con una única entrada: Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado.',
+          en: 'Free access to the three main monuments of the historic complex with a single ticket: Cathedral + Tower + San Francisco. Save €6 compared to buying separately.',
+          fr: 'Accédez librement aux trois monuments principaux de l’ensemble historique avec un seul billet : Cathédrale + Tour + San Francisco. Économisez 6 € par rapport à l’achat séparé.',
+          de: 'Freier Zugang zu den drei Hauptmonumenten des historischen Ensembles mit einem einzigen Ticket: Kathedrale + Turm + San Francisco. Sparen Sie 6 € gegenüber dem Einzelkauf.',
+          pt: 'Aceda livremente aos três monumentos principais do conjunto histórico com um único bilhete: Catedral + Torre + San Francisco. Poupe 6 € em relação à compra em separado.',
+          it: 'Accedi liberamente ai tre monumenti principali del complesso storico con un unico biglietto: Cattedrale + Torre + San Francisco. Risparmia 6 € rispetto all’acquisto separato.',
+          ko: '단일 티켓으로 역사 단지의 3대 기념물(대성당 + 탑 + 산프란시스코)에 자유롭게 입장하세요. 개별 구매보다 6€ 절약됩니다.',
+          eu: 'Sarrera bakar batekin sartu libreki multzo historikoaren hiru monumentu nagusietara: Katedrala + Dorrea + San Frantzisko. 6 € aurreztu banaka erosten konparatuta.',
+          ca: 'Accedeix lliurement als tres monuments principals del conjunt històric amb una única entrada: Catedral + Torre + San Francisco. Estalvia 6 € respecte a la compra per separat.'
+        },
+        pul_per: {
+          es: 'Precio especial para peregrinos del Camino de Santiago acreditados con credencial oficial del Camino, que hagan el Camino andando o en bicicleta. Incluye los 3 monumentos.',
+          en: 'Special price for pilgrims of the Way of Saint James with an official Camino credential, walking or cycling the route. Includes all 3 monuments.',
+          fr: 'Tarif spécial pour les pèlerins du Chemin de Saint-Jacques accrédités par la créance officielle du Chemin, à pied ou à vélo. Inclut les 3 monuments.',
+          de: 'Sonderpreis für Pilger des Jakobswegs mit offiziellem Pilgerausweis, die den Weg zu Fuß oder mit dem Fahrrad zurücklegen. Beinhaltet alle 3 Monumente.',
+          pt: 'Preço especial para peregrinos do Caminho de Santiago acreditados com a credencial oficial do Caminho, que façam o Caminho a pé ou de bicicleta. Inclui os 3 monumentos.',
+          it: 'Prezzo speciale per i pellegrini del Cammino di Santiago accreditati con la credenziale ufficiale del Cammino, che percorrano il Cammino a piedi o in bicicletta. Include i 3 monumenti.',
+          ko: '공식 순례자 증명서를 소지하고 산티아고 순례길을 걷거나 자전거로 완주하는 순례자를 위한 특별 가격. 3개 기념물 모두 포함.',
+          eu: 'Prezio berezia Santiagoko Bidearen erromesentzat, Bidearen kreditibo ofizialarekin egiaztatuak eta Bidea oinez edo bizikletaz egiten dutenak. 3 monumentuak barne.',
+          ca: 'Preu especial per a pelegrins del Camí de Santiago acreditats amb la credencial oficial del Camí, que facin el Camí caminant o en bicicleta. Inclou els 3 monuments.'
+        },
+        fam: {
+          es: '2 padres + hijos menores de 21 años. Incluye pulsera turística de acceso por libre a los 3 monumentos principales: Catedral + Torre + San Francisco.',
+          en: '2 parents + children under 21. Includes tourist bracelet with free access to the 3 main monuments: Cathedral + Tower + San Francisco.',
+          fr: '2 adultes + enfants de moins de 21 ans. Comprend le bracelet touristique d’accès libre aux 3 monuments principaux : Cathédrale + Tour + San Francisco.',
+          de: '2 Eltern + Kinder unter 21 Jahren. Beinhaltet das Touristenarmband mit freiem Zugang zu den 3 Hauptmonumenten: Kathedrale + Turm + San Francisco.',
+          pt: '2 pais + filhos menores de 21 anos. Inclui pulseira turística com acesso livre aos 3 monumentos principais: Catedral + Torre + San Francisco.',
+          it: '2 genitori + figli minori di 21 anni. Include il braccialetto turistico con accesso libero ai 3 monumenti principali: Cattedrale + Torre + San Francisco.',
+          ko: '부모 2명 + 21세 미만 자녀. 3대 주요 기념물(대성당 + 탑 + 산프란시스코) 자유 입장 관광 팔찌 포함.',
+          eu: '2 guraso + 21 urtetik beherako seme-alabak. Hiru monumentu nagusietara (Katedrala + Dorrea + San Frantzisko) sarrera librea ematen duen pultsera turistikoa barne.',
+          ca: '2 pares + fills menors de 21 anys. Inclou polsera turística d’accés lliure als 3 monuments principals: Catedral + Torre + San Francisco.'
+        }
+      };
+      const SPEC_LABELS = {
+        es: { dur: 'Duración', val: 'Validez', acc: 'Accesibilidad', aud: 'Audioguía', hor: 'Horario', inc: 'Incluye', aho: 'Ahorro', req: 'Requisito' },
+        en: { dur: 'Duration', val: 'Validity', acc: 'Accessibility', aud: 'Audio guide', hor: 'Hours', inc: 'Includes', aho: 'Saving', req: 'Requirement' },
+        fr: { dur: 'Durée', val: 'Validité', acc: 'Accessibilité', aud: 'Audioguide', hor: 'Horaires', inc: 'Comprend', aho: 'Économie', req: 'Condition' },
+        de: { dur: 'Dauer', val: 'Gültigkeit', acc: 'Barrierefreiheit', aud: 'Audioguide', hor: 'Öffnungszeiten', inc: 'Beinhaltet', aho: 'Ersparnis', req: 'Voraussetzung' },
+        pt: { dur: 'Duração', val: 'Validade', acc: 'Acessibilidade', aud: 'Audioguia', hor: 'Horário', inc: 'Inclui', aho: 'Poupança', req: 'Requisito' },
+        it: { dur: 'Durata', val: 'Validità', acc: 'Accessibilità', aud: 'Audioguida', hor: 'Orari', inc: 'Include', aho: 'Risparmio', req: 'Requisito' },
+        ko: { dur: '소요시간', val: '유효기간', acc: '접근성', aud: '오디오 가이드', hor: '운영시간', inc: '포함', aho: '할인', req: '요건' },
+        eu: { dur: 'Iraupena', val: 'Baliozkotasuna', acc: 'Irisgarritasuna', aud: 'Audiogida', hor: 'Ordutegia', inc: 'Barne', aho: 'Aurrezpena', req: 'Eskakizuna' },
+        ca: { dur: 'Durada', val: 'Validesa', acc: 'Accessibilitat', aud: 'Audioguia', hor: 'Horari', inc: 'Inclou', aho: 'Estalvi', req: 'Requisit' }
+      };
+
+      const SPEC_VALS = {
+        inf: { es: '∞', en: '∞', fr: '∞', de: '∞', pt: '∞', it: '∞', ko: '∞', eu: '∞', ca: '∞' },
+        acc_cat: {
+          es: 'Completa excepto Cripta', en: 'Full except Crypt', fr: 'Complète sauf Crypte', de: 'Vollständig außer Krypta',
+          pt: 'Completa exceto Cripta', it: 'Completa eccetto Cripta', ko: '크립트 제외 전체', eu: 'Osoa Kripta izan ezik', ca: 'Completa excepte Cripta'
+        },
+        acc_torre: {
+          es: 'Subida por escaleras', en: 'Stair access only', fr: 'Accès par escaliers', de: 'Nur über Treppen',
+          pt: 'Subida por escadas', it: 'Salita a piedi', ko: '계단 이용', eu: 'Eskaileretatik igotzea', ca: 'Pujada per escales'
+        },
+        acc_full: { es: 'Completa', en: 'Full', fr: 'Complète', de: 'Vollständig', pt: 'Completa', it: 'Completa', ko: '완전 접근', eu: 'Osoa', ca: 'Completa' },
+        aud_7: { es: '7 idiomas', en: '7 languages', fr: '7 langues', de: '7 Sprachen', pt: '7 idiomas', it: '7 lingue', ko: '7개 언어', eu: '7 hizkuntza', ca: '7 idiomes' },
+        hor_cat: {
+          es: '9:00–20:00 / Sáb 9:00–19:00', en: '9:00–20:00 / Sat 9:00–19:00', fr: '9h00–20h00 / Sam 9h00–19h00',
+          de: '9:00–20:00 / Sa 9:00–19:00', pt: '9:00–20:00 / Sáb 9:00–19:00', it: '9:00–20:00 / Sab 9:00–19:00',
+          ko: '9:00–20:00 / 토 9:00–19:00', eu: '9:00–20:00 / Lr. 9:00–19:00', ca: '9:00–20:00 / Dis 9:00–19:00'
+        },
+        hor_split: {
+          es: '10:00–13:30 y 16:00–19:30', en: '10:00–13:30 & 16:00–19:30', fr: '10h00–13h30 et 16h00–19h30',
+          de: '10:00–13:30 und 16:00–19:30', pt: '10:00–13:30 e 16:00–19:30', it: '10:00–13:30 e 16:00–19:30',
+          ko: '10:00–13:30 및 16:00–19:30', eu: '10:00–13:30 eta 16:00–19:30', ca: '10:00–13:30 i 16:00–19:30'
+        },
+        hor_mon: {
+          es: 'Según monumento', en: 'Depends on monument', fr: 'Selon le monument', de: 'Je nach Monument',
+          pt: 'Conforme o monumento', it: 'Secondo il monumento', ko: '기념물에 따라 다름', eu: 'Monumentuaren arabera', ca: 'Segons monument'
+        },
+        pul_tur_inc: {
+          es: 'Catedral + Torre + San Francisco', en: 'Cathedral + Tower + San Francisco', fr: 'Cathédrale + Tour + San Francisco',
+          de: 'Kathedrale + Turm + San Francisco', pt: 'Catedral + Torre + San Francisco', it: 'Cattedrale + Torre + San Francisco',
+          ko: '대성당 + 탑 + 산프란시스코', eu: 'Katedrala + Dorrea + San Frantzisko', ca: 'Catedral + Torre + San Francisco'
+        },
+        pul_tur_aho: {
+          es: '6 € respecto compra separada', en: '€6 vs separate purchase', fr: '6 € vs achat séparé',
+          de: '6 € ggü. Einzelkauf', pt: '6 € face à compra separada', it: '6 € rispetto acquisto separato',
+          ko: '개별 구매 대비 6 €', eu: '6 € banakako erosketaren aldean', ca: '6 € respecte compra separada'
+        },
+        pul_per_inc: {
+          es: 'Catedral + Torre Exenta', en: 'Cathedral + Tower', fr: 'Cathédrale + Tour',
+          de: 'Kathedrale + Turm', pt: 'Catedral + Torre Exenta', it: 'Cattedrale + Torre',
+          ko: '대성당 + 독립 종탑', eu: 'Katedrala + Dorre Exentua', ca: 'Catedral + Torre Exempta'
+        },
+        pul_per_req: {
+          es: 'Credencial del Camino', en: 'Camino credential', fr: 'Créance du Chemin',
+          de: 'Pilgerausweis', pt: 'Credencial do Caminho', it: 'Credenziale del Cammino',
+          ko: '순례자 증명서', eu: 'Bidearen kreditiboa', ca: 'Credencial del Camí'
+        },
+        val_puls: {
+          es: 'Con pulsera puesta', en: 'While bracelet is worn', fr: 'Avec bracelet porté',
+          de: 'Mit getragenem Armband', pt: 'Com pulseira colocada', it: 'Con braccialetto indossato',
+          ko: '팔찌 착용 중', eu: 'Pultsera jantzita', ca: 'Amb polsera posada'
+        },
+        fam_inc: {
+          es: '2 padres + hijos menores 21 años', en: '2 parents + children under 21', fr: '2 parents + enfants de moins de 21 ans',
+          de: '2 Eltern + Kinder unter 21', pt: '2 pais + filhos menores de 21 anos', it: '2 genitori + figli minori di 21 anni',
+          ko: '부모 2명 + 21세 미만 자녀', eu: '2 guraso + 21 urtetik beherako seme-alabak', ca: '2 pares + fills menors de 21 anys'
+        },
+        fam_val: { es: '3 días', en: '3 days', fr: '3 jours', de: '3 Tage', pt: '3 dias', it: '3 giorni', ko: '3일', eu: '3 egun', ca: '3 dies' }
+      };
+
+      const IND_NAMES = {
+        cat:     { es: 'Catedral', en: 'Cathedral', fr: 'Cathédrale', de: 'Kathedrale', pt: 'Catedral', it: 'Cattedrale', ko: '대성당', eu: 'Katedrala', ca: 'Catedral' },
+        torre:   { es: 'Torre Exenta', en: 'Free-standing Tower', fr: 'Tour Indépendante', de: 'Freistehender Turm', pt: 'Torre Isolada', it: 'Torre Isolata', ko: '독립 종탑', eu: 'Dorre Exentua', ca: 'Torre Exempta' },
+        sf:      { es: 'San Francisco', en: 'San Francisco', fr: 'San Francisco', de: 'San Francisco', pt: 'San Francisco', it: 'San Francisco', ko: '산프란시스코', eu: 'San Frantzisko', ca: 'Sant Francesc' },
+        pul_tur: { es: 'Pulsera Turística', en: 'Tourist Bracelet', fr: 'Bracelet Touristique', de: 'Touristen-Armband', pt: 'Pulseira Turística', it: 'Braccialetto Turistico', ko: '관광 팔찌', eu: 'Pultsera Turistikoa', ca: 'Polsera Turística' },
+        pul_per: { es: 'Pulsera Peregrino', en: 'Pilgrim Bracelet', fr: 'Bracelet Pèlerin', de: 'Pilger-Armband', pt: 'Pulseira Peregrino', it: 'Braccialetto Pellegrino', ko: '순례자 팔찌', eu: 'Pultsera Erromesa', ca: 'Polsera Pelegrí' },
+        fam:     { es: 'Ticket Familiar', en: 'Family Ticket', fr: 'Billet Famille', de: 'Familienticket', pt: 'Bilhete Família', it: 'Biglietto Famiglia', ko: '가족 티켓', eu: 'Familia Sarrera', ca: 'Tiquet Familiar' }
+      };
+      const IND_TITLES = {
+        cat:     { es: 'Catedral de <em>Santo Domingo</em>', en: 'Cathedral of <em>Santo Domingo</em>', fr: 'Cathédrale de <em>Santo Domingo</em>', de: 'Kathedrale von <em>Santo Domingo</em>', pt: 'Catedral de <em>Santo Domingo</em>', it: 'Cattedrale di <em>Santo Domingo</em>', ko: '<em>산토 도밍고</em> 대성당', eu: '<em>Santo Domingo</em>ko Katedrala', ca: 'Catedral de <em>Santo Domingo</em>' },
+        torre:   { es: 'Torre <em>Exenta</em>', en: '<em>Free-standing</em> Tower', fr: 'Tour <em>Indépendante</em>', de: '<em>Freistehender</em> Turm', pt: 'Torre <em>Isolada</em>', it: 'Torre <em>Isolata</em>', ko: '<em>독립</em> 종탑', eu: 'Dorre <em>Exentua</em>', ca: 'Torre <em>Exempta</em>' },
+        sf:      { es: 'Convento de <em>San Francisco</em>', en: '<em>San Francisco</em> Convent', fr: 'Couvent de <em>San Francisco</em>', de: 'Kloster <em>San Francisco</em>', pt: 'Convento de <em>San Francisco</em>', it: 'Convento di <em>San Francisco</em>', ko: '<em>산프란시스코</em> 수도원', eu: '<em>San Frantzisko</em> Komentua', ca: 'Convent de <em>Sant Francesc</em>' },
+        pul_tur: { es: 'Pulsera <em>Turística</em>', en: 'Tourist <em>Bracelet</em>', fr: 'Bracelet <em>Touristique</em>', de: 'Touristen-<em>Armband</em>', pt: 'Pulseira <em>Turística</em>', it: 'Braccialetto <em>Turistico</em>', ko: '<em>관광</em> 팔찌', eu: 'Pultsera <em>Turistikoa</em>', ca: 'Polsera <em>Turística</em>' },
+        pul_per: { es: 'Pulsera <em>Peregrino</em>', en: 'Pilgrim <em>Bracelet</em>', fr: 'Bracelet <em>Pèlerin</em>', de: 'Pilger-<em>Armband</em>', pt: 'Pulseira <em>Peregrino</em>', it: 'Braccialetto <em>Pellegrino</em>', ko: '<em>순례자</em> 팔찌', eu: 'Pultsera <em>Erromesa</em>', ca: 'Polsera <em>Pelegrí</em>' },
+        fam:     { es: 'Ticket <em>Familiar</em>', en: '<em>Family</em> Ticket', fr: 'Billet <em>Famille</em>', de: '<em>Familien</em>ticket', pt: 'Bilhete <em>Família</em>', it: 'Biglietto <em>Famiglia</em>', ko: '<em>가족</em> 티켓', eu: '<em>Familia</em> Sarrera', ca: 'Tiquet <em>Familiar</em>' }
+      };
+      const IND_TAGS = {
+        cat:     { es: 'Entrada individual', en: 'Individual ticket', fr: 'Billet individuel', de: 'Einzelticket', pt: 'Bilhete individual', it: 'Biglietto individuale', ko: '개인 티켓', eu: 'Banakako sarrera', ca: 'Entrada individual' },
+        torre:   { es: 'Entrada individual', en: 'Individual ticket', fr: 'Billet individuel', de: 'Einzelticket', pt: 'Bilhete individual', it: 'Biglietto individuale', ko: '개인 티켓', eu: 'Banakako sarrera', ca: 'Entrada individual' },
+        sf:      { es: 'Entrada individual', en: 'Individual ticket', fr: 'Billet individuel', de: 'Einzelticket', pt: 'Bilhete individual', it: 'Biglietto individuale', ko: '개인 티켓', eu: 'Banakako sarrera', ca: 'Entrada individual' },
+        pul_tur: { es: 'Combinada · Recomendada', en: 'Combined · Recommended', fr: 'Combiné · Recommandé', de: 'Kombi · Empfohlen', pt: 'Combinada · Recomendada', it: 'Combinata · Consigliata', ko: '결합 · 추천', eu: 'Konbinatua · Gomendatua', ca: 'Combinada · Recomanada' },
+        pul_per: { es: 'Tarifa especial · Camino', en: 'Special rate · Camino', fr: 'Tarif spécial · Chemin', de: 'Sonderpreis · Pilgerweg', pt: 'Tarifa especial · Caminho', it: 'Tariffa speciale · Cammino', ko: '특별 요금 · 순례길', eu: 'Tarifa berezia · Bidea', ca: 'Tarifa especial · Camí' },
+        fam:     { es: 'Entrada familiar', en: 'Family ticket', fr: 'Billet famille', de: 'Familienticket', pt: 'Bilhete família', it: 'Biglietto famiglia', ko: '가족 티켓', eu: 'Familia sarrera', ca: 'Entrada familiar' }
+      };
+      const IND_BADGES = {
+        pul_tur: { es: 'Recomendado', en: 'Recommended', fr: 'Recommandé', de: 'Empfohlen', pt: 'Recomendado', it: 'Consigliato', ko: '추천', eu: 'Gomendatua', ca: 'Recomanat' },
+        fam:     { es: 'Familia', en: 'Family', fr: 'Famille', de: 'Familie', pt: 'Família', it: 'Famiglia', ko: '가족', eu: 'Familia', ca: 'Família' }
+      };
+
+      function _lang() { return localStorage.getItem('cat-lang') || 'es'; }
+      function _getDesc(v) {
+        const lang = _lang();
+        return (v.key && IND_DESCS[v.key] && IND_DESCS[v.key][lang]) || v.desc;
+      }
+      function _getName(v)  { const l = _lang(); return (v.key && IND_NAMES[v.key]  && IND_NAMES[v.key][l])  || v.name; }
+      function _getTitle(v) { const l = _lang(); return (v.key && IND_TITLES[v.key] && IND_TITLES[v.key][l]) || v.title; }
+      function _getTag(v)   { const l = _lang(); return (v.key && IND_TAGS[v.key]   && IND_TAGS[v.key][l])   || v.tag; }
+      function _getBadge(v) { const l = _lang(); return (v.key && IND_BADGES[v.key] && IND_BADGES[v.key][l]) || v.badge; }
+      function _getLbl(k) {
+        const lang = _lang();
+        return (SPEC_LABELS[lang] && SPEC_LABELS[lang][k]) || (SPEC_LABELS.es[k] || k);
+      }
+      function _getVal(k) {
+        const lang = _lang();
+        return (SPEC_VALS[k] && (SPEC_VALS[k][lang] || SPEC_VALS[k].es)) || k;
+      }
+
       function updateDetail(v) {
-        if (v.badge) {
-          badgeEl.textContent = v.badge; badgeEl.style.display = '';
-          badgeImgEl.textContent = v.badge; badgeImgEl.style.display = '';
+        const b = _getBadge(v);
+        if (b) {
+          badgeEl.textContent = b; badgeEl.style.display = '';
+          badgeImgEl.textContent = b; badgeImgEl.style.display = '';
         } else {
           badgeEl.style.display = 'none';
           badgeImgEl.style.display = 'none';
         }
-        tagEl.textContent   = v.tag;
-        titleEl.innerHTML   = v.title;
+        tagEl.textContent   = _getTag(v);
+        titleEl.innerHTML   = _getTitle(v);
         priceEl.textContent = v.price;
-        descEl.textContent  = v.desc;
-        specsEl.innerHTML   = v.specs.map(s =>
-          `<div><div class="ind-spec__label">${s.label}</div><div class="ind-spec__val">${s.val}</div></div>`
-        ).join('');
+        descEl.textContent  = _getDesc(v);
+        specsEl.innerHTML   = v.specs.map(s => {
+          const lbl = s.l ? _getLbl(s.l) : s.label;
+          const val = s.v ? _getVal(s.v) : s.val;
+          return `<div><div class="ind-spec__label">${lbl}</div><div class="ind-spec__val">${val}</div></div>`;
+        }).join('');
       }
 
       function render(idx, animate) {
@@ -4590,7 +5417,7 @@
         const v = visits[idx];
         current = idx;
 
-        nameEl.textContent    = v.name;
+        nameEl.textContent    = _getName(v);
         amountEl.textContent  = v.price;
         counterEl.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(visits.length).padStart(2, '0')}`;
         dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
@@ -4625,60 +5452,91 @@
       }));
 
       render(0, false);
+
+      const _origIndApplyLang = window.PAGE_applyLang;
+      window.PAGE_applyLang = function(lang) {
+        if (_origIndApplyLang) _origIndApplyLang(lang);
+        render(current, false);
+      };
     })();
 
     /* ── GUIADAS SLIDER ── */
     (function () {
       const visits = [
-        {
-          name: 'Diurna',
-          title: 'Visita guiada <em>diurna</em>',
-          tag: 'Visita guiada · Diurna',
-          price: '14',
-          img: 'assets/img/diurna.webp',
-          badge: null,
-          url: 'reservas.html?tipo=individual&modo=con-guia&entrada=diurna',
-          desc: 'Recorre la Catedral con un guía experto y descubre el retablo mayor, el sepulcro del Santo y el famoso gallinero vivo, único en el mundo.',
-          specs: [
-            { label: 'Duración', val: '90 min' },
-            { label: 'Idiomas', val: 'ES · EN · FR · DE' },
-            { label: 'Horario', val: 'Lun–Dom 11:00 · 13:00 · 17:00' },
-            { label: 'Grupo máx.', val: '15 personas' }
-          ]
-        },
-        {
-          name: 'Nocturna',
-          title: 'Visita guiada <em>nocturna</em>',
-          tag: 'Visita guiada · Nocturna',
-          price: '15',
-          img: 'assets/img/nocturna.webp',
-          badge: 'Nocturna',
-          url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna',
-          desc: 'La Catedral cobra vida a la luz de las velas. Leyendas, misterios y ocho siglos de historia en una experiencia sensorial única e irrepetible.',
-          specs: [
-            { label: 'Duración', val: '120 min' },
-            { label: 'Idiomas', val: 'ES · EN' },
-            { label: 'Horario', val: 'Vie y Sáb · 20:45 h' },
-            { label: 'Grupo máx.', val: '12 personas' }
-          ]
-        },
-        {
-          name: 'VIP',
-          title: 'Visita <em>VIP</em> exclusiva',
-          tag: 'Visita guiada · VIP',
-          price: '15',
-          img: 'assets/img/retablo.webp',
-          badge: 'VIP',
-          url: 'reservas.html?tipo=individual&modo=con-guia&entrada=vip',
-          desc: 'Acceso al triforio, al tesoro catedralicio y al archivo histórico. Atención personalizada, sin grupos, con el nivel de detalle que merece cada rincón.',
-          specs: [
-            { label: 'Duración', val: '2 – 3 horas' },
-            { label: 'Idiomas', val: 'ES · EN · FR · DE' },
-            { label: 'Horario', val: 'A convenir' },
-            { label: 'Grupo máx.', val: '8 personas' }
-          ]
-        }
+        { key: 'diu', price: '14', img: 'assets/img/diurna.webp',  badge: null,        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=diurna',   durKey: 'g_dur_45' },
+        { key: 'noc', price: '15', img: 'assets/img/nocturna.webp', badge: 'noc',      url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna', durKey: 'g_dur_60' },
+        { key: 'vip', price: '15', img: 'assets/img/retablo.webp',  badge: 'vip',      url: 'reservas.html?tipo=individual&modo=con-guia&entrada=vip',      durKey: 'g_dur_90', grpKey: 'g_grp_15' }
       ];
+
+      const GUI_NAMES = {
+        diu: { es: 'Diurna', en: 'Daytime', fr: 'Diurne', de: 'Tagestour', pt: 'Diurna', it: 'Diurna', ko: '주간', eu: 'Egunekoa', ca: 'Diürna' },
+        noc: { es: 'Nocturna', en: 'Night-time', fr: 'Nocturne', de: 'Nachttour', pt: 'Noturna', it: 'Notturna', ko: '야간', eu: 'Gauekoa', ca: 'Nocturna' },
+        vip: { es: 'VIP', en: 'VIP', fr: 'VIP', de: 'VIP', pt: 'VIP', it: 'VIP', ko: 'VIP', eu: 'VIP', ca: 'VIP' }
+      };
+      const GUI_TITLES = {
+        diu: { es: 'Visita guiada <em>diurna</em>', en: '<em>Daytime</em> guided tour', fr: 'Visite guidée <em>diurne</em>', de: '<em>Tagesführung</em>', pt: 'Visita guiada <em>diurna</em>', it: 'Visita guidata <em>diurna</em>', ko: '<em>주간</em> 가이드 투어', eu: 'Eguneko bisita <em>gidatua</em>', ca: 'Visita guiada <em>diürna</em>' },
+        noc: { es: 'Visita guiada <em>nocturna</em>', en: '<em>Night-time</em> guided tour', fr: 'Visite guidée <em>nocturne</em>', de: '<em>Nachtführung</em>', pt: 'Visita guiada <em>noturna</em>', it: 'Visita guidata <em>notturna</em>', ko: '<em>야간</em> 가이드 투어', eu: 'Gaueko bisita <em>gidatua</em>', ca: 'Visita guiada <em>nocturna</em>' },
+        vip: { es: 'Visita <em>VIP</em> exclusiva', en: 'Exclusive <em>VIP</em> tour', fr: 'Visite <em>VIP</em> exclusive', de: 'Exklusive <em>VIP</em>-Tour', pt: 'Visita <em>VIP</em> exclusiva', it: 'Visita <em>VIP</em> esclusiva', ko: '독점 <em>VIP</em> 투어', eu: '<em>VIP</em> bisita esklusiboa', ca: 'Visita <em>VIP</em> exclusiva' }
+      };
+      const GUI_TAGS = {
+        diu: { es: 'Visita guiada · Diurna', en: 'Guided tour · Daytime', fr: 'Visite guidée · Diurne', de: 'Führung · Tagestour', pt: 'Visita guiada · Diurna', it: 'Visita guidata · Diurna', ko: '가이드 투어 · 주간', eu: 'Bisita gidatua · Egunekoa', ca: 'Visita guiada · Diürna' },
+        noc: { es: 'Visita guiada · Nocturna', en: 'Guided tour · Night-time', fr: 'Visite guidée · Nocturne', de: 'Führung · Nachttour', pt: 'Visita guiada · Noturna', it: 'Visita guidata · Notturna', ko: '가이드 투어 · 야간', eu: 'Bisita gidatua · Gauekoa', ca: 'Visita guiada · Nocturna' },
+        vip: { es: 'Visita guiada · VIP', en: 'Guided tour · VIP', fr: 'Visite guidée · VIP', de: 'Führung · VIP', pt: 'Visita guiada · VIP', it: 'Visita guidata · VIP', ko: '가이드 투어 · VIP', eu: 'Bisita gidatua · VIP', ca: 'Visita guiada · VIP' }
+      };
+      const GUI_BADGES = {
+        noc: { es: 'Nocturna', en: 'Night-time', fr: 'Nocturne', de: 'Nachttour', pt: 'Noturna', it: 'Notturna', ko: '야간', eu: 'Gauekoa', ca: 'Nocturna' },
+        vip: { es: 'VIP', en: 'VIP', fr: 'VIP', de: 'VIP', pt: 'VIP', it: 'VIP', ko: 'VIP', eu: 'VIP', ca: 'VIP' }
+      };
+      const GUI_DESCS = {
+        diu: {
+          es: 'Recorre la Catedral con guía y descubre la historia de la Catedral, la nave principal, el Retablo Mayor, el sepulcro del Santo y el famoso gallinero vivo y el Milagro del Gallo y la Gallina, único en el mundo.',
+          en: 'Tour the Cathedral with a guide and discover its history, the main nave, the High Altarpiece, the Saint\'s tomb and the famous live henhouse with the Miracle of the Rooster and Hen, unique in the world.',
+          fr: 'Parcourez la Cathédrale avec un guide et découvrez son histoire, la nef principale, le Retable majeur, le tombeau du Saint et le célèbre poulailler vivant et le Miracle du Coq et de la Poule, unique au monde.',
+          de: 'Erkunden Sie die Kathedrale mit Führung und entdecken Sie ihre Geschichte, das Hauptschiff, den Hochaltar, das Grab des Heiligen und den berühmten lebenden Hühnerstall mit dem Wunder von Hahn und Henne — weltweit einzigartig.',
+          pt: 'Percorra a Catedral com guia e descubra a sua história, a nave principal, o Retábulo-Mor, o sepulcro do Santo e o famoso galinheiro vivo e o Milagre do Galo e da Galinha, único no mundo.',
+          it: 'Visita la Cattedrale con una guida e scopri la sua storia, la navata principale, la Pala Maggiore, il sepolcro del Santo e il celebre pollaio vivo con il Miracolo del Gallo e della Gallina, unico al mondo.',
+          ko: '가이드와 함께 대성당을 둘러보고 본당, 대제단화, 성인의 묘소, 그리고 세계에서 유일한 닭과 수탉의 기적이 있는 유명한 살아있는 닭장의 역사를 발견하세요.',
+          eu: 'Ibili Katedrala gidari batekin eta ezagutu haren historia, nabe nagusia, Erretaula Nagusia, Santuaren hilobia eta munduan bakarra den oilategi biziaren eta Oilar eta Oiloaren Mirariaren historia.',
+          ca: 'Recorre la Catedral amb guia i descobreix la seva història, la nau principal, el Retaule Major, el sepulcre del Sant i el cèlebre galliner viu i el Miracle del Gall i la Gallina, únic al món.'
+        },
+        noc: {
+          es: 'El mejor románico de La Rioja bajo la nueva iluminación. Descubre la proyección audiovisual sobre el Retablo Mayor: leyendas, misterios y ocho siglos de historia en una experiencia única.',
+          en: 'The finest Romanesque art in La Rioja under the new lighting. Discover the audiovisual projection on the High Altarpiece: legends, mysteries and eight centuries of history in a unique experience.',
+          fr: 'Le meilleur de l\'art roman de La Rioja sous le nouvel éclairage. Découvrez la projection audiovisuelle sur le Retable majeur : légendes, mystères et huit siècles d\'histoire dans une expérience unique.',
+          de: 'Die beste Romanik La Riojas in neuer Beleuchtung. Entdecken Sie die audiovisuelle Projektion auf dem Hochaltar: Legenden, Mysterien und acht Jahrhunderte Geschichte in einem einzigartigen Erlebnis.',
+          pt: 'O melhor românico de La Rioja sob a nova iluminação. Descubra a projeção audiovisual sobre o Retábulo-Mor: lendas, mistérios e oito séculos de história numa experiência única.',
+          it: 'Il miglior romanico di La Rioja sotto la nuova illuminazione. Scopri la proiezione audiovisiva sulla Pala Maggiore: leggende, misteri e otto secoli di storia in un\'esperienza unica.',
+          ko: '새로운 조명 아래 라리오하 최고의 로마네스크 양식. 대제단화 위에 펼쳐지는 영상: 전설, 신비, 그리고 8세기에 걸친 역사가 어우러진 독특한 경험.',
+          eu: 'Errioxako erromaniko onena argiztatze berriarekin. Aurkitu Erretaula Nagusiaren gaineko ikus-entzunezko proiekzioa: kondairak, misterioak eta zortzi mendeko historia esperientzia paregabe batean.',
+          ca: 'El millor romànic de La Rioja sota la nova il·luminació. Descobreix la projecció audiovisual sobre el Retaule Major: llegendes, misteris i vuit segles d\'història en una experiència única.'
+        },
+        vip: {
+          es: 'Disfruta de un recorrido privado con guía por el triforio, la sacristía y las defensas medievales, descubriendo con el nivel de detalle y el cuidado que cada rincón histórico merece.',
+          en: 'Enjoy a private guided tour of the triforium, sacristy and medieval defences, with the level of detail and care every historic corner deserves.',
+          fr: 'Profitez d\'une visite privée avec guide du triforium, de la sacristie et des défenses médiévales, avec le niveau de détail et de soin que chaque recoin historique mérite.',
+          de: 'Genießen Sie eine private Führung durch Triforium, Sakristei und mittelalterliche Befestigungen — mit der Detailtreue und Sorgfalt, die jeder historische Winkel verdient.',
+          pt: 'Desfrute de um percurso privado com guia pelo trifório, sacristia e defesas medievais, com o nível de detalhe e cuidado que cada recanto histórico merece.',
+          it: 'Goditi un percorso privato con guida nel triforio, nella sacrestia e nelle difese medievali, con il livello di dettaglio e cura che ogni angolo storico merita.',
+          ko: '트리포리움, 제의실, 중세 방어시설을 둘러보는 프라이빗 가이드 투어를 즐기며 각 역사적 공간을 세심하게 탐방하세요.',
+          eu: 'Gozatu triforioan, sakristian eta Erdi Aroko defentsetan zehar gidari pribatu batekin egindako ibilbidea, txoko historiko bakoitzak merezi duen xehetasun eta arretarekin.',
+          ca: 'Gaudeix d\'un recorregut privat amb guia pel trifori, la sagristia i les defenses medievals, amb el nivell de detall i cura que cada racó històric mereix.'
+        }
+      };
+      const GUI_SPEC_LBL = {
+        dur: { es: 'Duración', en: 'Duration', fr: 'Durée', de: 'Dauer', pt: 'Duração', it: 'Durata', ko: '소요시간', eu: 'Iraupena', ca: 'Durada' },
+        idi: { es: 'Idiomas', en: 'Languages', fr: 'Langues', de: 'Sprachen', pt: 'Idiomas', it: 'Lingue', ko: '언어', eu: 'Hizkuntzak', ca: 'Idiomes' },
+        hor: { es: 'Horario', en: 'Schedule', fr: 'Horaires', de: 'Öffnungszeiten', pt: 'Horário', it: 'Orari', ko: '운영시간', eu: 'Ordutegia', ca: 'Horari' },
+        grp: { es: 'Grupo máx.', en: 'Max group', fr: 'Groupe max.', de: 'Max. Gruppe', pt: 'Grupo máx.', it: 'Gruppo max.', ko: '최대 인원', eu: 'Talde max.', ca: 'Grup màx.' }
+      };
+      const GUI_SPEC_VAL = {
+        g_dur_45:    { es: '45 minutos', en: '45 minutes', fr: '45 minutes', de: '45 Minuten', pt: '45 minutos', it: '45 minuti', ko: '45분', eu: '45 minutu', ca: '45 minuts' },
+        g_dur_60:    { es: '60 minutos', en: '60 minutes', fr: '60 minutes', de: '60 Minuten', pt: '60 minutos', it: '60 minuti', ko: '60분', eu: '60 minutu', ca: '60 minuts' },
+        g_dur_90:    { es: '90 minutos', en: '90 minutes', fr: '90 minutes', de: '90 Minuten', pt: '90 minutos', it: '90 minuti', ko: '90분', eu: '90 minutu', ca: '90 minuts' },
+        g_consult:   { es: 'Consultar disponibilidad', en: 'Check availability', fr: 'Consulter la disponibilité', de: 'Verfügbarkeit prüfen', pt: 'Consultar disponibilidade', it: 'Verifica disponibilità', ko: '가능 여부 문의', eu: 'Eskuragarritasuna galdetu', ca: 'Consultar disponibilitat' },
+        g_grp_50:    { es: '50 pax', en: '50 pax', fr: '50 pax', de: '50 Pers.', pt: '50 pax', it: '50 pax', ko: '50명', eu: '50 lagun', ca: '50 pax' },
+        g_grp_15:    { es: '15 personas', en: '15 people', fr: '15 personnes', de: '15 Personen', pt: '15 pessoas', it: '15 persone', ko: '15명', eu: '15 lagun', ca: '15 persones' },
+        g_idi_es:    { es: 'ES', en: 'ES', fr: 'ES', de: 'ES', pt: 'ES', it: 'ES', ko: 'ES', eu: 'ES', ca: 'ES' }
+      };
 
       const imgEl = document.getElementById('gui-img');
       if (!imgEl) return;
@@ -4699,20 +5557,31 @@
       let current = 0;
       let animating = false;
 
+      function _glang() { return localStorage.getItem('cat-lang') || 'es'; }
+      function _gPick(dict, k) { const l = _glang(); return (dict[k] && (dict[k][l] || dict[k].es)) || ''; }
+
       function updateDetail(v) {
-        if (v.badge) {
-          badgeEl.textContent = v.badge; badgeEl.style.display = '';
-          badgeImgEl.textContent = v.badge; badgeImgEl.style.display = '';
+        const b = v.badge ? _gPick(GUI_BADGES, v.badge) : null;
+        if (b) {
+          badgeEl.textContent = b; badgeEl.style.display = '';
+          badgeImgEl.textContent = b; badgeImgEl.style.display = '';
         } else {
           badgeEl.style.display = 'none';
           badgeImgEl.style.display = 'none';
         }
-        tagEl.textContent = v.tag;
-        titleEl.innerHTML = v.title;
+        tagEl.textContent = _gPick(GUI_TAGS, v.key);
+        titleEl.innerHTML = _gPick(GUI_TITLES, v.key);
         priceEl.textContent = v.price;
-        descEl.textContent = v.desc;
-        specsEl.innerHTML = v.specs.map(s =>
-          `<div><div class="ind-spec__label">${s.label}</div><div class="ind-spec__val">${s.val}</div></div>`
+        descEl.textContent = _gPick(GUI_DESCS, v.key);
+        const grpKey = v.grpKey || 'g_grp_50';
+        const specs = [
+          { lbl: _gPick(GUI_SPEC_LBL, 'dur'), val: _gPick(GUI_SPEC_VAL, v.durKey) },
+          { lbl: _gPick(GUI_SPEC_LBL, 'idi'), val: _gPick(GUI_SPEC_VAL, 'g_idi_es') },
+          { lbl: _gPick(GUI_SPEC_LBL, 'hor'), val: _gPick(GUI_SPEC_VAL, 'g_consult') },
+          { lbl: _gPick(GUI_SPEC_LBL, 'grp'), val: _gPick(GUI_SPEC_VAL, grpKey) }
+        ];
+        specsEl.innerHTML = specs.map(s =>
+          `<div><div class="ind-spec__label">${s.lbl}</div><div class="ind-spec__val">${s.val}</div></div>`
         ).join('');
         ctaEl.href = v.url;
       }
@@ -4721,7 +5590,7 @@
         if (animating) return;
         const v = visits[idx];
         current = idx;
-        nameEl.textContent = v.name;
+        nameEl.textContent = _gPick(GUI_NAMES, v.key);
         amountEl.textContent = v.price;
         counterEl.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(visits.length).padStart(2, '0')}`;
         dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
@@ -4754,6 +5623,12 @@
       }));
 
       render(0, false);
+
+      const _origGuiApplyLang = window.PAGE_applyLang;
+      window.PAGE_applyLang = function(lang) {
+        if (_origGuiApplyLang) _origGuiApplyLang(lang);
+        render(current, false);
+      };
     })();
   </script>
 

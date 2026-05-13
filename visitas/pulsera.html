@@ -14,11 +14,15 @@
     /* ── PAGE HERO ─────────────────────────────────────────── */
     .page-hero {
       position: relative;
-      height: 72vh;
-      min-height: 480px;
+      height: 100svh;
+      min-height: 520px;
       overflow: hidden;
       display: flex;
       align-items: flex-end
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { min-height: 400px }
     }
 
     .page-hero__bg {
@@ -483,7 +487,7 @@
       line-height: 1.15
     }
 
-    .cta-band__title em { font-style: italic }
+    .cta-band__title em { font-style: italic; color: var(--carbon); opacity: .55 }
 
     .cta-band__btn {
       display: inline-flex;
@@ -507,7 +511,27 @@
     body.light-mode .vis-section--dark .vis-eyebrow { color: #7A6025 }
     body.light-mode .vis-section--dark .vis-title { color: var(--carbon) }
     body.light-mode .vis-section--dark .intro-block__text { color: rgba(20,18,16,.65) }
+    body.light-mode .cta-band__eyebrow { color: rgba(255,255,255,.85) }
+    body.light-mode .cta-band__title em { color: rgba(255,255,255,.78); opacity: 1 }
+    body.light-mode .page-hero::after {
+      background: linear-gradient(160deg, rgba(14,12,10,.92) 0%, rgba(14,12,10,.62) 50%, rgba(14,12,10,.82) 100%),
+                  linear-gradient(to top, rgba(14,12,10,.98) 0%, rgba(14,12,10,.45) 55%, rgba(14,12,10,.15) 100%);
+    }
+    body.light-mode .page-hero__title { color: var(--white); text-shadow: 0 2px 18px rgba(14,12,10,.55) }
+    body.light-mode .page-hero__title em { color: var(--gold-lt); text-shadow: 0 2px 18px rgba(14,12,10,.6) }
+    body.light-mode .page-hero__desc { color: rgba(255,255,255,.88); text-shadow: 0 1px 12px rgba(14,12,10,.5) }
+    body.light-mode .page-hero__eyebrow { color: var(--gold-lt); text-shadow: 0 1px 8px rgba(14,12,10,.5) }
     body.light-mode .price-section { background: #F5F0E8 }
+    body.light-mode .price-section .vis-title { color: var(--carbon) }
+    body.light-mode .price-section .vis-title em { color: var(--gold-text) }
+    body.light-mode .price-section .vis-eyebrow { color: var(--gold-text) }
+    body.light-mode .monument-card::after {
+      background: linear-gradient(to top, rgba(14,12,10,.96) 0%, rgba(14,12,10,.55) 40%, rgba(14,12,10,.1) 75%, transparent 100%);
+    }
+    body.light-mode .monument-card__name { color: var(--white); text-shadow: 0 1px 8px rgba(14,12,10,.6) }
+    body.light-mode .monument-card__name em { color: var(--gold-lt); text-shadow: 0 1px 8px rgba(14,12,10,.6) }
+    body.light-mode .monument-card__sub { color: rgba(253,250,244,.85); text-shadow: 0 1px 6px rgba(14,12,10,.55) }
+    body.light-mode .monument-card__num { color: var(--gold-lt); text-shadow: 0 1px 6px rgba(14,12,10,.55) }
     body.light-mode .price-card { background: #fff; border-color: rgba(20,18,16,.1) }
     body.light-mode .price-card--featured { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.25) }
     body.light-mode .price-card__amount { color: var(--carbon) }
@@ -530,13 +554,96 @@
       .monument-card { grid-column: span 1 }
       .monument-card:nth-child(4),
       .monument-card:nth-child(5) { grid-column: span 1 }
-      .price-cards { grid-template-columns: 1fr }
       .info-inner { grid-template-columns: 1fr; gap: 56px }
     }
 
     @media (max-width: 600px) {
-      .monument-grid { grid-template-columns: 1fr }
-      .cta-band__inner { flex-direction: column; align-items: flex-start }
+      .cta-band { padding: 56px 8vw; text-align: center }
+      .cta-band__inner { flex-direction: column; align-items: center; gap: 28px }
+      .cta-band__eyebrow { color: rgba(20,18,16,.78); font-weight: 500 }
+      .cta-band__title { font-size: 1.7rem; color: var(--carbon) }
+      .cta-band__title em { opacity: .8 }
+      .info-inner > div { min-width: 0 }
+      .info-list,
+      .faq-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+      }
+      .info-list::-webkit-scrollbar,
+      .faq-list::-webkit-scrollbar { display: none }
+      .info-item,
+      .faq-item {
+        flex: 0 0 220px;
+        width: 220px;
+        height: 200px;
+        scroll-snap-align: start;
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 4px;
+        padding: 22px 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      .info-item { grid-template-columns: 28px 1fr; gap: 10px; padding: 22px 20px; align-items: flex-start; align-content: start }
+      .info-item__num { font-size: .48rem; padding-top: 2px }
+      .info-item__label,
+      .faq-q { font-size: .7rem; letter-spacing: .1em; margin-bottom: 6px; line-height: 1.25 }
+      .info-item__value,
+      .faq-a { font-size: .76rem; line-height: 1.5 }
+      .info-item:first-child,
+      .faq-item:first-child { border-top: 1px solid rgba(255,255,255,.08) }
+      body.light-mode .info-item,
+      body.light-mode .faq-item {
+        border-color: rgba(20,18,16,.1);
+      }
+      .price-cards {
+        display: flex;
+        grid-template-columns: none;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -8vw;
+        margin-right: -8vw;
+        padding: 0 8vw 8px;
+        scrollbar-width: none;
+      }
+      .price-cards::-webkit-scrollbar { display: none }
+      .price-card {
+        flex: 0 0 86%;
+        scroll-snap-align: start;
+        padding: 40px 32px;
+      }
+      .monument-grid {
+        display: flex;
+        grid-template-columns: none;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -8vw;
+        margin-right: -8vw;
+        padding: 0 8vw 8px;
+        scrollbar-width: none;
+      }
+      .monument-grid::-webkit-scrollbar { display: none }
+      .monument-card,
+      .monument-card:nth-child(4),
+      .monument-card:nth-child(5) {
+        grid-column: auto;
+        flex: 0 0 78%;
+        scroll-snap-align: start;
+        aspect-ratio: 3/4;
+      }
+      .monument-card__sub { opacity: 1; transform: none }
     }
 
     body.light-mode .site-footer { background: #F9F8F6; }
@@ -567,6 +674,9 @@
     <ul class="a11y-panel__list">
       <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
       <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Modo Claro / Oscuro</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
       <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
       <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
       <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
@@ -671,8 +781,7 @@
       </a>
     </nav>
     <div class="page-hero__content">
-      <a href="../visitas.html" class="page-hero__back" data-i18n-page="back_visits">← Visitas</a>
-      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Entrada combinada · 5 monumentos</p>
+      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Entrada combinada · 4 monumentos</p>
       <h1 class="page-hero__title" data-i18n-page="hero_title">Pulsera <em>Turística</em></h1>
       <p class="page-hero__desc" data-i18n-page="hero_desc">La forma más económica de descubrir todo Santo Domingo de la Calzada con una sola entrada válida para todo el día.</p>
     </div>
@@ -682,11 +791,11 @@
   <section class="vis-section vis-section--dark" id="main-content" tabindex="-1">
     <div class="vis-section__inner">
       <p class="vis-eyebrow reveal" data-i18n-page="inc_eyebrow">Qué incluye</p>
-      <h2 class="vis-title reveal" data-i18n-page="inc_title">Cinco monumentos, <em>una pulsera</em></h2>
+      <h2 class="vis-title reveal" data-i18n-page="inc_title">Cuatro monumentos, <em>una pulsera</em></h2>
 
       <div class="intro-block reveal">
-        <p class="intro-block__text" data-i18n-page="inc_text">La Pulsera Turística te permite acceder libremente a los cinco monumentos más emblemáticos del conjunto patrimonial de Santo Domingo de la Calzada. Con un único pago, tienes todo el día para explorarlos a tu ritmo, sin prisas y sin colas adicionales. Es la opción más inteligente para descubrir ocho siglos de historia, arte y devoción en el corazón del Camino Francés.</p>
-        <p class="intro-block__pull" data-i18n-page="inc_pull">«Cinco espacios únicos. Una sola entrada. Un día para descubrirlo todo.»</p>
+        <p class="intro-block__text" data-i18n-page="inc_text">La Pulsera Turística te permite acceder libremente a los cuatro monumentos más emblemáticos del conjunto patrimonial de Santo Domingo de la Calzada. Con un único pago, tienes todo el día para explorarlos a tu ritmo, sin prisas y sin colas adicionales. Es la opción más inteligente para descubrir ocho siglos de historia, arte y devoción en el corazón del Camino Francés.</p>
+        <p class="intro-block__pull" data-i18n-page="inc_pull">«Cuatro espacios únicos. Una sola entrada. Un día para descubrirlo todo.»</p>
       </div>
 
       <div class="monument-grid reveal">
@@ -709,7 +818,7 @@
           <div class="monument-card__body">
             <span class="monument-card__num">02</span>
             <span class="monument-card__name">Torre <em>Exenta</em></span>
-            <p class="monument-card__sub" data-i18n-page="m2_sub">Campanario independiente · Vistas panorámicas</p>
+            <p class="monument-card__sub" data-i18n-page="m2_sub">Campanario · Vistas panorámicas · Museo de relojes y campanas</p>
           </div>
         </a>
 
@@ -720,18 +829,7 @@
           <div class="monument-card__body">
             <span class="monument-card__num">03</span>
             <span class="monument-card__name">Convento <em>San Francisco</em></span>
-            <p class="monument-card__sub" data-i18n-page="m3_sub">Arte sacro · Claustro franciscano</p>
-          </div>
-        </a>
-
-        <!-- Monasterio de Cañas -->
-        <a href="../monumentos/monasteriocanas.html" class="monument-card">
-          <div class="monument-card__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 35%"></div>
-          <span class="monument-card__arrow">→</span>
-          <div class="monument-card__body">
-            <span class="monument-card__num">04</span>
-            <span class="monument-card__name">Monasterio de <em>Cañas</em></span>
-            <p class="monument-card__sub" data-i18n-page="m4_sub">Cisterciense · Panteón de los Duques de Nájera</p>
+            <p class="monument-card__sub" data-i18n-page="m3_sub">Arte sacro · Claustro porticado · Sala de marfiles · Exposiciones</p>
           </div>
         </a>
 
@@ -740,9 +838,20 @@
           <div class="monument-card__img" style="background-image:url('../assets/img/ermitaplaza.webp'); background-position:center 50%"></div>
           <span class="monument-card__arrow">→</span>
           <div class="monument-card__body">
-            <span class="monument-card__num">05</span>
+            <span class="monument-card__num">04</span>
             <span class="monument-card__name">Ermita <em>de la Plaza</em></span>
-            <p class="monument-card__sub" data-i18n-page="m5_sub">Ermita histórica · Centro del Camino</p>
+            <p class="monument-card__sub" data-i18n-page="m5_sub">Ermita histórica · Capilla de oración · Virgen de la Plaza · Iglesia gótica</p>
+          </div>
+        </a>
+
+        <!-- Monasterio de Cañas -->
+        <a href="../monumentos/monasteriocanas.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 35%"></div>
+          <span class="monument-card__arrow">→</span>
+          <div class="monument-card__body">
+            <span class="monument-card__num">05</span>
+            <span class="monument-card__name">Monasterio de <em>Cañas</em></span>
+            <p class="monument-card__sub" data-i18n-page="m4_sub">Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca · Exposiciones</p>
           </div>
         </a>
 
@@ -764,10 +873,10 @@
           <span class="price-card__label" data-i18n-page="price_per_person">por persona</span>
           <div class="price-card__divider"></div>
           <div class="price-card__includes">
-            <span class="price-card__include" data-i18n-page="inc1">Acceso a los 5 monumentos del conjunto</span>
-            <span class="price-card__include" data-i18n-page="inc2">Válido durante todo el día de compra</span>
+            <span class="price-card__include" data-i18n-page="inc1">Acceso a los 4 monumentos del conjunto</span>
+            <span class="price-card__include" data-i18n-page="inc2">Válido mientras se lleve puesta en la muñeca</span>
             <span class="price-card__include" data-i18n-page="inc3">Sin reserva previa obligatoria</span>
-            <span class="price-card__include" data-i18n-page="inc4">Compra en taquilla o de forma online</span>
+            <span class="price-card__include" data-i18n-page="inc4">Reserva online o compra en taquilla</span>
           </div>
           <a href="../reservas.html" class="price-cta">
             <span data-i18n-page="price_book">Comprar entrada</span> →
@@ -780,10 +889,10 @@
           <span class="price-card__label" data-i18n-page="price_per_person">por persona</span>
           <div class="price-card__divider"></div>
           <div class="price-card__includes">
-            <span class="price-card__include" data-i18n-page="pilgrim_inc1">Acreditable con credencial del Camino</span>
-            <span class="price-card__include" data-i18n-page="pilgrim_inc2">Mismos accesos que la tarifa general</span>
+            <span class="price-card__include" data-i18n-page="pilgrim_inc1">Acreditable con credencial oficial del Camino</span>
+            <span class="price-card__include" data-i18n-page="pilgrim_inc2">Mínimo 4 etapas andando o en bicicleta</span>
             <span class="price-card__include" data-i18n-page="pilgrim_inc3">Aplicable a peregrinos activos en ruta</span>
-            <span class="price-card__include" data-i18n-page="pilgrim_inc4">Presentar credencial sellada en taquilla</span>
+            <span class="price-card__include" data-i18n-page="pilgrim_inc4">Mismos accesos que la tarifa general</span>
           </div>
           <a href="../reservas.html" class="price-cta">
             <span data-i18n-page="price_book">Comprar entrada</span> →
@@ -806,28 +915,28 @@
             <span class="info-item__num">01</span>
             <div>
               <div class="info-item__label" data-i18n-page="info_validity_label">Validez</div>
-              <div class="info-item__value" data-i18n-page="info_validity_val">La pulsera es válida durante todo el día de compra. No caduca en horas, puedes visitar los monumentos en el orden que prefieras.</div>
+              <div class="info-item__value" data-i18n-page="info_validity_val">La pulsera es válida siempre que se lleve puesta en la muñeca, sin quitar ni romper. No caduca, puedes visitar los monumentos en el orden que prefieras.</div>
             </div>
           </div>
           <div class="info-item reveal">
             <span class="info-item__num">02</span>
             <div>
               <div class="info-item__label" data-i18n-page="info_buy_label">Dónde adquirirla</div>
-              <div class="info-item__value" data-i18n-page="info_buy_val">En la taquilla de la Catedral (Plaza del Santo 12) o mediante compra anticipada online. Se entrega en formato pulsera física.</div>
+              <div class="info-item__value" data-i18n-page="info_buy_val">Se puede reservar online y se entrega presencialmente el día de la visita en las taquillas de cualquiera de nuestros monumentos de Santo Domingo de la Calzada.</div>
             </div>
           </div>
           <div class="info-item reveal">
             <span class="info-item__num">03</span>
             <div>
               <div class="info-item__label" data-i18n-page="info_horario_label">Horarios</div>
-              <div class="info-item__value" data-i18n-page="info_horario_val">Cada monumento tiene su propio horario de apertura. Consulta los horarios actualizados en la página de reservas antes de planificar tu visita.</div>
+              <div class="info-item__value" data-i18n-page="info_horario_val">Cada monumento tiene su propio horario de apertura. Consulta los horarios actualizados en la página de cada uno de ellos para planificar correctamente tu visita.</div>
             </div>
           </div>
           <div class="info-item reveal">
             <span class="info-item__num">04</span>
             <div>
               <div class="info-item__label" data-i18n-page="info_guided_label">¿Incluye visita guiada?</div>
-              <div class="info-item__value" data-i18n-page="info_guided_val">No incluye guía. Las visitas guiadas diurna, nocturna y VIP ya incluyen la pulsera turística en su precio. No necesitas adquirirla por separado.</div>
+              <div class="info-item__value" data-i18n-page="info_guided_val">No incluye guía. Las visitas guiadas diurna, nocturna y VIP requieren de un ticket adicional para poder inscribirse a alguna de ellas. Se venden por separado.</div>
             </div>
           </div>
         </div>
@@ -839,11 +948,11 @@
         <div class="faq-list">
           <div class="faq-item reveal">
             <p class="faq-q" data-i18n-page="faq1_q">¿Puedo visitar los monumentos en cualquier orden?</p>
-            <p class="faq-a" data-i18n-page="faq1_a">Sí. La pulsera te da libre acceso a los cinco monumentos sin ningún orden establecido. Puedes adaptar el recorrido a tu ritmo y preferencias.</p>
+            <p class="faq-a" data-i18n-page="faq1_a">Sí. La pulsera te da libre acceso a los cuatro monumentos sin ningún orden establecido. Puedes adaptar el recorrido a tu ritmo y preferencias.</p>
           </div>
           <div class="faq-item reveal">
             <p class="faq-q" data-i18n-page="faq2_q">¿Está incluida en las visitas guiadas?</p>
-            <p class="faq-a" data-i18n-page="faq2_a">Sí. La visita guiada diurna (13 €), la nocturna (15 €) y la VIP (15 €) ya incluyen la pulsera turística. Si ya has comprado la pulsera, no la necesitas de nuevo.</p>
+            <p class="faq-a" data-i18n-page="faq2_a">Sí. La visita guiada diurna (14 €), la nocturna (15 €) y la VIP (15 €) ya incluyen la pulsera turística. Si ya has comprado la pulsera, no la necesitas de nuevo.</p>
           </div>
           <div class="faq-item reveal">
             <p class="faq-q" data-i18n-page="faq3_q">¿Hay descuento para niños o grupos?</p>
@@ -851,7 +960,7 @@
           </div>
           <div class="faq-item reveal">
             <p class="faq-q" data-i18n-page="faq4_q">¿Puedo comprarla online y recogerla allí?</p>
-            <p class="faq-a" data-i18n-page="faq4_a">Sí. Puedes reservar y pagar online con antelación. La pulsera física se recoge en la taquilla de la Catedral presentando el justificante de compra.</p>
+            <p class="faq-a" data-i18n-page="faq4_a">Sí. Puedes reservar y pagar online con antelación. La pulsera física se recoge en cualquiera de nuestras taquillas presentando el justificante de compra.</p>
           </div>
         </div>
       </div>
@@ -873,7 +982,6 @@
   </div>
 
   <!-- FOOTER -->
-  <div class="ornament-divider"><span class="ornament-divider__symbol">✦</span></div>
   <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1012,468 +1120,468 @@
     const PAGE_T = {
       es: {
         back_visits: '← Visitas',
-        hero_eyebrow: 'Entrada combinada · 5 monumentos',
+        hero_eyebrow: 'Entrada combinada · 4 monumentos',
         hero_title: 'Pulsera <em>Turística</em>',
         hero_desc: 'La forma más económica de descubrir todo Santo Domingo de la Calzada con una sola entrada válida para todo el día.',
         inc_eyebrow: 'Qué incluye',
-        inc_title: 'Cinco monumentos, <em>una pulsera</em>',
-        inc_text: 'La Pulsera Turística te permite acceder libremente a los cinco monumentos más emblemáticos del conjunto patrimonial de Santo Domingo de la Calzada. Con un único pago, tienes todo el día para explorarlos a tu ritmo, sin prisas y sin colas adicionales. Es la opción más inteligente para descubrir ocho siglos de historia, arte y devoción en el corazón del Camino Francés.',
-        inc_pull: '«Cinco espacios únicos. Una sola entrada. Un día para descubrirlo todo.»',
+        inc_title: 'Cuatro monumentos, <em>una pulsera</em>',
+        inc_text: 'La Pulsera Turística te permite acceder libremente a los cuatro monumentos más emblemáticos del conjunto patrimonial de Santo Domingo de la Calzada. Con un único pago, tienes todo el día para explorarlos a tu ritmo, sin prisas y sin colas adicionales. Es la opción más inteligente para descubrir ocho siglos de historia, arte y devoción en el corazón del Camino Francés.',
+        inc_pull: '«Cuatro espacios únicos. Una sola entrada. Un día para descubrirlo todo.»',
         m1_sub: 'Joya del Camino Francés · Románico y Gótico',
-        m2_sub: 'Campanario independiente · Vistas panorámicas',
-        m3_sub: 'Arte sacro · Claustro franciscano',
-        m4_sub: 'Cisterciense · Panteón de los Duques de Nájera',
-        m5_sub: 'Ermita histórica · Centro del Camino',
+        m2_sub: 'Campanario · Vistas panorámicas · Museo de relojes y campanas',
+        m3_sub: 'Arte sacro · Claustro porticado · Sala de marfiles · Exposiciones',
+        m4_sub: 'Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca · Exposiciones',
+        m5_sub: 'Ermita histórica · Capilla de oración · Virgen de la Plaza · Iglesia gótica',
         price_eyebrow: 'Tarifas',
         price_title: 'Precio <em>único</em> para todo el día',
         price_adult_tag: 'Tarifa general',
         price_pilgrim_tag: 'Tarifa peregrino',
         price_per_person: 'por persona',
-        inc1: 'Acceso a los 5 monumentos del conjunto',
-        inc2: 'Válido durante todo el día de compra',
+        inc1: 'Acceso a los 4 monumentos del conjunto',
+        inc2: 'Válido mientras se lleve puesta en la muñeca',
         inc3: 'Sin reserva previa obligatoria',
-        inc4: 'Compra en taquilla o de forma online',
-        pilgrim_inc1: 'Acreditable con credencial del Camino',
-        pilgrim_inc2: 'Mismos accesos que la tarifa general',
+        inc4: 'Reserva online o compra en taquilla',
+        pilgrim_inc1: 'Acreditable con credencial oficial del Camino',
+        pilgrim_inc2: 'Mínimo 4 etapas andando o en bicicleta',
         pilgrim_inc3: 'Aplicable a peregrinos activos en ruta',
-        pilgrim_inc4: 'Presentar credencial sellada en taquilla',
+        pilgrim_inc4: 'Mismos accesos que la tarifa general',
         price_book: 'Comprar entrada',
         info_eyebrow: 'Información práctica',
         info_title: 'Todo lo que necesitas <em>saber</em>',
         info_validity_label: 'Validez',
-        info_validity_val: 'La pulsera es válida durante todo el día de compra. No caduca en horas; puedes visitar los monumentos en el orden que prefieras.',
+        info_validity_val: 'La pulsera es válida siempre que se lleve puesta en la muñeca, sin quitar ni romper. No caduca, puedes visitar los monumentos en el orden que prefieras.',
         info_buy_label: 'Dónde adquirirla',
-        info_buy_val: 'En la taquilla de la Catedral (Plaza del Santo 12) o mediante compra anticipada online. Se entrega en formato pulsera física.',
+        info_buy_val: 'Se puede reservar online y se entrega presencialmente el día de la visita en las taquillas de cualquiera de nuestros monumentos de Santo Domingo de la Calzada.',
         info_horario_label: 'Horarios',
-        info_horario_val: 'Cada monumento tiene su propio horario de apertura. Consulta los horarios actualizados en la página de reservas antes de planificar tu visita.',
+        info_horario_val: 'Cada monumento tiene su propio horario de apertura. Consulta los horarios actualizados en la página de cada uno de ellos para planificar correctamente tu visita.',
         info_guided_label: '¿Incluye visita guiada?',
-        info_guided_val: 'No incluye guía. Las visitas guiadas diurna, nocturna y VIP ya incluyen la pulsera en su precio. No necesitas adquirirla por separado.',
+        info_guided_val: 'No incluye guía. Las visitas guiadas diurna, nocturna y VIP requieren de un ticket adicional para poder inscribirse a alguna de ellas. Se venden por separado.',
         faq_eyebrow: 'Preguntas frecuentes',
         faq_title: 'Dudas <em>habituales</em>',
         faq1_q: '¿Puedo visitar los monumentos en cualquier orden?',
-        faq1_a: 'Sí. La pulsera te da libre acceso a los cinco monumentos sin ningún orden establecido. Puedes adaptar el recorrido a tu ritmo y preferencias.',
+        faq1_a: 'Sí. La pulsera te da libre acceso a los cuatro monumentos sin ningún orden establecido. Puedes adaptar el recorrido a tu ritmo y preferencias.',
         faq2_q: '¿Está incluida en las visitas guiadas?',
-        faq2_a: 'Sí. La visita guiada diurna (13 €), la nocturna (15 €) y la VIP (15 €) ya incluyen la pulsera turística. Si ya tienes pulsera, no la necesitas de nuevo.',
+        faq2_a: 'Sí. La visita guiada diurna (14 €), la nocturna (15 €) y la VIP (15 €) ya incluyen la pulsera turística. Si ya has comprado la pulsera, no la necesitas de nuevo.',
         faq3_q: '¿Hay descuento para niños o grupos?',
         faq3_a: 'Además del precio peregrino, existen tarifas para niños y grupos. Consulta las condiciones actualizadas en taquilla o en la página de reservas.',
         faq4_q: '¿Puedo comprarla online y recogerla allí?',
-        faq4_a: 'Sí. Puedes reservar y pagar online con antelación. La pulsera física se recoge en la taquilla de la Catedral presentando el justificante de compra.',
+        faq4_a: 'Sí. Puedes reservar y pagar online con antelación. La pulsera física se recoge en cualquiera de nuestras taquillas presentando el justificante de compra.',
         cta_eyebrow: '¿Quieres más profundidad?',
         cta_title: 'Añade una visita <em>guiada</em>',
         cta_btn: 'Ver visitas guiadas'
       },
       en: {
         back_visits: '← Visits',
-        hero_eyebrow: 'Combined ticket · 5 monuments',
+        hero_eyebrow: 'Combined ticket · 4 monuments',
         hero_title: 'Tourist <em>Wristband</em>',
         hero_desc: 'The most economical way to discover all of Santo Domingo de la Calzada with a single all-day ticket.',
         inc_eyebrow: 'What\'s included',
-        inc_title: 'Five monuments, <em>one wristband</em>',
-        inc_text: 'The Tourist Wristband gives you free access to the five most emblematic monuments of the Santo Domingo de la Calzada heritage complex. With a single payment, you have all day to explore them at your own pace, without rush or additional queues. The smartest option to discover eight centuries of history, art and devotion at the heart of the French Way.',
-        inc_pull: '«Five unique spaces. One ticket. One day to discover everything.»',
+        inc_title: 'Four monuments, <em>one wristband</em>',
+        inc_text: 'The Tourist Wristband gives you free access to the four most emblematic monuments of the Santo Domingo de la Calzada heritage complex. With a single payment, you have all day to explore them at your own pace, without rush or additional queues. The smartest option to discover eight centuries of history, art and devotion at the heart of the French Way.',
+        inc_pull: '«Four unique spaces. One ticket. One day to discover everything.»',
         m1_sub: 'Jewel of the French Way · Romanesque and Gothic',
-        m2_sub: 'Free-standing bell tower · Panoramic views',
-        m3_sub: 'Sacred art · Franciscan cloister',
-        m4_sub: 'Cistercian · Pantheon of the Dukes of Nájera',
-        m5_sub: 'Historic chapel · Heart of the Way',
+        m2_sub: 'Bell tower · Panoramic views · Museum of clocks and bells',
+        m3_sub: 'Sacred art · Arcaded cloister · Ivory hall · Exhibitions',
+        m4_sub: 'Cistercian Gothic · Stained glass · Tomb of Blessed Urraca · Exhibitions',
+        m5_sub: 'Historic chapel · Prayer chapel · Virgin of the Square · Gothic church',
         price_eyebrow: 'Rates',
         price_title: 'Single <em>price</em> for the whole day',
         price_adult_tag: 'General rate',
         price_pilgrim_tag: 'Pilgrim rate',
         price_per_person: 'per person',
-        inc1: 'Access to all 5 monuments in the complex',
-        inc2: 'Valid all day on the day of purchase',
+        inc1: 'Access to all 4 monuments in the complex',
+        inc2: 'Valid while worn on the wrist',
         inc3: 'No advance booking required',
-        inc4: 'Buy at the ticket office or online',
-        pilgrim_inc1: 'Verifiable with Camino pilgrim passport',
-        pilgrim_inc2: 'Same access as the general rate',
+        inc4: 'Book online or buy at the ticket office',
+        pilgrim_inc1: 'Verifiable with official Camino pilgrim passport',
+        pilgrim_inc2: 'At least 4 stages on foot or by bicycle',
         pilgrim_inc3: 'Applicable to active pilgrims on the route',
-        pilgrim_inc4: 'Present stamped pilgrim passport at ticket office',
+        pilgrim_inc4: 'Same access as the general rate',
         price_book: 'Buy ticket',
         info_eyebrow: 'Practical information',
         info_title: 'Everything you need <em>to know</em>',
         info_validity_label: 'Validity',
-        info_validity_val: 'The wristband is valid all day on the day of purchase. It does not expire by hour; you can visit the monuments in any order you prefer.',
+        info_validity_val: 'The wristband is valid as long as it is worn on the wrist, without being removed or broken. It does not expire; you can visit the monuments in any order you prefer.',
         info_buy_label: 'Where to buy',
-        info_buy_val: 'At the Cathedral ticket office (Plaza del Santo 12) or via advance online purchase. Delivered as a physical wristband.',
+        info_buy_val: 'You can book online and collect it in person on the day of the visit at the ticket office of any of our monuments in Santo Domingo de la Calzada.',
         info_horario_label: 'Opening hours',
-        info_horario_val: 'Each monument has its own opening hours. Check the updated timetables on the reservations page before planning your visit.',
+        info_horario_val: 'Each monument has its own opening hours. Check the updated timetables on each monument\'s page to plan your visit properly.',
         info_guided_label: 'Does it include a guided tour?',
-        info_guided_val: 'No guide included. The daytime, night-time and VIP guided tours already include the wristband in their price. You do not need to buy it separately.',
+        info_guided_val: 'No guide included. The daytime, night-time and VIP guided tours require a separate ticket to sign up. They are sold separately.',
         faq_eyebrow: 'Frequently asked questions',
         faq_title: 'Common <em>questions</em>',
         faq1_q: 'Can I visit the monuments in any order?',
-        faq1_a: 'Yes. The wristband gives you free access to all five monuments with no set order. You can plan the route at your own pace and preference.',
+        faq1_a: 'Yes. The wristband gives you free access to all four monuments with no set order. You can plan the route at your own pace and preference.',
         faq2_q: 'Is it included in the guided tours?',
-        faq2_a: 'Yes. The daytime (€13), night-time (€15) and VIP (€15) guided tours already include the tourist wristband. If you already have one, you do not need it again.',
+        faq2_a: 'Yes. The daytime (€14), night-time (€15) and VIP (€15) guided tours already include the tourist wristband. If you already have one, you do not need it again.',
         faq3_q: 'Are there discounts for children or groups?',
         faq3_a: 'In addition to the pilgrim rate, there are rates for children and groups. Check the latest conditions at the ticket office or on the reservations page.',
         faq4_q: 'Can I buy it online and collect it there?',
-        faq4_a: 'Yes. You can book and pay online in advance. The physical wristband is collected at the Cathedral ticket office upon presenting your purchase confirmation.',
+        faq4_a: 'Yes. You can book and pay online in advance. The physical wristband is collected at any of our ticket offices upon presenting your purchase confirmation.',
         cta_eyebrow: 'Want to go deeper?',
         cta_title: 'Add a <em>guided</em> tour',
         cta_btn: 'See guided tours'
       },
       fr: {
         back_visits: '← Visites',
-        hero_eyebrow: 'Billet combiné · 5 monuments',
+        hero_eyebrow: 'Billet combiné · 4 monuments',
         hero_title: 'Bracelet <em>Touristique</em>',
         hero_desc: 'La manière la plus économique de découvrir tout Santo Domingo de la Calzada avec un seul billet valable toute la journée.',
         inc_eyebrow: 'Ce qui est inclus',
-        inc_title: 'Cinq monuments, <em>un bracelet</em>',
-        inc_text: 'Le Bracelet Touristique vous permet d\'accéder librement aux cinq monuments les plus emblématiques de l\'ensemble patrimonial de Santo Domingo de la Calzada. Avec un paiement unique, vous disposez de toute la journée pour les explorer à votre rythme, sans hâte et sans files supplémentaires. C\'est l\'option la plus intelligente pour découvrir huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français.',
-        inc_pull: '« Cinq espaces uniques. Un seul billet. Une journée pour tout découvrir. »',
+        inc_title: 'Quatre monuments, <em>un bracelet</em>',
+        inc_text: 'Le Bracelet Touristique vous permet d\'accéder librement aux quatre monuments les plus emblématiques de l\'ensemble patrimonial de Santo Domingo de la Calzada. Avec un paiement unique, vous disposez de toute la journée pour les explorer à votre rythme, sans hâte et sans files supplémentaires. C\'est l\'option la plus intelligente pour découvrir huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français.',
+        inc_pull: '« Quatre espaces uniques. Un seul billet. Une journée pour tout découvrir. »',
         m1_sub: 'Joyau du Chemin Français · Roman et Gothique',
-        m2_sub: 'Clocher indépendant · Vues panoramiques',
-        m3_sub: 'Art sacré · Cloître franciscain',
-        m4_sub: 'Cistercien · Panthéon des Ducs de Nájera',
-        m5_sub: 'Ermitage historique · Centre du Chemin',
+        m2_sub: 'Clocher · Vues panoramiques · Musée des horloges et des cloches',
+        m3_sub: 'Art sacré · Cloître à arcades · Salle des ivoires · Expositions',
+        m4_sub: 'Gothique cistercien · Vitraux · Tombeau de la Bienheureuse Urraca · Expositions',
+        m5_sub: 'Ermitage historique · Chapelle de prière · Vierge de la Place · Église gothique',
         price_eyebrow: 'Tarifs',
         price_title: 'Prix <em>unique</em> pour toute la journée',
         price_adult_tag: 'Tarif général',
         price_pilgrim_tag: 'Tarif pèlerin',
         price_per_person: 'par personne',
-        inc1: 'Accès aux 5 monuments de l\'ensemble',
-        inc2: 'Valable toute la journée d\'achat',
+        inc1: 'Accès aux 4 monuments de l\'ensemble',
+        inc2: 'Valable tant qu\'il est porté au poignet',
         inc3: 'Sans réservation préalable obligatoire',
-        inc4: 'Achat en guichet ou en ligne',
-        pilgrim_inc1: 'Justifiable avec la crédentiale du Chemin',
-        pilgrim_inc2: 'Mêmes accès que le tarif général',
+        inc4: 'Réservation en ligne ou achat au guichet',
+        pilgrim_inc1: 'Justifiable avec la crédentiale officielle du Chemin',
+        pilgrim_inc2: 'Minimum 4 étapes à pied ou à vélo',
         pilgrim_inc3: 'Applicable aux pèlerins actifs sur la route',
-        pilgrim_inc4: 'Présenter la crédentiale tamponnée au guichet',
+        pilgrim_inc4: 'Mêmes accès que le tarif général',
         price_book: 'Acheter le billet',
         info_eyebrow: 'Informations pratiques',
         info_title: 'Tout ce que vous devez <em>savoir</em>',
         info_validity_label: 'Validité',
-        info_validity_val: 'Le bracelet est valable toute la journée d\'achat. Il n\'expire pas à l\'heure ; vous pouvez visiter les monuments dans l\'ordre que vous préférez.',
+        info_validity_val: 'Le bracelet est valable tant qu\'il est porté au poignet, sans être enlevé ni brisé. Il n\'expire pas ; vous pouvez visiter les monuments dans l\'ordre que vous préférez.',
         info_buy_label: 'Où l\'acquérir',
-        info_buy_val: 'Au guichet de la Cathédrale (Plaza del Santo 12) ou par achat anticipé en ligne. Remis sous forme de bracelet physique.',
+        info_buy_val: 'Vous pouvez réserver en ligne et le retirer en personne le jour de la visite au guichet de l\'un de nos monuments à Santo Domingo de la Calzada.',
         info_horario_label: 'Horaires',
-        info_horario_val: 'Chaque monument a ses propres horaires d\'ouverture. Consultez les horaires actualisés sur la page des réservations avant de planifier votre visite.',
+        info_horario_val: 'Chaque monument a ses propres horaires d\'ouverture. Consultez les horaires actualisés sur la page de chaque monument pour bien planifier votre visite.',
         info_guided_label: 'Inclut-il une visite guidée ?',
-        info_guided_val: 'Sans guide. Les visites guidées diurne, nocturne et VIP incluent déjà le bracelet dans leur prix. Inutile de l\'acheter séparément.',
+        info_guided_val: 'Sans guide. Les visites guidées diurne, nocturne et VIP nécessitent un billet supplémentaire pour s\'y inscrire. Elles se vendent séparément.',
         faq_eyebrow: 'Questions fréquentes',
         faq_title: 'Doutes <em>habituels</em>',
         faq1_q: 'Puis-je visiter les monuments dans n\'importe quel ordre ?',
-        faq1_a: 'Oui. Le bracelet vous donne libre accès aux cinq monuments sans ordre établi. Vous pouvez adapter le parcours à votre rythme et vos préférences.',
+        faq1_a: 'Oui. Le bracelet vous donne libre accès aux quatre monuments sans ordre établi. Vous pouvez adapter le parcours à votre rythme et vos préférences.',
         faq2_q: 'Est-il inclus dans les visites guidées ?',
-        faq2_a: 'Oui. La visite guidée diurne (13 €), la nocturne (15 €) et la VIP (15 €) incluent déjà le bracelet touristique. Si vous avez déjà un bracelet, ces visites l\'incluent ; pas besoin d\'en acheter un autre.',
+        faq2_a: 'Oui. La visite guidée diurne (14 €), la nocturne (15 €) et la VIP (15 €) incluent déjà le bracelet touristique. Si vous avez déjà un bracelet, ces visites l\'incluent ; pas besoin d\'en acheter un autre.',
         faq3_q: 'Y a-t-il des réductions pour enfants ou groupes ?',
         faq3_a: 'En plus du tarif pèlerin, il existe des tarifs pour enfants et groupes. Consultez les conditions actualisées au guichet ou sur la page des réservations.',
         faq4_q: 'Puis-je l\'acheter en ligne et le retirer sur place ?',
-        faq4_a: 'Oui. Vous pouvez réserver et payer en ligne à l\'avance. Le bracelet physique se retire au guichet de la Cathédrale en présentant le justificatif d\'achat.',
+        faq4_a: 'Oui. Vous pouvez réserver et payer en ligne à l\'avance. Le bracelet physique se retire à l\'un de nos guichets en présentant le justificatif d\'achat.',
         cta_eyebrow: 'Envie d\'aller plus loin ?',
         cta_title: 'Ajoutez une visite <em>guidée</em>',
         cta_btn: 'Voir les visites guidées'
       },
       de: {
         back_visits: '← Besuche',
-        hero_eyebrow: 'Kombi-Ticket · 5 Denkmäler',
+        hero_eyebrow: 'Kombi-Ticket · 4 Denkmäler',
         hero_title: 'Touristen-<em>Armband</em>',
         hero_desc: 'Die günstigste Art, ganz Santo Domingo de la Calzada mit einem einzigen Tagesticket zu entdecken.',
         inc_eyebrow: 'Was enthalten ist',
-        inc_title: 'Fünf Denkmäler, <em>ein Armband</em>',
-        inc_text: 'Mit dem Touristen-Armband haben Sie freien Zugang zu den fünf bedeutendsten Denkmälern des Kulturensembles von Santo Domingo de la Calzada. Mit einer einzigen Zahlung haben Sie den ganzen Tag Zeit, sie in Ihrem eigenen Tempo zu erkunden, ohne Eile und ohne zusätzliche Warteschlangen. Die klügste Wahl, um acht Jahrhunderte Geschichte, Kunst und Andacht im Herzen des Jakobsweges zu entdecken.',
-        inc_pull: '„Fünf einzigartige Räume. Ein einziges Ticket. Ein Tag, um alles zu entdecken."',
+        inc_title: 'Vier Denkmäler, <em>ein Armband</em>',
+        inc_text: 'Mit dem Touristen-Armband haben Sie freien Zugang zu den vier bedeutendsten Denkmälern des Kulturensembles von Santo Domingo de la Calzada. Mit einer einzigen Zahlung haben Sie den ganzen Tag Zeit, sie in Ihrem eigenen Tempo zu erkunden, ohne Eile und ohne zusätzliche Warteschlangen. Die klügste Wahl, um acht Jahrhunderte Geschichte, Kunst und Andacht im Herzen des Jakobsweges zu entdecken.',
+        inc_pull: '„Vier einzigartige Räume. Ein einziges Ticket. Ein Tag, um alles zu entdecken."',
         m1_sub: 'Juwel des Jakobsweges · Romanik und Gotik',
-        m2_sub: 'Freistehender Glockenturm · Panoramablick',
-        m3_sub: 'Sakralkunst · Franziskanischer Kreuzgang',
-        m4_sub: 'Zisterziensisch · Pantheon der Herzöge von Nájera',
-        m5_sub: 'Historische Einsiedelei · Zentrum des Weges',
+        m2_sub: 'Glockenturm · Panoramablick · Uhren- und Glockenmuseum',
+        m3_sub: 'Sakralkunst · Bogenkreuzgang · Elfenbeinsaal · Ausstellungen',
+        m4_sub: 'Zisterzienser-Gotik · Glasfenster · Grab der seligen Urraca · Ausstellungen',
+        m5_sub: 'Historische Einsiedelei · Gebetskapelle · Jungfrau vom Platz · Gotische Kirche',
         price_eyebrow: 'Preise',
         price_title: '<em>Einheitspreis</em> für den ganzen Tag',
         price_adult_tag: 'Normaltarif',
         price_pilgrim_tag: 'Pilgertarif',
         price_per_person: 'pro Person',
-        inc1: 'Zugang zu allen 5 Denkmälern des Ensembles',
-        inc2: 'Gültig den ganzen Tag des Kaufs',
+        inc1: 'Zugang zu allen 4 Denkmälern des Ensembles',
+        inc2: 'Gültig, solange am Handgelenk getragen',
         inc3: 'Keine vorherige Reservierung nötig',
-        inc4: 'Kauf am Ticketschalter oder online',
+        inc4: 'Online buchen oder am Schalter kaufen',
         pilgrim_inc1: 'Nachweis mit offiziellem Pilgerausweis',
-        pilgrim_inc2: 'Gleicher Zugang wie der Normaltarif',
+        pilgrim_inc2: 'Mindestens 4 Etappen zu Fuß oder mit dem Fahrrad',
         pilgrim_inc3: 'Gilt für aktive Pilger auf dem Weg',
-        pilgrim_inc4: 'Gestempelten Pilgerausweis am Schalter vorlegen',
+        pilgrim_inc4: 'Gleicher Zugang wie der Normaltarif',
         price_book: 'Ticket kaufen',
         info_eyebrow: 'Praktische Informationen',
         info_title: 'Alles, was Sie <em>wissen müssen</em>',
         info_validity_label: 'Gültigkeit',
-        info_validity_val: 'Das Armband ist den ganzen Tag des Kaufs gültig. Es läuft nicht stündlich ab; Sie können die Denkmäler in beliebiger Reihenfolge besuchen.',
+        info_validity_val: 'Das Armband ist gültig, solange es am Handgelenk getragen wird, ohne abgenommen oder beschädigt zu werden. Es verfällt nicht; Sie können die Denkmäler in beliebiger Reihenfolge besuchen.',
         info_buy_label: 'Wo zu kaufen',
-        info_buy_val: 'Am Ticketschalter der Kathedrale (Plaza del Santo 12) oder online im Voraus. Es wird als physisches Armband ausgegeben.',
+        info_buy_val: 'Sie können online buchen und es am Tag des Besuchs persönlich am Ticketschalter eines unserer Denkmäler in Santo Domingo de la Calzada abholen.',
         info_horario_label: 'Öffnungszeiten',
-        info_horario_val: 'Jedes Denkmal hat seine eigenen Öffnungszeiten. Prüfen Sie die aktuellen Zeiten auf der Buchungsseite, bevor Sie Ihren Besuch planen.',
+        info_horario_val: 'Jedes Denkmal hat seine eigenen Öffnungszeiten. Prüfen Sie die aktuellen Zeiten auf der Seite jedes Denkmals, um Ihren Besuch richtig zu planen.',
         info_guided_label: 'Beinhaltet es eine Führung?',
-        info_guided_val: 'Keine Führung enthalten. Die Tages-, Nacht- und VIP-Führungen enthalten das Armband bereits im Preis. Sie müssen es nicht separat erwerben.',
+        info_guided_val: 'Keine Führung enthalten. Die Tages-, Nacht- und VIP-Führungen erfordern ein zusätzliches Ticket zur Anmeldung. Sie werden separat verkauft.',
         faq_eyebrow: 'Häufige Fragen',
         faq_title: 'Häufige <em>Zweifel</em>',
         faq1_q: 'Kann ich die Denkmäler in beliebiger Reihenfolge besuchen?',
-        faq1_a: 'Ja. Das Armband bietet freien Zugang zu allen fünf Denkmälern ohne festgelegte Reihenfolge. Sie können die Route in Ihrem eigenen Tempo planen.',
+        faq1_a: 'Ja. Das Armband bietet freien Zugang zu allen vier Denkmälern ohne festgelegte Reihenfolge. Sie können die Route in Ihrem eigenen Tempo planen.',
         faq2_q: 'Ist es in den Führungen enthalten?',
-        faq2_a: 'Ja. Die Tagesführung (13 €), die Nachtführung (15 €) und die VIP-Führung (15 €) enthalten bereits das Touristen-Armband. Wenn Sie schon eines haben, ist es in diesen Touren inbegriffen; Sie müssen kein zweites kaufen.',
+        faq2_a: 'Ja. Die Tagesführung (14 €), die Nachtführung (15 €) und die VIP-Führung (15 €) enthalten bereits das Touristen-Armband. Wenn Sie schon eines haben, ist es in diesen Touren inbegriffen; Sie müssen kein zweites kaufen.',
         faq3_q: 'Gibt es Rabatte für Kinder oder Gruppen?',
         faq3_a: 'Neben dem Pilgertarif gibt es Tarife für Kinder und Gruppen. Aktuelle Bedingungen am Ticketschalter oder auf der Buchungsseite einsehen.',
         faq4_q: 'Kann ich es online kaufen und vor Ort abholen?',
-        faq4_a: 'Ja. Sie können online im Voraus buchen und bezahlen. Das physische Armband wird am Schalter der Kathedrale mit dem Kaufbeleg abgeholt.',
+        faq4_a: 'Ja. Sie können online im Voraus buchen und bezahlen. Das physische Armband wird an einem unserer Schalter mit dem Kaufbeleg abgeholt.',
         cta_eyebrow: 'Mehr Tiefe gewünscht?',
         cta_title: 'Fügen Sie eine <em>Führung</em> hinzu',
         cta_btn: 'Führungen ansehen'
       },
       pt: {
         back_visits: '← Visitas',
-        hero_eyebrow: 'Bilhete combinado · 5 monumentos',
+        hero_eyebrow: 'Bilhete combinado · 4 monumentos',
         hero_title: 'Pulseira <em>Turística</em>',
         hero_desc: 'A forma mais económica de descobrir toda Santo Domingo de la Calzada com um único bilhete válido para todo o dia.',
         inc_eyebrow: 'O que inclui',
-        inc_title: 'Cinco monumentos, <em>uma pulseira</em>',
-        inc_text: 'A Pulseira Turística permite-lhe aceder livremente aos cinco monumentos mais emblemáticos do conjunto patrimonial de Santo Domingo de la Calzada. Com um único pagamento, dispõe de todo o dia para os explorar ao seu ritmo, sem pressa e sem filas adicionais. É a opção mais inteligente para descobrir oito séculos de história, arte e devoção no coração do Caminho Francês.',
-        inc_pull: '«Cinco espaços únicos. Um só bilhete. Um dia para descobrir tudo.»',
+        inc_title: 'Quatro monumentos, <em>uma pulseira</em>',
+        inc_text: 'A Pulseira Turística permite-lhe aceder livremente aos quatro monumentos mais emblemáticos do conjunto patrimonial de Santo Domingo de la Calzada. Com um único pagamento, dispõe de todo o dia para os explorar ao seu ritmo, sem pressa e sem filas adicionais. É a opção mais inteligente para descobrir oito séculos de história, arte e devoção no coração do Caminho Francês.',
+        inc_pull: '«Quatro espaços únicos. Um só bilhete. Um dia para descobrir tudo.»',
         m1_sub: 'Joia do Caminho Francês · Românico e Gótico',
-        m2_sub: 'Campanário independente · Vistas panorâmicas',
-        m3_sub: 'Arte sacra · Claustro franciscano',
-        m4_sub: 'Cisterciense · Panteão dos Duques de Nájera',
-        m5_sub: 'Ermida histórica · Centro do Caminho',
+        m2_sub: 'Campanário · Vistas panorâmicas · Museu de relógios e sinos',
+        m3_sub: 'Arte sacra · Claustro com arcadas · Sala de marfins · Exposições',
+        m4_sub: 'Gótico cisterciense · Vitrais · Sepulcro da Beata Urraca · Exposições',
+        m5_sub: 'Ermida histórica · Capela de oração · Virgem da Praça · Igreja gótica',
         price_eyebrow: 'Tarifas',
         price_title: 'Preço <em>único</em> para todo o dia',
         price_adult_tag: 'Tarifa geral',
         price_pilgrim_tag: 'Tarifa peregrino',
         price_per_person: 'por pessoa',
-        inc1: 'Acesso aos 5 monumentos do conjunto',
-        inc2: 'Válido durante todo o dia da compra',
+        inc1: 'Acesso aos 4 monumentos do conjunto',
+        inc2: 'Válida enquanto for usada no pulso',
         inc3: 'Sem reserva prévia obrigatória',
-        inc4: 'Compra na bilheteira ou online',
-        pilgrim_inc1: 'Comprovável com credencial do Caminho',
-        pilgrim_inc2: 'Mesmos acessos que a tarifa geral',
+        inc4: 'Reserva online ou compra na bilheteira',
+        pilgrim_inc1: 'Comprovável com credencial oficial do Caminho',
+        pilgrim_inc2: 'Mínimo de 4 etapas a pé ou de bicicleta',
         pilgrim_inc3: 'Aplicável a peregrinos ativos em rota',
-        pilgrim_inc4: 'Apresentar credencial carimbada na bilheteira',
+        pilgrim_inc4: 'Mesmos acessos que a tarifa geral',
         price_book: 'Comprar bilhete',
         info_eyebrow: 'Informação prática',
         info_title: 'Tudo o que precisa <em>de saber</em>',
         info_validity_label: 'Validade',
-        info_validity_val: 'A pulseira é válida durante todo o dia da compra. Não caduca por horas; pode visitar os monumentos pela ordem que preferir.',
+        info_validity_val: 'A pulseira é válida enquanto for usada no pulso, sem ser retirada nem partida. Não caduca; pode visitar os monumentos pela ordem que preferir.',
         info_buy_label: 'Onde adquirir',
-        info_buy_val: 'Na bilheteira da Catedral (Plaza del Santo 12) ou através de compra antecipada online. Entregue em formato de pulseira física.',
+        info_buy_val: 'Pode reservar online e levantá-la presencialmente no dia da visita na bilheteira de qualquer um dos nossos monumentos de Santo Domingo de la Calzada.',
         info_horario_label: 'Horários',
-        info_horario_val: 'Cada monumento tem o seu próprio horário de abertura. Consulte os horários atualizados na página de reservas antes de planear a sua visita.',
+        info_horario_val: 'Cada monumento tem o seu próprio horário de abertura. Consulte os horários atualizados na página de cada monumento para planear corretamente a sua visita.',
         info_guided_label: 'Inclui visita guiada?',
-        info_guided_val: 'Não inclui guia. As visitas guiadas diurna, noturna e VIP já incluem a pulseira no preço. Não precisa de a adquirir em separado.',
+        info_guided_val: 'Não inclui guia. As visitas guiadas diurna, noturna e VIP requerem um bilhete adicional para a inscrição. Vendem-se em separado.',
         faq_eyebrow: 'Perguntas frequentes',
         faq_title: 'Dúvidas <em>habituais</em>',
         faq1_q: 'Posso visitar os monumentos por qualquer ordem?',
-        faq1_a: 'Sim. A pulseira dá-lhe livre acesso aos cinco monumentos sem qualquer ordem definida. Pode adaptar o percurso ao seu ritmo e preferências.',
+        faq1_a: 'Sim. A pulseira dá-lhe livre acesso aos quatro monumentos sem qualquer ordem definida. Pode adaptar o percurso ao seu ritmo e preferências.',
         faq2_q: 'Está incluída nas visitas guiadas?',
-        faq2_a: 'Sim. A visita guiada diurna (13 €), a noturna (15 €) e a VIP (15 €) já incluem a pulseira turística. Se já tem uma pulseira, estas visitas incluem-na; não precisa de comprar outra.',
+        faq2_a: 'Sim. A visita guiada diurna (14 €), a noturna (15 €) e a VIP (15 €) já incluem a pulseira turística. Se já tem uma pulseira, estas visitas incluem-na; não precisa de comprar outra.',
         faq3_q: 'Há descontos para crianças ou grupos?',
         faq3_a: 'Além do preço peregrino, existem tarifas para crianças e grupos. Consulte as condições atualizadas na bilheteira ou na página de reservas.',
         faq4_q: 'Posso comprá-la online e levantá-la no local?',
-        faq4_a: 'Sim. Pode reservar e pagar online com antecedência. A pulseira física levanta-se na bilheteira da Catedral apresentando o comprovativo de compra.',
+        faq4_a: 'Sim. Pode reservar e pagar online com antecedência. A pulseira física levanta-se em qualquer uma das nossas bilheteiras apresentando o comprovativo de compra.',
         cta_eyebrow: 'Quer mais profundidade?',
         cta_title: 'Adicione uma visita <em>guiada</em>',
         cta_btn: 'Ver visitas guiadas'
       },
       it: {
         back_visits: '← Visite',
-        hero_eyebrow: 'Biglietto combinato · 5 monumenti',
+        hero_eyebrow: 'Biglietto combinato · 4 monumenti',
         hero_title: 'Braccialetto <em>Turistico</em>',
         hero_desc: 'Il modo più economico per scoprire tutta Santo Domingo de la Calzada con un solo biglietto valido per l\'intera giornata.',
         inc_eyebrow: 'Cosa include',
-        inc_title: 'Cinque monumenti, <em>un braccialetto</em>',
-        inc_text: 'Il Braccialetto Turistico ti permette di accedere liberamente ai cinque monumenti più emblematici del complesso patrimoniale di Santo Domingo de la Calzada. Con un unico pagamento, hai tutto il giorno per esplorarli al tuo ritmo, senza fretta e senza code aggiuntive. È l\'opzione più intelligente per scoprire otto secoli di storia, arte e devozione nel cuore del Cammino Francese.',
-        inc_pull: '«Cinque spazi unici. Un solo biglietto. Un giorno per scoprire tutto.»',
+        inc_title: 'Quattro monumenti, <em>un braccialetto</em>',
+        inc_text: 'Il Braccialetto Turistico ti permette di accedere liberamente ai quattro monumenti più emblematici del complesso patrimoniale di Santo Domingo de la Calzada. Con un unico pagamento, hai tutto il giorno per esplorarli al tuo ritmo, senza fretta e senza code aggiuntive. È l\'opzione più intelligente per scoprire otto secoli di storia, arte e devozione nel cuore del Cammino Francese.',
+        inc_pull: '«Quattro spazi unici. Un solo biglietto. Un giorno per scoprire tutto.»',
         m1_sub: 'Gioiello del Cammino Francese · Romanico e Gotico',
-        m2_sub: 'Campanile indipendente · Vista panoramica',
-        m3_sub: 'Arte sacra · Chiostro francescano',
-        m4_sub: 'Cistercense · Pantheon dei Duchi di Nájera',
-        m5_sub: 'Eremo storico · Centro del Cammino',
+        m2_sub: 'Campanile · Vista panoramica · Museo di orologi e campane',
+        m3_sub: 'Arte sacra · Chiostro porticato · Sala degli avori · Mostre',
+        m4_sub: 'Gotico cistercense · Vetrate · Sepolcro della Beata Urraca · Mostre',
+        m5_sub: 'Eremo storico · Cappella di preghiera · Vergine della Piazza · Chiesa gotica',
         price_eyebrow: 'Tariffe',
         price_title: 'Prezzo <em>unico</em> per l\'intera giornata',
         price_adult_tag: 'Tariffa intera',
         price_pilgrim_tag: 'Tariffa pellegrino',
         price_per_person: 'a persona',
-        inc1: 'Accesso a tutti i 5 monumenti del complesso',
-        inc2: 'Valido per l\'intera giornata d\'acquisto',
+        inc1: 'Accesso a tutti i 4 monumenti del complesso',
+        inc2: 'Valido finché viene indossato al polso',
         inc3: 'Senza prenotazione anticipata obbligatoria',
-        inc4: 'Acquisto in biglietteria o online',
-        pilgrim_inc1: 'Verificabile con la credenziale del Cammino',
-        pilgrim_inc2: 'Stessi accessi della tariffa intera',
+        inc4: 'Prenotazione online o acquisto in biglietteria',
+        pilgrim_inc1: 'Verificabile con la credenziale ufficiale del Cammino',
+        pilgrim_inc2: 'Almeno 4 tappe a piedi o in bicicletta',
         pilgrim_inc3: 'Applicabile ai pellegrini attivi in cammino',
-        pilgrim_inc4: 'Presentare la credenziale timbrata in biglietteria',
+        pilgrim_inc4: 'Stessi accessi della tariffa intera',
         price_book: 'Acquista biglietto',
         info_eyebrow: 'Informazioni pratiche',
         info_title: 'Tutto quello che devi <em>sapere</em>',
         info_validity_label: 'Validità',
-        info_validity_val: 'Il braccialetto è valido per l\'intera giornata d\'acquisto. Non scade a ore; puoi visitare i monumenti nell\'ordine che preferisci.',
+        info_validity_val: 'Il braccialetto è valido finché viene indossato al polso, senza essere rimosso né rotto. Non scade; puoi visitare i monumenti nell\'ordine che preferisci.',
         info_buy_label: 'Dove acquistarlo',
-        info_buy_val: 'Alla biglietteria della Cattedrale (Plaza del Santo 12) o tramite acquisto anticipato online. Consegnato come braccialetto fisico.',
+        info_buy_val: 'Puoi prenotare online e ritirarlo di persona il giorno della visita presso la biglietteria di uno qualsiasi dei nostri monumenti a Santo Domingo de la Calzada.',
         info_horario_label: 'Orari',
-        info_horario_val: 'Ogni monumento ha i propri orari di apertura. Consulta gli orari aggiornati nella pagina prenotazioni prima di pianificare la visita.',
+        info_horario_val: 'Ogni monumento ha i propri orari di apertura. Consulta gli orari aggiornati nella pagina di ciascun monumento per pianificare correttamente la tua visita.',
         info_guided_label: 'Include una visita guidata?',
-        info_guided_val: 'Nessuna guida inclusa. Le visite guidate diurna, notturna e VIP includono già il braccialetto nel prezzo. Non occorre acquistarlo separatamente.',
+        info_guided_val: 'Nessuna guida inclusa. Le visite guidate diurna, notturna e VIP richiedono un biglietto aggiuntivo per l\'iscrizione. Si vendono separatamente.',
         faq_eyebrow: 'Domande frequenti',
         faq_title: 'Dubbi <em>frequenti</em>',
         faq1_q: 'Posso visitare i monumenti in qualsiasi ordine?',
-        faq1_a: 'Sì. Il braccialetto dà libero accesso ai cinque monumenti senza ordine prestabilito. Puoi adattare il percorso al tuo ritmo e alle tue preferenze.',
+        faq1_a: 'Sì. Il braccialetto dà libero accesso ai quattro monumenti senza ordine prestabilito. Puoi adattare il percorso al tuo ritmo e alle tue preferenze.',
         faq2_q: 'È incluso nelle visite guidate?',
-        faq2_a: 'Sì. La visita guidata diurna (13 €), la notturna (15 €) e la VIP (15 €) includono già il braccialetto turistico. Se hai già un braccialetto, queste visite lo includono; non è necessario acquistarne un altro.',
+        faq2_a: 'Sì. La visita guidata diurna (14 €), la notturna (15 €) e la VIP (15 €) includono già il braccialetto turistico. Se hai già un braccialetto, queste visite lo includono; non è necessario acquistarne un altro.',
         faq3_q: 'Ci sono sconti per bambini o gruppi?',
         faq3_a: 'Oltre alla tariffa pellegrino, esistono tariffe per bambini e gruppi. Consulta le condizioni aggiornate in biglietteria o nella pagina prenotazioni.',
         faq4_q: 'Posso acquistarlo online e ritirarlo sul posto?',
-        faq4_a: 'Sì. Puoi prenotare e pagare online in anticipo. Il braccialetto fisico si ritira alla biglietteria della Cattedrale presentando la ricevuta d\'acquisto.',
+        faq4_a: 'Sì. Puoi prenotare e pagare online in anticipo. Il braccialetto fisico si ritira presso una qualsiasi delle nostre biglietterie presentando la ricevuta d\'acquisto.',
         cta_eyebrow: 'Vuoi approfondire?',
         cta_title: 'Aggiungi una visita <em>guidata</em>',
         cta_btn: 'Vedi visite guidate'
       },
       ko: {
         back_visits: '← 관람',
-        hero_eyebrow: '결합 입장권 · 5개 유적',
+        hero_eyebrow: '결합 입장권 · 4개 유적',
         hero_title: '관광 <em>팔찌</em>',
         hero_desc: '하루 종일 사용 가능한 단일 입장권으로 산토 도밍고 데 라 칼사다 전체를 가장 경제적으로 둘러볼 수 있는 방법입니다.',
         inc_eyebrow: '포함 내용',
-        inc_title: '다섯 개의 유적, <em>하나의 팔찌</em>',
-        inc_text: '관광 팔찌는 산토 도밍고 데 라 칼사다 유산 복합단지의 가장 상징적인 다섯 유적에 자유롭게 입장할 수 있게 해 줍니다. 한 번의 결제로 하루 종일 자신의 속도에 맞춰 여유롭게, 추가 대기 줄 없이 관람할 수 있습니다. 프랑스 길의 중심에서 8세기에 걸친 역사, 예술, 신앙을 발견하는 가장 현명한 선택입니다.',
-        inc_pull: '«다섯 개의 독특한 공간. 하나의 입장권. 모든 것을 발견할 하루.»',
+        inc_title: '네 개의 유적, <em>하나의 팔찌</em>',
+        inc_text: '관광 팔찌는 산토 도밍고 데 라 칼사다 유산 복합단지의 가장 상징적인 네 유적에 자유롭게 입장할 수 있게 해 줍니다. 한 번의 결제로 하루 종일 자신의 속도에 맞춰 여유롭게, 추가 대기 줄 없이 관람할 수 있습니다. 프랑스 길의 중심에서 8세기에 걸친 역사, 예술, 신앙을 발견하는 가장 현명한 선택입니다.',
+        inc_pull: '«네 개의 독특한 공간. 하나의 입장권. 모든 것을 발견할 하루.»',
         m1_sub: '프랑스 길의 보석 · 로마네스크와 고딕',
-        m2_sub: '독립 종탑 · 파노라마 전망',
-        m3_sub: '성스러운 예술 · 프란치스코회 회랑',
-        m4_sub: '시토회 · 나헤라 공작 가문의 영묘',
-        m5_sub: '역사적인 예배당 · 순례길의 중심',
+        m2_sub: '종탑 · 파노라마 전망 · 시계와 종 박물관',
+        m3_sub: '성스러운 예술 · 아케이드 회랑 · 상아 전시실 · 전시회',
+        m4_sub: '시토회 고딕 · 스테인드글라스 · 복녀 우라카의 무덤 · 전시회',
+        m5_sub: '역사적인 예배당 · 기도 예배당 · 광장의 성모 · 고딕 양식 교회',
         price_eyebrow: '요금',
         price_title: '하루 종일 <em>단일</em> 요금',
         price_adult_tag: '일반 요금',
         price_pilgrim_tag: '순례자 요금',
         price_per_person: '1인당',
-        inc1: '단지 내 5개 유적 모두 입장',
-        inc2: '구매 당일 종일 유효',
+        inc1: '단지 내 4개 유적 모두 입장',
+        inc2: '손목에 착용한 동안 유효',
         inc3: '사전 예약 필수 아님',
-        inc4: '매표소 또는 온라인 구매',
-        pilgrim_inc1: '순례 증명서로 확인 가능',
-        pilgrim_inc2: '일반 요금과 동일한 입장',
+        inc4: '온라인 예약 또는 매표소 구매',
+        pilgrim_inc1: '공식 순례 증명서로 확인 가능',
+        pilgrim_inc2: '도보 또는 자전거로 최소 4구간',
         pilgrim_inc3: '경로 중인 순례자에게 적용',
-        pilgrim_inc4: '도장이 찍힌 순례 증명서 제시',
+        pilgrim_inc4: '일반 요금과 동일한 입장',
         price_book: '입장권 구매',
         info_eyebrow: '실용 정보',
         info_title: '꼭 <em>알아야 할</em> 모든 것',
         info_validity_label: '유효 기간',
-        info_validity_val: '팔찌는 구매 당일 종일 유효합니다. 시간 단위로 만료되지 않으며, 원하는 순서로 유적을 방문할 수 있습니다.',
+        info_validity_val: '팔찌는 손목에 착용한 상태로 분리하거나 손상되지 않은 동안 유효합니다. 만료되지 않으며, 원하는 순서로 유적을 방문할 수 있습니다.',
         info_buy_label: '구매처',
-        info_buy_val: '대성당 매표소(Plaza del Santo 12) 또는 온라인 사전 구매. 실물 팔찌 형태로 제공됩니다.',
+        info_buy_val: '온라인으로 예약한 후 방문 당일 산토 도밍고 데 라 칼사다의 저희 유적 중 어느 곳의 매표소에서든 직접 수령할 수 있습니다.',
         info_horario_label: '운영 시간',
-        info_horario_val: '각 유적은 고유한 운영 시간이 있습니다. 방문을 계획하기 전에 예약 페이지에서 최신 운영 시간을 확인하세요.',
+        info_horario_val: '각 유적은 고유한 운영 시간이 있습니다. 방문을 올바르게 계획하려면 각 유적 페이지에서 최신 운영 시간을 확인하세요.',
         info_guided_label: '가이드 투어가 포함되나요?',
-        info_guided_val: '가이드는 포함되지 않습니다. 주간·야간·VIP 가이드 투어에는 이미 팔찌가 가격에 포함되어 있어 별도로 구매할 필요가 없습니다.',
+        info_guided_val: '가이드는 포함되지 않습니다. 주간·야간·VIP 가이드 투어는 등록을 위해 별도의 티켓이 필요하며, 따로 판매됩니다.',
         faq_eyebrow: '자주 묻는 질문',
         faq_title: '자주 있는 <em>궁금증</em>',
         faq1_q: '유적을 원하는 순서로 방문할 수 있나요?',
-        faq1_a: '네. 팔찌는 다섯 유적에 정해진 순서 없이 자유로운 입장을 제공합니다. 자신의 속도와 취향에 맞춰 경로를 조정할 수 있습니다.',
+        faq1_a: '네. 팔찌는 네 유적에 정해진 순서 없이 자유로운 입장을 제공합니다. 자신의 속도와 취향에 맞춰 경로를 조정할 수 있습니다.',
         faq2_q: '가이드 투어에 포함되나요?',
-        faq2_a: '네. 주간(13 €), 야간(15 €), VIP(15 €) 가이드 투어에는 이미 관광 팔찌가 포함되어 있습니다. 이미 팔찌가 있다면 이 투어들에 포함되어 있으니 따로 구매할 필요가 없습니다.',
+        faq2_a: '네. 주간(14 €), 야간(15 €), VIP(15 €) 가이드 투어에는 이미 관광 팔찌가 포함되어 있습니다. 이미 팔찌가 있다면 이 투어들에 포함되어 있으니 따로 구매할 필요가 없습니다.',
         faq3_q: '어린이나 단체 할인이 있나요?',
         faq3_a: '순례자 요금 외에도 어린이와 단체 요금이 있습니다. 최신 조건은 매표소나 예약 페이지에서 확인하세요.',
         faq4_q: '온라인으로 구매한 뒤 현장에서 받을 수 있나요?',
-        faq4_a: '네. 미리 온라인으로 예약하고 결제할 수 있습니다. 실물 팔찌는 구매 확인서를 제시하고 대성당 매표소에서 받으면 됩니다.',
+        faq4_a: '네. 미리 온라인으로 예약하고 결제할 수 있습니다. 실물 팔찌는 구매 확인서를 제시하고 저희 매표소 중 어느 곳에서나 받으실 수 있습니다.',
         cta_eyebrow: '더 깊이 알고 싶으세요?',
         cta_title: '<em>가이드</em> 투어를 추가하세요',
         cta_btn: '가이드 투어 보기'
       },
       eu: {
         back_visits: '← Bisitak',
-        hero_eyebrow: 'Sarrera konbinatua · 5 monumentu',
+        hero_eyebrow: 'Sarrera konbinatua · 4 monumentu',
         hero_title: 'Pulsera <em>Turistikoa</em>',
         hero_desc: 'Egun osorako baliozko sarrera bakar batekin Santo Domingo de la Calzada osoa ezagutzeko modurik merkeena.',
         inc_eyebrow: 'Zer barne hartzen du',
-        inc_title: 'Bost monumentu, <em>pulsera bakarra</em>',
-        inc_text: 'Pulsera Turistikoarekin Santo Domingo de la Calzadako ondare-multzoko bost monumentu enblematikoenetara modu librean sar zaitezke. Ordainketa bakar batekin, egun osoa duzu zure erritmoan esploratzeko, presarik gabe eta ilara gehigarririk gabe. Frantziako Bidearen bihotzean zortzi mendeko historia, arte eta debozioa ezagutzeko aukerarik adimentsuena.',
-        inc_pull: '«Bost gune bakarra. Sarrera bakarra. Dena ezagutzeko egun bat.»',
+        inc_title: 'Lau monumentu, <em>pulsera bakarra</em>',
+        inc_text: 'Pulsera Turistikoarekin Santo Domingo de la Calzadako ondare-multzoko lau monumentu enblematikoenetara modu librean sar zaitezke. Ordainketa bakar batekin, egun osoa duzu zure erritmoan esploratzeko, presarik gabe eta ilara gehigarririk gabe. Frantziako Bidearen bihotzean zortzi mendeko historia, arte eta debozioa ezagutzeko aukerarik adimentsuena.',
+        inc_pull: '«Lau gune bakarra. Sarrera bakarra. Dena ezagutzeko egun bat.»',
         m1_sub: 'Frantziako Bidearen bitxia · Erromanikoa eta Gotikoa',
-        m2_sub: 'Kanpaitorre exentua · Ikuspegi panoramikoak',
-        m3_sub: 'Arte sakratua · Klaustro frantziskotarra',
-        m4_sub: 'Zistertziarra · Nájerako Dukeen panteoia',
-        m5_sub: 'Ermita historikoa · Bidearen erdigunea',
+        m2_sub: 'Kanpaitorrea · Ikuspegi panoramikoak · Erloju eta kanpaien museoa',
+        m3_sub: 'Arte sakratua · Klaustro arkupeduna · Marfilen aretoa · Erakusketak',
+        m4_sub: 'Gotiko zistertziarra · Beirateak · Urraka Dohatsuaren hilobia · Erakusketak',
+        m5_sub: 'Ermita historikoa · Otoitz kapera · Plazako Ama Birjina · Eliza gotikoa',
         price_eyebrow: 'Tarifak',
         price_title: 'Prezio <em>bakarra</em> egun osorako',
         price_adult_tag: 'Tarifa orokorra',
         price_pilgrim_tag: 'Erromes tarifa',
         price_per_person: 'pertsonako',
-        inc1: 'Multzoko 5 monumentuetarako sarbidea',
-        inc2: 'Erosketa egunean baliozkoa',
+        inc1: 'Multzoko 4 monumentuetarako sarbidea',
+        inc2: 'Eskumuturrean jantzita dagoen bitartean baliozkoa',
         inc3: 'Aurretiazko erreserbarik gabe',
-        inc4: 'Erosketa txarteldegian edo online',
-        pilgrim_inc1: 'Bideko kredentzialarekin egiazta daiteke',
-        pilgrim_inc2: 'Tarifa orokorraren sarbide berberak',
+        inc4: 'Erreserba online edo erosketa txarteldegian',
+        pilgrim_inc1: 'Bideko kredentzial ofizialarekin egiazta daiteke',
+        pilgrim_inc2: 'Gutxienez 4 etapa oinez edo bizikletaz',
         pilgrim_inc3: 'Bidean dauden erromes aktiboei aplikagarria',
-        pilgrim_inc4: 'Zigilatutako kredentziala txarteldegian aurkeztu',
+        pilgrim_inc4: 'Tarifa orokorraren sarbide berberak',
         price_book: 'Sarrera erosi',
         info_eyebrow: 'Informazio praktikoa',
         info_title: 'Jakin behar duzun <em>guztia</em>',
         info_validity_label: 'Baliozkotasuna',
-        info_validity_val: 'Pulsera erosketaren egun osoan baliozkoa da. Ez du orduka iraungitzen; monumentuak nahi duzun ordenan bisita ditzakezu.',
+        info_validity_val: 'Pulsera baliozkoa da eskumuturrean jantzita dagoen bitartean, kendu edo hautsi gabe. Ez du iraungitzen; monumentuak nahi duzun ordenan bisita ditzakezu.',
         info_buy_label: 'Non eskuratu',
-        info_buy_val: 'Katedralaren txarteldegian (Plaza del Santo 12) edo online aurretik erosita. Pulsera fisiko gisa ematen da.',
+        info_buy_val: 'Online erreserba dezakezu eta bisita egunean Santo Domingo de la Calzadako gure edozein monumenturen txarteldegian aurrez aurre jaso.',
         info_horario_label: 'Ordutegiak',
-        info_horario_val: 'Monumentu bakoitzak bere ordutegia du. Erreserben orrian eguneratutako ordutegiak kontsultatu bisita antolatu aurretik.',
+        info_horario_val: 'Monumentu bakoitzak bere ordutegia du. Bisita ondo planifikatzeko, monumentu bakoitzaren orrian kontsultatu eguneratutako ordutegiak.',
         info_guided_label: 'Bisita gidatua barne hartzen du?',
-        info_guided_val: 'Ez du gidari barne hartzen. Eguneko, gaueko eta VIP bisita gidatuek dagoeneko pulsera barne hartzen dute prezioan. Ez duzu aparte erosi behar.',
+        info_guided_val: 'Ez du gidari barne hartzen. Eguneko, gaueko eta VIP bisita gidatuek txartel gehigarria behar dute izena emateko. Bereizita saltzen dira.',
         faq_eyebrow: 'Sarri egiten diren galderak',
         faq_title: 'Ohiko <em>zalantzak</em>',
         faq1_q: 'Monumentuak edozein ordenetan bisita ditzaket?',
-        faq1_a: 'Bai. Pulserarekin bost monumentuetarako sarbide librea duzu, ezarritako ordenarik gabe. Ibilbidea zure erritmo eta gustuetara egokitu dezakezu.',
+        faq1_a: 'Bai. Pulserarekin lau monumentuetarako sarbide librea duzu, ezarritako ordenarik gabe. Ibilbidea zure erritmo eta gustuetara egokitu dezakezu.',
         faq2_q: 'Bisita gidatuetan barne dago?',
-        faq2_a: 'Bai. Eguneko (13 €), gaueko (15 €) eta VIP (15 €) bisitek dagoeneko pulsera turistikoa barne hartzen dute. Dagoeneko pulsera baduzu, bisita hauek hura barne hartzen dute; ez duzu beste bat erosi behar.',
+        faq2_a: 'Bai. Eguneko (14 €), gaueko (15 €) eta VIP (15 €) bisitek dagoeneko pulsera turistikoa barne hartzen dute. Dagoeneko pulsera baduzu, bisita hauek hura barne hartzen dute; ez duzu beste bat erosi behar.',
         faq3_q: 'Haur edo taldeentzako deskonturik dago?',
         faq3_a: 'Erromes prezioaz gain, haur eta taldeentzako tarifak daude. Baldintza eguneratuak txarteldegian edo erreserben orrian kontsultatu.',
         faq4_q: 'Online eros dezaket eta han jaso?',
-        faq4_a: 'Bai. Aurretik online erreserbatu eta ordain dezakezu. Pulsera fisikoa Katedralaren txarteldegian jasotzen da erosketaren egiaztagiriarekin.',
+        faq4_a: 'Bai. Aurretik online erreserbatu eta ordain dezakezu. Pulsera fisikoa gure edozein txarteldegitan jasotzen da erosketaren egiaztagiriarekin.',
         cta_eyebrow: 'Sakontasun gehiago nahi duzu?',
         cta_title: 'Gehitu bisita <em>gidatu</em> bat',
         cta_btn: 'Ikusi bisita gidatuak'
       },
       ca: {
         back_visits: '← Visites',
-        hero_eyebrow: 'Entrada combinada · 5 monuments',
+        hero_eyebrow: 'Entrada combinada · 4 monuments',
         hero_title: 'Polsera <em>Turística</em>',
         hero_desc: 'La forma més econòmica de descobrir tot Santo Domingo de la Calzada amb una sola entrada vàlida per a tot el dia.',
         inc_eyebrow: 'Què inclou',
-        inc_title: 'Cinc monuments, <em>una polsera</em>',
-        inc_text: 'La Polsera Turística et permet accedir lliurement als cinc monuments més emblemàtics del conjunt patrimonial de Santo Domingo de la Calzada. Amb un únic pagament, tens tot el dia per explorar-los al teu ritme, sense pressa i sense cues addicionals. És l\'opció més intel·ligent per descobrir vuit segles d\'història, art i devoció al cor del Camí Francès.',
-        inc_pull: '«Cinc espais únics. Una sola entrada. Un dia per descobrir-ho tot.»',
+        inc_title: 'Quatre monuments, <em>una polsera</em>',
+        inc_text: 'La Polsera Turística et permet accedir lliurement als quatre monuments més emblemàtics del conjunt patrimonial de Santo Domingo de la Calzada. Amb un únic pagament, tens tot el dia per explorar-los al teu ritme, sense pressa i sense cues addicionals. És l\'opció més intel·ligent per descobrir vuit segles d\'història, art i devoció al cor del Camí Francès.',
+        inc_pull: '«Quatre espais únics. Una sola entrada. Un dia per descobrir-ho tot.»',
         m1_sub: 'Joia del Camí Francès · Romànic i Gòtic',
-        m2_sub: 'Campanar independent · Vistes panoràmiques',
-        m3_sub: 'Art sacre · Claustre franciscà',
-        m4_sub: 'Cistercenc · Panteó dels Ducs de Nájera',
-        m5_sub: 'Ermita històrica · Centre del Camí',
+        m2_sub: 'Campanar · Vistes panoràmiques · Museu de rellotges i campanes',
+        m3_sub: 'Art sacre · Claustre porticat · Sala dels ivoris · Exposicions',
+        m4_sub: 'Gòtic cistercenc · Vitralls · Sepulcre de la Beata Urraca · Exposicions',
+        m5_sub: 'Ermita històrica · Capella d\'oració · Verge de la Plaça · Església gòtica',
         price_eyebrow: 'Tarifes',
         price_title: 'Preu <em>únic</em> per a tot el dia',
         price_adult_tag: 'Tarifa general',
         price_pilgrim_tag: 'Tarifa pelegrí',
         price_per_person: 'per persona',
-        inc1: 'Accés als 5 monuments del conjunt',
-        inc2: 'Vàlida durant tot el dia de compra',
+        inc1: 'Accés als 4 monuments del conjunt',
+        inc2: 'Vàlida mentre es porti al canell',
         inc3: 'Sense reserva prèvia obligatòria',
-        inc4: 'Compra a la taquilla o en línia',
-        pilgrim_inc1: 'Acreditable amb credencial del Camí',
-        pilgrim_inc2: 'Mateixos accessos que la tarifa general',
+        inc4: 'Reserva en línia o compra a la taquilla',
+        pilgrim_inc1: 'Acreditable amb credencial oficial del Camí',
+        pilgrim_inc2: 'Mínim 4 etapes a peu o en bicicleta',
         pilgrim_inc3: 'Aplicable a pelegrins actius en ruta',
-        pilgrim_inc4: 'Presentar credencial segellada a taquilla',
+        pilgrim_inc4: 'Mateixos accessos que la tarifa general',
         price_book: 'Comprar entrada',
         info_eyebrow: 'Informació pràctica',
         info_title: 'Tot el que necessites <em>saber</em>',
         info_validity_label: 'Validesa',
-        info_validity_val: 'La polsera és vàlida durant tot el dia de compra. No caduca per hores; pots visitar els monuments en l\'ordre que prefereixis.',
+        info_validity_val: 'La polsera és vàlida sempre que es porti al canell, sense treure ni trencar. No caduca; pots visitar els monuments en l\'ordre que prefereixis.',
         info_buy_label: 'On adquirir-la',
-        info_buy_val: 'A la taquilla de la Catedral (Plaza del Santo 12) o mitjançant compra anticipada en línia. S\'entrega en format de polsera física.',
+        info_buy_val: 'Es pot reservar en línia i es recull presencialment el dia de la visita a la taquilla de qualsevol dels nostres monuments de Santo Domingo de la Calzada.',
         info_horario_label: 'Horaris',
-        info_horario_val: 'Cada monument té el seu horari d\'obertura. Consulta els horaris actualitzats a la pàgina de reserves abans de planificar la teva visita.',
+        info_horario_val: 'Cada monument té el seu horari d\'obertura. Consulta els horaris actualitzats a la pàgina de cada monument per planificar correctament la teva visita.',
         info_guided_label: 'Inclou visita guiada?',
-        info_guided_val: 'No inclou guia. Les visites guiades diürna, nocturna i VIP ja inclouen la polsera en el preu. No cal adquirir-la per separat.',
+        info_guided_val: 'No inclou guia. Les visites guiades diürna, nocturna i VIP requereixen un tiquet addicional per inscriure-s\'hi. Es venen per separat.',
         faq_eyebrow: 'Preguntes freqüents',
         faq_title: 'Dubtes <em>habituals</em>',
         faq1_q: 'Puc visitar els monuments en qualsevol ordre?',
-        faq1_a: 'Sí. La polsera et dóna lliure accés als cinc monuments sense un ordre establert. Pots adaptar el recorregut al teu ritme i preferències.',
+        faq1_a: 'Sí. La polsera et dóna lliure accés als quatre monuments sense un ordre establert. Pots adaptar el recorregut al teu ritme i preferències.',
         faq2_q: 'Està inclosa a les visites guiades?',
-        faq2_a: 'Sí. La visita guiada diürna (13 €), la nocturna (15 €) i la VIP (15 €) ja inclouen la polsera turística. Si ja tens polsera, aquestes visites la inclouen; no cal que en compris una altra.',
+        faq2_a: 'Sí. La visita guiada diürna (14 €), la nocturna (15 €) i la VIP (15 €) ja inclouen la polsera turística. Si ja tens polsera, aquestes visites la inclouen; no cal que en compris una altra.',
         faq3_q: 'Hi ha descompte per a nens o grups?',
         faq3_a: 'A més del preu pelegrí, hi ha tarifes per a nens i grups. Consulta les condicions actualitzades a la taquilla o a la pàgina de reserves.',
         faq4_q: 'La puc comprar en línia i recollir-la allà?',
-        faq4_a: 'Sí. Pots reservar i pagar en línia amb antelació. La polsera física es recull a la taquilla de la Catedral presentant el justificant de compra.',
+        faq4_a: 'Sí. Pots reservar i pagar en línia amb antelació. La polsera física es recull a qualsevol de les nostres taquilles presentant el justificant de compra.',
         cta_eyebrow: 'Vols més profunditat?',
         cta_title: 'Afegeix una visita <em>guiada</em>',
         cta_btn: 'Veure visites guiades'
@@ -1499,6 +1607,37 @@
         i2.src = '../assets/img/pulsera.webp';
         i2.onload = () => heroEl.classList.add('loaded');
       }
+
+      // ── Modo Claro / Oscuro ───────────────────────────────────
+      (function () {
+        const btn = document.getElementById('a11y-light-mode');
+        if (!btn) return;
+        const KEY = 'a11y-light-mode';
+
+        const logoImg = document.querySelector('.navbar__logo-favicon');
+        const navbar = document.getElementById('navbar');
+
+        function updateLogo() {
+          if (!logoImg) return;
+          const isLight = document.body.classList.contains('light-mode');
+          const isScrolled = navbar && navbar.classList.contains('scrolled');
+          logoImg.src = (isLight && isScrolled) ? '../favicon_black.svg' : '../favicon.svg';
+        }
+
+        function applyLightMode(on) {
+          document.body.classList.toggle('light-mode', on);
+          btn.classList.toggle('is-active', on);
+          btn.setAttribute('aria-pressed', String(on));
+          updateLogo();
+          localStorage.setItem(KEY, on ? '1' : '0');
+        }
+
+        window.addEventListener('scroll', updateLogo, { passive: true });
+        if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+        btn.addEventListener('click', () => {
+          applyLightMode(!document.body.classList.contains('light-mode'));
+        });
+      })();
     });
   </script>
 

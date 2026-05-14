@@ -8,7 +8,7 @@
 ├── monumentos.html
 ├── monumentos/catedral.html, ermitaplaza.html, monasteriocanas.html, sanfrancisco.html, torre.html
 ├── visitas.html
-├── visitas/individuales.html, grupos.html, guiadas.html, escolares.html, pulsera.html
+├── visitas/pulsera-turistica.html, guiada-diurna.html, guiada-nocturna.html, guiada-vip.html, guiada-canas.html
 ├── actualidad.html
 ├── reservas.html              ← Wizard 5 pasos
 ├── legal/aviso-legal.html, privacidad.html, cookies.html, accesibilidad.html

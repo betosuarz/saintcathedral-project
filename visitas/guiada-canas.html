@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pulsera Turística · Catedral de Santo Domingo de la Calzada</title>
+  <title>Visita guiada Monasterio de Cañas · Catedral de Santo Domingo de la Calzada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
     .page-hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url('../assets/img/pulsera.webp');
+      background-image: url('../assets/img/guiadacanas.webp');
       background-size: cover;
       background-position: center 40%;
       transform: scale(1.04);
@@ -52,21 +52,6 @@
       width: 100%;
       max-width: 1400px
     }
-
-    .page-hero__back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: .6rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-      text-decoration: none;
-      margin-bottom: 24px;
-      transition: color .2s ease
-    }
-
-    .page-hero__back:hover { color: var(--gold) }
 
     .page-hero__eyebrow {
       font-size: .62rem;
@@ -108,7 +93,6 @@
     .vis-section { padding: 88px 8vw }
     .vis-section__inner { max-width: 1400px; margin: 0 auto }
     .vis-section--dark { background: var(--carbon) }
-    .vis-section--alt { background: #0f0d0b }
 
     .vis-eyebrow {
       font-size: .62rem;
@@ -157,26 +141,23 @@
       border-left: 2px solid rgba(201,168,76,.35)
     }
 
-    /* ── MONUMENT GRID ─────────────────────────────────────── */
+    /* ── HIGHLIGHTS GRID ───────────────────────────────────── */
     .monument-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 3px;
       margin-top: 48px
     }
 
     .monument-card {
-      grid-column: span 2;
+      grid-column: span 1;
       position: relative;
       overflow: hidden;
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/10;
       cursor: pointer;
       text-decoration: none;
       display: block
     }
-
-    .monument-card:nth-child(4) { grid-column: span 3 }
-    .monument-card:nth-child(5) { grid-column: span 3 }
 
     .monument-card__img {
       position: absolute;
@@ -236,22 +217,6 @@
     .monument-card:hover .monument-card__sub {
       opacity: 1;
       transform: translateY(0)
-    }
-
-    .monument-card__arrow {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      font-size: .7rem;
-      color: var(--gold);
-      opacity: 0;
-      transition: opacity .3s ease, transform .3s ease;
-      z-index: 2
-    }
-
-    .monument-card:hover .monument-card__arrow {
-      opacity: 1;
-      transform: translateX(4px)
     }
 
     /* ── PRICING ───────────────────────────────────────────── */
@@ -427,6 +392,15 @@
       line-height: 1.65
     }
 
+    .info-item__value a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,.4);
+      transition: border-color .2s ease
+    }
+
+    .info-item__value a:hover { border-bottom-color: var(--gold) }
+
     .faq-list {
       display: flex;
       flex-direction: column
@@ -543,6 +517,7 @@
     body.light-mode .info-item:first-child { border-top-color: rgba(20,18,16,.08) }
     body.light-mode .info-item__label { color: var(--carbon) }
     body.light-mode .info-item__value { color: rgba(20,18,16,.58) }
+    body.light-mode .info-item__value a { color: var(--gold-text); border-bottom-color: rgba(140,110,50,.4) }
     body.light-mode .faq-item { border-color: rgba(20,18,16,.08) }
     body.light-mode .faq-q { color: var(--carbon) }
     body.light-mode .faq-a { color: rgba(20,18,16,.52) }
@@ -550,10 +525,8 @@
     /* ── RESPONSIVE ────────────────────────────────────────── */
     @media (max-width: 1000px) {
       .intro-block { grid-template-columns: 1fr; gap: 40px }
-      .monument-grid { grid-template-columns: repeat(2, 1fr) }
+      .monument-grid { grid-template-columns: 1fr }
       .monument-card { grid-column: span 1 }
-      .monument-card:nth-child(4),
-      .monument-card:nth-child(5) { grid-column: span 1 }
       .info-inner { grid-template-columns: 1fr; gap: 56px }
     }
 
@@ -635,9 +608,7 @@
         scrollbar-width: none;
       }
       .monument-grid::-webkit-scrollbar { display: none }
-      .monument-card,
-      .monument-card:nth-child(4),
-      .monument-card:nth-child(5) {
+      .monument-card {
         grid-column: auto;
         flex: 0 0 78%;
         scroll-snap-align: start;
@@ -769,89 +740,70 @@
     <!-- BREADCRUMB -->
     <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
       <ol class="breadcrumb__list" role="list">
-        <li><a href="../index.html" class="breadcrumb__link">Inicio</a></li>
+        <li><a href="../index.html" class="breadcrumb__link" data-i18n="bc_home">Inicio</a></li>
         <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
-        <li><a href="../visitas.html" class="breadcrumb__link">Visitas</a></li>
+        <li><a href="../visitas.html" class="breadcrumb__link" data-i18n="bc_visitas">Visitas</a></li>
         <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
-        <li><span class="breadcrumb__current" aria-current="page">Pulsera Turística</span></li>
+        <li><span class="breadcrumb__current" aria-current="page" data-i18n="bc_current">Visita guiada Monasterio de Cañas</span></li>
       </ol>
       <a href="../visitas.html" class="breadcrumb__back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>Visitas</span>
+        <span data-i18n="bc_visitas">Visitas</span>
       </a>
     </nav>
     <div class="page-hero__content">
-      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Entrada combinada · 4 monumentos</p>
-      <h1 class="page-hero__title" data-i18n-page="hero_title">Pulsera <em>Turística</em></h1>
-      <p class="page-hero__desc" data-i18n-page="hero_desc">La forma más económica de descubrir todo Santo Domingo de la Calzada con una sola entrada válida para todo el día.</p>
+      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Visita especial · 45 minutos · ES</p>
+      <h1 class="page-hero__title" data-i18n-page="hero_title">Monasterio de <em>Cañas</em></h1>
+      <p class="page-hero__desc" data-i18n-page="hero_desc">La Abadía de la Luz. Ocho siglos de vida contemplativa cisterciense a orillas del río Tuerto, descubiertos con un guía especializado: iglesia, sala capitular, Cilla-Museo y reliquias.</p>
     </div>
   </header>
 
-  <!-- INTRO + WHAT'S INCLUDED -->
+  <!-- INTRO + HIGHLIGHTS -->
   <section class="vis-section vis-section--dark" id="main-content" tabindex="-1">
     <div class="vis-section__inner">
       <p class="vis-eyebrow reveal" data-i18n-page="inc_eyebrow">Qué incluye</p>
-      <h2 class="vis-title reveal" data-i18n-page="inc_title">Cuatro monumentos, <em>una pulsera</em></h2>
+      <h2 class="vis-title reveal" data-i18n-page="inc_title">La Abadía <em>de la Luz</em></h2>
 
       <div class="intro-block reveal">
-        <p class="intro-block__text" data-i18n-page="inc_text">La Pulsera Turística te permite acceder libremente a los cuatro monumentos más emblemáticos del conjunto patrimonial de Santo Domingo de la Calzada. Con un único pago, tienes todo el día para explorarlos a tu ritmo, sin prisas y sin colas adicionales. Es la opción más inteligente para descubrir ocho siglos de historia, arte y devoción en el corazón del Camino Francés.</p>
-        <p class="intro-block__pull" data-i18n-page="inc_pull">«Cuatro espacios únicos. Una sola entrada. Un día para descubrirlo todo.»</p>
+        <p class="intro-block__text" data-i18n-page="inc_text">El Monasterio de Santa María de Cañas, fundado en 1170, es uno de los conjuntos cistercienses femeninos mejor conservados de España. La visita guiada te lleva por la iglesia gótica del siglo XII, la sala capitular —considerada una de las más bellas del cister—, la Cilla-Museo con la colección de arte sacro y la sala de reliquias, todo de la mano de un guía especializado que desvela ocho siglos de vida contemplativa, arte y devoción.</p>
+        <p class="intro-block__pull" data-i18n-page="inc_pull">«Donde la piedra y la luz se vuelven oración.»</p>
       </div>
 
       <div class="monument-grid reveal">
 
-        <!-- Catedral -->
-        <a href="../monumentos/catedral.html" class="monument-card">
-          <div class="monument-card__img" style="background-image:url('../assets/img/retablo.webp'); background-position:center 30%"></div>
-          <span class="monument-card__arrow">→</span>
-          <div class="monument-card__body">
-            <span class="monument-card__num">01</span>
-            <span class="monument-card__name">Catedral de <em>Santo Domingo</em></span>
-            <p class="monument-card__sub" data-i18n-page="m1_sub">Joya del Camino Francés · Románico y Gótico</p>
-          </div>
-        </a>
-
-        <!-- Torre Exenta -->
-        <a href="../monumentos/torre.html" class="monument-card">
-          <div class="monument-card__img" style="background-image:url('../assets/img/torre-exenta.webp'); background-position:center 20%"></div>
-          <span class="monument-card__arrow">→</span>
-          <div class="monument-card__body">
-            <span class="monument-card__num">02</span>
-            <span class="monument-card__name">Torre <em>Exenta</em></span>
-            <p class="monument-card__sub" data-i18n-page="m2_sub">Campanario · Vistas panorámicas · Museo de relojes y campanas</p>
-          </div>
-        </a>
-
-        <!-- Convento San Francisco -->
-        <a href="../monumentos/sanfrancisco.html" class="monument-card">
-          <div class="monument-card__img" style="background-image:url('../assets/img/sanfrancisco.webp'); background-position:center 40%"></div>
-          <span class="monument-card__arrow">→</span>
-          <div class="monument-card__body">
-            <span class="monument-card__num">03</span>
-            <span class="monument-card__name">Convento <em>San Francisco</em></span>
-            <p class="monument-card__sub" data-i18n-page="m3_sub">Arte sacro · Claustro porticado · Sala de marfiles · Exposiciones</p>
-          </div>
-        </a>
-
-        <!-- Ermita Plaza -->
-        <a href="../monumentos/ermitaplaza.html" class="monument-card">
-          <div class="monument-card__img" style="background-image:url('../assets/img/ermitaplaza.webp'); background-position:center 50%"></div>
-          <span class="monument-card__arrow">→</span>
-          <div class="monument-card__body">
-            <span class="monument-card__num">04</span>
-            <span class="monument-card__name">Ermita <em>de la Plaza</em></span>
-            <p class="monument-card__sub" data-i18n-page="m5_sub">Ermita histórica · Capilla de oración · Virgen de la Plaza · Iglesia gótica</p>
-          </div>
-        </a>
-
-        <!-- Monasterio de Cañas -->
         <a href="../monumentos/monasteriocanas.html" class="monument-card">
           <div class="monument-card__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 35%"></div>
-          <span class="monument-card__arrow">→</span>
           <div class="monument-card__body">
-            <span class="monument-card__num">05</span>
-            <span class="monument-card__name">Monasterio de <em>Cañas</em></span>
-            <p class="monument-card__sub" data-i18n-page="m4_sub">Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca · Exposiciones</p>
+            <span class="monument-card__num">01</span>
+            <span class="monument-card__name" data-i18n-page="h1_name">Iglesia del <em>siglo XII</em></span>
+            <p class="monument-card__sub" data-i18n-page="h1_sub">Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca</p>
+          </div>
+        </a>
+
+        <a href="../monumentos/monasteriocanas.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/guiadacanas.webp'); background-position:center 40%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">02</span>
+            <span class="monument-card__name" data-i18n-page="h2_name">Sala <em>Capitular</em></span>
+            <p class="monument-card__sub" data-i18n-page="h2_sub">Una de las más bellas del Císter · Bóvedas de crucería</p>
+          </div>
+        </a>
+
+        <a href="../monumentos/monasteriocanas.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/triptico.webp'); background-position:center 40%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">03</span>
+            <span class="monument-card__name" data-i18n-page="h3_name">Cilla-<em>Museo</em></span>
+            <p class="monument-card__sub" data-i18n-page="h3_sub">Arte sacro · Tablas y pinturas · Patrimonio monástico</p>
+          </div>
+        </a>
+
+        <a href="../monumentos/monasteriocanas.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/cripta.webp'); background-position:center 35%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">04</span>
+            <span class="monument-card__name" data-i18n-page="h4_name">Sala de <em>Reliquias</em></span>
+            <p class="monument-card__sub" data-i18n-page="h4_sub">Veneración cisterciense · Objetos litúrgicos históricos</p>
           </div>
         </a>
 
@@ -862,40 +814,40 @@
   <!-- PRICING -->
   <section class="price-section">
     <div class="price-inner">
-      <p class="vis-eyebrow reveal" data-i18n-page="price_eyebrow">Tarifas</p>
-      <h2 class="vis-title reveal" data-i18n-page="price_title">Precio <em>único</em> para todo el día</h2>
+      <p class="vis-eyebrow reveal" data-i18n-page="price_eyebrow">Tarifa</p>
+      <h2 class="vis-title reveal" data-i18n-page="price_title">Tarifas <em>de la visita</em></h2>
 
       <div class="price-cards">
 
         <div class="price-card price-card--featured reveal">
-          <span class="price-card__tag" data-i18n-page="price_adult_tag">Tarifa general</span>
-          <div class="price-card__amount"><sup>€</sup>10</div>
+          <span class="price-card__tag" data-i18n-page="price_tag">Visita guiada · adulto</span>
+          <div class="price-card__amount"><sup>€</sup>8</div>
           <span class="price-card__label" data-i18n-page="price_per_person">por persona</span>
           <div class="price-card__divider"></div>
           <div class="price-card__includes">
-            <span class="price-card__include" data-i18n-page="inc1">Acceso a los 4 monumentos del conjunto</span>
-            <span class="price-card__include" data-i18n-page="inc2">Válido mientras se lleve puesta en la muñeca</span>
-            <span class="price-card__include" data-i18n-page="inc3">Sin reserva previa obligatoria</span>
-            <span class="price-card__include" data-i18n-page="inc4">Reserva online o compra en taquilla</span>
+            <span class="price-card__include" data-i18n-page="inc1">Guía especializado durante el recorrido</span>
+            <span class="price-card__include" data-i18n-page="inc2">Iglesia del siglo XII y Sala Capitular</span>
+            <span class="price-card__include" data-i18n-page="inc3">Cilla-Museo y Sala de Reliquias</span>
+            <span class="price-card__include" data-i18n-page="inc4">Duración aproximada: 45 minutos</span>
           </div>
-          <a href="../reservas.html" class="price-cta">
-            <span data-i18n-page="price_book">Comprar entrada</span> →
+          <a href="../reservas.html?tipo=individual&modo=con-guia&entrada=canas" class="price-cta">
+            <span data-i18n-page="price_book">Reservar plaza</span> →
           </a>
         </div>
 
         <div class="price-card reveal reveal-delay-1">
-          <span class="price-card__tag" data-i18n-page="price_pilgrim_tag">Tarifa peregrino</span>
-          <div class="price-card__amount"><sup>€</sup>5</div>
-          <span class="price-card__label" data-i18n-page="price_per_person">por persona</span>
+          <span class="price-card__tag" data-i18n-page="price_extra_tag">Tarifa reducida</span>
+          <div class="price-card__amount"><sup>€</sup>4</div>
+          <span class="price-card__label" data-i18n-page="price_extra_sub">niños 6-14 años</span>
           <div class="price-card__divider"></div>
           <div class="price-card__includes">
-            <span class="price-card__include" data-i18n-page="pilgrim_inc1">Acreditable con credencial oficial del Camino</span>
-            <span class="price-card__include" data-i18n-page="pilgrim_inc2">Mínimo 4 etapas andando o en bicicleta</span>
-            <span class="price-card__include" data-i18n-page="pilgrim_inc3">Aplicable a peregrinos activos en ruta</span>
-            <span class="price-card__include" data-i18n-page="pilgrim_inc4">Mismos accesos que la tarifa general</span>
+            <span class="price-card__include" data-i18n-page="extra1">Mismo recorrido que la tarifa general</span>
+            <span class="price-card__include" data-i18n-page="extra2">Gratuito para menores de 6 años</span>
+            <span class="price-card__include" data-i18n-page="extra3">Grupos: 50 € de suplemento por reserva</span>
+            <span class="price-card__include" data-i18n-page="extra4">Reserva previa obligatoria</span>
           </div>
-          <a href="../reservas.html" class="price-cta">
-            <span data-i18n-page="price_book">Comprar entrada</span> →
+          <a href="../monumentos/monasteriocanas.html" class="price-cta" style="background:transparent; color:var(--gold); border:1px solid var(--gold)">
+            <span data-i18n-page="extra_btn">Más sobre el Monasterio</span> →
           </a>
         </div>
 
@@ -914,29 +866,29 @@
           <div class="info-item reveal">
             <span class="info-item__num">01</span>
             <div>
-              <div class="info-item__label" data-i18n-page="info_validity_label">Validez</div>
-              <div class="info-item__value" data-i18n-page="info_validity_val">La pulsera es válida siempre que se lleve puesta en la muñeca, sin quitar ni romper. No caduca, puedes visitar los monumentos en el orden que prefieras.</div>
+              <div class="info-item__label" data-i18n-page="info_dur_label">Duración</div>
+              <div class="info-item__value" data-i18n-page="info_dur_val">45 minutos aproximadamente. Recorrido completo por la iglesia, sala capitular, Cilla-Museo y sala de reliquias.</div>
             </div>
           </div>
           <div class="info-item reveal">
             <span class="info-item__num">02</span>
             <div>
-              <div class="info-item__label" data-i18n-page="info_buy_label">Dónde adquirirla</div>
-              <div class="info-item__value" data-i18n-page="info_buy_val">Se puede reservar online y se entrega presencialmente el día de la visita en las taquillas de cualquiera de nuestros monumentos de Santo Domingo de la Calzada.</div>
+              <div class="info-item__label" data-i18n-page="info_hor_label">Horario y reserva</div>
+              <div class="info-item__value" data-i18n-page="info_hor_val">Bajo consulta. Reserva previa obligatoria por correo a <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> o por teléfono al <a href="tel:+34941379145">+34 941 37 91 45</a>.</div>
             </div>
           </div>
           <div class="info-item reveal">
             <span class="info-item__num">03</span>
             <div>
-              <div class="info-item__label" data-i18n-page="info_horario_label">Horarios</div>
-              <div class="info-item__value" data-i18n-page="info_horario_val">Cada monumento tiene su propio horario de apertura. Consulta los horarios actualizados en la página de cada uno de ellos para planificar correctamente tu visita.</div>
+              <div class="info-item__label" data-i18n-page="info_idi_label">Idioma</div>
+              <div class="info-item__value" data-i18n-page="info_idi_val">Visita en español. Para grupos privados con guía en otro idioma, contacta con antelación.</div>
             </div>
           </div>
           <div class="info-item reveal">
             <span class="info-item__num">04</span>
             <div>
-              <div class="info-item__label" data-i18n-page="info_guided_label">¿Incluye visita guiada?</div>
-              <div class="info-item__value" data-i18n-page="info_guided_val">No incluye guía. Las visitas guiadas diurna, nocturna y VIP requieren de un ticket adicional para poder inscribirse a alguna de ellas. Se venden por separado.</div>
+              <div class="info-item__label" data-i18n-page="info_pe_label">Punto de encuentro</div>
+              <div class="info-item__value" data-i18n-page="info_pe_val">Monasterio de Santa María de Cañas, en la localidad de Cañas (La Rioja), a 12 km de Santo Domingo de la Calzada. Acceso en coche por la LR-204.</div>
             </div>
           </div>
         </div>
@@ -947,20 +899,20 @@
         <h2 class="info-col__subtitle reveal" data-i18n-page="faq_title">Dudas <em>habituales</em></h2>
         <div class="faq-list">
           <div class="faq-item reveal">
-            <p class="faq-q" data-i18n-page="faq1_q">¿Puedo visitar los monumentos en cualquier orden?</p>
-            <p class="faq-a" data-i18n-page="faq1_a">Sí. La pulsera te da libre acceso a los cuatro monumentos sin ningún orden establecido. Puedes adaptar el recorrido a tu ritmo y preferencias.</p>
+            <p class="faq-q" data-i18n-page="faq1_q">¿Está incluida en la Pulsera Turística de Santo Domingo?</p>
+            <p class="faq-a" data-i18n-page="faq1_a">No. La Pulsera Turística cubre los cuatro monumentos del conjunto de Santo Domingo de la Calzada (Catedral, Torre Exenta, San Francisco y Ermita). El Monasterio de Cañas, al estar en otra localidad, tiene su propia tarifa y reserva independientes.</p>
           </div>
           <div class="faq-item reveal">
-            <p class="faq-q" data-i18n-page="faq2_q">¿Está incluida en las visitas guiadas?</p>
-            <p class="faq-a" data-i18n-page="faq2_a">Sí. La visita guiada diurna (14 €), la nocturna (15 €) y la VIP (15 €) ya incluyen la pulsera turística. Si ya has comprado la pulsera, no la necesitas de nuevo.</p>
+            <p class="faq-q" data-i18n-page="faq2_q">¿Qué diferencia hay con la visita libre al monasterio?</p>
+            <p class="faq-a" data-i18n-page="faq2_a">La visita libre (6 € adulto, 4 € reducida) te permite acceder al recinto a tu ritmo. La guiada (8 € adulto) incluye un guía especializado que explica la historia, el simbolismo cisterciense y los detalles artísticos que de otro modo pasan desapercibidos.</p>
           </div>
           <div class="faq-item reveal">
-            <p class="faq-q" data-i18n-page="faq3_q">¿Hay descuento para niños o grupos?</p>
-            <p class="faq-a" data-i18n-page="faq3_a">Además del precio peregrino, existen tarifas para niños y grupos. Consulta las condiciones actualizadas en taquilla o en la página de reservas.</p>
+            <p class="faq-q" data-i18n-page="faq3_q">¿Hay descuentos para niños o grupos?</p>
+            <p class="faq-a" data-i18n-page="faq3_a">Sí. Niños de 6 a 14 años: 4 €. Menores de 6 años: gratis. Para grupos hay un suplemento fijo de 50 € por reserva además del precio individual. Consulta condiciones al reservar.</p>
           </div>
           <div class="faq-item reveal">
-            <p class="faq-q" data-i18n-page="faq4_q">¿Puedo comprarla online y recogerla allí?</p>
-            <p class="faq-a" data-i18n-page="faq4_a">Sí. Puedes reservar y pagar online con antelación. La pulsera física se recoge en cualquiera de nuestras taquillas presentando el justificante de compra.</p>
+            <p class="faq-q" data-i18n-page="faq4_q">¿Cómo llego desde Santo Domingo de la Calzada?</p>
+            <p class="faq-a" data-i18n-page="faq4_a">En coche por la LR-204 (unos 15 minutos, 12 km). No hay transporte público directo: si vienes en peregrinación o sin vehículo, te ayudamos a coordinar el desplazamiento al hacer la reserva.</p>
           </div>
         </div>
       </div>
@@ -972,11 +924,11 @@
   <div class="cta-band reveal">
     <div class="cta-band__inner">
       <div>
-        <p class="cta-band__eyebrow" data-i18n-page="cta_eyebrow">¿Quieres más profundidad?</p>
-        <h2 class="cta-band__title" data-i18n-page="cta_title">Añade una visita <em>guiada</em></h2>
+        <p class="cta-band__eyebrow" data-i18n-page="cta_eyebrow">¿Quieres saber más?</p>
+        <h2 class="cta-band__title" data-i18n-page="cta_title">Descubre la <em>historia</em> del Monasterio</h2>
       </div>
-      <a href="guiadas.html" class="cta-band__btn">
-        <span data-i18n-page="cta_btn">Ver visitas guiadas</span> →
+      <a href="../monumentos/monasteriocanas.html" class="cta-band__btn">
+        <span data-i18n-page="cta_btn">Ver Monasterio de Cañas</span> →
       </a>
     </div>
   </div>
@@ -1042,7 +994,7 @@
     </div>
   </footer>
 
-    <!-- COOKIE BANNER + MODAL -->
+  <!-- COOKIE BANNER + MODAL -->
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">
     <div class="cookie-banner__inner">
       <div class="cookie-banner__text">
@@ -1119,472 +1071,508 @@
   <script>
     const PAGE_T = {
       es: {
-        back_visits: '← Visitas',
-        hero_eyebrow: 'Entrada combinada · 4 monumentos',
-        hero_title: 'Pulsera <em>Turística</em>',
-        hero_desc: 'La forma más económica de descubrir todo Santo Domingo de la Calzada con una sola entrada válida para todo el día.',
+        hero_eyebrow: 'Visita especial · 45 minutos · ES',
+        hero_title: 'Monasterio de <em>Cañas</em>',
+        hero_desc: 'La Abadía de la Luz. Ocho siglos de vida contemplativa cisterciense a orillas del río Tuerto, descubiertos con un guía especializado: iglesia, sala capitular, Cilla-Museo y reliquias.',
         inc_eyebrow: 'Qué incluye',
-        inc_title: 'Cuatro monumentos, <em>una pulsera</em>',
-        inc_text: 'La Pulsera Turística te permite acceder libremente a los cuatro monumentos más emblemáticos del conjunto patrimonial de Santo Domingo de la Calzada. Con un único pago, tienes todo el día para explorarlos a tu ritmo, sin prisas y sin colas adicionales. Es la opción más inteligente para descubrir ocho siglos de historia, arte y devoción en el corazón del Camino Francés.',
-        inc_pull: '«Cuatro espacios únicos. Una sola entrada. Un día para descubrirlo todo.»',
-        m1_sub: 'Joya del Camino Francés · Románico y Gótico',
-        m2_sub: 'Campanario · Vistas panorámicas · Museo de relojes y campanas',
-        m3_sub: 'Arte sacro · Claustro porticado · Sala de marfiles · Exposiciones',
-        m4_sub: 'Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca · Exposiciones',
-        m5_sub: 'Ermita histórica · Capilla de oración · Virgen de la Plaza · Iglesia gótica',
-        price_eyebrow: 'Tarifas',
-        price_title: 'Precio <em>único</em> para todo el día',
-        price_adult_tag: 'Tarifa general',
-        price_pilgrim_tag: 'Tarifa peregrino',
+        inc_title: 'La Abadía <em>de la Luz</em>',
+        inc_text: 'El Monasterio de Santa María de Cañas, fundado en 1170, es uno de los conjuntos cistercienses femeninos mejor conservados de España. La visita guiada te lleva por la iglesia gótica del siglo XII, la sala capitular —considerada una de las más bellas del cister—, la Cilla-Museo con la colección de arte sacro y la sala de reliquias, todo de la mano de un guía especializado que desvela ocho siglos de vida contemplativa, arte y devoción.',
+        inc_pull: '«Donde la piedra y la luz se vuelven oración.»',
+        h1_name: 'Iglesia del <em>siglo XII</em>',
+        h1_sub: 'Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca',
+        h2_name: 'Sala <em>Capitular</em>',
+        h2_sub: 'Una de las más bellas del Císter · Bóvedas de crucería',
+        h3_name: 'Cilla-<em>Museo</em>',
+        h3_sub: 'Arte sacro · Tablas y pinturas · Patrimonio monástico',
+        h4_name: 'Sala de <em>Reliquias</em>',
+        h4_sub: 'Veneración cisterciense · Objetos litúrgicos históricos',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Tarifas <em>de la visita</em>',
+        price_tag: 'Visita guiada · adulto',
         price_per_person: 'por persona',
-        inc1: 'Acceso a los 4 monumentos del conjunto',
-        inc2: 'Válido mientras se lleve puesta en la muñeca',
-        inc3: 'Sin reserva previa obligatoria',
-        inc4: 'Reserva online o compra en taquilla',
-        pilgrim_inc1: 'Acreditable con credencial oficial del Camino',
-        pilgrim_inc2: 'Mínimo 4 etapas andando o en bicicleta',
-        pilgrim_inc3: 'Aplicable a peregrinos activos en ruta',
-        pilgrim_inc4: 'Mismos accesos que la tarifa general',
-        price_book: 'Comprar entrada',
+        price_book: 'Reservar plaza',
+        inc1: 'Guía especializado durante el recorrido',
+        inc2: 'Iglesia del siglo XII y Sala Capitular',
+        inc3: 'Cilla-Museo y Sala de Reliquias',
+        inc4: 'Duración aproximada: 45 minutos',
+        price_extra_tag: 'Tarifa reducida',
+        price_extra_sub: 'niños 6-14 años',
+        extra1: 'Mismo recorrido que la tarifa general',
+        extra2: 'Gratuito para menores de 6 años',
+        extra3: 'Grupos: 50 € de suplemento por reserva',
+        extra4: 'Reserva previa obligatoria',
+        extra_btn: 'Más sobre el Monasterio',
         info_eyebrow: 'Información práctica',
         info_title: 'Todo lo que necesitas <em>saber</em>',
-        info_validity_label: 'Validez',
-        info_validity_val: 'La pulsera es válida siempre que se lleve puesta en la muñeca, sin quitar ni romper. No caduca, puedes visitar los monumentos en el orden que prefieras.',
-        info_buy_label: 'Dónde adquirirla',
-        info_buy_val: 'Se puede reservar online y se entrega presencialmente el día de la visita en las taquillas de cualquiera de nuestros monumentos de Santo Domingo de la Calzada.',
-        info_horario_label: 'Horarios',
-        info_horario_val: 'Cada monumento tiene su propio horario de apertura. Consulta los horarios actualizados en la página de cada uno de ellos para planificar correctamente tu visita.',
-        info_guided_label: '¿Incluye visita guiada?',
-        info_guided_val: 'No incluye guía. Las visitas guiadas diurna, nocturna y VIP requieren de un ticket adicional para poder inscribirse a alguna de ellas. Se venden por separado.',
+        info_dur_label: 'Duración',
+        info_dur_val: '45 minutos aproximadamente. Recorrido completo por la iglesia, sala capitular, Cilla-Museo y sala de reliquias.',
+        info_hor_label: 'Horario y reserva',
+        info_hor_val: 'Bajo consulta. Reserva previa obligatoria por correo a <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> o por teléfono al <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Idioma',
+        info_idi_val: 'Visita en español. Para grupos privados con guía en otro idioma, contacta con antelación.',
+        info_pe_label: 'Punto de encuentro',
+        info_pe_val: 'Monasterio de Santa María de Cañas, en la localidad de Cañas (La Rioja), a 12 km de Santo Domingo de la Calzada. Acceso en coche por la LR-204.',
         faq_eyebrow: 'Preguntas frecuentes',
         faq_title: 'Dudas <em>habituales</em>',
-        faq1_q: '¿Puedo visitar los monumentos en cualquier orden?',
-        faq1_a: 'Sí. La pulsera te da libre acceso a los cuatro monumentos sin ningún orden establecido. Puedes adaptar el recorrido a tu ritmo y preferencias.',
-        faq2_q: '¿Está incluida en las visitas guiadas?',
-        faq2_a: 'Sí. La visita guiada diurna (14 €), la nocturna (15 €) y la VIP (15 €) ya incluyen la pulsera turística. Si ya has comprado la pulsera, no la necesitas de nuevo.',
-        faq3_q: '¿Hay descuento para niños o grupos?',
-        faq3_a: 'Además del precio peregrino, existen tarifas para niños y grupos. Consulta las condiciones actualizadas en taquilla o en la página de reservas.',
-        faq4_q: '¿Puedo comprarla online y recogerla allí?',
-        faq4_a: 'Sí. Puedes reservar y pagar online con antelación. La pulsera física se recoge en cualquiera de nuestras taquillas presentando el justificante de compra.',
-        cta_eyebrow: '¿Quieres más profundidad?',
-        cta_title: 'Añade una visita <em>guiada</em>',
-        cta_btn: 'Ver visitas guiadas'
+        faq1_q: '¿Está incluida en la Pulsera Turística de Santo Domingo?',
+        faq1_a: 'No. La Pulsera Turística cubre los cuatro monumentos del conjunto de Santo Domingo de la Calzada (Catedral, Torre Exenta, San Francisco y Ermita). El Monasterio de Cañas, al estar en otra localidad, tiene su propia tarifa y reserva independientes.',
+        faq2_q: '¿Qué diferencia hay con la visita libre al monasterio?',
+        faq2_a: 'La visita libre (6 € adulto, 4 € reducida) te permite acceder al recinto a tu ritmo. La guiada (8 € adulto) incluye un guía especializado que explica la historia, el simbolismo cisterciense y los detalles artísticos que de otro modo pasan desapercibidos.',
+        faq3_q: '¿Hay descuentos para niños o grupos?',
+        faq3_a: 'Sí. Niños de 6 a 14 años: 4 €. Menores de 6 años: gratis. Para grupos hay un suplemento fijo de 50 € por reserva además del precio individual. Consulta condiciones al reservar.',
+        faq4_q: '¿Cómo llego desde Santo Domingo de la Calzada?',
+        faq4_a: 'En coche por la LR-204 (unos 15 minutos, 12 km). No hay transporte público directo: si vienes en peregrinación o sin vehículo, te ayudamos a coordinar el desplazamiento al hacer la reserva.',
+        cta_eyebrow: '¿Quieres saber más?',
+        cta_title: 'Descubre la <em>historia</em> del Monasterio',
+        cta_btn: 'Ver Monasterio de Cañas'
       },
       en: {
-        back_visits: '← Visits',
-        hero_eyebrow: 'Combined ticket · 4 monuments',
-        hero_title: 'Tourist <em>Wristband</em>',
-        hero_desc: 'The most economical way to discover all of Santo Domingo de la Calzada with a single all-day ticket.',
+        hero_eyebrow: 'Special tour · 45 minutes · ES',
+        hero_title: 'Monastery of <em>Cañas</em>',
+        hero_desc: 'The Abbey of the Light. Eight centuries of Cistercian contemplative life on the banks of the Tuerto river, discovered with a specialised guide: church, chapter house, Cilla-Museum and relics.',
         inc_eyebrow: 'What\'s included',
-        inc_title: 'Four monuments, <em>one wristband</em>',
-        inc_text: 'The Tourist Wristband gives you free access to the four most emblematic monuments of the Santo Domingo de la Calzada heritage complex. With a single payment, you have all day to explore them at your own pace, without rush or additional queues. The smartest option to discover eight centuries of history, art and devotion at the heart of the French Way.',
-        inc_pull: '«Four unique spaces. One ticket. One day to discover everything.»',
-        m1_sub: 'Jewel of the French Way · Romanesque and Gothic',
-        m2_sub: 'Bell tower · Panoramic views · Museum of clocks and bells',
-        m3_sub: 'Sacred art · Arcaded cloister · Ivory hall · Exhibitions',
-        m4_sub: 'Cistercian Gothic · Stained glass · Tomb of Blessed Urraca · Exhibitions',
-        m5_sub: 'Historic chapel · Prayer chapel · Virgin of the Square · Gothic church',
-        price_eyebrow: 'Rates',
-        price_title: 'Single <em>price</em> for the whole day',
-        price_adult_tag: 'General rate',
-        price_pilgrim_tag: 'Pilgrim rate',
+        inc_title: 'The Abbey <em>of the Light</em>',
+        inc_text: 'The Monastery of Santa María de Cañas, founded in 1170, is one of the best-preserved female Cistercian complexes in Spain. The guided tour takes you through the 12th-century Gothic church, the chapter house —considered one of the finest in the Cistercian order—, the Cilla-Museum with its collection of sacred art, and the relics room, all led by a specialised guide who reveals eight centuries of contemplative life, art and devotion.',
+        inc_pull: '«Where stone and light become prayer.»',
+        h1_name: '12th-century <em>church</em>',
+        h1_sub: 'Cistercian Gothic · Stained glass · Tomb of Blessed Urraca',
+        h2_name: 'Chapter <em>House</em>',
+        h2_sub: 'One of the finest in the Cistercian order · Rib vaulting',
+        h3_name: 'Cilla <em>Museum</em>',
+        h3_sub: 'Sacred art · Panels and paintings · Monastic heritage',
+        h4_name: 'Relics <em>Room</em>',
+        h4_sub: 'Cistercian veneration · Historical liturgical objects',
+        price_eyebrow: 'Rate',
+        price_title: 'Tour <em>rates</em>',
+        price_tag: 'Guided tour · adult',
         price_per_person: 'per person',
-        inc1: 'Access to all 4 monuments in the complex',
-        inc2: 'Valid while worn on the wrist',
-        inc3: 'No advance booking required',
-        inc4: 'Book online or buy at the ticket office',
-        pilgrim_inc1: 'Verifiable with official Camino pilgrim passport',
-        pilgrim_inc2: 'At least 4 stages on foot or by bicycle',
-        pilgrim_inc3: 'Applicable to active pilgrims on the route',
-        pilgrim_inc4: 'Same access as the general rate',
-        price_book: 'Buy ticket',
+        price_book: 'Book your place',
+        inc1: 'Specialised guide throughout the tour',
+        inc2: '12th-century church and Chapter House',
+        inc3: 'Cilla-Museum and Relics Room',
+        inc4: 'Approximate duration: 45 minutes',
+        price_extra_tag: 'Reduced rate',
+        price_extra_sub: 'children 6-14 years',
+        extra1: 'Same route as the general rate',
+        extra2: 'Free for under-6s',
+        extra3: 'Groups: €50 supplement per booking',
+        extra4: 'Advance booking required',
+        extra_btn: 'More on the Monastery',
         info_eyebrow: 'Practical information',
         info_title: 'Everything you need <em>to know</em>',
-        info_validity_label: 'Validity',
-        info_validity_val: 'The wristband is valid as long as it is worn on the wrist, without being removed or broken. It does not expire; you can visit the monuments in any order you prefer.',
-        info_buy_label: 'Where to buy',
-        info_buy_val: 'You can book online and collect it in person on the day of the visit at the ticket office of any of our monuments in Santo Domingo de la Calzada.',
-        info_horario_label: 'Opening hours',
-        info_horario_val: 'Each monument has its own opening hours. Check the updated timetables on each monument\'s page to plan your visit properly.',
-        info_guided_label: 'Does it include a guided tour?',
-        info_guided_val: 'No guide included. The daytime, night-time and VIP guided tours require a separate ticket to sign up. They are sold separately.',
+        info_dur_label: 'Duration',
+        info_dur_val: 'Approximately 45 minutes. Full route through the church, chapter house, Cilla-Museum and relics room.',
+        info_hor_label: 'Schedule and booking',
+        info_hor_val: 'On request. Advance booking required by email at <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> or by phone at <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Language',
+        info_idi_val: 'Tour in Spanish. For private groups with a guide in another language, contact in advance.',
+        info_pe_label: 'Meeting point',
+        info_pe_val: 'Monastery of Santa María de Cañas, in the village of Cañas (La Rioja), 12 km from Santo Domingo de la Calzada. Access by car via the LR-204.',
         faq_eyebrow: 'Frequently asked questions',
         faq_title: 'Common <em>questions</em>',
-        faq1_q: 'Can I visit the monuments in any order?',
-        faq1_a: 'Yes. The wristband gives you free access to all four monuments with no set order. You can plan the route at your own pace and preference.',
-        faq2_q: 'Is it included in the guided tours?',
-        faq2_a: 'Yes. The daytime (€14), night-time (€15) and VIP (€15) guided tours already include the tourist wristband. If you already have one, you do not need it again.',
+        faq1_q: 'Is it included in the Santo Domingo Tourist Wristband?',
+        faq1_a: 'No. The Tourist Wristband covers the four monuments of the Santo Domingo de la Calzada complex (Cathedral, Bell Tower, San Francisco and Chapel). The Monastery of Cañas, being in a different town, has its own independent rate and booking.',
+        faq2_q: 'What\'s the difference with a self-guided visit?',
+        faq2_a: 'The self-guided visit (€6 adult, €4 reduced) lets you tour the site at your own pace. The guided tour (€8 adult) includes a specialised guide who explains the history, the Cistercian symbolism and the artistic details that otherwise go unnoticed.',
         faq3_q: 'Are there discounts for children or groups?',
-        faq3_a: 'In addition to the pilgrim rate, there are rates for children and groups. Check the latest conditions at the ticket office or on the reservations page.',
-        faq4_q: 'Can I buy it online and collect it there?',
-        faq4_a: 'Yes. You can book and pay online in advance. The physical wristband is collected at any of our ticket offices upon presenting your purchase confirmation.',
-        cta_eyebrow: 'Want to go deeper?',
-        cta_title: 'Add a <em>guided</em> tour',
-        cta_btn: 'See guided tours'
+        faq3_a: 'Yes. Children 6-14: €4. Under 6: free. Groups have a fixed €50 supplement per booking on top of the individual price. Check conditions when booking.',
+        faq4_q: 'How do I get there from Santo Domingo de la Calzada?',
+        faq4_a: 'By car via the LR-204 (about 15 minutes, 12 km). There is no direct public transport: if you come on pilgrimage or without a vehicle, we can help coordinate transfer when you book.',
+        cta_eyebrow: 'Want to know more?',
+        cta_title: 'Discover the <em>history</em> of the Monastery',
+        cta_btn: 'See Monastery of Cañas'
       },
       fr: {
-        back_visits: '← Visites',
-        hero_eyebrow: 'Billet combiné · 4 monuments',
-        hero_title: 'Bracelet <em>Touristique</em>',
-        hero_desc: 'La manière la plus économique de découvrir tout Santo Domingo de la Calzada avec un seul billet valable toute la journée.',
+        hero_eyebrow: 'Visite spéciale · 45 minutes · ES',
+        hero_title: 'Monastère de <em>Cañas</em>',
+        hero_desc: 'L\'Abbaye de la Lumière. Huit siècles de vie contemplative cistercienne au bord du río Tuerto, à découvrir avec un guide spécialisé : église, salle capitulaire, Cilla-Musée et reliques.',
         inc_eyebrow: 'Ce qui est inclus',
-        inc_title: 'Quatre monuments, <em>un bracelet</em>',
-        inc_text: 'Le Bracelet Touristique vous permet d\'accéder librement aux quatre monuments les plus emblématiques de l\'ensemble patrimonial de Santo Domingo de la Calzada. Avec un paiement unique, vous disposez de toute la journée pour les explorer à votre rythme, sans hâte et sans files supplémentaires. C\'est l\'option la plus intelligente pour découvrir huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français.',
-        inc_pull: '« Quatre espaces uniques. Un seul billet. Une journée pour tout découvrir. »',
-        m1_sub: 'Joyau du Chemin Français · Roman et Gothique',
-        m2_sub: 'Clocher · Vues panoramiques · Musée des horloges et des cloches',
-        m3_sub: 'Art sacré · Cloître à arcades · Salle des ivoires · Expositions',
-        m4_sub: 'Gothique cistercien · Vitraux · Tombeau de la Bienheureuse Urraca · Expositions',
-        m5_sub: 'Ermitage historique · Chapelle de prière · Vierge de la Place · Église gothique',
-        price_eyebrow: 'Tarifs',
-        price_title: 'Prix <em>unique</em> pour toute la journée',
-        price_adult_tag: 'Tarif général',
-        price_pilgrim_tag: 'Tarif pèlerin',
+        inc_title: 'L\'Abbaye <em>de la Lumière</em>',
+        inc_text: 'Le Monastère de Santa María de Cañas, fondé en 1170, est l\'un des ensembles cisterciens féminins les mieux conservés d\'Espagne. La visite guidée vous emmène à travers l\'église gothique du XIIe siècle, la salle capitulaire —considérée parmi les plus belles de l\'ordre cistercien—, la Cilla-Musée avec sa collection d\'art sacré et la salle des reliques, le tout avec un guide spécialisé qui révèle huit siècles de vie contemplative, d\'art et de dévotion.',
+        inc_pull: '« Là où la pierre et la lumière deviennent prière. »',
+        h1_name: 'Église du <em>XIIe siècle</em>',
+        h1_sub: 'Gothique cistercien · Vitraux · Tombeau de la Bienheureuse Urraca',
+        h2_name: 'Salle <em>capitulaire</em>',
+        h2_sub: 'Parmi les plus belles de l\'ordre cistercien · Voûtes sur croisée',
+        h3_name: 'Cilla-<em>Musée</em>',
+        h3_sub: 'Art sacré · Tableaux et peintures · Patrimoine monastique',
+        h4_name: 'Salle des <em>Reliques</em>',
+        h4_sub: 'Vénération cistercienne · Objets liturgiques historiques',
+        price_eyebrow: 'Tarif',
+        price_title: 'Tarifs <em>de la visite</em>',
+        price_tag: 'Visite guidée · adulte',
         price_per_person: 'par personne',
-        inc1: 'Accès aux 4 monuments de l\'ensemble',
-        inc2: 'Valable tant qu\'il est porté au poignet',
-        inc3: 'Sans réservation préalable obligatoire',
-        inc4: 'Réservation en ligne ou achat au guichet',
-        pilgrim_inc1: 'Justifiable avec la crédentiale officielle du Chemin',
-        pilgrim_inc2: 'Minimum 4 étapes à pied ou à vélo',
-        pilgrim_inc3: 'Applicable aux pèlerins actifs sur la route',
-        pilgrim_inc4: 'Mêmes accès que le tarif général',
-        price_book: 'Acheter le billet',
+        price_book: 'Réserver',
+        inc1: 'Guide spécialisé pendant la visite',
+        inc2: 'Église du XIIe siècle et salle capitulaire',
+        inc3: 'Cilla-Musée et salle des reliques',
+        inc4: 'Durée approximative : 45 minutes',
+        price_extra_tag: 'Tarif réduit',
+        price_extra_sub: 'enfants 6-14 ans',
+        extra1: 'Même parcours que le tarif général',
+        extra2: 'Gratuit pour les moins de 6 ans',
+        extra3: 'Groupes : supplément fixe de 50 € par réservation',
+        extra4: 'Réservation préalable obligatoire',
+        extra_btn: 'En savoir plus sur le Monastère',
         info_eyebrow: 'Informations pratiques',
-        info_title: 'Tout ce que vous devez <em>savoir</em>',
-        info_validity_label: 'Validité',
-        info_validity_val: 'Le bracelet est valable tant qu\'il est porté au poignet, sans être enlevé ni brisé. Il n\'expire pas ; vous pouvez visiter les monuments dans l\'ordre que vous préférez.',
-        info_buy_label: 'Où l\'acquérir',
-        info_buy_val: 'Vous pouvez réserver en ligne et le retirer en personne le jour de la visite au guichet de l\'un de nos monuments à Santo Domingo de la Calzada.',
-        info_horario_label: 'Horaires',
-        info_horario_val: 'Chaque monument a ses propres horaires d\'ouverture. Consultez les horaires actualisés sur la page de chaque monument pour bien planifier votre visite.',
-        info_guided_label: 'Inclut-il une visite guidée ?',
-        info_guided_val: 'Sans guide. Les visites guidées diurne, nocturne et VIP nécessitent un billet supplémentaire pour s\'y inscrire. Elles se vendent séparément.',
+        info_title: 'Tout ce qu\'il faut <em>savoir</em>',
+        info_dur_label: 'Durée',
+        info_dur_val: '45 minutes environ. Parcours complet par l\'église, la salle capitulaire, la Cilla-Musée et la salle des reliques.',
+        info_hor_label: 'Horaires et réservation',
+        info_hor_val: 'Sur consultation. Réservation préalable obligatoire par courrier à <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> ou par téléphone au <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Langue',
+        info_idi_val: 'Visite en espagnol. Pour des groupes privés avec guide dans une autre langue, contactez à l\'avance.',
+        info_pe_label: 'Point de rencontre',
+        info_pe_val: 'Monastère de Santa María de Cañas, dans la localité de Cañas (La Rioja), à 12 km de Santo Domingo de la Calzada. Accès en voiture par la LR-204.',
         faq_eyebrow: 'Questions fréquentes',
         faq_title: 'Doutes <em>habituels</em>',
-        faq1_q: 'Puis-je visiter les monuments dans n\'importe quel ordre ?',
-        faq1_a: 'Oui. Le bracelet vous donne libre accès aux quatre monuments sans ordre établi. Vous pouvez adapter le parcours à votre rythme et vos préférences.',
-        faq2_q: 'Est-il inclus dans les visites guidées ?',
-        faq2_a: 'Oui. La visite guidée diurne (14 €), la nocturne (15 €) et la VIP (15 €) incluent déjà le bracelet touristique. Si vous avez déjà un bracelet, ces visites l\'incluent ; pas besoin d\'en acheter un autre.',
+        faq1_q: 'Est-il inclus dans le Bracelet Touristique de Santo Domingo ?',
+        faq1_a: 'Non. Le Bracelet Touristique couvre les quatre monuments de l\'ensemble de Santo Domingo de la Calzada (Cathédrale, Tour, San Francisco et Ermitage). Le Monastère de Cañas, situé dans une autre localité, a son propre tarif et sa propre réservation.',
+        faq2_q: 'Quelle différence avec la visite libre ?',
+        faq2_a: 'La visite libre (6 € adulte, 4 € réduite) permet d\'accéder au site à votre rythme. La guidée (8 € adulte) inclut un guide spécialisé qui explique l\'histoire, le symbolisme cistercien et les détails artistiques qui passeraient autrement inaperçus.',
         faq3_q: 'Y a-t-il des réductions pour enfants ou groupes ?',
-        faq3_a: 'En plus du tarif pèlerin, il existe des tarifs pour enfants et groupes. Consultez les conditions actualisées au guichet ou sur la page des réservations.',
-        faq4_q: 'Puis-je l\'acheter en ligne et le retirer sur place ?',
-        faq4_a: 'Oui. Vous pouvez réserver et payer en ligne à l\'avance. Le bracelet physique se retire à l\'un de nos guichets en présentant le justificatif d\'achat.',
-        cta_eyebrow: 'Envie d\'aller plus loin ?',
-        cta_title: 'Ajoutez une visite <em>guidée</em>',
-        cta_btn: 'Voir les visites guidées'
+        faq3_a: 'Oui. Enfants de 6 à 14 ans : 4 €. Moins de 6 ans : gratuit. Pour les groupes, supplément fixe de 50 € par réservation en plus du prix individuel. Consultez les conditions à la réservation.',
+        faq4_q: 'Comment y aller depuis Santo Domingo de la Calzada ?',
+        faq4_a: 'En voiture par la LR-204 (environ 15 minutes, 12 km). Pas de transport public direct : si vous venez en pèlerinage ou sans véhicule, nous vous aidons à coordonner le déplacement lors de la réservation.',
+        cta_eyebrow: 'Vous voulez en savoir plus ?',
+        cta_title: 'Découvrez l\'<em>histoire</em> du Monastère',
+        cta_btn: 'Voir le Monastère de Cañas'
       },
       de: {
-        back_visits: '← Besuche',
-        hero_eyebrow: 'Kombi-Ticket · 4 Denkmäler',
-        hero_title: 'Touristen-<em>Armband</em>',
-        hero_desc: 'Die günstigste Art, ganz Santo Domingo de la Calzada mit einem einzigen Tagesticket zu entdecken.',
+        hero_eyebrow: 'Spezialführung · 45 Minuten · ES',
+        hero_title: 'Kloster von <em>Cañas</em>',
+        hero_desc: 'Die Abtei des Lichts. Acht Jahrhunderte zisterziensisches kontemplatives Leben am Ufer des Tuerto-Flusses, mit einem spezialisierten Guide entdeckt: Kirche, Kapitelsaal, Cilla-Museum und Reliquien.',
         inc_eyebrow: 'Was enthalten ist',
-        inc_title: 'Vier Denkmäler, <em>ein Armband</em>',
-        inc_text: 'Mit dem Touristen-Armband haben Sie freien Zugang zu den vier bedeutendsten Denkmälern des Kulturensembles von Santo Domingo de la Calzada. Mit einer einzigen Zahlung haben Sie den ganzen Tag Zeit, sie in Ihrem eigenen Tempo zu erkunden, ohne Eile und ohne zusätzliche Warteschlangen. Die klügste Wahl, um acht Jahrhunderte Geschichte, Kunst und Andacht im Herzen des Jakobsweges zu entdecken.',
-        inc_pull: '„Vier einzigartige Räume. Ein einziges Ticket. Ein Tag, um alles zu entdecken."',
-        m1_sub: 'Juwel des Jakobsweges · Romanik und Gotik',
-        m2_sub: 'Glockenturm · Panoramablick · Uhren- und Glockenmuseum',
-        m3_sub: 'Sakralkunst · Bogenkreuzgang · Elfenbeinsaal · Ausstellungen',
-        m4_sub: 'Zisterzienser-Gotik · Glasfenster · Grab der seligen Urraca · Ausstellungen',
-        m5_sub: 'Historische Einsiedelei · Gebetskapelle · Jungfrau vom Platz · Gotische Kirche',
-        price_eyebrow: 'Preise',
-        price_title: '<em>Einheitspreis</em> für den ganzen Tag',
-        price_adult_tag: 'Normaltarif',
-        price_pilgrim_tag: 'Pilgertarif',
+        inc_title: 'Die Abtei <em>des Lichts</em>',
+        inc_text: 'Das Kloster Santa María de Cañas, 1170 gegründet, ist eines der am besten erhaltenen weiblichen Zisterzienserensembles Spaniens. Die Führung leitet Sie durch die gotische Kirche aus dem 12. Jahrhundert, den Kapitelsaal —einer der schönsten des Zisterzienserordens—, das Cilla-Museum mit seiner Sammlung sakraler Kunst und den Reliquienraum, alles mit einem spezialisierten Guide, der acht Jahrhunderte kontemplatives Leben, Kunst und Andacht enthüllt.',
+        inc_pull: '„Wo Stein und Licht zum Gebet werden."',
+        h1_name: 'Kirche aus dem <em>12. Jahrhundert</em>',
+        h1_sub: 'Zisterzienser-Gotik · Glasfenster · Grab der seligen Urraca',
+        h2_name: '<em>Kapitelsaal</em>',
+        h2_sub: 'Einer der schönsten des Zisterzienserordens · Kreuzrippengewölbe',
+        h3_name: 'Cilla-<em>Museum</em>',
+        h3_sub: 'Sakralkunst · Tafeln und Gemälde · Klösterliches Erbe',
+        h4_name: 'Reliquien<em>raum</em>',
+        h4_sub: 'Zisterziensische Verehrung · Historische liturgische Objekte',
+        price_eyebrow: 'Preis',
+        price_title: 'Tour-<em>Tarife</em>',
+        price_tag: 'Führung · Erwachsene',
         price_per_person: 'pro Person',
-        inc1: 'Zugang zu allen 4 Denkmälern des Ensembles',
-        inc2: 'Gültig, solange am Handgelenk getragen',
-        inc3: 'Keine vorherige Reservierung nötig',
-        inc4: 'Online buchen oder am Schalter kaufen',
-        pilgrim_inc1: 'Nachweis mit offiziellem Pilgerausweis',
-        pilgrim_inc2: 'Mindestens 4 Etappen zu Fuß oder mit dem Fahrrad',
-        pilgrim_inc3: 'Gilt für aktive Pilger auf dem Weg',
-        pilgrim_inc4: 'Gleicher Zugang wie der Normaltarif',
-        price_book: 'Ticket kaufen',
+        price_book: 'Platz reservieren',
+        inc1: 'Spezialisierter Guide während der Tour',
+        inc2: 'Kirche aus dem 12. Jh. und Kapitelsaal',
+        inc3: 'Cilla-Museum und Reliquienraum',
+        inc4: 'Ungefähre Dauer: 45 Minuten',
+        price_extra_tag: 'Ermäßigter Tarif',
+        price_extra_sub: 'Kinder 6-14 Jahre',
+        extra1: 'Gleiche Route wie der Normaltarif',
+        extra2: 'Kostenlos für unter 6-Jährige',
+        extra3: 'Gruppen: 50 € Zuschlag pro Buchung',
+        extra4: 'Vorherige Reservierung erforderlich',
+        extra_btn: 'Mehr über das Kloster',
         info_eyebrow: 'Praktische Informationen',
         info_title: 'Alles, was Sie <em>wissen müssen</em>',
-        info_validity_label: 'Gültigkeit',
-        info_validity_val: 'Das Armband ist gültig, solange es am Handgelenk getragen wird, ohne abgenommen oder beschädigt zu werden. Es verfällt nicht; Sie können die Denkmäler in beliebiger Reihenfolge besuchen.',
-        info_buy_label: 'Wo zu kaufen',
-        info_buy_val: 'Sie können online buchen und es am Tag des Besuchs persönlich am Ticketschalter eines unserer Denkmäler in Santo Domingo de la Calzada abholen.',
-        info_horario_label: 'Öffnungszeiten',
-        info_horario_val: 'Jedes Denkmal hat seine eigenen Öffnungszeiten. Prüfen Sie die aktuellen Zeiten auf der Seite jedes Denkmals, um Ihren Besuch richtig zu planen.',
-        info_guided_label: 'Beinhaltet es eine Führung?',
-        info_guided_val: 'Keine Führung enthalten. Die Tages-, Nacht- und VIP-Führungen erfordern ein zusätzliches Ticket zur Anmeldung. Sie werden separat verkauft.',
+        info_dur_label: 'Dauer',
+        info_dur_val: 'Ca. 45 Minuten. Vollständiger Rundgang durch Kirche, Kapitelsaal, Cilla-Museum und Reliquienraum.',
+        info_hor_label: 'Zeiten und Buchung',
+        info_hor_val: 'Auf Anfrage. Vorherige Reservierung erforderlich per E-Mail an <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> oder telefonisch unter <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Sprache',
+        info_idi_val: 'Führung auf Spanisch. Für private Gruppen mit Guide in anderer Sprache vorab kontaktieren.',
+        info_pe_label: 'Treffpunkt',
+        info_pe_val: 'Kloster Santa María de Cañas, in der Ortschaft Cañas (La Rioja), 12 km von Santo Domingo de la Calzada entfernt. Zufahrt mit dem Auto über die LR-204.',
         faq_eyebrow: 'Häufige Fragen',
         faq_title: 'Häufige <em>Zweifel</em>',
-        faq1_q: 'Kann ich die Denkmäler in beliebiger Reihenfolge besuchen?',
-        faq1_a: 'Ja. Das Armband bietet freien Zugang zu allen vier Denkmälern ohne festgelegte Reihenfolge. Sie können die Route in Ihrem eigenen Tempo planen.',
-        faq2_q: 'Ist es in den Führungen enthalten?',
-        faq2_a: 'Ja. Die Tagesführung (14 €), die Nachtführung (15 €) und die VIP-Führung (15 €) enthalten bereits das Touristen-Armband. Wenn Sie schon eines haben, ist es in diesen Touren inbegriffen; Sie müssen kein zweites kaufen.',
+        faq1_q: 'Ist es im Touristen-Armband von Santo Domingo enthalten?',
+        faq1_a: 'Nein. Das Touristen-Armband umfasst die vier Denkmäler des Ensembles von Santo Domingo de la Calzada (Kathedrale, Glockenturm, San Francisco und Einsiedelei). Das Kloster Cañas, in einer anderen Ortschaft gelegen, hat eigenen Tarif und eigene Reservierung.',
+        faq2_q: 'Was ist der Unterschied zum freien Besuch?',
+        faq2_a: 'Der freie Besuch (6 € Erwachsene, 4 € ermäßigt) erlaubt den Rundgang im eigenen Tempo. Die Führung (8 € Erwachsene) beinhaltet einen spezialisierten Guide, der Geschichte, Zisterzienser-Symbolik und künstlerische Details erläutert, die sonst unbemerkt blieben.',
         faq3_q: 'Gibt es Rabatte für Kinder oder Gruppen?',
-        faq3_a: 'Neben dem Pilgertarif gibt es Tarife für Kinder und Gruppen. Aktuelle Bedingungen am Ticketschalter oder auf der Buchungsseite einsehen.',
-        faq4_q: 'Kann ich es online kaufen und vor Ort abholen?',
-        faq4_a: 'Ja. Sie können online im Voraus buchen und bezahlen. Das physische Armband wird an einem unserer Schalter mit dem Kaufbeleg abgeholt.',
-        cta_eyebrow: 'Mehr Tiefe gewünscht?',
-        cta_title: 'Fügen Sie eine <em>Führung</em> hinzu',
-        cta_btn: 'Führungen ansehen'
+        faq3_a: 'Ja. Kinder 6-14 Jahre: 4 €. Unter 6 Jahre: kostenlos. Für Gruppen 50 € Pauschalzuschlag pro Buchung zusätzlich zum Einzelpreis. Bedingungen bei der Buchung prüfen.',
+        faq4_q: 'Wie komme ich von Santo Domingo de la Calzada hin?',
+        faq4_a: 'Mit dem Auto über die LR-204 (ca. 15 Minuten, 12 km). Es gibt keinen direkten öffentlichen Verkehr: Wenn Sie als Pilger oder ohne Fahrzeug kommen, helfen wir bei der Koordination der Anfahrt bei der Buchung.',
+        cta_eyebrow: 'Möchten Sie mehr erfahren?',
+        cta_title: 'Entdecken Sie die <em>Geschichte</em> des Klosters',
+        cta_btn: 'Kloster Cañas ansehen'
       },
       pt: {
-        back_visits: '← Visitas',
-        hero_eyebrow: 'Bilhete combinado · 4 monumentos',
-        hero_title: 'Pulseira <em>Turística</em>',
-        hero_desc: 'A forma mais económica de descobrir toda Santo Domingo de la Calzada com um único bilhete válido para todo o dia.',
+        hero_eyebrow: 'Visita especial · 45 minutos · ES',
+        hero_title: 'Mosteiro de <em>Cañas</em>',
+        hero_desc: 'A Abadia da Luz. Oito séculos de vida contemplativa cisterciense às margens do rio Tuerto, descobertos com um guia especializado: igreja, sala capitular, Cilla-Museu e relíquias.',
         inc_eyebrow: 'O que inclui',
-        inc_title: 'Quatro monumentos, <em>uma pulseira</em>',
-        inc_text: 'A Pulseira Turística permite-lhe aceder livremente aos quatro monumentos mais emblemáticos do conjunto patrimonial de Santo Domingo de la Calzada. Com um único pagamento, dispõe de todo o dia para os explorar ao seu ritmo, sem pressa e sem filas adicionais. É a opção mais inteligente para descobrir oito séculos de história, arte e devoção no coração do Caminho Francês.',
-        inc_pull: '«Quatro espaços únicos. Um só bilhete. Um dia para descobrir tudo.»',
-        m1_sub: 'Joia do Caminho Francês · Românico e Gótico',
-        m2_sub: 'Campanário · Vistas panorâmicas · Museu de relógios e sinos',
-        m3_sub: 'Arte sacra · Claustro com arcadas · Sala de marfins · Exposições',
-        m4_sub: 'Gótico cisterciense · Vitrais · Sepulcro da Beata Urraca · Exposições',
-        m5_sub: 'Ermida histórica · Capela de oração · Virgem da Praça · Igreja gótica',
-        price_eyebrow: 'Tarifas',
-        price_title: 'Preço <em>único</em> para todo o dia',
-        price_adult_tag: 'Tarifa geral',
-        price_pilgrim_tag: 'Tarifa peregrino',
+        inc_title: 'A Abadia <em>da Luz</em>',
+        inc_text: 'O Mosteiro de Santa María de Cañas, fundado em 1170, é um dos conjuntos cistercienses femininos mais bem conservados de Espanha. A visita guiada leva-o pela igreja gótica do século XII, pela sala capitular —considerada uma das mais belas do Cister—, pela Cilla-Museu com a coleção de arte sacra e pela sala de relíquias, tudo com um guia especializado que revela oito séculos de vida contemplativa, arte e devoção.',
+        inc_pull: '«Onde a pedra e a luz se tornam oração.»',
+        h1_name: 'Igreja do <em>século XII</em>',
+        h1_sub: 'Gótico cisterciense · Vitrais · Sepulcro da Beata Urraca',
+        h2_name: 'Sala <em>Capitular</em>',
+        h2_sub: 'Uma das mais belas do Cister · Abóbadas de cruzaria',
+        h3_name: 'Cilla-<em>Museu</em>',
+        h3_sub: 'Arte sacra · Tábuas e pinturas · Património monástico',
+        h4_name: 'Sala de <em>Relíquias</em>',
+        h4_sub: 'Veneração cisterciense · Objetos litúrgicos históricos',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Tarifas <em>da visita</em>',
+        price_tag: 'Visita guiada · adulto',
         price_per_person: 'por pessoa',
-        inc1: 'Acesso aos 4 monumentos do conjunto',
-        inc2: 'Válida enquanto for usada no pulso',
-        inc3: 'Sem reserva prévia obrigatória',
-        inc4: 'Reserva online ou compra na bilheteira',
-        pilgrim_inc1: 'Comprovável com credencial oficial do Caminho',
-        pilgrim_inc2: 'Mínimo de 4 etapas a pé ou de bicicleta',
-        pilgrim_inc3: 'Aplicável a peregrinos ativos em rota',
-        pilgrim_inc4: 'Mesmos acessos que a tarifa geral',
-        price_book: 'Comprar bilhete',
+        price_book: 'Reservar lugar',
+        inc1: 'Guia especializado durante o percurso',
+        inc2: 'Igreja do século XII e Sala Capitular',
+        inc3: 'Cilla-Museu e Sala de Relíquias',
+        inc4: 'Duração aproximada: 45 minutos',
+        price_extra_tag: 'Tarifa reduzida',
+        price_extra_sub: 'crianças 6-14 anos',
+        extra1: 'Mesmo percurso que a tarifa geral',
+        extra2: 'Gratuito para menores de 6 anos',
+        extra3: 'Grupos: 50 € de suplemento por reserva',
+        extra4: 'Reserva prévia obrigatória',
+        extra_btn: 'Mais sobre o Mosteiro',
         info_eyebrow: 'Informação prática',
         info_title: 'Tudo o que precisa <em>de saber</em>',
-        info_validity_label: 'Validade',
-        info_validity_val: 'A pulseira é válida enquanto for usada no pulso, sem ser retirada nem partida. Não caduca; pode visitar os monumentos pela ordem que preferir.',
-        info_buy_label: 'Onde adquirir',
-        info_buy_val: 'Pode reservar online e levantá-la presencialmente no dia da visita na bilheteira de qualquer um dos nossos monumentos de Santo Domingo de la Calzada.',
-        info_horario_label: 'Horários',
-        info_horario_val: 'Cada monumento tem o seu próprio horário de abertura. Consulte os horários atualizados na página de cada monumento para planear corretamente a sua visita.',
-        info_guided_label: 'Inclui visita guiada?',
-        info_guided_val: 'Não inclui guia. As visitas guiadas diurna, noturna e VIP requerem um bilhete adicional para a inscrição. Vendem-se em separado.',
+        info_dur_label: 'Duração',
+        info_dur_val: '45 minutos aproximadamente. Percurso completo pela igreja, sala capitular, Cilla-Museu e sala de relíquias.',
+        info_hor_label: 'Horário e reserva',
+        info_hor_val: 'Sob consulta. Reserva prévia obrigatória por correio para <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> ou por telefone para <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Idioma',
+        info_idi_val: 'Visita em espanhol. Para grupos privados com guia noutro idioma, contacte com antecedência.',
+        info_pe_label: 'Ponto de encontro',
+        info_pe_val: 'Mosteiro de Santa María de Cañas, na localidade de Cañas (La Rioja), a 12 km de Santo Domingo de la Calzada. Acesso de carro pela LR-204.',
         faq_eyebrow: 'Perguntas frequentes',
         faq_title: 'Dúvidas <em>habituais</em>',
-        faq1_q: 'Posso visitar os monumentos por qualquer ordem?',
-        faq1_a: 'Sim. A pulseira dá-lhe livre acesso aos quatro monumentos sem qualquer ordem definida. Pode adaptar o percurso ao seu ritmo e preferências.',
-        faq2_q: 'Está incluída nas visitas guiadas?',
-        faq2_a: 'Sim. A visita guiada diurna (14 €), a noturna (15 €) e a VIP (15 €) já incluem a pulseira turística. Se já tem uma pulseira, estas visitas incluem-na; não precisa de comprar outra.',
+        faq1_q: 'Está incluída na Pulseira Turística de Santo Domingo?',
+        faq1_a: 'Não. A Pulseira Turística cobre os quatro monumentos do conjunto de Santo Domingo de la Calzada (Catedral, Torre, San Francisco e Ermida). O Mosteiro de Cañas, por estar noutra localidade, tem a sua própria tarifa e reserva independente.',
+        faq2_q: 'Qual a diferença com a visita livre?',
+        faq2_a: 'A visita livre (6 € adulto, 4 € reduzida) permite-lhe percorrer o recinto ao seu ritmo. A guiada (8 € adulto) inclui um guia especializado que explica a história, o simbolismo cisterciense e os detalhes artísticos que de outro modo passariam despercebidos.',
         faq3_q: 'Há descontos para crianças ou grupos?',
-        faq3_a: 'Além do preço peregrino, existem tarifas para crianças e grupos. Consulte as condições atualizadas na bilheteira ou na página de reservas.',
-        faq4_q: 'Posso comprá-la online e levantá-la no local?',
-        faq4_a: 'Sim. Pode reservar e pagar online com antecedência. A pulseira física levanta-se em qualquer uma das nossas bilheteiras apresentando o comprovativo de compra.',
-        cta_eyebrow: 'Quer mais profundidade?',
-        cta_title: 'Adicione uma visita <em>guiada</em>',
-        cta_btn: 'Ver visitas guiadas'
+        faq3_a: 'Sim. Crianças de 6 a 14 anos: 4 €. Menores de 6 anos: grátis. Para grupos há um suplemento fixo de 50 € por reserva além do preço individual. Consulte as condições ao reservar.',
+        faq4_q: 'Como chego desde Santo Domingo de la Calzada?',
+        faq4_a: 'De carro pela LR-204 (cerca de 15 minutos, 12 km). Não há transporte público direto: se vier em peregrinação ou sem veículo, ajudamos a coordenar a deslocação ao fazer a reserva.',
+        cta_eyebrow: 'Quer saber mais?',
+        cta_title: 'Descubra a <em>história</em> do Mosteiro',
+        cta_btn: 'Ver Mosteiro de Cañas'
       },
       it: {
-        back_visits: '← Visite',
-        hero_eyebrow: 'Biglietto combinato · 4 monumenti',
-        hero_title: 'Braccialetto <em>Turistico</em>',
-        hero_desc: 'Il modo più economico per scoprire tutta Santo Domingo de la Calzada con un solo biglietto valido per l\'intera giornata.',
+        hero_eyebrow: 'Visita speciale · 45 minuti · ES',
+        hero_title: 'Monastero di <em>Cañas</em>',
+        hero_desc: 'L\'Abbazia della Luce. Otto secoli di vita contemplativa cistercense sulle rive del río Tuerto, scoperti con una guida specializzata: chiesa, sala capitolare, Cilla-Museo e reliquie.',
         inc_eyebrow: 'Cosa include',
-        inc_title: 'Quattro monumenti, <em>un braccialetto</em>',
-        inc_text: 'Il Braccialetto Turistico ti permette di accedere liberamente ai quattro monumenti più emblematici del complesso patrimoniale di Santo Domingo de la Calzada. Con un unico pagamento, hai tutto il giorno per esplorarli al tuo ritmo, senza fretta e senza code aggiuntive. È l\'opzione più intelligente per scoprire otto secoli di storia, arte e devozione nel cuore del Cammino Francese.',
-        inc_pull: '«Quattro spazi unici. Un solo biglietto. Un giorno per scoprire tutto.»',
-        m1_sub: 'Gioiello del Cammino Francese · Romanico e Gotico',
-        m2_sub: 'Campanile · Vista panoramica · Museo di orologi e campane',
-        m3_sub: 'Arte sacra · Chiostro porticato · Sala degli avori · Mostre',
-        m4_sub: 'Gotico cistercense · Vetrate · Sepolcro della Beata Urraca · Mostre',
-        m5_sub: 'Eremo storico · Cappella di preghiera · Vergine della Piazza · Chiesa gotica',
-        price_eyebrow: 'Tariffe',
-        price_title: 'Prezzo <em>unico</em> per l\'intera giornata',
-        price_adult_tag: 'Tariffa intera',
-        price_pilgrim_tag: 'Tariffa pellegrino',
+        inc_title: 'L\'Abbazia <em>della Luce</em>',
+        inc_text: 'Il Monastero di Santa María de Cañas, fondato nel 1170, è uno dei complessi cistercensi femminili meglio conservati di Spagna. La visita guidata ti porta nella chiesa gotica del XII secolo, nella sala capitolare —considerata tra le più belle dell\'ordine cistercense—, nella Cilla-Museo con la collezione di arte sacra e nella sala delle reliquie, il tutto con una guida specializzata che svela otto secoli di vita contemplativa, arte e devozione.',
+        inc_pull: '«Dove la pietra e la luce diventano preghiera.»',
+        h1_name: 'Chiesa del <em>XII secolo</em>',
+        h1_sub: 'Gotico cistercense · Vetrate · Sepolcro della Beata Urraca',
+        h2_name: 'Sala <em>Capitolare</em>',
+        h2_sub: 'Tra le più belle dell\'ordine cistercense · Volte a crociera',
+        h3_name: 'Cilla-<em>Museo</em>',
+        h3_sub: 'Arte sacra · Tavole e dipinti · Patrimonio monastico',
+        h4_name: 'Sala delle <em>Reliquie</em>',
+        h4_sub: 'Venerazione cistercense · Oggetti liturgici storici',
+        price_eyebrow: 'Tariffa',
+        price_title: 'Tariffe <em>della visita</em>',
+        price_tag: 'Visita guidata · adulto',
         price_per_person: 'a persona',
-        inc1: 'Accesso a tutti i 4 monumenti del complesso',
-        inc2: 'Valido finché viene indossato al polso',
-        inc3: 'Senza prenotazione anticipata obbligatoria',
-        inc4: 'Prenotazione online o acquisto in biglietteria',
-        pilgrim_inc1: 'Verificabile con la credenziale ufficiale del Cammino',
-        pilgrim_inc2: 'Almeno 4 tappe a piedi o in bicicletta',
-        pilgrim_inc3: 'Applicabile ai pellegrini attivi in cammino',
-        pilgrim_inc4: 'Stessi accessi della tariffa intera',
-        price_book: 'Acquista biglietto',
+        price_book: 'Prenota posto',
+        inc1: 'Guida specializzata durante il percorso',
+        inc2: 'Chiesa del XII secolo e Sala Capitolare',
+        inc3: 'Cilla-Museo e Sala delle Reliquie',
+        inc4: 'Durata approssimativa: 45 minuti',
+        price_extra_tag: 'Tariffa ridotta',
+        price_extra_sub: 'bambini 6-14 anni',
+        extra1: 'Stesso percorso della tariffa intera',
+        extra2: 'Gratuito per i minori di 6 anni',
+        extra3: 'Gruppi: supplemento fisso di 50 € per prenotazione',
+        extra4: 'Prenotazione anticipata obbligatoria',
+        extra_btn: 'Più info sul Monastero',
         info_eyebrow: 'Informazioni pratiche',
         info_title: 'Tutto quello che devi <em>sapere</em>',
-        info_validity_label: 'Validità',
-        info_validity_val: 'Il braccialetto è valido finché viene indossato al polso, senza essere rimosso né rotto. Non scade; puoi visitare i monumenti nell\'ordine che preferisci.',
-        info_buy_label: 'Dove acquistarlo',
-        info_buy_val: 'Puoi prenotare online e ritirarlo di persona il giorno della visita presso la biglietteria di uno qualsiasi dei nostri monumenti a Santo Domingo de la Calzada.',
-        info_horario_label: 'Orari',
-        info_horario_val: 'Ogni monumento ha i propri orari di apertura. Consulta gli orari aggiornati nella pagina di ciascun monumento per pianificare correttamente la tua visita.',
-        info_guided_label: 'Include una visita guidata?',
-        info_guided_val: 'Nessuna guida inclusa. Le visite guidate diurna, notturna e VIP richiedono un biglietto aggiuntivo per l\'iscrizione. Si vendono separatamente.',
+        info_dur_label: 'Durata',
+        info_dur_val: '45 minuti circa. Percorso completo per la chiesa, la sala capitolare, la Cilla-Museo e la sala delle reliquie.',
+        info_hor_label: 'Orari e prenotazione',
+        info_hor_val: 'Su richiesta. Prenotazione anticipata obbligatoria via email a <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> o telefono al <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Lingua',
+        info_idi_val: 'Visita in spagnolo. Per gruppi privati con guida in altra lingua, contattaci con anticipo.',
+        info_pe_label: 'Punto di ritrovo',
+        info_pe_val: 'Monastero di Santa María de Cañas, nella località di Cañas (La Rioja), a 12 km da Santo Domingo de la Calzada. Accesso in auto sulla LR-204.',
         faq_eyebrow: 'Domande frequenti',
         faq_title: 'Dubbi <em>frequenti</em>',
-        faq1_q: 'Posso visitare i monumenti in qualsiasi ordine?',
-        faq1_a: 'Sì. Il braccialetto dà libero accesso ai quattro monumenti senza ordine prestabilito. Puoi adattare il percorso al tuo ritmo e alle tue preferenze.',
-        faq2_q: 'È incluso nelle visite guidate?',
-        faq2_a: 'Sì. La visita guidata diurna (14 €), la notturna (15 €) e la VIP (15 €) includono già il braccialetto turistico. Se hai già un braccialetto, queste visite lo includono; non è necessario acquistarne un altro.',
+        faq1_q: 'È inclusa nel Braccialetto Turistico di Santo Domingo?',
+        faq1_a: 'No. Il Braccialetto Turistico copre i quattro monumenti del complesso di Santo Domingo de la Calzada (Cattedrale, Torre, San Francisco ed Eremo). Il Monastero di Cañas, in altra località, ha tariffa e prenotazione indipendenti.',
+        faq2_q: 'Che differenza c\'è con la visita libera?',
+        faq2_a: 'La visita libera (6 € adulto, 4 € ridotta) permette di accedere al recinto al proprio ritmo. La guidata (8 € adulto) include una guida specializzata che spiega la storia, il simbolismo cistercense e i dettagli artistici che altrimenti passerebbero inosservati.',
         faq3_q: 'Ci sono sconti per bambini o gruppi?',
-        faq3_a: 'Oltre alla tariffa pellegrino, esistono tariffe per bambini e gruppi. Consulta le condizioni aggiornate in biglietteria o nella pagina prenotazioni.',
-        faq4_q: 'Posso acquistarlo online e ritirarlo sul posto?',
-        faq4_a: 'Sì. Puoi prenotare e pagare online in anticipo. Il braccialetto fisico si ritira presso una qualsiasi delle nostre biglietterie presentando la ricevuta d\'acquisto.',
-        cta_eyebrow: 'Vuoi approfondire?',
-        cta_title: 'Aggiungi una visita <em>guidata</em>',
-        cta_btn: 'Vedi visite guidate'
+        faq3_a: 'Sì. Bambini 6-14 anni: 4 €. Sotto i 6 anni: gratis. Per i gruppi un supplemento fisso di 50 € per prenotazione oltre al prezzo individuale. Verifica le condizioni alla prenotazione.',
+        faq4_q: 'Come arrivo da Santo Domingo de la Calzada?',
+        faq4_a: 'In auto sulla LR-204 (circa 15 minuti, 12 km). Non c\'è trasporto pubblico diretto: se vieni in pellegrinaggio o senza veicolo, ti aiutiamo a coordinare lo spostamento al momento della prenotazione.',
+        cta_eyebrow: 'Vuoi saperne di più?',
+        cta_title: 'Scopri la <em>storia</em> del Monastero',
+        cta_btn: 'Vedi Monastero di Cañas'
       },
       ko: {
-        back_visits: '← 관람',
-        hero_eyebrow: '결합 입장권 · 4개 유적',
-        hero_title: '관광 <em>팔찌</em>',
-        hero_desc: '하루 종일 사용 가능한 단일 입장권으로 산토 도밍고 데 라 칼사다 전체를 가장 경제적으로 둘러볼 수 있는 방법입니다.',
+        hero_eyebrow: '특별 투어 · 45분 · ES',
+        hero_title: '<em>카냐스</em> 수도원',
+        hero_desc: '빛의 수도원. 투에르토 강가에서 8세기에 걸쳐 이어진 시토회 관상 생활을, 전문 가이드와 함께 만나보세요: 교회, 참사회실, 칠라-박물관, 성유물실.',
         inc_eyebrow: '포함 내용',
-        inc_title: '네 개의 유적, <em>하나의 팔찌</em>',
-        inc_text: '관광 팔찌는 산토 도밍고 데 라 칼사다 유산 복합단지의 가장 상징적인 네 유적에 자유롭게 입장할 수 있게 해 줍니다. 한 번의 결제로 하루 종일 자신의 속도에 맞춰 여유롭게, 추가 대기 줄 없이 관람할 수 있습니다. 프랑스 길의 중심에서 8세기에 걸친 역사, 예술, 신앙을 발견하는 가장 현명한 선택입니다.',
-        inc_pull: '«네 개의 독특한 공간. 하나의 입장권. 모든 것을 발견할 하루.»',
-        m1_sub: '프랑스 길의 보석 · 로마네스크와 고딕',
-        m2_sub: '종탑 · 파노라마 전망 · 시계와 종 박물관',
-        m3_sub: '성스러운 예술 · 아케이드 회랑 · 상아 전시실 · 전시회',
-        m4_sub: '시토회 고딕 · 스테인드글라스 · 복녀 우라카의 무덤 · 전시회',
-        m5_sub: '역사적인 예배당 · 기도 예배당 · 광장의 성모 · 고딕 양식 교회',
+        inc_title: '<em>빛의</em> 수도원',
+        inc_text: '1170년에 설립된 산타 마리아 데 카냐스 수도원은 스페인에서 가장 잘 보존된 여성 시토회 복합단지 중 하나입니다. 가이드 투어는 12세기 고딕 양식의 교회, 시토회 양식 중에서도 가장 아름답다고 평가되는 참사회실, 성예술 컬렉션이 있는 칠라-박물관, 그리고 성유물실을 모두 전문 가이드와 함께 둘러봅니다. 8세기에 걸친 관상 생활, 예술, 신앙을 발견하세요.',
+        inc_pull: '«돌과 빛이 기도가 되는 곳.»',
+        h1_name: '<em>12세기</em> 교회',
+        h1_sub: '시토회 고딕 · 스테인드글라스 · 복녀 우라카의 무덤',
+        h2_name: '<em>참사회</em>실',
+        h2_sub: '시토회에서 가장 아름다운 곳 중 하나 · 늑골 궁륭',
+        h3_name: '칠라-<em>박물관</em>',
+        h3_sub: '성예술 · 패널과 회화 · 수도원 유산',
+        h4_name: '<em>성유물</em>실',
+        h4_sub: '시토회 경배 · 역사적인 전례 용품',
         price_eyebrow: '요금',
-        price_title: '하루 종일 <em>단일</em> 요금',
-        price_adult_tag: '일반 요금',
-        price_pilgrim_tag: '순례자 요금',
+        price_title: '투어 <em>요금</em>',
+        price_tag: '가이드 투어 · 성인',
         price_per_person: '1인당',
-        inc1: '단지 내 4개 유적 모두 입장',
-        inc2: '손목에 착용한 동안 유효',
-        inc3: '사전 예약 필수 아님',
-        inc4: '온라인 예약 또는 매표소 구매',
-        pilgrim_inc1: '공식 순례 증명서로 확인 가능',
-        pilgrim_inc2: '도보 또는 자전거로 최소 4구간',
-        pilgrim_inc3: '경로 중인 순례자에게 적용',
-        pilgrim_inc4: '일반 요금과 동일한 입장',
-        price_book: '입장권 구매',
+        price_book: '예약하기',
+        inc1: '투어 전체에 동행하는 전문 가이드',
+        inc2: '12세기 교회와 참사회실',
+        inc3: '칠라-박물관과 성유물실',
+        inc4: '예상 소요 시간: 45분',
+        price_extra_tag: '할인 요금',
+        price_extra_sub: '어린이 6-14세',
+        extra1: '일반 요금과 동일한 동선',
+        extra2: '6세 미만 무료',
+        extra3: '단체: 예약당 50 € 추가',
+        extra4: '사전 예약 필수',
+        extra_btn: '수도원 자세히 보기',
         info_eyebrow: '실용 정보',
         info_title: '꼭 <em>알아야 할</em> 모든 것',
-        info_validity_label: '유효 기간',
-        info_validity_val: '팔찌는 손목에 착용한 상태로 분리하거나 손상되지 않은 동안 유효합니다. 만료되지 않으며, 원하는 순서로 유적을 방문할 수 있습니다.',
-        info_buy_label: '구매처',
-        info_buy_val: '온라인으로 예약한 후 방문 당일 산토 도밍고 데 라 칼사다의 저희 유적 중 어느 곳의 매표소에서든 직접 수령할 수 있습니다.',
-        info_horario_label: '운영 시간',
-        info_horario_val: '각 유적은 고유한 운영 시간이 있습니다. 방문을 올바르게 계획하려면 각 유적 페이지에서 최신 운영 시간을 확인하세요.',
-        info_guided_label: '가이드 투어가 포함되나요?',
-        info_guided_val: '가이드는 포함되지 않습니다. 주간·야간·VIP 가이드 투어는 등록을 위해 별도의 티켓이 필요하며, 따로 판매됩니다.',
+        info_dur_label: '소요 시간',
+        info_dur_val: '약 45분. 교회, 참사회실, 칠라-박물관, 성유물실 전체 동선.',
+        info_hor_label: '운영 시간과 예약',
+        info_hor_val: '문의 바람. 사전 예약 필수 — 이메일 <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> 또는 전화 <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: '언어',
+        info_idi_val: '스페인어 진행. 다른 언어 가이드가 동반된 프라이빗 그룹은 사전 문의 바랍니다.',
+        info_pe_label: '집결지',
+        info_pe_val: '카냐스 마을(라리오하) 내 산타 마리아 데 카냐스 수도원, 산토 도밍고 데 라 칼사다에서 12 km. LR-204 도로로 차량 접근.',
         faq_eyebrow: '자주 묻는 질문',
         faq_title: '자주 있는 <em>궁금증</em>',
-        faq1_q: '유적을 원하는 순서로 방문할 수 있나요?',
-        faq1_a: '네. 팔찌는 네 유적에 정해진 순서 없이 자유로운 입장을 제공합니다. 자신의 속도와 취향에 맞춰 경로를 조정할 수 있습니다.',
-        faq2_q: '가이드 투어에 포함되나요?',
-        faq2_a: '네. 주간(14 €), 야간(15 €), VIP(15 €) 가이드 투어에는 이미 관광 팔찌가 포함되어 있습니다. 이미 팔찌가 있다면 이 투어들에 포함되어 있으니 따로 구매할 필요가 없습니다.',
+        faq1_q: '산토 도밍고 관광 팔찌에 포함되나요?',
+        faq1_a: '아니요. 관광 팔찌는 산토 도밍고 데 라 칼사다 단지의 4개 유적(대성당, 종탑, 산프란시스코, 예배당)을 포함합니다. 카냐스 수도원은 다른 마을에 있어 별도의 요금과 예약이 필요합니다.',
+        faq2_q: '자유 관람과 무엇이 다른가요?',
+        faq2_a: '자유 관람(성인 6 €, 할인 4 €)은 자신의 속도로 둘러볼 수 있습니다. 가이드 투어(성인 8 €)는 역사, 시토회 상징, 그리고 평소에는 놓치기 쉬운 예술적 디테일을 설명하는 전문 가이드가 동반됩니다.',
         faq3_q: '어린이나 단체 할인이 있나요?',
-        faq3_a: '순례자 요금 외에도 어린이와 단체 요금이 있습니다. 최신 조건은 매표소나 예약 페이지에서 확인하세요.',
-        faq4_q: '온라인으로 구매한 뒤 현장에서 받을 수 있나요?',
-        faq4_a: '네. 미리 온라인으로 예약하고 결제할 수 있습니다. 실물 팔찌는 구매 확인서를 제시하고 저희 매표소 중 어느 곳에서나 받으실 수 있습니다.',
-        cta_eyebrow: '더 깊이 알고 싶으세요?',
-        cta_title: '<em>가이드</em> 투어를 추가하세요',
-        cta_btn: '가이드 투어 보기'
+        faq3_a: '네. 6-14세 어린이: 4 €. 6세 미만: 무료. 단체는 개인 가격에 더해 예약당 50 €의 추가 요금이 있습니다. 예약 시 조건을 확인하세요.',
+        faq4_q: '산토 도밍고 데 라 칼사다에서 어떻게 가나요?',
+        faq4_a: '차량으로 LR-204 도로(약 15분, 12 km). 직접 연결되는 대중교통은 없습니다. 순례 중이거나 차량이 없다면 예약 시 이동 조율을 도와드립니다.',
+        cta_eyebrow: '더 알고 싶으세요?',
+        cta_title: '수도원의 <em>역사</em>를 만나보세요',
+        cta_btn: '카냐스 수도원 보기'
       },
       eu: {
-        back_visits: '← Bisitak',
-        hero_eyebrow: 'Sarrera konbinatua · 4 monumentu',
-        hero_title: 'Pulsera <em>Turistikoa</em>',
-        hero_desc: 'Egun osorako baliozko sarrera bakar batekin Santo Domingo de la Calzada osoa ezagutzeko modurik merkeena.',
+        hero_eyebrow: 'Bisita berezia · 45 minutu · ES',
+        hero_title: 'Kañasko <em>monasterioa</em>',
+        hero_desc: 'Argiaren Abadia. Zortzi mendeko zistertziar bizimodu kontenplatiboa Tuerto ibaiaren ertzean, gidari espezializatu batekin ezagutzeko: eliza, kapitulu-aretoa, Cilla-Museoa eta erlikiak.',
         inc_eyebrow: 'Zer barne hartzen du',
-        inc_title: 'Lau monumentu, <em>pulsera bakarra</em>',
-        inc_text: 'Pulsera Turistikoarekin Santo Domingo de la Calzadako ondare-multzoko lau monumentu enblematikoenetara modu librean sar zaitezke. Ordainketa bakar batekin, egun osoa duzu zure erritmoan esploratzeko, presarik gabe eta ilara gehigarririk gabe. Frantziako Bidearen bihotzean zortzi mendeko historia, arte eta debozioa ezagutzeko aukerarik adimentsuena.',
-        inc_pull: '«Lau gune bakarra. Sarrera bakarra. Dena ezagutzeko egun bat.»',
-        m1_sub: 'Frantziako Bidearen bitxia · Erromanikoa eta Gotikoa',
-        m2_sub: 'Kanpaitorrea · Ikuspegi panoramikoak · Erloju eta kanpaien museoa',
-        m3_sub: 'Arte sakratua · Klaustro arkupeduna · Marfilen aretoa · Erakusketak',
-        m4_sub: 'Gotiko zistertziarra · Beirateak · Urraka Dohatsuaren hilobia · Erakusketak',
-        m5_sub: 'Ermita historikoa · Otoitz kapera · Plazako Ama Birjina · Eliza gotikoa',
-        price_eyebrow: 'Tarifak',
-        price_title: 'Prezio <em>bakarra</em> egun osorako',
-        price_adult_tag: 'Tarifa orokorra',
-        price_pilgrim_tag: 'Erromes tarifa',
+        inc_title: 'Argiaren <em>Abadia</em>',
+        inc_text: '1170ean sortutako Kañasko Santa Mariako monasterioa Espainian hobekien gordeta dauden emakume zistertziar multzoetako bat da. Bisita gidatuak XII. mendeko eliza gotikora, kapitulu-aretora —zistertziar agindukoetako ederrenetakotzat hartua—, arte sakratuko bilduma duen Cilla-Museora eta erlikien aretora eramango zaitu, guztia gidari espezializatu baten eskutik. Zortzi mendeko bizimodu kontenplatiboa, artea eta debozioa ezagutuko dituzu.',
+        inc_pull: '«Harria eta argia otoitz bihurtzen diren tokia.»',
+        h1_name: '<em>XII. mendeko</em> eliza',
+        h1_sub: 'Zistertziar gotikoa · Beirateak · Urraka Dohatsuaren hilobia',
+        h2_name: '<em>Kapitulu</em>-aretoa',
+        h2_sub: 'Zistertziar agindukoetan ederrenetakoa · Kurutze-gangak',
+        h3_name: 'Cilla-<em>Museoa</em>',
+        h3_sub: 'Arte sakratua · Taulak eta margolanak · Monasterio-ondarea',
+        h4_name: 'Erlikia-<em>aretoa</em>',
+        h4_sub: 'Zistertziar gurtza · Liturgia-objektu historikoak',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Bisitaren <em>tarifak</em>',
+        price_tag: 'Bisita gidatua · heldua',
         price_per_person: 'pertsonako',
-        inc1: 'Multzoko 4 monumentuetarako sarbidea',
-        inc2: 'Eskumuturrean jantzita dagoen bitartean baliozkoa',
-        inc3: 'Aurretiazko erreserbarik gabe',
-        inc4: 'Erreserba online edo erosketa txarteldegian',
-        pilgrim_inc1: 'Bideko kredentzial ofizialarekin egiazta daiteke',
-        pilgrim_inc2: 'Gutxienez 4 etapa oinez edo bizikletaz',
-        pilgrim_inc3: 'Bidean dauden erromes aktiboei aplikagarria',
-        pilgrim_inc4: 'Tarifa orokorraren sarbide berberak',
-        price_book: 'Sarrera erosi',
+        price_book: 'Lekua erreserbatu',
+        inc1: 'Gidari espezializatua ibilbide osoan',
+        inc2: 'XII. mendeko eliza eta Kapitulu-aretoa',
+        inc3: 'Cilla-Museoa eta Erlikia-aretoa',
+        inc4: 'Iraupena gutxi gorabehera: 45 minutu',
+        price_extra_tag: 'Tarifa murriztua',
+        price_extra_sub: 'haurrak 6-14 urte',
+        extra1: 'Tarifa orokorraren ibilbide bera',
+        extra2: 'Doan 6 urtetik beherakoentzat',
+        extra3: 'Taldeak: 50 €-ko gehigarria erreserbako',
+        extra4: 'Aurretiazko erreserba derrigorrezkoa',
+        extra_btn: 'Monasterioari buruz gehiago',
         info_eyebrow: 'Informazio praktikoa',
         info_title: 'Jakin behar duzun <em>guztia</em>',
-        info_validity_label: 'Baliozkotasuna',
-        info_validity_val: 'Pulsera baliozkoa da eskumuturrean jantzita dagoen bitartean, kendu edo hautsi gabe. Ez du iraungitzen; monumentuak nahi duzun ordenan bisita ditzakezu.',
-        info_buy_label: 'Non eskuratu',
-        info_buy_val: 'Online erreserba dezakezu eta bisita egunean Santo Domingo de la Calzadako gure edozein monumenturen txarteldegian aurrez aurre jaso.',
-        info_horario_label: 'Ordutegiak',
-        info_horario_val: 'Monumentu bakoitzak bere ordutegia du. Bisita ondo planifikatzeko, monumentu bakoitzaren orrian kontsultatu eguneratutako ordutegiak.',
-        info_guided_label: 'Bisita gidatua barne hartzen du?',
-        info_guided_val: 'Ez du gidari barne hartzen. Eguneko, gaueko eta VIP bisita gidatuek txartel gehigarria behar dute izena emateko. Bereizita saltzen dira.',
+        info_dur_label: 'Iraupena',
+        info_dur_val: '45 minutu inguru. Ibilbide osoa elizan, kapitulu-aretoan, Cilla-Museoan eta erlikia-aretoan.',
+        info_hor_label: 'Ordutegia eta erreserba',
+        info_hor_val: 'Kontsultatu. Aurretiazko erreserba derrigorrezkoa, posta elektronikoz <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> edo telefonoz <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Hizkuntza',
+        info_idi_val: 'Bisita gaztelaniaz. Beste hizkuntza bateko gidaria duten talde pribatuetarako, jarri gurekin harremanetan aurretik.',
+        info_pe_label: 'Topagunea',
+        info_pe_val: 'Kañasko Santa Mariako monasterioa, Kañas herrian (Errioxa), Santo Domingo de la Calzadatik 12 km-ra. Sarbidea autoz LR-204 errepidean.',
         faq_eyebrow: 'Sarri egiten diren galderak',
         faq_title: 'Ohiko <em>zalantzak</em>',
-        faq1_q: 'Monumentuak edozein ordenetan bisita ditzaket?',
-        faq1_a: 'Bai. Pulserarekin lau monumentuetarako sarbide librea duzu, ezarritako ordenarik gabe. Ibilbidea zure erritmo eta gustuetara egokitu dezakezu.',
-        faq2_q: 'Bisita gidatuetan barne dago?',
-        faq2_a: 'Bai. Eguneko (14 €), gaueko (15 €) eta VIP (15 €) bisitek dagoeneko pulsera turistikoa barne hartzen dute. Dagoeneko pulsera baduzu, bisita hauek hura barne hartzen dute; ez duzu beste bat erosi behar.',
-        faq3_q: 'Haur edo taldeentzako deskonturik dago?',
-        faq3_a: 'Erromes prezioaz gain, haur eta taldeentzako tarifak daude. Baldintza eguneratuak txarteldegian edo erreserben orrian kontsultatu.',
-        faq4_q: 'Online eros dezaket eta han jaso?',
-        faq4_a: 'Bai. Aurretik online erreserbatu eta ordain dezakezu. Pulsera fisikoa gure edozein txarteldegitan jasotzen da erosketaren egiaztagiriarekin.',
-        cta_eyebrow: 'Sakontasun gehiago nahi duzu?',
-        cta_title: 'Gehitu bisita <em>gidatu</em> bat',
-        cta_btn: 'Ikusi bisita gidatuak'
+        faq1_q: 'Santo Domingoko Pulsera Turistikoan sartzen al da?',
+        faq1_a: 'Ez. Pulsera Turistikoak Santo Domingo de la Calzadako multzoko lau monumentuak hartzen ditu (Katedrala, Dorrea, San Francisco eta Ermita). Kañasko monasterioak, beste herri batean dagoenez, bere tarifa eta erreserba propioa du.',
+        faq2_q: 'Zer alde dago bisita librearekiko?',
+        faq2_a: 'Bisita libreak (6 € heldua, 4 € murriztua) bere erritmoan ibiltzeko aukera ematen du. Gidatuak (8 € heldua) gidari espezializatua dakar, historia, zistertziar sinbolismoa eta ohartuko ez ziren xehetasun artistikoak azalduz.',
+        faq3_q: 'Bada deskonturik haur edo taldeentzat?',
+        faq3_a: 'Bai. 6-14 urteko haurrak: 4 €. 6 urtetik beherakoak: doan. Taldeentzako 50 €-ko gehigarri finkoa erreserbako, banakako prezioaz gain. Erreserbatzean baldintzak kontsultatu.',
+        faq4_q: 'Nola iristen naiz Santo Domingo de la Calzadatik?',
+        faq4_a: 'Autoz LR-204 errepidean (15 minutu inguru, 12 km). Ez dago zuzeneko garraio publikorik: erromes bazoaz edo ibilgailurik gabe, joan-etorria koordinatzen lagunduko dizugu erreserbatzean.',
+        cta_eyebrow: 'Gehiago jakin nahi?',
+        cta_title: 'Ezagutu Monasterioaren <em>historia</em>',
+        cta_btn: 'Ikusi Kañasko monasterioa'
       },
       ca: {
-        back_visits: '← Visites',
-        hero_eyebrow: 'Entrada combinada · 4 monuments',
-        hero_title: 'Polsera <em>Turística</em>',
-        hero_desc: 'La forma més econòmica de descobrir tot Santo Domingo de la Calzada amb una sola entrada vàlida per a tot el dia.',
+        hero_eyebrow: 'Visita especial · 45 minuts · ES',
+        hero_title: 'Monestir de <em>Cañas</em>',
+        hero_desc: 'L\'Abadia de la Llum. Vuit segles de vida contemplativa cistercenca a la vora del riu Tuerto, descoberts amb un guia especialitzat: església, sala capitular, Cilla-Museu i relíquies.',
         inc_eyebrow: 'Què inclou',
-        inc_title: 'Quatre monuments, <em>una polsera</em>',
-        inc_text: 'La Polsera Turística et permet accedir lliurement als quatre monuments més emblemàtics del conjunt patrimonial de Santo Domingo de la Calzada. Amb un únic pagament, tens tot el dia per explorar-los al teu ritme, sense pressa i sense cues addicionals. És l\'opció més intel·ligent per descobrir vuit segles d\'història, art i devoció al cor del Camí Francès.',
-        inc_pull: '«Quatre espais únics. Una sola entrada. Un dia per descobrir-ho tot.»',
-        m1_sub: 'Joia del Camí Francès · Romànic i Gòtic',
-        m2_sub: 'Campanar · Vistes panoràmiques · Museu de rellotges i campanes',
-        m3_sub: 'Art sacre · Claustre porticat · Sala dels ivoris · Exposicions',
-        m4_sub: 'Gòtic cistercenc · Vitralls · Sepulcre de la Beata Urraca · Exposicions',
-        m5_sub: 'Ermita històrica · Capella d\'oració · Verge de la Plaça · Església gòtica',
-        price_eyebrow: 'Tarifes',
-        price_title: 'Preu <em>únic</em> per a tot el dia',
-        price_adult_tag: 'Tarifa general',
-        price_pilgrim_tag: 'Tarifa pelegrí',
+        inc_title: 'L\'Abadia <em>de la Llum</em>',
+        inc_text: 'El Monestir de Santa María de Cañas, fundat el 1170, és un dels conjunts cistercencs femenins més ben conservats d\'Espanya. La visita guiada et porta per l\'església gòtica del segle XII, la sala capitular —considerada una de les més belles del cister—, la Cilla-Museu amb la col·lecció d\'art sacre i la sala de relíquies, tot amb un guia especialitzat que desvela vuit segles de vida contemplativa, art i devoció.',
+        inc_pull: '«On la pedra i la llum es tornen pregària.»',
+        h1_name: 'Església del <em>segle XII</em>',
+        h1_sub: 'Gòtic cistercenc · Vitralls · Sepulcre de la Beata Urraca',
+        h2_name: 'Sala <em>Capitular</em>',
+        h2_sub: 'Una de les més belles del Cister · Voltes de creueria',
+        h3_name: 'Cilla-<em>Museu</em>',
+        h3_sub: 'Art sacre · Taules i pintures · Patrimoni monàstic',
+        h4_name: 'Sala de <em>Relíquies</em>',
+        h4_sub: 'Veneració cistercenca · Objectes litúrgics històrics',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Tarifes <em>de la visita</em>',
+        price_tag: 'Visita guiada · adult',
         price_per_person: 'per persona',
-        inc1: 'Accés als 4 monuments del conjunt',
-        inc2: 'Vàlida mentre es porti al canell',
-        inc3: 'Sense reserva prèvia obligatòria',
-        inc4: 'Reserva en línia o compra a la taquilla',
-        pilgrim_inc1: 'Acreditable amb credencial oficial del Camí',
-        pilgrim_inc2: 'Mínim 4 etapes a peu o en bicicleta',
-        pilgrim_inc3: 'Aplicable a pelegrins actius en ruta',
-        pilgrim_inc4: 'Mateixos accessos que la tarifa general',
-        price_book: 'Comprar entrada',
+        price_book: 'Reservar plaça',
+        inc1: 'Guia especialitzat durant el recorregut',
+        inc2: 'Església del segle XII i Sala Capitular',
+        inc3: 'Cilla-Museu i Sala de Relíquies',
+        inc4: 'Durada aproximada: 45 minuts',
+        price_extra_tag: 'Tarifa reduïda',
+        price_extra_sub: 'nens 6-14 anys',
+        extra1: 'Mateix recorregut que la tarifa general',
+        extra2: 'Gratuït per a menors de 6 anys',
+        extra3: 'Grups: 50 € de suplement per reserva',
+        extra4: 'Reserva prèvia obligatòria',
+        extra_btn: 'Més sobre el Monestir',
         info_eyebrow: 'Informació pràctica',
         info_title: 'Tot el que necessites <em>saber</em>',
-        info_validity_label: 'Validesa',
-        info_validity_val: 'La polsera és vàlida sempre que es porti al canell, sense treure ni trencar. No caduca; pots visitar els monuments en l\'ordre que prefereixis.',
-        info_buy_label: 'On adquirir-la',
-        info_buy_val: 'Es pot reservar en línia i es recull presencialment el dia de la visita a la taquilla de qualsevol dels nostres monuments de Santo Domingo de la Calzada.',
-        info_horario_label: 'Horaris',
-        info_horario_val: 'Cada monument té el seu horari d\'obertura. Consulta els horaris actualitzats a la pàgina de cada monument per planificar correctament la teva visita.',
-        info_guided_label: 'Inclou visita guiada?',
-        info_guided_val: 'No inclou guia. Les visites guiades diürna, nocturna i VIP requereixen un tiquet addicional per inscriure-s\'hi. Es venen per separat.',
+        info_dur_label: 'Durada',
+        info_dur_val: '45 minuts aproximadament. Recorregut complet per l\'església, sala capitular, Cilla-Museu i sala de relíquies.',
+        info_hor_label: 'Horari i reserva',
+        info_hor_val: 'Sota consulta. Reserva prèvia obligatòria per correu a <a href="mailto:entradas@monasteriodecanas.org">entradas@monasteriodecanas.org</a> o per telèfon al <a href="tel:+34941379145">+34 941 37 91 45</a>.',
+        info_idi_label: 'Idioma',
+        info_idi_val: 'Visita en espanyol. Per a grups privats amb guia en un altre idioma, contacta amb antelació.',
+        info_pe_label: 'Punt de trobada',
+        info_pe_val: 'Monestir de Santa María de Cañas, a la localitat de Cañas (La Rioja), a 12 km de Santo Domingo de la Calzada. Accés amb cotxe per la LR-204.',
         faq_eyebrow: 'Preguntes freqüents',
         faq_title: 'Dubtes <em>habituals</em>',
-        faq1_q: 'Puc visitar els monuments en qualsevol ordre?',
-        faq1_a: 'Sí. La polsera et dóna lliure accés als quatre monuments sense un ordre establert. Pots adaptar el recorregut al teu ritme i preferències.',
-        faq2_q: 'Està inclosa a les visites guiades?',
-        faq2_a: 'Sí. La visita guiada diürna (14 €), la nocturna (15 €) i la VIP (15 €) ja inclouen la polsera turística. Si ja tens polsera, aquestes visites la inclouen; no cal que en compris una altra.',
-        faq3_q: 'Hi ha descompte per a nens o grups?',
-        faq3_a: 'A més del preu pelegrí, hi ha tarifes per a nens i grups. Consulta les condicions actualitzades a la taquilla o a la pàgina de reserves.',
-        faq4_q: 'La puc comprar en línia i recollir-la allà?',
-        faq4_a: 'Sí. Pots reservar i pagar en línia amb antelació. La polsera física es recull a qualsevol de les nostres taquilles presentant el justificant de compra.',
-        cta_eyebrow: 'Vols més profunditat?',
-        cta_title: 'Afegeix una visita <em>guiada</em>',
-        cta_btn: 'Veure visites guiades'
+        faq1_q: 'Està inclosa a la Polsera Turística de Santo Domingo?',
+        faq1_a: 'No. La Polsera Turística cobreix els quatre monuments del conjunt de Santo Domingo de la Calzada (Catedral, Torre, San Francisco i Ermita). El Monestir de Cañas, a una altra localitat, té tarifa i reserva independents.',
+        faq2_q: 'Quina diferència hi ha amb la visita lliure?',
+        faq2_a: 'La visita lliure (6 € adult, 4 € reduïda) et permet accedir al recinte al teu ritme. La guiada (8 € adult) inclou un guia especialitzat que explica la història, el simbolisme cistercenc i els detalls artístics que d\'altra manera passarien desapercebuts.',
+        faq3_q: 'Hi ha descomptes per a nens o grups?',
+        faq3_a: 'Sí. Nens de 6 a 14 anys: 4 €. Menors de 6 anys: gratis. Per a grups hi ha un suplement fix de 50 € per reserva a més del preu individual. Consulta condicions en reservar.',
+        faq4_q: 'Com hi arribo des de Santo Domingo de la Calzada?',
+        faq4_a: 'Amb cotxe per la LR-204 (uns 15 minuts, 12 km). No hi ha transport públic directe: si vens en peregrinació o sense vehicle, t\'ajudem a coordinar el desplaçament en reservar.',
+        cta_eyebrow: 'Vols saber-ne més?',
+        cta_title: 'Descobreix la <em>història</em> del Monestir',
+        cta_btn: 'Veure Monestir de Cañas'
       }
     };
 
@@ -1599,12 +1587,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       const heroEl = document.getElementById('hero-bg');
       if (heroEl) {
-        const img = new Image();
-        img.src = heroEl.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/,'$1') || '../assets/img/pulsera.webp';
-        img.onload = () => heroEl.classList.add('loaded');
-        heroEl.style.backgroundImage = "url('../assets/img/pulsera.webp')";
+        heroEl.style.backgroundImage = "url('../assets/img/guiadacanas.webp')";
         const i2 = new Image();
-        i2.src = '../assets/img/pulsera.webp';
+        i2.src = '../assets/img/guiadacanas.webp';
         i2.onload = () => heroEl.classList.add('loaded');
       }
 
@@ -1619,9 +1604,7 @@
 
         function updateLogo() {
           if (!logoImg) return;
-          const isLight = document.body.classList.contains('light-mode');
-          const isScrolled = navbar && navbar.classList.contains('scrolled');
-          logoImg.src = (isLight && isScrolled) ? '../favicon_black.svg' : '../favicon.svg';
+          logoImg.src = '../favicon.svg';
         }
 
         function applyLightMode(on) {

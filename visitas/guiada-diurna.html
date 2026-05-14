@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visita guiada diurna · Catedral de Santo Domingo de la Calzada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+
+    /* ── PAGE HERO ─────────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      height: 100svh;
+      min-height: 520px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { min-height: 400px }
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/diurna.webp');
+      background-size: cover;
+      background-position: center 40%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out
+    }
+
+    .page-hero__bg.loaded { transform: scale(1) }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(14,12,10,.88) 0%, rgba(14,12,10,.52) 50%, rgba(14,12,10,.75) 100%),
+                  linear-gradient(to top, rgba(14,12,10,.95) 0%, rgba(14,12,10,.30) 55%, transparent 100%)
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 8vh;
+      width: 100%;
+      max-width: 1400px
+    }
+
+    .page-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color .2s ease
+    }
+
+    .page-hero__back:hover { color: var(--gold) }
+
+    .page-hero__eyebrow {
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 18px
+    }
+
+    .page-hero__title em { font-style: italic; color: var(--gold-lt) }
+
+    .page-hero__desc {
+      font-size: .92rem;
+      line-height: 1.72;
+      color: rgba(255,255,255,.68);
+      max-width: 540px
+    }
+
+    /* ── SECTION ───────────────────────────────────────────── */
+    .vis-section { padding: 88px 8vw }
+    .vis-section__inner { max-width: 1400px; margin: 0 auto }
+    .vis-section--dark { background: var(--carbon) }
+    .vis-section--alt { background: #0f0d0b }
+
+    .vis-eyebrow {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px
+    }
+
+    .vis-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--white);
+      margin-bottom: 0;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(140,128,112,.2)
+    }
+
+    .vis-title em { font-style: italic; color: var(--gold) }
+
+    /* ── INTRO BLOCK ───────────────────────────────────────── */
+    .intro-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 52px
+    }
+
+    .intro-block__text {
+      font-size: .92rem;
+      line-height: 1.82;
+      color: rgba(253,250,244,.65)
+    }
+
+    .intro-block__pull {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-lt);
+      line-height: 1.45;
+      padding-left: 32px;
+      border-left: 2px solid rgba(201,168,76,.35)
+    }
+
+    /* ── HIGHLIGHTS GRID (tour stops) ──────────────────────── */
+    .monument-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .monument-card {
+      grid-column: span 1;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      cursor: pointer;
+      text-decoration: none;
+      display: block
+    }
+
+    .monument-card__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform .9s var(--ease)
+    }
+
+    .monument-card:hover .monument-card__img { transform: scale(1.07) }
+
+    .monument-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14,12,10,.92) 0%, rgba(14,12,10,.15) 55%, transparent 100%);
+      transition: opacity .3s ease
+    }
+
+    .monument-card:hover::after { opacity: .75 }
+
+    .monument-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 28px;
+      z-index: 2
+    }
+
+    .monument-card__num {
+      font-size: .5rem;
+      letter-spacing: .22em;
+      color: var(--gold);
+      margin-bottom: 6px
+    }
+
+    .monument-card__name {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1
+    }
+
+    .monument-card__name em { font-style: italic; color: var(--gold-lt) }
+
+    .monument-card__sub {
+      font-size: .72rem;
+      color: rgba(253,250,244,.6);
+      margin-top: 7px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all .3s ease
+    }
+
+    .monument-card:hover .monument-card__sub {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── PRICING ───────────────────────────────────────────── */
+    .price-section {
+      padding: 88px 8vw;
+      background: #0f0d0b
+    }
+
+    .price-inner { max-width: 1400px; margin: 0 auto }
+
+    .price-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-top: 48px
+    }
+
+    .price-card {
+      padding: 52px 48px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: border-color .3s ease
+    }
+
+    .price-card:hover { border-color: rgba(201,168,76,.3) }
+
+    .price-card--featured {
+      border-color: rgba(201,168,76,.22);
+      background: rgba(201,168,76,.05)
+    }
+
+    .price-card__tag {
+      font-size: .54rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .price-card__tag::before { content: ''; width: 20px; height: 1px; background: var(--gold) }
+
+    .price-card__amount {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1
+    }
+
+    .price-card__amount sup {
+      font-size: 1.6rem;
+      vertical-align: super
+    }
+
+    .price-card__label {
+      font-size: .78rem;
+      color: rgba(253,250,244,.42);
+      letter-spacing: .08em;
+      margin-top: -12px
+    }
+
+    .price-card__divider {
+      width: 48px;
+      height: 1px;
+      background: rgba(201,168,76,.3)
+    }
+
+    .price-card__includes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .price-card__include {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .84rem;
+      color: rgba(253,250,244,.65)
+    }
+
+    .price-card__include::before {
+      content: '✦';
+      font-size: .46rem;
+      color: var(--gold);
+      margin-top: 5px;
+      flex-shrink: 0
+    }
+
+    .price-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      background: var(--gold);
+      color: var(--carbon);
+      text-decoration: none;
+      transition: background .25s ease, gap .25s ease;
+      align-self: flex-start;
+      margin-top: 4px
+    }
+
+    .price-cta:hover { background: var(--gold-lt); gap: 16px }
+
+    /* ── PRACTICAL INFO ────────────────────────────────────── */
+    .info-section {
+      padding: 88px 8vw;
+      background: var(--carbon)
+    }
+
+    .info-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start
+    }
+
+    .info-col__subtitle {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 28px;
+      margin-top: 0
+    }
+
+    .info-col__subtitle em { font-style: italic; color: var(--gold) }
+
+    .info-list {
+      display: flex;
+      flex-direction: column
+    }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      align-items: start
+    }
+
+    .info-item:first-child { border-top: 1px solid rgba(255,255,255,.06) }
+
+    .info-item__num {
+      font-size: .52rem;
+      letter-spacing: .2em;
+      color: var(--gold);
+      padding-top: 3px
+    }
+
+    .info-item__label {
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px
+    }
+
+    .info-item__value {
+      font-size: .84rem;
+      color: rgba(253,250,244,.58);
+      line-height: 1.65
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column
+    }
+
+    .faq-item {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06)
+    }
+
+    .faq-item:first-child { border-top: 1px solid rgba(255,255,255,.06) }
+
+    .faq-q {
+      font-size: .88rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 8px
+    }
+
+    .faq-a {
+      font-size: .82rem;
+      color: rgba(253,250,244,.52);
+      line-height: 1.68
+    }
+
+    /* ── CTA BAND ──────────────────────────────────────────── */
+    .cta-band {
+      background: var(--gold);
+      padding: 64px 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .cta-band__inner {
+      max-width: 1400px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap
+    }
+
+    .cta-band__eyebrow {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(20,18,16,.6);
+      margin-bottom: 8px
+    }
+
+    .cta-band__title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--carbon);
+      line-height: 1.15
+    }
+
+    .cta-band__title em { font-style: italic; color: var(--carbon); opacity: .55 }
+
+    .cta-band__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      background: var(--carbon);
+      color: var(--white);
+      text-decoration: none;
+      transition: background .25s ease, gap .25s ease;
+      white-space: nowrap
+    }
+
+    .cta-band__btn:hover { background: #2a2520; gap: 20px }
+
+    /* ── LIGHT MODE ────────────────────────────────────────── */
+    body.light-mode .vis-section--dark { background: #F9F8F6 }
+    body.light-mode .vis-section--dark .vis-eyebrow { color: #7A6025 }
+    body.light-mode .vis-section--dark .vis-title { color: var(--carbon) }
+    body.light-mode .vis-section--dark .intro-block__text { color: rgba(20,18,16,.65) }
+    body.light-mode .cta-band__eyebrow { color: rgba(255,255,255,.85) }
+    body.light-mode .cta-band__title em { color: rgba(255,255,255,.78); opacity: 1 }
+    body.light-mode .page-hero::after {
+      background: linear-gradient(160deg, rgba(14,12,10,.92) 0%, rgba(14,12,10,.62) 50%, rgba(14,12,10,.82) 100%),
+                  linear-gradient(to top, rgba(14,12,10,.98) 0%, rgba(14,12,10,.45) 55%, rgba(14,12,10,.15) 100%);
+    }
+    body.light-mode .page-hero__title { color: var(--white); text-shadow: 0 2px 18px rgba(14,12,10,.55) }
+    body.light-mode .page-hero__title em { color: var(--gold-lt); text-shadow: 0 2px 18px rgba(14,12,10,.6) }
+    body.light-mode .page-hero__desc { color: rgba(255,255,255,.88); text-shadow: 0 1px 12px rgba(14,12,10,.5) }
+    body.light-mode .page-hero__eyebrow { color: var(--gold-lt); text-shadow: 0 1px 8px rgba(14,12,10,.5) }
+    body.light-mode .price-section { background: #F5F0E8 }
+    body.light-mode .price-section .vis-title { color: var(--carbon) }
+    body.light-mode .price-section .vis-title em { color: var(--gold-text) }
+    body.light-mode .price-section .vis-eyebrow { color: var(--gold-text) }
+    body.light-mode .monument-card::after {
+      background: linear-gradient(to top, rgba(14,12,10,.96) 0%, rgba(14,12,10,.55) 40%, rgba(14,12,10,.1) 75%, transparent 100%);
+    }
+    body.light-mode .monument-card__name { color: var(--white); text-shadow: 0 1px 8px rgba(14,12,10,.6) }
+    body.light-mode .monument-card__name em { color: var(--gold-lt); text-shadow: 0 1px 8px rgba(14,12,10,.6) }
+    body.light-mode .monument-card__sub { color: rgba(253,250,244,.85); text-shadow: 0 1px 6px rgba(14,12,10,.55) }
+    body.light-mode .monument-card__num { color: var(--gold-lt); text-shadow: 0 1px 6px rgba(14,12,10,.55) }
+    body.light-mode .price-card { background: #fff; border-color: rgba(20,18,16,.1) }
+    body.light-mode .price-card--featured { background: rgba(201,168,76,.08); border-color: rgba(201,168,76,.25) }
+    body.light-mode .price-card__amount { color: var(--carbon) }
+    body.light-mode .price-card__label { color: rgba(20,18,16,.42) }
+    body.light-mode .price-card__include { color: rgba(20,18,16,.68) }
+    body.light-mode .info-section { background: #F9F8F6 }
+    body.light-mode .info-col__subtitle { color: var(--carbon) }
+    body.light-mode .info-item { border-bottom-color: rgba(20,18,16,.08) }
+    body.light-mode .info-item:first-child { border-top-color: rgba(20,18,16,.08) }
+    body.light-mode .info-item__label { color: var(--carbon) }
+    body.light-mode .info-item__value { color: rgba(20,18,16,.58) }
+    body.light-mode .faq-item { border-color: rgba(20,18,16,.08) }
+    body.light-mode .faq-q { color: var(--carbon) }
+    body.light-mode .faq-a { color: rgba(20,18,16,.52) }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .intro-block { grid-template-columns: 1fr; gap: 40px }
+      .monument-grid { grid-template-columns: 1fr }
+      .monument-card { grid-column: span 1 }
+      .info-inner { grid-template-columns: 1fr; gap: 56px }
+    }
+
+    @media (max-width: 600px) {
+      .cta-band { padding: 56px 8vw; text-align: center }
+      .cta-band__inner { flex-direction: column; align-items: center; gap: 28px }
+      .cta-band__eyebrow { color: rgba(20,18,16,.78); font-weight: 500 }
+      .cta-band__title { font-size: 1.7rem; color: var(--carbon) }
+      .cta-band__title em { opacity: .8 }
+      .info-inner > div { min-width: 0 }
+      .info-list,
+      .faq-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+      }
+      .info-list::-webkit-scrollbar,
+      .faq-list::-webkit-scrollbar { display: none }
+      .info-item,
+      .faq-item {
+        flex: 0 0 220px;
+        width: 220px;
+        height: 200px;
+        scroll-snap-align: start;
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 4px;
+        padding: 22px 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      .info-item { grid-template-columns: 28px 1fr; gap: 10px; padding: 22px 20px; align-items: flex-start; align-content: start }
+      .info-item__num { font-size: .48rem; padding-top: 2px }
+      .info-item__label,
+      .faq-q { font-size: .7rem; letter-spacing: .1em; margin-bottom: 6px; line-height: 1.25 }
+      .info-item__value,
+      .faq-a { font-size: .76rem; line-height: 1.5 }
+      .info-item:first-child,
+      .faq-item:first-child { border-top: 1px solid rgba(255,255,255,.08) }
+      body.light-mode .info-item,
+      body.light-mode .faq-item {
+        border-color: rgba(20,18,16,.1);
+      }
+      .price-cards {
+        display: flex;
+        grid-template-columns: none;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -8vw;
+        margin-right: -8vw;
+        padding: 0 8vw 8px;
+        scrollbar-width: none;
+      }
+      .price-cards::-webkit-scrollbar { display: none }
+      .price-card {
+        flex: 0 0 86%;
+        scroll-snap-align: start;
+        padding: 40px 32px;
+      }
+      .monument-grid {
+        display: flex;
+        grid-template-columns: none;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        margin-left: -8vw;
+        margin-right: -8vw;
+        padding: 0 8vw 8px;
+        scrollbar-width: none;
+      }
+      .monument-grid::-webkit-scrollbar { display: none }
+      .monument-card {
+        grid-column: auto;
+        flex: 0 0 78%;
+        scroll-snap-align: start;
+        aspect-ratio: 3/4;
+      }
+      .monument-card__sub { opacity: 1; transform: none }
+    }
+
+    body.light-mode .site-footer { background: #F9F8F6; }
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-col__title { color: #141210; }
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a { color: #5C5048; }
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a { color: rgba(20, 18, 16, .65); }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"><div class="cursor__ring"></div><div class="cursor__dot"></div></div>
+
+  <!-- ACCESIBILIDAD -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false" aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z"/></svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
+      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Modo Claro / Oscuro</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
+      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
+      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
+      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>Subrayar enlaces</button></li>
+      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Fuente legible</button></li>
+      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Leer texto</button></li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Restablecer</button></li>
+    </ul>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar--transparent" id="navbar">
+    <a href="../index.html" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="../favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <div class="navbar__actions">
+      <a href="../reservas.html" class="navbar__btn-tickets">
+        <svg class="navbar__btn-ticket-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v2a2 2 0 0 0 0 4v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-2a2 2 0 0 0 0-4z"/>
+          <line x1="13" y1="6" x2="13" y2="18" stroke-dasharray="2 2"/>
+        </svg>
+        <span class="navbar__btn-tickets-text" data-i18n="nav_tickets">Entradas</span>
+      </a>
+      <button class="navbar__a11y-btn" id="navbar-a11y-btn" aria-label="Herramientas de accesibilidad" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="4" r="2" fill="currentColor" stroke="none"/>
+          <path d="M5 9h14"/>
+          <path d="M9 9v4l-2 7"/>
+          <path d="M15 9v4l2 7"/>
+          <path d="M9 13h6"/>
+        </svg>
+      </button>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span><span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">🏴</span><span class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">🏴</span><span class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div><div class="hamburger-line"></div><div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="../index.html" class="side-menu__nav-link"><span class="nav-num">01</span><span data-i18n="nav_home">Inicio</span></a></li>
+        <li class="side-menu__nav-item"><a href="../monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span><span data-i18n="nav_monuments">Monumentos</span></a></li>
+        <li class="side-menu__nav-item"><a href="../visitas.html" class="side-menu__nav-link side-menu__nav-link--active"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
+        <li class="side-menu__nav-item"><a href="../actualidad.html" class="side-menu__nav-link"><span class="nav-num">04</span><span data-i18n="nav_news">Actualidad</span></a></li>
+        <li class="side-menu__nav-item"><a href="../institucion.html" class="side-menu__nav-link"><span class="nav-num">05</span>Institución</a></li>
+        <li class="side-menu__nav-item"><a href="../reservas.html" class="side-menu__nav-link"><span class="nav-num">06</span><span data-i18n="nav_reservations">Reservas</span></a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="#" class="side-menu__social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="#" class="side-menu__social-link" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" class="side-menu__social-link" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="../legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a>
+      <a href="../legal/cookies.html" data-i18n="footer_legal_3">Cookies</a>
+      <a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <div class="page-hero__bg" id="hero-bg"></div>
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
+      <ol class="breadcrumb__list" role="list">
+        <li><a href="../index.html" class="breadcrumb__link" data-i18n="bc_home">Inicio</a></li>
+        <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
+        <li><a href="../visitas.html" class="breadcrumb__link" data-i18n="bc_visitas">Visitas</a></li>
+        <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
+        <li><span class="breadcrumb__current" aria-current="page" data-i18n="bc_current">Visita guiada diurna</span></li>
+      </ol>
+      <a href="../visitas.html" class="breadcrumb__back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-i18n="bc_visitas">Visitas</span>
+      </a>
+    </nav>
+    <div class="page-hero__content">
+      <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Visita guiada · 45 minutos · ES</p>
+      <h1 class="page-hero__title" data-i18n-page="hero_title">Visita guiada <em>diurna</em></h1>
+      <p class="page-hero__desc" data-i18n-page="hero_desc">Recorre la Catedral con un guía especializado y descubre la historia, el arte y los secretos que ocho siglos de devoción han dejado tras estos muros.</p>
+    </div>
+  </header>
+
+  <!-- INTRO + HIGHLIGHTS -->
+  <section class="vis-section vis-section--dark" id="main-content" tabindex="-1">
+    <div class="vis-section__inner">
+      <p class="vis-eyebrow reveal" data-i18n-page="inc_eyebrow">Qué incluye</p>
+      <h2 class="vis-title reveal" data-i18n-page="inc_title">Un recorrido completo, <em>en 45 minutos</em></h2>
+
+      <div class="intro-block reveal">
+        <p class="intro-block__text" data-i18n-page="inc_text">La visita guiada diurna te lleva por el corazón de la Catedral acompañado de un guía experto. En menos de una hora descubrirás la nave principal, el Retablo Mayor de Damián Forment, el sepulcro de Santo Domingo y el famoso gallinero vivo con la leyenda del Milagro del Gallo y la Gallina, único en el mundo. Una introducción ideal para peregrinos y visitantes que quieren entender lo esencial sin perderse en los detalles.</p>
+        <p class="intro-block__pull" data-i18n-page="inc_pull">«Ocho siglos de historia condensados en un recorrido esencial.»</p>
+      </div>
+
+      <div class="monument-grid reveal">
+
+        <a href="../monumentos/catedral.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/retablo.webp'); background-position:center 30%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">01</span>
+            <span class="monument-card__name" data-i18n-page="h1_name">Nave y <em>Retablo Mayor</em></span>
+            <p class="monument-card__sub" data-i18n-page="h1_sub">Joya de Damián Forment · Renacimiento riojano</p>
+          </div>
+        </a>
+
+        <a href="../monumentos/catedral.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/gallinero.webp'); background-position:center 40%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">02</span>
+            <span class="monument-card__name" data-i18n-page="h2_name">Gallinero vivo y <em>el Milagro</em></span>
+            <p class="monument-card__sub" data-i18n-page="h2_sub">Único en el mundo · Tradición jacobea viva</p>
+          </div>
+        </a>
+
+        <a href="../monumentos/catedral.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/sepulcro.webp'); background-position:center 35%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">03</span>
+            <span class="monument-card__name" data-i18n-page="h3_name">Sepulcro de <em>Santo Domingo</em></span>
+            <p class="monument-card__sub" data-i18n-page="h3_sub">Tumba del santo · Centro espiritual de la Catedral</p>
+          </div>
+        </a>
+
+        <a href="../monumentos/catedral.html" class="monument-card">
+          <div class="monument-card__img" style="background-image:url('../assets/img/catedral.webp'); background-position:center 40%"></div>
+          <div class="monument-card__body">
+            <span class="monument-card__num">04</span>
+            <span class="monument-card__name" data-i18n-page="h4_name">Historia y <em>arte sacro</em></span>
+            <p class="monument-card__sub" data-i18n-page="h4_sub">Del Románico al Barroco · Ocho siglos de construcción</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="price-section">
+    <div class="price-inner">
+      <p class="vis-eyebrow reveal" data-i18n-page="price_eyebrow">Tarifa</p>
+      <h2 class="vis-title reveal" data-i18n-page="price_title">Una tarifa, <em>todo incluido</em></h2>
+
+      <div class="price-cards">
+
+        <div class="price-card price-card--featured reveal">
+          <span class="price-card__tag" data-i18n-page="price_tag">Visita guiada diurna</span>
+          <div class="price-card__amount"><sup>€</sup>14</div>
+          <span class="price-card__label" data-i18n-page="price_per_person">por persona</span>
+          <div class="price-card__divider"></div>
+          <div class="price-card__includes">
+            <span class="price-card__include" data-i18n-page="inc1">Guía especializado durante todo el recorrido</span>
+            <span class="price-card__include" data-i18n-page="inc2">Acceso a la nave principal y al Retablo Mayor</span>
+            <span class="price-card__include" data-i18n-page="inc3">Gallinero vivo y leyenda del Milagro</span>
+            <span class="price-card__include" data-i18n-page="inc4">Sepulcro del Santo y recorrido básico</span>
+          </div>
+          <a href="../reservas.html?tipo=individual&modo=con-guia&entrada=diurna" class="price-cta">
+            <span data-i18n-page="price_book">Reservar plaza</span> →
+          </a>
+        </div>
+
+        <div class="price-card reveal reveal-delay-1">
+          <span class="price-card__tag" data-i18n-page="price_extra_tag">Ya incluida</span>
+          <div class="price-card__amount" style="font-size: clamp(2.4rem, 4.5vw, 3.4rem); line-height:1.05" data-i18n-page="price_extra_title">Pulsera turística</div>
+          <span class="price-card__label" data-i18n-page="price_extra_sub">sin coste adicional</span>
+          <div class="price-card__divider"></div>
+          <div class="price-card__includes">
+            <span class="price-card__include" data-i18n-page="extra1">Acceso libre a los 4 monumentos del conjunto</span>
+            <span class="price-card__include" data-i18n-page="extra2">Catedral · Torre Exenta · San Francisco · Ermita</span>
+            <span class="price-card__include" data-i18n-page="extra3">Válida todo el día tras la visita guiada</span>
+            <span class="price-card__include" data-i18n-page="extra4">No es necesario comprarla por separado</span>
+          </div>
+          <a href="pulsera-turistica.html" class="price-cta" style="background:transparent; color:var(--gold); border:1px solid var(--gold)">
+            <span data-i18n-page="extra_btn">Ver pulsera turística</span> →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICAL INFO + FAQ -->
+  <section class="info-section">
+    <div class="info-inner">
+
+      <div>
+        <p class="vis-eyebrow reveal" data-i18n-page="info_eyebrow">Información práctica</p>
+        <h2 class="info-col__subtitle reveal" data-i18n-page="info_title">Todo lo que necesitas <em>saber</em></h2>
+        <div class="info-list">
+          <div class="info-item reveal">
+            <span class="info-item__num">01</span>
+            <div>
+              <div class="info-item__label" data-i18n-page="info_dur_label">Duración</div>
+              <div class="info-item__value" data-i18n-page="info_dur_val">45 minutos aproximadamente. Tiempo suficiente para el recorrido esencial sin perder el ritmo, ideal si vas de paso por el Camino.</div>
+            </div>
+          </div>
+          <div class="info-item reveal">
+            <span class="info-item__num">02</span>
+            <div>
+              <div class="info-item__label" data-i18n-page="info_hor_label">Horario</div>
+              <div class="info-item__value" data-i18n-page="info_hor_val">Horario variable según temporada y disponibilidad de guías. Consulta los días y horas exactos en el calendario de visitas guiadas antes de reservar.</div>
+            </div>
+          </div>
+          <div class="info-item reveal">
+            <span class="info-item__num">03</span>
+            <div>
+              <div class="info-item__label" data-i18n-page="info_idi_label">Idioma</div>
+              <div class="info-item__value" data-i18n-page="info_idi_val">Visita en español. Para otros idiomas o grupos privados con guía extranjero, contacta con nosotros con antelación.</div>
+            </div>
+          </div>
+          <div class="info-item reveal">
+            <span class="info-item__num">04</span>
+            <div>
+              <div class="info-item__label" data-i18n-page="info_pe_label">Punto de encuentro</div>
+              <div class="info-item__value" data-i18n-page="info_pe_val">Taquilla principal de la Catedral, 10 minutos antes del inicio. El guía acompañará al grupo desde la entrada hasta el final del recorrido.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="vis-eyebrow reveal" data-i18n-page="faq_eyebrow">Preguntas frecuentes</p>
+        <h2 class="info-col__subtitle reveal" data-i18n-page="faq_title">Dudas <em>habituales</em></h2>
+        <div class="faq-list">
+          <div class="faq-item reveal">
+            <p class="faq-q" data-i18n-page="faq1_q">¿Qué diferencia hay con la visita libre con audioguía?</p>
+            <p class="faq-a" data-i18n-page="faq1_a">La visita guiada incluye guía especializado en directo que responde tus preguntas y adapta el recorrido. La audioguía es un audio pregrabado que recorres a tu ritmo. Ambas cubren los puntos esenciales, pero la guiada ofrece contexto y matices imposibles de transmitir en un audio.</p>
+          </div>
+          <div class="faq-item reveal">
+            <p class="faq-q" data-i18n-page="faq2_q">¿Está incluida la pulsera turística?</p>
+            <p class="faq-a" data-i18n-page="faq2_a">Sí. Las 14 € incluyen la pulsera turística, que te da acceso libre durante el resto del día a los cuatro monumentos del conjunto. No necesitas comprarla por separado.</p>
+          </div>
+          <div class="faq-item reveal">
+            <p class="faq-q" data-i18n-page="faq3_q">¿Hay aforo máximo?</p>
+            <p class="faq-a" data-i18n-page="faq3_a">No hay grupo máximo cerrado para la diurna estándar. Si necesitas una visita privada o vienes con un grupo organizado de más de 15 personas, contacta con nosotros para coordinar una guiada exclusiva.</p>
+          </div>
+          <div class="faq-item reveal">
+            <p class="faq-q" data-i18n-page="faq4_q">¿Es accesible para personas con movilidad reducida?</p>
+            <p class="faq-a" data-i18n-page="faq4_a">El recorrido diurno transita por las zonas accesibles de la Catedral. Si tienes alguna necesidad específica, indícanoslo al reservar para preparar el itinerario más cómodo.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band reveal">
+    <div class="cta-band__inner">
+      <div>
+        <p class="cta-band__eyebrow" data-i18n-page="cta_eyebrow">¿Buscas más profundidad?</p>
+        <h2 class="cta-band__title" data-i18n-page="cta_title">Descubre la visita <em>nocturna</em> o la <em>VIP</em></h2>
+      </div>
+      <a href="../visitas.html#guiadas" class="cta-band__btn">
+        <span data-i18n-page="cta_btn">Comparar modalidades</span> →
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="mailto:entradas@catedralsantodomingo.org" class="footer-social__link" aria-label="Correo electrónico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+          <a href="tel:+34941340033" class="footer-social__link" aria-label="Teléfono"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
+          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
+          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
+          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
+          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
+          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="../reservas.html" data-i18n="footer_info_1">Reservas</a></li>
+          <li><a href="../institucion.html" data-i18n="footer_info_2">Institución</a></li>
+          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
+          <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
+          <li><a href="../actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_terms">Términos</div>
+        <ul class="footer-col__list">
+          <li><a href="../legal/aviso-legal.html" data-i18n="footer_legal_1">Aviso legal</a></li>
+          <li><a href="../legal/privacidad.html" data-i18n="footer_legal_2">Privacidad</a></li>
+          <li><a href="../legal/cookies.html" data-i18n="footer_legal_3">Cookies</a></li>
+          <li><a href="../legal/compra.html" data-i18n="footer_legal_5">Compra</a></li>
+          <li><a href="../legal/accesibilidad.html" data-i18n="footer_legal_4">Accesibilidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España</span>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER + MODAL -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">
+        <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el tráfico y recordar tus preferencias.</p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
+        <button id="cookie-btn-customize" class="cookie-btn cookie-btn--ghost">Personalizar</button>
+        <button id="cookie-btn-all" class="cookie-btn cookie-btn--primary">Aceptar todo</button>
+      </div>
+      <a href="#" class="cookie-banner__link" data-cookie-link>Política de cookies</a>
+    </div>
+  </div>
+  <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+    <div class="cookie-modal__backdrop"></div>
+    <div class="cookie-modal__dialog" tabindex="-1">
+      <div class="cookie-modal__header">
+        <h2 id="cookie-modal-title" class="cookie-modal__title">Preferencias de cookies</h2>
+        <button id="cookie-modal-close" class="cookie-modal__close" aria-label="Cerrar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="cookie-modal__body">
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span id="cookie-cat-necessary-name" class="cookie-cat__name">Necesarias</span>
+              <span class="cookie-cat__badge">Siempre activas</span>
+            </div>
+            <div class="cookie-toggle cookie-toggle--locked" aria-hidden="true"><span class="cookie-toggle__track"></span></div>
+          </div>
+          <p id="cookie-cat-necessary-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analíticas</span>
+            <label class="cookie-toggle" for="cookie-toggle-analytics" aria-labelledby="cookie-cat-analytics-name">
+              <input type="checkbox" id="cookie-toggle-analytics" name="analytics" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-analytics-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-marketing-name" class="cookie-cat__name">Marketing</span>
+            <label class="cookie-toggle" for="cookie-toggle-marketing" aria-labelledby="cookie-cat-marketing-name">
+              <input type="checkbox" id="cookie-toggle-marketing" name="marketing" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-marketing-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-prefs-name" class="cookie-cat__name">Preferencias</span>
+            <label class="cookie-toggle" for="cookie-toggle-prefs" aria-labelledby="cookie-cat-prefs-name">
+              <input type="checkbox" id="cookie-toggle-prefs" name="prefs" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-prefs-desc" class="cookie-cat__desc"></p>
+        </div>
+      </div>
+      <div class="cookie-modal__footer">
+        <button id="cookie-modal-reject" class="cookie-btn cookie-btn--outline">Rechazar opcionales</button>
+        <button id="cookie-modal-save" class="cookie-btn cookie-btn--primary">Guardar preferencias</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/shared.js"></script>
+  <script>
+    const PAGE_T = {
+      es: {
+        hero_eyebrow: 'Visita guiada · 45 minutos · ES',
+        hero_title: 'Visita guiada <em>diurna</em>',
+        hero_desc: 'Recorre la Catedral con un guía especializado y descubre la historia, el arte y los secretos que ocho siglos de devoción han dejado tras estos muros.',
+        inc_eyebrow: 'Qué incluye',
+        inc_title: 'Un recorrido completo, <em>en 45 minutos</em>',
+        inc_text: 'La visita guiada diurna te lleva por el corazón de la Catedral acompañado de un guía experto. En menos de una hora descubrirás la nave principal, el Retablo Mayor de Damián Forment, el sepulcro de Santo Domingo y el famoso gallinero vivo con la leyenda del Milagro del Gallo y la Gallina, único en el mundo. Una introducción ideal para peregrinos y visitantes que quieren entender lo esencial sin perderse en los detalles.',
+        inc_pull: '«Ocho siglos de historia condensados en un recorrido esencial.»',
+        h1_name: 'Nave y <em>Retablo Mayor</em>',
+        h1_sub: 'Joya de Damián Forment · Renacimiento riojano',
+        h2_name: 'Gallinero vivo y <em>el Milagro</em>',
+        h2_sub: 'Único en el mundo · Tradición jacobea viva',
+        h3_name: 'Sepulcro de <em>Santo Domingo</em>',
+        h3_sub: 'Tumba del santo · Centro espiritual de la Catedral',
+        h4_name: 'Historia y <em>arte sacro</em>',
+        h4_sub: 'Del Románico al Barroco · Ocho siglos de construcción',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Una tarifa, <em>todo incluido</em>',
+        price_tag: 'Visita guiada diurna',
+        price_per_person: 'por persona',
+        price_book: 'Reservar plaza',
+        inc1: 'Guía especializado durante todo el recorrido',
+        inc2: 'Acceso a la nave principal y al Retablo Mayor',
+        inc3: 'Gallinero vivo y leyenda del Milagro',
+        inc4: 'Sepulcro del Santo y recorrido básico',
+        price_extra_tag: 'Ya incluida',
+        price_extra_title: 'Pulsera turística',
+        price_extra_sub: 'sin coste adicional',
+        extra1: 'Acceso libre a los 4 monumentos del conjunto',
+        extra2: 'Catedral · Torre Exenta · San Francisco · Ermita',
+        extra3: 'Válida todo el día tras la visita guiada',
+        extra4: 'No es necesario comprarla por separado',
+        extra_btn: 'Ver pulsera turística',
+        info_eyebrow: 'Información práctica',
+        info_title: 'Todo lo que necesitas <em>saber</em>',
+        info_dur_label: 'Duración',
+        info_dur_val: '45 minutos aproximadamente. Tiempo suficiente para el recorrido esencial sin perder el ritmo, ideal si vas de paso por el Camino.',
+        info_hor_label: 'Horario',
+        info_hor_val: 'Horario variable según temporada y disponibilidad de guías. Consulta los días y horas exactos en el calendario de visitas guiadas antes de reservar.',
+        info_idi_label: 'Idioma',
+        info_idi_val: 'Visita en español. Para otros idiomas o grupos privados con guía extranjero, contacta con nosotros con antelación.',
+        info_pe_label: 'Punto de encuentro',
+        info_pe_val: 'Taquilla principal de la Catedral, 10 minutos antes del inicio. El guía acompañará al grupo desde la entrada hasta el final del recorrido.',
+        faq_eyebrow: 'Preguntas frecuentes',
+        faq_title: 'Dudas <em>habituales</em>',
+        faq1_q: '¿Qué diferencia hay con la visita libre con audioguía?',
+        faq1_a: 'La visita guiada incluye guía especializado en directo que responde tus preguntas y adapta el recorrido. La audioguía es un audio pregrabado que recorres a tu ritmo. Ambas cubren los puntos esenciales, pero la guiada ofrece contexto y matices imposibles de transmitir en un audio.',
+        faq2_q: '¿Está incluida la pulsera turística?',
+        faq2_a: 'Sí. Las 14 € incluyen la pulsera turística, que te da acceso libre durante el resto del día a los cuatro monumentos del conjunto. No necesitas comprarla por separado.',
+        faq3_q: '¿Hay aforo máximo?',
+        faq3_a: 'No hay grupo máximo cerrado para la diurna estándar. Si necesitas una visita privada o vienes con un grupo organizado de más de 15 personas, contacta con nosotros para coordinar una guiada exclusiva.',
+        faq4_q: '¿Es accesible para personas con movilidad reducida?',
+        faq4_a: 'El recorrido diurno transita por las zonas accesibles de la Catedral. Si tienes alguna necesidad específica, indícanoslo al reservar para preparar el itinerario más cómodo.',
+        cta_eyebrow: '¿Buscas más profundidad?',
+        cta_title: 'Descubre la visita <em>nocturna</em> o la <em>VIP</em>',
+        cta_btn: 'Comparar modalidades'
+      },
+      en: {
+        hero_eyebrow: 'Guided tour · 45 minutes · ES',
+        hero_title: '<em>Daytime</em> guided tour',
+        hero_desc: 'Tour the Cathedral with a specialised guide and discover the history, art and secrets that eight centuries of devotion have left behind these walls.',
+        inc_eyebrow: 'What\'s included',
+        inc_title: 'A complete tour, <em>in 45 minutes</em>',
+        inc_text: 'The daytime guided tour takes you through the heart of the Cathedral accompanied by an expert guide. In under an hour you\'ll discover the main nave, Damián Forment\'s High Altarpiece, the tomb of Saint Domingo and the famous live henhouse with the legend of the Miracle of the Rooster and Hen, unique in the world. An ideal introduction for pilgrims and visitors who want to grasp the essentials without getting lost in details.',
+        inc_pull: '«Eight centuries of history condensed into an essential walkthrough.»',
+        h1_name: 'Nave and <em>High Altarpiece</em>',
+        h1_sub: 'Damián Forment\'s masterpiece · Riojan Renaissance',
+        h2_name: 'Live henhouse and <em>the Miracle</em>',
+        h2_sub: 'Unique in the world · Living Jacobean tradition',
+        h3_name: 'Tomb of <em>Saint Domingo</em>',
+        h3_sub: 'The saint\'s tomb · Spiritual heart of the Cathedral',
+        h4_name: 'History and <em>sacred art</em>',
+        h4_sub: 'From Romanesque to Baroque · Eight centuries of construction',
+        price_eyebrow: 'Rate',
+        price_title: 'One rate, <em>everything included</em>',
+        price_tag: 'Daytime guided tour',
+        price_per_person: 'per person',
+        price_book: 'Book your place',
+        inc1: 'Specialised guide throughout the tour',
+        inc2: 'Access to the main nave and High Altarpiece',
+        inc3: 'Live henhouse and the Miracle legend',
+        inc4: 'Saint\'s tomb and basic walkthrough',
+        price_extra_tag: 'Already included',
+        price_extra_title: 'Tourist wristband',
+        price_extra_sub: 'at no additional cost',
+        extra1: 'Free access to all 4 monuments in the complex',
+        extra2: 'Cathedral · Bell Tower · San Francisco · Chapel',
+        extra3: 'Valid all day after the guided tour',
+        extra4: 'No need to buy it separately',
+        extra_btn: 'See tourist wristband',
+        info_eyebrow: 'Practical information',
+        info_title: 'Everything you need <em>to know</em>',
+        info_dur_label: 'Duration',
+        info_dur_val: 'Approximately 45 minutes. Enough time for the essential route without losing pace — ideal if you\'re passing through on the Camino.',
+        info_hor_label: 'Schedule',
+        info_hor_val: 'Schedule varies by season and guide availability. Check the exact days and times in the guided tour calendar before booking.',
+        info_idi_label: 'Language',
+        info_idi_val: 'Tour in Spanish. For other languages or private groups with a foreign-language guide, contact us in advance.',
+        info_pe_label: 'Meeting point',
+        info_pe_val: 'Main Cathedral ticket office, 10 minutes before the start. The guide will accompany the group from the entrance to the end of the tour.',
+        faq_eyebrow: 'Frequently asked questions',
+        faq_title: 'Common <em>questions</em>',
+        faq1_q: 'What\'s the difference with the self-guided audio tour?',
+        faq1_a: 'The guided tour includes a specialised live guide who answers your questions and adapts the route. The audio guide is a pre-recorded audio you follow at your own pace. Both cover the essentials, but the guided tour offers context and nuance impossible to convey in audio.',
+        faq2_q: 'Is the tourist wristband included?',
+        faq2_a: 'Yes. The €14 includes the tourist wristband, giving you free access to all four monuments in the complex for the rest of the day. No need to buy it separately.',
+        faq3_q: 'Is there a maximum group size?',
+        faq3_a: 'No fixed maximum for the standard daytime tour. If you need a private visit or come with an organised group of more than 15 people, contact us to arrange an exclusive guided tour.',
+        faq4_q: 'Is it accessible for people with reduced mobility?',
+        faq4_a: 'The daytime route runs through the accessible areas of the Cathedral. If you have any specific needs, let us know when booking so we can prepare the most comfortable itinerary.',
+        cta_eyebrow: 'Looking for more depth?',
+        cta_title: 'Discover the <em>night-time</em> or <em>VIP</em> tour',
+        cta_btn: 'Compare options'
+      },
+      fr: {
+        hero_eyebrow: 'Visite guidée · 45 minutes · ES',
+        hero_title: 'Visite guidée <em>diurne</em>',
+        hero_desc: 'Parcourez la Cathédrale avec un guide spécialisé et découvrez l\'histoire, l\'art et les secrets que huit siècles de dévotion ont laissés derrière ces murs.',
+        inc_eyebrow: 'Ce qui est inclus',
+        inc_title: 'Un parcours complet, <em>en 45 minutes</em>',
+        inc_text: 'La visite guidée diurne vous emmène au cœur de la Cathédrale accompagné d\'un guide expert. En moins d\'une heure, vous découvrirez la nef principale, le Retable majeur de Damián Forment, le tombeau de saint Domingo et le célèbre poulailler vivant avec la légende du Miracle du Coq et de la Poule, unique au monde. Une introduction idéale pour les pèlerins et les visiteurs qui veulent saisir l\'essentiel sans se perdre dans les détails.',
+        inc_pull: '« Huit siècles d\'histoire condensés en un parcours essentiel. »',
+        h1_name: 'Nef et <em>Retable majeur</em>',
+        h1_sub: 'Chef-d\'œuvre de Damián Forment · Renaissance riojane',
+        h2_name: 'Poulailler vivant et <em>le Miracle</em>',
+        h2_sub: 'Unique au monde · Tradition jacquaire vivante',
+        h3_name: 'Tombeau de <em>Saint Domingo</em>',
+        h3_sub: 'Tombeau du saint · Cœur spirituel de la Cathédrale',
+        h4_name: 'Histoire et <em>art sacré</em>',
+        h4_sub: 'Du Roman au Baroque · Huit siècles de construction',
+        price_eyebrow: 'Tarif',
+        price_title: 'Un tarif, <em>tout inclus</em>',
+        price_tag: 'Visite guidée diurne',
+        price_per_person: 'par personne',
+        price_book: 'Réserver',
+        inc1: 'Guide spécialisé pendant toute la visite',
+        inc2: 'Accès à la nef principale et au Retable majeur',
+        inc3: 'Poulailler vivant et légende du Miracle',
+        inc4: 'Tombeau du Saint et parcours de base',
+        price_extra_tag: 'Déjà inclus',
+        price_extra_title: 'Bracelet touristique',
+        price_extra_sub: 'sans coût supplémentaire',
+        extra1: 'Accès libre aux 4 monuments de l\'ensemble',
+        extra2: 'Cathédrale · Tour · San Francisco · Ermitage',
+        extra3: 'Valable toute la journée après la visite guidée',
+        extra4: 'Pas besoin de l\'acheter séparément',
+        extra_btn: 'Voir le bracelet touristique',
+        info_eyebrow: 'Informations pratiques',
+        info_title: 'Tout ce qu\'il faut <em>savoir</em>',
+        info_dur_label: 'Durée',
+        info_dur_val: '45 minutes environ. Le temps qu\'il faut pour le parcours essentiel sans perdre le rythme, idéal si vous êtes de passage sur le Chemin.',
+        info_hor_label: 'Horaires',
+        info_hor_val: 'Horaires variables selon la saison et la disponibilité des guides. Consultez les jours et heures exacts dans le calendrier des visites guidées avant de réserver.',
+        info_idi_label: 'Langue',
+        info_idi_val: 'Visite en espagnol. Pour d\'autres langues ou des groupes privés avec un guide étranger, contactez-nous à l\'avance.',
+        info_pe_label: 'Point de rencontre',
+        info_pe_val: 'Guichet principal de la Cathédrale, 10 minutes avant le début. Le guide accompagne le groupe de l\'entrée jusqu\'à la fin du parcours.',
+        faq_eyebrow: 'Questions fréquentes',
+        faq_title: 'Doutes <em>habituels</em>',
+        faq1_q: 'Quelle différence avec la visite libre avec audioguide ?',
+        faq1_a: 'La visite guidée comprend un guide spécialisé en direct qui répond à vos questions et adapte le parcours. L\'audioguide est un audio préenregistré que vous suivez à votre rythme. Les deux couvrent l\'essentiel, mais la visite guidée offre un contexte impossible à transmettre via un audio.',
+        faq2_q: 'Le bracelet touristique est-il inclus ?',
+        faq2_a: 'Oui. Les 14 € incluent le bracelet touristique, qui donne accès libre aux quatre monuments de l\'ensemble pendant le reste de la journée. Pas besoin de l\'acheter séparément.',
+        faq3_q: 'Y a-t-il un nombre maximum de participants ?',
+        faq3_a: 'Pas de groupe maximum fixe pour la diurne standard. Si vous avez besoin d\'une visite privée ou venez avec un groupe organisé de plus de 15 personnes, contactez-nous pour coordonner une visite guidée exclusive.',
+        faq4_q: 'Est-elle accessible aux personnes à mobilité réduite ?',
+        faq4_a: 'Le parcours diurne traverse les zones accessibles de la Cathédrale. Si vous avez un besoin particulier, indiquez-le-nous lors de la réservation pour préparer l\'itinéraire le plus confortable.',
+        cta_eyebrow: 'Vous cherchez plus de profondeur ?',
+        cta_title: 'Découvrez la visite <em>nocturne</em> ou la <em>VIP</em>',
+        cta_btn: 'Comparer les modalités'
+      },
+      de: {
+        hero_eyebrow: 'Führung · 45 Minuten · ES',
+        hero_title: '<em>Tagesführung</em>',
+        hero_desc: 'Erkunden Sie die Kathedrale mit einem spezialisierten Guide und entdecken Sie die Geschichte, Kunst und Geheimnisse, die acht Jahrhunderte Andacht hinter diesen Mauern hinterlassen haben.',
+        inc_eyebrow: 'Was enthalten ist',
+        inc_title: 'Ein vollständiger Rundgang, <em>in 45 Minuten</em>',
+        inc_text: 'Die Tagesführung führt Sie mit einem erfahrenen Guide durch das Herz der Kathedrale. In weniger als einer Stunde entdecken Sie das Hauptschiff, den Hochaltar von Damián Forment, das Grab des heiligen Domingo und den berühmten lebenden Hühnerstall mit der Legende vom Wunder von Hahn und Henne — weltweit einzigartig. Eine ideale Einführung für Pilger und Besucher, die das Wesentliche erfassen möchten, ohne sich in Details zu verlieren.',
+        inc_pull: '„Acht Jahrhunderte Geschichte in einem essenziellen Rundgang."',
+        h1_name: 'Schiff und <em>Hochaltar</em>',
+        h1_sub: 'Meisterwerk Damián Forments · Riojanische Renaissance',
+        h2_name: 'Lebender Hühnerstall und <em>das Wunder</em>',
+        h2_sub: 'Weltweit einzigartig · Lebendige Jakobs-Tradition',
+        h3_name: 'Grab des <em>heiligen Domingo</em>',
+        h3_sub: 'Grab des Heiligen · Geistliches Herz der Kathedrale',
+        h4_name: 'Geschichte und <em>sakrale Kunst</em>',
+        h4_sub: 'Von der Romanik bis zum Barock · Acht Jahrhunderte Bau',
+        price_eyebrow: 'Preis',
+        price_title: 'Ein Preis, <em>alles enthalten</em>',
+        price_tag: 'Tagesführung',
+        price_per_person: 'pro Person',
+        price_book: 'Platz reservieren',
+        inc1: 'Spezialisierter Guide während der gesamten Tour',
+        inc2: 'Zugang zum Hauptschiff und Hochaltar',
+        inc3: 'Lebender Hühnerstall und die Wunder-Legende',
+        inc4: 'Heiligengrab und Grundrundgang',
+        price_extra_tag: 'Bereits enthalten',
+        price_extra_title: 'Touristen-Armband',
+        price_extra_sub: 'ohne Zusatzkosten',
+        extra1: 'Freier Zugang zu allen 4 Denkmälern des Ensembles',
+        extra2: 'Kathedrale · Glockenturm · San Francisco · Einsiedelei',
+        extra3: 'Den ganzen Tag nach der Führung gültig',
+        extra4: 'Muss nicht separat gekauft werden',
+        extra_btn: 'Touristen-Armband ansehen',
+        info_eyebrow: 'Praktische Informationen',
+        info_title: 'Alles, was Sie <em>wissen müssen</em>',
+        info_dur_label: 'Dauer',
+        info_dur_val: 'Ca. 45 Minuten. Genug Zeit für den wesentlichen Rundgang ohne Hetze — ideal, wenn Sie auf dem Jakobsweg durchziehen.',
+        info_hor_label: 'Zeiten',
+        info_hor_val: 'Zeiten variieren je nach Saison und Verfügbarkeit der Guides. Prüfen Sie die genauen Tage und Zeiten im Führungskalender, bevor Sie buchen.',
+        info_idi_label: 'Sprache',
+        info_idi_val: 'Führung auf Spanisch. Für andere Sprachen oder private Gruppen mit fremdsprachigem Guide, kontaktieren Sie uns vorab.',
+        info_pe_label: 'Treffpunkt',
+        info_pe_val: 'Hauptticketschalter der Kathedrale, 10 Minuten vor Beginn. Der Guide begleitet die Gruppe vom Eingang bis zum Ende des Rundgangs.',
+        faq_eyebrow: 'Häufige Fragen',
+        faq_title: 'Häufige <em>Zweifel</em>',
+        faq1_q: 'Was ist der Unterschied zur Audioguide-Tour?',
+        faq1_a: 'Die Führung beinhaltet einen spezialisierten Live-Guide, der Ihre Fragen beantwortet und die Route anpasst. Der Audioguide ist eine vorab aufgezeichnete Tonspur, der Sie in Ihrem eigenen Tempo folgen. Beide decken das Wesentliche ab, aber die Führung bietet Kontext und Nuancen, die in einem Audio unmöglich zu vermitteln sind.',
+        faq2_q: 'Ist das Touristen-Armband inbegriffen?',
+        faq2_a: 'Ja. Die 14 € beinhalten das Touristen-Armband, das den ganzen Tag freien Zugang zu allen vier Denkmälern des Ensembles bietet. Kein separater Kauf nötig.',
+        faq3_q: 'Gibt es eine maximale Gruppengröße?',
+        faq3_a: 'Keine feste Obergrenze für die Standard-Tagesführung. Wenn Sie einen privaten Besuch wünschen oder mit einer Gruppe von mehr als 15 Personen kommen, kontaktieren Sie uns für eine exklusive Führung.',
+        faq4_q: 'Ist sie für Personen mit eingeschränkter Mobilität zugänglich?',
+        faq4_a: 'Die Tagesroute verläuft durch die barrierefreien Bereiche der Kathedrale. Bei besonderen Bedürfnissen teilen Sie uns dies bei der Buchung mit, damit wir die bequemste Route vorbereiten können.',
+        cta_eyebrow: 'Suchen Sie mehr Tiefe?',
+        cta_title: 'Entdecken Sie die <em>Nacht-</em> oder die <em>VIP</em>-Führung',
+        cta_btn: 'Modalitäten vergleichen'
+      },
+      pt: {
+        hero_eyebrow: 'Visita guiada · 45 minutos · ES',
+        hero_title: 'Visita guiada <em>diurna</em>',
+        hero_desc: 'Percorra a Catedral com um guia especializado e descubra a história, a arte e os segredos que oito séculos de devoção deixaram por trás destas paredes.',
+        inc_eyebrow: 'O que inclui',
+        inc_title: 'Um percurso completo, <em>em 45 minutos</em>',
+        inc_text: 'A visita guiada diurna leva-o pelo coração da Catedral acompanhado por um guia perito. Em menos de uma hora descobrirá a nave principal, o Retábulo-Mor de Damián Forment, o sepulcro de Santo Domingo e o famoso galinheiro vivo com a lenda do Milagre do Galo e da Galinha, único no mundo. Uma introdução ideal para peregrinos e visitantes que queiram entender o essencial sem se perderem nos detalhes.',
+        inc_pull: '«Oito séculos de história condensados num percurso essencial.»',
+        h1_name: 'Nave e <em>Retábulo-Mor</em>',
+        h1_sub: 'Obra de Damián Forment · Renascimento riojano',
+        h2_name: 'Galinheiro vivo e <em>o Milagre</em>',
+        h2_sub: 'Único no mundo · Tradição jacobeia viva',
+        h3_name: 'Sepulcro de <em>Santo Domingo</em>',
+        h3_sub: 'Sepulcro do santo · Coração espiritual da Catedral',
+        h4_name: 'História e <em>arte sacra</em>',
+        h4_sub: 'Do Românico ao Barroco · Oito séculos de construção',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Uma tarifa, <em>tudo incluído</em>',
+        price_tag: 'Visita guiada diurna',
+        price_per_person: 'por pessoa',
+        price_book: 'Reservar lugar',
+        inc1: 'Guia especializado durante todo o percurso',
+        inc2: 'Acesso à nave principal e ao Retábulo-Mor',
+        inc3: 'Galinheiro vivo e lenda do Milagre',
+        inc4: 'Sepulcro do Santo e percurso básico',
+        price_extra_tag: 'Já incluída',
+        price_extra_title: 'Pulseira turística',
+        price_extra_sub: 'sem custo adicional',
+        extra1: 'Acesso livre aos 4 monumentos do conjunto',
+        extra2: 'Catedral · Torre · San Francisco · Ermida',
+        extra3: 'Válida todo o dia após a visita guiada',
+        extra4: 'Não é necessário comprá-la em separado',
+        extra_btn: 'Ver pulseira turística',
+        info_eyebrow: 'Informação prática',
+        info_title: 'Tudo o que precisa <em>de saber</em>',
+        info_dur_label: 'Duração',
+        info_dur_val: '45 minutos aproximadamente. Tempo suficiente para o percurso essencial sem perder o ritmo, ideal se estiver de passagem pelo Caminho.',
+        info_hor_label: 'Horário',
+        info_hor_val: 'Horário variável conforme a época e a disponibilidade dos guias. Consulte os dias e horas exatos no calendário de visitas guiadas antes de reservar.',
+        info_idi_label: 'Idioma',
+        info_idi_val: 'Visita em espanhol. Para outros idiomas ou grupos privados com guia estrangeiro, contacte-nos com antecedência.',
+        info_pe_label: 'Ponto de encontro',
+        info_pe_val: 'Bilheteira principal da Catedral, 10 minutos antes do início. O guia acompanhará o grupo desde a entrada até ao fim do percurso.',
+        faq_eyebrow: 'Perguntas frequentes',
+        faq_title: 'Dúvidas <em>habituais</em>',
+        faq1_q: 'Qual a diferença com a visita livre com audioguia?',
+        faq1_a: 'A visita guiada inclui um guia especializado ao vivo que responde às suas perguntas e adapta o percurso. O audioguia é um áudio pré-gravado que segue ao seu ritmo. Ambas cobrem o essencial, mas a guiada oferece contexto impossível de transmitir num áudio.',
+        faq2_q: 'A pulseira turística está incluída?',
+        faq2_a: 'Sim. Os 14 € incluem a pulseira turística, que lhe dá acesso livre aos quatro monumentos do conjunto durante o resto do dia. Não precisa de comprá-la em separado.',
+        faq3_q: 'Há lotação máxima?',
+        faq3_a: 'Não há grupo máximo fixo para a diurna padrão. Se precisar de uma visita privada ou vier com um grupo organizado de mais de 15 pessoas, contacte-nos para coordenar uma guiada exclusiva.',
+        faq4_q: 'É acessível para pessoas com mobilidade reduzida?',
+        faq4_a: 'O percurso diurno passa pelas zonas acessíveis da Catedral. Se tiver alguma necessidade específica, indique-nos ao reservar para preparar o itinerário mais cómodo.',
+        cta_eyebrow: 'Procura mais profundidade?',
+        cta_title: 'Descubra a visita <em>noturna</em> ou a <em>VIP</em>',
+        cta_btn: 'Comparar modalidades'
+      },
+      it: {
+        hero_eyebrow: 'Visita guidata · 45 minuti · ES',
+        hero_title: 'Visita guidata <em>diurna</em>',
+        hero_desc: 'Percorri la Cattedrale con una guida specializzata e scopri la storia, l\'arte e i segreti che otto secoli di devozione hanno lasciato dietro queste mura.',
+        inc_eyebrow: 'Cosa include',
+        inc_title: 'Un percorso completo, <em>in 45 minuti</em>',
+        inc_text: 'La visita guidata diurna ti porta nel cuore della Cattedrale accompagnato da una guida esperta. In meno di un\'ora scoprirai la navata principale, la Pala Maggiore di Damián Forment, il sepolcro di Santo Domingo e il celebre pollaio vivo con la leggenda del Miracolo del Gallo e della Gallina, unico al mondo. Un\'introduzione ideale per pellegrini e visitatori che vogliono cogliere l\'essenziale senza perdersi nei dettagli.',
+        inc_pull: '«Otto secoli di storia condensati in un percorso essenziale.»',
+        h1_name: 'Navata e <em>Pala Maggiore</em>',
+        h1_sub: 'Capolavoro di Damián Forment · Rinascimento riojano',
+        h2_name: 'Pollaio vivo e <em>il Miracolo</em>',
+        h2_sub: 'Unico al mondo · Tradizione giacobea viva',
+        h3_name: 'Sepolcro di <em>Santo Domingo</em>',
+        h3_sub: 'Sepolcro del santo · Cuore spirituale della Cattedrale',
+        h4_name: 'Storia e <em>arte sacra</em>',
+        h4_sub: 'Dal Romanico al Barocco · Otto secoli di costruzione',
+        price_eyebrow: 'Tariffa',
+        price_title: 'Una tariffa, <em>tutto incluso</em>',
+        price_tag: 'Visita guidata diurna',
+        price_per_person: 'a persona',
+        price_book: 'Prenota posto',
+        inc1: 'Guida specializzata per tutto il percorso',
+        inc2: 'Accesso alla navata principale e alla Pala Maggiore',
+        inc3: 'Pollaio vivo e leggenda del Miracolo',
+        inc4: 'Sepolcro del Santo e percorso base',
+        price_extra_tag: 'Già inclusa',
+        price_extra_title: 'Braccialetto turistico',
+        price_extra_sub: 'senza costo aggiuntivo',
+        extra1: 'Accesso libero ai 4 monumenti del complesso',
+        extra2: 'Cattedrale · Torre · San Francisco · Eremo',
+        extra3: 'Valido tutto il giorno dopo la visita guidata',
+        extra4: 'Non occorre acquistarlo separatamente',
+        extra_btn: 'Vedi braccialetto turistico',
+        info_eyebrow: 'Informazioni pratiche',
+        info_title: 'Tutto quello che devi <em>sapere</em>',
+        info_dur_label: 'Durata',
+        info_dur_val: '45 minuti circa. Tempo sufficiente per il percorso essenziale senza perdere il ritmo, ideale se sei di passaggio sul Cammino.',
+        info_hor_label: 'Orari',
+        info_hor_val: 'Orari variabili in base alla stagione e alla disponibilità delle guide. Consulta i giorni e gli orari esatti nel calendario delle visite guidate prima di prenotare.',
+        info_idi_label: 'Lingua',
+        info_idi_val: 'Visita in spagnolo. Per altre lingue o gruppi privati con guida straniera, contattaci con anticipo.',
+        info_pe_label: 'Punto di ritrovo',
+        info_pe_val: 'Biglietteria principale della Cattedrale, 10 minuti prima dell\'inizio. La guida accompagna il gruppo dall\'ingresso fino alla fine del percorso.',
+        faq_eyebrow: 'Domande frequenti',
+        faq_title: 'Dubbi <em>frequenti</em>',
+        faq1_q: 'Che differenza c\'è con la visita libera con audioguida?',
+        faq1_a: 'La visita guidata include una guida specializzata dal vivo che risponde alle tue domande e adatta il percorso. L\'audioguida è un audio preregistrato che segui al tuo ritmo. Entrambe coprono l\'essenziale, ma la guidata offre contesto e sfumature impossibili da trasmettere in un audio.',
+        faq2_q: 'Il braccialetto turistico è incluso?',
+        faq2_a: 'Sì. I 14 € includono il braccialetto turistico, che dà accesso libero ai quattro monumenti del complesso per il resto della giornata. Non serve acquistarlo separatamente.',
+        faq3_q: 'C\'è un numero massimo di partecipanti?',
+        faq3_a: 'Nessun gruppo massimo fisso per la diurna standard. Se hai bisogno di una visita privata o vieni con un gruppo organizzato di più di 15 persone, contattaci per coordinare una guidata esclusiva.',
+        faq4_q: 'È accessibile per persone con mobilità ridotta?',
+        faq4_a: 'Il percorso diurno attraversa le aree accessibili della Cattedrale. Se hai esigenze particolari, segnalacelo al momento della prenotazione per preparare l\'itinerario più comodo.',
+        cta_eyebrow: 'Cerchi più approfondimento?',
+        cta_title: 'Scopri la visita <em>notturna</em> o la <em>VIP</em>',
+        cta_btn: 'Confronta modalità'
+      },
+      ko: {
+        hero_eyebrow: '가이드 투어 · 45분 · ES',
+        hero_title: '<em>주간</em> 가이드 투어',
+        hero_desc: '전문 가이드와 함께 대성당을 둘러보고 8세기의 신앙이 이 벽 뒤에 남긴 역사, 예술, 비밀을 발견하세요.',
+        inc_eyebrow: '포함 내용',
+        inc_title: '<em>45분</em>으로 완성하는 핵심 투어',
+        inc_text: '주간 가이드 투어는 전문 가이드와 함께 대성당의 중심부를 둘러봅니다. 한 시간이 채 안 되는 시간 동안 본당, 다미안 포르멘트의 대제단화, 산토 도밍고 성인의 묘소, 그리고 세계에서 유일한 닭과 수탉의 기적 전설이 깃든 살아 있는 닭장을 보게 됩니다. 디테일에 빠지지 않고 핵심을 파악하고 싶은 순례자와 방문객에게 이상적인 입문 투어입니다.',
+        inc_pull: '«8세기 역사를 응축한 필수 코스.»',
+        h1_name: '본당과 <em>대제단화</em>',
+        h1_sub: '다미안 포르멘트의 걸작 · 리오하 르네상스',
+        h2_name: '살아있는 닭장과 <em>기적</em>',
+        h2_sub: '세계에서 유일 · 살아있는 산티아고 전통',
+        h3_name: '<em>산토 도밍고</em>의 묘소',
+        h3_sub: '성인의 묘소 · 대성당의 정신적 중심',
+        h4_name: '역사와 <em>성예술</em>',
+        h4_sub: '로마네스크에서 바로크까지 · 8세기에 걸친 건축',
+        price_eyebrow: '요금',
+        price_title: '단일 요금, <em>모두 포함</em>',
+        price_tag: '주간 가이드 투어',
+        price_per_person: '1인당',
+        price_book: '예약하기',
+        inc1: '투어 전체 동안 전문 가이드 동행',
+        inc2: '본당과 대제단화 입장',
+        inc3: '살아있는 닭장과 기적의 전설',
+        inc4: '성인의 묘소와 기본 동선',
+        price_extra_tag: '기본 포함',
+        price_extra_title: '관광 팔찌',
+        price_extra_sub: '추가 비용 없음',
+        extra1: '단지 내 4개 유적 모두 자유 입장',
+        extra2: '대성당 · 종탑 · 산프란시스코 · 예배당',
+        extra3: '가이드 투어 후 하루 종일 유효',
+        extra4: '따로 구매할 필요 없음',
+        extra_btn: '관광 팔찌 보기',
+        info_eyebrow: '실용 정보',
+        info_title: '꼭 <em>알아야 할</em> 모든 것',
+        info_dur_label: '소요 시간',
+        info_dur_val: '약 45분. 속도를 잃지 않고 핵심 코스를 둘러보기에 충분한 시간으로, 순례길 도중에 들르기 좋습니다.',
+        info_hor_label: '운영 시간',
+        info_hor_val: '계절과 가이드 가용성에 따라 다릅니다. 예약 전 가이드 투어 캘린더에서 정확한 요일과 시간을 확인하세요.',
+        info_idi_label: '언어',
+        info_idi_val: '스페인어 진행. 다른 언어나 외국어 가이드가 동반된 프라이빗 그룹은 사전에 문의해 주세요.',
+        info_pe_label: '집결지',
+        info_pe_val: '대성당 주 매표소, 시작 10분 전. 가이드가 입구부터 투어 종료까지 그룹과 동행합니다.',
+        faq_eyebrow: '자주 묻는 질문',
+        faq_title: '자주 있는 <em>궁금증</em>',
+        faq1_q: '오디오 가이드와 무엇이 다른가요?',
+        faq1_a: '가이드 투어는 질문에 답하고 동선을 조정하는 전문 가이드가 실시간으로 함께합니다. 오디오 가이드는 자신의 속도로 듣는 사전 녹음 음원입니다. 둘 다 핵심을 다루지만, 가이드 투어는 음원으로는 전달할 수 없는 맥락을 제공합니다.',
+        faq2_q: '관광 팔찌가 포함되나요?',
+        faq2_a: '네. 14 €에는 관광 팔찌가 포함되어 있어 남은 하루 동안 단지 내 4개 유적에 자유롭게 입장할 수 있습니다. 따로 구매할 필요가 없습니다.',
+        faq3_q: '최대 인원 제한이 있나요?',
+        faq3_a: '일반 주간 투어에는 고정된 최대 인원이 없습니다. 프라이빗 투어가 필요하거나 15명 이상의 단체로 오시는 경우, 전용 가이드 투어 조율을 위해 문의해 주세요.',
+        faq4_q: '거동이 불편한 분도 참여 가능한가요?',
+        faq4_a: '주간 코스는 대성당의 접근 가능 구역을 지납니다. 특별한 필요가 있다면 예약 시 알려 주시면 가장 편안한 동선을 준비해 드립니다.',
+        cta_eyebrow: '더 깊이 알고 싶으세요?',
+        cta_title: '<em>야간</em> 또는 <em>VIP</em> 투어를 만나보세요',
+        cta_btn: '모드 비교하기'
+      },
+      eu: {
+        hero_eyebrow: 'Bisita gidatua · 45 minutu · ES',
+        hero_title: 'Eguneko bisita <em>gidatua</em>',
+        hero_desc: 'Ibili Katedrala gidari espezializatu batekin eta ezagutu zortzi mendeko debozioak horma hauen atzean utzitako historia, artea eta sekretuak.',
+        inc_eyebrow: 'Zer barne hartzen du',
+        inc_title: 'Ibilbide osoa, <em>45 minututan</em>',
+        inc_text: 'Eguneko bisita gidatuak Katedralaren bihotzera eramango zaitu gidari aditu batekin. Ordubete baino gutxiagotan nabe nagusia, Damián Formenten Erretaula Nagusia, Santo Domingoren hilobia eta munduan bakarra den oilategi biziaren leienda — Oilar eta Oiloaren Mirariarena — ezagutuko dituzu. Erromes eta bisitarientzako sarrera aproposa, xehetasunetan galdu gabe funtsezkoa ulertu nahi dutenei zuzendua.',
+        inc_pull: '«Zortzi mendeko historia ibilbide funtsezko batean.»',
+        h1_name: 'Nabea eta <em>Erretaula Nagusia</em>',
+        h1_sub: 'Damián Formenten lana · Errioxako Errenazimentua',
+        h2_name: 'Oilategi bizia eta <em>Miraria</em>',
+        h2_sub: 'Munduan bakarra · Jakobetar tradizio bizia',
+        h3_name: '<em>Santo Domingoren</em> hilobia',
+        h3_sub: 'Santuaren hilobia · Katedralaren bihotz espirituala',
+        h4_name: 'Historia eta <em>arte sakratua</em>',
+        h4_sub: 'Erromanikotik Barrokora · Zortzi mendeko eraikuntza',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Tarifa bakarra, <em>dena barne</em>',
+        price_tag: 'Eguneko bisita gidatua',
+        price_per_person: 'pertsonako',
+        price_book: 'Lekua erreserbatu',
+        inc1: 'Gidari espezializatua ibilbide osoan',
+        inc2: 'Nabe nagusi eta Erretaula Nagusirako sarbidea',
+        inc3: 'Oilategi bizia eta Mirariaren leienda',
+        inc4: 'Santuaren hilobia eta oinarrizko ibilbidea',
+        price_extra_tag: 'Dagoeneko barne',
+        price_extra_title: 'Pulsera turistikoa',
+        price_extra_sub: 'kostu gehigarririk gabe',
+        extra1: 'Multzoko 4 monumentuetarako sarbide librea',
+        extra2: 'Katedrala · Dorrea · San Francisco · Ermita',
+        extra3: 'Bisita gidatuaren ondoren egun osoan baliozkoa',
+        extra4: 'Ez da bereiz erosi behar',
+        extra_btn: 'Pulsera turistikoa ikusi',
+        info_eyebrow: 'Informazio praktikoa',
+        info_title: 'Jakin behar duzun <em>guztia</em>',
+        info_dur_label: 'Iraupena',
+        info_dur_val: '45 minutu inguru. Erritmoa galdu gabe funtsezko ibilbidea egiteko adina, Bideko bidaian zoazenentzat aproposa.',
+        info_hor_label: 'Ordutegia',
+        info_hor_val: 'Ordutegia urtaroaren eta gidarien araberakoa da. Erreserbatu aurretik egiaztatu egunak eta orduak bisita gidatuen egutegian.',
+        info_idi_label: 'Hizkuntza',
+        info_idi_val: 'Bisita gaztelaniaz. Beste hizkuntzetarako edo atzerriko gidariarekin talde pribatuetarako, jarri gurekin harremanetan aurretik.',
+        info_pe_label: 'Topagunea',
+        info_pe_val: 'Katedraleko txarteldegi nagusia, hasi baino 10 minutu lehenago. Gidariak taldea sarreratik ibilbide bukaerara eramango du.',
+        faq_eyebrow: 'Sarri egiten diren galderak',
+        faq_title: 'Ohiko <em>zalantzak</em>',
+        faq1_q: 'Zer alde dago audiogidarekin egindako bisita librearekiko?',
+        faq1_a: 'Bisita gidatuak zuzeneko gidari espezializatua dakar: galderak erantzun eta ibilbidea egokituko du. Audiogida aurrez grabatutako audioa da, zure erritmoan jarraitzen duzuna. Biek funtsezkoa estaltzen dute, baina gidatuak audioak ezin duen testuingurua eskaintzen du.',
+        faq2_q: 'Pulsera turistikoa sartzen al da?',
+        faq2_a: 'Bai. 14 €-tan pulsera turistikoa sartzen da; horrek multzoko lau monumentuetarako sarbide librea ematen dizu egun osoan zehar. Ez duzu bereiz erosi beharrik.',
+        faq3_q: 'Bada gehienezko aforoa?',
+        faq3_a: 'Eguneko ohiko bisitarako ez dago gehienezko talderik finkatuta. Bisita pribatua behar baduzu edo 15 lagun baino gehiagoko talde antolatu batekin etortzen bazara, jarri gurekin harremanetan bisita gidatu esklusibo bat antolatzeko.',
+        faq4_q: 'Mugikortasun urriko pertsonentzako irisgarria al da?',
+        faq4_a: 'Eguneko ibilbidea Katedralaren eremu irisgarrietatik doa. Behar berezirik baduzu, esan iezaguzu erreserba egitean ibilbide erosoena prestatzeko.',
+        cta_eyebrow: 'Sakontasun gehiago bilatzen?',
+        cta_title: 'Ezagutu <em>gaueko</em> edo <em>VIP</em> bisita',
+        cta_btn: 'Modalitateak konparatu'
+      },
+      ca: {
+        hero_eyebrow: 'Visita guiada · 45 minuts · ES',
+        hero_title: 'Visita guiada <em>diürna</em>',
+        hero_desc: 'Recorre la Catedral amb un guia especialitzat i descobreix la història, l\'art i els secrets que vuit segles de devoció han deixat darrere d\'aquests murs.',
+        inc_eyebrow: 'Què inclou',
+        inc_title: 'Un recorregut complet, <em>en 45 minuts</em>',
+        inc_text: 'La visita guiada diürna et porta pel cor de la Catedral acompanyat d\'un guia expert. En menys d\'una hora descobriràs la nau principal, el Retaule Major de Damián Forment, el sepulcre de Santo Domingo i el famós galliner viu amb la llegenda del Miracle del Gall i la Gallina, únic al món. Una introducció ideal per a pelegrins i visitants que vulguin entendre l\'essencial sense perdre\'s en els detalls.',
+        inc_pull: '«Vuit segles d\'història condensats en un recorregut essencial.»',
+        h1_name: 'Nau i <em>Retaule Major</em>',
+        h1_sub: 'Obra de Damián Forment · Renaixement riojà',
+        h2_name: 'Galliner viu i <em>el Miracle</em>',
+        h2_sub: 'Únic al món · Tradició jacobea viva',
+        h3_name: 'Sepulcre de <em>Santo Domingo</em>',
+        h3_sub: 'Sepulcre del sant · Cor espiritual de la Catedral',
+        h4_name: 'Història i <em>art sacre</em>',
+        h4_sub: 'Del Romànic al Barroc · Vuit segles de construcció',
+        price_eyebrow: 'Tarifa',
+        price_title: 'Una tarifa, <em>tot inclòs</em>',
+        price_tag: 'Visita guiada diürna',
+        price_per_person: 'per persona',
+        price_book: 'Reservar plaça',
+        inc1: 'Guia especialitzat durant tot el recorregut',
+        inc2: 'Accés a la nau principal i al Retaule Major',
+        inc3: 'Galliner viu i llegenda del Miracle',
+        inc4: 'Sepulcre del Sant i recorregut bàsic',
+        price_extra_tag: 'Ja inclosa',
+        price_extra_title: 'Polsera turística',
+        price_extra_sub: 'sense cost addicional',
+        extra1: 'Accés lliure als 4 monuments del conjunt',
+        extra2: 'Catedral · Torre · San Francisco · Ermita',
+        extra3: 'Vàlida tot el dia després de la visita guiada',
+        extra4: 'No cal comprar-la per separat',
+        extra_btn: 'Veure polsera turística',
+        info_eyebrow: 'Informació pràctica',
+        info_title: 'Tot el que necessites <em>saber</em>',
+        info_dur_label: 'Durada',
+        info_dur_val: '45 minuts aproximadament. Temps suficient per al recorregut essencial sense perdre el ritme, ideal si vas de pas pel Camí.',
+        info_hor_label: 'Horari',
+        info_hor_val: 'Horari variable segons temporada i disponibilitat dels guies. Consulta els dies i hores exactes al calendari de visites guiades abans de reservar.',
+        info_idi_label: 'Idioma',
+        info_idi_val: 'Visita en espanyol. Per a altres idiomes o grups privats amb guia estranger, contacta amb nosaltres amb antelació.',
+        info_pe_label: 'Punt de trobada',
+        info_pe_val: 'Taquilla principal de la Catedral, 10 minuts abans de l\'inici. El guia acompanyarà el grup des de l\'entrada fins al final del recorregut.',
+        faq_eyebrow: 'Preguntes freqüents',
+        faq_title: 'Dubtes <em>habituals</em>',
+        faq1_q: 'Quina diferència hi ha amb la visita lliure amb audioguia?',
+        faq1_a: 'La visita guiada inclou un guia especialitzat en directe que respon les teves preguntes i adapta el recorregut. L\'audioguia és un àudio pregravat que segueixes al teu ritme. Totes dues cobreixen l\'essencial, però la guiada ofereix context impossible de transmetre en un àudio.',
+        faq2_q: 'Hi ha inclosa la polsera turística?',
+        faq2_a: 'Sí. Els 14 € inclouen la polsera turística, que et dóna accés lliure als quatre monuments del conjunt durant la resta del dia. No cal comprar-la per separat.',
+        faq3_q: 'Hi ha aforament màxim?',
+        faq3_a: 'No hi ha grup màxim tancat per a la diürna estàndard. Si necessites una visita privada o véns amb un grup organitzat de més de 15 persones, contacta amb nosaltres per coordinar una guiada exclusiva.',
+        faq4_q: 'És accessible per a persones amb mobilitat reduïda?',
+        faq4_a: 'El recorregut diürn transita per les zones accessibles de la Catedral. Si tens alguna necessitat específica, indica-ho en reservar per preparar l\'itinerari més còmode.',
+        cta_eyebrow: 'Cerques més profunditat?',
+        cta_title: 'Descobreix la visita <em>nocturna</em> o la <em>VIP</em>',
+        cta_btn: 'Comparar modalitats'
+      }
+    };
+
+    window.PAGE_applyLang = function(lang, t) {
+      if (!t) t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroEl = document.getElementById('hero-bg');
+      if (heroEl) {
+        heroEl.style.backgroundImage = "url('../assets/img/diurna.webp')";
+        const i2 = new Image();
+        i2.src = '../assets/img/diurna.webp';
+        i2.onload = () => heroEl.classList.add('loaded');
+      }
+
+      // ── Modo Claro / Oscuro ───────────────────────────────────
+      (function () {
+        const btn = document.getElementById('a11y-light-mode');
+        if (!btn) return;
+        const KEY = 'a11y-light-mode';
+
+        const logoImg = document.querySelector('.navbar__logo-favicon');
+        const navbar = document.getElementById('navbar');
+
+        function updateLogo() {
+          if (!logoImg) return;
+          const isLight = document.body.classList.contains('light-mode');
+          const isScrolled = navbar && navbar.classList.contains('scrolled');
+          logoImg.src = '../favicon.svg';
+        }
+
+        function applyLightMode(on) {
+          document.body.classList.toggle('light-mode', on);
+          btn.classList.toggle('is-active', on);
+          btn.setAttribute('aria-pressed', String(on));
+          updateLogo();
+          localStorage.setItem(KEY, on ? '1' : '0');
+        }
+
+        window.addEventListener('scroll', updateLogo, { passive: true });
+        if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+        btn.addEventListener('click', () => {
+          applyLightMode(!document.body.classList.contains('light-mode'));
+        });
+      })();
+    });
+  </script>
+
+</body>
+</html>

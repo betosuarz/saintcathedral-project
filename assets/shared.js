@@ -25,7 +25,7 @@ const SHARED_T = {
     footer_info_4: 'Prensa', footer_info_5: 'Actualidad',
     footer_copy: '© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España',
     footer_legal_1: 'Aviso legal', footer_legal_2: 'Privacidad',
-    footer_legal_3: 'Cookies', footer_legal_4: 'Accesibilidad',
+    footer_legal_3: 'Cookies', footer_legal_4: 'Accesibilidad', footer_legal_5: 'Compra',
     newsletter_eyebrow: 'Newsletter semanal',
     newsletter_title: 'El Camino en tu <em>bandeja de entrada</em>',
     newsletter_sub: 'Noticias, exposiciones, eventos y ofertas exclusivas cada semana.',
@@ -65,6 +65,9 @@ const SHARED_T = {
     cookie_reject_all: 'Rechazar opcionales',
     cookie_modal_close: 'Cerrar',
     cookie_link: 'Política de cookies',
+    bc_home: 'Inicio', bc_visitas: 'Visitas', bc_monumentos: 'Monumentos', bc_actualidad: 'Actualidad', bc_institucion: 'Institución', bc_reservas: 'Reservas',
+    bc_individuales: 'Visitas Individuales', bc_guiadas: 'Visitas Guiadas', bc_pulsera: 'Pulsera Turística', bc_grupos: 'Grupos', bc_escolares: 'Escolares',
+    bc_aviso: 'Aviso Legal', bc_privacidad: 'Política de Privacidad', bc_cookies: 'Política de Cookies', bc_accesibilidad: 'Accesibilidad', bc_compra: 'Condiciones de Compra',
   },
   en: {
     nav_tickets: 'Tickets',
@@ -82,7 +85,7 @@ const SHARED_T = {
     footer_info_4: 'Press', footer_info_5: 'News',
     footer_copy: '© 2026 Cathedral of Santo Domingo de la Calzada · La Rioja · Spain',
     footer_legal_1: 'Legal notice', footer_legal_2: 'Privacy',
-    footer_legal_3: 'Cookies', footer_legal_4: 'Accessibility',
+    footer_legal_3: 'Cookies', footer_legal_4: 'Accessibility', footer_legal_5: 'Purchase',
     newsletter_eyebrow: 'Weekly newsletter',
     newsletter_title: 'The Way in your <em>inbox</em>',
     newsletter_sub: 'News, exhibitions, events and exclusive offers every week.',
@@ -122,6 +125,9 @@ const SHARED_T = {
     cookie_reject_all: 'Reject optional',
     cookie_modal_close: 'Close',
     cookie_link: 'Cookie policy',
+    bc_home: 'Home', bc_visitas: 'Visits', bc_monumentos: 'Monuments', bc_actualidad: 'News', bc_institucion: 'Institution', bc_reservas: 'Bookings',
+    bc_individuales: 'Self-guided Visits', bc_guiadas: 'Guided Tours', bc_pulsera: 'Tourist Bracelet', bc_grupos: 'Groups', bc_escolares: 'Schools',
+    bc_aviso: 'Legal Notice', bc_privacidad: 'Privacy Policy', bc_cookies: 'Cookie Policy', bc_accesibilidad: 'Accessibility', bc_compra: 'Purchase Terms',
   },
   fr: {
     nav_tickets: 'Billets',
@@ -139,7 +145,7 @@ const SHARED_T = {
     footer_info_4: 'Presse', footer_info_5: 'Actualités',
     footer_copy: '© 2026 Cathédrale de Santo Domingo de la Calzada · La Rioja · Espagne',
     footer_legal_1: 'Mentions légales', footer_legal_2: 'Confidentialité',
-    footer_legal_3: 'Cookies', footer_legal_4: 'Accessibilité',
+    footer_legal_3: 'Cookies', footer_legal_4: 'Accessibilité', footer_legal_5: 'Achat',
     newsletter_eyebrow: 'Lettre hebdomadaire',
     newsletter_title: 'Le Chemin dans votre <em>boîte mail</em>',
     newsletter_sub: 'Actualités, expositions, événements et offres exclusives chaque semaine.',
@@ -179,6 +185,9 @@ const SHARED_T = {
     cookie_reject_all: 'Refuser les optionnels',
     cookie_modal_close: 'Fermer',
     cookie_link: 'Politique des cookies',
+    bc_home: 'Accueil', bc_visitas: 'Visites', bc_monumentos: 'Monuments', bc_actualidad: 'Actualités', bc_institucion: 'Institution', bc_reservas: 'Réservations',
+    bc_individuales: 'Visites Libres', bc_guiadas: 'Visites Guidées', bc_pulsera: 'Bracelet Touristique', bc_grupos: 'Groupes', bc_escolares: 'Scolaires',
+    bc_aviso: 'Mentions Légales', bc_privacidad: 'Politique de Confidentialité', bc_cookies: 'Politique des Cookies', bc_accesibilidad: 'Accessibilité', bc_compra: 'Conditions d\'Achat',
   },
   de: {
     nav_tickets: 'Tickets',
@@ -196,7 +205,7 @@ const SHARED_T = {
     footer_info_4: 'Presse', footer_info_5: 'Aktuelles',
     footer_copy: '© 2026 Kathedrale von Santo Domingo de la Calzada · La Rioja · Spanien',
     footer_legal_1: 'Impressum', footer_legal_2: 'Datenschutz',
-    footer_legal_3: 'Cookies', footer_legal_4: 'Barrierefreiheit',
+    footer_legal_3: 'Cookies', footer_legal_4: 'Barrierefreiheit', footer_legal_5: 'Kauf',
     newsletter_eyebrow: 'Wöchentlicher Newsletter',
     newsletter_title: 'Der Camino in Ihrem <em>Posteingang</em>',
     newsletter_sub: 'Neuigkeiten, Ausstellungen, Veranstaltungen und exklusive Angebote jede Woche.',
@@ -236,6 +245,9 @@ const SHARED_T = {
     cookie_reject_all: 'Optionale ablehnen',
     cookie_modal_close: 'Schließen',
     cookie_link: 'Cookie-Richtlinie',
+    bc_home: 'Startseite', bc_visitas: 'Besuche', bc_monumentos: 'Denkmäler', bc_actualidad: 'Aktuelles', bc_institucion: 'Institution', bc_reservas: 'Buchungen',
+    bc_individuales: 'Einzelbesuche', bc_guiadas: 'Führungen', bc_pulsera: 'Touristen-Armband', bc_grupos: 'Gruppen', bc_escolares: 'Schulen',
+    bc_aviso: 'Impressum', bc_privacidad: 'Datenschutzerklärung', bc_cookies: 'Cookie-Richtlinie', bc_accesibilidad: 'Barrierefreiheit', bc_compra: 'Kaufbedingungen',
   },
   pt: {
     nav_tickets: 'Bilhetes',
@@ -253,7 +265,7 @@ const SHARED_T = {
     footer_info_4: 'Imprensa', footer_info_5: 'Notícias',
     footer_copy: '© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · Espanha',
     footer_legal_1: 'Aviso legal', footer_legal_2: 'Privacidade',
-    footer_legal_3: 'Cookies', footer_legal_4: 'Acessibilidade',
+    footer_legal_3: 'Cookies', footer_legal_4: 'Acessibilidade', footer_legal_5: 'Compra',
     newsletter_eyebrow: 'Newsletter semanal',
     newsletter_title: 'O Caminho na sua <em>caixa de entrada</em>',
     newsletter_sub: 'Notícias, exposições, eventos e ofertas exclusivas todas as semanas.',
@@ -293,6 +305,9 @@ const SHARED_T = {
     cookie_reject_all: 'Rejeitar opcionais',
     cookie_modal_close: 'Fechar',
     cookie_link: 'Política de cookies',
+    bc_home: 'Início', bc_visitas: 'Visitas', bc_monumentos: 'Monumentos', bc_actualidad: 'Atualidade', bc_institucion: 'Instituição', bc_reservas: 'Reservas',
+    bc_individuales: 'Visitas Individuais', bc_guiadas: 'Visitas Guiadas', bc_pulsera: 'Pulseira Turística', bc_grupos: 'Grupos', bc_escolares: 'Escolares',
+    bc_aviso: 'Aviso Legal', bc_privacidad: 'Política de Privacidade', bc_cookies: 'Política de Cookies', bc_accesibilidad: 'Acessibilidade', bc_compra: 'Condições de Compra',
   },
   it: {
     nav_tickets: 'Biglietti',
@@ -310,7 +325,7 @@ const SHARED_T = {
     footer_info_4: 'Stampa', footer_info_5: 'Notizie',
     footer_copy: '© 2026 Cattedrale di Santo Domingo de la Calzada · La Rioja · Spagna',
     footer_legal_1: 'Note legali', footer_legal_2: 'Privacy',
-    footer_legal_3: 'Cookie', footer_legal_4: 'Accessibilità',
+    footer_legal_3: 'Cookie', footer_legal_4: 'Accessibilità', footer_legal_5: 'Acquisto',
     newsletter_eyebrow: 'Newsletter settimanale',
     newsletter_title: 'Il Cammino nella tua <em>casella di posta</em>',
     newsletter_sub: 'Notizie, mostre, eventi e offerte esclusive ogni settimana.',
@@ -350,6 +365,9 @@ const SHARED_T = {
     cookie_reject_all: 'Rifiuta opzionali',
     cookie_modal_close: 'Chiudi',
     cookie_link: 'Politica sui cookie',
+    bc_home: 'Home', bc_visitas: 'Visite', bc_monumentos: 'Monumenti', bc_actualidad: 'Attualità', bc_institucion: 'Istituzione', bc_reservas: 'Prenotazioni',
+    bc_individuales: 'Visite Individuali', bc_guiadas: 'Visite Guidate', bc_pulsera: 'Braccialetto Turistico', bc_grupos: 'Gruppi', bc_escolares: 'Scolastiche',
+    bc_aviso: 'Note Legali', bc_privacidad: 'Informativa sulla Privacy', bc_cookies: 'Informativa sui Cookie', bc_accesibilidad: 'Accessibilità', bc_compra: 'Condizioni d\'Acquisto',
   },
   ko: {
     nav_tickets: '입장권',
@@ -367,7 +385,7 @@ const SHARED_T = {
     footer_info_4: '언론', footer_info_5: '뉴스',
     footer_copy: '© 2026 산토 도밍고 데 라 칼사다 대성당 · 라 리오하 · 스페인',
     footer_legal_1: '법적 고지', footer_legal_2: '개인정보',
-    footer_legal_3: '쿠키', footer_legal_4: '접근성',
+    footer_legal_3: '쿠키', footer_legal_4: '접근성', footer_legal_5: '구매',
     newsletter_eyebrow: '주간 뉴스레터',
     newsletter_title: '당신의 <em>받은편지함</em>에 카미노를',
     newsletter_sub: '매주 뉴스, 이벤트 및 독점 할인을 안내해 드립니다.',
@@ -407,6 +425,9 @@ const SHARED_T = {
     cookie_reject_all: '선택 항목 거부',
     cookie_modal_close: '닫기',
     cookie_link: '쿠키 정책',
+    bc_home: '홈', bc_visitas: '관람', bc_monumentos: '기념물', bc_actualidad: '소식', bc_institucion: '기관', bc_reservas: '예약',
+    bc_individuales: '개인 방문', bc_guiadas: '가이드 투어', bc_pulsera: '관광 팔찌', bc_grupos: '단체', bc_escolares: '학교',
+    bc_aviso: '법적 고지', bc_privacidad: '개인정보 처리방침', bc_cookies: '쿠키 정책', bc_accesibilidad: '접근성', bc_compra: '구매 약관',
   },
   eu: {
     nav_tickets: 'Sarrerak',
@@ -424,7 +445,7 @@ const SHARED_T = {
     footer_info_4: 'Prentsa', footer_info_5: 'Albisteak',
     footer_copy: '© 2026 Santo Domingoko Katedrala · Errioxa · Espainia',
     footer_legal_1: 'Lege oharra', footer_legal_2: 'Pribatutasuna',
-    footer_legal_3: 'Cookieak', footer_legal_4: 'Irisgarritasuna',
+    footer_legal_3: 'Cookieak', footer_legal_4: 'Irisgarritasuna', footer_legal_5: 'Erosketa',
     newsletter_eyebrow: 'Asteko buletina',
     newsletter_title: 'Bidea zure <em>posta-ontzian</em>',
     newsletter_sub: 'Albisteak, erakusketak, ekitaldiak eta eskaintza bereziak astero.',
@@ -464,6 +485,9 @@ const SHARED_T = {
     cookie_reject_all: 'Aukerakoak ukatu',
     cookie_modal_close: 'Itxi',
     cookie_link: 'Cookie politika',
+    bc_home: 'Hasiera', bc_visitas: 'Bisitaldiak', bc_monumentos: 'Monumentuak', bc_actualidad: 'Albisteak', bc_institucion: 'Erakundea', bc_reservas: 'Erreserbak',
+    bc_individuales: 'Banakako Bisitak', bc_guiadas: 'Bisita Gidatuak', bc_pulsera: 'Pultsera Turistikoa', bc_grupos: 'Taldeak', bc_escolares: 'Eskolak',
+    bc_aviso: 'Lege Oharra', bc_privacidad: 'Pribatutasun Politika', bc_cookies: 'Cookien Politika', bc_accesibilidad: 'Irisgarritasuna', bc_compra: 'Erosketa Baldintzak',
   },
   ca: {
     nav_tickets: 'Entrades',
@@ -481,7 +505,7 @@ const SHARED_T = {
     footer_info_4: 'Premsa', footer_info_5: 'Actualitat',
     footer_copy: '© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · Espanya',
     footer_legal_1: 'Avís legal', footer_legal_2: 'Privacitat',
-    footer_legal_3: 'Cookies', footer_legal_4: 'Accessibilitat',
+    footer_legal_3: 'Cookies', footer_legal_4: 'Accessibilitat', footer_legal_5: 'Compra',
     newsletter_eyebrow: 'Butlletí setmanal',
     newsletter_title: 'El Camí a la teva <em>safata d\'entrada</em>',
     newsletter_sub: 'Notícies, exposicions, esdeveniments i ofertes exclusives cada setmana.',
@@ -521,6 +545,9 @@ const SHARED_T = {
     cookie_reject_all: 'Rebutjar opcionals',
     cookie_modal_close: 'Tancar',
     cookie_link: 'Política de cookies',
+    bc_home: 'Inici', bc_visitas: 'Visites', bc_monumentos: 'Monuments', bc_actualidad: 'Actualitat', bc_institucion: 'Institució', bc_reservas: 'Reserves',
+    bc_individuales: 'Visites Individuals', bc_guiadas: 'Visites Guiades', bc_pulsera: 'Polsera Turística', bc_grupos: 'Grups', bc_escolares: 'Escolars',
+    bc_aviso: 'Avís Legal', bc_privacidad: 'Política de Privacitat', bc_cookies: 'Política de Cookies', bc_accesibilidad: 'Accessibilitat', bc_compra: 'Condicions de Compra',
   }
 };
 
@@ -534,6 +561,12 @@ function _applyShared(lang) {
 
   // Navbar tickets button
   _setText('[data-i18n="nav_tickets"]', t.nav_tickets);
+
+  // Breadcrumb (generic data-i18n="bc_*" handler)
+  document.querySelectorAll('[data-i18n^="bc_"]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] != null) el.textContent = t[key];
+  });
 
   // Side menu nav links
   const menuKeys = ['menu_1', 'menu_2', 'menu_3', 'menu_4', 'menu_5', 'menu_6'];
@@ -555,7 +588,7 @@ function _applyShared(lang) {
     _setText(`[data-i18n="footer_info_${n}"]`, t[`footer_info_${n}`]);
   });
   _setText('[data-i18n="footer_copy"]', t.footer_copy);
-  [1, 2, 3, 4].forEach(n => _setText(`[data-i18n="footer_legal_${n}"]`, t[`footer_legal_${n}`]));
+  [1, 2, 3, 4, 5].forEach(n => _setText(`[data-i18n="footer_legal_${n}"]`, t[`footer_legal_${n}`]));
   _setText('[data-i18n="footer_desc"]', t.footer_desc);
 
   // Newsletter

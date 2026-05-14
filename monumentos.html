@@ -1361,13 +1361,13 @@
     <!-- BREADCRUMB -->
     <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
       <ol class="breadcrumb__list" role="list">
-        <li><a href="index.html" class="breadcrumb__link">Inicio</a></li>
+        <li><a href="index.html" class="breadcrumb__link" data-i18n="bc_home">Inicio</a></li>
         <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
-        <li><span class="breadcrumb__current" aria-current="page">Monumentos</span></li>
+        <li><span class="breadcrumb__current" aria-current="page" data-i18n="bc_monumentos">Monumentos</span></li>
       </ol>
       <a href="index.html" class="breadcrumb__back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>Inicio</span>
+        <span data-i18n="bc_home">Inicio</span>
       </a>
     </nav>
     <div class="page-hero__content">
@@ -1375,11 +1375,11 @@
       <div class="page-hero__eyebrow" data-i18n-page="page_eyebrow">Santo Domingo de la Calzada · La Rioja</div>
       <p class="page-hero__desc" data-i18n-page="page_desc">Cinco joyas patrimoniales que narran ocho siglos de arte, devoción y Camino de Santiago.</p>
       <nav class="hero-nav" aria-label="Monumentos">
-        <a href="#catedral" class="hero-nav__link">Catedral</a>
-        <a href="#torre" class="hero-nav__link">Torre Exenta</a>
-        <a href="#san-francisco" class="hero-nav__link">San Francisco</a>
-        <a href="#ermita" class="hero-nav__link">Ermita Plaza</a>
-        <a href="#monasterio-canas" class="hero-nav__link">Monasterio Cañas</a>
+        <a href="#catedral" class="hero-nav__link" data-i18n-page="hero_nav_1">Catedral</a>
+        <a href="#torre" class="hero-nav__link" data-i18n-page="hero_nav_2">Torre Exenta</a>
+        <a href="#san-francisco" class="hero-nav__link" data-i18n-page="hero_nav_3">San Francisco</a>
+        <a href="#ermita" class="hero-nav__link" data-i18n-page="hero_nav_4">Ermita Plaza</a>
+        <a href="#monasterio-canas" class="hero-nav__link" data-i18n-page="hero_nav_5">Monasterio Cañas</a>
       </nav>
     </div>
   </section>
@@ -1804,6 +1804,7 @@
         canas_card_title: 'Monasterio de <em>Cañas</em>', canas_card_desc: 'Comunidad cisterciense fundada en 1169. Panteón funerario, claustro porticado e iglesia románico-gótica de excepcional belleza medieval.', canas_card_cta: 'Descubrir el monasterio',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Catedral', nav_card_2: 'Torre', nav_card_3: 'San Francisco', nav_card_4: 'Ermita',
+        hero_nav_1: 'Catedral', hero_nav_2: 'Torre Exenta', hero_nav_3: 'San Francisco', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Monasterio Cañas',
         nav_sub_1: 'ss. XII–XIV · Románico-Gótico', nav_sub_2: 's. XVIII · Barroco tardío', nav_sub_3: 'ss. XIII–XVI · Convento gótico', nav_sub_4: 's. XII · Románico',
         tag1_1: 'Románico-Gótico', tag1_2: 'Gallinero vivo', tag1_3: 'Camino de Santiago', tag1_4: 'Monumento Nacional',
         tag2_1: 'Barroco tardío', tag2_2: '70 metros', tag2_3: 'Vistas panorámicas', tag2_4: 'La Rioja',
@@ -1840,6 +1841,9 @@
         canas_card_title: 'Monastery of <em>Cañas</em>', canas_card_desc: 'Cistercian community founded in 1169. Funeral pantheon, arcaded cloister and Romanesque-Gothic church of exceptional medieval beauty.', canas_card_cta: 'Discover the monastery',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Cathedral', nav_card_2: 'Tower', nav_card_3: 'San Francisco', nav_card_4: 'Hermitage',
+        hero_nav_1: 'Cathedral', hero_nav_2: 'Free-standing Tower', hero_nav_3: 'San Francisco', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Monastery of Cañas',
+        canas_card_lead: 'Declared a National Monument, the Monastery of Santa María de San Salvador de Cañas is one of the most complete and best-preserved Cistercian complexes in Spain. Founded in 1170, a community of nuns has lived within its walls without interruption to this day.',
+        canas_card_body: 'Unique wonders await inside: the Gothic church lit by alabaster windows, the Renaissance altarpiece by Andrés de Melgar and Guillén de Holanda, the Chapter House with the incorrupt tomb of Blessed Urraca López de Haro, and a fascinating museum with centuries-old relics, including the legendary horseshoes of Saint James\'s horse.',
         nav_sub_1: '12th–14th c. · Romanesque-Gothic', nav_sub_2: '18th c. · Late Baroque', nav_sub_3: '13th–16th c. · Gothic Convent', nav_sub_4: '12th c. · Romanesque',
         tag1_1: 'Romanesque-Gothic', tag1_2: 'Live hen house', tag1_3: 'Way of St. James', tag1_4: 'National Monument',
         tag2_1: 'Late Baroque', tag2_2: '70 metres', tag2_3: 'Panoramic views', tag2_4: 'La Rioja',
@@ -1875,6 +1879,9 @@
         canas_card_title: 'Monastère de <em>Cañas</em>', canas_card_desc: 'Communauté cistercienne fondée en 1169. Panthéon funéraire, cloître à arcades et église romano-gothique d\'une beauté médiévale exceptionnelle.', canas_card_cta: 'Découvrir le monastère',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Cathédrale', nav_card_2: 'Tour', nav_card_3: 'San Francisco', nav_card_4: 'Ermitage',
+        hero_nav_1: 'Cathédrale', hero_nav_2: 'Tour Indépendante', hero_nav_3: 'San Francisco', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Monastère de Cañas',
+        canas_card_lead: 'Classé Monument National, le Monastère de Santa María de San Salvador de Cañas est l\'un des ensembles cisterciens les plus complets et les mieux conservés d\'Espagne. Fondé en 1170, une communauté de religieuses habite ses murs sans interruption jusqu\'à aujourd\'hui.',
+        canas_card_body: 'À l\'intérieur, des merveilles uniques vous attendent : l\'église gothique éclairée par des fenêtres d\'albâtre, le retable Renaissance d\'Andrés de Melgar et Guillén de Holanda, la Salle Capitulaire avec le tombeau incorrompu de la bienheureuse Urraca López de Haro, et un musée fascinant aux reliques centenaires, dont les légendaires fers à cheval du cheval de Saint-Jacques.',
         nav_sub_1: 'XII–XIV s. · Romano-Gothique', nav_sub_2: 'XVIII s. · Baroque tardif', nav_sub_3: 'XIII–XVI s. · Couvent gothique', nav_sub_4: 'XII s. · Roman',
         tag1_1: 'Romano-Gothique', tag1_2: 'Poulailler vivant', tag1_3: 'Chemin de Compostelle', tag1_4: 'Monument National',
         tag2_1: 'Baroque tardif', tag2_2: '70 mètres', tag2_3: 'Vues panoramiques', tag2_4: 'La Rioja',
@@ -1910,6 +1917,9 @@
         canas_card_title: 'Kloster <em>Cañas</em>', canas_card_desc: 'Zisterziensische Gemeinschaft, gegründet 1169. Grabpantheon, Kreuzgang und romanisch-gotische Kirche von außergewöhnlicher mittelalterlicher Schönheit.', canas_card_cta: 'Das Kloster entdecken',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Kathedrale', nav_card_2: 'Turm', nav_card_3: 'San Francisco', nav_card_4: 'Kapelle',
+        hero_nav_1: 'Kathedrale', hero_nav_2: 'Freistehender Turm', hero_nav_3: 'San Francisco', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Kloster Cañas',
+        canas_card_lead: 'Als Nationaldenkmal ausgewiesen, ist das Kloster Santa María de San Salvador de Cañas eines der vollständigsten und am besten erhaltenen Zisterzienserensembles Spaniens. Im Jahr 1170 gegründet, bewohnt eine Nonnengemeinschaft seine Mauern ununterbrochen bis heute.',
+        canas_card_body: 'Im Inneren erwarten Sie einzigartige Wunder: die gotische Kirche mit Alabasterfenstern, das Renaissance-Altarbild von Andrés de Melgar und Guillén de Holanda, der Kapitelsaal mit dem unverwesten Grab der seligen Urraca López de Haro und ein faszinierendes Museum mit jahrhundertealten Reliquien, darunter die legendären Hufeisen des Pferdes des heiligen Jakobus.',
         nav_sub_1: '12.–14. Jh. · Romanik-Gotik', nav_sub_2: '18. Jh. · Spätbarock', nav_sub_3: '13.–16. Jh. · Gotisches Kloster', nav_sub_4: '12. Jh. · Romanik',
         tag1_1: 'Romanik-Gotik', tag1_2: 'Lebendiger Hühnerstall', tag1_3: 'Jakobsweg', tag1_4: 'Nationales Denkmal',
         tag2_1: 'Spätbarock', tag2_2: '70 Meter', tag2_3: 'Panoramablick', tag2_4: 'La Rioja',
@@ -1945,6 +1955,9 @@
         canas_card_title: 'Mosteiro de <em>Cañas</em>', canas_card_desc: 'Comunidade cisterciense fundada em 1169. Panteão funerário, claustro e igreja românico-gótica de excepcional beleza medieval.', canas_card_cta: 'Descobrir o mosteiro',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Catedral', nav_card_2: 'Torre', nav_card_3: 'São Francisco', nav_card_4: 'Ermida',
+        hero_nav_1: 'Catedral', hero_nav_2: 'Torre Isolada', hero_nav_3: 'São Francisco', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Mosteiro de Cañas',
+        canas_card_lead: 'Declarado Monumento Nacional, o Mosteiro de Santa María de San Salvador de Cañas é um dos conjuntos cistercienses mais completos e bem preservados de Espanha. Fundado em 1170, uma comunidade de freiras habita os seus muros de forma ininterrupta até hoje.',
+        canas_card_body: 'No seu interior aguardam maravilhas únicas: a igreja gótica iluminada por janelas de alabastro, o retábulo renascentista de Andrés de Melgar e Guillén de Holanda, a Sala Capitular com o sepulcro incorrupto da beata Urraca López de Haro, e um fascinante museu com relíquias centenárias entre as quais se destacam as lendárias ferraduras do cavalo de Santiago.',
         nav_sub_1: 'sécs. XII–XIV · Românico-Gótico', nav_sub_2: 'séc. XVIII · Barroco tardio', nav_sub_3: 'sécs. XIII–XVI · Convento gótico', nav_sub_4: 'séc. XII · Românico',
         tag1_1: 'Românico-Gótico', tag1_2: 'Galinheiro vivo', tag1_3: 'Caminho de Santiago', tag1_4: 'Monumento Nacional',
         tag2_1: 'Barroco tardio', tag2_2: '70 metros', tag2_3: 'Vistas panorâmicas', tag2_4: 'La Rioja',
@@ -1980,6 +1993,9 @@
         canas_card_title: 'Monastero di <em>Cañas</em>', canas_card_desc: 'Comunità cistercense fondata nel 1169. Pantheon funerario, chiostro e chiesa romanico-gotica di eccezionale bellezza medievale.', canas_card_cta: 'Scoprire il monastero',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Cattedrale', nav_card_2: 'Torre', nav_card_3: 'San Francesco', nav_card_4: 'Eremo',
+        hero_nav_1: 'Cattedrale', hero_nav_2: 'Torre Isolata', hero_nav_3: 'San Francesco', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Monastero di Cañas',
+        canas_card_lead: 'Dichiarato Monumento Nazionale, il Monastero di Santa María de San Salvador de Cañas è uno dei complessi cistercensi più completi e meglio conservati di Spagna. Fondato nel 1170, una comunità di monache abita le sue mura ininterrottamente fino ad oggi.',
+        canas_card_body: 'Al suo interno ti attendono meraviglie uniche: la chiesa gotica illuminata da vetrate di alabastro, la pala rinascimentale di Andrés de Melgar e Guillén de Holanda, la Sala Capitolare con il sepolcro incorrotto della beata Urraca López de Haro, e un affascinante museo con reliquie centenarie tra cui spiccano i leggendari ferri del cavallo di Santiago.',
         nav_sub_1: 'XII–XIV sec. · Romanico-Gotico', nav_sub_2: 'XVIII sec. · Barocco tardivo', nav_sub_3: 'XIII–XVI sec. · Convento gotico', nav_sub_4: 'XII sec. · Romanico',
         tag1_1: 'Romanico-Gotico', tag1_2: 'Pollaio vivo', tag1_3: 'Cammino di Santiago', tag1_4: 'Monumento Nazionale',
         tag2_1: 'Barocco tardivo', tag2_2: '70 metri', tag2_3: 'Viste panoramiche', tag2_4: 'La Rioja',
@@ -2015,6 +2031,9 @@
         canas_card_title: '<em>카냐스</em> 수도원', canas_card_desc: '1169년에 설립된 시토회 공동체. 장례 판테온, 회랑, 탁월한 중세 아름다움의 로마네스크-고딕 교회.', canas_card_cta: '수도원 탐색',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: '대성당', nav_card_2: '종탑', nav_card_3: '산 프란치스코', nav_card_4: '예배당',
+        hero_nav_1: '대성당', hero_nav_2: '독립 종탑', hero_nav_3: '산 프란치스코', hero_nav_4: '에르미타 플라사', hero_nav_5: '카냐스 수도원',
+        canas_card_lead: '국가 기념물로 지정된 산타 마리아 데 산 살바도르 데 카냐스 수도원은 스페인에서 가장 완벽하고 잘 보존된 시토회 수도원 중 하나입니다. 1170년에 설립된 이곳에는 수녀 공동체가 오늘날까지 끊임없이 거주하고 있습니다.',
+        canas_card_body: '내부에는 독특한 보물들이 기다리고 있습니다: 설화석고 창문으로 빛이 비추는 고딕 양식의 교회, 안드레스 데 멜가르와 기옌 데 홀란다의 르네상스 제단화, 복녀 우라카 로페스 데 아로의 부패하지 않은 유해가 안치된 의사당, 그리고 산티아고의 말의 전설적인 편자를 비롯한 수백 년 된 유물들이 있는 매혹적인 박물관입니다.',
         nav_sub_1: '12–14세기 · 로마네스크-고딕', nav_sub_2: '18세기 · 후기 바로크', nav_sub_3: '13–16세기 · 고딕 수도원', nav_sub_4: '12세기 · 로마네스크',
         tag1_1: '로마네스크-고딕', tag1_2: '살아있는 닭장', tag1_3: '산티아고 순례길', tag1_4: '국가 기념물',
         tag2_1: '후기 바로크', tag2_2: '70미터', tag2_3: '파노라마 전망', tag2_4: '라 리오하',
@@ -2050,6 +2069,9 @@
         canas_card_title: '<em>Cañasko</em> Monastegia', canas_card_desc: '1169an sortutako zistertziar komunitatea. Ehorzpeko panteoa, klaustroa eta ezohiko ertaroko edertasuneko eliza erromaniko-gotikoa.', canas_card_cta: 'Monastegia aurkitu',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Katedrala', nav_card_2: 'Dorrea', nav_card_3: 'San Frantzisko', nav_card_4: 'Ermita',
+        hero_nav_1: 'Katedrala', hero_nav_2: 'Dorre Exentua', hero_nav_3: 'San Frantzisko', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Cañasko Monasterioa',
+        canas_card_lead: 'Monumentu Nazional izendatua, Santa María de San Salvador de Cañasko Monasterioa Espainian dauden zistertziar multzo osatuenetako eta hobekien zainduenetakoa da. 1170ean sortua, mojen komunitate batek bertako murruak etenik gabe bizi ditu gaur arte.',
+        canas_card_body: 'Bertan barruan miraririk gabeko gauzak ditu zain: harri alabastrozko leihoek argituriko eliza gotikoa, Andrés de Melgar eta Guillén de Holandaren Errenazimentuko erretaula, Urraka López de Haro dohatsuaren hilobi ustelgaitza dagoen Kapitulu Aretoa, eta mendetako erlikiekin osatutako museo liluragarria, non Santiagoren zaldiaren ferra mitikoak nabarmentzen diren.',
         nav_sub_1: 'XII–XIV. mendea · Erromaniko-Gotiko', nav_sub_2: 'XVIII. mendea · Barrokoa', nav_sub_3: 'XIII–XVI. mendea · Komentua', nav_sub_4: 'XII. mendea · Erromanikoa',
         tag1_1: 'Erromaniko-Gotiko', tag1_2: 'Oilar bizia', tag1_3: 'Santiago Bidea', tag1_4: 'Monumentu Nazionala',
         tag2_1: 'Barrokoa', tag2_2: '70 metro', tag2_3: 'Ikuspegi panoramikoa', tag2_4: 'Errioxa',
@@ -2085,6 +2107,9 @@
         canas_card_title: 'Monestir de <em>Cañas</em>', canas_card_desc: 'Comunitat cistercenca fundada el 1169. Panteó funerari, claustre i església romànic-gòtica d\'excepcional bellesa medieval.', canas_card_cta: 'Descobrir el monestir',
         nav_num_1: '01', nav_num_2: '02', nav_num_3: '03', nav_num_4: '04',
         nav_card_1: 'Catedral', nav_card_2: 'Torre', nav_card_3: 'Sant Francesc', nav_card_4: 'Ermita',
+        hero_nav_1: 'Catedral', hero_nav_2: 'Torre Exempta', hero_nav_3: 'Sant Francesc', hero_nav_4: 'Ermita Plaza', hero_nav_5: 'Monestir de Cañas',
+        canas_card_lead: 'Declarat Monument Nacional, el Monestir de Santa María de San Salvador de Cañas és un dels conjunts cistercencs més complets i ben conservats d\'Espanya. Fundat l\'any 1170, una comunitat de monges habita els seus murs de manera ininterrompuda fins avui.',
+        canas_card_body: 'Al seu interior us esperen meravelles úniques: l\'església gòtica il·luminada per finestrals d\'alabastre, el retaule renaixentista d\'Andrés de Melgar i Guillén de Holanda, la Sala Capitular amb el sepulcre incorrupte de la beata Urraca López de Haro, i un fascinant museu amb relíquies centenàries entre les quals destaquen les llegendàries ferradures del cavall de Sant Jaume.',
         nav_sub_1: 'ss. XII–XIV · Romànic-Gòtic', nav_sub_2: 's. XVIII · Barroc tardà', nav_sub_3: 'ss. XIII–XVI · Convent gòtic', nav_sub_4: 's. XII · Romànic',
         tag1_1: 'Romànic-Gòtic', tag1_2: 'Gallineret viu', tag1_3: 'Camí de Santiago', tag1_4: 'Monument Nacional',
         tag2_1: 'Barroc tardà', tag2_2: '70 metres', tag2_3: 'Vistes panoràmiques', tag2_4: 'La Rioja',

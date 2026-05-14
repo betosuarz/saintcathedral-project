@@ -1108,13 +1108,13 @@
     <!-- BREADCRUMB -->
     <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
       <ol class="breadcrumb__list" role="list">
-        <li><a href="index.html" class="breadcrumb__link">Inicio</a></li>
+        <li><a href="index.html" class="breadcrumb__link" data-i18n="bc_home">Inicio</a></li>
         <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></li>
-        <li><span class="breadcrumb__current" aria-current="page">Institución</span></li>
+        <li><span class="breadcrumb__current" aria-current="page" data-i18n="bc_institucion">Institución</span></li>
       </ol>
       <a href="index.html" class="breadcrumb__back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>Inicio</span>
+        <span data-i18n="bc_home">Inicio</span>
       </a>
     </nav>
     <div class="page-hero__content">
@@ -1490,7 +1490,35 @@
         archivo_card4_link1: 'Formulario de solicitud →',
         cta_title: '¿Quieres saber <em>más</em>?',
         cta_sub: 'Contacta con la institución para cualquier consulta sobre la parroquia, el cabildo o el archivo.',
-        cta_btn: 'Contactar →'
+        cta_btn: 'Contactar →',
+        fp_eyebrow: 'Calendario festivo', fp_title: 'Fiestas locales y religiosas · Santo Domingo de la Calzada',
+        fp_g1_title: 'Fiestas locales oficiales', fp_g1_list: '<li><strong>12 de mayo</strong> · Festividad de Santo Domingo (patrón de la ciudad).</li><li><strong>18 de septiembre</strong> · Fiestas de Gracias.</li>',
+        fp_g2_title: 'Fiestas del Santo · Interés Turístico Nacional', fp_g2_list: '<li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li><li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del Peregrino) y Procesión de la Rueda.</li><li><strong>11 de mayo</strong> · Reparto del Pan del Santo y del Peregrino.</li><li><strong>12 de mayo</strong> · Día grande: Misa Solemne, Procesión del Santo y reparto del Almuerzo del Santo.</li><li><strong>15 de mayo</strong> · Procesión de San Isidro.</li>',
+        fp_g3_title: 'Virgen de la Plaza', fp_g3_list: '<li><strong>5 de agosto</strong> · Festividad de la Virgen de la Plaza, patrona de los calceatenses.</li>',
+        fp_g4_title: 'Fiestas de Gracias y San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico calceatense.</li><li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li>',
+        fp_g5_title: 'Otras celebraciones religiosas', fp_g5_list: '<li>Cuaresma y Semana Santa: pregón, procesiones (Domingo de Ramos, Borriquita, Santa Cena, Viacrucis, Santo Entierro, Vigilia Pascual, Resurrección).</li><li>Corpus Christi: procesión por las calles del casco antiguo.</li><li>Solemnidades patronales y de Cristo Rey en la S. I. Catedral.</li>',
+        fp_note: 'Las fechas pueden variar ligeramente cada año en función del calendario litúrgico. Consulta la programación oficial para confirmar horarios y ubicaciones.',
+        cp_eyebrow: 'Competencias del Cabildo', cp_title: 'Funciones capitulares',
+        cp_p1: 'El <strong>Cabildo Catedralicio</strong> es un órgano colegiado de clérigos con personalidad jurídica propia, instituido para asistir al obispo con su consejo y para asumir el culto solemne de la Catedral. Su existencia y competencias están reguladas por los cánones 503 a 510 del Código de Derecho Canónico de 1983 y por los estatutos aprobados por el obispo diocesano.',
+        cp_p2: 'Su tarea primaria es <strong>litúrgica</strong>: organiza, promueve y celebra el culto ordinario y extraordinario, las grandes solemnidades del calendario eclesiástico y las celebraciones más significativas de la vida diocesana. A esta misión se suma la <strong>custodia y gestión del patrimonio</strong> religioso, histórico y artístico que se conserva en el templo, el archivo capitular y los museos catedralicios.',
+        cp_p3: 'El Cabildo desempeña además funciones de <strong>asesoramiento episcopal</strong>, representación institucional y atención pastoral a quienes solicitan servicios religiosos en la Catedral. En Santo Domingo de la Calzada, lo integran el Deán, el Arcediano, el Chantre, el Tesorero y los canónigos, conforme a sus estatutos propios.',
+        cp_more: 'Más información →',
+        ac_eyebrow: 'Descripción del fondo', ac_title: 'Colección histórica del Archivo Catedralicio',
+        ac_p1: 'El <strong>Archivo Catedralicio de Santo Domingo de la Calzada</strong> nació con las primeras donaciones documentadas que reyes y particulares otorgaron al templo y al abad de la antigua colegiata desde <strong>1120</strong>. Se consolidó a partir de <strong>1229</strong>, cuando la iglesia fue elevada a sede episcopal y comenzó a generar y custodiar el patrimonio documental de la nueva diócesis.',
+        ac_p2: 'Su colección conserva <strong>377 pergaminos sueltos</strong> fechados entre <strong>1135</strong> y el siglo XIX, junto con <strong>16 volúmenes encuadernados</strong> y <strong>3 cartularios</strong> con un total de 255 folios. A ellos se suman <strong>cinco códices medievales</strong> de los siglos XI al XIV, los libros sacramentales desde <strong>1540</strong> y los fondos capitulares con actas, cuentas y documentación administrativa del Cabildo.',
+        ac_p3: 'A finales del siglo XIX, el archivero <strong>Ángel Manso</strong> reunió y organizó las colecciones que habían quedado dispersas, devolviéndolas al espacio donde hoy se conservan. La edición en tres volúmenes de los cartularios, preparada por el medievalista <strong>Antonio Ubieto Arteta</strong>, constituye una fuente fundamental para el estudio de la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.',
+        ac_more: 'Más información →',
+        ab_eyebrow: 'Publicaciones', ab_title: 'Bibliografía y catálogos del Archivo',
+        ab_p1: 'El fondo del Archivo Catedralicio cuenta con un <strong>catálogo descriptivo</strong> elaborado a lo largo del siglo XX, que organiza los pergaminos sueltos, los volúmenes encuadernados, los cartularios y los libros sacramentales en series cronológicas y temáticas. Constituye la herramienta básica de consulta para investigadores acreditados y para la propia administración del Cabildo.',
+        ab_p2: 'La obra de referencia para el estudio del fondo medieval es la edición en tres volúmenes <em>Cartularios (I, II y III) de Santo Domingo de la Calzada</em>, preparada por el medievalista <strong>Agustín Ubieto Arteta</strong> y publicada por Ediciones Anubar en <strong>1978</strong>. Recoge y sistematiza los cartularios del antiguo monasterio y la sede episcopal, ofreciendo una fuente esencial para la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.',
+        ab_p3: 'A esta edición se suman estudios complementarios como los <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n.º 82, 1972) del mismo autor, el inventario del <strong>Archivo Musical</strong> realizado por el musicólogo <strong>José López Calo</strong>, y diversas publicaciones de investigación accesibles en formato digital a través del <strong>Censo-Guía de Archivos</strong> del Ministerio de Cultura.',
+        ab_more: 'Más información →',
+        af_eyebrow: 'Consulta previa', af_title: 'Solicita tu visita de investigación',
+        af_intro: 'Completa el formulario y nos pondremos en contacto contigo para confirmar tu visita al Archivo Catedralicio.',
+        af_lbl_name: 'Nombre completo', af_lbl_phone: 'Teléfono', af_lbl_email: 'Correo electrónico', af_lbl_comments: 'Comentarios',
+        af_ph_comments: 'Indica el objeto de la investigación, las fechas previstas y tu acreditación académica o institucional.',
+        af_terms: 'Acepto la <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y las <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condiciones de uso</a>.',
+        af_submit: 'Enviar solicitud →'
       },
       en: {
         page_eyebrow: 'Cathedral · Parish · Chapter · Archive',
@@ -1544,7 +1572,35 @@
         archivo_card4_link1: 'Request form →',
         cta_title: 'Want to know <em>more</em>?',
         cta_sub: 'Contact the institution for any enquiry about the parish, the chapter or the archive.',
-        cta_btn: 'Contact us →'
+        cta_btn: 'Contact us →',
+        fp_eyebrow: 'Festive calendar', fp_title: 'Local and religious festivities · Santo Domingo de la Calzada',
+        fp_g1_title: 'Official local festivities', fp_g1_list: '<li><strong>12 May</strong> · Feast of Santo Domingo (patron saint of the city).</li><li><strong>18 September</strong> · Feast of Thanksgiving.</li>',
+        fp_g2_title: 'Saint\'s Festivities · National Tourist Interest', fp_g2_list: '<li><strong>25 April</strong> · Departure of the bagpipe and drum and registration of the Maidens.</li><li><strong>10 May</strong> · Blessing of the Branches, Procession of the Maidens (Bread of the Saint and the Pilgrim) and Procession of the Wheel.</li><li><strong>11 May</strong> · Distribution of the Bread of the Saint and the Pilgrim.</li><li><strong>12 May</strong> · Main day: Solemn Mass, Procession of the Saint and distribution of the Saint\'s Breakfast.</li><li><strong>15 May</strong> · Procession of San Isidro.</li>',
+        fp_g3_title: 'Virgin of the Square', fp_g3_list: '<li><strong>5 August</strong> · Feast of the Virgin of the Square, patroness of Santo Domingo.</li>',
+        fp_g4_title: 'Feast of Thanksgiving and San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 September</strong> · Festive programme in honour of San Jerónimo Hermosilla, Dominican from Santo Domingo.</li><li><strong>18 September</strong> · Thanksgiving Mass at the Cathedral and procession.</li>',
+        fp_g5_title: 'Other religious celebrations', fp_g5_list: '<li>Lent and Holy Week: opening address, processions (Palm Sunday, Borriquita, Last Supper, Stations of the Cross, Holy Burial, Easter Vigil, Resurrection).</li><li>Corpus Christi: procession through the streets of the old town.</li><li>Patron saint solemnities and Christ the King at the Cathedral.</li>',
+        fp_note: 'Dates may vary slightly each year depending on the liturgical calendar. Check the official programme to confirm times and locations.',
+        cp_eyebrow: 'Chapter competences', cp_title: 'Capitular functions',
+        cp_p1: 'The <strong>Cathedral Chapter</strong> is a collegial body of clerics with its own legal personality, instituted to assist the bishop with its counsel and to take charge of the solemn worship of the Cathedral. Its existence and competences are regulated by canons 503 to 510 of the 1983 Code of Canon Law and by the statutes approved by the diocesan bishop.',
+        cp_p2: 'Its primary task is <strong>liturgical</strong>: it organises, promotes and celebrates ordinary and extraordinary worship, the great solemnities of the ecclesiastical calendar and the most significant celebrations of diocesan life. To this mission is added the <strong>custody and management of the heritage</strong> — religious, historical and artistic — preserved in the temple, the capitular archive and the cathedral museums.',
+        cp_p3: 'The Chapter also performs functions of <strong>episcopal advice</strong>, institutional representation and pastoral care for those who request religious services at the Cathedral. In Santo Domingo de la Calzada, it comprises the Dean, the Archdeacon, the Chanter, the Treasurer and the canons, according to its own statutes.',
+        cp_more: 'More info →',
+        ac_eyebrow: 'Collection description', ac_title: 'Historic collection of the Cathedral Archive',
+        ac_p1: 'The <strong>Cathedral Archive of Santo Domingo de la Calzada</strong> was born with the first documented donations that kings and individuals granted to the temple and to the abbot of the old collegiate church from <strong>1120</strong>. It was consolidated from <strong>1229</strong>, when the church was elevated to an episcopal see and began to generate and preserve the documentary heritage of the new diocese.',
+        ac_p2: 'Its collection preserves <strong>377 loose parchments</strong> dated between <strong>1135</strong> and the 19th century, together with <strong>16 bound volumes</strong> and <strong>3 cartularies</strong> with a total of 255 folios. To these are added <strong>five medieval codices</strong> from the 11th to the 14th centuries, sacramental books since <strong>1540</strong> and capitular records with minutes, accounts and administrative documentation of the Chapter.',
+        ac_p3: 'At the end of the 19th century, the archivist <strong>Ángel Manso</strong> gathered and organised the collections that had been dispersed, returning them to the space where they are kept today. The three-volume edition of the cartularies, prepared by the medievalist <strong>Antonio Ubieto Arteta</strong>, is a fundamental source for the study of the ecclesiastical, legal and social history of the Way of St. James in the Middle Ages.',
+        ac_more: 'More info →',
+        ab_eyebrow: 'Publications', ab_title: 'Bibliography and catalogues of the Archive',
+        ab_p1: 'The Cathedral Archive holdings include a <strong>descriptive catalogue</strong> compiled throughout the 20th century, organising loose parchments, bound volumes, cartularies and sacramental books in chronological and thematic series. It is the basic consultation tool for accredited researchers and for the Chapter\'s own administration.',
+        ab_p2: 'The reference work for the study of the medieval collection is the three-volume edition <em>Cartularios (I, II and III) de Santo Domingo de la Calzada</em>, prepared by the medievalist <strong>Agustín Ubieto Arteta</strong> and published by Ediciones Anubar in <strong>1978</strong>. It compiles and systematises the cartularies of the former monastery and episcopal see, providing an essential source for the ecclesiastical, legal and social history of the Way of St. James in the Middle Ages.',
+        ab_p3: 'This edition is complemented by studies such as <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, no. 82, 1972) by the same author, the inventory of the <strong>Musical Archive</strong> by musicologist <strong>José López Calo</strong>, and various research publications accessible digitally through the <strong>Census-Guide of Archives</strong> of the Ministry of Culture.',
+        ab_more: 'More info →',
+        af_eyebrow: 'Prior consultation', af_title: 'Request your research visit',
+        af_intro: 'Complete the form and we will contact you to confirm your visit to the Cathedral Archive.',
+        af_lbl_name: 'Full name', af_lbl_phone: 'Phone', af_lbl_email: 'Email', af_lbl_comments: 'Comments',
+        af_ph_comments: 'Specify the subject of the research, the expected dates and your academic or institutional accreditation.',
+        af_terms: 'I accept the <a href="legal/privacidad.html" target="_blank" rel="noopener">privacy policy</a> and the <a href="legal/aviso-legal.html" target="_blank" rel="noopener">terms of use</a>.',
+        af_submit: 'Send request →'
       },
       fr: {
         page_eyebrow: 'Cathédrale · Paroisse · Chapitre · Archives',
@@ -1598,7 +1654,35 @@
         archivo_card4_link1: 'Formulaire de demande →',
         cta_title: 'Vous voulez en savoir <em>plus</em>?',
         cta_sub: 'Contactez l\'institution pour toute question sur la paroisse, le chapitre ou les archives.',
-        cta_btn: 'Nous contacter →'
+        cta_btn: 'Nous contacter →',
+        fp_eyebrow: 'Calendrier festif', fp_title: 'Fêtes locales et religieuses · Santo Domingo de la Calzada',
+        fp_g1_title: 'Fêtes locales officielles', fp_g1_list: '<li><strong>12 mai</strong> · Fête de Santo Domingo (patron de la ville).</li><li><strong>18 septembre</strong> · Fêtes d\'Action de Grâces.</li>',
+        fp_g2_title: 'Fêtes du Saint · Intérêt Touristique National', fp_g2_list: '<li><strong>25 avril</strong> · Sortie de la cornemuse avec tambour et inscription des Demoiselles.</li><li><strong>10 mai</strong> · Bénédiction des Rameaux, Procession des Demoiselles (Pain du Saint et du Pèlerin) et Procession de la Roue.</li><li><strong>11 mai</strong> · Distribution du Pain du Saint et du Pèlerin.</li><li><strong>12 mai</strong> · Grand jour : Messe Solennelle, Procession du Saint et distribution du Déjeuner du Saint.</li><li><strong>15 mai</strong> · Procession de San Isidro.</li>',
+        fp_g3_title: 'Vierge de la Place', fp_g3_list: '<li><strong>5 août</strong> · Fête de la Vierge de la Place, patronne des calceatenses.</li>',
+        fp_g4_title: 'Fêtes d\'Action de Grâces et San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 septembre</strong> · Programme festif en l\'honneur de San Jerónimo Hermosilla, dominicain de Santo Domingo.</li><li><strong>18 septembre</strong> · Messe d\'Action de Grâces à la Cathédrale et procession.</li>',
+        fp_g5_title: 'Autres célébrations religieuses', fp_g5_list: '<li>Carême et Semaine Sainte : discours d\'ouverture, processions (Rameaux, Borriquita, Cène, Chemin de Croix, Saint Enterrement, Vigile Pascale, Résurrection).</li><li>Corpus Christi : procession dans les rues de la vieille ville.</li><li>Solennités patronales et du Christ-Roi à la Cathédrale.</li>',
+        fp_note: 'Les dates peuvent varier légèrement chaque année selon le calendrier liturgique. Consultez le programme officiel pour confirmer horaires et lieux.',
+        cp_eyebrow: 'Compétences du Chapitre', cp_title: 'Fonctions capitulaires',
+        cp_p1: 'Le <strong>Chapitre Cathédral</strong> est un organe collégial de clercs doté d\'une personnalité juridique propre, institué pour assister l\'évêque de ses conseils et pour assumer le culte solennel de la Cathédrale. Son existence et ses compétences sont régies par les canons 503 à 510 du Code de Droit Canonique de 1983 et par les statuts approuvés par l\'évêque diocésain.',
+        cp_p2: 'Sa mission première est <strong>liturgique</strong> : il organise, promeut et célèbre le culte ordinaire et extraordinaire, les grandes solennités du calendrier ecclésiastique et les célébrations les plus significatives de la vie diocésaine. À cela s\'ajoute la <strong>conservation et la gestion du patrimoine</strong> religieux, historique et artistique du temple, des archives capitulaires et des musées cathédraux.',
+        cp_p3: 'Le Chapitre exerce également des fonctions de <strong>conseil épiscopal</strong>, de représentation institutionnelle et de soin pastoral pour ceux qui sollicitent des services religieux à la Cathédrale. À Santo Domingo de la Calzada, il est composé du Doyen, de l\'Archidiacre, du Chantre, du Trésorier et des chanoines, selon ses propres statuts.',
+        cp_more: 'Plus d\'infos →',
+        ac_eyebrow: 'Description du fonds', ac_title: 'Collection historique des Archives Cathédrales',
+        ac_p1: 'Les <strong>Archives Cathédrales de Santo Domingo de la Calzada</strong> sont nées des premières donations documentées que les rois et les particuliers ont accordées au temple et à l\'abbé de l\'ancienne collégiale dès <strong>1120</strong>. Elles se sont consolidées à partir de <strong>1229</strong>, lorsque l\'église fut élevée au rang de siège épiscopal et commença à générer et conserver le patrimoine documentaire du nouveau diocèse.',
+        ac_p2: 'Sa collection conserve <strong>377 parchemins isolés</strong> datés entre <strong>1135</strong> et le XIXe siècle, ainsi que <strong>16 volumes reliés</strong> et <strong>3 cartulaires</strong> totalisant 255 folios. S\'y ajoutent <strong>cinq codex médiévaux</strong> des XIe au XIVe siècles, les livres sacramentels depuis <strong>1540</strong> et les fonds capitulaires avec actes, comptes et documentation administrative du Chapitre.',
+        ac_p3: 'À la fin du XIXe siècle, l\'archiviste <strong>Ángel Manso</strong> rassembla et organisa les collections qui étaient restées dispersées, les ramenant à l\'espace où elles sont conservées aujourd\'hui. L\'édition en trois volumes des cartulaires, préparée par le médiéviste <strong>Antonio Ubieto Arteta</strong>, constitue une source fondamentale pour l\'étude de l\'histoire ecclésiastique, juridique et sociale du Chemin de Saint-Jacques au Moyen Âge.',
+        ac_more: 'Plus d\'infos →',
+        ab_eyebrow: 'Publications', ab_title: 'Bibliographie et catalogues des Archives',
+        ab_p1: 'Le fonds des Archives Cathédrales dispose d\'un <strong>catalogue descriptif</strong> élaboré tout au long du XXe siècle, qui organise les parchemins isolés, les volumes reliés, les cartulaires et les livres sacramentels en séries chronologiques et thématiques. C\'est l\'outil de consultation de base pour les chercheurs accrédités et pour l\'administration du Chapitre.',
+        ab_p2: 'L\'ouvrage de référence pour l\'étude du fonds médiéval est l\'édition en trois volumes <em>Cartularios (I, II et III) de Santo Domingo de la Calzada</em>, préparée par le médiéviste <strong>Agustín Ubieto Arteta</strong> et publiée par Ediciones Anubar en <strong>1978</strong>. Elle recueille et systématise les cartulaires de l\'ancien monastère et du siège épiscopal, offrant une source essentielle pour l\'histoire ecclésiastique, juridique et sociale du Chemin au Moyen Âge.',
+        ab_p3: 'À cette édition s\'ajoutent des études complémentaires telles que les <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n° 82, 1972) du même auteur, l\'inventaire des <strong>Archives Musicales</strong> réalisé par le musicologue <strong>José López Calo</strong>, et diverses publications de recherche accessibles en format numérique via le <strong>Censo-Guía de Archivos</strong> du Ministère de la Culture.',
+        ab_more: 'Plus d\'infos →',
+        af_eyebrow: 'Consultation préalable', af_title: 'Demandez votre visite de recherche',
+        af_intro: 'Remplissez le formulaire et nous vous contacterons pour confirmer votre visite aux Archives Cathédrales.',
+        af_lbl_name: 'Nom complet', af_lbl_phone: 'Téléphone', af_lbl_email: 'Adresse e-mail', af_lbl_comments: 'Commentaires',
+        af_ph_comments: 'Indiquez l\'objet de la recherche, les dates prévues et votre accréditation académique ou institutionnelle.',
+        af_terms: 'J\'accepte la <a href="legal/privacidad.html" target="_blank" rel="noopener">politique de confidentialité</a> et les <a href="legal/aviso-legal.html" target="_blank" rel="noopener">conditions d\'utilisation</a>.',
+        af_submit: 'Envoyer la demande →'
       },
       de: {
         page_eyebrow: 'Kathedrale · Pfarrei · Domkapitel · Archiv',
@@ -1652,7 +1736,35 @@
         archivo_card4_link1: 'Antragsformular →',
         cta_title: 'Möchten Sie <em>mehr</em> erfahren?',
         cta_sub: 'Wenden Sie sich an die Institution für jede Anfrage zur Pfarrei, zum Domkapitel oder zum Archiv.',
-        cta_btn: 'Kontakt →'
+        cta_btn: 'Kontakt →',
+        fp_eyebrow: 'Festkalender', fp_title: 'Lokale und religiöse Feste · Santo Domingo de la Calzada',
+        fp_g1_title: 'Offizielle lokale Feste', fp_g1_list: '<li><strong>12. Mai</strong> · Fest des Heiligen Domingo (Stadtpatron).</li><li><strong>18. September</strong> · Danksagungsfest.</li>',
+        fp_g2_title: 'Festlichkeiten des Heiligen · Nationales Touristisches Interesse', fp_g2_list: '<li><strong>25. April</strong> · Ausmarsch der Dudelsack-Trommel und Eintragung der Jungfrauen.</li><li><strong>10. Mai</strong> · Palmweihe, Prozession der Jungfrauen (Brot des Heiligen und des Pilgers) und Radprozession.</li><li><strong>11. Mai</strong> · Verteilung des Brots des Heiligen und des Pilgers.</li><li><strong>12. Mai</strong> · Großer Tag: Feierliche Messe, Prozession des Heiligen und Verteilung des Frühstücks des Heiligen.</li><li><strong>15. Mai</strong> · Prozession des heiligen Isidor.</li>',
+        fp_g3_title: 'Jungfrau vom Platz', fp_g3_list: '<li><strong>5. August</strong> · Fest der Jungfrau vom Platz, Patronin von Santo Domingo.</li>',
+        fp_g4_title: 'Danksagungsfest und San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17. – 19. September</strong> · Festprogramm zu Ehren von San Jerónimo Hermosilla, Dominikaner aus Santo Domingo.</li><li><strong>18. September</strong> · Dankmesse in der Kathedrale und Prozession.</li>',
+        fp_g5_title: 'Weitere religiöse Feiern', fp_g5_list: '<li>Fastenzeit und Karwoche: Eröffnungsrede, Prozessionen (Palmsonntag, Borriquita, Abendmahl, Kreuzweg, Heiliges Begräbnis, Osternacht, Auferstehung).</li><li>Fronleichnam: Prozession durch die Straßen der Altstadt.</li><li>Patronatsfeste und Christkönigsfest in der Kathedrale.</li>',
+        fp_note: 'Die Daten können je nach liturgischem Kalender jedes Jahr leicht variieren. Konsultieren Sie das offizielle Programm zur Bestätigung von Zeiten und Orten.',
+        cp_eyebrow: 'Zuständigkeiten des Domkapitels', cp_title: 'Kapitelfunktionen',
+        cp_p1: 'Das <strong>Domkapitel</strong> ist ein kollegiales Klerikergremium mit eigener Rechtspersönlichkeit, das eingesetzt wurde, um den Bischof mit seinem Rat zu unterstützen und den feierlichen Gottesdienst der Kathedrale zu übernehmen. Seine Existenz und Zuständigkeiten werden durch die Canones 503 bis 510 des Codex des Kanonischen Rechts von 1983 und durch die vom Diözesanbischof genehmigten Statuten geregelt.',
+        cp_p2: 'Seine Hauptaufgabe ist <strong>liturgisch</strong>: Es organisiert, fördert und feiert den ordentlichen und außerordentlichen Gottesdienst, die großen Feierlichkeiten des kirchlichen Kalenders und die bedeutendsten Feiern des diözesanen Lebens. Zu dieser Mission gehört die <strong>Bewahrung und Verwaltung des religiösen, historischen und künstlerischen Kulturerbes</strong>, das im Tempel, im Kapitelarchiv und in den Kathedralmuseen aufbewahrt wird.',
+        cp_p3: 'Das Kapitel übt darüber hinaus Funktionen der <strong>bischöflichen Beratung</strong>, der institutionellen Vertretung und der pastoralen Betreuung derjenigen aus, die religiöse Dienste in der Kathedrale beantragen. In Santo Domingo de la Calzada gehören ihm der Dekan, der Erzdiakon, der Kantor, der Schatzmeister und die Domherren gemäß den eigenen Statuten an.',
+        cp_more: 'Mehr Info →',
+        ac_eyebrow: 'Beschreibung des Bestands', ac_title: 'Historische Sammlung des Kathedralarchivs',
+        ac_p1: 'Das <strong>Kathedralarchiv von Santo Domingo de la Calzada</strong> entstand mit den ersten dokumentierten Schenkungen, die Könige und Privatpersonen seit <strong>1120</strong> dem Tempel und dem Abt der alten Stiftskirche gewährten. Es festigte sich ab <strong>1229</strong>, als die Kirche zum Bischofssitz erhoben wurde und begann, das dokumentarische Erbe der neuen Diözese zu erzeugen und zu bewahren.',
+        ac_p2: 'Seine Sammlung umfasst <strong>377 lose Pergamente</strong>, datiert zwischen <strong>1135</strong> und dem 19. Jahrhundert, sowie <strong>16 gebundene Bände</strong> und <strong>3 Kartulare</strong> mit insgesamt 255 Folios. Hinzu kommen <strong>fünf mittelalterliche Codices</strong> aus dem 11. bis 14. Jahrhundert, sakramentale Bücher seit <strong>1540</strong> und Kapitelbestände mit Protokollen, Rechnungen und Verwaltungsdokumentation des Domkapitels.',
+        ac_p3: 'Ende des 19. Jahrhunderts sammelte und organisierte der Archivar <strong>Ángel Manso</strong> die verstreuten Sammlungen und führte sie an den Ort zurück, an dem sie heute aufbewahrt werden. Die dreibändige Ausgabe der Kartulare des Mediävisten <strong>Antonio Ubieto Arteta</strong> ist eine grundlegende Quelle für das Studium der kirchlichen, juristischen und sozialen Geschichte des Jakobswegs im Mittelalter.',
+        ac_more: 'Mehr Info →',
+        ab_eyebrow: 'Veröffentlichungen', ab_title: 'Bibliographie und Kataloge des Archivs',
+        ab_p1: 'Der Bestand des Kathedralarchivs verfügt über einen <strong>beschreibenden Katalog</strong>, der im 20. Jahrhundert erstellt wurde und die losen Pergamente, gebundenen Bände, Kartulare und Sakramentenbücher in chronologischen und thematischen Reihen organisiert. Er ist das grundlegende Konsultationsinstrument für akkreditierte Forscher und für die Verwaltung des Domkapitels.',
+        ab_p2: 'Das Referenzwerk für das Studium des mittelalterlichen Bestands ist die dreibändige Ausgabe <em>Cartularios (I, II und III) de Santo Domingo de la Calzada</em>, vorbereitet vom Mediävisten <strong>Agustín Ubieto Arteta</strong> und veröffentlicht von Ediciones Anubar im Jahr <strong>1978</strong>. Sie sammelt und systematisiert die Kartulare des ehemaligen Klosters und des Bischofssitzes.',
+        ab_p3: 'Diese Ausgabe wird ergänzt durch Studien wie die <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, Nr. 82, 1972) desselben Autors, das Inventar des <strong>Musikarchivs</strong> des Musikwissenschaftlers <strong>José López Calo</strong> und verschiedene Forschungspublikationen, die digital über den <strong>Censo-Guía de Archivos</strong> des Kulturministeriums zugänglich sind.',
+        ab_more: 'Mehr Info →',
+        af_eyebrow: 'Voranfrage', af_title: 'Beantragen Sie Ihren Forschungsbesuch',
+        af_intro: 'Füllen Sie das Formular aus und wir kontaktieren Sie, um Ihren Besuch im Kathedralarchiv zu bestätigen.',
+        af_lbl_name: 'Vollständiger Name', af_lbl_phone: 'Telefon', af_lbl_email: 'E-Mail', af_lbl_comments: 'Kommentare',
+        af_ph_comments: 'Geben Sie den Forschungsgegenstand, die geplanten Daten und Ihre akademische oder institutionelle Akkreditierung an.',
+        af_terms: 'Ich akzeptiere die <a href="legal/privacidad.html" target="_blank" rel="noopener">Datenschutzerklärung</a> und die <a href="legal/aviso-legal.html" target="_blank" rel="noopener">Nutzungsbedingungen</a>.',
+        af_submit: 'Anfrage senden →'
       },
       pt: {
         page_eyebrow: 'Catedral · Paróquia · Cabido · Arquivo',
@@ -1706,7 +1818,35 @@
         archivo_card4_link1: 'Formulário de pedido →',
         cta_title: 'Quer saber <em>mais</em>?',
         cta_sub: 'Contacte a instituição para qualquer questão sobre a paróquia, o cabido ou o arquivo.',
-        cta_btn: 'Contactar →'
+        cta_btn: 'Contactar →',
+        fp_eyebrow: 'Calendário festivo', fp_title: 'Festas locais e religiosas · Santo Domingo de la Calzada',
+        fp_g1_title: 'Festas locais oficiais', fp_g1_list: '<li><strong>12 de maio</strong> · Festividade de Santo Domingo (padroeiro da cidade).</li><li><strong>18 de setembro</strong> · Festas de Ação de Graças.</li>',
+        fp_g2_title: 'Festas do Santo · Interesse Turístico Nacional', fp_g2_list: '<li><strong>25 de abril</strong> · Saída da gaita com o tambor e registo das Donzelas.</li><li><strong>10 de maio</strong> · Bênção dos Ramos, Procissão das Donzelas (Pão do Santo e do Peregrino) e Procissão da Roda.</li><li><strong>11 de maio</strong> · Distribuição do Pão do Santo e do Peregrino.</li><li><strong>12 de maio</strong> · Dia grande: Missa Solene, Procissão do Santo e distribuição do Almoço do Santo.</li><li><strong>15 de maio</strong> · Procissão de San Isidro.</li>',
+        fp_g3_title: 'Virgem da Praça', fp_g3_list: '<li><strong>5 de agosto</strong> · Festividade da Virgem da Praça, padroeira dos calceatenses.</li>',
+        fp_g4_title: 'Festas de Ação de Graças e San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 de setembro</strong> · Programa festivo em honra a San Jerónimo Hermosilla, dominicano de Santo Domingo.</li><li><strong>18 de setembro</strong> · Missa de Ação de Graças na Catedral e procissão.</li>',
+        fp_g5_title: 'Outras celebrações religiosas', fp_g5_list: '<li>Quaresma e Semana Santa: pregão, procissões (Domingo de Ramos, Borriquita, Última Ceia, Via-Sacra, Santo Sepulcro, Vigília Pascal, Ressurreição).</li><li>Corpus Christi: procissão pelas ruas do centro histórico.</li><li>Solenidades patronais e de Cristo Rei na Catedral.</li>',
+        fp_note: 'As datas podem variar ligeiramente cada ano em função do calendário litúrgico. Consulte a programação oficial para confirmar horários e locais.',
+        cp_eyebrow: 'Competências do Cabido', cp_title: 'Funções capitulares',
+        cp_p1: 'O <strong>Cabido Catedralício</strong> é um órgão colegial de clérigos com personalidade jurídica própria, instituído para assistir o bispo com o seu conselho e para assumir o culto solene da Catedral. A sua existência e competências são reguladas pelos cânones 503 a 510 do Código de Direito Canónico de 1983 e pelos estatutos aprovados pelo bispo diocesano.',
+        cp_p2: 'A sua tarefa primária é <strong>litúrgica</strong>: organiza, promove e celebra o culto ordinário e extraordinário, as grandes solenidades do calendário eclesiástico e as celebrações mais significativas da vida diocesana. A esta missão soma-se a <strong>custódia e gestão do património</strong> religioso, histórico e artístico conservado no templo, no arquivo capitular e nos museus catedralícios.',
+        cp_p3: 'O Cabido desempenha ainda funções de <strong>assessoria episcopal</strong>, representação institucional e atenção pastoral a quem solicita serviços religiosos na Catedral. Em Santo Domingo de la Calzada, é composto pelo Deão, o Arcediago, o Chantre, o Tesoureiro e os cónegos, conforme os seus estatutos próprios.',
+        cp_more: 'Mais info →',
+        ac_eyebrow: 'Descrição do fundo', ac_title: 'Coleção histórica do Arquivo Catedralício',
+        ac_p1: 'O <strong>Arquivo Catedralício de Santo Domingo de la Calzada</strong> nasceu com as primeiras doações documentadas que reis e particulares concederam ao templo e ao abade da antiga colegiada desde <strong>1120</strong>. Consolidou-se a partir de <strong>1229</strong>, quando a igreja foi elevada a sede episcopal e começou a gerar e custodiar o património documental da nova diocese.',
+        ac_p2: 'A sua coleção conserva <strong>377 pergaminhos avulsos</strong> datados entre <strong>1135</strong> e o século XIX, juntamente com <strong>16 volumes encadernados</strong> e <strong>3 cartulários</strong> num total de 255 fólios. A estes somam-se <strong>cinco códices medievais</strong> dos séculos XI ao XIV, os livros sacramentais desde <strong>1540</strong> e os fundos capitulares com atas, contas e documentação administrativa do Cabido.',
+        ac_p3: 'No final do século XIX, o arquivista <strong>Ángel Manso</strong> reuniu e organizou as coleções dispersas, devolvendo-as ao espaço onde hoje se conservam. A edição em três volumes dos cartulários, preparada pelo medievalista <strong>Antonio Ubieto Arteta</strong>, constitui uma fonte fundamental para o estudo da história eclesiástica, jurídica e social do Caminho de Santiago na Idade Média.',
+        ac_more: 'Mais info →',
+        ab_eyebrow: 'Publicações', ab_title: 'Bibliografia e catálogos do Arquivo',
+        ab_p1: 'O fundo do Arquivo Catedralício conta com um <strong>catálogo descritivo</strong> elaborado ao longo do século XX, que organiza os pergaminhos avulsos, os volumes encadernados, os cartulários e os livros sacramentais em séries cronológicas e temáticas. Constitui a ferramenta básica de consulta para investigadores acreditados e para a própria administração do Cabido.',
+        ab_p2: 'A obra de referência para o estudo do fundo medieval é a edição em três volumes <em>Cartularios (I, II e III) de Santo Domingo de la Calzada</em>, preparada pelo medievalista <strong>Agustín Ubieto Arteta</strong> e publicada por Ediciones Anubar em <strong>1978</strong>. Recolhe e sistematiza os cartulários do antigo mosteiro e da sé episcopal, oferecendo uma fonte essencial para a história eclesiástica, jurídica e social do Caminho na Idade Média.',
+        ab_p3: 'A esta edição somam-se estudos complementares como os <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n.º 82, 1972) do mesmo autor, o inventário do <strong>Arquivo Musical</strong> realizado pelo musicólogo <strong>José López Calo</strong>, e diversas publicações de investigação acessíveis em formato digital através do <strong>Censo-Guía de Archivos</strong> do Ministério da Cultura.',
+        ab_more: 'Mais info →',
+        af_eyebrow: 'Consulta prévia', af_title: 'Solicite a sua visita de investigação',
+        af_intro: 'Complete o formulário e entraremos em contacto consigo para confirmar a sua visita ao Arquivo Catedralício.',
+        af_lbl_name: 'Nome completo', af_lbl_phone: 'Telefone', af_lbl_email: 'Correio eletrónico', af_lbl_comments: 'Comentários',
+        af_ph_comments: 'Indique o objeto da investigação, as datas previstas e a sua acreditação académica ou institucional.',
+        af_terms: 'Aceito a <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacidade</a> e as <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condições de uso</a>.',
+        af_submit: 'Enviar pedido →'
       },
       it: {
         page_eyebrow: 'Cattedrale · Parrocchia · Capitolo · Archivio',
@@ -1760,7 +1900,35 @@
         archivo_card4_link1: 'Modulo di richiesta →',
         cta_title: 'Vuoi saperne <em>di più</em>?',
         cta_sub: 'Contatta l\'istituzione per qualsiasi domanda sulla parrocchia, il capitolo o l\'archivio.',
-        cta_btn: 'Contattaci →'
+        cta_btn: 'Contattaci →',
+        fp_eyebrow: 'Calendario festivo', fp_title: 'Feste locali e religiose · Santo Domingo de la Calzada',
+        fp_g1_title: 'Feste locali ufficiali', fp_g1_list: '<li><strong>12 maggio</strong> · Festa di Santo Domingo (patrono della città).</li><li><strong>18 settembre</strong> · Feste del Ringraziamento.</li>',
+        fp_g2_title: 'Feste del Santo · Interesse Turistico Nazionale', fp_g2_list: '<li><strong>25 aprile</strong> · Uscita della cornamusa con il tamburo e registrazione delle Damigelle.</li><li><strong>10 maggio</strong> · Benedizione dei Rami, Processione delle Damigelle (Pane del Santo e del Pellegrino) e Processione della Ruota.</li><li><strong>11 maggio</strong> · Distribuzione del Pane del Santo e del Pellegrino.</li><li><strong>12 maggio</strong> · Giorno grande: Messa Solenne, Processione del Santo e distribuzione della Colazione del Santo.</li><li><strong>15 maggio</strong> · Processione di San Isidro.</li>',
+        fp_g3_title: 'Vergine della Piazza', fp_g3_list: '<li><strong>5 agosto</strong> · Festa della Vergine della Piazza, patrona di Santo Domingo.</li>',
+        fp_g4_title: 'Feste del Ringraziamento e San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 settembre</strong> · Programma festivo in onore di San Jerónimo Hermosilla, domenicano di Santo Domingo.</li><li><strong>18 settembre</strong> · Messa di Ringraziamento in Cattedrale e processione.</li>',
+        fp_g5_title: 'Altre celebrazioni religiose', fp_g5_list: '<li>Quaresima e Settimana Santa: discorso d\'apertura, processioni (Domenica delle Palme, Borriquita, Ultima Cena, Via Crucis, Santo Sepolcro, Veglia Pasquale, Risurrezione).</li><li>Corpus Domini: processione per le strade del centro storico.</li><li>Solennità patronali e di Cristo Re nella Cattedrale.</li>',
+        fp_note: 'Le date possono variare leggermente ogni anno in base al calendario liturgico. Consulta il programma ufficiale per confermare orari e luoghi.',
+        cp_eyebrow: 'Competenze del Capitolo', cp_title: 'Funzioni capitolari',
+        cp_p1: 'Il <strong>Capitolo della Cattedrale</strong> è un organo collegiale di chierici con personalità giuridica propria, istituito per assistere il vescovo con il suo consiglio e per assumere il culto solenne della Cattedrale. La sua esistenza e le sue competenze sono regolate dai canoni 503 a 510 del Codice di Diritto Canonico del 1983 e dagli statuti approvati dal vescovo diocesano.',
+        cp_p2: 'Il suo compito primario è <strong>liturgico</strong>: organizza, promuove e celebra il culto ordinario e straordinario, le grandi solennità del calendario ecclesiastico e le celebrazioni più significative della vita diocesana. A questa missione si aggiunge la <strong>custodia e gestione del patrimonio</strong> religioso, storico e artistico conservato nel tempio, nell\'archivio capitolare e nei musei della Cattedrale.',
+        cp_p3: 'Il Capitolo svolge inoltre funzioni di <strong>consulenza episcopale</strong>, rappresentanza istituzionale e cura pastorale per coloro che richiedono servizi religiosi nella Cattedrale. A Santo Domingo de la Calzada, è composto dal Decano, l\'Arcidiacono, il Cantore, il Tesoriere e i canonici, secondo i propri statuti.',
+        cp_more: 'Più info →',
+        ac_eyebrow: 'Descrizione del fondo', ac_title: 'Collezione storica dell\'Archivio della Cattedrale',
+        ac_p1: 'L\'<strong>Archivio della Cattedrale di Santo Domingo de la Calzada</strong> è nato con le prime donazioni documentate che re e privati concessero al tempio e all\'abate dell\'antica collegiata dal <strong>1120</strong>. Si è consolidato a partire dal <strong>1229</strong>, quando la chiesa fu elevata a sede episcopale e iniziò a generare e custodire il patrimonio documentario della nuova diocesi.',
+        ac_p2: 'La sua collezione conserva <strong>377 pergamene sciolte</strong> datate tra il <strong>1135</strong> e il XIX secolo, insieme a <strong>16 volumi rilegati</strong> e <strong>3 cartolari</strong> per un totale di 255 fogli. A questi si aggiungono <strong>cinque codici medievali</strong> dei secoli XI al XIV, i libri sacramentali dal <strong>1540</strong> e i fondi capitolari con atti, conti e documentazione amministrativa del Capitolo.',
+        ac_p3: 'Alla fine del XIX secolo, l\'archivista <strong>Ángel Manso</strong> riunì e organizzò le collezioni rimaste disperse, riportandole nello spazio dove oggi sono conservate. L\'edizione in tre volumi dei cartolari, preparata dal medievalista <strong>Antonio Ubieto Arteta</strong>, costituisce una fonte fondamentale per lo studio della storia ecclesiastica, giuridica e sociale del Cammino di Santiago nel Medioevo.',
+        ac_more: 'Più info →',
+        ab_eyebrow: 'Pubblicazioni', ab_title: 'Bibliografia e cataloghi dell\'Archivio',
+        ab_p1: 'Il fondo dell\'Archivio della Cattedrale dispone di un <strong>catalogo descrittivo</strong> elaborato nel corso del XX secolo, che organizza le pergamene sciolte, i volumi rilegati, i cartolari e i libri sacramentali in serie cronologiche e tematiche. Costituisce lo strumento di consultazione di base per ricercatori accreditati e per l\'amministrazione del Capitolo.',
+        ab_p2: 'L\'opera di riferimento per lo studio del fondo medievale è l\'edizione in tre volumi <em>Cartularios (I, II e III) de Santo Domingo de la Calzada</em>, preparata dal medievalista <strong>Agustín Ubieto Arteta</strong> e pubblicata da Ediciones Anubar nel <strong>1978</strong>. Raccoglie e sistematizza i cartolari dell\'antico monastero e della sede episcopale.',
+        ab_p3: 'A questa edizione si aggiungono studi complementari come gli <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n. 82, 1972) dello stesso autore, l\'inventario dell\'<strong>Archivio Musicale</strong> realizzato dal musicologo <strong>José López Calo</strong>, e diverse pubblicazioni di ricerca accessibili in formato digitale attraverso il <strong>Censo-Guía de Archivos</strong> del Ministero della Cultura.',
+        ab_more: 'Più info →',
+        af_eyebrow: 'Consultazione previa', af_title: 'Richiedi la tua visita di ricerca',
+        af_intro: 'Compila il modulo e ti contatteremo per confermare la tua visita all\'Archivio della Cattedrale.',
+        af_lbl_name: 'Nome completo', af_lbl_phone: 'Telefono', af_lbl_email: 'Email', af_lbl_comments: 'Commenti',
+        af_ph_comments: 'Indica l\'oggetto della ricerca, le date previste e il tuo accreditamento accademico o istituzionale.',
+        af_terms: 'Accetto l\'<a href="legal/privacidad.html" target="_blank" rel="noopener">informativa sulla privacy</a> e le <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condizioni d\'uso</a>.',
+        af_submit: 'Invia richiesta →'
       },
       ko: {
         page_eyebrow: '대성당 · 본당 · 참사회 · 기록보관소',
@@ -1814,7 +1982,35 @@
         archivo_card4_link1: '신청서 양식 →',
         cta_title: '<em>더</em> 알고 싶으신가요?',
         cta_sub: '본당, 참사회, 기록보관소에 관한 문의는 기관으로 연락해 주세요.',
-        cta_btn: '문의하기 →'
+        cta_btn: '문의하기 →',
+        fp_eyebrow: '축제 달력', fp_title: '지역 및 종교 축제 · 산토 도밍고 데 라 칼사다',
+        fp_g1_title: '공식 지역 축제', fp_g1_list: '<li><strong>5월 12일</strong> · 산토 도밍고 축일(도시의 수호 성인).</li><li><strong>9월 18일</strong> · 감사 축제.</li>',
+        fp_g2_title: '성인 축제 · 국가 관광 관심 행사', fp_g2_list: '<li><strong>4월 25일</strong> · 가이타와 북의 출발 및 처녀들 등록.</li><li><strong>5월 10일</strong> · 가지 축복, 처녀들의 행렬(성인과 순례자의 빵) 및 바퀴 행렬.</li><li><strong>5월 11일</strong> · 성인과 순례자의 빵 배분.</li><li><strong>5월 12일</strong> · 큰 날: 장엄 미사, 성인의 행렬, 성인의 식사 배분.</li><li><strong>5월 15일</strong> · 산 이시드로 행렬.</li>',
+        fp_g3_title: '광장의 성모', fp_g3_list: '<li><strong>8월 5일</strong> · 칼사텐세 사람들의 수호자, 광장의 성모 축일.</li>',
+        fp_g4_title: '감사 축제와 산 헤로니모 에르모시야', fp_g4_list: '<li><strong>9월 17 – 19일</strong> · 산토 도밍고의 도미니코회 수도사 산 헤로니모 에르모시야를 기리는 축제 프로그램.</li><li><strong>9월 18일</strong> · 대성당에서의 감사 미사와 행렬.</li>',
+        fp_g5_title: '기타 종교 행사', fp_g5_list: '<li>사순절과 성주간: 개회 연설, 행렬(종려주일, 보리키타, 최후의 만찬, 십자가의 길, 성스러운 매장, 부활 성야, 부활).</li><li>성체 축일: 구시가지 거리 행렬.</li><li>대성당에서의 수호 성인과 그리스도 왕 축일.</li>',
+        fp_note: '날짜는 매년 전례 달력에 따라 약간 달라질 수 있습니다. 시간과 장소를 확인하려면 공식 프로그램을 참조하세요.',
+        cp_eyebrow: '참사회의 권한', cp_title: '참사회 기능',
+        cp_p1: '<strong>대성당 참사회</strong>는 자체 법적 인격을 가진 성직자 합의체로, 주교를 자문으로 보좌하고 대성당의 장엄한 예배를 책임지도록 설립되었습니다. 그 존재와 권한은 1983년 교회법전 503조부터 510조까지와 교구 주교가 승인한 정관에 의해 규제됩니다.',
+        cp_p2: '주요 임무는 <strong>전례적</strong>입니다: 일상 및 특별 예배, 교회 달력의 중요한 축일, 교구 생활의 가장 의미 있는 행사들을 조직하고 촉진하며 거행합니다. 이 사명에 더해 사원, 참사회 기록보관소 및 대성당 박물관에 보존된 종교적, 역사적, 예술적 <strong>유산의 보호 및 관리</strong>가 있습니다.',
+        cp_p3: '참사회는 또한 <strong>주교 자문</strong>, 기관 대표 및 대성당에서 종교 서비스를 요청하는 사람들에 대한 사목 활동을 수행합니다. 산토 도밍고 데 라 칼사다에서는 자체 정관에 따라 수석 사제, 부주교, 성가대장, 회계 및 참사회원으로 구성됩니다.',
+        cp_more: '더 보기 →',
+        ac_eyebrow: '소장 자료 설명', ac_title: '대성당 기록보관소의 역사적 컬렉션',
+        ac_p1: '<strong>산토 도밍고 데 라 칼사다 대성당 기록보관소</strong>는 <strong>1120년</strong>부터 왕과 개인이 사원과 옛 참사회 수도원장에게 부여한 최초의 문서화된 기증으로 시작되었습니다. <strong>1229년</strong>부터, 교회가 주교좌로 격상되어 새로운 교구의 문서 유산을 생성하고 보관하기 시작하면서 통합되었습니다.',
+        ac_p2: '컬렉션에는 <strong>1135년</strong>부터 19세기 사이에 작성된 <strong>377개의 낱장 양피지</strong>, <strong>16권의 제본된 책</strong>, 총 255장의 <strong>3개의 카르툴라리오</strong>가 보관되어 있습니다. 또한 11세기부터 14세기까지의 <strong>5개의 중세 코덱스</strong>, <strong>1540년</strong>부터의 성사 책, 참사회 회의록, 회계 및 행정 문서가 포함된 참사회 자료도 있습니다.',
+        ac_p3: '19세기 말, 기록보관 담당자 <strong>앙헬 만소</strong>가 흩어진 컬렉션을 모아 정리하여 오늘날 보존되는 공간으로 되돌렸습니다. 중세사학자 <strong>안토니오 우비에토 아르테타</strong>가 준비한 3권 분량의 카르툴라리오 판본은 중세 산티아고 순례길의 교회사, 법사, 사회사 연구의 근본적인 자료입니다.',
+        ac_more: '더 보기 →',
+        ab_eyebrow: '출판물', ab_title: '기록보관소의 참고문헌 및 카탈로그',
+        ab_p1: '대성당 기록보관소의 자료에는 20세기 동안 작성된 <strong>설명적 카탈로그</strong>가 있으며, 낱장 양피지, 제본된 책, 카르툴라리오, 성사 책을 연대순 및 주제별 시리즈로 정리합니다. 인증된 연구자와 참사회 행정의 기본 참조 도구입니다.',
+        ab_p2: '중세 자료 연구의 참고 저서는 중세사학자 <strong>아구스틴 우비에토 아르테타</strong>가 준비하여 Ediciones Anubar가 <strong>1978년</strong>에 출판한 3권 분량의 <em>Cartularios (I, II y III) de Santo Domingo de la Calzada</em>입니다.',
+        ab_p3: '이 판본에는 같은 저자의 <em>Apuntes para la biografía de Santo Domingo de la Calzada</em>(Berceo, 82호, 1972), 음악학자 <strong>호세 로페스 칼로</strong>가 작성한 <strong>음악 기록보관소</strong> 목록, 그리고 문화부의 <strong>Censo-Guía de Archivos</strong>를 통해 디지털 형식으로 접근 가능한 다양한 연구 출판물이 보완됩니다.',
+        ab_more: '더 보기 →',
+        af_eyebrow: '사전 상담', af_title: '연구 방문 신청',
+        af_intro: '양식을 작성해 주시면 대성당 기록보관소 방문을 확인하기 위해 연락드리겠습니다.',
+        af_lbl_name: '성명', af_lbl_phone: '전화번호', af_lbl_email: '이메일', af_lbl_comments: '의견',
+        af_ph_comments: '연구 주제, 예상 날짜, 학술 또는 기관 인증을 명시해 주세요.',
+        af_terms: '<a href="legal/privacidad.html" target="_blank" rel="noopener">개인정보 처리방침</a> 및 <a href="legal/aviso-legal.html" target="_blank" rel="noopener">이용 약관</a>에 동의합니다.',
+        af_submit: '신청 보내기 →'
       },
       eu: {
         page_eyebrow: 'Katedrala · Parrokia · Kabildoa · Artxiboa',
@@ -1868,7 +2064,35 @@
         archivo_card4_link1: 'Eskaera inprimakia →',
         cta_title: '<em>Gehiago</em> jakin nahi duzu?',
         cta_sub: 'Jarri harremanetan erakundearekin parrokiari, kabildoari edo artxiboari buruzko edozein zalantza argitzeko.',
-        cta_btn: 'Harremanetan jarri →'
+        cta_btn: 'Harremanetan jarri →',
+        fp_eyebrow: 'Festa egutegia', fp_title: 'Tokiko eta erlijio jaiak · Santo Domingo de la Calzada',
+        fp_g1_title: 'Tokiko jai ofizialak', fp_g1_list: '<li><strong>maiatzaren 12a</strong> · Santo Domingoren festa (hiriko zaindaria).</li><li><strong>irailaren 18a</strong> · Esker Onezko Festak.</li>',
+        fp_g2_title: 'Santuaren Festak · Turismo Intereseko Nazionala', fp_g2_list: '<li><strong>apirilaren 25a</strong> · Gaita eta danborraren irteera eta Dontzeilen erregistroa.</li><li><strong>maiatzaren 10a</strong> · Erramuen bedeinkapena, Dontzeilen prozesioa (Santuaren eta Erromesaren ogia) eta Gurpilaren prozesioa.</li><li><strong>maiatzaren 11a</strong> · Santuaren eta Erromesaren ogiaren banaketa.</li><li><strong>maiatzaren 12a</strong> · Egun handia: Meza Solemne, Santuaren prozesioa eta Santuaren gosariaren banaketa.</li><li><strong>maiatzaren 15a</strong> · San Isidroren prozesioa.</li>',
+        fp_g3_title: 'Plazako Ama Birjina', fp_g3_list: '<li><strong>abuztuaren 5a</strong> · Plazako Ama Birjinaren festa, kalzedarren zaindaria.</li>',
+        fp_g4_title: 'Esker Onezko Festak eta San Jerónimo Hermosilla', fp_g4_list: '<li><strong>irailaren 17 – 19a</strong> · Santo Domingoko domingotar San Jerónimo Hermosillaren omenezko festa egitaraua.</li><li><strong>irailaren 18a</strong> · Katedraleko Esker Onezko meza eta prozesioa.</li>',
+        fp_g5_title: 'Beste erlijio ospakizun batzuk', fp_g5_list: '<li>Garizuma eta Aste Santua: pregoia, prozesioak (Erramu Igandea, Borriquita, Azken Afaria, Gurutze Bidea, Hilobi Santua, Pazko Bilatzea, Berpiztea).</li><li>Corpus Christi: hirigune zaharreko kaleetan zehar prozesioa.</li><li>Katedraleko zaindari eta Kristo Erregeren solemnitateak.</li>',
+        fp_note: 'Egunak urtero apur bat aldatu daitezke liturgia egutegiaren arabera. Egitarau ofiziala kontsultatu orduak eta tokiak baieztatzeko.',
+        cp_eyebrow: 'Kabildoaren eskumenak', cp_title: 'Kapituluaren funtzioak',
+        cp_p1: '<strong>Katedraleko Kabildoa</strong> nortasun juridiko propioa duen kleriko-erakunde kolegiatua da, gotzaina aholkularitzaz laguntzeko eta Katedraleko kultu solemnea bere gain hartzeko sortua. Bere existentzia eta eskumenak 1983ko Eskubide Kanonikoaren Kodearen 503tik 510era arteko kanonek eta gotzainak onartutako estatutuek arautzen dituzte.',
+        cp_p2: 'Bere zeregin nagusia <strong>liturgikoa</strong> da: kultu arrunta eta apartekoa antolatu, sustatu eta ospatzen ditu, baita egutegi eklesiastikoaren solemnitate handiak eta diozesi-bizitzaren ospakizun esanguratsuenak ere. Misio horri tenpluan, kabildoaren artxiboan eta katedraleko museoetan gordetzen den erlijio, historia eta arte <strong>ondarearen zaintza eta kudeaketa</strong> eransten zaio.',
+        cp_p3: 'Kabildoak <strong>aholkularitza episkopala</strong>, ordezkaritza instituzionala eta Katedralean erlijio zerbitzuak eskatzen dituztenei artaldetza-arreta funtzioak ere betetzen ditu. Santo Domingo de la Calzadan Dekanoa, Artxiakonoa, Kantorea, Diruzaina eta kalonjeek osatzen dute, beren estatutuei jarraituz.',
+        cp_more: 'Informazio gehiago →',
+        ac_eyebrow: 'Funtsaren deskribapena', ac_title: 'Katedraleko Artxiboaren bilduma historikoa',
+        ac_p1: '<strong>Santo Domingo de la Calzadako Katedraleko Artxiboa</strong> erregeek eta partikularrek <strong>1120tik</strong> tenpluari eta antzinako kolegiatari emandako lehen dohaintza dokumentatuekin sortu zen. <strong>1229tik</strong> aurrera sendotu zen, eliza apezpiku-egoitzara igo zenean eta diozesi berriaren ondare dokumentala sortu eta zaindu zuenean.',
+        ac_p2: 'Bere bildumak <strong>377 pergamino solte</strong> gordetzen ditu <strong>1135</strong> eta XIX. mendearen artean datatuak, <strong>16 liburu koadernatuekin</strong> eta <strong>3 kartulariorekin</strong> 255 folio guztira. Horrez gain, XI-XIV. mendeko <strong>bost Erdi Aroko kodize</strong>, <strong>1540tik</strong> aurrerako sakramentu-liburuak eta Kabildoaren akta, kontu eta administrazio-dokumentazioko kapituluen funtsak daude.',
+        ac_p3: 'XIX. mendearen amaieran, <strong>Ángel Manso</strong> artxibariak sakabanatuta zeuden bildumak bildu eta antolatu zituen, gaur egun gordetzen diren tokira itzuliz. <strong>Antonio Ubieto Arteta</strong> ertaroko adituak prestatutako kartularioen hiru liburukiko edizioa funtsezko iturria da Erdi Aroko Santiago Bidearen historia eklesiastiko, juridiko eta sozialaren azterketarako.',
+        ac_more: 'Informazio gehiago →',
+        ab_eyebrow: 'Argitalpenak', ab_title: 'Artxiboaren bibliografia eta katalogoak',
+        ab_p1: 'Katedraleko Artxiboaren funtsak XX. mendean zehar prestatutako <strong>katalogo deskribatzaile</strong> bat du, pergamino solteak, liburu koadernatuak, kartularioak eta sakramentu-liburuak serie kronologiko eta tematikoetan antolatzen dituena. Egiaztaturiko ikertzaileentzat eta Kabildoaren administraziorako oinarrizko kontsulta-tresna da.',
+        ab_p2: 'Erdi Aroko funtsaren azterketarako erreferentziazko obra <strong>Agustín Ubieto Arteta</strong> ertaroko adituak prestatu eta Ediciones Anubarrek <strong>1978an</strong> argitaratu zuen <em>Cartularios (I, II eta III) de Santo Domingo de la Calzada</em> hiru liburukiko edizioa da.',
+        ab_p3: 'Edizio honi egile beraren <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, 82. zk., 1972), <strong>José López Calo</strong> musikologoak egindako <strong>Musika Artxiboaren</strong> inbentarioa, eta Kultura Ministerioaren <strong>Censo-Guía de Archivos</strong> bidez digitalki eskuragarri dauden ikerketa-argitalpenak gehitzen zaizkio.',
+        ab_more: 'Informazio gehiago →',
+        af_eyebrow: 'Aurretiazko kontsulta', af_title: 'Eskatu zure ikerketa bisita',
+        af_intro: 'Bete ezazu inprimakia eta Katedraleko Artxiboaren bisita berresteko zurekin harremanetan jarriko gara.',
+        af_lbl_name: 'Izen-deiturak', af_lbl_phone: 'Telefonoa', af_lbl_email: 'Helbide elektronikoa', af_lbl_comments: 'Iruzkinak',
+        af_ph_comments: 'Adierazi ikerketaren xedea, aurreikusitako datak eta zure akreditazio akademikoa edo instituzionala.',
+        af_terms: '<a href="legal/privacidad.html" target="_blank" rel="noopener">Pribatutasun politika</a> eta <a href="legal/aviso-legal.html" target="_blank" rel="noopener">erabilera baldintzak</a> onartzen ditut.',
+        af_submit: 'Eskaera bidali →'
       },
       ca: {
         page_eyebrow: 'Catedral · Parròquia · Capítol · Arxiu',
@@ -1922,7 +2146,35 @@
         archivo_card4_link1: 'Formulari de sol·licitud →',
         cta_title: 'Vols saber-ne <em>més</em>?',
         cta_sub: 'Contacta amb la institució per a qualsevol consulta sobre la parròquia, el capítol o l\'arxiu.',
-        cta_btn: 'Contactar →'
+        cta_btn: 'Contactar →',
+        fp_eyebrow: 'Calendari festiu', fp_title: 'Festes locals i religioses · Santo Domingo de la Calzada',
+        fp_g1_title: 'Festes locals oficials', fp_g1_list: '<li><strong>12 de maig</strong> · Festivitat de Santo Domingo (patró de la ciutat).</li><li><strong>18 de setembre</strong> · Festes d\'Acció de Gràcies.</li>',
+        fp_g2_title: 'Festes del Sant · Interès Turístic Nacional', fp_g2_list: '<li><strong>25 d\'abril</strong> · Sortida de la gaita amb el tambor i registre de les Donzelles.</li><li><strong>10 de maig</strong> · Benedicció dels Rams, Processó de les Donzelles (Pa del Sant i del Pelegrí) i Processó de la Roda.</li><li><strong>11 de maig</strong> · Repartiment del Pa del Sant i del Pelegrí.</li><li><strong>12 de maig</strong> · Dia gran: Missa Solemne, Processó del Sant i repartiment de l\'Esmorzar del Sant.</li><li><strong>15 de maig</strong> · Processó de San Isidro.</li>',
+        fp_g3_title: 'Mare de Déu de la Plaça', fp_g3_list: '<li><strong>5 d\'agost</strong> · Festivitat de la Mare de Déu de la Plaça, patrona dels calceatenses.</li>',
+        fp_g4_title: 'Festes d\'Acció de Gràcies i San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 de setembre</strong> · Programa festiu en honor a San Jerónimo Hermosilla, dominic calceatense.</li><li><strong>18 de setembre</strong> · Missa d\'Acció de Gràcies a la Catedral i processó.</li>',
+        fp_g5_title: 'Altres celebracions religioses', fp_g5_list: '<li>Quaresma i Setmana Santa: pregó, processons (Diumenge de Rams, Borriquita, Sant Sopar, Viacrucis, Sant Enterrament, Vigília Pasqual, Resurrecció).</li><li>Corpus Christi: processó pels carrers del centre històric.</li><li>Solemnitats patronals i de Crist Rei a la Catedral.</li>',
+        fp_note: 'Les dates poden variar lleugerament cada any en funció del calendari litúrgic. Consulta la programació oficial per confirmar horaris i ubicacions.',
+        cp_eyebrow: 'Competències del Capítol', cp_title: 'Funcions capitulars',
+        cp_p1: 'El <strong>Capítol Catedralici</strong> és un òrgan col·legial de clergues amb personalitat jurídica pròpia, instituït per assistir el bisbe amb el seu consell i per assumir el culte solemne de la Catedral. La seva existència i competències estan regulades pels cànons 503 a 510 del Codi de Dret Canònic de 1983 i pels estatuts aprovats pel bisbe diocesà.',
+        cp_p2: 'La seva tasca primària és <strong>litúrgica</strong>: organitza, promou i celebra el culte ordinari i extraordinari, les grans solemnitats del calendari eclesiàstic i les celebracions més significatives de la vida diocesana. A aquesta missió s\'afegeix la <strong>custòdia i gestió del patrimoni</strong> religiós, històric i artístic conservat al temple, l\'arxiu capitular i els museus catedralicis.',
+        cp_p3: 'El Capítol exerceix també funcions d\'<strong>assessorament episcopal</strong>, representació institucional i atenció pastoral a qui sol·licita serveis religiosos a la Catedral. A Santo Domingo de la Calzada, està format pel Degà, l\'Ardiaca, el Cantor, el Tresorer i els canonges, segons els seus estatuts propis.',
+        cp_more: 'Més informació →',
+        ac_eyebrow: 'Descripció del fons', ac_title: 'Col·lecció històrica de l\'Arxiu Catedralici',
+        ac_p1: 'L\'<strong>Arxiu Catedralici de Santo Domingo de la Calzada</strong> va néixer amb les primeres donacions documentades que reis i particulars van atorgar al temple i a l\'abat de l\'antiga col·legiata des de <strong>1120</strong>. Es va consolidar a partir de <strong>1229</strong>, quan l\'església va ser elevada a seu episcopal i va començar a generar i custodiar el patrimoni documental de la nova diòcesi.',
+        ac_p2: 'La seva col·lecció conserva <strong>377 pergamins solts</strong> datats entre <strong>1135</strong> i el segle XIX, juntament amb <strong>16 volums enquadernats</strong> i <strong>3 cartularis</strong> amb un total de 255 folis. A aquests se sumen <strong>cinc còdexs medievals</strong> dels segles XI al XIV, els llibres sacramentals des de <strong>1540</strong> i els fons capitulars amb actes, comptes i documentació administrativa del Capítol.',
+        ac_p3: 'A finals del segle XIX, l\'arxiver <strong>Ángel Manso</strong> va reunir i organitzar les col·leccions que havien quedat disperses, retornant-les a l\'espai on avui es conserven. L\'edició en tres volums dels cartularis, preparada pel medievalista <strong>Antonio Ubieto Arteta</strong>, constitueix una font fonamental per a l\'estudi de la història eclesiàstica, jurídica i social del Camí de Santiago a l\'Edat Mitjana.',
+        ac_more: 'Més informació →',
+        ab_eyebrow: 'Publicacions', ab_title: 'Bibliografia i catàlegs de l\'Arxiu',
+        ab_p1: 'El fons de l\'Arxiu Catedralici disposa d\'un <strong>catàleg descriptiu</strong> elaborat al llarg del segle XX, que organitza els pergamins solts, els volums enquadernats, els cartularis i els llibres sacramentals en sèries cronològiques i temàtiques. Constitueix l\'eina bàsica de consulta per a investigadors acreditats i per a la pròpia administració del Capítol.',
+        ab_p2: 'L\'obra de referència per a l\'estudi del fons medieval és l\'edició en tres volums <em>Cartularios (I, II i III) de Santo Domingo de la Calzada</em>, preparada pel medievalista <strong>Agustín Ubieto Arteta</strong> i publicada per Ediciones Anubar el <strong>1978</strong>. Recull i sistematitza els cartularis de l\'antic monestir i la seu episcopal.',
+        ab_p3: 'A aquesta edició s\'afegeixen estudis complementaris com els <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, núm. 82, 1972) del mateix autor, l\'inventari de l\'<strong>Arxiu Musical</strong> realitzat pel musicòleg <strong>José López Calo</strong>, i diverses publicacions de recerca accessibles en format digital a través del <strong>Censo-Guía de Archivos</strong> del Ministeri de Cultura.',
+        ab_more: 'Més informació →',
+        af_eyebrow: 'Consulta prèvia', af_title: 'Sol·licita la teva visita d\'investigació',
+        af_intro: 'Completa el formulari i ens posarem en contacte amb tu per confirmar la teva visita a l\'Arxiu Catedralici.',
+        af_lbl_name: 'Nom complet', af_lbl_phone: 'Telèfon', af_lbl_email: 'Correu electrònic', af_lbl_comments: 'Comentaris',
+        af_ph_comments: 'Indica l\'objecte de la recerca, les dates previstes i la teva acreditació acadèmica o institucional.',
+        af_terms: 'Accepto la <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacitat</a> i les <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condicions d\'ús</a>.',
+        af_submit: 'Enviar sol·licitud →'
       }
     };
 
@@ -1931,6 +2183,10 @@
       document.querySelectorAll('[data-i18n-page]').forEach(el => {
         const k = el.getAttribute('data-i18n-page');
         if (pt[k] !== undefined) el.innerHTML = pt[k];
+      });
+      document.querySelectorAll('[data-i18n-ph-page]').forEach(el => {
+        const k = el.getAttribute('data-i18n-ph-page');
+        if (pt[k] !== undefined) el.placeholder = pt[k];
       });
     };
 
@@ -1972,54 +2228,36 @@
   <div class="fiestas-overlay" id="fiestas-overlay" role="dialog" aria-modal="true" aria-labelledby="fiestas-popup-title" aria-hidden="true">
     <div class="fiestas-popup">
       <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
-      <p class="fiestas-popup__eyebrow">Calendario festivo</p>
-      <h3 class="fiestas-popup__title" id="fiestas-popup-title">Fiestas locales y religiosas · Santo Domingo de la Calzada</h3>
+      <p class="fiestas-popup__eyebrow" data-i18n-page="fp_eyebrow">Calendario festivo</p>
+      <h3 class="fiestas-popup__title" id="fiestas-popup-title" data-i18n-page="fp_title">Fiestas locales y religiosas · Santo Domingo de la Calzada</h3>
       <div class="fiestas-popup__divider"></div>
 
       <div class="fiestas-popup__group">
-        <h4 class="fiestas-popup__group-title">Fiestas locales oficiales</h4>
-        <ul class="fiestas-popup__list">
-          <li><strong>12 de mayo</strong> · Festividad de Santo Domingo (patrón de la ciudad).</li>
-          <li><strong>18 de septiembre</strong> · Fiestas de Gracias.</li>
-        </ul>
+        <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g1_title">Fiestas locales oficiales</h4>
+        <ul class="fiestas-popup__list" data-i18n-page="fp_g1_list"><li><strong>12 de mayo</strong> · Festividad de Santo Domingo (patrón de la ciudad).</li><li><strong>18 de septiembre</strong> · Fiestas de Gracias.</li></ul>
       </div>
 
       <div class="fiestas-popup__group">
-        <h4 class="fiestas-popup__group-title">Fiestas del Santo · Interés Turístico Nacional</h4>
-        <ul class="fiestas-popup__list">
-          <li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li>
-          <li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del Peregrino) y Procesión de la Rueda.</li>
-          <li><strong>11 de mayo</strong> · Reparto del Pan del Santo y del Peregrino.</li>
-          <li><strong>12 de mayo</strong> · Día grande: Misa Solemne, Procesión del Santo y reparto del Almuerzo del Santo.</li>
-          <li><strong>15 de mayo</strong> · Procesión de San Isidro.</li>
-        </ul>
+        <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g2_title">Fiestas del Santo · Interés Turístico Nacional</h4>
+        <ul class="fiestas-popup__list" data-i18n-page="fp_g2_list"><li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li><li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del Peregrino) y Procesión de la Rueda.</li><li><strong>11 de mayo</strong> · Reparto del Pan del Santo y del Peregrino.</li><li><strong>12 de mayo</strong> · Día grande: Misa Solemne, Procesión del Santo y reparto del Almuerzo del Santo.</li><li><strong>15 de mayo</strong> · Procesión de San Isidro.</li></ul>
       </div>
 
       <div class="fiestas-popup__group">
-        <h4 class="fiestas-popup__group-title">Virgen de la Plaza</h4>
-        <ul class="fiestas-popup__list">
-          <li><strong>5 de agosto</strong> · Festividad de la Virgen de la Plaza, patrona de los calceatenses.</li>
-        </ul>
+        <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g3_title">Virgen de la Plaza</h4>
+        <ul class="fiestas-popup__list" data-i18n-page="fp_g3_list"><li><strong>5 de agosto</strong> · Festividad de la Virgen de la Plaza, patrona de los calceatenses.</li></ul>
       </div>
 
       <div class="fiestas-popup__group">
-        <h4 class="fiestas-popup__group-title">Fiestas de Gracias y San Jerónimo Hermosilla</h4>
-        <ul class="fiestas-popup__list">
-          <li><strong>17 – 19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico calceatense.</li>
-          <li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li>
-        </ul>
+        <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g4_title">Fiestas de Gracias y San Jerónimo Hermosilla</h4>
+        <ul class="fiestas-popup__list" data-i18n-page="fp_g4_list"><li><strong>17 – 19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico calceatense.</li><li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li></ul>
       </div>
 
       <div class="fiestas-popup__group">
-        <h4 class="fiestas-popup__group-title">Otras celebraciones religiosas</h4>
-        <ul class="fiestas-popup__list">
-          <li>Cuaresma y Semana Santa: pregón, procesiones (Domingo de Ramos, Borriquita, Santa Cena, Viacrucis, Santo Entierro, Vigilia Pascual, Resurrección).</li>
-          <li>Corpus Christi: procesión por las calles del casco antiguo.</li>
-          <li>Solemnidades patronales y de Cristo Rey en la S. I. Catedral.</li>
-        </ul>
+        <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g5_title">Otras celebraciones religiosas</h4>
+        <ul class="fiestas-popup__list" data-i18n-page="fp_g5_list"><li>Cuaresma y Semana Santa: pregón, procesiones (Domingo de Ramos, Borriquita, Santa Cena, Viacrucis, Santo Entierro, Vigilia Pascual, Resurrección).</li><li>Corpus Christi: procesión por las calles del casco antiguo.</li><li>Solemnidades patronales y de Cristo Rey en la S. I. Catedral.</li></ul>
       </div>
 
-      <p class="fiestas-popup__note">Las fechas pueden variar ligeramente cada año en función del calendario litúrgico. Consulta la programación oficial para confirmar horarios y ubicaciones.</p>
+      <p class="fiestas-popup__note" data-i18n-page="fp_note">Las fechas pueden variar ligeramente cada año en función del calendario litúrgico. Consulta la programación oficial para confirmar horarios y ubicaciones.</p>
     </div>
   </div>
 
@@ -2029,19 +2267,19 @@
   <div class="fiestas-overlay" id="cabildo-overlay" role="dialog" aria-modal="true" aria-labelledby="cabildo-popup-title" aria-hidden="true">
     <div class="fiestas-popup">
       <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
-      <p class="fiestas-popup__eyebrow">Competencias del Cabildo</p>
-      <h3 class="fiestas-popup__title" id="cabildo-popup-title">Funciones capitulares</h3>
+      <p class="fiestas-popup__eyebrow" data-i18n-page="cp_eyebrow">Competencias del Cabildo</p>
+      <h3 class="fiestas-popup__title" id="cabildo-popup-title" data-i18n-page="cp_title">Funciones capitulares</h3>
       <div class="fiestas-popup__divider"></div>
 
       <div class="fiestas-popup__group">
-        <p class="fiestas-popup__para">El <strong>Cabildo Catedralicio</strong> es un órgano colegiado de clérigos con personalidad jurídica propia, instituido para asistir al obispo con su consejo y para asumir el culto solemne de la Catedral. Su existencia y competencias están reguladas por los cánones 503 a 510 del Código de Derecho Canónico de 1983 y por los estatutos aprobados por el obispo diocesano.</p>
+        <p class="fiestas-popup__para" data-i18n-page="cp_p1">El <strong>Cabildo Catedralicio</strong> es un órgano colegiado de clérigos con personalidad jurídica propia, instituido para asistir al obispo con su consejo y para asumir el culto solemne de la Catedral. Su existencia y competencias están reguladas por los cánones 503 a 510 del Código de Derecho Canónico de 1983 y por los estatutos aprobados por el obispo diocesano.</p>
 
-        <p class="fiestas-popup__para">Su tarea primaria es <strong>litúrgica</strong>: organiza, promueve y celebra el culto ordinario y extraordinario, las grandes solemnidades del calendario eclesiástico y las celebraciones más significativas de la vida diocesana. A esta misión se suma la <strong>custodia y gestión del patrimonio</strong> religioso, histórico y artístico que se conserva en el templo, el archivo capitular y los museos catedralicios.</p>
+        <p class="fiestas-popup__para" data-i18n-page="cp_p2">Su tarea primaria es <strong>litúrgica</strong>: organiza, promueve y celebra el culto ordinario y extraordinario, las grandes solemnidades del calendario eclesiástico y las celebraciones más significativas de la vida diocesana. A esta misión se suma la <strong>custodia y gestión del patrimonio</strong> religioso, histórico y artístico que se conserva en el templo, el archivo capitular y los museos catedralicios.</p>
 
-        <p class="fiestas-popup__para">El Cabildo desempeña además funciones de <strong>asesoramiento episcopal</strong>, representación institucional y atención pastoral a quienes solicitan servicios religiosos en la Catedral. En Santo Domingo de la Calzada, lo integran el Deán, el Arcediano, el Chantre, el Tesorero y los canónigos, conforme a sus estatutos propios.</p>
+        <p class="fiestas-popup__para" data-i18n-page="cp_p3">El Cabildo desempeña además funciones de <strong>asesoramiento episcopal</strong>, representación institucional y atención pastoral a quienes solicitan servicios religiosos en la Catedral. En Santo Domingo de la Calzada, lo integran el Deán, el Arcediano, el Chantre, el Tesorero y los canónigos, conforme a sus estatutos propios.</p>
       </div>
 
-      <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px">Más información →</a>
+      <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px" data-i18n-page="cp_more">Más información →</a>
     </div>
   </div>
 
@@ -2051,19 +2289,19 @@
   <div class="fiestas-overlay" id="archivo-coleccion-overlay" role="dialog" aria-modal="true" aria-labelledby="archivo-coleccion-popup-title" aria-hidden="true">
     <div class="fiestas-popup">
       <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
-      <p class="fiestas-popup__eyebrow">Descripción del fondo</p>
-      <h3 class="fiestas-popup__title" id="archivo-coleccion-popup-title">Colección histórica del Archivo Catedralicio</h3>
+      <p class="fiestas-popup__eyebrow" data-i18n-page="ac_eyebrow">Descripción del fondo</p>
+      <h3 class="fiestas-popup__title" id="archivo-coleccion-popup-title" data-i18n-page="ac_title">Colección histórica del Archivo Catedralicio</h3>
       <div class="fiestas-popup__divider"></div>
 
       <div class="fiestas-popup__group">
-        <p class="fiestas-popup__para">El <strong>Archivo Catedralicio de Santo Domingo de la Calzada</strong> nació con las primeras donaciones documentadas que reyes y particulares otorgaron al templo y al abad de la antigua colegiata desde <strong>1120</strong>. Se consolidó a partir de <strong>1229</strong>, cuando la iglesia fue elevada a sede episcopal y comenzó a generar y custodiar el patrimonio documental de la nueva diócesis.</p>
+        <p class="fiestas-popup__para" data-i18n-page="ac_p1">El <strong>Archivo Catedralicio de Santo Domingo de la Calzada</strong> nació con las primeras donaciones documentadas que reyes y particulares otorgaron al templo y al abad de la antigua colegiata desde <strong>1120</strong>. Se consolidó a partir de <strong>1229</strong>, cuando la iglesia fue elevada a sede episcopal y comenzó a generar y custodiar el patrimonio documental de la nueva diócesis.</p>
 
-        <p class="fiestas-popup__para">Su colección conserva <strong>377 pergaminos sueltos</strong> fechados entre <strong>1135</strong> y el siglo XIX, junto con <strong>16 volúmenes encuadernados</strong> y <strong>3 cartularios</strong> con un total de 255 folios. A ellos se suman <strong>cinco códices medievales</strong> de los siglos XI al XIV, los libros sacramentales desde <strong>1540</strong> y los fondos capitulares con actas, cuentas y documentación administrativa del Cabildo.</p>
+        <p class="fiestas-popup__para" data-i18n-page="ac_p2">Su colección conserva <strong>377 pergaminos sueltos</strong> fechados entre <strong>1135</strong> y el siglo XIX, junto con <strong>16 volúmenes encuadernados</strong> y <strong>3 cartularios</strong> con un total de 255 folios. A ellos se suman <strong>cinco códices medievales</strong> de los siglos XI al XIV, los libros sacramentales desde <strong>1540</strong> y los fondos capitulares con actas, cuentas y documentación administrativa del Cabildo.</p>
 
-        <p class="fiestas-popup__para">A finales del siglo XIX, el archivero <strong>Ángel Manso</strong> reunió y organizó las colecciones que habían quedado dispersas, devolviéndolas al espacio donde hoy se conservan. El edición en tres volúmenes de los cartularios, preparada por el medievalista <strong>Antonio Ubieto Arteta</strong>, constituye una fuente fundamental para el estudio de la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
+        <p class="fiestas-popup__para" data-i18n-page="ac_p3">A finales del siglo XIX, el archivero <strong>Ángel Manso</strong> reunió y organizó las colecciones que habían quedado dispersas, devolviéndolas al espacio donde hoy se conservan. El edición en tres volúmenes de los cartularios, preparada por el medievalista <strong>Antonio Ubieto Arteta</strong>, constituye una fuente fundamental para el estudio de la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
       </div>
 
-      <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px">Más información →</a>
+      <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px" data-i18n-page="ac_more">Más información →</a>
     </div>
   </div>
 
@@ -2073,19 +2311,19 @@
   <div class="fiestas-overlay" id="archivo-biblio-overlay" role="dialog" aria-modal="true" aria-labelledby="archivo-biblio-popup-title" aria-hidden="true">
     <div class="fiestas-popup">
       <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
-      <p class="fiestas-popup__eyebrow">Publicaciones</p>
-      <h3 class="fiestas-popup__title" id="archivo-biblio-popup-title">Bibliografía y catálogos del Archivo</h3>
+      <p class="fiestas-popup__eyebrow" data-i18n-page="ab_eyebrow">Publicaciones</p>
+      <h3 class="fiestas-popup__title" id="archivo-biblio-popup-title" data-i18n-page="ab_title">Bibliografía y catálogos del Archivo</h3>
       <div class="fiestas-popup__divider"></div>
 
       <div class="fiestas-popup__group">
-        <p class="fiestas-popup__para">El fondo del Archivo Catedralicio cuenta con un <strong>catálogo descriptivo</strong> elaborado a lo largo del siglo XX, que organiza los pergaminos sueltos, los volúmenes encuadernados, los cartularios y los libros sacramentales en series cronológicas y temáticas. Constituye la herramienta básica de consulta para investigadores acreditados y para la propia administración del Cabildo.</p>
+        <p class="fiestas-popup__para" data-i18n-page="ab_p1">El fondo del Archivo Catedralicio cuenta con un <strong>catálogo descriptivo</strong> elaborado a lo largo del siglo XX, que organiza los pergaminos sueltos, los volúmenes encuadernados, los cartularios y los libros sacramentales en series cronológicas y temáticas. Constituye la herramienta básica de consulta para investigadores acreditados y para la propia administración del Cabildo.</p>
 
-        <p class="fiestas-popup__para">La obra de referencia para el estudio del fondo medieval es la edición en tres volúmenes <em>Cartularios (I, II y III) de Santo Domingo de la Calzada</em>, preparada por el medievalista <strong>Agustín Ubieto Arteta</strong> y publicada por Ediciones Anubar en <strong>1978</strong>. Recoge y sistematiza los cartularios del antiguo monasterio y la sede episcopal, ofreciendo una fuente esencial para la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
+        <p class="fiestas-popup__para" data-i18n-page="ab_p2">La obra de referencia para el estudio del fondo medieval es la edición en tres volúmenes <em>Cartularios (I, II y III) de Santo Domingo de la Calzada</em>, preparada por el medievalista <strong>Agustín Ubieto Arteta</strong> y publicada por Ediciones Anubar en <strong>1978</strong>. Recoge y sistematiza los cartularios del antiguo monasterio y la sede episcopal, ofreciendo una fuente esencial para la historia eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
 
-        <p class="fiestas-popup__para">A esta edición se suman estudios complementarios como los <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n.º 82, 1972) del mismo autor, el inventario del <strong>Archivo Musical</strong> realizado por el musicólogo <strong>José López Calo</strong>, y diversas publicaciones de investigación accesibles en formato digital a través del <strong>Censo-Guía de Archivos</strong> del Ministerio de Cultura.</p>
+        <p class="fiestas-popup__para" data-i18n-page="ab_p3">A esta edición se suman estudios complementarios como los <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n.º 82, 1972) del mismo autor, el inventario del <strong>Archivo Musical</strong> realizado por el musicólogo <strong>José López Calo</strong>, y diversas publicaciones de investigación accesibles en formato digital a través del <strong>Censo-Guía de Archivos</strong> del Ministerio de Cultura.</p>
       </div>
 
-      <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px">Más información →</a>
+      <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px" data-i18n-page="ab_more">Más información →</a>
     </div>
   </div>
 
@@ -2095,34 +2333,34 @@
   <div class="fiestas-overlay" id="archivo-overlay" role="dialog" aria-modal="true" aria-labelledby="archivo-popup-title" aria-hidden="true">
     <div class="fiestas-popup">
       <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
-      <p class="fiestas-popup__eyebrow">Consulta previa</p>
-      <h3 class="fiestas-popup__title" id="archivo-popup-title">Solicita tu visita de investigación</h3>
+      <p class="fiestas-popup__eyebrow" data-i18n-page="af_eyebrow">Consulta previa</p>
+      <h3 class="fiestas-popup__title" id="archivo-popup-title" data-i18n-page="af_title">Solicita tu visita de investigación</h3>
       <div class="fiestas-popup__divider"></div>
 
-      <p class="fiestas-popup__para">Completa el formulario y nos pondremos en contacto contigo para confirmar tu visita al Archivo Catedralicio.</p>
+      <p class="fiestas-popup__para" data-i18n-page="af_intro">Completa el formulario y nos pondremos en contacto contigo para confirmar tu visita al Archivo Catedralicio.</p>
 
       <form class="fiestas-form" id="archivo-form" novalidate>
         <div class="fiestas-form__row">
-          <label class="fiestas-form__label" for="archivo-form-name">Nombre completo</label>
+          <label class="fiestas-form__label" for="archivo-form-name" data-i18n-page="af_lbl_name">Nombre completo</label>
           <input class="fiestas-form__input" type="text" id="archivo-form-name" name="nombre" required autocomplete="name" />
         </div>
         <div class="fiestas-form__row">
-          <label class="fiestas-form__label" for="archivo-form-phone">Teléfono</label>
+          <label class="fiestas-form__label" for="archivo-form-phone" data-i18n-page="af_lbl_phone">Teléfono</label>
           <input class="fiestas-form__input" type="tel" id="archivo-form-phone" name="telefono" required autocomplete="tel" />
         </div>
         <div class="fiestas-form__row">
-          <label class="fiestas-form__label" for="archivo-form-email">Correo electrónico</label>
+          <label class="fiestas-form__label" for="archivo-form-email" data-i18n-page="af_lbl_email">Correo electrónico</label>
           <input class="fiestas-form__input" type="email" id="archivo-form-email" name="correo" required autocomplete="email" />
         </div>
         <div class="fiestas-form__row">
-          <label class="fiestas-form__label" for="archivo-form-comments">Comentarios</label>
-          <textarea class="fiestas-form__textarea" id="archivo-form-comments" name="comentarios" required placeholder="Indica el objeto de la investigación, las fechas previstas y tu acreditación académica o institucional."></textarea>
+          <label class="fiestas-form__label" for="archivo-form-comments" data-i18n-page="af_lbl_comments">Comentarios</label>
+          <textarea class="fiestas-form__textarea" id="archivo-form-comments" name="comentarios" required data-i18n-ph-page="af_ph_comments" placeholder="Indica el objeto de la investigación, las fechas previstas y tu acreditación académica o institucional."></textarea>
         </div>
         <label class="fiestas-form__check">
           <input type="checkbox" id="archivo-form-terms" required />
-          <span>Acepto la <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y las <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condiciones de uso</a>.</span>
+          <span data-i18n-page="af_terms">Acepto la <a href="legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a> y las <a href="legal/aviso-legal.html" target="_blank" rel="noopener">condiciones de uso</a>.</span>
         </label>
-        <button type="submit" class="fiestas-form__submit">Enviar solicitud →</button>
+        <button type="submit" class="fiestas-form__submit" data-i18n-page="af_submit">Enviar solicitud →</button>
         <p class="fiestas-form__status" id="archivo-form-status" aria-live="polite"></p>
       </form>
     </div>

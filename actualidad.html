@@ -642,6 +642,17 @@
       margin-bottom: 32px
     }
 
+    @media (max-width: 720px) {
+      .gallery-filter {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .gallery-filter::-webkit-scrollbar { display: none; height: 0 }
+      .gallery-filter .filter-tab { flex: 0 0 auto; white-space: nowrap }
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1448,6 +1459,86 @@
 
       .prensa-row__meta { justify-content: flex-start }
     }
+
+    /* ── VALÓRANOS ────────────────────────────────────────── */
+    .val-inner {
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto
+    }
+    .val-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 28px
+    }
+    .val-ornament__line {
+      width: 56px;
+      height: 1px;
+      background: rgba(201,168,76,.3)
+    }
+    .val-stars {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 24px 0 8px
+    }
+    .val-star {
+      width: 34px;
+      height: 34px;
+      fill: var(--gold)
+    }
+    .val-desc {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--stone-lt);
+      margin: 16px auto 36px;
+      max-width: 440px
+    }
+    .val-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--carbon);
+      background: var(--gold);
+      border: 1.5px solid var(--gold);
+      padding: 17px 36px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .25s ease, border-color .25s ease, transform .2s ease
+    }
+    .val-btn:hover {
+      background: var(--gold-lt);
+      border-color: var(--gold-lt);
+      transform: translateY(-2px)
+    }
+    .val-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px
+    }
+    .val-btn__icon { flex-shrink: 0 }
+    body.light-mode .val-desc { color: var(--stone-d) }
+    body.light-mode .val-btn { background: var(--gold-dk); border-color: var(--gold-dk); color: #fff }
+    body.light-mode .val-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--carbon) }
+    @media (max-width: 768px) {
+      .val-star { width: 30px; height: 30px }
+      .val-desc { font-size: .95rem }
+      .val-btn { padding: 16px 28px }
+    }
+    @media (max-width: 480px) {
+      .val-ornament__line { width: 36px }
+      .val-stars { gap: 8px }
+      .val-star { width: 28px; height: 28px }
+      .val-desc { font-size: .92rem; margin-bottom: 28px }
+      .val-btn { width: 100%; justify-content: center; padding: 18px 20px }
+    }
   </style>
 </head>
 
@@ -2087,6 +2178,43 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
+       VALÓRANOS
+  ════════════════════════════════════════════════════════ -->
+  <section id="valoranos" class="act-section act-section--dark">
+    <div class="act-section__inner val-inner">
+      <div class="val-ornament" aria-hidden="true">
+        <span class="val-ornament__line"></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <span class="val-ornament__line"></span>
+      </div>
+      <p class="act-eyebrow reveal" data-i18n-page="val_eyebrow">Valóranos</p>
+      <h2 class="act-title reveal reveal-delay-1" data-i18n-page="val_title">Comparte tu <em>experiencia</em></h2>
+      <div class="val-stars reveal reveal-delay-2" role="img" aria-label="5 estrellas">
+        <svg class="val-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <svg class="val-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <svg class="val-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <svg class="val-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+        <svg class="val-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+      </div>
+      <p class="val-desc reveal reveal-delay-3" data-i18n-page="val_desc">Tu opinión ayuda a otros viajeros a descubrir este patrimonio vivo del Camino de Santiago.</p>
+      <a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0xd457ca3937ba1a7:0xd6ae479bdf1c3f47!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2"
+         class="val-btn reveal reveal-delay-4"
+         target="_blank"
+         rel="noopener noreferrer"
+         data-i18n-page="val_btn"
+         aria-label="Valorar en Google Maps">
+        <svg class="val-btn__icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Valorar en Google
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
        NEWS / EVENT / PRESS POPUP
   ════════════════════════════════════════════════════════ -->
   <div class="news-popup-overlay" id="news-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="news-popup-title" aria-hidden="true">
@@ -2291,6 +2419,7 @@
         event_register: 'Inscribirse', event_add_cal: 'Añadir al calendario', event_more_info: 'Más información',
         gallery_eyebrow: 'Fotos y vídeos', gallery_title: 'Galería <em>multimedia</em>',
         gal_all: 'Todas', gal_cat: 'Catedral', gal_tor: 'Torre', gal_sf: 'San Francisco', gal_erm: 'Ermita Plaza', gal_mon: 'Monasterio Cañas', gal_more: 'Ver más',
+        val_eyebrow: 'Valóranos', val_title: 'Comparte tu <em>experiencia</em>', val_desc: 'Tu opinión ayuda a otros viajeros a descubrir este patrimonio vivo del Camino de Santiago.', val_btn: 'Valorar en Google',
         press_eyebrow: 'Apariciones en medios', press_title: 'En la <em>prensa</em>',
         press_type_report: 'Reportaje', press_type_interview: 'Entrevista', press_type_mention: 'Mención',
         press_read: 'Leer artículo',
@@ -2341,6 +2470,7 @@
         event_register: 'Register', event_add_cal: 'Add to calendar', event_more_info: 'More info',
         gallery_eyebrow: 'Photos & videos', gallery_title: '<em>Multimedia</em> gallery',
         gal_all: 'All', gal_cat: 'Cathedral', gal_tor: 'Tower', gal_sf: 'San Francisco', gal_erm: 'Hermitage Plaza', gal_mon: 'Monastery of Cañas', gal_more: 'Show more',
+        val_eyebrow: 'Rate us', val_title: 'Share your <em>experience</em>', val_desc: 'Your review helps other travellers discover this living heritage of the Camino de Santiago.', val_btn: 'Rate on Google',
         press_eyebrow: 'Media appearances', press_title: 'In the <em>press</em>',
         press_type_report: 'Feature', press_type_interview: 'Interview', press_type_mention: 'Mention',
         press_read: 'Read article',
@@ -2391,6 +2521,7 @@
         event_register: 'S\'inscrire', event_add_cal: 'Ajouter au calendrier', event_more_info: 'Plus d\'infos',
         gallery_eyebrow: 'Photos et vidéos', gallery_title: 'Galerie <em>multimédia</em>',
         gal_all: 'Toutes', gal_cat: 'Cathédrale', gal_tor: 'Tour', gal_sf: 'San Francisco', gal_erm: 'Ermitage Plaza', gal_mon: 'Monastère de Cañas', gal_more: 'Voir plus',
+        val_eyebrow: 'Évaluez-nous', val_title: 'Partagez votre <em>expérience</em>', val_desc: 'Votre avis aide d\'autres voyageurs à découvrir ce patrimoine vivant du Chemin de Saint-Jacques.', val_btn: 'Évaluer sur Google',
         press_eyebrow: 'Présence dans les médias', press_title: 'Dans la <em>presse</em>',
         press_type_report: 'Reportage', press_type_interview: 'Entretien', press_type_mention: 'Mention',
         press_read: 'Lire l\'article',
@@ -2441,6 +2572,7 @@
         event_register: 'Anmelden', event_add_cal: 'Zum Kalender', event_more_info: 'Mehr Info',
         gallery_eyebrow: 'Fotos & Videos', gallery_title: '<em>Multimedia</em>-Galerie',
         gal_all: 'Alle', gal_cat: 'Kathedrale', gal_tor: 'Turm', gal_sf: 'San Francisco', gal_erm: 'Ermitage Plaza', gal_mon: 'Kloster Cañas', gal_more: 'Mehr anzeigen',
+        val_eyebrow: 'Bewerten Sie uns', val_title: 'Teile deine <em>Erfahrung</em>', val_desc: 'Deine Bewertung hilft anderen Reisenden, dieses lebendige Erbe des Jakobswegs zu entdecken.', val_btn: 'Bei Google bewerten',
         press_eyebrow: 'Medienberichte', press_title: 'In der <em>Presse</em>',
         press_type_report: 'Reportage', press_type_interview: 'Interview', press_type_mention: 'Erwähnung',
         press_read: 'Artikel lesen',
@@ -2491,6 +2623,7 @@
         event_register: 'Inscrever-se', event_add_cal: 'Adicionar ao calendário', event_more_info: 'Mais informações',
         gallery_eyebrow: 'Fotos e vídeos', gallery_title: 'Galeria <em>multimédia</em>',
         gal_all: 'Todas', gal_cat: 'Catedral', gal_tor: 'Torre', gal_sf: 'San Francisco', gal_erm: 'Ermida Plaza', gal_mon: 'Mosteiro de Cañas', gal_more: 'Ver mais',
+        val_eyebrow: 'Avalie-nos', val_title: 'Partilha a tua <em>experiência</em>', val_desc: 'A tua avaliação ajuda outros viajantes a descobrir este patrimônio vivo do Caminho de Santiago.', val_btn: 'Avaliar no Google',
         press_eyebrow: 'Aparições na mídia', press_title: 'Na <em>imprensa</em>',
         press_type_report: 'Reportagem', press_type_interview: 'Entrevista', press_type_mention: 'Menção',
         press_read: 'Ler artigo',
@@ -2541,6 +2674,7 @@
         event_register: 'Iscriversi', event_add_cal: 'Aggiungi al calendario', event_more_info: 'Più informazioni',
         gallery_eyebrow: 'Foto e video', gallery_title: 'Galleria <em>multimediale</em>',
         gal_all: 'Tutte', gal_cat: 'Cattedrale', gal_tor: 'Torre', gal_sf: 'San Francisco', gal_erm: 'Eremo Plaza', gal_mon: 'Monastero di Cañas', gal_more: 'Vedi altro',
+        val_eyebrow: 'Valutaci', val_title: 'Condividi la tua <em>esperienza</em>', val_desc: 'La tua recensione aiuta altri viaggiatori a scoprire questo patrimonio vivente del Cammino di Santiago.', val_btn: 'Valuta su Google',
         press_eyebrow: 'Presenze nei media', press_title: 'Sulla <em>stampa</em>',
         press_type_report: 'Reportage', press_type_interview: 'Intervista', press_type_mention: 'Menzione',
         press_read: 'Leggi l\'articolo',
@@ -2591,6 +2725,7 @@
         event_register: '등록하기', event_add_cal: '캘린더에 추가', event_more_info: '자세히 보기',
         gallery_eyebrow: '사진 및 영상', gallery_title: '멀티미디어 <em>갤러리</em>',
         gal_all: '전체', gal_cat: '대성당', gal_tor: '종탑', gal_sf: '산프란시스코', gal_erm: '광장 예배당', gal_mon: '카냐스 수도원', gal_more: '더 보기',
+        val_eyebrow: '리뷰 남기기', val_title: '당신의 <em>경험</em>을 나눠주세요', val_desc: '소중한 리뷰가 다른 순례자들이 산티아고 길의 살아있는 유산을 발견하는 데 도움이 됩니다.', val_btn: 'Google에서 평가하기',
         press_eyebrow: '미디어 등장', press_title: '<em>언론</em>에서',
         press_type_report: '특집', press_type_interview: '인터뷰', press_type_mention: '언급',
         press_read: '기사 읽기',
@@ -2641,6 +2776,7 @@
         event_register: 'Izena eman', event_add_cal: 'Egutegian gehitu', event_more_info: 'Informazio gehiago',
         gallery_eyebrow: 'Argazkiak eta bideoak', gallery_title: 'Multimedia <em>galeria</em>',
         gal_all: 'Denak', gal_cat: 'Katedrala', gal_tor: 'Dorrea', gal_sf: 'San Frantzisko', gal_erm: 'Plazako Ermita', gal_mon: 'Kanasko Monasterioa', gal_more: 'Gehiago ikusi',
+        val_eyebrow: 'Baloratu iezaguzu', val_title: 'Partekatu zure <em>esperientzia</em>', val_desc: 'Zure iritzia Santiago Bideko ondare hau beste bidaiariek aurkitzen lagundu dezake.', val_btn: 'Google-n baloratu',
         press_eyebrow: 'Hedabideetan', press_title: '<em>Prentsan</em>',
         press_type_report: 'Erreportajea', press_type_interview: 'Elkarrizketa', press_type_mention: 'Aipamena',
         press_read: 'Artikulua irakurri',
@@ -2691,6 +2827,7 @@
         event_register: 'Inscriure\'s', event_add_cal: 'Afegir al calendari', event_more_info: 'Més informació',
         gallery_eyebrow: 'Fotos i vídeos', gallery_title: 'Galeria <em>multimèdia</em>',
         gal_all: 'Totes', gal_cat: 'Catedral', gal_tor: 'Torre', gal_sf: 'Sant Francesc', gal_erm: 'Ermita Plaça', gal_mon: 'Monestir de Canyes', gal_more: 'Veure\'n més',
+        val_eyebrow: 'Valoreu-nos', val_title: 'Comparteix la teva <em>experiència</em>', val_desc: 'La teva ressenya ajuda altres viatgers a descobrir aquest patrimoni viu del Camí de Santiago.', val_btn: 'Valorar a Google',
         press_eyebrow: 'Aparicions als mitjans', press_title: 'A la <em>premsa</em>',
         press_type_report: 'Reportatge', press_type_interview: 'Entrevista', press_type_mention: 'Menció',
         press_read: 'Llegir article',

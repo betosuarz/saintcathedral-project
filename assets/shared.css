@@ -3046,6 +3046,16 @@ body.light-mode .gallery-info-btn__icon {
   border-color: #F0D78E !important;
 }
 
+/* ── AUDIO / PDF cards: mostrar el tooltip al hover sobre la card,
+   no solo sobre el botón i. Aplica a las 5 páginas de monumentos. */
+@media (hover: hover) {
+  .audio-pdf-col:has(.audio-card:hover) .audio-info-tooltip,
+  .audio-pdf-col:has(.pdf-card:hover) .pdf-info-tooltip {
+    opacity: 1 !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+}
+
 /* ── GALLERY WRAP — ancho máximo unificado en las 5 páginas de monumentos ─ */
 .gallery-wrap,
 #galeria > .eyebrow,

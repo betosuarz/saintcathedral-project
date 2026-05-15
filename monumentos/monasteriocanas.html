@@ -2528,7 +2528,7 @@
             <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
           </svg>
         </button>
-        <div class="lang-selector__dropdown" role="listbox">
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
           <button class="lang-selector__option active" data-lang="es" role="option"><span
               class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
               class="lang-code">ES</span></button>
@@ -2649,11 +2649,11 @@
             data-i18n-page="meta_estilos">Estilos</span><span class="page-hero__meta-val">Cisterciense · Gótico · Renacentista</span></div>
       </div>
       <nav class="hero-nav" aria-label="Secciones del Monasterio">
-        <a href="#horarios-tarifas" class="hero-nav__link">Horarios y tarifas</a>
-        <a href="#galeria" class="hero-nav__link">Tesoros</a>
-        <a href="#cronologia" class="hero-nav__link">Cronología</a>
-        <a href="#espacios" class="hero-nav__link">Espacios</a>
-        <a href="#audioguia" class="hero-nav__link">Audioguía</a>
+        <a href="#horarios-tarifas" class="hero-nav__link" data-i18n="hero_nav_hours">Horarios y tarifas</a>
+        <a href="#galeria" class="hero-nav__link" data-i18n="hero_nav_treasures">Tesoros</a>
+        <a href="#cronologia" class="hero-nav__link" data-i18n="hero_nav_chronology">Cronología</a>
+        <a href="#espacios" class="hero-nav__link" data-i18n="hero_nav_spaces">Espacios</a>
+        <a href="#audioguia" class="hero-nav__link" data-i18n="hero_nav_audio">Audioguía</a>
       </nav>
     </div>
   </section>
@@ -2705,8 +2705,8 @@
         </div>
       </div>
       <div class="ht-tabs" role="tablist" aria-label="Horarios y tarifas">
-        <button type="button" class="ht-tab is-active" id="ht-tab-horarios" role="tab" aria-controls="ht-horarios" aria-selected="true">Horarios</button>
-        <button type="button" class="ht-tab" id="ht-tab-tarifas" role="tab" aria-controls="ht-tarifas" aria-selected="false">Tarifas</button>
+        <button type="button" class="ht-tab is-active" id="ht-tab-horarios" role="tab" aria-controls="ht-horarios" aria-selected="true" data-i18n="ht_tab_hours">Horarios</button>
+        <button type="button" class="ht-tab" id="ht-tab-tarifas" role="tab" aria-controls="ht-tarifas" aria-selected="false" data-i18n="ht_tab_prices">Tarifas</button>
       </div>
       <div class="ht-grid reveal reveal-delay-2" id="ht-grid">
         <div class="ht-block ht-block--schedule" id="ht-horarios" role="tabpanel" aria-labelledby="ht-tab-horarios">
@@ -2720,19 +2720,19 @@
         <div class="ht-block ht-block--prices" id="ht-tarifas" role="tabpanel" aria-labelledby="ht-tab-tarifas">
           <div class="ht-block__title" data-i18n-page="ht_prices_title">Tarifas de entrada</div>
           <div class="ht-row">
-            <span class="ht-row__label" data-i18n-page="ht_general">Adulto</span>
+            <span class="ht-row__label" data-i18n-page="ht_general">Ticket Adulto</span>
             <span class="ht-row__val ht-row__val--highlight">6 € / persona</span>
           </div>
           <div class="ht-row">
             <span class="ht-row__label">
-              <span data-i18n-page="ht_pilgrim">Tarifa reducida</span>
+              <span data-i18n-page="ht_pilgrim">Ticket Niño</span>
               <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_pilgrim">Válido para menores de 6 a 14 años acreditados en taquilla.</span></span>
             </span>
-            <span class="ht-row__val ht-row__val--highlight">4 € / persona</span>
+            <span class="ht-row__val ht-row__val--highlight" data-i18n-page="ht_pilgrim_price">4 € / niño</span>
           </div>
           <div class="ht-row">
             <span class="ht-row__label">
-              <span data-i18n-page="ht_group_big">Visita guiada individual</span>
+              <span data-i18n-page="ht_group_big">Visita Guiada Individual</span>
               <span class="info-icon" tabindex="0">i<span class="info-tooltip" data-i18n-page="tip_group">Incluye guía especializado. Reserva previa recomendada.</span></span>
             </span>
             <span class="ht-row__val ht-row__val--highlight">8 € / persona</span>
@@ -2899,7 +2899,7 @@
           <p class="text-grid__body" style="color:var(--stone)" data-i18n-page="hist_body5">La Cilla, antigua sala de almacén del monasterio, alberga hoy el Museo Monástico con una excepcional colección de arte sacro: orfebrería, bordados litúrgicos, escultura medieval y documentos históricos.</p>
         </div>
         <button type="button" class="hist-more-btn" id="hist-more-btn" aria-expanded="false">
-          <span class="hist-more-btn__label">Ver más</span>
+          <span class="hist-more-btn__label" data-i18n="ver_mas">Ver más</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
       </div>
@@ -3426,7 +3426,7 @@
         page_eyebrow: 'Monumentos · Monasterio de Cañas', page_title: 'El <em>Monasterio</em><br>de Cañas', page_desc: 'La Abadía de la Luz. Ocho siglos de vida contemplativa cisterciense a orillas del río Tuerto, en La Rioja.', meta_entrada: 'Entrada', meta_horario: 'Horario', meta_estilos: 'Estilos',
         bc_home: 'Inicio', bc_monuments: 'Monumentos', bc_monastery: 'Monasterio de Cañas',
         infobar_location_label: 'Ubicación',
-        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horarios y <em>tarifas</em>', ht_schedule_title: 'Horarios de apertura', ht_lv: 'Todos los días', ht_sat: 'Lunes', ht_closed: 'Cerrado', ht_note: 'El Monasterio permanece abierto todos los días en temporada alta: de abril a octubre de 2026.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Adulto', ht_pilgrim: 'Tarifa reducida', ht_group_big: 'Visita guiada individual', ht_group_small: 'Grupos &lt; 25 personas', ht_children: 'Menores de 12 años', ht_residents: 'Residentes', ht_free: 'Gratuidad', ht_open_days: 'visita pública', tip_pilgrim: 'Válido para menores de 6 a 14 años acreditados en taquilla.', tip_group: 'Incluye guía especializado. Reserva previa recomendada.', tip_free: 'Acreditar debidamente con carnet en taquillas.',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horarios y <em>tarifas</em>', ht_schedule_title: 'Horarios de apertura', ht_lv: 'Todos los días', ht_sat: 'Lunes', ht_closed: 'Cerrado', ht_note: 'El Monasterio permanece abierto todos los días en temporada alta: de abril a octubre de 2026.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Ticket Adulto', ht_pilgrim: 'Ticket Niño', ht_pilgrim_price: '4 € / niño', ht_group_big: 'Visita Guiada Individual', ht_group_small: 'Grupos &lt; 25 personas', ht_children: 'Menores de 12 años', ht_residents: 'Residentes', ht_free: 'Gratuidad', ht_open_days: 'visita pública', tip_pilgrim: 'Válido para menores de 6 a 14 años acreditados en taquilla.', tip_group: 'Incluye guía especializado. Reserva previa recomendada.', tip_free: 'Acreditar debidamente con carnet en taquillas.',
         sec_gallery_eyebrow: 'Galería', sec_gallery_title: 'El conjunto <em>monástico</em>',
         gal_btn: 'Saber más', gal_discover: 'Descubrir →',
         gal_eyebrow_1: 'Cisterciense · s. XIII', gal_cap_1: 'Fachada del Monasterio',
@@ -3485,7 +3485,7 @@
         page_eyebrow: 'Monuments · Monastery of Cañas', page_title: 'The <em>Monastery</em><br>of Cañas', page_desc: 'The Abbey of Light. Eight centuries of Cistercian contemplative life on the banks of the Tuerto river, in La Rioja.', meta_entrada: 'Admission', meta_horario: 'Hours', meta_estilos: 'Styles',
         bc_home: 'Home', bc_monuments: 'Monuments', bc_monastery: 'Monastery of Cañas',
         infobar_location_label: 'Location',
-        sec_ht_eyebrow: 'Visit', sec_ht_title: 'Hours & <em>admission</em>', ht_schedule_title: 'Opening hours', ht_lv: 'Every day', ht_sat: 'Monday', ht_closed: 'Closed', ht_note: 'The Monastery is open every day in high season: from April to October 2026.', ht_prices_title: 'Admission prices', ht_general: 'Adult', ht_pilgrim: 'Reduced rate', ht_group_big: 'Individual guided tour', ht_group_small: 'Groups &lt; 25 people', ht_children: 'Under 12', ht_residents: 'Residents', ht_free: 'Free', ht_open_days: 'public visits', tip_pilgrim: 'Valid for children aged 6 to 14 with proof of age at the ticket office.', tip_group: 'Includes specialist guide. Prior booking recommended.', tip_free: 'Please show valid ID at the ticket office.',
+        sec_ht_eyebrow: 'Visit', sec_ht_title: 'Hours & <em>admission</em>', ht_schedule_title: 'Opening hours', ht_lv: 'Every day', ht_sat: 'Monday', ht_closed: 'Closed', ht_note: 'The Monastery is open every day in high season: from April to October 2026.', ht_prices_title: 'Admission prices', ht_general: 'Adult Ticket', ht_pilgrim: 'Child Ticket', ht_pilgrim_price: '€4 / child', ht_group_big: 'Individual Guided Tour', ht_group_small: 'Groups &lt; 25 people', ht_children: 'Under 12', ht_residents: 'Residents', ht_free: 'Free', ht_open_days: 'public visits', tip_pilgrim: 'Valid for children aged 6 to 14 with proof of age at the ticket office.', tip_group: 'Includes specialist guide. Prior booking recommended.', tip_free: 'Please show valid ID at the ticket office.',
         sec_gallery_eyebrow: 'Gallery', sec_gallery_title: 'The monastic <em>complex</em>',
         gal_btn: 'Learn more', gal_discover: 'Discover →',
         gal_eyebrow_1: 'Cistercian · 13th c.', gal_cap_1: 'Monastery Façade',
@@ -3527,7 +3527,7 @@
         page_eyebrow: 'Monuments · Monastère de Cañas', page_title: 'Le <em>Monastère</em><br>de Cañas', page_desc: 'L\'Abbaye de la Lumière. Huit siècles de vie contemplative cistercienne au bord du río Tuerto, en La Rioja.', meta_entrada: 'Entrée', meta_horario: 'Horaires', meta_estilos: 'Styles',
         bc_home: 'Accueil', bc_monuments: 'Monuments', bc_monastery: 'Monastère de Cañas',
         infobar_location_label: 'Emplacement',
-        sec_ht_eyebrow: 'Visite', sec_ht_title: 'Horaires et <em>tarifs</em>', ht_schedule_title: 'Horaires d\'ouverture', ht_lv: 'Tous les jours', ht_sat: 'Lundi', ht_closed: 'Fermé', ht_note: 'Le Monastère est ouvert tous les jours en haute saison : d\'avril à octobre 2026.', ht_prices_title: 'Tarifs d\'entrée', ht_general: 'Adulte', ht_pilgrim: 'Tarif réduit', ht_group_big: 'Visite guidée individuelle', ht_group_small: 'Groupes &lt; 25 personnes', ht_children: 'Moins de 12 ans', ht_residents: 'Résidents', ht_free: 'Gratuit', ht_open_days: 'visites publiques', tip_pilgrim: 'Valable pour les enfants de 6 à 14 ans, justificatif requis au guichet.', tip_group: 'Guide spécialisé inclus. Réservation préalable recommandée.', tip_free: 'Présenter une pièce d\'identité valide aux guichets.',
+        sec_ht_eyebrow: 'Visite', sec_ht_title: 'Horaires et <em>tarifs</em>', ht_schedule_title: 'Horaires d\'ouverture', ht_lv: 'Tous les jours', ht_sat: 'Lundi', ht_closed: 'Fermé', ht_note: 'Le Monastère est ouvert tous les jours en haute saison : d\'avril à octobre 2026.', ht_prices_title: 'Tarifs d\'entrée', ht_general: 'Billet Adulte', ht_pilgrim: 'Billet Enfant', ht_pilgrim_price: '4 € / enfant', ht_group_big: 'Visite Guidée Individuelle', ht_group_small: 'Groupes &lt; 25 personnes', ht_children: 'Moins de 12 ans', ht_residents: 'Résidents', ht_free: 'Gratuit', ht_open_days: 'visites publiques', tip_pilgrim: 'Valable pour les enfants de 6 à 14 ans, justificatif requis au guichet.', tip_group: 'Guide spécialisé inclus. Réservation préalable recommandée.', tip_free: 'Présenter une pièce d\'identité valide aux guichets.',
         sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'L\'ensemble <em>monastique</em>',
         gal_btn: 'En savoir plus', gal_discover: 'Découvrir →',
         gal_eyebrow_1: 'Cistercien · XIIIe s.', gal_cap_1: 'Façade du Monastère',
@@ -3569,7 +3569,7 @@
         page_eyebrow: 'Denkmäler · Kloster Cañas', page_title: 'Das <em>Kloster</em><br>Cañas', page_desc: 'Die Abtei des Lichts. Acht Jahrhunderte zisterziensisches Kontemplationsleben am Ufer des Río Tuerto in La Rioja.', meta_entrada: 'Eintritt', meta_horario: 'Öffnungszeiten', meta_estilos: 'Stile',
         bc_home: 'Start', bc_monuments: 'Denkmäler', bc_monastery: 'Kloster Cañas',
         infobar_location_label: 'Standort',
-        sec_ht_eyebrow: 'Besuch', sec_ht_title: 'Öffnungszeiten & <em>Preise</em>', ht_schedule_title: 'Öffnungszeiten', ht_lv: 'Täglich', ht_sat: 'Montag', ht_closed: 'Geschlossen', ht_note: 'Das Kloster ist in der Hochsaison täglich geöffnet: von April bis Oktober 2026.', ht_prices_title: 'Eintrittspreise', ht_general: 'Erwachsene', ht_pilgrim: 'Ermäßigt', ht_group_big: 'Geführte Einzeltour', ht_group_small: 'Gruppen &lt; 25 Personen', ht_children: 'Unter 12 Jahre', ht_residents: 'Einwohner', ht_free: 'Kostenlos', ht_open_days: 'öffentliche Besichtigung', tip_pilgrim: 'Gültig für Kinder von 6 bis 14 Jahren mit Nachweis an der Kasse.', tip_group: 'Inklusive Fachführung. Voranmeldung empfohlen.', tip_free: 'Bitte gültigen Ausweis an der Kasse vorzeigen.',
+        sec_ht_eyebrow: 'Besuch', sec_ht_title: 'Öffnungszeiten & <em>Preise</em>', ht_schedule_title: 'Öffnungszeiten', ht_lv: 'Täglich', ht_sat: 'Montag', ht_closed: 'Geschlossen', ht_note: 'Das Kloster ist in der Hochsaison täglich geöffnet: von April bis Oktober 2026.', ht_prices_title: 'Eintrittspreise', ht_general: 'Erwachsenenticket', ht_pilgrim: 'Kinderticket', ht_pilgrim_price: '4 € / Kind', ht_group_big: 'Individuelle Führung', ht_group_small: 'Gruppen &lt; 25 Personen', ht_children: 'Unter 12 Jahre', ht_residents: 'Einwohner', ht_free: 'Kostenlos', ht_open_days: 'öffentliche Besichtigung', tip_pilgrim: 'Gültig für Kinder von 6 bis 14 Jahren mit Nachweis an der Kasse.', tip_group: 'Inklusive Fachführung. Voranmeldung empfohlen.', tip_free: 'Bitte gültigen Ausweis an der Kasse vorzeigen.',
         sec_gallery_eyebrow: 'Galerie', sec_gallery_title: 'Das <em>Klosterensemble</em>',
         gal_btn: 'Mehr erfahren', gal_discover: 'Entdecken →',
         gal_eyebrow_1: 'Zisterziensisch · 13. Jh.', gal_cap_1: 'Klosterfassade',
@@ -3611,7 +3611,7 @@
         page_eyebrow: 'Monumentos · Mosteiro de Cañas', page_title: 'O <em>Mosteiro</em><br>de Cañas', page_desc: 'A Abadia da Luz. Oito séculos de vida contemplativa cisterciense às margens do río Tuerto, em La Rioja.', meta_entrada: 'Entrada', meta_horario: 'Horário', meta_estilos: 'Estilos',
         bc_home: 'Início', bc_monuments: 'Monumentos', bc_monastery: 'Mosteiro de Cañas',
         infobar_location_label: 'Localização',
-        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horários e <em>tarifas</em>', ht_schedule_title: 'Horários de abertura', ht_lv: 'Todos os dias', ht_sat: 'Segunda', ht_closed: 'Fechado', ht_note: 'O Mosteiro está aberto todos os dias em alta estação: de abril a outubro de 2026.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Adulto', ht_pilgrim: 'Tarifa reduzida', ht_group_big: 'Visita guiada individual', ht_group_small: 'Grupos &lt; 25 pessoas', ht_children: 'Menores de 12 anos', ht_residents: 'Residentes', ht_free: 'Gratuito', ht_open_days: 'visitas públicas', tip_pilgrim: 'Válido para menores dos 6 aos 14 anos com comprovativo na bilheteira.', tip_group: 'Inclui guia especializado. Reserva prévia recomendada.', tip_free: 'Apresentar documento de identificação nas bilheteiras.',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horários e <em>tarifas</em>', ht_schedule_title: 'Horários de abertura', ht_lv: 'Todos os dias', ht_sat: 'Segunda', ht_closed: 'Fechado', ht_note: 'O Mosteiro está aberto todos os dias em alta estação: de abril a outubro de 2026.', ht_prices_title: 'Tarifas de entrada', ht_general: 'Bilhete Adulto', ht_pilgrim: 'Bilhete Criança', ht_pilgrim_price: '4 € / criança', ht_group_big: 'Visita Guiada Individual', ht_group_small: 'Grupos &lt; 25 pessoas', ht_children: 'Menores de 12 anos', ht_residents: 'Residentes', ht_free: 'Gratuito', ht_open_days: 'visitas públicas', tip_pilgrim: 'Válido para menores dos 6 aos 14 anos com comprovativo na bilheteira.', tip_group: 'Inclui guia especializado. Reserva prévia recomendada.', tip_free: 'Apresentar documento de identificação nas bilheteiras.',
         sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'O conjunto <em>monástico</em>',
         gal_btn: 'Saber mais', gal_discover: 'Descobrir →',
         gal_eyebrow_1: 'Cisterciense · séc. XIII', gal_cap_1: 'Fachada do Mosteiro',
@@ -3653,7 +3653,7 @@
         page_eyebrow: 'Monumenti · Monastero di Cañas', page_title: 'Il <em>Monastero</em><br>di Cañas', page_desc: 'L\'Abbazia della Luce. Otto secoli di vita contemplativa cistercense sulle rive del río Tuerto, in La Rioja.', meta_entrada: 'Ingresso', meta_horario: 'Orario', meta_estilos: 'Stili',
         bc_home: 'Inizio', bc_monuments: 'Monumenti', bc_monastery: 'Monastero di Cañas',
         infobar_location_label: 'Posizione',
-        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Orari e <em>tariffe</em>', ht_schedule_title: 'Orari di apertura', ht_lv: 'Tutti i giorni', ht_sat: 'Lunedì', ht_closed: 'Chiuso', ht_note: 'Il Monastero è aperto tutti i giorni in alta stagione: da aprile a ottobre 2026.', ht_prices_title: 'Tariffe d\'ingresso', ht_general: 'Adulto', ht_pilgrim: 'Tariffa ridotta', ht_group_big: 'Visita guidata individuale', ht_group_small: 'Gruppi &lt; 25 persone', ht_children: 'Minori di 12 anni', ht_residents: 'Residenti', ht_free: 'Gratuito', ht_open_days: 'visite pubbliche', tip_pilgrim: 'Valida per bambini dai 6 ai 14 anni con documento alla biglietteria.', tip_group: 'Include guida specializzata. Prenotazione consigliata.', tip_free: 'Presentare documento d\'identità valido alle biglietterie.',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Orari e <em>tariffe</em>', ht_schedule_title: 'Orari di apertura', ht_lv: 'Tutti i giorni', ht_sat: 'Lunedì', ht_closed: 'Chiuso', ht_note: 'Il Monastero è aperto tutti i giorni in alta stagione: da aprile a ottobre 2026.', ht_prices_title: 'Tariffe d\'ingresso', ht_general: 'Biglietto Adulto', ht_pilgrim: 'Biglietto Bambino', ht_pilgrim_price: '4 € / bambino', ht_group_big: 'Visita Guidata Individuale', ht_group_small: 'Gruppi &lt; 25 persone', ht_children: 'Minori di 12 anni', ht_residents: 'Residenti', ht_free: 'Gratuito', ht_open_days: 'visite pubbliche', tip_pilgrim: 'Valida per bambini dai 6 ai 14 anni con documento alla biglietteria.', tip_group: 'Include guida specializzata. Prenotazione consigliata.', tip_free: 'Presentare documento d\'identità valido alle biglietterie.',
         sec_gallery_eyebrow: 'Galleria', sec_gallery_title: 'Il complesso <em>monastico</em>',
         gal_btn: 'Scopri di più', gal_discover: 'Scoprire →',
         gal_eyebrow_1: 'Cistercense · sec. XIII', gal_cap_1: 'Facciata del Monastero',
@@ -3695,7 +3695,7 @@
         page_eyebrow: '유적 · 카냐스 수도원', page_title: '카냐스 <em>수도원</em>', page_desc: '빛의 수도원. 라 리오하 투에르토 강변에서 1170년부터 이어진 팔 세기의 시토회 관상 생활.', meta_entrada: '입장료', meta_horario: '운영 시간', meta_estilos: '양식',
         bc_home: '홈', bc_monuments: '유적', bc_monastery: '카냐스 수도원',
         infobar_location_label: '위치',
-        sec_ht_eyebrow: '관람', sec_ht_title: '운영 시간 및 <em>요금</em>', ht_schedule_title: '운영 시간', ht_lv: '매일', ht_sat: '월요일', ht_closed: '휴관', ht_note: '수도원은 성수기에 매일 개방됩니다: 2026년 4월부터 10월까지.', ht_prices_title: '입장 요금', ht_general: '성인', ht_pilgrim: '할인 요금', ht_group_big: '개인 가이드 투어', ht_group_small: '25인 미만 단체', ht_children: '12세 미만', ht_residents: '거주자', ht_free: '무료', ht_open_days: '공개 관람', tip_pilgrim: '6세에서 14세 사이 어린이에게 유효. 매표소에서 증명서 제시.', tip_group: '전문 가이드 포함. 사전 예약 권장.', tip_free: '매표소에서 신분증 제시.',
+        sec_ht_eyebrow: '관람', sec_ht_title: '운영 시간 및 <em>요금</em>', ht_schedule_title: '운영 시간', ht_lv: '매일', ht_sat: '월요일', ht_closed: '휴관', ht_note: '수도원은 성수기에 매일 개방됩니다: 2026년 4월부터 10월까지.', ht_prices_title: '입장 요금', ht_general: '성인 티켓', ht_pilgrim: '어린이 티켓', ht_pilgrim_price: '4 € / 어린이', ht_group_big: '개인 가이드 투어', ht_group_small: '25인 미만 단체', ht_children: '12세 미만', ht_residents: '거주자', ht_free: '무료', ht_open_days: '공개 관람', tip_pilgrim: '6세에서 14세 사이 어린이에게 유효. 매표소에서 증명서 제시.', tip_group: '전문 가이드 포함. 사전 예약 권장.', tip_free: '매표소에서 신분증 제시.',
         sec_gallery_eyebrow: '갤러리', sec_gallery_title: '수도원 <em>단지</em>',
         gal_btn: '자세히 보기', gal_discover: '발견하기 →',
         gal_eyebrow_1: '시토회 · 13세기', gal_cap_1: '수도원 정면',
@@ -3737,7 +3737,7 @@
         page_eyebrow: 'Monumentuak · Cañasko Monasterioa', page_title: 'Cañasko <em>Monasterioa</em>', page_desc: 'Argiaren Abadia. Zortzi mende bizitza kontenplatibo zisterziarra Tuerto ibaiaren ertzean, Errioxan.', meta_entrada: 'Sarrera', meta_horario: 'Ordutegia', meta_estilos: 'Estiloak',
         bc_home: 'Hasiera', bc_monuments: 'Monumentuak', bc_monastery: 'Cañasko Monasterioa',
         infobar_location_label: 'Kokapena',
-        sec_ht_eyebrow: 'Bisita', sec_ht_title: 'Ordutegia eta <em>tarifak</em>', ht_schedule_title: 'Irekitze ordutegia', ht_lv: 'Egunero', ht_sat: 'Astelehena', ht_closed: 'Itxita', ht_note: 'Monasterioa goi-denboraldian egunero irekita dago: 2026ko apiriletik urrira.', ht_prices_title: 'Sarrera tarifak', ht_general: 'Heldua', ht_pilgrim: 'Tarifa murriztua', ht_group_big: 'Banakako bisita gidatua', ht_group_small: 'Taldeak &lt; 25 pertsona', ht_children: '12 urte baino gutxiago', ht_residents: 'Biztanleak', ht_free: 'Dohainik', ht_open_days: 'bisita publikoa', tip_pilgrim: '6 eta 14 urte arteko haurrentzat baliagarria, txarteldegian egiaztatuta.', tip_group: 'Gidari espezializatua barne. Aurretiazko erreserba gomendatzen da.', tip_free: 'Egoki egiaztatu txartelarekin txarteldegietan.',
+        sec_ht_eyebrow: 'Bisita', sec_ht_title: 'Ordutegia eta <em>tarifak</em>', ht_schedule_title: 'Irekitze ordutegia', ht_lv: 'Egunero', ht_sat: 'Astelehena', ht_closed: 'Itxita', ht_note: 'Monasterioa goi-denboraldian egunero irekita dago: 2026ko apiriletik urrira.', ht_prices_title: 'Sarrera tarifak', ht_general: 'Heldu Sarrera', ht_pilgrim: 'Haur Sarrera', ht_pilgrim_price: '4 € / haur', ht_group_big: 'Banakako Bisita Gidatua', ht_group_small: 'Taldeak &lt; 25 pertsona', ht_children: '12 urte baino gutxiago', ht_residents: 'Biztanleak', ht_free: 'Dohainik', ht_open_days: 'bisita publikoa', tip_pilgrim: '6 eta 14 urte arteko haurrentzat baliagarria, txarteldegian egiaztatuta.', tip_group: 'Gidari espezializatua barne. Aurretiazko erreserba gomendatzen da.', tip_free: 'Egoki egiaztatu txartelarekin txarteldegietan.',
         sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'Monasterio <em>multzoa</em>',
         gal_btn: 'Gehiago jakin', gal_discover: 'Aurkitu →',
         gal_eyebrow_1: 'Zisterziarra · XIII. m.', gal_cap_1: 'Monasterioko Fatxada',
@@ -3779,7 +3779,7 @@
         page_eyebrow: 'Monuments · Monestir de Cañas', page_title: 'El <em>Monestir</em><br>de Cañas', page_desc: 'L\'Abadia de la Llum. Vuit segles de vida contemplativa cistercenca a la vora del riu Tuerto, a La Rioja.', meta_entrada: 'Entrada', meta_horario: 'Horari', meta_estilos: 'Estils',
         bc_home: 'Inici', bc_monuments: 'Monuments', bc_monastery: 'Monestir de Cañas',
         infobar_location_label: 'Ubicació',
-        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horaris i <em>tarifes</em>', ht_schedule_title: 'Horaris d\'obertura', ht_lv: 'Tots els dies', ht_sat: 'Dilluns', ht_closed: 'Tancat', ht_note: 'El Monestir està obert tots els dies en temporada alta: d\'abril a octubre de 2026.', ht_prices_title: 'Tarifes d\'entrada', ht_general: 'Adult', ht_pilgrim: 'Tarifa reduïda', ht_group_big: 'Visita guiada individual', ht_group_small: 'Grups &lt; 25 persones', ht_children: 'Menors de 12 anys', ht_residents: 'Residents', ht_free: 'Gratuït', ht_open_days: 'visita pública', tip_pilgrim: 'Vàlida per a menors de 6 a 14 anys acreditats a la taquilla.', tip_group: 'Inclou guia especialitzat. Reserva prèvia recomanada.', tip_free: 'Cal mostrar document identificatiu a les taquilles.',
+        sec_ht_eyebrow: 'Visita', sec_ht_title: 'Horaris i <em>tarifes</em>', ht_schedule_title: 'Horaris d\'obertura', ht_lv: 'Tots els dies', ht_sat: 'Dilluns', ht_closed: 'Tancat', ht_note: 'El Monestir està obert tots els dies en temporada alta: d\'abril a octubre de 2026.', ht_prices_title: 'Tarifes d\'entrada', ht_general: 'Entrada Adult', ht_pilgrim: 'Entrada Nen', ht_pilgrim_price: '4 € / nen', ht_group_big: 'Visita Guiada Individual', ht_group_small: 'Grups &lt; 25 persones', ht_children: 'Menors de 12 anys', ht_residents: 'Residents', ht_free: 'Gratuït', ht_open_days: 'visita pública', tip_pilgrim: 'Vàlida per a menors de 6 a 14 anys acreditats a la taquilla.', tip_group: 'Inclou guia especialitzat. Reserva prèvia recomanada.', tip_free: 'Cal mostrar document identificatiu a les taquilles.',
         sec_gallery_eyebrow: 'Galeria', sec_gallery_title: 'El conjunt <em>monàstic</em>',
         gal_btn: 'Saber-ne més', gal_discover: 'Descobrir →',
         gal_eyebrow_1: 'Cistercenc · s. XIII', gal_cap_1: 'Façana del Monestir',
@@ -4170,7 +4170,10 @@
       btn.addEventListener('click', () => {
         const expanded = grid.classList.toggle('is-expanded');
         btn.setAttribute('aria-expanded', String(expanded));
-        if (label) label.textContent = expanded ? 'Ver menos' : 'Ver más';
+        if (label) {
+          label.setAttribute('data-i18n', expanded ? 'ver_menos' : 'ver_mas');
+          if (window.applyLang) window.applyLang(localStorage.getItem('cat-lang') || 'es');
+        }
       });
     })();
 

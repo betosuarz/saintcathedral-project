@@ -2515,7 +2515,7 @@
             <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
           </svg>
         </button>
-        <div class="lang-selector__dropdown" role="listbox">
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
           <button class="lang-selector__option active" data-lang="es" role="option"><span
               class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
               class="lang-code">ES</span></button>
@@ -2636,11 +2636,11 @@
             Plateresco</span></div>
       </div>
       <nav class="hero-nav" aria-label="Secciones de la Catedral">
-        <a href="#horarios-tarifas" class="hero-nav__link">Horarios y tarifas</a>
-        <a href="#galeria" class="hero-nav__link">Tesoros</a>
-        <a href="#cronologia" class="hero-nav__link">Cronología</a>
-        <a href="#espacios" class="hero-nav__link">Espacios</a>
-        <a href="#audioguia" class="hero-nav__link">Audioguía</a>
+        <a href="#horarios-tarifas" class="hero-nav__link" data-i18n="hero_nav_hours">Horarios y tarifas</a>
+        <a href="#galeria" class="hero-nav__link" data-i18n="hero_nav_treasures">Tesoros</a>
+        <a href="#cronologia" class="hero-nav__link" data-i18n="hero_nav_chronology">Cronología</a>
+        <a href="#espacios" class="hero-nav__link" data-i18n="hero_nav_spaces">Espacios</a>
+        <a href="#audioguia" class="hero-nav__link" data-i18n="hero_nav_audio">Audioguía</a>
       </nav>
     </div>
   </section>
@@ -2692,8 +2692,8 @@
         </div>
       </div>
       <div class="ht-tabs" role="tablist" aria-label="Horarios y tarifas">
-        <button type="button" class="ht-tab is-active" id="ht-tab-horarios" role="tab" aria-controls="ht-horarios" aria-selected="true">Horarios</button>
-        <button type="button" class="ht-tab" id="ht-tab-tarifas" role="tab" aria-controls="ht-tarifas" aria-selected="false">Tarifas</button>
+        <button type="button" class="ht-tab is-active" id="ht-tab-horarios" role="tab" aria-controls="ht-horarios" aria-selected="true" data-i18n="ht_tab_hours">Horarios</button>
+        <button type="button" class="ht-tab" id="ht-tab-tarifas" role="tab" aria-controls="ht-tarifas" aria-selected="false" data-i18n="ht_tab_prices">Tarifas</button>
       </div>
       <div class="ht-grid reveal reveal-delay-2" id="ht-grid">
         <div class="ht-block ht-block--schedule" id="ht-horarios" role="tabpanel" aria-labelledby="ht-tab-horarios">
@@ -3076,7 +3076,7 @@
             colecciones que alberga este templo riojano.</p>
         </div>
         <button type="button" class="hist-more-btn" id="hist-more-btn" aria-expanded="false">
-          <span class="hist-more-btn__label">Ver más</span>
+          <span class="hist-more-btn__label" data-i18n="ver_mas">Ver más</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
       </div>
@@ -4801,7 +4801,10 @@
       btn.addEventListener('click', () => {
         const expanded = grid.classList.toggle('is-expanded');
         btn.setAttribute('aria-expanded', String(expanded));
-        if (label) label.textContent = expanded ? 'Ver menos' : 'Ver más';
+        if (label) {
+          label.setAttribute('data-i18n', expanded ? 'ver_menos' : 'ver_mas');
+          if (window.applyLang) window.applyLang(localStorage.getItem('cat-lang') || 'es');
+        }
       });
     })();
 

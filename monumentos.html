@@ -1029,6 +1029,23 @@
         min-height: 320px
       }
 
+      /* En móvil/tablet el hover no funciona — mostrar siempre el overlay
+         con eyebrow + título + "Descubrir →" para indicar que la imagen es un enlace. */
+      .sdlc-split__img-overlay {
+        background: linear-gradient(
+          to top,
+          rgba(14,12,10,0.95) 0%,
+          rgba(14,12,10,0.6) 45%,
+          rgba(14,12,10,0.2) 75%,
+          rgba(14,12,10,0.08) 100%
+        ) !important;
+      }
+      .sdlc-split__img-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        padding: 32px 32px;
+      }
+
       .sdlc-split__body {
         padding: 40px 36px
       }

@@ -9,20 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/shared.css" />
-  <script>
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
-    function _jumpTop() {
-      const h = document.documentElement;
-      const prev = h.style.scrollBehavior;
-      h.style.scrollBehavior = 'auto';
-      window.scrollTo(0, 0);
-      requestAnimationFrame(() => { h.style.scrollBehavior = prev; });
-    }
-    _jumpTop();
-    document.addEventListener('DOMContentLoaded', _jumpTop);
-    window.addEventListener('load', _jumpTop);
-  </script>
   <style>
 
     /* ── PAGE HERO ─────────────────────────────────────────── */
@@ -349,7 +335,9 @@
 
     /* ── CTA BAND ──────────────────────────────────────────── */
     .cta-band {
-      background: var(--gold);
+      background: linear-gradient(135deg, #1a1510, #221c12);
+      border-top: 1px solid rgba(201, 168, 76, .15);
+      border-bottom: 1px solid rgba(201, 168, 76, .15);
       padding: 64px 8vw;
       display: flex;
       align-items: center;
@@ -371,7 +359,7 @@
       font-size: .6rem;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: rgba(20,18,16,.65);
+      color: var(--stone);
       margin-bottom: 8px
     }
 
@@ -379,11 +367,11 @@
       font-family: var(--serif);
       font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 300;
-      color: var(--carbon);
+      color: var(--white);
       line-height: 1.15
     }
 
-    .cta-band__title em { font-style: italic; color: #fff }
+    .cta-band__title em { font-style: italic; color: var(--gold-lt) }
 
     .cta-band__btn {
       display: inline-flex;
@@ -393,14 +381,24 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       padding: 18px 40px;
-      background: var(--carbon);
-      color: var(--white);
+      background: var(--gold);
+      color: var(--carbon);
       text-decoration: none;
-      transition: background .25s ease, gap .25s ease;
+      border-radius: 2px;
+      transition: background .25s ease, gap .25s ease, transform .25s ease;
       white-space: nowrap
     }
 
-    .cta-band__btn:hover { background: #2a2520; gap: 20px }
+    .cta-band__btn:hover { background: var(--gold-lt); gap: 20px; transform: translateY(-2px) }
+
+    body.light-mode .cta-band {
+      background: var(--cream);
+      border-top-color: rgba(168, 133, 46, .3);
+      border-bottom-color: rgba(168, 133, 46, .3)
+    }
+    body.light-mode .cta-band__title { color: var(--carbon) }
+    body.light-mode .cta-band__title em { color: var(--gold-text) }
+    body.light-mode .cta-band__eyebrow { color: var(--stone) }
 
     /* ── RESPONSIVE ────────────────────────────────────────── */
     @media (max-width: 900px) {
@@ -1692,6 +1690,37 @@
     .ind-detail__cta:hover { background: var(--gold-dk); transform: translateY(-1px) }
     body.light-mode .ind-detail__cta { background: var(--gold-dk); color: var(--white) }
     body.light-mode .ind-detail__cta:hover { background: var(--gold) }
+
+    .ind-detail__actions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .ind-detail__actions .ind-detail__cta,
+    .ind-detail__actions .ind-detail__info-cta { margin-top: 0; align-self: center }
+
+    .ind-detail__info-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 22px;
+      background: transparent;
+      color: var(--gold);
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      transition: background .25s ease, color .25s ease, transform .25s ease;
+    }
+    .ind-detail__info-cta:hover { background: var(--gold); color: var(--carbon); transform: translateY(-1px) }
+    body.light-mode .ind-detail__info-cta { color: var(--gold-text); border-color: var(--gold-text) }
+    body.light-mode .ind-detail__info-cta:hover { background: var(--gold-text); color: var(--white) }
     @media (max-width: 1000px) {
       .ind-slider-wrap { grid-template-columns: 1fr }
       .ind-card { min-height: 380px }
@@ -1772,7 +1801,9 @@
       body.light-mode .ind-detail__desc { border-top-color: rgba(20,18,16,.08) }
       .ind-specs { grid-column: 1/-1; grid-row: 4; gap: 10px 16px }
       .ind-spec__val { font-size: .82rem }
-      .ind-detail__cta { grid-column: 1/-1; grid-row: 5; margin-top: 18px; padding: 13px 22px; font-size: .64rem }
+      .ind-detail__cta { padding: 13px 22px; font-size: .64rem }
+      .ind-detail__info-cta { padding: 12px 18px; font-size: .64rem }
+      .ind-detail__actions { grid-column: 1/-1; grid-row: 5; margin-top: 18px; gap: 8px; flex-wrap: wrap }
     }
 
     @media (max-width: 1100px) {
@@ -2058,7 +2089,7 @@
 
     /* ── MAP SECTION ─────────────────────────────────────────── */
     .map-section {
-      background: var(--cream);
+      background: #F9F8F6;
       padding: 100px 8vw;
     }
 
@@ -2246,7 +2277,7 @@
 
     /* light mode */
     body.light-mode .map-section {
-      background: var(--cream);
+      background: #F9F8F6;
     }
 
 
@@ -2428,7 +2459,7 @@
 
     .gv-visit {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto auto 1fr auto;
       align-items: center; gap: 14px;
       padding: 14px 0;
       border-top: 1px solid rgba(201,168,76,.12);
@@ -2460,6 +2491,14 @@
     .gv-visit__badge--night { background: rgba(138,176,216,.25); color: #D4E2F2; }
     body.light-mode .gv-visit__badge--day { background: rgba(168,133,46,.14); color: #7A6025; }
     body.light-mode .gv-visit__badge--night { background: rgba(80,110,150,.14); color: #2F4D72; }
+
+    .gv-visit__duration {
+      font-size: .78rem; font-weight: 400; color: rgba(245,240,232,.6);
+    }
+    body.light-mode .gv-visit__duration { color: rgba(20,18,16,.55); }
+    .gv-visit__duration::before {
+      content: '·'; margin-right: 8px; color: rgba(201,168,76,.5);
+    }
 
     .gv-visit__meta {
       font-size: .78rem; color: rgba(245,240,232,.85);
@@ -2674,10 +2713,27 @@
       body.light-mode.gv-day-open::after { background: rgba(20,18,16,.45); }
 
       .gv-day-panel__title { font-size: 1.18rem; padding-right: 36px; }
-      .gv-visit { grid-template-columns: 1fr; row-gap: 10px; padding: 16px 0; }
+      .gv-visit {
+        grid-template-columns: auto 1fr;
+        row-gap: 6px; column-gap: 12px;
+        padding: 16px 0;
+        align-items: center;
+      }
       .gv-visit__time {
         font-size: 1.4rem; min-width: 0;
-        padding-bottom: 2px;
+        grid-column: 1; grid-row: 1;
+        padding-bottom: 0;
+      }
+      .gv-visit > .gv-visit__badge {
+        grid-column: 2; grid-row: 1;
+        justify-self: start; align-self: center;
+      }
+      .gv-visit__main {
+        grid-column: 1 / -1; grid-row: 2;
+        margin-top: 4px;
+      }
+      .gv-visit__actions {
+        grid-column: 1 / -1; grid-row: 3;
       }
       .gv-visit__info-inline {
         display: block;
@@ -2945,7 +3001,7 @@
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
   <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
     <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
-    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
     <ul class="a11y-panel__list">
       <li>
         <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
@@ -2953,7 +3009,7 @@
             <circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/>
             <line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/>
           </svg>
-          Aumentar texto
+          <span data-i18n="a11y_text_increase">Aumentar texto</span>
         </button>
       </li>
       <li>
@@ -2962,7 +3018,7 @@
             <circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/>
             <line x1="7" y1="10" x2="13" y2="10"/>
           </svg>
-          Disminuir texto
+          <span data-i18n="a11y_text_decrease">Disminuir texto</span>
         </button>
       </li>
       <li>
@@ -2980,7 +3036,7 @@
             <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
             <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
           </svg>
-          Escala de grises
+          <span data-i18n="a11y_grayscale">Escala de grises</span>
         </button>
       </li>
       <li>
@@ -2988,7 +3044,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/>
           </svg>
-          Alto contraste
+          <span data-i18n="a11y_high_contrast">Alto contraste</span>
         </button>
       </li>
       <li>
@@ -2996,7 +3052,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/>
           </svg>
-          Invertir colores
+          <span data-i18n="a11y_invert">Invertir colores</span>
         </button>
       </li>
       <li>
@@ -3004,7 +3060,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
             <path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/>
           </svg>
-          Subrayar enlaces
+          <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
         </button>
       </li>
       <li>
@@ -3012,7 +3068,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
             <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>
           </svg>
-          Fuente legible
+          <span data-i18n="a11y_readable_font">Fuente legible</span>
         </button>
       </li>
       <li>
@@ -3020,7 +3076,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
           </svg>
-          Leer texto
+          <span data-i18n="a11y_read_text">Leer texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -3030,7 +3086,7 @@
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
             <path d="M3 3v5h5"/>
           </svg>
-          Restablecer
+          <span data-i18n="a11y_reset">Restablecer</span>
         </button>
       </li>
     </ul>
@@ -3103,7 +3159,7 @@
       <ul class="side-menu__nav-list">
         <li class="side-menu__nav-item"><a href="index.html" class="side-menu__nav-link"><span class="nav-num">01</span><span data-i18n="nav_home">Inicio</span></a></li>
         <li class="side-menu__nav-item"><a href="monumentos.html" class="side-menu__nav-link"><span class="nav-num">02</span><span data-i18n="nav_monuments">Monumentos</span></a></li>
-        <li class="side-menu__nav-item"><a href="visitas.html" class="side-menu__nav-link side-menu__nav-link--active" onclick="event.preventDefault(); _jumpTop();"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
+        <li class="side-menu__nav-item"><a href="visitas.html" class="side-menu__nav-link"><span class="nav-num">03</span><span data-i18n="nav_visits">Visitas</span></a></li>
         <li class="side-menu__nav-item"><a href="actualidad.html" class="side-menu__nav-link"><span class="nav-num">04</span><span data-i18n="nav_news">Actualidad</span></a></li>
         <li class="side-menu__nav-item"><a href="institucion.html" class="side-menu__nav-link"><span class="nav-num">05</span>Institución</a></li>
         <li class="side-menu__nav-item"><a href="reservas.html" class="side-menu__nav-link"><span class="nav-num">06</span><span data-i18n="nav_reservations">Reservas</span></a></li>
@@ -3369,7 +3425,10 @@
           </div>
           <p class="ind-detail__desc" id="gui-detail-desc"></p>
           <div class="ind-specs" id="gui-specs"></div>
-          <a class="ind-detail__cta" id="gui-cta" href="reservas.html?tipo=individual&modo=con-guia&entrada=diurna" data-i18n-page="reservar_btn">Reservar →</a>
+          <div class="ind-detail__actions">
+            <a class="ind-detail__info-cta" id="gui-info-cta" href="visitas/guiada-diurna.html" data-i18n-page="saber_mas_btn">Saber más →</a>
+            <a class="ind-detail__cta" id="gui-cta" href="reservas.html?tipo=individual&modo=con-guia&entrada=diurna" data-i18n-page="reservar_btn">Reservar →</a>
+          </div>
         </div>
       </div>
 
@@ -3579,76 +3638,85 @@
     };
     const CAL_T = {
       es: { dateOf: 'de', no_visits: 'No hay visitas guiadas programadas este día.', badge_night: '★ Nocturna',
-            label_noc: 'Visita guiada nocturna', from: 'Desde', per: '/ persona', mins: 'min',
+            label_noc: 'Visita guiada nocturna', from: 'Desde', per: '/ persona', mins: 'min', reduced: 'Menores 12 años / Residentes 5 €',
             bullets_noc: [
-              'La Catedral a la luz de las velas: leyendas, misterios y ocho siglos de historia.',
-              'Duración 120 min · grupo máx. 12 personas',
+              'La Catedral bajo la nueva iluminación: leyendas, misterios y ocho siglos de historia.',
+              'Duración 60 min · grupo máx. 50 personas',
               'Solo viernes y sábados a las 20:45 h',
-              'Adulto 10 € · Menor de 13 / Residente 5 €'
+              'Incluye pulsera turística de visita libre',
+              'Adulto 15 € · Menor de 12 / Residente 5 €'
             ] },
       en: { dateOf: 'of', no_visits: 'No guided tours scheduled this day.', badge_night: '★ Night-time',
-            label_noc: 'Night-time guided tour', from: 'From', per: '/ person', mins: 'min',
+            label_noc: 'Night-time guided tour', from: 'From', per: '/ person', mins: 'min', reduced: 'Under 12 / Residents €5',
             bullets_noc: [
-              'The Cathedral by candlelight: legends, mysteries and eight centuries of history.',
-              'Duration 120 min · max group 12 people',
+              'The Cathedral under its new lighting: legends, mysteries and eight centuries of history.',
+              'Duration 60 min · max group 50 people',
               'Only Fridays and Saturdays at 8:45 pm',
-              'Adult €10 · Under 13 / Resident €5'
+              'Includes self-guided tourist wristband',
+              'Adult €15 · Under 12 / Resident €5'
             ] },
       fr: { dateOf: '', no_visits: 'Aucune visite guidée programmée ce jour.', badge_night: '★ Nocturne',
-            label_noc: 'Visite guidée nocturne', from: 'À partir de', per: '/ personne', mins: 'min',
+            label_noc: 'Visite guidée nocturne', from: 'À partir de', per: '/ personne', mins: 'min', reduced: 'Moins de 12 ans / Résidents 5 €',
             bullets_noc: [
-              'La Cathédrale à la lueur des bougies : légendes, mystères et huit siècles d\'histoire.',
-              'Durée 120 min · groupe max 12 personnes',
+              'La Cathédrale sous son nouvel éclairage : légendes, mystères et huit siècles d\'histoire.',
+              'Durée 60 min · groupe max 50 personnes',
               'Seulement vendredis et samedis à 20h45',
-              'Adulte 10 € · Moins de 13 ans / Résident 5 €'
+              'Bracelet touristique en visite libre inclus',
+              'Adulte 15 € · Moins de 12 ans / Résident 5 €'
             ] },
       de: { dateOf: '', no_visits: 'An diesem Tag sind keine Führungen geplant.', badge_night: '★ Nachttour',
-            label_noc: 'Nachtführung', from: 'Ab', per: '/ Person', mins: 'Min',
+            label_noc: 'Nachtführung', from: 'Ab', per: '/ Person', mins: 'Min', reduced: 'Unter 12 / Einheimische 5 €',
             bullets_noc: [
-              'Die Kathedrale bei Kerzenschein: Legenden, Mysterien und acht Jahrhunderte Geschichte.',
-              'Dauer 120 Min · max. Gruppe 12 Personen',
+              'Die Kathedrale unter der neuen Beleuchtung: Legenden, Mysterien und acht Jahrhunderte Geschichte.',
+              'Dauer 60 Min · max. Gruppe 50 Personen',
               'Nur freitags und samstags um 20:45 Uhr',
-              'Erwachsene 10 € · Unter 13 / Einheimische 5 €'
+              'Touristen-Armband für Selbstbesuch inklusive',
+              'Erwachsene 15 € · Unter 12 / Einheimische 5 €'
             ] },
       pt: { dateOf: 'de', no_visits: 'Não há visitas guiadas marcadas neste dia.', badge_night: '★ Noturna',
-            label_noc: 'Visita guiada noturna', from: 'Desde', per: '/ pessoa', mins: 'min',
+            label_noc: 'Visita guiada noturna', from: 'Desde', per: '/ pessoa', mins: 'min', reduced: 'Menores de 12 / Residentes 5 €',
             bullets_noc: [
-              'A Catedral à luz das velas: lendas, mistérios e oito séculos de história.',
-              'Duração 120 min · grupo máx. 12 pessoas',
+              'A Catedral sob a nova iluminação: lendas, mistérios e oito séculos de história.',
+              'Duração 60 min · grupo máx. 50 pessoas',
               'Só sextas e sábados às 20h45',
-              'Adulto 10 € · Menor de 13 / Residente 5 €'
+              'Inclui pulseira turística de visita livre',
+              'Adulto 15 € · Menor de 12 / Residente 5 €'
             ] },
       it: { dateOf: '', no_visits: 'Nessuna visita guidata in programma in questo giorno.', badge_night: '★ Notturna',
-            label_noc: 'Visita guidata notturna', from: 'Da', per: '/ persona', mins: 'min',
+            label_noc: 'Visita guidata notturna', from: 'Da', per: '/ persona', mins: 'min', reduced: 'Sotto i 12 / Residenti 5 €',
             bullets_noc: [
-              'La Cattedrale a lume di candela: leggende, misteri e otto secoli di storia.',
-              'Durata 120 min · gruppo max 12 persone',
+              'La Cattedrale sotto la nuova illuminazione: leggende, misteri e otto secoli di storia.',
+              'Durata 60 min · gruppo max 50 persone',
               'Solo venerdì e sabato alle 20:45',
-              'Adulti 10 € · Sotto i 13 / Residenti 5 €'
+              'Include braccialetto turistico per visita libera',
+              'Adulti 15 € · Sotto i 12 / Residenti 5 €'
             ] },
       ko: { dateOf: '', no_visits: '이 날 예정된 가이드 투어가 없습니다.', badge_night: '★ 야간',
-            label_noc: '야간 가이드 투어', from: '시작가', per: '/ 1인', mins: '분',
+            label_noc: '야간 가이드 투어', from: '시작가', per: '/ 1인', mins: '분', reduced: '12세 미만 / 거주자 5 €',
             bullets_noc: [
-              '촛불에 비친 대성당: 전설, 신비, 그리고 8세기에 걸친 역사.',
-              '소요 시간 120분 · 최대 12명',
+              '새로운 조명 아래 대성당: 전설, 신비, 그리고 8세기에 걸친 역사.',
+              '소요 시간 60분 · 최대 50명',
               '금·토요일 20:45만 운영',
-              '성인 10 € · 13세 미만 / 거주자 5 €'
+              '자유 관람용 관광 팔찌 포함',
+              '성인 15 € · 12세 미만 / 거주자 5 €'
             ] },
       eu: { dateOf: 'ko', no_visits: 'Egun honetan ez dago bisita gidaturik programatuta.', badge_night: '★ Gauekoa',
-            label_noc: 'Gaueko bisita gidatua', from: 'Hasierako prezioa', per: '/ pertsonako', mins: 'min',
+            label_noc: 'Gaueko bisita gidatua', from: 'Hasierako prezioa', per: '/ pertsonako', mins: 'min', reduced: '12 urtez behera / Bizilagunak 5 €',
             bullets_noc: [
-              'Katedrala kandela argitan: kondairak, misterioak eta zortzi mendeko historia.',
-              'Iraupena 120 min · talde max 12 lagun',
+              'Katedrala argiteria berriarekin: kondairak, misterioak eta zortzi mendeko historia.',
+              'Iraupena 60 min · talde max 50 lagun',
               'Ostiral eta larunbatetan soilik, 20:45ean',
-              'Heldua 10 € · 13 urtetik beherakoa / Bizilaguna 5 €'
+              'Bisita libreko pulsera turistikoa barne',
+              'Heldua 15 € · 12 urtetik beherakoa / Bizilaguna 5 €'
             ] },
       ca: { dateOf: 'de', no_visits: 'No hi ha visites guiades programades aquest dia.', badge_night: '★ Nocturna',
-            label_noc: 'Visita guiada nocturna', from: 'Des de', per: '/ persona', mins: 'min',
+            label_noc: 'Visita guiada nocturna', from: 'Des de', per: '/ persona', mins: 'min', reduced: 'Menors de 12 / Residents 5 €',
             bullets_noc: [
-              'La Catedral a la llum de les espelmes: llegendes, misteris i vuit segles d\'història.',
-              'Durada 120 min · grup màx. 12 persones',
+              'La Catedral sota la nova il·luminació: llegendes, misteris i vuit segles d\'història.',
+              'Durada 60 min · grup màx. 50 persones',
               'Només divendres i dissabtes a les 20:45 h',
-              'Adult 10 € · Menor de 13 / Resident 5 €'
+              'Inclou polsera turística de visita lliure',
+              'Adult 15 € · Menor de 12 / Resident 5 €'
             ] }
     };
 
@@ -3661,7 +3729,7 @@
       nocturna: {
         get label() { return _CT().label_noc; },
         badgeClass: 'gv-visit__badge--night',
-        priceFrom: 10,
+        priceFrom: 15,
         url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna',
         get bullets() { return _CT().bullets_noc; }
       }
@@ -3788,17 +3856,21 @@
       time.className = 'gv-visit__time';
       time.textContent = v.time;
 
+      const ct = _CT();
+      const badge = document.createElement('span');
+      badge.className = `gv-visit__badge ${info.badgeClass}`;
+      badge.textContent = ct.badge_night;
+
       const main = document.createElement('div');
       main.className = 'gv-visit__main';
-      const ct = _CT();
       main.innerHTML = `
         <div class="gv-visit__name">
-          <span class="gv-visit__badge ${info.badgeClass}">${ct.badge_night}</span>
           <span>${info.label}</span>
+          <span class="gv-visit__duration">60 ${ct.mins}</span>
         </div>
         <div class="gv-visit__meta">
-          <span>${ct.from} <strong>${info.priceFrom} €</strong> ${ct.per}</span>
-          <span>120 ${ct.mins}</span>
+          <span><strong>${info.priceFrom} €</strong> ${ct.per}</span>
+          <span>${ct.reduced}</span>
         </div>
         <div class="gv-visit__info-inline">
           <ul>${info.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
@@ -3832,6 +3904,7 @@
       actions.appendChild(cta);
 
       row.appendChild(time);
+      row.appendChild(badge);
       row.appendChild(main);
       row.appendChild(actions);
       return row;
@@ -4435,7 +4508,7 @@
         th_entrada: 'Entrada', th_tarifa: 'Tarifa', th_horarios: 'Horarios', th_audioguia: 'Audioguía', th_visita_guiada: 'Visita guiada',
         name_cat: 'Catedral', name_torre: 'Torre Exenta', name_sf: 'Convento San Francisco', name_pul_tur: 'Pulsera Turística', name_pul_per: 'Pulsera Peregrino',
         s2_eyebrow: 'Visitas Guiadas', s2_title: 'Visitas <em>Guiadas</em>', s2_sub: 'Déjate llevar por guías especializados y descubre los secretos que no encontrarás en los paneles. Diurna, nocturna o exclusiva VIP.',
-        gui_tag: 'Visita guiada', gui_price_label: 'Desde', reservar_btn: 'Reservar →',
+        gui_tag: 'Visita guiada', gui_price_label: 'Desde', reservar_btn: 'Reservar →', saber_mas_btn: 'Saber más →',
         cmp2_eyebrow: 'Tabla comparativa', cmp2_label: 'Comparador de <em>visitas</em>', cmp2_sub: 'Diurna, nocturna y VIP comparadas en detalle', cmp2_title: 'Comparar modalidades',
         col_diurna: 'Diurna', col_nocturna: 'Nocturna', col_vip: 'VIP',
         row_precio: 'Precio', row_duracion: 'Duración', row_idiomas: 'Idiomas', row_horario: 'Horario', row_consultar: 'Consultar', row_grupo_max: 'Grupo máx.',
@@ -4506,7 +4579,7 @@
         th_entrada: 'Ticket', th_tarifa: 'Price', th_horarios: 'Hours', th_audioguia: 'Audio guide', th_visita_guiada: 'Guided tour',
         name_cat: 'Cathedral', name_torre: 'Free-standing Tower', name_sf: 'San Francisco Convent', name_pul_tur: 'Tourist Bracelet', name_pul_per: 'Pilgrim Bracelet',
         s2_eyebrow: 'Guided Tours', s2_title: '<em>Guided</em> Tours', s2_sub: 'Let yourself be led by expert guides and discover secrets you won\'t find on the panels. Daytime, night-time or exclusive VIP.',
-        gui_tag: 'Guided tour', gui_price_label: 'From', reservar_btn: 'Book →',
+        gui_tag: 'Guided tour', gui_price_label: 'From', reservar_btn: 'Book →', saber_mas_btn: 'Learn more →',
         cmp2_eyebrow: 'Comparison table', cmp2_label: 'Tour <em>comparator</em>', cmp2_sub: 'Daytime, night-time and VIP compared in detail', cmp2_title: 'Compare options',
         col_diurna: 'Daytime', col_nocturna: 'Night-time', col_vip: 'VIP',
         row_precio: 'Price', row_duracion: 'Duration', row_idiomas: 'Languages', row_horario: 'Hours', row_consultar: 'On request', row_grupo_max: 'Max group',
@@ -4577,7 +4650,7 @@
         th_entrada: 'Billet', th_tarifa: 'Tarif', th_horarios: 'Horaires', th_audioguia: 'Audioguide', th_visita_guiada: 'Visite guidée',
         name_cat: 'Cathédrale', name_torre: 'Tour Indépendante', name_sf: 'Couvent San Francisco', name_pul_tur: 'Bracelet Touristique', name_pul_per: 'Bracelet Pèlerin',
         s2_eyebrow: 'Visites Guidées', s2_title: 'Visites <em>Guidées</em>', s2_sub: 'Laissez-vous accompagner par des guides spécialisés et découvrez les secrets que vous ne trouverez pas sur les panneaux. Diurne, nocturne ou VIP exclusive.',
-        gui_tag: 'Visite guidée', gui_price_label: 'À partir de', reservar_btn: 'Réserver →',
+        gui_tag: 'Visite guidée', gui_price_label: 'À partir de', reservar_btn: 'Réserver →', saber_mas_btn: 'En savoir plus →',
         cmp2_eyebrow: 'Tableau comparatif', cmp2_label: 'Comparateur de <em>visites</em>', cmp2_sub: 'Diurne, nocturne et VIP comparées en détail', cmp2_title: 'Comparer les modalités',
         col_diurna: 'Diurne', col_nocturna: 'Nocturne', col_vip: 'VIP',
         row_precio: 'Prix', row_duracion: 'Durée', row_idiomas: 'Langues', row_horario: 'Horaires', row_consultar: 'Sur demande', row_grupo_max: 'Groupe max.',
@@ -4648,7 +4721,7 @@
         th_entrada: 'Ticket', th_tarifa: 'Preis', th_horarios: 'Öffnungszeiten', th_audioguia: 'Audioguide', th_visita_guiada: 'Führung',
         name_cat: 'Kathedrale', name_torre: 'Freistehender Turm', name_sf: 'Kloster San Francisco', name_pul_tur: 'Touristen-Armband', name_pul_per: 'Pilger-Armband',
         s2_eyebrow: 'Geführte Touren', s2_title: '<em>Geführte</em> Touren', s2_sub: 'Lassen Sie sich von Fachführern begleiten und entdecken Sie Geheimnisse, die nicht auf den Tafeln stehen. Tages-, Nacht- oder exklusive VIP-Führung.',
-        gui_tag: 'Führung', gui_price_label: 'Ab', reservar_btn: 'Buchen →',
+        gui_tag: 'Führung', gui_price_label: 'Ab', reservar_btn: 'Buchen →', saber_mas_btn: 'Mehr erfahren →',
         cmp2_eyebrow: 'Vergleichstabelle', cmp2_label: 'Touren<em>vergleich</em>', cmp2_sub: 'Tages-, Nacht- und VIP-Tour im Detail verglichen', cmp2_title: 'Varianten vergleichen',
         col_diurna: 'Tagestour', col_nocturna: 'Nachttour', col_vip: 'VIP',
         row_precio: 'Preis', row_duracion: 'Dauer', row_idiomas: 'Sprachen', row_horario: 'Öffnungszeiten', row_consultar: 'Auf Anfrage', row_grupo_max: 'Max. Gruppe',
@@ -4719,7 +4792,7 @@
         th_entrada: 'Bilhete', th_tarifa: 'Tarifa', th_horarios: 'Horários', th_audioguia: 'Audioguia', th_visita_guiada: 'Visita guiada',
         name_cat: 'Catedral', name_torre: 'Torre Isolada', name_sf: 'Convento de San Francisco', name_pul_tur: 'Pulseira Turística', name_pul_per: 'Pulseira Peregrino',
         s2_eyebrow: 'Visitas Guiadas', s2_title: 'Visitas <em>Guiadas</em>', s2_sub: 'Deixe-se conduzir por guias especializados e descubra os segredos que não encontrará nos painéis. Diurna, noturna ou VIP exclusiva.',
-        gui_tag: 'Visita guiada', gui_price_label: 'Desde', reservar_btn: 'Reservar →',
+        gui_tag: 'Visita guiada', gui_price_label: 'Desde', reservar_btn: 'Reservar →', saber_mas_btn: 'Saber mais →',
         cmp2_eyebrow: 'Tabela comparativa', cmp2_label: 'Comparador de <em>visitas</em>', cmp2_sub: 'Diurna, noturna e VIP comparadas em detalhe', cmp2_title: 'Comparar modalidades',
         col_diurna: 'Diurna', col_nocturna: 'Noturna', col_vip: 'VIP',
         row_precio: 'Preço', row_duracion: 'Duração', row_idiomas: 'Idiomas', row_horario: 'Horário', row_consultar: 'Consultar', row_grupo_max: 'Grupo máx.',
@@ -4790,7 +4863,7 @@
         th_entrada: 'Biglietto', th_tarifa: 'Tariffa', th_horarios: 'Orari', th_audioguia: 'Audioguida', th_visita_guiada: 'Visita guidata',
         name_cat: 'Cattedrale', name_torre: 'Torre Isolata', name_sf: 'Convento San Francisco', name_pul_tur: 'Braccialetto Turistico', name_pul_per: 'Braccialetto Pellegrino',
         s2_eyebrow: 'Visite Guidate', s2_title: 'Visite <em>Guidate</em>', s2_sub: 'Lasciati condurre da guide specializzate e scopri i segreti che non troverai sui pannelli. Diurna, notturna o VIP esclusiva.',
-        gui_tag: 'Visita guidata', gui_price_label: 'Da', reservar_btn: 'Prenota →',
+        gui_tag: 'Visita guidata', gui_price_label: 'Da', reservar_btn: 'Prenota →', saber_mas_btn: 'Scopri di più →',
         cmp2_eyebrow: 'Tabella comparativa', cmp2_label: 'Comparatore di <em>visite</em>', cmp2_sub: 'Diurna, notturna e VIP confrontate in dettaglio', cmp2_title: 'Confronta modalità',
         col_diurna: 'Diurna', col_nocturna: 'Notturna', col_vip: 'VIP',
         row_precio: 'Prezzo', row_duracion: 'Durata', row_idiomas: 'Lingue', row_horario: 'Orari', row_consultar: 'Su richiesta', row_grupo_max: 'Gruppo max.',
@@ -4861,7 +4934,7 @@
         th_entrada: '티켓', th_tarifa: '요금', th_horarios: '운영시간', th_audioguia: '오디오 가이드', th_visita_guiada: '가이드 투어',
         name_cat: '대성당', name_torre: '독립 종탑', name_sf: '산프란시스코 수도원', name_pul_tur: '관광 팔찌', name_pul_per: '순례자 팔찌',
         s2_eyebrow: '가이드 투어', s2_title: '<em>가이드</em> 투어', s2_sub: '전문 가이드와 함께 안내판에 없는 비밀을 발견하세요. 주간, 야간 또는 단독 VIP 투어.',
-        gui_tag: '가이드 투어', gui_price_label: '시작가', reservar_btn: '예약 →',
+        gui_tag: '가이드 투어', gui_price_label: '시작가', reservar_btn: '예약 →', saber_mas_btn: '더 알아보기 →',
         cmp2_eyebrow: '비교 표', cmp2_label: '투어 <em>비교</em>', cmp2_sub: '주간, 야간, VIP 상세 비교', cmp2_title: '옵션 비교',
         col_diurna: '주간', col_nocturna: '야간', col_vip: 'VIP',
         row_precio: '가격', row_duracion: '소요시간', row_idiomas: '언어', row_horario: '운영시간', row_consultar: '문의', row_grupo_max: '최대 인원',
@@ -4932,7 +5005,7 @@
         th_entrada: 'Sarrera', th_tarifa: 'Tarifa', th_horarios: 'Ordutegiak', th_audioguia: 'Audiogida', th_visita_guiada: 'Bisita gidatua',
         name_cat: 'Katedrala', name_torre: 'Dorre Exentua', name_sf: 'San Frantzisko Komentua', name_pul_tur: 'Pultsera Turistikoa', name_pul_per: 'Pultsera Erromesa',
         s2_eyebrow: 'Bisita Gidatuak', s2_title: 'Bisita <em>Gidatuak</em>', s2_sub: 'Utzi gidari espezializatuek zuzenduta eta aurkitu paneletan ez dauden sekretuak. Egunekoa, gauekoa edo VIP esklusiboa.',
-        gui_tag: 'Bisita gidatua', gui_price_label: 'Hasierako prezioa', reservar_btn: 'Erreserbatu →',
+        gui_tag: 'Bisita gidatua', gui_price_label: 'Hasierako prezioa', reservar_btn: 'Erreserbatu →', saber_mas_btn: 'Gehiago jakin →',
         cmp2_eyebrow: 'Konparazio-taula', cmp2_label: 'Bisiten <em>konparagailua</em>', cmp2_sub: 'Egunekoa, gauekoa eta VIP xehetasunez konparatuta', cmp2_title: 'Modalitateak konparatu',
         col_diurna: 'Egunekoa', col_nocturna: 'Gauekoa', col_vip: 'VIP',
         row_precio: 'Prezioa', row_duracion: 'Iraupena', row_idiomas: 'Hizkuntzak', row_horario: 'Ordutegia', row_consultar: 'Galdetu', row_grupo_max: 'Talde max.',
@@ -5003,7 +5076,7 @@
         th_entrada: 'Entrada', th_tarifa: 'Tarifa', th_horarios: 'Horaris', th_audioguia: 'Audioguia', th_visita_guiada: 'Visita guiada',
         name_cat: 'Catedral', name_torre: 'Torre Exempta', name_sf: 'Convent de Sant Francesc', name_pul_tur: 'Polsera Turística', name_pul_per: 'Polsera Pelegrí',
         s2_eyebrow: 'Visites Guiades', s2_title: 'Visites <em>Guiades</em>', s2_sub: 'Deixa\'t portar per guies especialitzats i descobreix els secrets que no trobaràs als panells. Diürna, nocturna o VIP exclusiva.',
-        gui_tag: 'Visita guiada', gui_price_label: 'Des de', reservar_btn: 'Reservar →',
+        gui_tag: 'Visita guiada', gui_price_label: 'Des de', reservar_btn: 'Reservar →', saber_mas_btn: 'Saber-ne més →',
         cmp2_eyebrow: 'Taula comparativa', cmp2_label: 'Comparador de <em>visites</em>', cmp2_sub: 'Diürna, nocturna i VIP comparades al detall', cmp2_title: 'Comparar modalitats',
         col_diurna: 'Diürna', col_nocturna: 'Nocturna', col_vip: 'VIP',
         row_precio: 'Preu', row_duracion: 'Durada', row_idiomas: 'Idiomes', row_horario: 'Horari', row_consultar: 'Consultar', row_grupo_max: 'Grup màx.',
@@ -5096,7 +5169,7 @@
           title: 'Catedral de <em>Santo Domingo</em>',
           tag: 'Entrada individual',
           price: '7',
-          img: 'assets/img/catedral.webp',
+          img: 'assets/img/abside.webp',
           badge: null,
           key: 'cat',
           desc: 'Acceso completo al recinto catedralicio: nave principal, Retablo Mayor, Cripta y Mausoleo del Santo, claustro gótico y el célebre gallinero vivo, hogar del gallo y la gallina blancos que recuerdan el milagro del Santo.',
@@ -5144,7 +5217,7 @@
           title: 'Pulsera <em>Turística</em>',
           tag: 'Combinada · Recomendada',
           price: '10',
-          img: 'assets/img/diurna.webp',
+          img: 'assets/img/pulsera.webp',
           badge: 'Recomendado',
           key: 'pul_tur',
           desc: 'Accede libremente a los tres monumentos principales del conjunto histórico con una única entrada: Catedral + Torre + San Francisco. Ahorra 6 € respecto a la compra por separado.',
@@ -5160,7 +5233,7 @@
           title: 'Pulsera <em>Peregrino</em>',
           tag: 'Tarifa especial · Camino',
           price: '5',
-          img: 'assets/img/nocturna.webp',
+          img: 'assets/img/pulsera-peregrino.webp',
           badge: null,
           key: 'pul_per',
           desc: 'Precio especial para peregrinos del Camino de Santiago acreditados con credencial oficial del Camino, que hagan el Camino andando o en bicicleta. Incluye los 3 monumentos.',
@@ -5176,7 +5249,7 @@
           title: 'Ticket <em>Familiar</em>',
           tag: 'Entrada familiar',
           price: '25',
-          img: 'assets/img/diurna.webp',
+          img: 'assets/img/pulsera-familia.webp',
           badge: 'Familia',
           key: 'fam',
           desc: '2 padres + hijos menores de 21 años. Incluye pulsera turística de acceso por libre a los 3 monumentos principales: Catedral + Torre + San Francisco.',
@@ -5463,9 +5536,9 @@
     /* ── GUIADAS SLIDER ── */
     (function () {
       const visits = [
-        { key: 'diu', price: '14', img: 'assets/img/diurna.webp',  badge: null,        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=diurna',   durKey: 'g_dur_45' },
-        { key: 'noc', price: '15', img: 'assets/img/nocturna.webp', badge: 'noc',      url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna', durKey: 'g_dur_60' },
-        { key: 'vip', price: '15', img: 'assets/img/retablo.webp',  badge: 'vip',      url: 'reservas.html?tipo=individual&modo=con-guia&entrada=vip',      durKey: 'g_dur_90', grpKey: 'g_grp_15' }
+        { key: 'diu', price: '14', img: 'assets/img/diurna.webp',  badge: null,        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=diurna',   infoUrl: 'visitas/guiada-diurna.html',   durKey: 'g_dur_45' },
+        { key: 'noc', price: '15', img: 'assets/img/nocturna.webp', badge: 'noc',      url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna', infoUrl: 'visitas/guiada-nocturna.html', durKey: 'g_dur_60' },
+        { key: 'vip', price: '15', img: 'assets/img/romanico.webp', badge: 'vip',      url: 'reservas.html?tipo=individual&modo=con-guia&entrada=vip',      infoUrl: 'visitas/guiada-vip.html',      durKey: 'g_dur_90', grpKey: 'g_grp_15' }
       ];
 
       const GUI_NAMES = {
@@ -5552,6 +5625,7 @@
       const descEl = document.getElementById('gui-detail-desc');
       const specsEl = document.getElementById('gui-specs');
       const ctaEl = document.getElementById('gui-cta');
+      const infoCtaEl = document.getElementById('gui-info-cta');
       const dots = document.querySelectorAll('#gui-dots .ind-dot');
 
       let current = 0;
@@ -5584,6 +5658,7 @@
           `<div><div class="ind-spec__label">${s.lbl}</div><div class="ind-spec__val">${s.val}</div></div>`
         ).join('');
         ctaEl.href = v.url;
+        if (infoCtaEl) infoCtaEl.href = v.infoUrl;
       }
 
       function render(idx, animate) {

@@ -425,7 +425,6 @@
 
     body.light-mode .navbar.scrolled .navbar__logo-name,
     body.light-mode .navbar.scrolled .navbar__logo-sub,
-    body.light-mode .navbar.scrolled .lang-selector__btn,
     body.light-mode .navbar.scrolled .lang-selector__option {
       color: #141210;
     }
@@ -894,7 +893,7 @@
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
   <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
     <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
-    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
     <ul class="a11y-panel__list">
       <li>
         <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
@@ -903,7 +902,7 @@
             <circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
             <line x1="10" y1="7" x2="10" y2="13" /><line x1="7" y1="10" x2="13" y2="10" />
           </svg>
-          Aumentar texto
+          <span data-i18n="a11y_text_increase">Aumentar texto</span>
         </button>
       </li>
       <li>
@@ -913,7 +912,7 @@
             <circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
             <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
-          Disminuir texto
+          <span data-i18n="a11y_text_decrease">Disminuir texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -927,7 +926,7 @@
             <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
-          Modo Claro / Oscuro
+          <span>Modo Claro / Oscuro</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -938,7 +937,7 @@
             <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
             <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
           </svg>
-          Escala de grises
+          <span data-i18n="a11y_grayscale">Escala de grises</span>
         </button>
       </li>
       <li>
@@ -949,7 +948,7 @@
             <path d="M12 3v18" stroke-width="1.8" />
             <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
           </svg>
-          Alto contraste
+          <span data-i18n="a11y_high_contrast">Alto contraste</span>
         </button>
       </li>
       <li>
@@ -960,7 +959,7 @@
             <circle cx="12" cy="12" r="9" />
             <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
           </svg>
-          Invertir colores
+          <span data-i18n="a11y_invert">Invertir colores</span>
         </button>
       </li>
       <li>
@@ -969,7 +968,7 @@
             stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
             <path d="M6 4v6a6 6 0 0 0 12 0V4" /><line x1="4" y1="20" x2="20" y2="20" />
           </svg>
-          Subrayar enlaces
+          <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
         </button>
       </li>
       <li>
@@ -979,7 +978,7 @@
             <polyline points="4 7 4 4 20 4 20 7" /><line x1="9" y1="20" x2="15" y2="20" />
             <line x1="12" y1="4" x2="12" y2="20" />
           </svg>
-          Fuente legible
+          <span data-i18n="a11y_readable_font">Fuente legible</span>
         </button>
       </li>
       <li>
@@ -990,7 +989,7 @@
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
           </svg>
-          Leer texto
+          <span data-i18n="a11y_read_text">Leer texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -1001,7 +1000,7 @@
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
             <path d="M3 3v5h5" />
           </svg>
-          Restablecer
+          <span data-i18n="a11y_reset">Restablecer</span>
         </button>
       </li>
     </ul>

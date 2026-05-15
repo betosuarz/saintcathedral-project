@@ -329,6 +329,13 @@
       gap: 14px
     }
 
+    /* Desktop: bullets en columna izquierda. Mobile: bullets en text-grid__more. */
+    .highlight-list--desktop { display: none }
+    @media (min-width: 901px) {
+      .highlight-list--desktop { display: flex; margin-top: 28px }
+      .highlight-list--mobile { display: none }
+    }
+
     .highlight-list li {
       display: flex;
       gap: 14px;
@@ -350,8 +357,8 @@
     .tl-h {
       position: relative;
       margin-top: 56px;
-      --tl-axis-half: 230px;
-      --tl-card-w: 240px;
+      --tl-axis-half: 320px;
+      --tl-card-w: 260px;
       --tl-connector: 26px;
       --tl-dot: 11px;
     }
@@ -433,6 +440,8 @@
       top: 0;
       height: calc(var(--tl-axis-half) - 56px);
     }
+    /* Tapa la línea horizontal del axis solo donde está el título — sólo modo oscuro */
+    body:not(.light-mode) .tl-h__era { background: #0f0d0b; }
     .tl-h__era::after {
       bottom: 0;
       height: calc(var(--tl-axis-half) - 56px);
@@ -753,6 +762,11 @@
       object-fit: cover;
       color: transparent;
       font-size: 0
+    }
+
+    @media (min-width: 901px) {
+      .gallery-slide img[src*="claustro-herreriano.webp"] { object-position: center 70% }
+      .gallery-slide img[src*="bernardo-fresneda.webp"]   { object-position: center 20% }
     }
 
     .gallery-slide__cap {
@@ -2061,7 +2075,6 @@
 
     body.light-mode .navbar.scrolled .navbar__logo-name,
     body.light-mode .navbar.scrolled .navbar__logo-sub,
-    body.light-mode .navbar.scrolled .lang-selector__btn,
     body.light-mode .navbar.scrolled .lang-selector__option {
       color: #141210;
     }
@@ -2363,7 +2376,7 @@
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
   <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
     <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
-    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
     <ul class="a11y-panel__list">
       <li>
         <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
@@ -2374,7 +2387,7 @@
             <line x1="10" y1="7" x2="10" y2="13" />
             <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
-          Aumentar texto
+          <span data-i18n="a11y_text_increase">Aumentar texto</span>
         </button>
       </li>
       <li>
@@ -2385,7 +2398,7 @@
             <line x1="21" y1="21" x2="15" y2="15" />
             <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
-          Disminuir texto
+          <span data-i18n="a11y_text_decrease">Disminuir texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -2403,7 +2416,7 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
-          Modo Claro / Oscuro
+          <span>Modo Claro / Oscuro</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -2416,7 +2429,7 @@
             <rect x="3" y="14" width="7" height="7" rx="1" />
             <rect x="14" y="14" width="7" height="7" rx="1" />
           </svg>
-          Escala de grises
+          <span data-i18n="a11y_grayscale">Escala de grises</span>
         </button>
       </li>
       <li>
@@ -2427,7 +2440,7 @@
             <path d="M12 3v18" stroke-width="1.8" />
             <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
           </svg>
-          Alto contraste
+          <span data-i18n="a11y_high_contrast">Alto contraste</span>
         </button>
       </li>
       <li>
@@ -2438,7 +2451,7 @@
             <circle cx="12" cy="12" r="9" />
             <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
           </svg>
-          Invertir colores
+          <span data-i18n="a11y_invert">Invertir colores</span>
         </button>
       </li>
       <li>
@@ -2448,7 +2461,7 @@
             <path d="M6 4v6a6 6 0 0 0 12 0V4" />
             <line x1="4" y1="20" x2="20" y2="20" />
           </svg>
-          Subrayar enlaces
+          <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
         </button>
       </li>
       <li>
@@ -2459,7 +2472,7 @@
             <line x1="9" y1="20" x2="15" y2="20" />
             <line x1="12" y1="4" x2="12" y2="20" />
           </svg>
-          Fuente legible
+          <span data-i18n="a11y_readable_font">Fuente legible</span>
         </button>
       </li>
       <li>
@@ -2470,7 +2483,7 @@
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
           </svg>
-          Leer texto
+          <span data-i18n="a11y_read_text">Leer texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -2481,7 +2494,7 @@
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
             <path d="M3 3v5h5" />
           </svg>
-          Restablecer
+          <span data-i18n="a11y_reset">Restablecer</span>
         </button>
       </li>
     </ul>
@@ -2754,7 +2767,7 @@
 
         <!-- Slide 1 — Claustro Herreriano -->
         <div class="gallery-slide">
-          <img src="../assets/img/sanfrancisco.webp" alt="Claustro Herreriano" />
+          <img src="../assets/img/claustro-herreriano.webp" alt="Claustro Herreriano" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_1">Estilo herreriano · s. XVI</span>
@@ -2771,7 +2784,7 @@
 
         <!-- Slide 2 — Fray Bernardo de Fresneda -->
         <div class="gallery-slide">
-          <img src="../assets/img/sanfrancisco.webp" alt="Fray Bernardo de Fresneda" />
+          <img src="../assets/img/bernardo-fresneda.webp" alt="Fray Bernardo de Fresneda" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_2">Confesor Real · 1509–1577</span>
@@ -2788,7 +2801,7 @@
 
         <!-- Slide 3 — Sala de Marfiles -->
         <div class="gallery-slide">
-          <img src="../assets/img/sanfrancisco.webp" alt="Sala de Marfiles" />
+          <img src="../assets/img/sala-marfiles.webp" alt="Sala de Marfiles" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_3">Colección · «Figuras que fascinan»</span>
@@ -2871,9 +2884,16 @@
         <div>
           <p class="text-grid__lead" data-i18n-page="hist_lead">Fundado en 1456 en Cidamón por Iñigo Ortiz de Zúñiga, el convento franciscano fue trasladado a Santo Domingo de la Calzada en 1535. Su definitiva configuración arquitectónica se debe al mecenazgo de fray Bernardo de Fresneda, confesor de Carlos V y Felipe II, cuya influencia en la corte marcó el rumbo de la fábrica.</p>
           <p class="text-grid__body" data-i18n-page="hist_body1">La iglesia de tres naves, con bóveda de crucería y un sobrio retablo mayor clasicista de hacia 1605, refleja la austeridad y rigor del estilo herreriano. En el transepto reposa la sepultura marmórea de Fresneda, autorizada por bula papal de Gregorio XIII en 1573.</p>
+          <ul class="highlight-list highlight-list--desktop">
+            <li data-i18n-page="hist_li1">Fundado en 1456, trasladado a la villa en 1535.</li>
+            <li data-i18n-page="hist_li2">Estilo herreriano-clasicista, influencia de El Escorial.</li>
+            <li data-i18n-page="hist_li3">Iglesia de tres naves con bóveda de crucería.</li>
+            <li data-i18n-page="hist_li4">Retablo Mayor clasicista de hacia 1605.</li>
+            <li data-i18n-page="hist_li5">Sala de Marfiles: colección de marfil religioso más importante de La Rioja.</li>
+          </ul>
         </div>
         <div class="text-grid__more">
-          <ul class="highlight-list" style="margin-top:0">
+          <ul class="highlight-list highlight-list--mobile" style="margin-top:0">
             <li data-i18n-page="hist_li1">Fundado en 1456, trasladado a la villa en 1535.</li>
             <li data-i18n-page="hist_li2">Estilo herreriano-clasicista, influencia de El Escorial.</li>
             <li data-i18n-page="hist_li3">Iglesia de tres naves con bóveda de crucería.</li>
@@ -3042,31 +3062,31 @@
 
       <div class="img-scroll-track">
         <div class="img-scroll-item img-scroll-item--wide">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/claustro-herreriano.webp" alt="Claustro herreriano" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_claustro">Claustro herreriano · Sobriedad y proporción</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/boveda-sanfrancisco.webp" alt="Nave central" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_iglesia">Nave central · Bóveda de crucería</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/sanfrancisco.webp" alt="Retablo Mayor" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_retablo">Retablo Mayor · Clasicismo herreriano · c. 1605</div>
         </div>
         <div class="img-scroll-item img-scroll-item--wide">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/bernardo-fresneda.webp" alt="Sepulcro de Fresneda" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_sepulcro">Sepulcro de Fresneda · Mármol · Transepto</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/sala-marfiles.webp" alt="Sala de Marfiles" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_marfiles">Sala de Marfiles · «Figuras que fascinan»</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
-          <div class="img-scroll-item__caption" data-i18n-page="cap_taller">Taller Diocesano de Restauración</div>
+          <img src="../assets/img/exposiciones-claustroalto.webp" alt="Exposiciones del Claustro Alto" loading="lazy" />
+          <div class="img-scroll-item__caption" data-i18n-page="cap_taller">Exposiciones del Claustro Alto</div>
         </div>
         <div class="img-scroll-item img-scroll-item--wide">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/fachada-sanfrancisco.webp" alt="Fachada del Convento" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_fachada">Fachada del Convento · Camino de Santiago</div>
         </div>
       </div>
@@ -3100,9 +3120,8 @@
           </div>
           <div class="audio-grid reveal reveal-delay-2">
             <div class="audio-card" onclick="toggleAudio(this,0)">
-              <audio id="audio-0" src="../assets/audio/esp/Gallinero-Milagro_ESP.flac" preload="none"></audio>
               <div class="audio-card__num" data-i18n-page="audio_card_tag">Audioguía de prueba • Disponible</div>
-              <div class="audio-card__title" data-i18n-page="audio_card_title">La Moza de Santo Domingo</div>
+              <div class="audio-card__title" data-i18n-page="audio_card_title">El Convento de San Francisco</div>
               <div class="audio-card__dur" data-i18n-page="audio_card_dur">0 min 38 s</div>
               <div class="audio-player"><button class="audio-play-btn">▶</button>
                 <div class="audio-progress">
@@ -3428,7 +3447,7 @@
         cap_retablo: 'Retablo Mayor · Clasicismo herreriano · c. 1605',
         cap_sepulcro: 'Sepulcro de Fresneda · Mármol · Transepto',
         cap_marfiles: 'Sala de Marfiles · «Figuras que fascinan»',
-        cap_taller: 'Taller Diocesano de Restauración',
+        cap_taller: 'Exposiciones del Claustro Alto',
         cap_fachada: 'Fachada del Convento · Camino de Santiago',
         sec_audio_eyebrow: 'Audioguías',
         sec_audio_title: 'Descubre cada <em>espacio</em>',
@@ -3436,7 +3455,7 @@
         audio_q: '¿Dónde puedo encontrar todas las audioguías?',
         tooltip_monuments: 'Disponibles en la visita a nuestros monumentos.',
         audio_card_tag: 'Audioguía de prueba • Disponible',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'El Convento de San Francisco',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentación',
         sec_pdf_title: 'Folletos y <em>guías en PDF</em>',
@@ -3534,7 +3553,7 @@
         cap_retablo: 'Main Altarpiece · Herreran classicism · c. 1605',
         cap_sepulcro: 'Tomb of Fresneda · Marble · Transept',
         cap_marfiles: 'Ivory Room · "Figures that Fascinate"',
-        cap_taller: 'Diocesan Restoration Workshop',
+        cap_taller: 'Upper Cloister Exhibitions',
         cap_fachada: 'Convent façade · Camino de Santiago',
         sec_audio_eyebrow: 'Audio guides',
         sec_audio_title: 'Discover every <em>space</em>',
@@ -3542,7 +3561,7 @@
         audio_q: 'Where can I find all the audio guides?',
         tooltip_monuments: 'Available during your visit to our monuments.',
         audio_card_tag: 'Sample audio guide • Available',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'The Convent of San Francisco',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentation',
         sec_pdf_title: 'Brochures & <em>PDF guides</em>',
@@ -3640,7 +3659,7 @@
         cap_retablo: 'Retable Majeur · Classicisme herrérien · v. 1605',
         cap_sepulcro: 'Tombeau de Fresneda · Marbre · Transept',
         cap_marfiles: 'Salle des Ivoires · « Figures qui fascinent »',
-        cap_taller: 'Atelier diocésain de restauration',
+        cap_taller: 'Expositions du Cloître Haut',
         cap_fachada: 'Façade du Couvent · Chemin de Saint-Jacques',
         sec_audio_eyebrow: 'Audioguides',
         sec_audio_title: 'Découvrez chaque <em>espace</em>',
@@ -3648,7 +3667,7 @@
         audio_q: 'Où puis-je trouver tous les audioguides ?',
         tooltip_monuments: 'Disponibles lors de la visite de nos monuments.',
         audio_card_tag: 'Audioguide d\'essai • Disponible',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'Le Couvent de San Francisco',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentation',
         sec_pdf_title: 'Brochures et <em>guides PDF</em>',
@@ -3746,7 +3765,7 @@
         cap_retablo: 'Hochaltar · Herrerianischer Klassizismus · ca. 1605',
         cap_sepulcro: 'Grabmal Fresnedas · Marmor · Querschiff',
         cap_marfiles: 'Elfenbeinsaal · „Figuren, die faszinieren"',
-        cap_taller: 'Diözesane Restaurierungswerkstatt',
+        cap_taller: 'Ausstellungen des Oberen Kreuzgangs',
         cap_fachada: 'Klosterfassade · Jakobsweg',
         sec_audio_eyebrow: 'Audioguides',
         sec_audio_title: 'Entdecken Sie jeden <em>Raum</em>',
@@ -3754,7 +3773,7 @@
         audio_q: 'Wo finde ich alle Audioguides?',
         tooltip_monuments: 'Erhältlich beim Besuch unserer Denkmäler.',
         audio_card_tag: 'Audioguide-Probe • Verfügbar',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'Das Kloster San Francisco',
         audio_card_dur: '0 Min. 38 s',
         sec_pdf_eyebrow: 'Dokumentation',
         sec_pdf_title: 'Broschüren & <em>PDF-Guides</em>',
@@ -3852,7 +3871,7 @@
         cap_retablo: 'Retábulo-Mor · Classicismo herreriano · c. 1605',
         cap_sepulcro: 'Túmulo de Fresneda · Mármore · Transepto',
         cap_marfiles: 'Sala dos Marfins · «Figuras que fascinam»',
-        cap_taller: 'Oficina Diocesana de Restauro',
+        cap_taller: 'Exposições do Claustro Alto',
         cap_fachada: 'Fachada do Convento · Caminho de Santiago',
         sec_audio_eyebrow: 'Audioguias',
         sec_audio_title: 'Descubra cada <em>espaço</em>',
@@ -3860,7 +3879,7 @@
         audio_q: 'Onde posso encontrar todos os audioguias?',
         tooltip_monuments: 'Disponíveis durante a visita aos nossos monumentos.',
         audio_card_tag: 'Audioguia de teste • Disponível',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'O Convento de San Francisco',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentação',
         sec_pdf_title: 'Folhetos e <em>guias PDF</em>',
@@ -3958,7 +3977,7 @@
         cap_retablo: 'Retablo Maggiore · Classicismo herreriano · c. 1605',
         cap_sepulcro: 'Tomba di Fresneda · Marmo · Transetto',
         cap_marfiles: 'Sala degli Avori · «Figure che affascinano»',
-        cap_taller: 'Laboratorio diocesano di restauro',
+        cap_taller: 'Mostre del Chiostro Alto',
         cap_fachada: 'Facciata del Convento · Cammino di Santiago',
         sec_audio_eyebrow: 'Audioguide',
         sec_audio_title: 'Scopri ogni <em>spazio</em>',
@@ -3966,7 +3985,7 @@
         audio_q: 'Dove posso trovare tutte le audioguide?',
         tooltip_monuments: 'Disponibili durante la visita ai nostri monumenti.',
         audio_card_tag: 'Audioguida di prova • Disponibile',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'Il Convento di San Francisco',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentazione',
         sec_pdf_title: 'Opuscoli e <em>guide PDF</em>',
@@ -4064,7 +4083,7 @@
         cap_retablo: '주 제단화 · 에레리아 고전주의 · c. 1605',
         cap_sepulcro: '프레스네다 묘소 · 대리석 · 익랑',
         cap_marfiles: '상아실 · «매혹하는 형상들»',
-        cap_taller: '교구 복원 공방',
+        cap_taller: '상부 회랑 전시',
         cap_fachada: '수도원 정면 · 산티아고 순례길',
         sec_audio_eyebrow: '오디오 가이드',
         sec_audio_title: '모든 <em>공간</em> 탐색',
@@ -4072,7 +4091,7 @@
         audio_q: '오디오 가이드는 어디서 구할 수 있나요?',
         tooltip_monuments: '유적 방문 시 이용 가능합니다.',
         audio_card_tag: '오디오 가이드 샘플 • 이용 가능',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: '산프란시스코 수도원',
         audio_card_dur: '0분 38초',
         sec_pdf_eyebrow: '문서',
         sec_pdf_title: '브로슈어 및 <em>PDF 가이드</em>',
@@ -4170,7 +4189,7 @@
         cap_retablo: 'Erretaula Nagusia · Klasizismo herrerianoaren · c. 1605',
         cap_sepulcro: 'Fresnedarenaren hilobia · Marmola · Transeptua',
         cap_marfiles: 'Boli-Arri Gela · «Liluratzaile Irudiak»',
-        cap_taller: 'Elizbarrutiko Zaharberritzen Tailerra',
+        cap_taller: 'Klaustro Garaiko Erakusketak',
         cap_fachada: 'Komentuko Fatxada · Santiago Bidea',
         sec_audio_eyebrow: 'Audiogidariak',
         sec_audio_title: 'Espazio bakoitza <em>aurkitu</em>',
@@ -4178,7 +4197,7 @@
         audio_q: 'Non aurki ditzaket audiogidariak?',
         tooltip_monuments: 'Monumentuetara bisitetan eskuragarri.',
         audio_card_tag: 'Audiogidariaren lagin bat • Eskuragarri',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'San Frantzisko Komentua',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Dokumentazioa',
         sec_pdf_title: 'Liburuskak eta <em>PDF gidak</em>',
@@ -4276,7 +4295,7 @@
         cap_retablo: 'Retaule Major · Classicisme herrerià · c. 1605',
         cap_sepulcro: 'Sepulcre de Fresneda · Marbre · Transsepte',
         cap_marfiles: 'Sala dels Ivors · «Figures que fascinen»',
-        cap_taller: 'Taller Diocesà de Restauració',
+        cap_taller: 'Exposicions del Claustre Alt',
         cap_fachada: 'Façana del Convent · Camí de Santiago',
         sec_audio_eyebrow: 'Audioguies',
         sec_audio_title: 'Descobreix cada <em>espai</em>',
@@ -4284,7 +4303,7 @@
         audio_q: 'On puc trobar totes les audioguies?',
         tooltip_monuments: 'Disponibles a la visita als nostres monuments.',
         audio_card_tag: 'Audioguia de prova • Disponible',
-        audio_card_title: 'La Moza de Santo Domingo',
+        audio_card_title: 'El Convent de Sant Francesc',
         audio_card_dur: '0 min 38 s',
         sec_pdf_eyebrow: 'Documentació',
         sec_pdf_title: 'Fulletons i <em>guies en PDF</em>',

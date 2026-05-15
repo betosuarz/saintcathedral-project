@@ -644,18 +644,54 @@
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 300px 220px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
       gap: 2px
     }
 
-    .gallery-item:first-child { grid-column: 1 / 3 }
+    /* Show only first 12 items on desktop when collapsed */
+    .gallery-grid.is-collapsed > .gallery-item:nth-child(n+13) { display: none }
 
     .gallery-item {
       position: relative;
       overflow: hidden;
       cursor: pointer
     }
+
+    .gallery-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .gallery-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--sans);
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .25s ease, color .25s ease;
+    }
+    .gallery-more-btn:hover {
+      background: var(--gold);
+      color: var(--carbon);
+    }
+    body.light-mode .gallery-more-btn {
+      border-color: var(--gold-text);
+      color: var(--gold-text);
+    }
+    body.light-mode .gallery-more-btn:hover {
+      background: var(--gold-text);
+      color: var(--white);
+    }
+    /* Hide once expanded or when not needed */
+    .gallery-more-wrap.is-hidden { display: none }
 
     .gallery-item__img {
       position: absolute;
@@ -1169,7 +1205,6 @@
 
     body.light-mode .navbar.scrolled .navbar__logo-name,
     body.light-mode .navbar.scrolled .navbar__logo-sub,
-    body.light-mode .navbar.scrolled .lang-selector__btn,
     body.light-mode .navbar.scrolled .lang-selector__option { color: var(--carbon) }
 
     body.light-mode .navbar.scrolled .hamburger-line { background: var(--carbon) }
@@ -1343,11 +1378,10 @@
       .event-cta { display: none }
 
       .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 240px 200px 200px
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 200px;
       }
-
-      .gallery-item:first-child { grid-column: 1 / 3 }
+      .gallery-grid.is-collapsed > .gallery-item:nth-child(n+10) { display: none }
 
       .prensa-row {
         grid-template-columns: 130px 80px 1fr auto;
@@ -1385,12 +1419,26 @@
       .event-cta { display: none }
       .event-date__day { font-size: 2rem }
 
+      /* Mobile: horizontal scroll, mostrar todas las imágenes filtradas */
       .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 200px 160px 160px
+        display: flex;
+        grid-template-columns: none;
+        grid-template-rows: none;
+        grid-auto-rows: unset;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 8px;
+        padding-bottom: 8px;
+        scrollbar-width: thin;
       }
-
-      .gallery-item:first-child { grid-column: 1 / 3 }
+      .gallery-grid.is-collapsed > .gallery-item:nth-child(n) { display: block }
+      .gallery-grid > .gallery-item {
+        flex: 0 0 70vw;
+        max-width: 280px;
+        height: 220px;
+        scroll-snap-align: start;
+      }
+      .gallery-more-wrap { display: none }
 
       .prensa-row {
         grid-template-columns: 1fr;
@@ -1422,69 +1470,69 @@
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
   <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
     <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
-    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
     <ul class="a11y-panel__list">
       <li>
         <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>
-          Aumentar texto
+          <span data-i18n="a11y_text_increase">Aumentar texto</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>
-          Disminuir texto
+          <span data-i18n="a11y_text_decrease">Disminuir texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
       <li>
         <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          Modo Claro / Oscuro
+          <span>Modo Claro / Oscuro</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
       <li>
         <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          Escala de grises
+          <span data-i18n="a11y_grayscale">Escala de grises</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>
-          Alto contraste
+          <span data-i18n="a11y_high_contrast">Alto contraste</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-invert" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>
-          Invertir colores
+          <span data-i18n="a11y_invert">Invertir colores</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
-          Subrayar enlaces
+          <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-          Fuente legible
+          <span data-i18n="a11y_readable_font">Fuente legible</span>
         </button>
       </li>
       <li>
         <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-          Leer texto
+          <span data-i18n="a11y_read_text">Leer texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
       <li>
         <button class="a11y-option" id="a11y-reset">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-          Restablecer
+          <span data-i18n="a11y_reset">Restablecer</span>
         </button>
       </li>
     </ul>
@@ -2021,49 +2069,19 @@
       <p class="act-eyebrow reveal" data-i18n-page="gallery_eyebrow">Fotos y vídeos</p>
       <h2 class="act-title reveal" data-i18n-page="gallery_title">Galería <em>multimedia</em></h2>
 
-      <div class="gallery-filter">
-        <button class="filter-tab active" data-i18n-page="gal_all">Todo</button>
-        <button class="filter-tab" data-i18n-page="gal_photos">Fotografía</button>
-        <button class="filter-tab" data-i18n-page="gal_video">Vídeo</button>
+      <div class="gallery-filter" id="gallery-filter">
+        <button class="filter-tab active" data-cat="all" data-i18n-page="gal_all">Todas</button>
+        <button class="filter-tab" data-cat="cat" data-i18n-page="gal_cat">Catedral</button>
+        <button class="filter-tab" data-cat="tor" data-i18n-page="gal_tor">Torre</button>
+        <button class="filter-tab" data-cat="sf"  data-i18n-page="gal_sf">San Francisco</button>
+        <button class="filter-tab" data-cat="erm" data-i18n-page="gal_erm">Ermita Plaza</button>
+        <button class="filter-tab" data-cat="mon" data-i18n-page="gal_mon">Monasterio Cañas</button>
       </div>
 
-      <div class="gallery-grid reveal" id="gallery-grid">
+      <div class="gallery-grid is-collapsed reveal" id="gallery-grid"></div>
 
-        <div class="gallery-item" data-full-src="assets/img/nocturna.webp" data-caption-key="g1_caption">
-          <div class="gallery-item__img" style="background-image:url('assets/img/nocturna.webp'); background-position:center 30%"></div>
-          <div class="gallery-item__overlay">
-            <p class="gallery-item__caption-text" data-i18n-page="g1_caption">Catedral nocturna · Fotografía de autor</p>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-full-src="assets/img/torre.webp" data-caption-key="g2_caption">
-          <div class="gallery-item__img" style="background-image:url('assets/img/torre.webp'); background-position:center 15%"></div>
-          <div class="gallery-item__overlay">
-            <p class="gallery-item__caption-text" data-i18n-page="g2_caption">Torre Exenta al atardecer</p>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-full-src="assets/img/diurna.webp" data-caption-key="g3_caption">
-          <div class="gallery-item__img" style="background-image:url('assets/img/diurna.webp'); background-position:center 50%"></div>
-          <div class="gallery-item__overlay">
-            <p class="gallery-item__caption-text" data-i18n-page="g3_caption">Recorrido virtual por la Catedral</p>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-full-src="assets/img/sanfrancisco.webp" data-caption-key="g4_caption">
-          <div class="gallery-item__img" style="background-image:url('assets/img/sanfrancisco.webp')"></div>
-          <div class="gallery-item__overlay">
-            <p class="gallery-item__caption-text" data-i18n-page="g4_caption">Claustro del Convento de San Francisco</p>
-          </div>
-        </div>
-
-        <div class="gallery-item" data-full-src="assets/img/ermitaplaza.webp" data-caption-key="g5_caption">
-          <div class="gallery-item__img" style="background-image:url('assets/img/ermitaplaza.webp')"></div>
-          <div class="gallery-item__overlay">
-            <p class="gallery-item__caption-text" data-i18n-page="g5_caption">Ermita de la Virgen de la Plaza</p>
-          </div>
-        </div>
-
+      <div class="gallery-more-wrap">
+        <button type="button" class="gallery-more-btn" id="gallery-more-btn" data-i18n-page="gal_more">Ver más</button>
       </div>
     </div>
   </section>
@@ -2272,7 +2290,7 @@
         event_free: 'Entrada libre', event_tickets: 'Con entrada',
         event_register: 'Inscribirse', event_add_cal: 'Añadir al calendario', event_more_info: 'Más información',
         gallery_eyebrow: 'Fotos y vídeos', gallery_title: 'Galería <em>multimedia</em>',
-        gal_all: 'Todo', gal_photos: 'Fotografía', gal_video: 'Vídeo',
+        gal_all: 'Todas', gal_cat: 'Catedral', gal_tor: 'Torre', gal_sf: 'San Francisco', gal_erm: 'Ermita Plaza', gal_mon: 'Monasterio Cañas', gal_more: 'Ver más',
         press_eyebrow: 'Apariciones en medios', press_title: 'En la <em>prensa</em>',
         press_type_report: 'Reportaje', press_type_interview: 'Entrevista', press_type_mention: 'Mención',
         press_read: 'Leer artículo',
@@ -2322,7 +2340,7 @@
         event_free: 'Free entry', event_tickets: 'Ticketed',
         event_register: 'Register', event_add_cal: 'Add to calendar', event_more_info: 'More info',
         gallery_eyebrow: 'Photos & videos', gallery_title: '<em>Multimedia</em> gallery',
-        gal_all: 'All', gal_photos: 'Photography', gal_video: 'Video',
+        gal_all: 'All', gal_cat: 'Cathedral', gal_tor: 'Tower', gal_sf: 'San Francisco', gal_erm: 'Hermitage Plaza', gal_mon: 'Monastery of Cañas', gal_more: 'Show more',
         press_eyebrow: 'Media appearances', press_title: 'In the <em>press</em>',
         press_type_report: 'Feature', press_type_interview: 'Interview', press_type_mention: 'Mention',
         press_read: 'Read article',
@@ -2372,7 +2390,7 @@
         event_free: 'Entrée libre', event_tickets: 'Avec billet',
         event_register: 'S\'inscrire', event_add_cal: 'Ajouter au calendrier', event_more_info: 'Plus d\'infos',
         gallery_eyebrow: 'Photos et vidéos', gallery_title: 'Galerie <em>multimédia</em>',
-        gal_all: 'Tout', gal_photos: 'Photographie', gal_video: 'Vidéo',
+        gal_all: 'Toutes', gal_cat: 'Cathédrale', gal_tor: 'Tour', gal_sf: 'San Francisco', gal_erm: 'Ermitage Plaza', gal_mon: 'Monastère de Cañas', gal_more: 'Voir plus',
         press_eyebrow: 'Présence dans les médias', press_title: 'Dans la <em>presse</em>',
         press_type_report: 'Reportage', press_type_interview: 'Entretien', press_type_mention: 'Mention',
         press_read: 'Lire l\'article',
@@ -2422,7 +2440,7 @@
         event_free: 'Freier Eintritt', event_tickets: 'Mit Ticket',
         event_register: 'Anmelden', event_add_cal: 'Zum Kalender', event_more_info: 'Mehr Info',
         gallery_eyebrow: 'Fotos & Videos', gallery_title: '<em>Multimedia</em>-Galerie',
-        gal_all: 'Alle', gal_photos: 'Fotografie', gal_video: 'Video',
+        gal_all: 'Alle', gal_cat: 'Kathedrale', gal_tor: 'Turm', gal_sf: 'San Francisco', gal_erm: 'Ermitage Plaza', gal_mon: 'Kloster Cañas', gal_more: 'Mehr anzeigen',
         press_eyebrow: 'Medienberichte', press_title: 'In der <em>Presse</em>',
         press_type_report: 'Reportage', press_type_interview: 'Interview', press_type_mention: 'Erwähnung',
         press_read: 'Artikel lesen',
@@ -2472,7 +2490,7 @@
         event_free: 'Entrada livre', event_tickets: 'Com ingresso',
         event_register: 'Inscrever-se', event_add_cal: 'Adicionar ao calendário', event_more_info: 'Mais informações',
         gallery_eyebrow: 'Fotos e vídeos', gallery_title: 'Galeria <em>multimédia</em>',
-        gal_all: 'Tudo', gal_photos: 'Fotografia', gal_video: 'Vídeo',
+        gal_all: 'Todas', gal_cat: 'Catedral', gal_tor: 'Torre', gal_sf: 'San Francisco', gal_erm: 'Ermida Plaza', gal_mon: 'Mosteiro de Cañas', gal_more: 'Ver mais',
         press_eyebrow: 'Aparições na mídia', press_title: 'Na <em>imprensa</em>',
         press_type_report: 'Reportagem', press_type_interview: 'Entrevista', press_type_mention: 'Menção',
         press_read: 'Ler artigo',
@@ -2522,7 +2540,7 @@
         event_free: 'Ingresso libero', event_tickets: 'A pagamento',
         event_register: 'Iscriversi', event_add_cal: 'Aggiungi al calendario', event_more_info: 'Più informazioni',
         gallery_eyebrow: 'Foto e video', gallery_title: 'Galleria <em>multimediale</em>',
-        gal_all: 'Tutto', gal_photos: 'Fotografia', gal_video: 'Video',
+        gal_all: 'Tutte', gal_cat: 'Cattedrale', gal_tor: 'Torre', gal_sf: 'San Francisco', gal_erm: 'Eremo Plaza', gal_mon: 'Monastero di Cañas', gal_more: 'Vedi altro',
         press_eyebrow: 'Presenze nei media', press_title: 'Sulla <em>stampa</em>',
         press_type_report: 'Reportage', press_type_interview: 'Intervista', press_type_mention: 'Menzione',
         press_read: 'Leggi l\'articolo',
@@ -2572,7 +2590,7 @@
         event_free: '무료 입장', event_tickets: '유료',
         event_register: '등록하기', event_add_cal: '캘린더에 추가', event_more_info: '자세히 보기',
         gallery_eyebrow: '사진 및 영상', gallery_title: '멀티미디어 <em>갤러리</em>',
-        gal_all: '전체', gal_photos: '사진', gal_video: '영상',
+        gal_all: '전체', gal_cat: '대성당', gal_tor: '종탑', gal_sf: '산프란시스코', gal_erm: '광장 예배당', gal_mon: '카냐스 수도원', gal_more: '더 보기',
         press_eyebrow: '미디어 등장', press_title: '<em>언론</em>에서',
         press_type_report: '특집', press_type_interview: '인터뷰', press_type_mention: '언급',
         press_read: '기사 읽기',
@@ -2622,7 +2640,7 @@
         event_free: 'Sarrera doan', event_tickets: 'Sarrerarekin',
         event_register: 'Izena eman', event_add_cal: 'Egutegian gehitu', event_more_info: 'Informazio gehiago',
         gallery_eyebrow: 'Argazkiak eta bideoak', gallery_title: 'Multimedia <em>galeria</em>',
-        gal_all: 'Dena', gal_photos: 'Argazkigintza', gal_video: 'Bideoa',
+        gal_all: 'Denak', gal_cat: 'Katedrala', gal_tor: 'Dorrea', gal_sf: 'San Frantzisko', gal_erm: 'Plazako Ermita', gal_mon: 'Kanasko Monasterioa', gal_more: 'Gehiago ikusi',
         press_eyebrow: 'Hedabideetan', press_title: '<em>Prentsan</em>',
         press_type_report: 'Erreportajea', press_type_interview: 'Elkarrizketa', press_type_mention: 'Aipamena',
         press_read: 'Artikulua irakurri',
@@ -2672,7 +2690,7 @@
         event_free: 'Entrada lliure', event_tickets: 'Amb entrada',
         event_register: 'Inscriure\'s', event_add_cal: 'Afegir al calendari', event_more_info: 'Més informació',
         gallery_eyebrow: 'Fotos i vídeos', gallery_title: 'Galeria <em>multimèdia</em>',
-        gal_all: 'Tot', gal_photos: 'Fotografia', gal_video: 'Vídeo',
+        gal_all: 'Totes', gal_cat: 'Catedral', gal_tor: 'Torre', gal_sf: 'Sant Francesc', gal_erm: 'Ermita Plaça', gal_mon: 'Monestir de Canyes', gal_more: 'Veure\'n més',
         press_eyebrow: 'Aparicions als mitjans', press_title: 'A la <em>premsa</em>',
         press_type_report: 'Reportatge', press_type_interview: 'Entrevista', press_type_mention: 'Menció',
         press_read: 'Llegir article',
@@ -3741,9 +3759,122 @@
       if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
     })();
 
-    // ── GALLERY LIGHTBOX ────────────────────────────────────
+    // ── GALLERY DATA + RENDER (categorized, 9-lang captions, ver-más) ────
+    const GAL_ITEMS = [
+      // ── CATEDRAL ─────────────────────────────────────────────
+      { src: 'assets/img/nocturna.webp', cat: 'cat', pos: 'center 30%',
+        cap: { es: 'Catedral · Vista nocturna', en: 'Cathedral at night', fr: 'Cathédrale de nuit', de: 'Kathedrale bei Nacht', pt: 'Catedral à noite', it: 'Cattedrale di notte', ko: '야경 속의 대성당', eu: 'Katedrala gauez', ca: 'Catedral nocturna' } },
+      { src: 'assets/img/diurna.webp', cat: 'cat', pos: 'center 50%',
+        cap: { es: 'Catedral · Vista diurna', en: 'Cathedral by day', fr: 'Cathédrale de jour', de: 'Kathedrale bei Tag', pt: 'Catedral de dia', it: 'Cattedrale di giorno', ko: '낮의 대성당', eu: 'Katedrala egunez', ca: 'Catedral diürna' } },
+      { src: 'assets/img/abside.webp', cat: 'cat', pos: 'center 40%',
+        cap: { es: 'Ábside · Atardecer riojano', en: 'Apse · Riojan sunset', fr: 'Abside · Coucher de soleil de la Rioja', de: 'Apsis · Sonnenuntergang in La Rioja', pt: 'Ábside · Pôr do sol riojano', it: 'Abside · Tramonto della Rioja', ko: '앱스 · 라리오하의 노을', eu: 'Abside · Errioxako ilunabarra', ca: 'Absis · Capvespre rioja' } },
+      { src: 'assets/img/romanico.webp', cat: 'cat', pos: 'center 35%',
+        cap: { es: 'Ábside románico · s. XII', en: 'Romanesque apse · 12th c.', fr: 'Abside romane · XIIe s.', de: 'Romanische Apsis · 12. Jh.', pt: 'Ábside românico · s. XII', it: 'Abside romanica · sec. XII', ko: '로마네스크 앱스 · 12세기', eu: 'Erromaniko absidea · XII. m.', ca: 'Absis romànic · s. XII' } },
+      { src: 'assets/img/retablo.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Retablo Mayor · Damián Forment', en: 'High Altarpiece · Damián Forment', fr: 'Retable Majeur · Damián Forment', de: 'Hochaltar · Damián Forment', pt: 'Retábulo-Mor · Damián Forment', it: 'Pala Maggiore · Damián Forment', ko: '대제단화 · 다미안 포르멘트', eu: 'Erretaula Nagusia · Damián Forment', ca: 'Retaule Major · Damián Forment' } },
+      { src: 'assets/img/gallinero.webp', cat: 'cat', pos: 'center 65%',
+        cap: { es: 'Gallinero Gótico · Único en el mundo', en: 'Gothic Henhouse · Unique in the world', fr: 'Poulailler Gothique · Unique au monde', de: 'Gotischer Hühnerstall · Weltweit einzigartig', pt: 'Galinheiro Gótico · Único no mundo', it: 'Pollaio Gotico · Unico al mondo', ko: '고딕 닭장 · 세계 유일', eu: 'Oilategi Gotikoa · Munduan bakarra', ca: 'Galliner Gòtic · Únic al món' } },
+      { src: 'assets/img/sepulcro.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Sepulcro de Santo Domingo · Felipe Bigarny', en: 'Tomb of Saint Domingo · Felipe Bigarny', fr: 'Tombeau de Saint Domingo · Felipe Bigarny', de: 'Grab des Heiligen Domingo · Felipe Bigarny', pt: 'Sepulcro de Santo Domingo · Felipe Bigarny', it: 'Sepolcro di Santo Domingo · Felipe Bigarny', ko: '산토 도밍고의 묘 · 펠리페 비가르니', eu: 'Santo Domingoren hilobia · Felipe Bigarny', ca: 'Sepulcre de Sant Domingo · Felipe Bigarny' } },
+      { src: 'assets/img/triptico.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Tríptico flamenco · Joos van Cleve', en: 'Flemish Triptych · Joos van Cleve', fr: 'Triptyque flamand · Joos van Cleve', de: 'Flämisches Triptychon · Joos van Cleve', pt: 'Tríptico flamengo · Joos van Cleve', it: 'Trittico fiammingo · Joos van Cleve', ko: '플랑드르 삼면화 · 요스 판 클레버', eu: 'Flandriako triptikoa · Joos van Cleve', ca: 'Tríptic flamenc · Joos van Cleve' } },
+      { src: 'assets/img/coro.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Coro · Sillería catedralicia', en: 'Choir · Cathedral stalls', fr: 'Chœur · Stalles de la cathédrale', de: 'Chor · Kathedralengestühl', pt: 'Coro · Cadeiral da catedral', it: 'Coro · Stalli della cattedrale', ko: '성가대석 · 대성당 의자', eu: 'Korua · Katedraleko aulkigintza', ca: 'Cor · Cadiratge catedralici' } },
+      { src: 'assets/img/cripta.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Cripta · Subsuelo medieval', en: 'Crypt · Medieval underground', fr: 'Crypte · Sous-sol médiéval', de: 'Krypta · Mittelalterlicher Untergrund', pt: 'Cripta · Subsolo medieval', it: 'Cripta · Sottosuolo medievale', ko: '지하 묘소 · 중세 지하', eu: 'Kripta · Erdi Aroko lurpea', ca: 'Cripta · Subsòl medieval' } },
+      { src: 'assets/img/roseton.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Rosetón · Luz gótica', en: 'Rose window · Gothic light', fr: 'Rosace · Lumière gothique', de: 'Rosettenfenster · Gotisches Licht', pt: 'Rosácea · Luz gótica', it: 'Rosone · Luce gotica', ko: '장미창 · 고딕의 빛', eu: 'Arrosa-leihoa · Gotikoaren argia', ca: 'Rosetó · Llum gòtica' } },
+      { src: 'assets/img/tablasmilagros.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Tablas del Milagro · Pintura medieval', en: 'Miracle panels · Medieval painting', fr: 'Tableaux du Miracle · Peinture médiévale', de: 'Wundertafeln · Mittelalterliche Malerei', pt: 'Tábuas do Milagre · Pintura medieval', it: 'Tavole del Miracolo · Pittura medievale', ko: '기적의 패널 · 중세 회화', eu: 'Mirariaren oholak · Erdi Aroko pintura', ca: 'Taules del Miracle · Pintura medieval' } },
+      { src: 'assets/img/sacristia-catedral.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Sacristía · Arte sacro', en: 'Sacristy · Sacred art', fr: 'Sacristie · Art sacré', de: 'Sakristei · Sakralkunst', pt: 'Sacristia · Arte sacra', it: 'Sacrestia · Arte sacra', ko: '제의실 · 성스러운 예술', eu: 'Sakristia · Arte sakratua', ca: 'Sagristia · Art sacre' } },
+
+      // ── TORRE EXENTA ─────────────────────────────────────────
+      { src: 'assets/img/torre-exenta.webp', cat: 'tor', pos: 'center 25%',
+        cap: { es: 'Torre Exenta · Coloso barroco', en: 'Free-standing Tower · Baroque colossus', fr: 'Tour Indépendante · Colosse baroque', de: 'Freistehender Turm · Barocker Koloss', pt: 'Torre Isolada · Colosso barroco', it: 'Torre Isolata · Colosso barocco', ko: '독립 종탑 · 바로크 거상', eu: 'Dorre Exentua · Barroko erraldoia', ca: 'Torre Exempta · Colós barroc' } },
+      { src: 'assets/img/torre.webp', cat: 'tor', pos: 'center 15%',
+        cap: { es: 'Torre Exenta al atardecer', en: 'Free-standing Tower at sunset', fr: 'Tour Indépendante au coucher du soleil', de: 'Freistehender Turm bei Sonnenuntergang', pt: 'Torre Isolada ao pôr do sol', it: 'Torre Isolata al tramonto', ko: '석양의 독립 종탑', eu: 'Dorre Exentua ilunabarrean', ca: 'Torre Exempta al capvespre' } },
+      { src: 'assets/img/andres-porras.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Don Andrés de Porras · Mecenas', en: 'Don Andrés de Porras · Patron', fr: 'Don Andrés de Porras · Mécène', de: 'Don Andrés de Porras · Mäzen', pt: 'Don Andrés de Porras · Mecenas', it: 'Don Andrés de Porras · Mecenate', ko: '돈 안드레스 데 포라스 · 후원자', eu: 'Don Andrés de Porras · Mezenas', ca: 'Don Andrés de Porras · Mecenes' } },
+      { src: 'assets/img/museo-campanas.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Museo de Relojes y Campanas', en: 'Museum of Clocks and Bells', fr: 'Musée des Horloges et Cloches', de: 'Museum für Uhren und Glocken', pt: 'Museu de Relógios e Sinos', it: 'Museo di Orologi e Campane', ko: '시계와 종 박물관', eu: 'Erloju eta Kanpaien Museoa', ca: 'Museu de Rellotges i Campanes' } },
+      { src: 'assets/img/reloj-torre.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Reloj de la Torre · Maquinaria Pasco', en: 'Tower Clock · Pasco mechanism', fr: 'Horloge de la Tour · Mécanisme Pasco', de: 'Turmuhr · Pasco-Mechanik', pt: 'Relógio da Torre · Maquinaria Pasco', it: 'Orologio della Torre · Meccanismo Pasco', ko: '종탑 시계 · 파스코 기계장치', eu: 'Dorreko Erlojua · Pasco makineria', ca: 'Rellotge de la Torre · Maquinària Pasco' } },
+      { src: 'assets/img/reloj-museo.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Reloj del Museo · Casa del Campanero', en: 'Museum Clock · Bell-ringer\'s House', fr: 'Horloge du Musée · Maison du Sonneur', de: 'Museumsuhr · Glöckner-Haus', pt: 'Relógio do Museu · Casa do Sineiro', it: 'Orologio del Museo · Casa del Campanaro', ko: '박물관 시계 · 종지기의 집', eu: 'Museoko Erlojua · Kanpai-jolearen etxea', ca: 'Rellotge del Museu · Casa del Campaner' } },
+      { src: 'assets/img/campana-museo.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Campana del Museo · Colección histórica', en: 'Museum Bell · Historic collection', fr: 'Cloche du Musée · Collection historique', de: 'Museumsglocke · Historische Sammlung', pt: 'Sino do Museu · Coleção histórica', it: 'Campana del Museo · Collezione storica', ko: '박물관 종 · 역사적 컬렉션', eu: 'Museoko Kanpaia · Bilduma historikoa', ca: 'Campana del Museu · Col·lecció històrica' } },
+      { src: 'assets/img/campanario-torre.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Campanario · 70 metros de altura', en: 'Bell tower · 70 metres high', fr: 'Clocher · 70 mètres de haut', de: 'Glockenturm · 70 Meter hoch', pt: 'Campanário · 70 metros de altura', it: 'Campanile · 70 metri di altezza', ko: '종탑 · 높이 70미터', eu: 'Kanpandorrea · 70 metroko altuera', ca: 'Campanar · 70 metres d\'alçada' } },
+      { src: 'assets/img/lauda-andres-porras.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Lauda de Andrés de Porras y Temes · s. XVIII', en: 'Tombstone of Andrés de Porras y Temes · 18th c.', fr: 'Dalle funéraire d\'Andrés de Porras y Temes · XVIIIe s.', de: 'Grabplatte von Andrés de Porras y Temes · 18. Jh.', pt: 'Lauda de Andrés de Porras y Temes · s. XVIII', it: 'Lapide di Andrés de Porras y Temes · sec. XVIII', ko: '안드레스 데 포라스 이 테메스의 묘비 · 18세기', eu: 'Andrés de Porras y Temesen hilarria · XVIII. m.', ca: 'Lauda d\'Andrés de Porras y Temes · s. XVIII' } },
+      { src: 'assets/img/pinaculo-gargola.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Pináculos y gárgolas · Remate barroco', en: 'Pinnacles and gargoyles · Baroque crowning', fr: 'Pinacles et gargouilles · Couronnement baroque', de: 'Fialen und Wasserspeier · Barockes Finale', pt: 'Pináculos e gárgulas · Remate barroco', it: 'Pinnacoli e gargoyle · Coronamento barocco', ko: '첨탑과 가고일 · 바로크 장식', eu: 'Pinakuluak eta gargolak · Barroko erremateak', ca: 'Pinacles i gàrgoles · Remat barroc' } },
+      { src: 'assets/img/triforio-interior.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Triforio · Galería alta', en: 'Triforium · Upper gallery', fr: 'Triforium · Galerie haute', de: 'Triforium · Obere Galerie', pt: 'Trifório · Galeria alta', it: 'Triforio · Galleria alta', ko: '트리포리움 · 상부 회랑', eu: 'Triforioa · Goiko galeria', ca: 'Trifori · Galeria alta' } },
+      { src: 'assets/img/defensas-medievales.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Defensas medievales · Muralla', en: 'Medieval defences · City walls', fr: 'Défenses médiévales · Muraille', de: 'Mittelalterliche Verteidigungsanlagen · Stadtmauer', pt: 'Defesas medievais · Muralha', it: 'Difese medievali · Mura', ko: '중세 방어시설 · 성벽', eu: 'Erdi Aroko defentsak · Harresia', ca: 'Defenses medievals · Muralla' } },
+      { src: 'assets/img/vistas-panoramicas.webp', cat: 'tor', pos: 'center',
+        cap: { es: 'Vistas panorámicas · El Camino desde lo alto', en: 'Panoramic views · The Way from above', fr: 'Vues panoramiques · Le Chemin vu d\'en haut', de: 'Panoramablicke · Der Camino von oben', pt: 'Vistas panorâmicas · O Caminho do alto', it: 'Viste panoramiche · Il Cammino dall\'alto', ko: '파노라마 전망 · 위에서 본 까미노', eu: 'Bista panoramikoak · Bidea gainetik', ca: 'Vistes panoràmiques · El Camí des de dalt' } },
+
+      // ── SAN FRANCISCO ─────────────────────────────────────────
+      { src: 'assets/img/sanfrancisco.webp', cat: 'sf', pos: 'center',
+        cap: { es: 'Convento de San Francisco · Vista general', en: 'San Francisco Convent · Overview', fr: 'Couvent de San Francisco · Vue d\'ensemble', de: 'Kloster San Francisco · Gesamtansicht', pt: 'Convento de San Francisco · Vista geral', it: 'Convento di San Francisco · Vista d\'insieme', ko: '산프란시스코 수도원 · 전경', eu: 'San Frantzisko Komentua · Ikuspegi orokorra', ca: 'Convent de Sant Francesc · Vista general' } },
+      { src: 'assets/img/claustro-herreriano.webp', cat: 'sf', pos: 'center',
+        cap: { es: 'Claustro herreriano · Sobriedad y proporción', en: 'Herrerian Cloister · Sobriety and proportion', fr: 'Cloître herrerien · Sobriété et proportion', de: 'Herrera-Kreuzgang · Schlichtheit und Proportion', pt: 'Claustro herreriano · Sobriedade e proporção', it: 'Chiostro herreriano · Sobrietà e proporzione', ko: '에레라 양식 회랑 · 절제와 비례', eu: 'Klaustro herreriarra · Soiltasuna eta proportzioa', ca: 'Claustre herrerià · Sobrietat i proporció' } },
+      { src: 'assets/img/bernardo-fresneda.webp', cat: 'sf', pos: 'center 30%',
+        cap: { es: 'Fray Bernardo de Fresneda · Confesor real', en: 'Fray Bernardo de Fresneda · Royal confessor', fr: 'Fray Bernardo de Fresneda · Confesseur royal', de: 'Fray Bernardo de Fresneda · Königlicher Beichtvater', pt: 'Frei Bernardo de Fresneda · Confessor real', it: 'Fra Bernardo de Fresneda · Confessore reale', ko: '프라이 베르나르도 데 프레스네다 · 왕실 고해사제', eu: 'Anaia Bernardo de Fresneda · Errege-konfesoarea', ca: 'Fra Bernardo de Fresneda · Confessor reial' } },
+      { src: 'assets/img/sala-marfiles.webp', cat: 'sf', pos: 'center',
+        cap: { es: 'Sala de Marfiles · «Figuras que fascinan»', en: 'Ivory Hall · «Figures that fascinate»', fr: 'Salle des Ivoires · «Figures qui fascinent»', de: 'Elfenbeinsaal · «Faszinierende Figuren»', pt: 'Sala de Marfins · «Figuras que fascinam»', it: 'Sala degli Avori · «Figure che affascinano»', ko: '상아관 · «매혹하는 형상들»', eu: 'Marfilen Aretoa · «Liluratzen duten irudiak»', ca: 'Sala de Marfils · «Figures que fascinen»' } },
+      { src: 'assets/img/boveda-sanfrancisco.webp', cat: 'sf', pos: 'center',
+        cap: { es: 'Bóveda de crucería · Iglesia conventual', en: 'Rib vault · Convent church', fr: 'Voûte à croisée d\'ogives · Église conventuelle', de: 'Kreuzrippengewölbe · Klosterkirche', pt: 'Abóbada de cruzaria · Igreja conventual', it: 'Volta a crociera · Chiesa conventuale', ko: '늑골 궁륭 · 수도원 교회', eu: 'Gangadura nerbiotsua · Komentu-eliza', ca: 'Volta de creueria · Església conventual' } },
+      { src: 'assets/img/exposiciones-claustroalto.webp', cat: 'sf', pos: 'center',
+        cap: { es: 'Exposiciones del Claustro Alto', en: 'Upper Cloister Exhibitions', fr: 'Expositions du Cloître Haut', de: 'Ausstellungen des Oberen Kreuzgangs', pt: 'Exposições do Claustro Alto', it: 'Mostre del Chiostro Alto', ko: '상부 회랑 전시', eu: 'Klaustro Garaiko Erakusketak', ca: 'Exposicions del Claustre Alt' } },
+      { src: 'assets/img/fachada-sanfrancisco.webp', cat: 'sf', pos: 'center',
+        cap: { es: 'Fachada del Convento · Camino de Santiago', en: 'Convent façade · Way of Saint James', fr: 'Façade du Couvent · Chemin de Saint-Jacques', de: 'Klosterfassade · Jakobsweg', pt: 'Fachada do Convento · Caminho de Santiago', it: 'Facciata del Convento · Cammino di Santiago', ko: '수도원 정면 · 산티아고 순례길', eu: 'Komentuko fatxada · Santiagoko Bidea', ca: 'Façana del Convent · Camí de Santiago' } },
+      { src: 'assets/img/nave-central.webp', cat: 'cat', pos: 'center',
+        cap: { es: 'Nave central · Vista panorámica', en: 'Central nave · Panoramic view', fr: 'Nef centrale · Vue panoramique', de: 'Mittelschiff · Panoramablick', pt: 'Nave central · Vista panorâmica', it: 'Navata centrale · Vista panoramica', ko: '중앙 신랑 · 파노라마 전경', eu: 'Erdiko habearteak · Bista panoramikoa', ca: 'Nau central · Vista panoràmica' } },
+
+      // ── ERMITA DE LA PLAZA ────────────────────────────────────
+      { src: 'assets/img/ermita-plaza.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Ermita · Fachada barroca · 1710', en: 'Hermitage · Baroque façade · 1710', fr: 'Ermitage · Façade baroque · 1710', de: 'Einsiedelei · Barocke Fassade · 1710', pt: 'Ermida · Fachada barroca · 1710', it: 'Eremo · Facciata barocca · 1710', ko: '예배당 · 바로크 정면 · 1710', eu: 'Ermita · Barroko fatxada · 1710', ca: 'Ermita · Façana barroca · 1710' } },
+      { src: 'assets/img/boveda-ermita.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Bóveda de cañón · Lunetos', en: 'Barrel vault · Lunettes', fr: 'Voûte en berceau · Lunettes', de: 'Tonnengewölbe · Lünetten', pt: 'Abóbada de canhão · Lunetas', it: 'Volta a botte · Lunette', ko: '통 볼트 · 루네트', eu: 'Kanoi-ganga · Lunetak', ca: 'Volta de canó · Llunetes' } },
+      { src: 'assets/img/retablo-ermita.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Retablo Mayor · Estilo barroco', en: 'High Altarpiece · Baroque style', fr: 'Retable Majeur · Style baroque', de: 'Hochaltar · Barocker Stil', pt: 'Retábulo-Mor · Estilo barroco', it: 'Pala Maggiore · Stile barocco', ko: '대제단화 · 바로크 양식', eu: 'Erretaula Nagusia · Estilo barrokoa', ca: 'Retaule Major · Estil barroc' } },
+      { src: 'assets/img/virgen-plaza.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Virgen de la Plaza · Imagen titular', en: 'Virgen de la Plaza · Titular image', fr: 'Vierge de la Plaza · Image titulaire', de: 'Virgen de la Plaza · Titularbild', pt: 'Virgen de la Plaza · Imagem titular', it: 'Virgen de la Plaza · Immagine titolare', ko: '비르헨 데 라 플라사 · 주보 성상', eu: 'Plazako Ama · Irudi titularra', ca: 'Verge de la Plaça · Imatge titular' } },
+      { src: 'assets/img/plaza-santo.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Plaza del Santo · Corazón de la ciudad', en: 'Plaza del Santo · Heart of the city', fr: 'Place du Saint · Cœur de la ville', de: 'Plaza del Santo · Herz der Stadt', pt: 'Plaza del Santo · Coração da cidade', it: 'Plaza del Santo · Cuore della città', ko: '산토 광장 · 도시의 심장', eu: 'Plaza del Santo · Hiriaren bihotza', ca: 'Plaça del Sant · Cor de la ciutat' } },
+      { src: 'assets/img/coro-ermita.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Coro de la Ermita', en: 'Choir of the Hermitage', fr: 'Chœur de l\'Ermitage', de: 'Chor der Ermitage', pt: 'Coro da Ermida', it: 'Coro dell\'Eremo', ko: '예배당 성가대석', eu: 'Ermitako Korua', ca: 'Cor de l\'Ermita' } },
+      { src: 'assets/img/hermanamiento-basilica.webp', cat: 'erm', pos: 'center',
+        cap: { es: 'Hermanamiento Basílica Santa María la Mayor de Roma', en: 'Twinning with the Basilica of Santa Maria Maggiore in Rome', fr: 'Jumelage avec la Basilique Sainte-Marie-Majeure de Rome', de: 'Verbrüderung mit der Basilika Santa Maria Maggiore in Rom', pt: 'Geminação com a Basílica de Santa Maria Maior de Roma', it: 'Gemellaggio con la Basilica di Santa Maria Maggiore di Roma', ko: '로마 산타 마리아 마조레 대성당과의 자매결연', eu: 'Erromako Santa Maria Maggiore basilikarekiko senidetzea', ca: 'Agermanament amb la Basílica de Santa Maria la Major de Roma' } },
+
+      // ── MONASTERIO DE CAÑAS ───────────────────────────────────
+      { src: 'assets/img/monasterio-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Monasterio de Cañas · Abadía de la Luz', en: 'Monastery of Cañas · Abbey of Light', fr: 'Monastère de Cañas · Abbaye de la Lumière', de: 'Kloster Cañas · Abtei des Lichts', pt: 'Mosteiro de Cañas · Abadia da Luz', it: 'Monastero di Cañas · Abbazia della Luce', ko: '카냐스 수도원 · 빛의 수도원', eu: 'Kanasko Monasterioa · Argiaren Abadia', ca: 'Monestir de Canyes · Abadia de la Llum' } },
+      { src: 'assets/img/abside-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Ábside gótico · Luz cisterciense', en: 'Gothic apse · Cistercian light', fr: 'Abside gothique · Lumière cistercienne', de: 'Gotische Apsis · Zisterzienserlicht', pt: 'Ábside gótico · Luz cisterciense', it: 'Abside gotica · Luce cistercense', ko: '고딕 앱스 · 시토회의 빛', eu: 'Gotiko absidea · Argi zisterziarra', ca: 'Absis gòtic · Llum cistercenca' } },
+      { src: 'assets/img/claustro-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'El Claustro · Silencio contemplativo', en: 'The Cloister · Contemplative silence', fr: 'Le Cloître · Silence contemplatif', de: 'Der Kreuzgang · Kontemplative Stille', pt: 'O Claustro · Silêncio contemplativo', it: 'Il Chiostro · Silenzio contemplativo', ko: '회랑 · 묵상의 침묵', eu: 'Klaustroa · Isiltasun kontenplatiboa', ca: 'El Claustre · Silenci contemplatiu' } },
+      { src: 'assets/img/claustro-alfombrado.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Claustro alfombrado · Tradición cisterciense', en: 'Carpeted cloister · Cistercian tradition', fr: 'Cloître tapissé · Tradition cistercienne', de: 'Bekleideter Kreuzgang · Zisterziensertradition', pt: 'Claustro alcatifado · Tradição cisterciense', it: 'Chiostro tappezzato · Tradizione cistercense', ko: '카펫이 깔린 회랑 · 시토회 전통', eu: 'Alfonbra-klaustroa · Tradizio zisterziarra', ca: 'Claustre encatifat · Tradició cistercenca' } },
+      { src: 'assets/img/navecentral-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Nave cisterciense · Bóvedas góticas', en: 'Cistercian nave · Gothic vaults', fr: 'Nef cistercienne · Voûtes gothiques', de: 'Zisterzienserschiff · Gotische Gewölbe', pt: 'Nave cisterciense · Abóbadas góticas', it: 'Navata cistercense · Volte gotiche', ko: '시토회 신랑 · 고딕 궁륭', eu: 'Habearte zisterziarra · Gotiko gangak', ca: 'Nau cistercenca · Voltes gòtiques' } },
+      { src: 'assets/img/retablo-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Retablo Mayor · Guillén de Holanda', en: 'High Altarpiece · Guillén de Holanda', fr: 'Retable Majeur · Guillén de Holanda', de: 'Hochaltar · Guillén de Holanda', pt: 'Retábulo-Mor · Guillén de Holanda', it: 'Pala Maggiore · Guillén de Holanda', ko: '대제단화 · 기옌 데 올란다', eu: 'Erretaula Nagusia · Guillén de Holanda', ca: 'Retaule Major · Guillén de Holanda' } },
+      { src: 'assets/img/salacapitular-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Sala Capitular · Sepulcro Doña Urraca', en: 'Chapter House · Tomb of Doña Urraca', fr: 'Salle Capitulaire · Tombeau de Doña Urraca', de: 'Kapitelsaal · Grab der Doña Urraca', pt: 'Sala Capitular · Sepulcro de Doña Urraca', it: 'Sala Capitolare · Sepolcro di Doña Urraca', ko: '참사회실 · 도냐 우라카의 묘', eu: 'Kapitulu Aretoa · Doña Urracaren hilobia', ca: 'Sala Capitular · Sepulcre Doña Urraca' } },
+      { src: 'assets/img/vidrieras-canas.webp', cat: 'mon', pos: 'center',
+        cap: { es: 'Vidrieras de alabastro · s. XIII', en: 'Alabaster windows · 13th c.', fr: 'Vitraux d\'albâtre · XIIIe s.', de: 'Alabasterfenster · 13. Jh.', pt: 'Vitrais de alabastro · s. XIII', it: 'Vetrate di alabastro · sec. XIII', ko: '설화석고 창 · 13세기', eu: 'Alabastrozko leihoak · XIII. m.', ca: 'Vitralls d\'alabastre · s. XIII' } },
+    ];
+
     (function () {
       const grid = document.getElementById('gallery-grid');
+      const filterBar = document.getElementById('gallery-filter');
+      const moreBtn = document.getElementById('gallery-more-btn');
+      const moreWrap = moreBtn ? moreBtn.parentElement : null;
       const lb = document.getElementById('gal-lightbox');
       if (!grid || !lb) return;
       const imgEl = document.getElementById('gal-lightbox-img');
@@ -3752,66 +3883,142 @@
       const btnClose = document.getElementById('gal-lightbox-close');
       const btnPrev = document.getElementById('gal-lightbox-prev');
       const btnNext = document.getElementById('gal-lightbox-next');
-      const items = Array.from(grid.querySelectorAll('.gallery-item[data-full-src]'));
+      let activeCat = 'all';
+      let visibleItems = []; // items currently rendered (for lightbox navigation)
       let idx = 0;
 
-      function render() {
-        const item = items[idx];
-        if (!item) return;
-        imgEl.style.opacity = '0';
-        const src = item.getAttribute('data-full-src');
-        const cap = item.getAttribute('data-caption') || '';
-        const next = new Image();
-        next.onload = () => {
-          imgEl.src = src;
-          imgEl.alt = cap;
-          requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
-        };
-        next.src = src;
-        capEl.textContent = cap;
-        capEl.style.display = cap ? 'block' : 'none';
-        cntEl.textContent = (idx + 1) + ' / ' + items.length;
-        const showNav = items.length > 1;
-        btnPrev.style.display = showNav ? 'flex' : 'none';
-        btnNext.style.display = showNav ? 'flex' : 'none';
+      function curLang() {
+        const l = (localStorage.getItem('cat-lang') || 'es');
+        return (l in (GAL_ITEMS[0]?.cap || {})) ? l : 'es';
       }
-      function open(i) {
-        idx = (i + items.length) % items.length;
-        render();
+
+      function captionFor(item) {
+        const l = curLang();
+        return item.cap[l] || item.cap.es || '';
+      }
+
+      function render() {
+        const lang = curLang();
+        const filtered = (activeCat === 'all') ? GAL_ITEMS : GAL_ITEMS.filter(i => i.cat === activeCat);
+        visibleItems = filtered;
+        const html = filtered.map((it, i) => {
+          const cap = captionFor(it);
+          return `<div class="gallery-item" data-idx="${i}" data-full-src="${it.src}">
+            <div class="gallery-item__img" style="background-image:url('${it.src}'); background-position:${it.pos || 'center'}"></div>
+            <div class="gallery-item__overlay">
+              <p class="gallery-item__caption-text">${cap}</p>
+            </div>
+          </div>`;
+        }).join('');
+        grid.innerHTML = html;
+        // attach click handlers
+        grid.querySelectorAll('.gallery-item').forEach(el => {
+          el.addEventListener('click', e => {
+            e.preventDefault();
+            openLightbox(parseInt(el.dataset.idx, 10));
+          });
+        });
+        // reset collapsed state on new filter
+        grid.classList.add('is-collapsed');
+        updateMoreBtn();
+      }
+
+      function updateMoreBtn() {
+        if (!moreWrap || !moreBtn) return;
+        // hide button if total items <= threshold (12 desktop, 9 tablet — use 12)
+        const isMobile = window.matchMedia('(max-width: 640px)').matches;
+        if (isMobile || visibleItems.length <= 12) {
+          moreWrap.classList.add('is-hidden');
+        } else {
+          moreWrap.classList.remove('is-hidden');
+        }
+      }
+
+      function openLightbox(i) {
+        idx = (i + visibleItems.length) % visibleItems.length;
+        renderLightbox();
         lb.classList.add('open');
         lb.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+      }
+      function renderLightbox() {
+        const item = visibleItems[idx];
+        if (!item) return;
+        imgEl.style.opacity = '0';
+        const cap = captionFor(item);
+        const next = new Image();
+        next.onload = () => {
+          imgEl.src = item.src;
+          imgEl.alt = cap;
+          requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+        };
+        next.src = item.src;
+        capEl.textContent = cap;
+        capEl.style.display = cap ? 'block' : 'none';
+        cntEl.textContent = (idx + 1) + ' / ' + visibleItems.length;
+        const showNav = visibleItems.length > 1;
+        btnPrev.style.display = showNav ? 'flex' : 'none';
+        btnNext.style.display = showNav ? 'flex' : 'none';
       }
       function close() {
         lb.classList.remove('open');
         lb.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
       }
-      function prev() { open(idx - 1); }
-      function next() { open(idx + 1); }
+      function prev() { openLightbox(idx - 1); }
+      function next() { openLightbox(idx + 1); }
 
-      items.forEach((it, i) => {
-        it.addEventListener('click', (e) => { e.preventDefault(); open(i); });
-      });
       btnClose.addEventListener('click', close);
-      btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
-      btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
-      lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
-      document.addEventListener('keydown', (e) => {
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); prev(); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); next(); });
+      lb.addEventListener('click', e => { if (e.target === lb) close(); });
+      document.addEventListener('keydown', e => {
         if (!lb.classList.contains('open')) return;
         if (e.key === 'Escape') close();
         else if (e.key === 'ArrowLeft') prev();
         else if (e.key === 'ArrowRight') next();
       });
-
       // Swipe gesture (mobile)
       let touchStartX = 0;
-      lb.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-      lb.addEventListener('touchend', (e) => {
-        const dx = (e.changedTouches[0].clientX) - touchStartX;
+      lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
         if (Math.abs(dx) > 50) { dx > 0 ? prev() : next(); }
       });
+
+      // Filter buttons
+      if (filterBar) {
+        filterBar.querySelectorAll('.filter-tab').forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterBar.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeCat = btn.dataset.cat || 'all';
+            render();
+          });
+        });
+      }
+
+      // Ver más → expand
+      if (moreBtn) {
+        moreBtn.addEventListener('click', () => {
+          grid.classList.remove('is-collapsed');
+          if (moreWrap) moreWrap.classList.add('is-hidden');
+        });
+      }
+
+      // Re-render on lang change (after applyLang)
+      const origPageApply = window.PAGE_applyLang;
+      window.PAGE_applyLang = function (lang, t) {
+        if (typeof origPageApply === 'function') origPageApply(lang, t);
+        // Re-render gallery captions
+        render();
+      };
+
+      // Initial render
+      render();
+      window.addEventListener('resize', updateMoreBtn);
     })();
+
   </script>
 
 </body>

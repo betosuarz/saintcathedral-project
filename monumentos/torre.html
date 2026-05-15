@@ -329,6 +329,13 @@
       gap: 14px
     }
 
+    /* Desktop: bullets en columna izquierda. Mobile: bullets en text-grid__more. */
+    .highlight-list--desktop { display: none }
+    @media (min-width: 901px) {
+      .highlight-list--desktop { display: flex; margin-top: 28px }
+      .highlight-list--mobile { display: none }
+    }
+
     .highlight-list li {
       display: flex;
       gap: 14px;
@@ -433,6 +440,8 @@
       top: 0;
       height: calc(var(--tl-axis-half) - 56px);
     }
+    /* Tapa la línea horizontal del axis solo donde está el título — sólo modo oscuro */
+    body:not(.light-mode) .tl-h__era { background: #0f0d0b; }
     .tl-h__era::after {
       bottom: 0;
       height: calc(var(--tl-axis-half) - 56px);
@@ -2061,7 +2070,6 @@
 
     body.light-mode .navbar.scrolled .navbar__logo-name,
     body.light-mode .navbar.scrolled .navbar__logo-sub,
-    body.light-mode .navbar.scrolled .lang-selector__btn,
     body.light-mode .navbar.scrolled .lang-selector__option {
       color: #141210;
     }
@@ -2363,7 +2371,7 @@
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
   <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
     <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
-    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
     <ul class="a11y-panel__list">
       <li>
         <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
@@ -2374,7 +2382,7 @@
             <line x1="10" y1="7" x2="10" y2="13" />
             <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
-          Aumentar texto
+          <span data-i18n="a11y_text_increase">Aumentar texto</span>
         </button>
       </li>
       <li>
@@ -2385,7 +2393,7 @@
             <line x1="21" y1="21" x2="15" y2="15" />
             <line x1="7" y1="10" x2="13" y2="10" />
           </svg>
-          Disminuir texto
+          <span data-i18n="a11y_text_decrease">Disminuir texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -2403,7 +2411,7 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
-          Modo Claro / Oscuro
+          <span>Modo Claro / Oscuro</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -2416,7 +2424,7 @@
             <rect x="3" y="14" width="7" height="7" rx="1" />
             <rect x="14" y="14" width="7" height="7" rx="1" />
           </svg>
-          Escala de grises
+          <span data-i18n="a11y_grayscale">Escala de grises</span>
         </button>
       </li>
       <li>
@@ -2427,7 +2435,7 @@
             <path d="M12 3v18" stroke-width="1.8" />
             <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
           </svg>
-          Alto contraste
+          <span data-i18n="a11y_high_contrast">Alto contraste</span>
         </button>
       </li>
       <li>
@@ -2438,7 +2446,7 @@
             <circle cx="12" cy="12" r="9" />
             <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
           </svg>
-          Invertir colores
+          <span data-i18n="a11y_invert">Invertir colores</span>
         </button>
       </li>
       <li>
@@ -2448,7 +2456,7 @@
             <path d="M6 4v6a6 6 0 0 0 12 0V4" />
             <line x1="4" y1="20" x2="20" y2="20" />
           </svg>
-          Subrayar enlaces
+          <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
         </button>
       </li>
       <li>
@@ -2459,7 +2467,7 @@
             <line x1="9" y1="20" x2="15" y2="20" />
             <line x1="12" y1="4" x2="12" y2="20" />
           </svg>
-          Fuente legible
+          <span data-i18n="a11y_readable_font">Fuente legible</span>
         </button>
       </li>
       <li>
@@ -2470,7 +2478,7 @@
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
           </svg>
-          Leer texto
+          <span data-i18n="a11y_read_text">Leer texto</span>
         </button>
       </li>
       <li class="a11y-panel__divider" role="separator"></li>
@@ -2481,7 +2489,7 @@
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
             <path d="M3 3v5h5" />
           </svg>
-          Restablecer
+          <span data-i18n="a11y_reset">Restablecer</span>
         </button>
       </li>
     </ul>
@@ -2772,7 +2780,7 @@
 
         <!-- Slide 2 — Don Andrés de Porras -->
         <div class="gallery-slide">
-          <img src="../assets/img/torre.webp" alt="Don Andrés de Porras" />
+          <img src="../assets/img/andres-porras.webp" alt="Don Andrés de Porras" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_2">Obispo y Mecenas · s. XVIII</span>
@@ -2789,7 +2797,7 @@
 
         <!-- Slide 3 — Museo de Relojes y Campanas -->
         <div class="gallery-slide">
-          <img src="../assets/img/nocturna.webp" alt="Museo de Relojes y Campanas" />
+          <img src="../assets/img/museo-campanas.webp" alt="Museo de Relojes y Campanas" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_3">Museo · 2018</span>
@@ -2806,7 +2814,7 @@
 
         <!-- Slide 4 — El Reloj de la Catedral -->
         <div class="gallery-slide">
-          <img src="../assets/img/diurna.webp" alt="El Reloj de la Catedral" />
+          <img src="../assets/img/reloj-torre.webp" alt="El Reloj de la Catedral" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_4">Maquinaria · s. XVIII</span>
@@ -2878,9 +2886,16 @@
             vacuno, junto con sus 70 metros de altura, la convierten en una obra maestra del barroco riojano. Se
             caracteriza por tres cuerpos principales y un remate dinámico. Se conservan detalles únicos, como la muesca
             para el tejado de la Casa del Campanero.</p>
+          <ul class="highlight-list highlight-list--desktop">
+            <li data-i18n-page="hist_li1">Localización exenta y única.</li>
+            <li data-i18n-page="hist_li2">70 metros de altura y 8 campanas históricas.</li>
+            <li data-i18n-page="hist_li3">Cimentación con mortero de cal, arena y cuernos de vacuno.</li>
+            <li data-i18n-page="hist_li4">El reloj de Martín Pasco (s. XVIII) con engranaje original activo.</li>
+            <li data-i18n-page="hist_li5">La Casa del Campanero: un museo del tiempo y el sonido.</li>
+          </ul>
         </div>
         <div class="text-grid__more">
-          <ul class="highlight-list" style="margin-top:0">
+          <ul class="highlight-list highlight-list--mobile" style="margin-top:0">
             <li data-i18n-page="hist_li1">Localización exenta y única.</li>
             <li data-i18n-page="hist_li2">70 metros de altura y 8 campanas históricas.</li>
             <li data-i18n-page="hist_li3">Cimentación con mortero de cal, arena y cuernos de vacuno.</li>
@@ -3029,31 +3044,31 @@
 
       <div class="img-scroll-track">
         <div class="img-scroll-item img-scroll-item--wide">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/reloj-museo.webp" alt="Reloj del museo" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_reloj_museo">Reloj del museo · Casa del Campanero</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/campana-museo.webp" alt="Campana del museo" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_campana_museo">Campana del museo · Colección histórica</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/lauda-andres-porras.webp" alt="Lauda de Andrés de Porras y Temes" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_lauda">Lauda de Andrés de Porras y Temes · s. XVIII</div>
         </div>
         <div class="img-scroll-item img-scroll-item--wide">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/reloj-torre.webp" alt="Reloj de la torre" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_reloj_torre">Reloj de la torre · Maquinaria Pasco</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/campanario-torre.webp" alt="Campanario" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_campanario">Campanario · 70 metros de altura</div>
         </div>
         <div class="img-scroll-item img-scroll-item--sq">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/pinaculo-gargola.webp" alt="Pináculos y gárgolas" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_pinaculos">Pináculos y gárgolas · Remate barroco</div>
         </div>
         <div class="img-scroll-item img-scroll-item--wide">
-          <div style="background:#3a3a3a;width:100%;height:100%;min-height:320px"></div>
+          <img src="../assets/img/vistas-panoramicas.webp" alt="Vistas panorámicas" loading="lazy" />
           <div class="img-scroll-item__caption" data-i18n-page="cap_vistas">Vistas panorámicas · El Camino desde lo alto</div>
         </div>
       </div>
@@ -3087,7 +3102,6 @@
           </div>
           <div class="audio-grid reveal reveal-delay-2">
             <div class="audio-card" onclick="toggleAudio(this,0)">
-              <audio id="audio-0" src="../assets/audio/esp/Gallinero-Milagro_ESP.flac" preload="none"></audio>
               <div class="audio-card__num" data-i18n-page="audio_card_tag">Audioguía de prueba • Disponible</div>
               <div class="audio-card__title" data-i18n-page="audio_card_title">La Moza de Santo Domingo</div>
               <div class="audio-card__dur" data-i18n-page="audio_card_dur">0 min 38 s</div>

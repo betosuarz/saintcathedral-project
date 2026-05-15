@@ -350,13 +350,28 @@ body.light-mode .navbar__a11y-btn {
 }
 
 body.light-mode .lang-selector__btn {
-  color: rgba(168, 133, 46, .82);
-  border-color: rgba(168, 133, 46, .28);
+  background: rgba(253, 250, 244, .55) !important;
+  border-color: rgba(122, 96, 37, .5) !important;
+  color: var(--gold-text) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 body.light-mode .lang-selector__btn:hover {
-  color: #A8852E;
-  border-color: rgba(168, 133, 46, .55);
+  background: rgba(253, 250, 244, .8) !important;
+  color: #5C4A1A !important;
+  border-color: var(--gold-text) !important;
+}
+
+body.light-mode .navbar.scrolled .lang-selector__btn,
+body.light-mode .navbar--always-solid .lang-selector__btn {
+  background: rgba(253, 250, 244, .7) !important;
+  border-color: rgba(122, 96, 37, .55) !important;
+  color: var(--gold-text) !important;
+}
+
+body.light-mode .lang-selector__btn #lang-current-code {
+  color: inherit !important;
 }
 
 /* Lang overlay (backdrop) */
@@ -2896,6 +2911,22 @@ body:not(.light-mode) .prensa-card__date {
   color: rgba(253, 250, 244, 0.78);
 }
 
+/* Excepción: .section--cream mantiene fondo crema también en modo oscuro,
+   por lo que los textos secundarios deben seguir siendo oscuros (legibilidad). */
+body:not(.light-mode) .section--cream .text-grid__body,
+body:not(.light-mode) .section--cream .text-grid__meta,
+body:not(.light-mode) .section--cream .text-grid__lead,
+body:not(.light-mode) .section--cream .text-grid__quote p,
+body:not(.light-mode) .section--cream .text-grid__quote cite,
+body:not(.light-mode) .section--cream .highlight-list li,
+body:not(.light-mode) .section--cream .hist-stat__label {
+  color: var(--stone) !important;
+}
+body:not(.light-mode) .section--cream .text-grid__lead,
+body:not(.light-mode) .section--cream .text-grid__quote p {
+  color: var(--carbon) !important;
+}
+
 /* ── Dark-mode form label / placeholder visibility ────────────── */
 body:not(.light-mode) .form-label {
   color: rgba(253, 250, 244, 0.72);
@@ -2908,4 +2939,135 @@ body:not(.light-mode) .form-textarea::placeholder {
 /* ── inst-nav__label was carbon-on-carbon (invisible) ─────────── */
 body:not(.light-mode) .inst-nav__label {
   color: var(--white);
+}
+
+/* ── HERO GOLD TEXT — unificado en todas las páginas ──────────── */
+/* Dark mode (default): mismo gold para eyebrow + título-em en todos los hero. */
+/* Light mode: gold más claro y luminoso para mejor lectura sobre el overlay del hero. */
+.page-hero__eyebrow,
+.page-hero__title em {
+  color: var(--gold-lt) !important;
+}
+.page-hero__eyebrow::before {
+  background: var(--gold-lt) !important;
+}
+body.light-mode .page-hero__eyebrow,
+body.light-mode .page-hero__title em {
+  color: #F0D78E !important;
+}
+body.light-mode .page-hero__eyebrow::before {
+  background: #F0D78E !important;
+}
+
+/* Hero — título, descripción y meta-labels deben quedar legibles sobre el overlay oscuro,
+   también en modo claro. Una sola regla unificada en todos los hero. */
+body.light-mode .page-hero__title { color: var(--white) !important; }
+body.light-mode .page-hero__desc { color: rgba(255, 255, 255, .88) !important; }
+body.light-mode .page-hero__meta-label { color: rgba(255, 255, 255, .72) !important; }
+body.light-mode .page-hero__meta-val { color: #F0D78E !important; }
+
+/* Hero — chips de navegación interna (Horarios, Tesoros, …): legibilidad uniforme. */
+body.light-mode .hero-nav__link {
+  color: rgba(255, 255, 255, .95) !important;
+  border-color: rgba(255, 255, 255, .65) !important;
+}
+body.light-mode .hero-nav__link:hover,
+body.light-mode .hero-nav__link:focus-visible {
+  background: var(--gold) !important;
+  color: var(--carbon) !important;
+  border-color: var(--gold) !important;
+}
+
+/* ── GALLERY SLIDE — leyendas legibles, unificadas en todas las páginas ─────── */
+/* Gradiente común (dark + light): suficientemente oscuro para que el texto
+   se lea sobre cualquier zona de la imagen. */
+.gallery-slide__cap {
+  background: linear-gradient(to top,
+    rgba(14, 12, 10, .92) 0%,
+    rgba(14, 12, 10, .55) 55%,
+    rgba(14, 12, 10, 0) 100%) !important;
+}
+body.light-mode .gallery-slide__cap {
+  background: linear-gradient(to top,
+    rgba(14, 12, 10, .88) 0%,
+    rgba(14, 12, 10, .45) 55%,
+    rgba(14, 12, 10, 0) 100%) !important;
+}
+
+/* Dark mode — gold-lt unificado para eyebrow, CTA y contador */
+.gallery-slide__cap-eyebrow,
+.gallery-slide__cap-cta,
+.gallery-slide__cap-num {
+  color: var(--gold-lt) !important;
+}
+.gallery-slide__cap-eyebrow::before {
+  background: var(--gold-lt) !important;
+}
+.gallery-slide__cap-title { color: var(--white) !important; }
+.gallery-slide__cap-cta:hover { color: #F0D78E !important; }
+
+/* Light mode — cream-gold (#F0D78E) unificado con el hero */
+body.light-mode .gallery-slide__cap-eyebrow,
+body.light-mode .gallery-slide__cap-cta,
+body.light-mode .gallery-slide__cap-num {
+  color: #F0D78E !important;
+}
+body.light-mode .gallery-slide__cap-eyebrow::before {
+  background: #F0D78E !important;
+}
+body.light-mode .gallery-slide__cap-title { color: var(--white) !important; }
+body.light-mode .gallery-slide__cap-cta:hover { color: var(--gold-lt) !important; }
+
+/* Gallery info button (i + Saber más) — unificado en todas las páginas */
+.gallery-info-btn {
+  background: rgba(14, 12, 10, .72) !important;
+  border-color: rgba(223, 192, 112, .55) !important;
+  color: var(--white) !important;
+}
+.gallery-info-btn:hover {
+  background: rgba(223, 192, 112, .22) !important;
+  border-color: var(--gold-lt) !important;
+}
+.gallery-info-btn__icon {
+  color: var(--gold-lt) !important;
+  border-color: var(--gold-lt) !important;
+}
+body.light-mode .gallery-info-btn {
+  background: rgba(14, 12, 10, .72) !important;
+  border-color: rgba(240, 215, 142, .65) !important;
+  color: var(--white) !important;
+}
+body.light-mode .gallery-info-btn:hover {
+  background: rgba(240, 215, 142, .22) !important;
+  border-color: #F0D78E !important;
+}
+body.light-mode .gallery-info-btn__icon {
+  color: #F0D78E !important;
+  border-color: #F0D78E !important;
+}
+
+/* ── GALLERY WRAP — ancho máximo unificado en las 5 páginas de monumentos ─ */
+.gallery-wrap,
+#galeria > .eyebrow,
+#galeria > .section-title {
+  max-width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ── ESPACIOS · img-scroll captions — unificados en todas las páginas ───── */
+/* Mismo gradiente oscuro y mismo gold para los textos uppercase sobre cada imagen */
+.img-scroll-item__caption {
+  background: linear-gradient(to top,
+    rgba(14, 12, 10, .92) 0%,
+    rgba(14, 12, 10, .55) 55%,
+    rgba(14, 12, 10, 0) 100%) !important;
+  color: var(--gold-lt) !important;
+}
+body.light-mode .img-scroll-item__caption {
+  background: linear-gradient(to top,
+    rgba(14, 12, 10, .88) 0%,
+    rgba(14, 12, 10, .45) 55%,
+    rgba(14, 12, 10, 0) 100%) !important;
+  color: #F0D78E !important;
 }

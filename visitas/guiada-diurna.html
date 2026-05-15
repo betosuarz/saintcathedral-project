@@ -495,8 +495,8 @@
     body.light-mode .cta-band__eyebrow { color: rgba(255,255,255,.85) }
     body.light-mode .cta-band__title em { color: rgba(255,255,255,.78); opacity: 1 }
     body.light-mode .page-hero::after {
-      background: linear-gradient(160deg, rgba(14,12,10,.92) 0%, rgba(14,12,10,.62) 50%, rgba(14,12,10,.82) 100%),
-                  linear-gradient(to top, rgba(14,12,10,.98) 0%, rgba(14,12,10,.45) 55%, rgba(14,12,10,.15) 100%);
+      background: linear-gradient(160deg, rgba(14,12,10,.65) 0%, rgba(14,12,10,.30) 50%, rgba(14,12,10,.55) 100%),
+                  linear-gradient(to top, rgba(14,12,10,.75) 0%, rgba(14,12,10,.20) 55%, rgba(14,12,10,0) 100%);
     }
     body.light-mode .page-hero__title { color: var(--white); text-shadow: 0 2px 18px rgba(14,12,10,.55) }
     body.light-mode .page-hero__title em { color: var(--gold-lt); text-shadow: 0 2px 18px rgba(14,12,10,.6) }
@@ -647,21 +647,21 @@
   <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
   <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
     <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
-    <div class="a11y-panel__header">Herramientas de accesibilidad</div>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
     <ul class="a11y-panel__list">
-      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Aumentar texto</button></li>
-      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg>Disminuir texto</button></li>
+      <li><button class="a11y-option" id="a11y-text-increase" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="10" y1="7" x2="10" y2="13"/><line x1="7" y1="10" x2="13" y2="10"/></svg><span data-i18n="a11y_text_increase">Aumentar texto</span></button></li>
+      <li><button class="a11y-option" id="a11y-text-decrease" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/><line x1="7" y1="10" x2="13" y2="10"/></svg><span data-i18n="a11y_text_decrease">Disminuir texto</span></button></li>
       <li class="a11y-panel__divider" role="separator"></li>
-      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Modo Claro / Oscuro</button></li>
+      <li><button class="a11y-option" id="a11y-light-mode" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><span>Modo Claro / Oscuro</span></button></li>
       <li class="a11y-panel__divider" role="separator"></li>
-      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Escala de grises</button></li>
-      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>Alto contraste</button></li>
-      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg>Invertir colores</button></li>
-      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>Subrayar enlaces</button></li>
-      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Fuente legible</button></li>
-      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Leer texto</button></li>
+      <li><button class="a11y-option" id="a11y-grayscale" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span data-i18n="a11y_grayscale">Escala de grises</span></button></li>
+      <li><button class="a11y-option" id="a11y-high-contrast" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span data-i18n="a11y_high_contrast">Alto contraste</span></button></li>
+      <li><button class="a11y-option" id="a11y-invert" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none"/></svg><span data-i18n="a11y_invert">Invertir colores</span></button></li>
+      <li><button class="a11y-option" id="a11y-underline-links" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg><span data-i18n="a11y_underline_links">Subrayar enlaces</span></button></li>
+      <li><button class="a11y-option" id="a11y-readable-font" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg><span data-i18n="a11y_readable_font">Fuente legible</span></button></li>
+      <li><button class="a11y-option" id="a11y-text-reader" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><span data-i18n="a11y_read_text">Leer texto</span></button></li>
       <li class="a11y-panel__divider" role="separator"></li>
-      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Restablecer</button></li>
+      <li><button class="a11y-option" id="a11y-reset"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span data-i18n="a11y_reset">Restablecer</span></button></li>
     </ul>
   </div>
 
@@ -831,10 +831,10 @@
           <span class="price-card__label" data-i18n-page="price_per_person">por persona</span>
           <div class="price-card__divider"></div>
           <div class="price-card__includes">
-            <span class="price-card__include" data-i18n-page="inc1">Guía especializado durante todo el recorrido</span>
-            <span class="price-card__include" data-i18n-page="inc2">Acceso a la nave principal y al Retablo Mayor</span>
+            <span class="price-card__include" data-i18n-page="inc1">Recorrido con guía por el interior de la Catedral</span>
+            <span class="price-card__include" data-i18n-page="inc2">Explicaciones de los puntos de mayor interés</span>
             <span class="price-card__include" data-i18n-page="inc3">Gallinero vivo y leyenda del Milagro</span>
-            <span class="price-card__include" data-i18n-page="inc4">Sepulcro del Santo y recorrido básico</span>
+            <span class="price-card__include" data-i18n-page="inc4">Historia del Santo y su legado</span>
           </div>
           <a href="../reservas.html?tipo=individual&modo=con-guia&entrada=diurna" class="price-cta">
             <span data-i18n-page="price_book">Reservar plaza</span> →
@@ -853,7 +853,7 @@
             <span class="price-card__include" data-i18n-page="extra4">No es necesario comprarla por separado</span>
           </div>
           <a href="pulsera-turistica.html" class="price-cta" style="background:transparent; color:var(--gold); border:1px solid var(--gold)">
-            <span data-i18n-page="extra_btn">Ver pulsera turística</span> →
+            <span data-i18n-page="extra_btn">Ver pulsera</span> →
           </a>
         </div>
 
@@ -1097,10 +1097,10 @@
         price_tag: 'Visita guiada diurna',
         price_per_person: 'por persona',
         price_book: 'Reservar plaza',
-        inc1: 'Guía especializado durante todo el recorrido',
-        inc2: 'Acceso a la nave principal y al Retablo Mayor',
+        inc1: 'Recorrido con guía por el interior de la Catedral',
+        inc2: 'Explicaciones de los puntos de mayor interés',
         inc3: 'Gallinero vivo y leyenda del Milagro',
-        inc4: 'Sepulcro del Santo y recorrido básico',
+        inc4: 'Historia del Santo y su legado',
         price_extra_tag: 'Ya incluida',
         price_extra_title: 'Pulsera turística',
         price_extra_sub: 'sin coste adicional',
@@ -1108,7 +1108,7 @@
         extra2: 'Catedral · Torre Exenta · San Francisco · Ermita',
         extra3: 'Válida todo el día tras la visita guiada',
         extra4: 'No es necesario comprarla por separado',
-        extra_btn: 'Ver pulsera turística',
+        extra_btn: 'Ver pulsera',
         info_eyebrow: 'Información práctica',
         info_title: 'Todo lo que necesitas <em>saber</em>',
         info_dur_label: 'Duración',
@@ -1154,10 +1154,10 @@
         price_tag: 'Daytime guided tour',
         price_per_person: 'per person',
         price_book: 'Book your place',
-        inc1: 'Specialised guide throughout the tour',
-        inc2: 'Access to the main nave and High Altarpiece',
+        inc1: 'Guided tour through the interior of the Cathedral',
+        inc2: 'Explanations of the most notable highlights',
         inc3: 'Live henhouse and the Miracle legend',
-        inc4: 'Saint\'s tomb and basic walkthrough',
+        inc4: 'History of the Saint and his legacy',
         price_extra_tag: 'Already included',
         price_extra_title: 'Tourist wristband',
         price_extra_sub: 'at no additional cost',
@@ -1165,7 +1165,7 @@
         extra2: 'Cathedral · Bell Tower · San Francisco · Chapel',
         extra3: 'Valid all day after the guided tour',
         extra4: 'No need to buy it separately',
-        extra_btn: 'See tourist wristband',
+        extra_btn: 'See wristband',
         info_eyebrow: 'Practical information',
         info_title: 'Everything you need <em>to know</em>',
         info_dur_label: 'Duration',
@@ -1211,10 +1211,10 @@
         price_tag: 'Visite guidée diurne',
         price_per_person: 'par personne',
         price_book: 'Réserver',
-        inc1: 'Guide spécialisé pendant toute la visite',
-        inc2: 'Accès à la nef principale et au Retable majeur',
+        inc1: 'Visite guidée à l\'intérieur de la Cathédrale',
+        inc2: 'Explications des points les plus remarquables',
         inc3: 'Poulailler vivant et légende du Miracle',
-        inc4: 'Tombeau du Saint et parcours de base',
+        inc4: 'Histoire du Saint et son héritage',
         price_extra_tag: 'Déjà inclus',
         price_extra_title: 'Bracelet touristique',
         price_extra_sub: 'sans coût supplémentaire',
@@ -1222,7 +1222,7 @@
         extra2: 'Cathédrale · Tour · San Francisco · Ermitage',
         extra3: 'Valable toute la journée après la visite guidée',
         extra4: 'Pas besoin de l\'acheter séparément',
-        extra_btn: 'Voir le bracelet touristique',
+        extra_btn: 'Voir le bracelet',
         info_eyebrow: 'Informations pratiques',
         info_title: 'Tout ce qu\'il faut <em>savoir</em>',
         info_dur_label: 'Durée',
@@ -1268,10 +1268,10 @@
         price_tag: 'Tagesführung',
         price_per_person: 'pro Person',
         price_book: 'Platz reservieren',
-        inc1: 'Spezialisierter Guide während der gesamten Tour',
-        inc2: 'Zugang zum Hauptschiff und Hochaltar',
+        inc1: 'Geführter Rundgang durch das Innere der Kathedrale',
+        inc2: 'Erläuterungen zu den wichtigsten Sehenswürdigkeiten',
         inc3: 'Lebender Hühnerstall und die Wunder-Legende',
-        inc4: 'Heiligengrab und Grundrundgang',
+        inc4: 'Geschichte des Heiligen und sein Vermächtnis',
         price_extra_tag: 'Bereits enthalten',
         price_extra_title: 'Touristen-Armband',
         price_extra_sub: 'ohne Zusatzkosten',
@@ -1279,7 +1279,7 @@
         extra2: 'Kathedrale · Glockenturm · San Francisco · Einsiedelei',
         extra3: 'Den ganzen Tag nach der Führung gültig',
         extra4: 'Muss nicht separat gekauft werden',
-        extra_btn: 'Touristen-Armband ansehen',
+        extra_btn: 'Armband ansehen',
         info_eyebrow: 'Praktische Informationen',
         info_title: 'Alles, was Sie <em>wissen müssen</em>',
         info_dur_label: 'Dauer',
@@ -1325,10 +1325,10 @@
         price_tag: 'Visita guiada diurna',
         price_per_person: 'por pessoa',
         price_book: 'Reservar lugar',
-        inc1: 'Guia especializado durante todo o percurso',
-        inc2: 'Acesso à nave principal e ao Retábulo-Mor',
+        inc1: 'Percurso guiado pelo interior da Catedral',
+        inc2: 'Explicações dos pontos de maior interesse',
         inc3: 'Galinheiro vivo e lenda do Milagre',
-        inc4: 'Sepulcro do Santo e percurso básico',
+        inc4: 'História do Santo e o seu legado',
         price_extra_tag: 'Já incluída',
         price_extra_title: 'Pulseira turística',
         price_extra_sub: 'sem custo adicional',
@@ -1336,7 +1336,7 @@
         extra2: 'Catedral · Torre · San Francisco · Ermida',
         extra3: 'Válida todo o dia após a visita guiada',
         extra4: 'Não é necessário comprá-la em separado',
-        extra_btn: 'Ver pulseira turística',
+        extra_btn: 'Ver pulseira',
         info_eyebrow: 'Informação prática',
         info_title: 'Tudo o que precisa <em>de saber</em>',
         info_dur_label: 'Duração',
@@ -1382,10 +1382,10 @@
         price_tag: 'Visita guidata diurna',
         price_per_person: 'a persona',
         price_book: 'Prenota posto',
-        inc1: 'Guida specializzata per tutto il percorso',
-        inc2: 'Accesso alla navata principale e alla Pala Maggiore',
+        inc1: 'Percorso guidato all\'interno della Cattedrale',
+        inc2: 'Spiegazioni dei punti di maggiore interesse',
         inc3: 'Pollaio vivo e leggenda del Miracolo',
-        inc4: 'Sepolcro del Santo e percorso base',
+        inc4: 'Storia del Santo e la sua eredità',
         price_extra_tag: 'Già inclusa',
         price_extra_title: 'Braccialetto turistico',
         price_extra_sub: 'senza costo aggiuntivo',
@@ -1393,7 +1393,7 @@
         extra2: 'Cattedrale · Torre · San Francisco · Eremo',
         extra3: 'Valido tutto il giorno dopo la visita guidata',
         extra4: 'Non occorre acquistarlo separatamente',
-        extra_btn: 'Vedi braccialetto turistico',
+        extra_btn: 'Vedi braccialetto',
         info_eyebrow: 'Informazioni pratiche',
         info_title: 'Tutto quello che devi <em>sapere</em>',
         info_dur_label: 'Durata',
@@ -1439,10 +1439,10 @@
         price_tag: '주간 가이드 투어',
         price_per_person: '1인당',
         price_book: '예약하기',
-        inc1: '투어 전체 동안 전문 가이드 동행',
-        inc2: '본당과 대제단화 입장',
+        inc1: '가이드와 함께하는 대성당 내부 투어',
+        inc2: '주요 관람 포인트에 대한 설명',
         inc3: '살아있는 닭장과 기적의 전설',
-        inc4: '성인의 묘소와 기본 동선',
+        inc4: '성인의 역사와 유산',
         price_extra_tag: '기본 포함',
         price_extra_title: '관광 팔찌',
         price_extra_sub: '추가 비용 없음',
@@ -1450,7 +1450,7 @@
         extra2: '대성당 · 종탑 · 산프란시스코 · 예배당',
         extra3: '가이드 투어 후 하루 종일 유효',
         extra4: '따로 구매할 필요 없음',
-        extra_btn: '관광 팔찌 보기',
+        extra_btn: '팔찌 보기',
         info_eyebrow: '실용 정보',
         info_title: '꼭 <em>알아야 할</em> 모든 것',
         info_dur_label: '소요 시간',
@@ -1496,10 +1496,10 @@
         price_tag: 'Eguneko bisita gidatua',
         price_per_person: 'pertsonako',
         price_book: 'Lekua erreserbatu',
-        inc1: 'Gidari espezializatua ibilbide osoan',
-        inc2: 'Nabe nagusi eta Erretaula Nagusirako sarbidea',
+        inc1: 'Katedralaren barnealdean gidatutako bisita',
+        inc2: 'Interes handieneko puntuen azalpenak',
         inc3: 'Oilategi bizia eta Mirariaren leienda',
-        inc4: 'Santuaren hilobia eta oinarrizko ibilbidea',
+        inc4: 'Santuaren historia eta ondarea',
         price_extra_tag: 'Dagoeneko barne',
         price_extra_title: 'Pulsera turistikoa',
         price_extra_sub: 'kostu gehigarririk gabe',
@@ -1507,7 +1507,7 @@
         extra2: 'Katedrala · Dorrea · San Francisco · Ermita',
         extra3: 'Bisita gidatuaren ondoren egun osoan baliozkoa',
         extra4: 'Ez da bereiz erosi behar',
-        extra_btn: 'Pulsera turistikoa ikusi',
+        extra_btn: 'Pulsera ikusi',
         info_eyebrow: 'Informazio praktikoa',
         info_title: 'Jakin behar duzun <em>guztia</em>',
         info_dur_label: 'Iraupena',
@@ -1553,10 +1553,10 @@
         price_tag: 'Visita guiada diürna',
         price_per_person: 'per persona',
         price_book: 'Reservar plaça',
-        inc1: 'Guia especialitzat durant tot el recorregut',
-        inc2: 'Accés a la nau principal i al Retaule Major',
+        inc1: 'Recorregut guiat per l\'interior de la Catedral',
+        inc2: 'Explicacions dels punts de més interès',
         inc3: 'Galliner viu i llegenda del Miracle',
-        inc4: 'Sepulcre del Sant i recorregut bàsic',
+        inc4: 'Història del Sant i el seu llegat',
         price_extra_tag: 'Ja inclosa',
         price_extra_title: 'Polsera turística',
         price_extra_sub: 'sense cost addicional',
@@ -1564,7 +1564,7 @@
         extra2: 'Catedral · Torre · San Francisco · Ermita',
         extra3: 'Vàlida tot el dia després de la visita guiada',
         extra4: 'No cal comprar-la per separat',
-        extra_btn: 'Veure polsera turística',
+        extra_btn: 'Veure polsera',
         info_eyebrow: 'Informació pràctica',
         info_title: 'Tot el que necessites <em>saber</em>',
         info_dur_label: 'Durada',

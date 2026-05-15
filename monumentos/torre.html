@@ -764,6 +764,12 @@
       font-size: 0
     }
 
+    @media (min-width: 769px) {
+      .gallery-slide--focus-top img {
+        object-position: center 20%
+      }
+    }
+
     .gallery-slide__cap {
       position: absolute;
       bottom: 0;
@@ -2779,7 +2785,7 @@
         </div>
 
         <!-- Slide 2 — Don Andrés de Porras -->
-        <div class="gallery-slide">
+        <div class="gallery-slide gallery-slide--focus-top">
           <img src="../assets/img/andres-porras.webp" alt="Don Andrés de Porras" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
@@ -2812,18 +2818,18 @@
           </button>
         </div>
 
-        <!-- Slide 4 — El Reloj de la Catedral -->
+        <!-- Slide 4 — El Reloj de la Torre -->
         <div class="gallery-slide">
-          <img src="../assets/img/reloj-torre.webp" alt="El Reloj de la Catedral" />
+          <img src="../assets/img/reloj-torre.webp" alt="El Reloj de la Torre" />
           <div class="gallery-slide__cap">
             <div class="gallery-slide__cap-content">
               <span class="gallery-slide__cap-eyebrow" data-i18n-page="gal_eyebrow_4">Maquinaria · s. XVIII</span>
-              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_4">El Reloj de la Catedral</span>
+              <span class="gallery-slide__cap-title" data-i18n-page="gal_cap_4">El Reloj de la Torre</span>
               <button class="gallery-slide__cap-cta" type="button" onclick="openGalleryPopup(3)" data-i18n-page="gal_discover">Descubrir →</button>
             </div>
             <span class="gallery-slide__cap-num">04/04</span>
           </div>
-          <button class="gallery-info-btn" onclick="openGalleryPopup(3)" aria-label="Saber más sobre el Reloj de la Catedral">
+          <button class="gallery-info-btn" onclick="openGalleryPopup(3)" aria-label="Saber más sobre el Reloj de la Torre">
             <span class="gallery-info-btn__icon">i</span>
             <span class="gallery-info-btn__text" data-i18n-page="gal_btn">Saber más</span>
           </button>
@@ -3072,6 +3078,14 @@
           <div class="img-scroll-item__caption" data-i18n-page="cap_vistas">Vistas panorámicas · El Camino desde lo alto</div>
         </div>
       </div>
+      <div class="spaces-scroll-nav">
+        <button class="spaces-scroll-btn spaces-scroll-btn--prev" aria-label="Anterior">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="spaces-scroll-btn spaces-scroll-btn--next" aria-label="Siguiente">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -3212,31 +3226,31 @@
       <div>
         <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
-          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
-          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
-          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
-          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          <li><a href="../visitas.html#individuales" data-i18n="footer_visit_1">Individuales</a></li>
+          <li><a href="../visitas.html#guiadas" data-i18n="footer_visit_2">Guiadas</a></li>
+          <li><a href="../visitas.html#calendario-guiadas" data-i18n="footer_visit_3">Calendario</a></li>
+          <li><a href="../visitas.html#grupos" data-i18n="footer_visit_4">Grupos</a></li>
+          <li><a href="../visitas.html#escolares" data-i18n="footer_visit_5">Escolares</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
-          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
-          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
-          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
-          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_1">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_2">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_3">Convento</a></li>
+          <li><a href="../monumentos/ermitaplaza.html" data-i18n="footer_disc_4">Ermita Plaza</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cau{F1}as</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
         <ul class="footer-col__list">
-          <li><a href="../reservas.html" data-i18n="footer_info_1">Reservas</a></li>
-          <li><a href="../institucion.html" data-i18n="footer_info_2">Institución</a></li>
-          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
-          <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
-          <li><a href="../actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+          <li><a href="../institucion.html" data-i18n="footer_info_1">Instituciu{F3}n</a></li>
+          <li><a href="../actualidad.html" data-i18n="footer_info_2">Actualidad</a></li>
+          <li><a href="../actualidad.html#noticias" data-i18n="footer_info_3">Noticias</a></li>
+          <li><a href="../actualidad.html#agenda" data-i18n="footer_info_4">Agenda</a></li>
+          <li><a href="../actualidad.html#valoranos" data-i18n="footer_info_5">Valu{F3}ranos</a></li>
         </ul>
       </div>
       <div>
@@ -3373,7 +3387,7 @@
         gal_eyebrow_3: 'Museo · 2018',
         gal_cap_3: 'Museo de Relojes y Campanas',
         gal_eyebrow_4: 'Maquinaria · s. XVIII',
-        gal_cap_4: 'El Reloj de la Catedral',
+        gal_cap_4: 'El Reloj de la Torre',
         sec_hist_eyebrow: 'Arquitectura y Ingeniería',
         sec_hist_title: 'Un <em>Coloso Barroco</em>: La Torre de Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -3479,7 +3493,7 @@
         gal_eyebrow_3: 'Museum · 2018',
         gal_cap_3: 'Museum of Clocks and Bells',
         gal_eyebrow_4: 'Mechanism · 18th c.',
-        gal_cap_4: 'The Cathedral Clock',
+        gal_cap_4: 'The Tower Clock',
         sec_hist_eyebrow: 'Architecture & Engineering',
         sec_hist_title: 'A <em>Baroque Colossus</em>: The Tower of Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -3585,7 +3599,7 @@
         gal_eyebrow_3: 'Musée · 2018',
         gal_cap_3: 'Musée des Horloges et Cloches',
         gal_eyebrow_4: 'Mécanisme · XVIIIe s.',
-        gal_cap_4: 'L\'Horloge de la Cathédrale',
+        gal_cap_4: 'L\'Horloge de la Tour',
         sec_hist_eyebrow: 'Architecture & Ingénierie',
         sec_hist_title: 'Un <em>Colosse Baroque</em> : La Tour de Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -3691,7 +3705,7 @@
         gal_eyebrow_3: 'Museum · 2018',
         gal_cap_3: 'Uhren- und Glockenmuseum',
         gal_eyebrow_4: 'Mechanismus · 18. Jh.',
-        gal_cap_4: 'Die Kathedralenuhr',
+        gal_cap_4: 'Die Turmuhr',
         sec_hist_eyebrow: 'Architektur & Ingenieurskunst',
         sec_hist_title: 'Ein <em>barocker Koloss</em>: Der Turm von Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -3797,7 +3811,7 @@
         gal_eyebrow_3: 'Museu · 2018',
         gal_cap_3: 'Museu de Relógios e Sinos',
         gal_eyebrow_4: 'Mecanismo · séc. XVIII',
-        gal_cap_4: 'O Relógio da Catedral',
+        gal_cap_4: 'O Relógio da Torre',
         sec_hist_eyebrow: 'Arquitetura & Engenharia',
         sec_hist_title: 'Um <em>Colosso Barroco</em>: A Torre de Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -3903,7 +3917,7 @@
         gal_eyebrow_3: 'Museo · 2018',
         gal_cap_3: 'Museo di Orologi e Campane',
         gal_eyebrow_4: 'Meccanismo · sec. XVIII',
-        gal_cap_4: 'L\'Orologio della Cattedrale',
+        gal_cap_4: 'L\'Orologio della Torre',
         sec_hist_eyebrow: 'Architettura & Ingegneria',
         sec_hist_title: 'Un <em>Colosso Barocco</em>: La Torre di Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -4009,7 +4023,7 @@
         gal_eyebrow_3: '박물관 · 2018',
         gal_cap_3: '시계와 종 박물관',
         gal_eyebrow_4: '기계장치 · 18세기',
-        gal_cap_4: '대성당의 시계',
+        gal_cap_4: '탑의 시계',
         sec_hist_eyebrow: '건축 & 공학',
         sec_hist_title: '<em>바로크 거탑</em>: 산토 도밍고 데 라 칼사다의 탑',
         hist_stat1_num: '70 m',
@@ -4115,7 +4129,7 @@
         gal_eyebrow_3: 'Museoa · 2018',
         gal_cap_3: 'Erloju eta Kanpaien Museoa',
         gal_eyebrow_4: 'Makineria · XVIII. m.',
-        gal_cap_4: 'Katedraleko Erlojua',
+        gal_cap_4: 'Dorrearen Erlojua',
         sec_hist_eyebrow: 'Arkitektura eta Ingeniaritza',
         sec_hist_title: '<em>Koloso Barroko</em> bat: Santo Domingoko Dorrea',
         hist_stat1_num: '70 m',
@@ -4221,7 +4235,7 @@
         gal_eyebrow_3: 'Museu · 2018',
         gal_cap_3: 'Museu de Rellotges i Campanes',
         gal_eyebrow_4: 'Mecanisme · s. XVIII',
-        gal_cap_4: 'El Rellotge de la Catedral',
+        gal_cap_4: 'El Rellotge de la Torre',
         sec_hist_eyebrow: 'Arquitectura i Enginyeria',
         sec_hist_title: 'Un <em>Colossal Barroc</em>: La Torre de Santo Domingo de la Calzada',
         hist_stat1_num: '70 m',
@@ -4360,7 +4374,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4394,7 +4408,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4428,7 +4442,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4462,7 +4476,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4496,7 +4510,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4530,7 +4544,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4564,7 +4578,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4598,7 +4612,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,
@@ -4632,7 +4646,7 @@
         },
         {
           num: '04 / 04 · Galería',
-          title: 'El Reloj de la Catedral',
+          title: 'El Reloj de la Torre',
           subtitle: 'Martín Pasco · s. XVIII · Mecanismo original',
           body: `<p>En el corazón de la torre late una pieza de ingeniería excepcional: el <strong>reloj de Martín Pasco</strong>. Este mecanismo del siglo XVIII, forjado por el herrero de Huércanos, es el encargado de dar vida a las agujas de la esfera exterior y de activar los martillos que golpean las campanas para anunciar el paso de las horas. Su funcionamiento depende estrictamente de la fuerza de la gravedad, transmitida a través de dos grandes pesas que descienden por el foso.</p>
                <p>A diferencia de la mayoría de catedrales europeas, que han modernizado sus sistemas, Santo Domingo conserva su <strong>engranaje original en activo</strong>, requiriendo que sea remontado manualmente cada semana mediante el esfuerzo humano.</p>`,

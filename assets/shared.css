@@ -393,7 +393,7 @@ body.light-mode .lang-selector__btn #lang-current-code {
 /* Lang panel — desktop: lateral derecho; mobile: hoja inferior */
 .lang-selector__dropdown {
   position: fixed;
-  top: 3.4rem;
+  top: calc(3.4rem + 12px);
   right: 0;
   bottom: auto;
   left: auto;
@@ -1533,7 +1533,7 @@ body.light-mode .side-menu__a11y-btn:hover .side-menu__a11y-label {
 .a11y-panel {
   position: fixed;
   left: 0;
-  bottom: 120px;
+  bottom: 106px;
   transform: translateY(10px);
   background: #1e1c19;
   color: var(--white);
@@ -3080,4 +3080,46 @@ body.light-mode .img-scroll-item__caption {
     rgba(14, 12, 10, .45) 55%,
     rgba(14, 12, 10, 0) 100%) !important;
   color: #F0D78E !important;
+}
+
+/* ── SPACES SCROLL NAV ────────────────────────────────────── */
+.spaces-scroll-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.spaces-scroll-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, .35);
+  background: rgba(201, 168, 76, .08);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease;
+  flex-shrink: 0;
+}
+.spaces-scroll-btn:hover {
+  background: rgba(201, 168, 76, .22);
+  border-color: var(--gold);
+}
+.spaces-scroll-btn:disabled {
+  opacity: .28;
+  cursor: default;
+}
+body.light-mode .spaces-scroll-btn {
+  border-color: rgba(168, 133, 46, .4);
+  background: rgba(168, 133, 46, .08);
+  color: var(--gold-dk);
+}
+body.light-mode .spaces-scroll-btn:hover {
+  background: rgba(168, 133, 46, .18);
+  border-color: var(--gold-dk);
+}
+@media (max-width: 768px) {
+  .spaces-scroll-nav { display: none }
 }

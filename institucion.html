@@ -72,6 +72,9 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(ellipse at 60% 40%, #2a1f14 0%, #1a1210 40%, #0e0c0a 100%);
+      background-image: url('assets/img/catedral-institucion.webp');
+      background-size: cover;
+      background-position: center 62%;
       transform: scale(1.04);
       transition: transform 8s ease-out
     }
@@ -275,8 +278,9 @@
       background: rgba(20, 18, 16, .06)
     }
 
-    .inst-section--light .inst-card__text {
-      color: #5C5249
+    .inst-section--light .inst-card__text,
+    body:not(.light-mode) .inst-section--light .inst-card__text {
+      color: var(--carbon)
     }
 
     .inst-card__icon {
@@ -393,6 +397,10 @@
       font-weight: 300;
       color: var(--white)
     }
+    body:not(.light-mode) .section--white .inst-nav__label,
+    body:not(.light-mode) .section--cream .inst-nav__label,
+    body.light-mode .section--white .inst-nav__label,
+    body.light-mode .section--cream .inst-nav__label,
     body.light-mode .inst-nav__label {
       color: var(--carbon)
     }
@@ -641,6 +649,10 @@
         line-height: 1.15;
         color: var(--white);
       }
+      body:not(.light-mode) .section--white .inst-nav__label,
+      body:not(.light-mode) .section--cream .inst-nav__label,
+      body.light-mode .section--white .inst-nav__label,
+      body.light-mode .section--cream .inst-nav__label,
       body.light-mode .inst-nav__label {
         color: var(--carbon);
       }
@@ -1218,14 +1230,6 @@
           <p class="inst-card__text" data-i18n-page="cabildo_card2_text">Gobierno del culto catedralicio · Custodia y gestión del patrimonio · Asesoramiento episcopal · Representación institucional</p>
           <span class="inst-card__link" data-i18n-page="cabildo_card2_link">Más información →</span>
         </a>
-        <div class="inst-card reveal reveal-delay-2">
-          <p class="inst-card__label" data-i18n-page="cabildo_card3_label">Documentos</p>
-          <h3 class="inst-card__title" data-i18n-page="cabildo_card3_title">Documentación oficial</h3>
-          <p class="inst-card__text" data-i18n-page="cabildo_card3_text">Estatutos capitulares y documentos institucionales disponibles para consulta.</p>
-          <a href="#" class="inst-card__link" data-i18n-page="cabildo_card3_link1">Estatutos del Cabildo (PDF) →</a>
-          <br>
-          <a href="#" class="inst-card__link" style="margin-top:8px" data-i18n-page="cabildo_card3_link2">Reseña histórica (PDF) →</a>
-        </div>
         <div class="inst-card inst-card--wide reveal">
           <p class="inst-card__label" data-i18n-page="cabildo_card4_label">Contacto institucional</p>
           <h3 class="inst-card__title" data-i18n-page="cabildo_card4_title">Comunicación con el Cabildo</h3>
@@ -1287,31 +1291,31 @@
       <div>
         <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
-          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
-          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
-          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
-          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          <li><a href="visitas.html#individuales" data-i18n="footer_visit_1">Individuales</a></li>
+          <li><a href="visitas.html#guiadas" data-i18n="footer_visit_2">Guiadas</a></li>
+          <li><a href="visitas.html#calendario-guiadas" data-i18n="footer_visit_3">Calendario</a></li>
+          <li><a href="visitas.html#grupos" data-i18n="footer_visit_4">Grupos</a></li>
+          <li><a href="visitas.html#escolares" data-i18n="footer_visit_5">Escolares</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
-          <li><a href="monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
-          <li><a href="monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
-          <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
-          <li><a href="monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          <li><a href="monumentos/catedral.html" data-i18n="footer_disc_1">Catedral</a></li>
+          <li><a href="monumentos/torre.html" data-i18n="footer_disc_2">Torre Exenta</a></li>
+          <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_3">Convento</a></li>
+          <li><a href="monumentos/ermitaplaza.html" data-i18n="footer_disc_4">Ermita Plaza</a></li>
+          <li><a href="monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cau{F1}as</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
         <ul class="footer-col__list">
-          <li><a href="reservas.html" data-i18n="footer_info_1">Reservas</a></li>
-          <li><a href="institucion.html" data-i18n="footer_info_2">Institución</a></li>
-          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
-          <li><a href="actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
-          <li><a href="actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+          <li><a href="institucion.html" data-i18n="footer_info_1">Instituciu{F3}n</a></li>
+          <li><a href="actualidad.html" data-i18n="footer_info_2">Actualidad</a></li>
+          <li><a href="actualidad.html#noticias" data-i18n="footer_info_3">Noticias</a></li>
+          <li><a href="actualidad.html#agenda" data-i18n="footer_info_4">Agenda</a></li>
+          <li><a href="actualidad.html#valoranos" data-i18n="footer_info_5">Valu{F3}ranos</a></li>
         </ul>
       </div>
       <div>

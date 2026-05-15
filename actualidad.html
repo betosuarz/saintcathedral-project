@@ -23,9 +23,9 @@
     .page-hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url('assets/img/nocturna.webp');
+      background-image: url('assets/img/catedral-actualidad.webp');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center 62%;
       transform: scale(1.04);
       transition: transform 8s ease-out
     }
@@ -107,6 +107,17 @@
       background: var(--gold);
       color: var(--carbon);
       border-color: var(--gold)
+    }
+
+    .hero-nav__link--valoranos {
+      background: var(--gold);
+      color: var(--carbon);
+      border-color: var(--gold);
+      font-weight: 600
+    }
+    .hero-nav__link--valoranos:hover {
+      background: var(--gold-lt);
+      border-color: var(--gold-lt)
     }
 
     /* ── SECTION BASE ──────────────────────────────────────── */
@@ -1739,6 +1750,7 @@
         <a href="#noticias" class="hero-nav__link" data-i18n-page="hero_nav_news">Noticias</a>
         <a href="#agenda" class="hero-nav__link" data-i18n-page="hero_nav_events">Agenda</a>
         <a href="#galeria" class="hero-nav__link" data-i18n-page="hero_nav_gallery">Galería</a>
+        <a href="#valoranos" class="hero-nav__link hero-nav__link--valoranos" data-i18n-page="hero_nav_valoranos">Valóranos</a>
       </nav>
     </div>
   </section>
@@ -2281,31 +2293,31 @@
       <div>
         <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
-          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
-          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
-          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
-          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          <li><a href="visitas.html#individuales" data-i18n="footer_visit_1">Individuales</a></li>
+          <li><a href="visitas.html#guiadas" data-i18n="footer_visit_2">Guiadas</a></li>
+          <li><a href="visitas.html#calendario-guiadas" data-i18n="footer_visit_3">Calendario</a></li>
+          <li><a href="visitas.html#grupos" data-i18n="footer_visit_4">Grupos</a></li>
+          <li><a href="visitas.html#escolares" data-i18n="footer_visit_5">Escolares</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
-          <li><a href="monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
-          <li><a href="monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
-          <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
-          <li><a href="monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          <li><a href="monumentos/catedral.html" data-i18n="footer_disc_1">Catedral</a></li>
+          <li><a href="monumentos/torre.html" data-i18n="footer_disc_2">Torre Exenta</a></li>
+          <li><a href="monumentos/sanfrancisco.html" data-i18n="footer_disc_3">Convento</a></li>
+          <li><a href="monumentos/ermitaplaza.html" data-i18n="footer_disc_4">Ermita Plaza</a></li>
+          <li><a href="monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cau{F1}as</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
         <ul class="footer-col__list">
-          <li><a href="reservas.html" data-i18n="footer_info_1">Reservas</a></li>
-          <li><a href="institucion.html" data-i18n="footer_info_2">Institución</a></li>
-          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
-          <li><a href="actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
-          <li><a href="actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+          <li><a href="institucion.html" data-i18n="footer_info_1">Instituciu{F3}n</a></li>
+          <li><a href="actualidad.html" data-i18n="footer_info_2">Actualidad</a></li>
+          <li><a href="actualidad.html#noticias" data-i18n="footer_info_3">Noticias</a></li>
+          <li><a href="actualidad.html#agenda" data-i18n="footer_info_4">Agenda</a></li>
+          <li><a href="actualidad.html#valoranos" data-i18n="footer_info_5">Valu{F3}ranos</a></li>
         </ul>
       </div>
       <div>
@@ -2405,7 +2417,7 @@
         hero_eyebrow: 'Noticias · Eventos · Cultura',
         hero_title: 'La <em>actualidad</em><br>de la Catedral',
         hero_desc: 'Novedades, exposiciones, conciertos y todo lo que ocurre en el corazón del Camino Francés.',
-        hero_nav_news: 'Noticias', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galería', hero_nav_press: 'Prensa',
+        hero_nav_news: 'Noticias', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galería', hero_nav_press: 'Prensa', hero_nav_valoranos: 'Valóranos',
         news_eyebrow: 'Comunicados y novedades', news_title: 'Noticias de <em>la Catedral</em>',
         filter_all: 'Todo', filter_comm: 'Comunicados', filter_new: 'Novedades', filter_press: 'Prensa',
         search_ph: 'Buscar noticias…',
@@ -2456,7 +2468,7 @@
         hero_eyebrow: 'News · Events · Culture',
         hero_title: 'What\'s <em>happening</em><br>at the Cathedral',
         hero_desc: 'News, exhibitions, concerts and everything taking place at the heart of the French Way.',
-        hero_nav_news: 'News', hero_nav_events: 'Events', hero_nav_gallery: 'Gallery', hero_nav_press: 'Press',
+        hero_nav_news: 'News', hero_nav_events: 'Events', hero_nav_gallery: 'Gallery', hero_nav_press: 'Press', hero_nav_valoranos: 'Rate us',
         news_eyebrow: 'Announcements & updates', news_title: 'Cathedral <em>news</em>',
         filter_all: 'All', filter_comm: 'Announcements', filter_new: 'Updates', filter_press: 'Press',
         search_ph: 'Search news…',
@@ -2507,7 +2519,7 @@
         hero_eyebrow: 'Actualités · Événements · Culture',
         hero_title: 'L\'<em>actualité</em><br>de la Cathédrale',
         hero_desc: 'Nouveautés, expositions, concerts et tout ce qui se passe au cœur du Chemin Français.',
-        hero_nav_news: 'Actualités', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galerie', hero_nav_press: 'Presse',
+        hero_nav_news: 'Actualités', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galerie', hero_nav_press: 'Presse', hero_nav_valoranos: 'Évaluez-nous',
         news_eyebrow: 'Communiqués et nouveautés', news_title: 'Actualités de <em>la Cathédrale</em>',
         filter_all: 'Tout', filter_comm: 'Communiqués', filter_new: 'Nouveautés', filter_press: 'Presse',
         search_ph: 'Rechercher…',
@@ -2558,7 +2570,7 @@
         hero_eyebrow: 'Neuigkeiten · Veranstaltungen · Kultur',
         hero_title: 'Aktuelles aus <em>der Kathedrale</em>',
         hero_desc: 'Neuigkeiten, Ausstellungen, Konzerte und alles, was im Herzen des Jakobsweges passiert.',
-        hero_nav_news: 'Neuigkeiten', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galerie', hero_nav_press: 'Presse',
+        hero_nav_news: 'Neuigkeiten', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galerie', hero_nav_press: 'Presse', hero_nav_valoranos: 'Bewerten',
         news_eyebrow: 'Mitteilungen & Neuigkeiten', news_title: 'Aktuelles der <em>Kathedrale</em>',
         filter_all: 'Alle', filter_comm: 'Mitteilungen', filter_new: 'Neuigkeiten', filter_press: 'Presse',
         search_ph: 'Suchen…',
@@ -2609,7 +2621,7 @@
         hero_eyebrow: 'Notícias · Eventos · Cultura',
         hero_title: 'A <em>atualidade</em><br>da Catedral',
         hero_desc: 'Novidades, exposições, concertos e tudo o que acontece no coração do Caminho Francês.',
-        hero_nav_news: 'Notícias', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Imprensa',
+        hero_nav_news: 'Notícias', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Imprensa', hero_nav_valoranos: 'Avalie-nos',
         news_eyebrow: 'Comunicados e novidades', news_title: 'Notícias da <em>Catedral</em>',
         filter_all: 'Tudo', filter_comm: 'Comunicados', filter_new: 'Novidades', filter_press: 'Imprensa',
         search_ph: 'Pesquisar…',
@@ -2660,7 +2672,7 @@
         hero_eyebrow: 'Notizie · Eventi · Cultura',
         hero_title: 'L\'<em>attualità</em><br>della Cattedrale',
         hero_desc: 'Novità, mostre, concerti e tutto ciò che accade nel cuore del Cammino Francese.',
-        hero_nav_news: 'Notizie', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galleria', hero_nav_press: 'Stampa',
+        hero_nav_news: 'Notizie', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galleria', hero_nav_press: 'Stampa', hero_nav_valoranos: 'Valutaci',
         news_eyebrow: 'Comunicati e novità', news_title: 'Notizie della <em>Cattedrale</em>',
         filter_all: 'Tutto', filter_comm: 'Comunicati', filter_new: 'Novità', filter_press: 'Stampa',
         search_ph: 'Cerca…',
@@ -2711,7 +2723,7 @@
         hero_eyebrow: '뉴스 · 이벤트 · 문화',
         hero_title: '대성당의 <em>최신 소식</em>',
         hero_desc: '프랑스 순례길의 중심에서 일어나는 뉴스, 전시, 콘서트와 모든 소식.',
-        hero_nav_news: '뉴스', hero_nav_events: '일정', hero_nav_gallery: '갤러리', hero_nav_press: '언론',
+        hero_nav_news: '뉴스', hero_nav_events: '일정', hero_nav_gallery: '갤러리', hero_nav_press: '언론', hero_nav_valoranos: '리뷰 남기기',
         news_eyebrow: '공지 및 소식', news_title: '대성당 <em>뉴스</em>',
         filter_all: '전체', filter_comm: '공지', filter_new: '소식', filter_press: '언론',
         search_ph: '검색…',
@@ -2762,7 +2774,7 @@
         hero_eyebrow: 'Berriak · Ekitaldiak · Kultura',
         hero_title: 'Katedraleko <em>albisteak</em>',
         hero_desc: 'Berrikuntzak, erakusketak, kontzertoak eta Frantziako Bidearen erdigunean gertatzen den guztia.',
-        hero_nav_news: 'Berriak', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Prentsa',
+        hero_nav_news: 'Berriak', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Prentsa', hero_nav_valoranos: 'Baloratu',
         news_eyebrow: 'Jakinarazpenak eta berrikuntzak', news_title: 'Katedraleko <em>berriak</em>',
         filter_all: 'Dena', filter_comm: 'Jakinarazpenak', filter_new: 'Berrikuntzak', filter_press: 'Prentsa',
         search_ph: 'Bilatu…',
@@ -2813,7 +2825,7 @@
         hero_eyebrow: 'Notícies · Esdeveniments · Cultura',
         hero_title: 'L\'<em>actualitat</em><br>de la Catedral',
         hero_desc: 'Novetats, exposicions, concerts i tot el que passa al cor del Camí Francès.',
-        hero_nav_news: 'Notícies', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Premsa',
+        hero_nav_news: 'Notícies', hero_nav_events: 'Agenda', hero_nav_gallery: 'Galeria', hero_nav_press: 'Premsa', hero_nav_valoranos: 'Valoreu-nos',
         news_eyebrow: 'Comunicats i novetats', news_title: 'Notícies de <em>la Catedral</em>',
         filter_all: 'Tot', filter_comm: 'Comunicats', filter_new: 'Novetats', filter_press: 'Premsa',
         search_ph: 'Cercar notícies…',

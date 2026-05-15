@@ -628,6 +628,100 @@
     body.light-mode .footer-col__list a { color: #5C5048; }
     body.light-mode .footer-bottom__copy,
     body.light-mode .footer-bottom__links a { color: rgba(20, 18, 16, .65); }
+
+    /* ── CARD LIGHTBOX ──────────────────────────────────────── */
+    .monument-card[data-img] { cursor: pointer }
+    .vip-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.96);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .vip-lightbox.open { opacity: 1; pointer-events: auto }
+    .vip-lightbox__img-wrap {
+      position: relative;
+      max-width: 92vw;
+      max-height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vip-lightbox__img {
+      max-width: 92vw;
+      max-height: 82vh;
+      object-fit: contain;
+      display: block;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+      transition: opacity .25s ease;
+    }
+    .vip-lightbox__caption {
+      position: fixed;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 90vw;
+      padding: 10px 22px;
+      font-family: var(--serif);
+      font-size: .95rem;
+      letter-spacing: .04em;
+      color: #fff;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(201,168,76,.25);
+      text-align: center;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .vip-lightbox__close,
+    .vip-lightbox__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.22);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+      z-index: 2;
+    }
+    .vip-lightbox__nav:hover,
+    .vip-lightbox__close:hover {
+      background: rgba(201,168,76,.18);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .vip-lightbox__nav--prev { left: 28px }
+    .vip-lightbox__nav--next { right: 28px }
+    .vip-lightbox__close {
+      top: 24px;
+      right: 24px;
+      transform: none;
+      width: 44px;
+      height: 44px;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    @media (max-width: 640px) {
+      .vip-lightbox__img-wrap { max-width: 100vw; max-height: 70vh }
+      .vip-lightbox__img { max-width: 92vw; max-height: 70vh }
+      .vip-lightbox__nav { width: 42px; height: 42px }
+      .vip-lightbox__nav--prev { left: 12px }
+      .vip-lightbox__nav--next { right: 12px }
+      .vip-lightbox__close { top: 18px; right: 18px; width: 40px; height: 40px }
+      .vip-lightbox__caption { bottom: 24px; font-size: .82rem }
+    }
   </style>
 </head>
 
@@ -770,12 +864,12 @@
 
       <div class="intro-block reveal">
         <p class="intro-block__text" data-i18n-page="inc_text">La visita VIP es la experiencia más completa de la Catedral. Durante 90 minutos, en un grupo reducido de hasta 15 personas, un guía especializado te abre las puertas de los espacios habitualmente restringidos al público: el triforio con sus vistas privilegiadas, la sacristía con su arte sacro y las antiguas defensas medievales que rodean el conjunto. Incluye también el recorrido completo por la nave, el Retablo Mayor, el gallinero vivo y el sepulcro de Santo Domingo.</p>
-        <p class="intro-block__pull" data-i18n-page="inc_pull">«Una Catedral oculta tras los muros, abierta solo en grupos de 15.»</p>
+        <p class="intro-block__pull" data-i18n-page="inc_pull">«Una Catedral oculta tras los muros, su recorrido VIP sólo para grupos de 15 personas.»</p>
       </div>
 
       <div class="monument-grid reveal">
 
-        <a href="../monumentos/catedral.html" class="monument-card">
+        <div class="monument-card" data-img="../assets/img/triforio-interior.webp">
           <div class="monument-card__img" style="background-image:url('../assets/img/triforio-interior.webp'); background-position:center 35%"></div>
           <span class="vip-badge" data-i18n-page="vip_badge">Exclusivo VIP</span>
           <div class="monument-card__body">
@@ -783,9 +877,9 @@
             <span class="monument-card__name" data-i18n-page="h1_name">El <em>Triforio</em></span>
             <p class="monument-card__sub" data-i18n-page="h1_sub">Galería alta · Vistas privilegiadas · Cerrado al público</p>
           </div>
-        </a>
+        </div>
 
-        <a href="../monumentos/catedral.html" class="monument-card">
+        <div class="monument-card" data-img="../assets/img/sacristia-catedral.webp">
           <div class="monument-card__img" style="background-image:url('../assets/img/sacristia-catedral.webp'); background-position:center 40%"></div>
           <span class="vip-badge" data-i18n-page="vip_badge">Exclusivo VIP</span>
           <div class="monument-card__body">
@@ -793,9 +887,9 @@
             <span class="monument-card__name" data-i18n-page="h2_name">La <em>Sacristía</em></span>
             <p class="monument-card__sub" data-i18n-page="h2_sub">Arte sacro · Ornamentos litúrgicos · Patrimonio histórico</p>
           </div>
-        </a>
+        </div>
 
-        <a href="../monumentos/torre.html" class="monument-card">
+        <div class="monument-card" data-img="../assets/img/defensas-medievales.webp">
           <div class="monument-card__img" style="background-image:url('../assets/img/defensas-medievales.webp'); background-position:center 30%"></div>
           <span class="vip-badge" data-i18n-page="vip_badge">Exclusivo VIP</span>
           <div class="monument-card__body">
@@ -803,16 +897,16 @@
             <span class="monument-card__name" data-i18n-page="h3_name">Defensas <em>medievales</em></span>
             <p class="monument-card__sub" data-i18n-page="h3_sub">Murallas y estructuras defensivas del conjunto catedralicio</p>
           </div>
-        </a>
+        </div>
 
-        <a href="../monumentos/catedral.html" class="monument-card">
+        <div class="monument-card" data-img="../assets/img/nave-central.webp">
           <div class="monument-card__img" style="background-image:url('../assets/img/nave-central.webp'); background-position:center 30%"></div>
           <div class="monument-card__body">
             <span class="monument-card__num">04</span>
             <span class="monument-card__name" data-i18n-page="h4_name">Recorrido <em>completo</em></span>
             <p class="monument-card__sub" data-i18n-page="h4_sub">Nave · Retablo Mayor · Gallinero vivo · Sepulcro del Santo</p>
           </div>
-        </a>
+        </div>
 
       </div>
     </div>
@@ -850,7 +944,7 @@
           <div class="price-card__includes">
             <span class="price-card__include" data-i18n-page="extra1">Acceso libre a los 4 monumentos del conjunto</span>
             <span class="price-card__include" data-i18n-page="extra2">Catedral · Torre Exenta · San Francisco · Ermita</span>
-            <span class="price-card__include" data-i18n-page="extra3">Válida todo el día tras la visita VIP</span>
+            <span class="price-card__include" data-i18n-page="extra3">Válida mientras se lleve puesta en la muñeca sin romper</span>
             <span class="price-card__include" data-i18n-page="extra4">No es necesario comprarla por separado</span>
           </div>
           <a href="pulsera-turistica.html" class="price-cta" style="background:transparent; color:var(--gold); border:1px solid var(--gold)">
@@ -895,7 +989,7 @@
             <span class="info-item__num">04</span>
             <div>
               <div class="info-item__label" data-i18n-page="info_idi_label">Idioma</div>
-              <div class="info-item__value" data-i18n-page="info_idi_val">Visita en español. Para grupos privados con guía en otro idioma, contacta con nosotros para coordinar.</div>
+              <div class="info-item__value" data-i18n-page="info_idi_val">Visita en español.</div>
             </div>
           </div>
         </div>
@@ -958,31 +1052,31 @@
       <div>
         <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_visit_1">Cómo llegar</a></li>
-          <li><a href="#" data-i18n="footer_visit_2">Horarios</a></li>
-          <li><a href="#" data-i18n="footer_visit_3">Tarifas</a></li>
-          <li><a href="#" data-i18n="footer_visit_4">Visita accesible</a></li>
-          <li><a href="#" data-i18n="footer_visit_5">Grupos</a></li>
+          <li><a href="../visitas.html#individuales" data-i18n="footer_visit_1">Individuales</a></li>
+          <li><a href="../visitas.html#guiadas" data-i18n="footer_visit_2">Guiadas</a></li>
+          <li><a href="../visitas.html#calendario-guiadas" data-i18n="footer_visit_3">Calendario</a></li>
+          <li><a href="../visitas.html#grupos" data-i18n="footer_visit_4">Grupos</a></li>
+          <li><a href="../visitas.html#escolares" data-i18n="footer_visit_5">Escolares</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
         <ul class="footer-col__list">
-          <li><a href="#" data-i18n="footer_disc_1">Historia</a></li>
-          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_2">Catedral</a></li>
-          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_3">Torre Exenta</a></li>
-          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_4">Convento</a></li>
-          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+          <li><a href="../monumentos/catedral.html" data-i18n="footer_disc_1">Catedral</a></li>
+          <li><a href="../monumentos/torre.html" data-i18n="footer_disc_2">Torre Exenta</a></li>
+          <li><a href="../monumentos/sanfrancisco.html" data-i18n="footer_disc_3">Convento</a></li>
+          <li><a href="../monumentos/ermitaplaza.html" data-i18n="footer_disc_4">Ermita Plaza</a></li>
+          <li><a href="../monumentos/monasteriocanas.html" data-i18n="footer_disc_5">Monasterio Cau{F1}as</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
         <ul class="footer-col__list">
-          <li><a href="../reservas.html" data-i18n="footer_info_1">Reservas</a></li>
-          <li><a href="../institucion.html" data-i18n="footer_info_2">Institución</a></li>
-          <li><a href="#" data-i18n="footer_info_3">Contacto</a></li>
-          <li><a href="../actualidad/prensa.html" data-i18n="footer_info_4">Prensa</a></li>
-          <li><a href="../actualidad.html" data-i18n="footer_info_5">Actualidad</a></li>
+          <li><a href="../institucion.html" data-i18n="footer_info_1">Instituciu{F3}n</a></li>
+          <li><a href="../actualidad.html" data-i18n="footer_info_2">Actualidad</a></li>
+          <li><a href="../actualidad.html#noticias" data-i18n="footer_info_3">Noticias</a></li>
+          <li><a href="../actualidad.html#agenda" data-i18n="footer_info_4">Agenda</a></li>
+          <li><a href="../actualidad.html#valoranos" data-i18n="footer_info_5">Valu{F3}ranos</a></li>
         </ul>
       </div>
       <div>
@@ -1074,6 +1168,21 @@
     </div>
   </div>
 
+  <!-- VIP LIGHTBOX -->
+  <div class="vip-lightbox" id="vip-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="vip-lightbox__close" id="vip-lb-close" aria-label="Cerrar">×</button>
+    <button class="vip-lightbox__nav vip-lightbox__nav--prev" id="vip-lb-prev" aria-label="Anterior">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="vip-lightbox__img-wrap">
+      <img class="vip-lightbox__img" id="vip-lb-img" alt="" />
+      <div class="vip-lightbox__caption" id="vip-lb-caption"></div>
+    </div>
+    <button class="vip-lightbox__nav vip-lightbox__nav--next" id="vip-lb-next" aria-label="Siguiente">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
   <script src="../assets/shared.js"></script>
   <script>
     const PAGE_T = {
@@ -1084,7 +1193,7 @@
         inc_eyebrow: 'Qué incluye',
         inc_title: 'Lo que <em>nadie ve</em>',
         inc_text: 'La visita VIP es la experiencia más completa de la Catedral. Durante 90 minutos, en un grupo reducido de hasta 15 personas, un guía especializado te abre las puertas de los espacios habitualmente restringidos al público: el triforio con sus vistas privilegiadas, la sacristía con su arte sacro y las antiguas defensas medievales que rodean el conjunto. Incluye también el recorrido completo por la nave, el Retablo Mayor, el gallinero vivo y el sepulcro de Santo Domingo.',
-        inc_pull: '«Una Catedral oculta tras los muros, abierta solo en grupos de 15.»',
+        inc_pull: '«Una Catedral oculta tras los muros, su recorrido VIP sólo para grupos de 15 personas.»',
         vip_badge: 'Exclusivo VIP',
         h1_name: 'El <em>Triforio</em>',
         h1_sub: 'Galería alta · Vistas privilegiadas · Cerrado al público',
@@ -1108,7 +1217,7 @@
         price_extra_sub: 'sin coste adicional',
         extra1: 'Acceso libre a los 4 monumentos del conjunto',
         extra2: 'Catedral · Torre Exenta · San Francisco · Ermita',
-        extra3: 'Válida todo el día tras la visita VIP',
+        extra3: 'Válida mientras se lleve puesta en la muñeca sin romper',
         extra4: 'No es necesario comprarla por separado',
         extra_btn: 'Ver pulsera',
         info_eyebrow: 'Información práctica',
@@ -1120,7 +1229,7 @@
         info_hor_label: 'Horario',
         info_hor_val: 'Horario y disponibilidad bajo consulta. Plazas muy limitadas — recomendamos reservar con al menos una semana de antelación.',
         info_idi_label: 'Idioma',
-        info_idi_val: 'Visita en español. Para grupos privados con guía en otro idioma, contacta con nosotros para coordinar.',
+        info_idi_val: 'Visita en español.',
         faq_eyebrow: 'Preguntas frecuentes',
         faq_title: 'Dudas <em>habituales</em>',
         faq1_q: '¿Qué diferencia la VIP de la visita diurna?',
@@ -1142,7 +1251,7 @@
         inc_eyebrow: 'What\'s included',
         inc_title: 'What <em>no one sees</em>',
         inc_text: 'The VIP tour is the most complete Cathedral experience. For 90 minutes, in a small group of up to 15 people, a specialised guide opens the doors of the spaces normally restricted to the public: the triforium with its privileged views, the sacristy with its sacred art, and the ancient medieval defences surrounding the complex. It also covers the full route through the nave, the High Altarpiece, the live henhouse and the tomb of Saint Domingo.',
-        inc_pull: '«A Cathedral hidden behind the walls, open only in groups of 15.»',
+        inc_pull: '«A Cathedral hidden behind its walls, its VIP route exclusively for groups of 15 people.»',
         vip_badge: 'VIP exclusive',
         h1_name: 'The <em>Triforium</em>',
         h1_sub: 'Upper gallery · Privileged views · Closed to the public',
@@ -1166,7 +1275,7 @@
         price_extra_sub: 'at no additional cost',
         extra1: 'Free access to all 4 monuments in the complex',
         extra2: 'Cathedral · Bell Tower · San Francisco · Chapel',
-        extra3: 'Valid all day after the VIP tour',
+        extra3: 'Valid while worn on the wrist without being removed or broken',
         extra4: 'No need to buy it separately',
         extra_btn: 'See wristband',
         info_eyebrow: 'Practical information',
@@ -1178,7 +1287,7 @@
         info_hor_label: 'Schedule',
         info_hor_val: 'Schedule and availability on request. Very limited places — we recommend booking at least a week in advance.',
         info_idi_label: 'Language',
-        info_idi_val: 'Tour in Spanish. For private groups with a guide in another language, contact us to arrange it.',
+        info_idi_val: 'Tour in Spanish.',
         faq_eyebrow: 'Frequently asked questions',
         faq_title: 'Common <em>questions</em>',
         faq1_q: 'What\'s the difference between VIP and daytime?',
@@ -1200,7 +1309,7 @@
         inc_eyebrow: 'Ce qui est inclus',
         inc_title: 'Ce que <em>personne ne voit</em>',
         inc_text: 'La visite VIP est l\'expérience la plus complète de la Cathédrale. Pendant 90 minutes, en petit groupe jusqu\'à 15 personnes, un guide spécialisé vous ouvre les portes des espaces habituellement restreints : le triforium avec ses vues privilégiées, la sacristie avec son art sacré, et les anciennes défenses médiévales qui entourent l\'ensemble. Comprend également le parcours complet par la nef, le Retable majeur, le poulailler vivant et le tombeau de saint Domingo.',
-        inc_pull: '« Une Cathédrale cachée derrière les murs, ouverte seulement en groupes de 15. »',
+        inc_pull: '« Une Cathédrale cachée derrière ses murs, son parcours VIP exclusivement pour des groupes de 15 personnes. »',
         vip_badge: 'Exclusif VIP',
         h1_name: 'Le <em>Triforium</em>',
         h1_sub: 'Galerie haute · Vues privilégiées · Fermé au public',
@@ -1224,7 +1333,7 @@
         price_extra_sub: 'sans coût supplémentaire',
         extra1: 'Accès libre aux 4 monuments de l\'ensemble',
         extra2: 'Cathédrale · Tour · San Francisco · Ermitage',
-        extra3: 'Valable toute la journée après la visite VIP',
+        extra3: 'Valable tant qu\'elle est portée au poignet sans être retirée ni brisée',
         extra4: 'Pas besoin de l\'acheter séparément',
         extra_btn: 'Voir le bracelet',
         info_eyebrow: 'Informations pratiques',
@@ -1236,7 +1345,7 @@
         info_hor_label: 'Horaires',
         info_hor_val: 'Horaires et disponibilité sur demande. Places très limitées — nous recommandons de réserver au moins une semaine à l\'avance.',
         info_idi_label: 'Langue',
-        info_idi_val: 'Visite en espagnol. Pour des groupes privés avec guide dans une autre langue, contactez-nous pour organiser.',
+        info_idi_val: 'Visite en espagnol.',
         faq_eyebrow: 'Questions fréquentes',
         faq_title: 'Doutes <em>habituels</em>',
         faq1_q: 'Quelle est la différence entre la VIP et la diurne ?',
@@ -1258,7 +1367,7 @@
         inc_eyebrow: 'Was enthalten ist',
         inc_title: 'Was <em>niemand sieht</em>',
         inc_text: 'Die VIP-Tour ist das umfassendste Kathedralerlebnis. 90 Minuten lang, in einer kleinen Gruppe von bis zu 15 Personen, öffnet ein spezialisierter Guide die Türen zu den sonst eingeschränkten Bereichen: das Triforium mit seinen privilegierten Aussichten, die Sakristei mit ihrer Sakralkunst und die alten mittelalterlichen Befestigungen rund um das Ensemble. Enthält auch den vollständigen Rundgang durch Schiff, Hochaltar, Hühnerstall und Grab des heiligen Domingo.',
-        inc_pull: '„Eine Kathedrale hinter den Mauern, nur in Gruppen von 15 geöffnet."',
+        inc_pull: '„Eine Kathedrale hinter ihren Mauern, ihre VIP-Route ausschließlich für Gruppen von 15 Personen."',
         vip_badge: 'VIP exklusiv',
         h1_name: 'Das <em>Triforium</em>',
         h1_sub: 'Obergalerie · Privilegierte Aussichten · Für Publikum geschlossen',
@@ -1282,7 +1391,7 @@
         price_extra_sub: 'ohne Zusatzkosten',
         extra1: 'Freier Zugang zu allen 4 Denkmälern des Ensembles',
         extra2: 'Kathedrale · Glockenturm · San Francisco · Einsiedelei',
-        extra3: 'Den ganzen Tag nach der VIP-Tour gültig',
+        extra3: 'Gültig, solange sie am Handgelenk getragen wird, ohne abgenommen oder beschädigt zu werden',
         extra4: 'Muss nicht separat gekauft werden',
         extra_btn: 'Armband ansehen',
         info_eyebrow: 'Praktische Informationen',
@@ -1294,7 +1403,7 @@
         info_hor_label: 'Zeiten',
         info_hor_val: 'Zeiten und Verfügbarkeit auf Anfrage. Sehr begrenzte Plätze — wir empfehlen, mindestens eine Woche im Voraus zu buchen.',
         info_idi_label: 'Sprache',
-        info_idi_val: 'Führung auf Spanisch. Für private Gruppen mit Guide in anderer Sprache kontaktieren Sie uns.',
+        info_idi_val: 'Führung auf Spanisch.',
         faq_eyebrow: 'Häufige Fragen',
         faq_title: 'Häufige <em>Zweifel</em>',
         faq1_q: 'Was unterscheidet die VIP- von der Tagesführung?',
@@ -1316,7 +1425,7 @@
         inc_eyebrow: 'O que inclui',
         inc_title: 'O que <em>ninguém vê</em>',
         inc_text: 'A visita VIP é a experiência mais completa da Catedral. Durante 90 minutos, num grupo reduzido até 15 pessoas, um guia especializado abre-lhe as portas dos espaços normalmente restritos ao público: o trifório com as suas vistas privilegiadas, a sacristia com a sua arte sacra, e as antigas defesas medievais que rodeiam o conjunto. Inclui também o percurso completo pela nave, o Retábulo-Mor, o galinheiro vivo e o sepulcro de Santo Domingo.',
-        inc_pull: '«Uma Catedral escondida atrás dos muros, aberta apenas em grupos de 15.»',
+        inc_pull: '«Uma Catedral oculta atrás dos seus muros, o seu percurso VIP exclusivo para grupos de 15 pessoas.»',
         vip_badge: 'Exclusivo VIP',
         h1_name: 'O <em>Trifório</em>',
         h1_sub: 'Galeria alta · Vistas privilegiadas · Fechado ao público',
@@ -1340,7 +1449,7 @@
         price_extra_sub: 'sem custo adicional',
         extra1: 'Acesso livre aos 4 monumentos do conjunto',
         extra2: 'Catedral · Torre · San Francisco · Ermida',
-        extra3: 'Válida todo o dia após a visita VIP',
+        extra3: 'Válida enquanto estiver posta no pulso sem ser retirada ou quebrada',
         extra4: 'Não é necessário comprá-la em separado',
         extra_btn: 'Ver pulseira',
         info_eyebrow: 'Informação prática',
@@ -1352,7 +1461,7 @@
         info_hor_label: 'Horário',
         info_hor_val: 'Horário e disponibilidade sob consulta. Lugares muito limitados — recomendamos reservar com pelo menos uma semana de antecedência.',
         info_idi_label: 'Idioma',
-        info_idi_val: 'Visita em espanhol. Para grupos privados com guia noutro idioma, contacte-nos para coordenar.',
+        info_idi_val: 'Visita em espanhol.',
         faq_eyebrow: 'Perguntas frequentes',
         faq_title: 'Dúvidas <em>habituais</em>',
         faq1_q: 'Qual a diferença entre a VIP e a diurna?',
@@ -1374,7 +1483,7 @@
         inc_eyebrow: 'Cosa include',
         inc_title: 'Ciò che <em>nessuno vede</em>',
         inc_text: 'La visita VIP è l\'esperienza più completa della Cattedrale. Per 90 minuti, in un piccolo gruppo fino a 15 persone, una guida specializzata apre le porte degli spazi normalmente riservati: il triforio con le sue viste privilegiate, la sacrestia con la sua arte sacra e le antiche difese medievali che circondano il complesso. Include anche il percorso completo per la navata, la Pala Maggiore, il pollaio vivo e il sepolcro di Santo Domingo.',
-        inc_pull: '«Una Cattedrale nascosta dietro le mura, aperta solo in gruppi di 15.»',
+        inc_pull: '«Una Cattedrale nascosta dietro le sue mura, il suo percorso VIP esclusivamente per gruppi di 15 persone.»',
         vip_badge: 'Esclusivo VIP',
         h1_name: 'Il <em>Triforio</em>',
         h1_sub: 'Galleria alta · Viste privilegiate · Chiuso al pubblico',
@@ -1398,7 +1507,7 @@
         price_extra_sub: 'senza costo aggiuntivo',
         extra1: 'Accesso libero ai 4 monumenti del complesso',
         extra2: 'Cattedrale · Torre · San Francisco · Eremo',
-        extra3: 'Valido tutto il giorno dopo la visita VIP',
+        extra3: 'Valida finché indossata al polso senza essere tolta o rotta',
         extra4: 'Non occorre acquistarlo separatamente',
         extra_btn: 'Vedi braccialetto',
         info_eyebrow: 'Informazioni pratiche',
@@ -1410,7 +1519,7 @@
         info_hor_label: 'Orari',
         info_hor_val: 'Orari e disponibilità su richiesta. Posti molto limitati — consigliamo di prenotare con almeno una settimana di anticipo.',
         info_idi_label: 'Lingua',
-        info_idi_val: 'Visita in spagnolo. Per gruppi privati con guida in altra lingua, contattaci.',
+        info_idi_val: 'Visita in spagnolo.',
         faq_eyebrow: 'Domande frequenti',
         faq_title: 'Dubbi <em>frequenti</em>',
         faq1_q: 'Che differenza c\'è tra VIP e diurna?',
@@ -1432,7 +1541,7 @@
         inc_eyebrow: '포함 내용',
         inc_title: '<em>아무도 보지 못하는</em> 것',
         inc_text: 'VIP 투어는 대성당의 가장 완벽한 경험입니다. 90분 동안 최대 15명의 소그룹과 전문 가이드가 평소 공개되지 않는 공간들을 안내합니다: 특별한 전망의 트리포리움, 성예술이 가득한 제의실, 그리고 단지를 둘러싼 중세 방어시설. 본당, 대제단화, 살아있는 닭장, 산토 도밍고 묘소까지 전체 동선도 포함됩니다.',
-        inc_pull: '«15명에게만 열리는, 벽 너머의 대성당.»',
+        inc_pull: '«성벽 너머에 숨겨진 대성당, VIP 코스는 오직 15인 그룹만을 위해 열립니다.»',
         vip_badge: 'VIP 독점',
         h1_name: '<em>트리포리움</em>',
         h1_sub: '상부 갤러리 · 특별한 전망 · 일반 공개 안 됨',
@@ -1456,7 +1565,7 @@
         price_extra_sub: '추가 비용 없음',
         extra1: '단지 내 4개 유적 모두 자유 입장',
         extra2: '대성당 · 종탑 · 산프란시스코 · 예배당',
-        extra3: 'VIP 투어 후 하루 종일 유효',
+        extra3: '손목에 착용한 상태로 끊기지 않는 한 유효',
         extra4: '따로 구매할 필요 없음',
         extra_btn: '팔찌 보기',
         info_eyebrow: '실용 정보',
@@ -1468,7 +1577,7 @@
         info_hor_label: '운영 시간',
         info_hor_val: '일정과 가용성은 문의 바랍니다. 좌석이 매우 제한되어 있어 최소 1주일 전 예약을 권장합니다.',
         info_idi_label: '언어',
-        info_idi_val: '스페인어 진행. 다른 언어 가이드가 동반된 프라이빗 그룹은 문의해 주세요.',
+        info_idi_val: '스페인어로 진행됩니다.',
         faq_eyebrow: '자주 묻는 질문',
         faq_title: '자주 있는 <em>궁금증</em>',
         faq1_q: 'VIP와 주간 투어의 차이는 무엇인가요?',
@@ -1490,7 +1599,7 @@
         inc_eyebrow: 'Zer barne hartzen du',
         inc_title: 'Inork <em>ikusten ez duena</em>',
         inc_text: 'VIP bisita Katedralaren esperientziarik osoena da. 90 minututan, gehienez 15 laguneko taldean, gidari espezializatu batek normalean publikoari mugatuta dauden eremuetako ateak irekitzen ditu: triforioa, sakristia eta multzoa inguratzen duten Erdi Aroko defentsak. Halaber, nabe, Erretaula Nagusi, oilategi bizi eta Santo Domingoren hilobiaren ibilbide osoa.',
-        inc_pull: '«Hormen atzean ezkutuko Katedral bat, 15 laguneko taldeetan soilik irekia.»',
+        inc_pull: '«Hormen atzean ezkutuko Katedral bat, bere VIP ibilbidea 15 laguneko taldeentzat soilik.»',
         vip_badge: 'VIP esklusiboa',
         h1_name: '<em>Triforioa</em>',
         h1_sub: 'Goiko galeria · Ikuspegi pribilegiatuak · Publikoari itxita',
@@ -1514,7 +1623,7 @@
         price_extra_sub: 'kostu gehigarririk gabe',
         extra1: 'Multzoko 4 monumentuetarako sarbide librea',
         extra2: 'Katedrala · Dorrea · San Francisco · Ermita',
-        extra3: 'VIP bisitaren ondoren egun osoan baliozkoa',
+        extra3: 'Baliozkoa eskumuturrean eramaten den bitartean apurtu gabe',
         extra4: 'Ez da bereiz erosi behar',
         extra_btn: 'Pulsera ikusi',
         info_eyebrow: 'Informazio praktikoa',
@@ -1526,7 +1635,7 @@
         info_hor_label: 'Ordutegia',
         info_hor_val: 'Ordutegia eta eskuragarritasuna kontsultatu. Leku oso mugatuak — astebete lehenago erreserbatzea gomendatzen dugu.',
         info_idi_label: 'Hizkuntza',
-        info_idi_val: 'Bisita gaztelaniaz. Beste hizkuntza bateko gidaria duten talde pribatuetarako, jarri gurekin harremanetan.',
+        info_idi_val: 'Bisita gaztelaniaz.',
         faq_eyebrow: 'Sarri egiten diren galderak',
         faq_title: 'Ohiko <em>zalantzak</em>',
         faq1_q: 'Zer alde dago VIP eta eguneko bisitaren artean?',
@@ -1548,7 +1657,7 @@
         inc_eyebrow: 'Què inclou',
         inc_title: 'El que <em>ningú veu</em>',
         inc_text: 'La visita VIP és l\'experiència més completa de la Catedral. Durant 90 minuts, en un grup reduït de fins a 15 persones, un guia especialitzat t\'obre les portes dels espais habitualment restringits al públic: el trifori amb les seves vistes privilegiades, la sagristia amb el seu art sacre, i les antigues defenses medievals que envolten el conjunt. Inclou també el recorregut complet per la nau, el Retaule Major, el galliner viu i el sepulcre de Santo Domingo.',
-        inc_pull: '«Una Catedral amagada darrere dels murs, oberta només en grups de 15.»',
+        inc_pull: '«Una Catedral amagada darrere dels seus murs, el seu recorregut VIP només per a grups de 15 persones.»',
         vip_badge: 'Exclusiu VIP',
         h1_name: 'El <em>Trifori</em>',
         h1_sub: 'Galeria alta · Vistes privilegiades · Tancat al públic',
@@ -1572,7 +1681,7 @@
         price_extra_sub: 'sense cost addicional',
         extra1: 'Accés lliure als 4 monuments del conjunt',
         extra2: 'Catedral · Torre · San Francisco · Ermita',
-        extra3: 'Vàlida tot el dia després de la visita VIP',
+        extra3: 'Vàlida mentre es porti posada al canell sense trencar-la',
         extra4: 'No cal comprar-la per separat',
         extra_btn: 'Veure polsera',
         info_eyebrow: 'Informació pràctica',
@@ -1584,7 +1693,7 @@
         info_hor_label: 'Horari',
         info_hor_val: 'Horari i disponibilitat sota consulta. Places molt limitades — recomanem reservar amb almenys una setmana d\'antelació.',
         info_idi_label: 'Idioma',
-        info_idi_val: 'Visita en espanyol. Per a grups privats amb guia en un altre idioma, contacta amb nosaltres.',
+        info_idi_val: 'Visita en espanyol.',
         faq_eyebrow: 'Preguntes freqüents',
         faq_title: 'Dubtes <em>habituals</em>',
         faq1_q: 'Quina diferència hi ha entre la VIP i la diürna?',
@@ -1601,8 +1710,8 @@
       }
     };
 
-    window.PAGE_applyLang = function(lang, t) {
-      if (!t) t = PAGE_T[lang] || PAGE_T.es;
+    window.PAGE_applyLang = function(lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
       document.querySelectorAll('[data-i18n-page]').forEach(el => {
         const key = el.getAttribute('data-i18n-page');
         if (t[key] !== undefined) el.innerHTML = t[key];
@@ -1649,6 +1758,69 @@
         });
       })();
     });
+  </script>
+
+  <script>
+    (function () {
+      const lb = document.getElementById('vip-lightbox');
+      const imgEl = document.getElementById('vip-lb-img');
+      const capEl = document.getElementById('vip-lb-caption');
+      const btnClose = document.getElementById('vip-lb-close');
+      const btnPrev = document.getElementById('vip-lb-prev');
+      const btnNext = document.getElementById('vip-lb-next');
+      if (!lb) return;
+
+      const cards = Array.from(document.querySelectorAll('.monument-card[data-img]'));
+      let idx = 0;
+
+      function titleOf(card) {
+        return card.querySelector('.monument-card__name')?.textContent?.trim() || '';
+      }
+
+      function open(i) {
+        idx = (i + cards.length) % cards.length;
+        const card = cards[idx];
+        const src = card.dataset.img;
+        imgEl.style.opacity = '0';
+        const preload = new Image();
+        preload.onload = () => {
+          imgEl.src = src;
+          imgEl.alt = titleOf(card);
+          requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+        };
+        preload.src = src;
+        capEl.textContent = titleOf(card);
+        btnPrev.style.display = cards.length > 1 ? 'flex' : 'none';
+        btnNext.style.display = cards.length > 1 ? 'flex' : 'none';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      cards.forEach((card, i) => card.addEventListener('click', () => open(i)));
+      btnClose.addEventListener('click', close);
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); open(idx - 1); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); open(idx + 1); });
+      lb.addEventListener('click', e => { if (e.target === lb) close(); });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') open(idx - 1);
+        else if (e.key === 'ArrowRight') open(idx + 1);
+      });
+      let touchStartX = 0;
+      lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) { dx > 0 ? open(idx - 1) : open(idx + 1); }
+      });
+    })();
   </script>
 
 </body>

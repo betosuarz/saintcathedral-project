@@ -3143,6 +3143,17 @@ body.light-mode .navbar.scrolled .navbar__logo-sub,
 body.light-mode .navbar--always-solid .navbar__logo-sub,
 body.light-mode .navbar.scrolled .lang-selector__option,
 body.light-mode .navbar--always-solid .lang-selector__option { color: #141210; }
+/* Hamburger lines en negro cuando navbar tiene fondo claro */
+body.light-mode .navbar.scrolled .hamburger-line,
+body.light-mode .navbar--always-solid .hamburger-line { background: var(--carbon); }
+
+/* Breadcrumb en páginas SIN hero (legal pages: dentro de .legal-hero)
+   Las páginas CON hero (.page-hero) mantienen el blanco por defecto sobre imagen. */
+body.light-mode .legal-hero .breadcrumb__link { color: rgba(20,18,16,.55); }
+body.light-mode .legal-hero .breadcrumb__link:hover,
+body.light-mode .legal-hero .breadcrumb__link:focus-visible { color: var(--gold-text); text-shadow: none; }
+body.light-mode .legal-hero .breadcrumb__current { color: var(--carbon); }
+body.light-mode .legal-hero .breadcrumb__sep { color: var(--gold-text); }
 body.light-mode .side-menu__nav-link { color: var(--carbon); }
 body.light-mode .side-menu__nav-link .nav-num,
 body.light-mode .nav-num { color: var(--gold-text); }

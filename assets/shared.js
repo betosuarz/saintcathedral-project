@@ -693,8 +693,17 @@ function _applyShared(lang) {
     ko: '산티아고 데 라 칼사다 대성당',
   };
   document.documentElement.lang = lang;
-  // Let page-level handler update <title> if needed
+  // Let page-level handler update <title> if needed (legacy)
   if (window.PAGE_applyLang) window.PAGE_applyLang(lang, SHARED_T[lang] || SHARED_T.es);
+  // SEO: update <title>, <meta description>, og:* and twitter:* from PAGE_SEO.
+  // Runs AFTER PAGE_applyLang so it overrides any legacy title-setting per page.
+  if (window.applySEO && window.PAGE_SEO) {
+    let path = window.location.pathname.replace(/^\//, '');
+    if (path === '' || path.endsWith('/')) path += 'index.html';
+    // Normalize: dev servers / pretty URLs may strip .html
+    if (!window.PAGE_SEO[path] && !path.endsWith('.html')) path += '.html';
+    if (window.PAGE_SEO[path]) window.applySEO(path, lang);
+  }
 }
 
 function _setText(sel, val) {

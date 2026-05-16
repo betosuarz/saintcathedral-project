@@ -3123,3 +3123,85 @@ body.light-mode .spaces-scroll-btn:hover {
 @media (max-width: 768px) {
   .spaces-scroll-nav { display: none }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   WCAG AA SAFETY NET — overrides para garantizar contraste mínimo
+   en componentes compartidos (navbar, footer, a11y panel, lang panel,
+   cookie banner). Aplica los tokens accesibles por encima de cualquier
+   regla anterior. NO TOCAR sin re-auditar contraste.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── LIGHT MODE — gold-text en componentes con gold pálido ────── */
+/* Sin scroll: navbar transparente sobre hero oscuro → texto BLANCO puro.
+   Scrolled / always-solid: navbar con fondo crema y texto carbon (estilo unificado catedral) */
+body.light-mode .navbar:not(.scrolled):not(.navbar--always-solid) .navbar__logo-name { color: #fff; }
+body.light-mode .navbar.scrolled,
+body.light-mode .navbar--always-solid { background: rgba(245, 240, 232, .97); }
+body.light-mode .navbar.scrolled .navbar__logo-name,
+body.light-mode .navbar--always-solid .navbar__logo-name,
+body.light-mode .navbar.scrolled .navbar__logo-sub,
+body.light-mode .navbar--always-solid .navbar__logo-sub,
+body.light-mode .navbar.scrolled .lang-selector__option,
+body.light-mode .navbar--always-solid .lang-selector__option { color: #141210; }
+body.light-mode .side-menu__nav-link { color: var(--carbon); }
+body.light-mode .side-menu__nav-link .nav-num,
+body.light-mode .nav-num { color: var(--gold-text); }
+/* Footer en light mode → fondo crema con textos oscuros (estilo unificado) */
+body.light-mode .site-footer { background: #F9F8F6; }
+body.light-mode .footer-cta { background: #F5F0E8; border-color: rgba(20,18,16,.1); }
+body.light-mode .footer-cta__eyebrow,
+body.light-mode .footer-cta__title,
+body.light-mode .footer-cta__sub { color: #141210; }
+body.light-mode .newsletter-input { background: #FDFAF4; border-color: rgba(20,18,16,.25); color: #141210; }
+body.light-mode .newsletter-input::placeholder { color: rgba(20,18,16,.55); }
+body.light-mode .footer-brand__logo { color: #141210; }
+body.light-mode .footer-brand__desc { color: #5C5048; }
+body.light-mode .footer-brand__sub { color: var(--gold-text); }
+body.light-mode .footer-col__title { color: #141210; }
+body.light-mode .footer-col__list a { color: #5C5048; }
+body.light-mode .footer-col__list a:hover { color: var(--gold-text); }
+body.light-mode .footer-bottom__copy,
+body.light-mode .footer-bottom__links a { color: rgba(20,18,16,.65); }
+body.light-mode .footer-bottom__links a:hover { color: var(--gold-text); }
+body.light-mode .footer-social__link { color: #5C5048; border-color: rgba(20,18,16,.18); }
+body.light-mode .footer-social__link:hover { color: var(--gold-text); border-color: var(--gold-text); }
+
+/* a11y panel labels */
+body.light-mode .a11y-panel__header { color: rgba(20,18,16,.7); }
+@media (max-width: 767px) {
+  body.light-mode .a11y-panel__header { color: rgba(20,18,16,.7); }
+}
+
+/* lang panel + selector */
+body.light-mode .lang-panel__header { color: rgba(20,18,16,.72); }
+body.light-mode .lang-name,
+body.light-mode .lang-code { color: var(--gold-text); }
+body.light-mode .lang-selector__option.active .lang-name,
+body.light-mode .lang-selector__option.active .lang-code { color: var(--carbon); }
+body.light-mode .lang-selector__btn,
+body.light-mode #lang-current-flag,
+body.light-mode #lang-current-code { color: var(--gold-text); }
+
+/* cookie banner */
+body.light-mode .cookie-cat__badge { color: var(--gold-text); background: rgba(122,96,37,.12); }
+body.light-mode .cookie-banner__link { color: var(--gold-text); }
+body.light-mode .cookie-banner__link:hover { color: var(--carbon); }
+body.light-mode .cookie-btn--outline { color: var(--gold-text); border-color: var(--gold-text); }
+body.light-mode .cookie-btn--outline:hover { background: var(--gold-text); color: #fff; }
+body.light-mode .cookie-btn--ghost { color: var(--carbon); }
+body.light-mode .cookie-btn--ghost:hover { color: var(--gold-text); }
+body.light-mode .cookie-cat__desc { color: rgba(20,18,16,.75); }
+
+/* ── DARK MODE — bumps de alpha en textos secundarios ─────────── */
+body:not(.light-mode) .a11y-panel__header { color: rgba(253,250,244,.62); }
+body:not(.light-mode) .lang-panel__header { color: rgba(253,250,244,.62); }
+body:not(.light-mode) .footer-bottom__copy { color: rgba(255,255,255,.62); }
+body:not(.light-mode) .cookie-cat__desc { color: rgba(253,250,244,.72); }
+body:not(.light-mode) .cookie-banner__link { color: var(--gold); }
+body:not(.light-mode) .cookie-banner__link:hover { color: var(--gold-lt); }
+body:not(.light-mode) .cookie-btn--outline { color: var(--gold); border-color: var(--gold); }
+body:not(.light-mode) .cookie-btn--outline:hover { background: var(--gold); color: var(--carbon); }
+body:not(.light-mode) .cookie-btn--ghost { color: rgba(253,250,244,.72); }
+body:not(.light-mode) .cookie-btn--ghost:hover { color: var(--gold); }
+body:not(.light-mode) .footer-col__list a { color: rgba(253,250,244,.72); }
+body:not(.light-mode) .footer-col__list a:hover { color: var(--gold); }

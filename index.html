@@ -1418,7 +1418,7 @@
     <div class="video-frame reveal">
       <div class="video-frame__inner" id="video-inner">
         <video id="catedral-video"
-          src="https://www.catedralsantodomingo.org/wp-content/uploads/2026/03/videoSoloCatedral.mp4"
+          src="assets/video/videoSoloCatedral.mp4"
           autoplay muted loop playsinline preload="metadata" disablepictureinpicture
           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:none;"></video>
         <button id="video-sound-btn" type="button" aria-label="Activar sonido"
@@ -1996,7 +1996,7 @@
     const soundBtn = document.getElementById('video-sound-btn');
     const iconMuted = document.getElementById('video-sound-icon-muted');
     const iconOn = document.getElementById('video-sound-icon-on');
-    let userWantsSound = false;
+    let userWantsSound = true;
 
     function refreshSoundIcon() {
       if (!videoEl || !iconMuted || !iconOn) return;
@@ -2046,7 +2046,7 @@
         refreshSoundIcon();
       }
     }
-    ['click', 'touchstart', 'keydown'].forEach(evt => {
+    ['click', 'touchstart', 'keydown', 'scroll', 'wheel', 'mousemove', 'pointerdown'].forEach(evt => {
       window.addEventListener(evt, attemptAutoUnmute, { once: true, passive: true });
     });
 

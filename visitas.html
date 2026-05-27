@@ -3843,7 +3843,7 @@
       }
     }
 
-    function selectDay(date) {
+    function selectDay(date, opts) {
       selectedKey = ymd(date);
       const visits = visitsForDate(date);
       const wdName = DIAS()[date.getDay()];
@@ -3870,7 +3870,7 @@
       }
       document.body.classList.toggle('gv-day-open', isMobile);
       render();
-      if (!isMobile) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (!isMobile && !(opts && opts.skipScroll)) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function closePanel() {
@@ -3971,7 +3971,7 @@
     });
 
     render();
-    if (!window.matchMedia('(max-width: 540px)').matches) selectDay(today);
+    if (!window.matchMedia('(max-width: 540px)').matches) selectDay(today, { skipScroll: true });
 
     const _origCalApplyLang = window.PAGE_applyLang;
     window.PAGE_applyLang = function(lang) {

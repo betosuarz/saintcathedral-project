@@ -533,6 +533,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      min-width: 0;
     }
 
     .field.span-2 {
@@ -563,7 +564,24 @@
       transition: border-color var(--transition), box-shadow var(--transition);
       outline: none;
       width: 100%;
-      /* -webkit-appearance: none; */
+      min-width: 0;
+    }
+
+    /* Placeholder propio para el input de fecha (solo se usa en móvil; ver media query) */
+    .date-wrap {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* iOS Safari da al input[type=date] un ancho intrínseco grande; lo forzamos a no superar el wrapper */
+    .date-wrap > input[type="date"] {
+      max-width: 100%;
+    }
+
+    .date-ph {
+      display: none;
     }
 
     input:focus,
@@ -1877,6 +1895,7 @@
       font-size: .9rem;
       font-weight: 600;
       -moz-appearance: textfield;
+      appearance: textfield;
       padding: 0;
       border-radius: 0;
     }
@@ -1890,6 +1909,7 @@
     .ent-stepper .ent-stepper__val::-webkit-outer-spin-button,
     .ent-stepper .ent-stepper__val::-webkit-inner-spin-button {
       -webkit-appearance: none;
+      appearance: none;
       margin: 0;
     }
 
@@ -2285,8 +2305,8 @@
     .hora-grid-msg {
       font-size: .82rem;
       color: var(--stone, #7a7363);
-      margin: 8px 0 0;
-      padding: 0 12px 12px;
+      margin: 0;
+      padding: 12px;
       background: rgba(0, 0, 0, .03);
       border-radius: 3px;
       text-align: center;
@@ -2388,6 +2408,44 @@
     @media (max-width: 720px) {
       .hora-grid-msg {
         padding-top: 12px;
+      }
+
+      /* iOS Safari ignora width en input[type=date] (usa su ancho intrínseco) y, con
+         appearance:none, no renderiza el valor. Solución: appearance:none para que respete
+         el ancho + texto nativo transparente y mostramos placeholder Y valor con el overlay. */
+      .date-wrap > input[type="date"] {
+        -webkit-appearance: none;
+        appearance: none;
+        color: transparent;
+        min-height: 44px;
+      }
+
+      .date-ph {
+        display: block;
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--stone);
+        font-size: .9rem;
+        font-family: var(--sans);
+        pointer-events: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .date-wrap.has-value .date-ph {
+        color: var(--carbon);
+      }
+
+      body:not(.light-mode) .date-ph {
+        color: rgba(245, 240, 232, .58);
+      }
+
+      body:not(.light-mode) .date-wrap.has-value .date-ph {
+        color: var(--white);
       }
 
       .visit-type-group {
@@ -3553,7 +3611,8 @@
             </svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card1_title">Visita individual</span><span class="tv-short" data-i18n-page="s1_card1_short">Individual</span></span>
+            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card1_title">Visita
+                individual</span><span class="tv-short" data-i18n-page="s1_card1_short">Individual</span></span>
             <span class="tipo-visita-row__desc" data-i18n-page="s1_card1_desc">Familias, turistas, peregrinos y visitas
               personales.</span>
           </span>
@@ -3576,7 +3635,8 @@
             </svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card2_title">Visita en grupo</span><span class="tv-short" data-i18n-page="s1_card2_short">Grupos</span></span>
+            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card2_title">Visita en
+                grupo</span><span class="tv-short" data-i18n-page="s1_card2_short">Grupos</span></span>
             <span class="tipo-visita-row__desc" data-i18n-page="s1_card2_desc">Grupos organizados, asociaciones e
               instituciones.</span>
           </span>
@@ -3597,7 +3657,8 @@
             </svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card3_title">Grupos escolares</span><span class="tv-short" data-i18n-page="s1_card3_short">Escolares</span></span>
+            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card3_title">Grupos
+                escolares</span><span class="tv-short" data-i18n-page="s1_card3_short">Escolares</span></span>
             <span class="tipo-visita-row__desc" data-i18n-page="s1_card3_desc">Visitas educativas para centros
               escolares.</span>
           </span>
@@ -3740,49 +3801,67 @@
           <div class="grp-row">
             <span class="grp-row__label" data-i18n-page="opt_age_u12">Menores &lt; 12</span>
             <span class="ent-stepper ent-stepper--wide">
-              <button type="button" class="ent-stepper__btn" data-esc-step="menor12" data-act="dec" aria-label="−">−</button>
-              <input class="ent-stepper__val" id="esc_menor12" type="number" min="0" max="500" inputmode="numeric" value="0" aria-label="Menores < 12" />
-              <button type="button" class="ent-stepper__btn" data-esc-step="menor12" data-act="inc" aria-label="+">+</button>
+              <button type="button" class="ent-stepper__btn" data-esc-step="menor12" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="esc_menor12" type="number" min="0" max="500" inputmode="numeric"
+                value="0" aria-label="Menores < 12" />
+              <button type="button" class="ent-stepper__btn" data-esc-step="menor12" data-act="inc"
+                aria-label="+">+</button>
             </span>
           </div>
           <div class="grp-row">
             <span class="grp-row__label" data-i18n-page="opt_age_1213">12-13 años</span>
             <span class="ent-stepper ent-stepper--wide">
-              <button type="button" class="ent-stepper__btn" data-esc-step="e1213" data-act="dec" aria-label="−">−</button>
-              <input class="ent-stepper__val" id="esc_e1213" type="number" min="0" max="500" inputmode="numeric" value="0" aria-label="12-13 años" />
-              <button type="button" class="ent-stepper__btn" data-esc-step="e1213" data-act="inc" aria-label="+">+</button>
+              <button type="button" class="ent-stepper__btn" data-esc-step="e1213" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="esc_e1213" type="number" min="0" max="500" inputmode="numeric"
+                value="0" aria-label="12-13 años" />
+              <button type="button" class="ent-stepper__btn" data-esc-step="e1213" data-act="inc"
+                aria-label="+">+</button>
             </span>
           </div>
           <div class="grp-row">
             <span class="grp-row__label" data-i18n-page="opt_age_1415">14-15 años</span>
             <span class="ent-stepper ent-stepper--wide">
-              <button type="button" class="ent-stepper__btn" data-esc-step="e1415" data-act="dec" aria-label="−">−</button>
-              <input class="ent-stepper__val" id="esc_e1415" type="number" min="0" max="500" inputmode="numeric" value="0" aria-label="14-15 años" />
-              <button type="button" class="ent-stepper__btn" data-esc-step="e1415" data-act="inc" aria-label="+">+</button>
+              <button type="button" class="ent-stepper__btn" data-esc-step="e1415" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="esc_e1415" type="number" min="0" max="500" inputmode="numeric"
+                value="0" aria-label="14-15 años" />
+              <button type="button" class="ent-stepper__btn" data-esc-step="e1415" data-act="inc"
+                aria-label="+">+</button>
             </span>
           </div>
           <div class="grp-row">
             <span class="grp-row__label" data-i18n-page="opt_age_1617">16-17 años</span>
             <span class="ent-stepper ent-stepper--wide">
-              <button type="button" class="ent-stepper__btn" data-esc-step="e1617" data-act="dec" aria-label="−">−</button>
-              <input class="ent-stepper__val" id="esc_e1617" type="number" min="0" max="500" inputmode="numeric" value="0" aria-label="16-17 años" />
-              <button type="button" class="ent-stepper__btn" data-esc-step="e1617" data-act="inc" aria-label="+">+</button>
+              <button type="button" class="ent-stepper__btn" data-esc-step="e1617" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="esc_e1617" type="number" min="0" max="500" inputmode="numeric"
+                value="0" aria-label="16-17 años" />
+              <button type="button" class="ent-stepper__btn" data-esc-step="e1617" data-act="inc"
+                aria-label="+">+</button>
             </span>
           </div>
           <div class="grp-row">
             <span class="grp-row__label" data-i18n-page="opt_age_o17">Mayores &gt; 17</span>
             <span class="ent-stepper ent-stepper--wide">
-              <button type="button" class="ent-stepper__btn" data-esc-step="mayor17" data-act="dec" aria-label="−">−</button>
-              <input class="ent-stepper__val" id="esc_mayor17" type="number" min="0" max="500" inputmode="numeric" value="0" aria-label="Mayores > 17" />
-              <button type="button" class="ent-stepper__btn" data-esc-step="mayor17" data-act="inc" aria-label="+">+</button>
+              <button type="button" class="ent-stepper__btn" data-esc-step="mayor17" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="esc_mayor17" type="number" min="0" max="500" inputmode="numeric"
+                value="0" aria-label="Mayores > 17" />
+              <button type="button" class="ent-stepper__btn" data-esc-step="mayor17" data-act="inc"
+                aria-label="+">+</button>
             </span>
           </div>
           <div class="grp-row">
             <span class="grp-row__label" data-i18n-page="s2_residents">Residentes</span>
             <span class="ent-stepper ent-stepper--wide">
-              <button type="button" class="ent-stepper__btn" data-esc-step="residentesEsc" data-act="dec" aria-label="−">−</button>
-              <input class="ent-stepper__val" id="esc_residentesEsc" type="number" min="0" max="500" inputmode="numeric" value="0" aria-label="Residentes" />
-              <button type="button" class="ent-stepper__btn" data-esc-step="residentesEsc" data-act="inc" aria-label="+">+</button>
+              <button type="button" class="ent-stepper__btn" data-esc-step="residentesEsc" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="esc_residentesEsc" type="number" min="0" max="500" inputmode="numeric"
+                value="0" aria-label="Residentes" />
+              <button type="button" class="ent-stepper__btn" data-esc-step="residentesEsc" data-act="inc"
+                aria-label="+">+</button>
             </span>
           </div>
         </div>
@@ -3820,7 +3899,10 @@
           <!-- FECHA -->
           <div class="field">
             <label for="fechaVisita" data-i18n-page="s2_date">Fecha de visita</label>
-            <input type="date" id="fechaVisita" />
+            <div class="date-wrap">
+              <input type="date" id="fechaVisita" />
+              <span class="date-ph" id="fechaPh" aria-hidden="true">dd/mm/aaaa</span>
+            </div>
             <span id="fechaHelper" class="field-helper" style="display:none"></span>
             <span class="error-msg" id="err-fechaVisita" data-i18n-page="err_date">Seleccione una fecha válida.</span>
           </div>
@@ -3924,7 +4006,8 @@
       </div>
 
       <p id="avisoProforma" class="aviso-proforma" style="display:none" data-i18n-page="s3_proforma_warning">
-        <strong>IMPORTANTE:</strong> Revise que los datos sean correctos. La proforma será emitida con los datos ingresados.
+        <strong>IMPORTANTE:</strong> Revise que los datos sean correctos. La proforma será emitida con los datos
+        ingresados.
       </p>
 
       <div class="alert alert--error" id="alert-step3"></div>
@@ -3968,9 +4051,11 @@
         <input type="checkbox" id="accept-terms" />
         <label for="accept-terms" data-i18n-page="s5_accept">
           He leído y acepto los términos y condiciones de
-          <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de entradas</a>,
+          <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de
+            entradas</a>,
           así como la
-          <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.
+          <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de
+            privacidad</a>.
         </label>
       </div>
 
@@ -3988,7 +4073,8 @@
       <div class="confirm-icon">✦</div>
       <h2 class="confirm-title" data-i18n-page="confirm_title">¡Solicitud enviada!</h2>
 
-      <p class="confirm-note">📧 <span data-i18n-page="confirm_sub">Hemos recibido tu reserva. Recibirás la confirmación por email en breve.</span></p>
+      <p class="confirm-note">📧 <span data-i18n-page="confirm_sub">Hemos recibido tu reserva. Recibirás la confirmación
+          por email en breve.</span></p>
 
       <div class="confirm-summary" id="confirm-summary-content"></div>
 
@@ -5512,6 +5598,7 @@
       updateStepper(1);
       actualizarStep3UI();
       actualizarFechaMinima();
+      actualizarFechaPlaceholder();
       generateCaptcha();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -5562,7 +5649,22 @@
     document.getElementById('numPersonas').addEventListener('input', updatePersonasHelper);
     document.getElementById('menoresTreceAnios').addEventListener('input', updatePersonasHelper);
     document.getElementById('residentes').addEventListener('input', updatePersonasHelper);
+    function actualizarFechaPlaceholder() {
+      const inp = document.getElementById('fechaVisita');
+      const wrap = inp && inp.closest('.date-wrap');
+      if (!wrap) return;
+      const v = inp.value; // 'aaaa-mm-dd' o ''
+      wrap.classList.toggle('has-value', !!v);
+      const ph = wrap.querySelector('.date-ph');
+      if (ph) {
+        const p = v ? v.split('-') : [];
+        ph.textContent = p.length === 3 ? (p[2] + '/' + p[1] + '/' + p[0]) : 'dd/mm/aaaa';
+      }
+    }
     document.getElementById('fechaVisita').addEventListener('change', actualizarHoras);
+    document.getElementById('fechaVisita').addEventListener('change', actualizarFechaPlaceholder);
+    document.getElementById('fechaVisita').addEventListener('input', actualizarFechaPlaceholder);
+    actualizarFechaPlaceholder();
     document.getElementById('necesitaFactura').addEventListener('change', onFacturaToggle);
     // Steppers − + de la tarjeta Grupo/Escolar (editables; ajustan los inputs reales).
     const _entGrupo = document.getElementById('entradasGrupo');
@@ -5703,6 +5805,7 @@
         const fi = document.getElementById('fechaVisita');
         if (fi && fecha >= (fi.min || fecha)) {
           fi.value = fecha;
+          actualizarFechaPlaceholder();
           actualizarHoras();
         }
       }
@@ -5828,7 +5931,7 @@
 
         if (d.fechaVisita) {
           const fi = document.getElementById('fechaVisita');
-          if (fi) { fi.value = d.fechaVisita; actualizarHoras(); prefillHora(d.horaVisita); }
+          if (fi) { fi.value = d.fechaVisita; actualizarFechaPlaceholder(); actualizarHoras(); prefillHora(d.horaVisita); }
         }
 
         if (banner) banner.innerHTML = '✎ <strong>Estás editando tu reserva.</strong> Modifica lo que necesites y pulsa «Guardar cambios». El equipo revisará los cambios y recibirás la confirmación por email.';

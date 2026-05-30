@@ -1085,7 +1085,7 @@
       padding: 16px 18px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;
     }
 
     .summary-row {
@@ -1152,6 +1152,11 @@
       color: var(--carbon);
       flex: 1;
       min-width: 120px;
+    }
+
+    .captcha-op {
+      display: block;
+      white-space: nowrap;
     }
 
     .captcha-box input {
@@ -1524,6 +1529,489 @@
       margin: 6px 0 0;
     }
 
+    /* ─── LISTA DE ENTRADAS (Visita Individual) ──────────────── */
+    .entradas-card {
+      display: none;
+      background: rgba(201, 168, 76, .04);
+      border: 1px solid rgba(201, 168, 76, .25);
+      border-radius: 4px;
+      padding: 22px 26px;
+      margin-bottom: 24px;
+    }
+
+    .entradas-card.visible {
+      display: block;
+    }
+
+    .entradas-card__title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--carbon);
+      margin: 0 0 4px;
+      font-weight: 600;
+    }
+
+    .entradas-card__sub {
+      font-size: .8rem;
+      color: var(--stone);
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    .entradas-groups {
+      display: block;
+    }
+
+    .ent-sectitle {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      margin: 22px 0 10px;
+      font-size: .82rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold-dk);
+    }
+
+    .ent-sectitle:first-child {
+      margin-top: 4px;
+    }
+
+    .ent-sectitle__hint {
+      font-size: .68rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--stone);
+      text-align: left;
+    }
+
+    .ent-acc {
+      border: 1px solid var(--stone-lt);
+      border-radius: 4px;
+      background: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .ent-acc__head {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 14px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--sans);
+    }
+
+    .ent-acc__title {
+      flex: 1 1 auto;
+      font-size: .8rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--carbon);
+    }
+
+    .ent-acc__count {
+      flex: 0 0 auto;
+      min-width: 21px;
+      height: 21px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--carbon);
+      font-size: .72rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ent-acc__chev {
+      flex: 0 0 auto;
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid var(--gold-dk);
+      border-bottom: 1.5px solid var(--gold-dk);
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform .25s ease;
+    }
+
+    .ent-acc.is-open .ent-acc__chev {
+      transform: rotate(-135deg) translateY(-2px);
+    }
+
+    .ent-acc__body {
+      display: none;
+      padding: 2px 14px 8px;
+    }
+
+    .ent-acc.is-open .ent-acc__body {
+      display: block;
+    }
+
+    .ent-acc.is-open .ent-acc__head {
+      border-bottom: 1px solid rgba(140, 128, 112, .18);
+    }
+
+    body:not(.light-mode) .ent-acc.is-open .ent-acc__head {
+      border-bottom-color: rgba(255, 255, 255, .1);
+    }
+
+    .ent-group {
+      border: 1px solid var(--stone-lt);
+      border-radius: 4px;
+      background: var(--cream);
+    }
+
+    .ent-group+.ent-group {
+      margin-top: 14px;
+    }
+
+    .ent-section__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px 8px;
+      border-bottom: 1px solid rgba(140, 128, 112, .18);
+    }
+
+    .ent-section__title {
+      margin: 0;
+      flex: 0 0 auto;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--gold-dk);
+    }
+
+    .ent-section__hint {
+      margin: 0;
+      font-size: .7rem;
+      font-style: italic;
+      color: var(--stone);
+      text-align: right;
+    }
+
+    .ent-group__head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(140, 128, 112, .18);
+    }
+
+    .ent-group__name {
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--carbon);
+    }
+
+    .ent-group.is-guiada .ent-group__name {
+      color: var(--gold-dk);
+    }
+
+    .ent-info {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      border: 1px solid var(--stone-lt);
+      background: transparent;
+      color: var(--stone);
+      font-size: .7rem;
+      font-style: italic;
+      font-family: var(--serif);
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ent-info:hover,
+    .ent-info.is-open {
+      border-color: var(--gold);
+      color: var(--gold-dk);
+    }
+
+    .ent-tooltip {
+      display: none;
+      position: absolute;
+      z-index: 30;
+      top: calc(100% + 6px);
+      left: 0;
+      width: 250px;
+      max-width: 78vw;
+      padding: 10px 13px;
+      background: var(--carbon);
+      color: var(--white);
+      font-size: .74rem;
+      font-weight: 400;
+      font-style: normal;
+      font-family: var(--sans);
+      line-height: 1.55;
+      letter-spacing: 0;
+      text-transform: none;
+      border-radius: 4px;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, .28);
+    }
+
+    .ent-info:hover .ent-tooltip,
+    .ent-info.is-open .ent-tooltip {
+      display: block;
+    }
+
+    .ent-tiers {
+      padding: 2px 14px 8px;
+    }
+
+    .ent-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+    }
+
+    .ent-row__head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .ent-row__label {
+      font-size: .85rem;
+      color: var(--carbon);
+    }
+
+    .ent-row__price {
+      font-size: .76rem;
+      color: var(--gold-dk);
+      margin-right: auto;
+      white-space: nowrap;
+    }
+
+    .ent-row__price .px-pre,
+    .ent-row__price .px-suf {
+      display: none;
+    }
+
+    .ent-row__price.gratis {
+      color: #3c8a5a;
+    }
+
+    .ent-row__price.indef {
+      color: var(--stone);
+      font-style: italic;
+    }
+
+    .ent-row__sub {
+      flex: 0 0 auto;
+      min-width: 58px;
+      text-align: right;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--carbon);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ent-stepper {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--stone-lt);
+      border-radius: 999px;
+      background: var(--cream);
+    }
+
+    .ent-stepper__btn {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: transparent;
+      color: var(--gold-dk);
+      font-size: 1.15rem;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      transition: background .15s;
+    }
+
+    .ent-stepper__btn:hover:not(:disabled) {
+      background: rgba(201, 168, 76, .18);
+    }
+
+    .ent-stepper__btn:disabled {
+      color: var(--stone-lt);
+      cursor: not-allowed;
+    }
+
+    .ent-stepper .ent-stepper__val {
+      width: 34px;
+      min-width: 34px;
+      text-align: center;
+      border: none;
+      background: transparent;
+      color: var(--carbon);
+      font-family: var(--sans);
+      font-size: .9rem;
+      font-weight: 600;
+      -moz-appearance: textfield;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .ent-stepper .ent-stepper__val:focus {
+      border: none;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .ent-stepper .ent-stepper__val::-webkit-outer-spin-button,
+    .ent-stepper .ent-stepper__val::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .ent-row.has-qty .ent-stepper {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px rgba(201, 168, 76, .14);
+    }
+
+    .entradas-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--stone-lt);
+    }
+
+    .entradas-total__label {
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .entradas-total__amount {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gold-dk);
+    }
+
+    .entradas-warn {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(177, 90, 58, .1);
+      border-left: 2px solid #b15a3a;
+      border-radius: 0 3px 3px 0;
+      font-size: .78rem;
+      line-height: 1.55;
+      color: #8a3a1f;
+    }
+
+    .entradas-warn p {
+      margin: 0 0 4px;
+    }
+
+    .entradas-warn p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Dark mode (estado por defecto) */
+    body:not(.light-mode) .entradas-card {
+      background: rgba(201, 168, 76, .06);
+      border-color: rgba(201, 168, 76, .2);
+    }
+
+    body:not(.light-mode) .entradas-card__title {
+      color: var(--cream);
+    }
+
+    body:not(.light-mode) .entradas-card__sub,
+    body:not(.light-mode) .entradas-total__label {
+      color: rgba(255, 255, 255, .55);
+    }
+
+    body:not(.light-mode) .ent-group {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .12);
+    }
+
+    body:not(.light-mode) .ent-section__head {
+      border-bottom-color: rgba(255, 255, 255, .1);
+    }
+
+    body:not(.light-mode) .ent-section__title {
+      color: var(--gold);
+    }
+
+    body:not(.light-mode) .ent-section__hint {
+      color: rgba(255, 255, 255, .5);
+    }
+
+    body:not(.light-mode) .ent-sectitle {
+      color: var(--gold);
+    }
+
+    body:not(.light-mode) .ent-sectitle__hint {
+      color: rgba(255, 255, 255, .5);
+    }
+
+    body:not(.light-mode) .ent-acc {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .12);
+    }
+
+    body:not(.light-mode) .ent-acc__title {
+      color: var(--cream);
+    }
+
+    body:not(.light-mode) .ent-group__head {
+      border-bottom-color: rgba(255, 255, 255, .1);
+    }
+
+    body:not(.light-mode) .ent-group__name,
+    body:not(.light-mode) .ent-row__label,
+    body:not(.light-mode) .ent-row__sub,
+    body:not(.light-mode) .ent-stepper__val {
+      color: var(--cream);
+    }
+
+    body:not(.light-mode) .ent-row {
+      border-bottom-color: rgba(255, 255, 255, .08);
+    }
+
+    body:not(.light-mode) .ent-info {
+      border-color: rgba(255, 255, 255, .2);
+      color: rgba(255, 255, 255, .55);
+    }
+
+    body:not(.light-mode) .ent-stepper {
+      background: #12100e;
+      border-color: rgba(255, 255, 255, .18);
+    }
+
+    body:not(.light-mode) .entradas-total {
+      border-top-color: rgba(255, 255, 255, .12);
+    }
+
     /* ─── INFO NOTE (notas tipo entrada / guiada) ────────────── */
     .info-note {
       margin-top: 10px;
@@ -1715,7 +2203,7 @@
       font-size: .82rem;
       color: var(--stone, #7a7363);
       margin: 8px 0 0;
-      padding: 12px;
+      padding: 0 12px 12px;
       background: rgba(0, 0, 0, .03);
       border-radius: 3px;
       text-align: center;
@@ -1815,6 +2303,10 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 720px) {
+      .hora-grid-msg {
+        padding-top: 12px;
+      }
+
       .visit-type-group {
         grid-template-columns: 1fr;
       }
@@ -1906,6 +2398,10 @@
       font-weight: 600;
       color: var(--carbon, #1a1a1a);
       line-height: 1.2;
+    }
+
+    .tipo-visita-row__title .tv-short {
+      display: none;
     }
 
     .tipo-visita-row__desc {
@@ -2076,6 +2572,24 @@
         grid-template-columns: 1fr;
       }
 
+      .tipo-visita-row__desc {
+        font-size: .68rem;
+        line-height: 1.4;
+      }
+
+      .visit-mode-row__desc {
+        font-size: .67rem;
+        line-height: 1.35;
+      }
+
+      .tipo-visita-row__title .tv-full {
+        display: none;
+      }
+
+      .tipo-visita-row__title .tv-short {
+        display: inline;
+      }
+
       /* Tarifa-cards como acordeón en móvil */
       .tarifa-card {
         padding: 0;
@@ -2156,6 +2670,86 @@
 
       .tarifa-note {
         font-size: .72rem;
+      }
+
+      /* Lista de entradas en móvil */
+      .entradas-card {
+        padding: 16px 12px;
+      }
+
+      .entradas-card__title {
+        font-size: 1.05rem;
+      }
+
+      .ent-tiers {
+        padding: 4px 12px 10px;
+      }
+
+      .ent-section__head {
+        padding: 12px 12px 8px;
+      }
+
+      /* Cada entrada en dos filas: nombre+info arriba; precio+selector+subtotal abajo */
+      .ent-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1.3fr;
+        grid-template-areas:
+          "head head head"
+          "price stepper sub";
+        align-items: center;
+        column-gap: 8px;
+        row-gap: 2px;
+        padding: 7px 0;
+      }
+
+      .ent-stepper__btn {
+        width: 26px;
+        height: 26px;
+        font-size: 1rem;
+      }
+
+      .ent-stepper .ent-stepper__val {
+        width: 26px;
+        min-width: 26px;
+      }
+
+      .ent-row__head {
+        grid-area: head;
+        justify-content: space-between;
+      }
+
+      .ent-row__label {
+        font-size: .9rem;
+      }
+
+      .ent-row__price {
+        grid-area: price;
+        margin-right: 0;
+        font-size: .74rem;
+        white-space: normal;
+        line-height: 1.3;
+      }
+
+      .ent-row__price .px-pre,
+      .ent-row__price .px-suf {
+        display: inline;
+      }
+
+      .ent-stepper {
+        grid-area: stepper;
+      }
+
+      .ent-row__sub {
+        grid-area: sub;
+        justify-self: end;
+        min-width: 0;
+        font-size: .82rem;
+        white-space: nowrap;
+      }
+
+      .ent-info .ent-tooltip {
+        left: auto;
+        right: 0;
       }
     }
 
@@ -2869,7 +3463,7 @@
             </svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title" data-i18n-page="s1_card1_title">Visita individual</span>
+            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card1_title">Visita individual</span><span class="tv-short" data-i18n-page="s1_card1_short">Individual</span></span>
             <span class="tipo-visita-row__desc" data-i18n-page="s1_card1_desc">Familias, turistas, peregrinos y visitas
               personales.</span>
           </span>
@@ -2892,7 +3486,7 @@
             </svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title" data-i18n-page="s1_card2_title">Visita en grupo</span>
+            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card2_title">Visita en grupo</span><span class="tv-short" data-i18n-page="s1_card2_short">Grupos</span></span>
             <span class="tipo-visita-row__desc" data-i18n-page="s1_card2_desc">Grupos organizados, asociaciones e
               instituciones.</span>
           </span>
@@ -2913,7 +3507,7 @@
             </svg>
           </span>
           <span class="tipo-visita-row__body">
-            <span class="tipo-visita-row__title" data-i18n-page="s1_card3_title">Grupos escolares</span>
+            <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card3_title">Grupos escolares</span><span class="tv-short" data-i18n-page="s1_card3_short">Escolares</span></span>
             <span class="tipo-visita-row__desc" data-i18n-page="s1_card3_desc">Visitas educativas para centros
               escolares.</span>
           </span>
@@ -3017,7 +3611,7 @@
       </div>
 
       <!-- Modalidad -->
-      <div class="form-section">
+      <div class="form-section" id="modalidadSection">
         <p class="form-section__title" data-i18n-page="s2_modality">Modalidad</p>
         <div class="visit-mode-group" role="radiogroup" aria-label="Modalidad">
           <label class="visit-mode-row">
@@ -3046,6 +3640,19 @@
           <div id="notaTipoEntrada" class="info-note" style="display:none">
             <p id="notaTipoEntradaTexto"></p>
           </div>
+        </div>
+      </div>
+
+      <!-- ── Lista de entradas · Visita Individual (según modalidad) ── -->
+      <div class="entradas-card" id="entradasIndividual">
+        <p class="entradas-card__title" data-i18n-page="s2_ent_title">Selecciona tus entradas</p>
+        <p class="entradas-card__sub" data-i18n-page="s2_ent_sub">Elige la cantidad de cada tipo. Puedes combinar
+          varias en una misma reserva.</p>
+        <div class="entradas-groups" id="entradasGroups"></div>
+        <div class="entradas-warn" id="entradasWarn" style="display:none"></div>
+        <div class="entradas-total" id="entradasTotal">
+          <span class="entradas-total__label" data-i18n-page="s2_ent_total">Total</span>
+          <span class="entradas-total__amount"><span id="entradasTotalNum">0,00</span> €</span>
         </div>
       </div>
 
@@ -3088,7 +3695,7 @@
           </div>
 
           <!-- PERSONAS -->
-          <div class="field">
+          <div class="field" id="fieldNumPersonas">
             <label for="numPersonas" id="labelNumPersonas" data-i18n-page="s2_persons">Número de personas</label>
             <input type="number" id="numPersonas" min="1" max="500" placeholder="Ej: 4" data-i18n-ph-page="ph_ej_4" />
             <span class="field-helper" id="personasHelper"></span>
@@ -3097,7 +3704,7 @@
           </div>
 
           <!-- MENORES -->
-          <div class="field">
+          <div class="field" id="fieldMenores">
             <label for="menoresTreceAnios" data-i18n-page="s2_minors">Menores de 12 años</label>
             <input type="number" id="menoresTreceAnios" min="0" max="500" placeholder="0" value="0" />
             <span class="field-helper" data-i18n-page="s2_minors_help">Acreditar en taquillas con documentación
@@ -3105,7 +3712,7 @@
           </div>
 
           <!-- RESIDENTES -->
-          <div class="field">
+          <div class="field" id="fieldResidentes">
             <label for="residentes" data-i18n-page="s2_residents">Residentes</label>
             <input type="number" id="residentes" min="0" max="500" placeholder="0" value="0" />
             <span class="field-helper" data-i18n-page="s2_residents_help">Residentes en Santo Domingo de la Calzada
@@ -3264,17 +3871,8 @@
     <div class="form-panel" id="step-confirm">
       <div class="confirm-icon">✦</div>
       <h2 class="confirm-title" data-i18n-page="confirm_title">¡Solicitud enviada!</h2>
-      <p class="confirm-subtitle" data-i18n-page="confirm_sub">Hemos recibido tu reserva. Recibirás la confirmación por
-        email en breve.</p>
 
-      <div class="booking-id" id="booking-id-display"></div>
-
-      <div id="qrcode-container"></div>
-
-      <p class="confirm-note">
-        📧 Hemos enviado la confirmación a <strong id="confirm-email-display"></strong>.<br />
-        Conserva este identificador para cualquier consulta sobre tu reserva.
-      </p>
+      <p class="confirm-note">📧 <span data-i18n-page="confirm_sub">Hemos recibido tu reserva. Recibirás la confirmación por email en breve.</span></p>
 
       <div class="confirm-summary" id="confirm-summary-content"></div>
 
@@ -3410,7 +4008,14 @@
     /* ── Estado ──────────────────────────────────────────────────── */
     let currentStep = 1;
     let captchaA, captchaB;
-    const state = { tipoVisita: null, visitMode: null };
+    const state = { tipoVisita: null, visitMode: null, entradas: {}, entAccOpen: { mon: true } };
+
+    // En modo edición, excluye la propia reserva del cálculo de disponibilidad
+    // (así su hora actual no aparece como ocupada al recargar el formulario).
+    function dispoURL(fecha) {
+      return SCRIPT_URL + '?disponibilidad=' + encodeURIComponent(fecha)
+        + (state.editToken ? '&excludeToken=' + encodeURIComponent(state.editToken) : '');
+    }
 
     /* ── Precios ─────────────────────────────────────────────────── */
     const PRECIOS = {
@@ -3471,6 +4076,275 @@
     };
     const TIPOS_GUIADA_INDIVIDUAL = ['Visita Guiada Diurna', 'Visita Guiada VIP', 'Visita Guiada Nocturna Catedral'];
 
+    /* ══ VISITA INDIVIDUAL · lista de entradas ════════════════════════
+       Dos secciones: SIN GUÍA (6 tipos + filas compartidas Menor<12 y
+       Residentes, en gratuidad) y GUIADAS (3 tipos + Menor<12 y Residente
+       con precio reducido —4/5 €— según la guiada elegida). Solo se permite
+       UNA guiada por reserva, por lo que el reducido es inequívoco.
+       Precios = tabla oficial. */
+    const ENT_ROWS = [
+      { id: 'cat', sec: 'sin', kind: 'tipo', tipo: 'Catedral', precio: 7, nameKey: 'ent_cat', infoKey: 'info_cat' },
+      { id: 'torre', sec: 'sin', kind: 'tipo', tipo: 'Torre', precio: 4, nameKey: 'ent_torre', infoKey: 'info_torre' },
+      { id: 'conv', sec: 'sin', kind: 'tipo', tipo: 'Convento San Francisco', precio: 5, nameKey: 'ent_conv', infoKey: 'info_conv' },
+      { id: 'pul', sec: 'sin', kind: 'tipo', tipo: 'Pulsera Turística', precio: 10, nameKey: 'ent_pul', infoKey: 'info_pul' },
+      { id: 'pulper', sec: 'sin', kind: 'tipo', tipo: 'Pulsera Turística Peregrino', precio: 5, nameKey: 'ent_pul_per', infoKey: 'info_pul_per' },
+      { id: 'fam', sec: 'sin', kind: 'tipo', tipo: 'Ticket Familiar', precio: 25, nameKey: 'ent_fam', infoKey: 'info_fam' },
+      { id: 'menorSin', sec: 'sin', kind: 'menor', precio: 0, nameKey: 'ent_menor', infoKey: 'info_menor_sin' },
+      { id: 'resSin', sec: 'sin', kind: 'residente', precio: 0, nameKey: 'ent_res', infoKey: 'info_res_sin' },
+      { id: 'diurna', sec: 'gui', kind: 'tipo', tipo: 'Visita Guiada Diurna', precio: 14, guiada: true, nameKey: 'ent_diurna', infoKey: 'info_diurna' },
+      { id: 'vip', sec: 'gui', kind: 'tipo', tipo: 'Visita Guiada VIP', precio: 15, guiada: true, nameKey: 'ent_vip', infoKey: 'info_vip' },
+      { id: 'noc', sec: 'gui', kind: 'tipo', tipo: 'Visita Guiada Nocturna Catedral', precio: 15, guiada: true, nameKey: 'ent_noc', infoKey: 'info_noc' },
+      { id: 'menorGui', sec: 'gui', kind: 'menor', precio: null, dynamic: true, nameKey: 'ent_menor', infoKey: 'info_red_gui' },
+      { id: 'resGui', sec: 'gui', kind: 'residente', precio: null, dynamic: true, nameKey: 'ent_res', infoKey: 'info_red_gui' },
+    ];
+    const PRECIO_RED_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
+
+    // Cada fila pertenece a un grupo (desplegable); cada grupo a una sección.
+    const ENT_ROW_GRUPO = {
+      cat: 'mon', torre: 'mon', conv: 'mon',
+      pul: 'comb', pulper: 'comb', fam: 'comb',
+      menorSin: 'cond_sin', resSin: 'cond_sin',
+      diurna: 'rec', vip: 'rec', noc: 'rec',
+      menorGui: 'cond_gui', resGui: 'cond_gui',
+    };
+    const ENT_GRUPOS = [
+      { id: 'mon', sec: 'sin', titleKey: 'grp_monumentos' },
+      { id: 'comb', sec: 'sin', titleKey: 'grp_combinados' },
+      { id: 'cond_sin', sec: 'sin', titleKey: 'grp_condiciones' },
+      { id: 'rec', sec: 'gui', titleKey: 'grp_recomendadas' },
+      { id: 'cond_gui', sec: 'gui', titleKey: 'grp_condiciones' },
+    ];
+    const ENT_SECCIONES = [
+      { sec: 'sin', titleKey: 'ent_sec_sin' },
+      { sec: 'gui', titleKey: 'ent_sec_gui', hintKey: 'ent_sec_gui_hint' },
+    ];
+
+    function getQty(id) { return (state.entradas && state.entradas[id]) || 0; }
+    function rowById(id) { return ENT_ROWS.find(r => r.id === id); }
+    function nombreDeTipo(tipo) { const r = ENT_ROWS.find(x => x.tipo === tipo); return r ? (_T(r.nameKey) || tipo) : tipo; }
+    const ENT_SHORT_KEY = { 'Convento San Francisco': 'ent_conv_short', 'Pulsera Turística Peregrino': 'ent_pul_per_short', 'Visita Guiada Diurna': 'ent_diurna_short', 'Visita Guiada VIP': 'ent_vip_short', 'Visita Guiada Nocturna Catedral': 'ent_noc_short' };
+    function nombreCorto(tipo) { return ENT_SHORT_KEY[tipo] ? (_T(ENT_SHORT_KEY[tipo]) || nombreDeTipo(tipo)) : nombreDeTipo(tipo); }
+    const ENT_ABBR_KEY = { 'Visita Guiada Diurna': 'ent_diurna_abbr', 'Visita Guiada VIP': 'ent_vip_abbr', 'Visita Guiada Nocturna Catedral': 'ent_noc_abbr' };
+    function nombreAbbr(tipo) { return ENT_ABBR_KEY[tipo] ? (_T(ENT_ABBR_KEY[tipo]) || nombreCorto(tipo)) : nombreCorto(tipo); }
+    function rowNombre(row) { return _T(row.nameKey) || row.tipo || row.id; }
+    function guiadaSeleccionada() { const r = ENT_ROWS.find(x => x.guiada && getQty(x.id) > 0); return r ? r.tipo : null; }
+    function guiadasSeleccionadasCount() { return ENT_ROWS.filter(x => x.guiada && getQty(x.id) > 0).length; }
+    function haySinGuiaEnCarrito() { return ENT_ROWS.some(r => r.sec === 'sin' && getQty(r.id) > 0); }
+    function precioFila(row) { if (row.dynamic) { const g = guiadaSeleccionada(); return g ? PRECIO_RED_GUIADA[g] : null; } return row.precio; }
+
+    function renderEntradasIndividual() {
+      const cont = document.getElementById('entradasGroups');
+      if (!cont) return;
+      const gui = guiadaSeleccionada();
+      function rowHTML(row) {
+        const qty = getQty(row.id);
+        const nombre = rowNombre(row);
+        const p = precioFila(row);
+        let cls = '', precioLabel;
+        if (row.dynamic && p === null) { cls = ' indef'; precioLabel = ''; }
+        else if (p > 0) { precioLabel = p + ' €'; }
+        else { cls = ' gratis'; precioLabel = _T('ent_gratis'); }
+        const sub = (p || 0) * qty;
+        let incDis = false;
+        if (row.guiada && gui && gui !== row.tipo) incDis = true; // ya hay otra guiada
+        if (row.dynamic && !gui) incDis = true;                   // menor/res guiada sin guiada elegida
+        const info = row.infoKey ? _T(row.infoKey) : '';
+        return `<div class="ent-row${qty > 0 ? ' has-qty' : ''}" data-id="${row.id}">`
+          + `<span class="ent-row__head"><span class="ent-row__label">${esc(nombre)}</span>`
+          + (info ? `<button type="button" class="ent-info" data-info aria-expanded="false" aria-label="${esc(_T('ent_info_aria'))}"><span aria-hidden="true">i</span><span class="ent-tooltip" role="tooltip">${info}</span></button>` : '')
+          + `</span>`
+          + `<span class="ent-row__price${cls}">${precioLabel}</span>`
+          + `<span class="ent-stepper"><button type="button" class="ent-stepper__btn" data-act="dec" aria-label="−"${qty <= 0 ? ' disabled' : ''}>−</button>`
+          + `<input class="ent-stepper__val" type="text" inputmode="numeric" value="${qty}" readonly aria-label="${esc(nombre)}">`
+          + `<button type="button" class="ent-stepper__btn" data-act="inc" aria-label="+"${incDis ? ' disabled' : ''}>+</button></span>`
+          + `<span class="ent-row__sub">${sub > 0 ? sub.toFixed(2).replace('.', ',') + ' €' : '—'}</span>`
+          + `</div>`;
+      }
+      if (!state.entAccOpen) state.entAccOpen = { mon: true };
+      const secActiva = state.visitMode === 'con-guia' ? 'gui' : (state.visitMode === 'sin-guia' ? 'sin' : null);
+      let html = '';
+      ENT_SECCIONES.filter(s => s.sec === secActiva).forEach(seccion => {
+        html += `<div class="ent-sectitle"><span>${_T(seccion.titleKey)}</span>`
+          + (seccion.hintKey ? `<span class="ent-sectitle__hint">${_T(seccion.hintKey)}</span>` : '')
+          + `</div>`;
+        ENT_GRUPOS.filter(g => g.sec === seccion.sec).forEach(grupo => {
+          const rows = ENT_ROWS.filter(r => ENT_ROW_GRUPO[r.id] === grupo.id);
+          const count = rows.reduce((s, r) => s + getQty(r.id), 0);
+          const open = !!state.entAccOpen[grupo.id];
+          html += `<div class="ent-acc${open ? ' is-open' : ''}" data-grupo="${grupo.id}">`
+            + `<button type="button" class="ent-acc__head" data-acc aria-expanded="${open}">`
+            + `<span class="ent-acc__title">${_T(grupo.titleKey)}</span>`
+            + (count > 0 ? `<span class="ent-acc__count">${count}</span>` : '')
+            + `<span class="ent-acc__chev" aria-hidden="true"></span>`
+            + `</button>`
+            + `<div class="ent-acc__body">${rows.map(rowHTML).join('')}</div>`
+            + `</div>`;
+        });
+      });
+      cont.innerHTML = html;
+    }
+
+    function cambiarEnt(id, delta) {
+      if (!state.entradas) state.entradas = {};
+      const row = rowById(id);
+      if (row && row.guiada && delta > 0) { const g = guiadaSeleccionada(); if (g && g !== row.tipo) return; }
+      if (row && row.dynamic && delta > 0 && !guiadaSeleccionada()) return;
+      let q = getQty(id) + delta;
+      if (q < 0) q = 0; if (q > 99) q = 99;
+      if (q === 0) delete state.entradas[id]; else state.entradas[id] = q;
+      onEntradasChange();
+    }
+
+    function calcularTotalEntradas() {
+      let total = 0, personas = 0, menores = 0, residentes = 0;
+      ENT_ROWS.forEach(row => {
+        const q = getQty(row.id); if (!q) return;
+        const p = precioFila(row) || 0;
+        total += q * p; personas += q;
+        if (row.kind === 'menor') menores += q;
+        if (row.kind === 'residente') residentes += q;
+      });
+      return { total, personas, menores, residentes };
+    }
+
+    function onEntradasChange() {
+      if (!guiadaSeleccionada() && state.entradas) { delete state.entradas['menorGui']; delete state.entradas['resGui']; }
+      renderEntradasIndividual();
+      const el = document.getElementById('entradasTotalNum');
+      if (el) el.textContent = calcularTotalEntradas().total.toFixed(2).replace('.', ',');
+      sincronizarCamposIndividual();
+      actualizarAvisosEntradas();
+      reevaluarHoraIndividual();
+    }
+
+    function sincronizarCamposIndividual() {
+      if (state.tipoVisita !== 'individual') return;
+      const r = calcularTotalEntradas();
+      const np = document.getElementById('numPersonas'); if (np) np.value = r.personas > 0 ? r.personas : '';
+      const me = document.getElementById('menoresTreceAnios'); if (me) me.value = r.menores;
+      const re = document.getElementById('residentes'); if (re) re.value = r.residentes;
+    }
+
+    function actualizarAvisosEntradas() {
+      const box = document.getElementById('entradasWarn');
+      if (!box) return;
+      const r = calcularTotalEntradas();
+      const avisos = [];
+      if (getQty('cat') >= 18) avisos.push(_T('warn_grupo_catedral'));
+      if (getQty('pul') >= 13) avisos.push(_T('warn_grupo_pulsera'));
+      if (r.personas >= 25) avisos.push(_T('warn_grupo_total'));
+      if (avisos.length) { box.innerHTML = avisos.map(a => `<p>⚠ ${a}</p>`).join(''); box.style.display = 'block'; }
+      else { box.style.display = 'none'; box.innerHTML = ''; }
+    }
+
+    // Tipo que conduce el horario: individual → la guiada elegida (si la hay); resto → el select
+    function getTipoParaHorario() {
+      if (state.tipoVisita === 'individual') return guiadaSeleccionada() || '';
+      return document.getElementById('tipoEntrada').value;
+    }
+
+    function horasUnionSinGuiaIndividual(fecha) {
+      const dia = DIAS_SEMANA[new Date(fecha + 'T00:00:00').getDay()];
+      const set = new Set();
+      ENT_ROWS.forEach(row => {
+        if (row.sec !== 'sin' || row.kind !== 'tipo' || getQty(row.id) <= 0) return;
+        const cfg = HORARIOS[row.tipo];
+        if (cfg && cfg.horas && cfg.horas[dia]) cfg.horas[dia].forEach(h => set.add(h));
+      });
+      return Array.from(set).sort();
+    }
+
+    function actualizarHorasIndividual(fecha) {
+      const sel = document.getElementById('horaVisita');
+      const grid = document.getElementById('horaGrid');
+      const nG = guiadasSeleccionadasCount();
+      sel.value = '';
+      if (nG > 1) {
+        sel.style.display = 'none';
+        grid.innerHTML = '<p class="hora-grid-msg err">' + _T('err_multi_guiada') + '</p>';
+        return;
+      }
+      if (nG === 1) {
+        sel.style.display = 'none';
+        grid.innerHTML = '<p class="hora-grid-msg">' + _T('hora_consultando') + '</p>';
+        consultarYMostrarDisponibilidad(fecha);
+        return;
+      }
+      grid.innerHTML = '';
+      sel.style.display = '';
+      const horas = horasUnionSinGuiaIndividual(fecha);
+      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      horas.forEach(h => { const o = document.createElement('option'); const pasado = slotEsPasado(h, fecha); o.value = h; o.textContent = pasado ? ('❌ ' + h) : h; if (pasado) o.disabled = true; sel.appendChild(o); });
+      if (!horas.length) sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
+      fetch(dispoURL(fecha)).then(r => r.json()).then(data => {
+        if (!data.ok) return;
+        if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
+        if (data.horasCierre && data.horasCierre.length) sel.querySelectorAll('option').forEach(opt => { if (data.horasCierre.includes(opt.value)) { opt.disabled = true; opt.textContent = '🔒 ' + opt.value; } });
+      }).catch(() => { });
+    }
+
+    function reevaluarHoraIndividual() {
+      if (state.tipoVisita !== 'individual') return;
+      const sig = (guiadaSeleccionada() || '') + '|' + ENT_ROWS.filter(r => r.sec === 'sin' && r.kind === 'tipo' && getQty(r.id) > 0).map(r => r.id).join(',');
+      if (sig === state._horaSig) return;
+      state._horaSig = sig;
+      const sel = document.getElementById('horaVisita'); if (sel) sel.value = '';
+      const fecha = document.getElementById('fechaVisita').value;
+      if (fecha) actualizarHoras();
+      else document.getElementById('horaGrid').innerHTML = '';
+    }
+
+    function _v(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+    function buildSummaryIndividual() {
+      const r = calcularTotalEntradas();
+      const gui = guiadaSeleccionada();
+      const mixta = !!gui && haySinGuiaEnCarrito();
+      let html = `
+        <div class="summary-block">
+          <div class="summary-block__head">${_T('s4_block_personal')}</div>
+          <div class="summary-block__body">
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_nombre')}</span><span class="summary-row__value">${esc(_v('nombre'))}</span></div>
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_email')}</span><span class="summary-row__value">${esc(_v('email'))}</span></div>
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_telefono')}</span><span class="summary-row__value">${esc(_v('telefono'))}</span></div>
+          </div>
+        </div>
+        <div class="summary-block">
+          <div class="summary-block__head">${_T('s4_block_visit')}</div>
+          <div class="summary-block__body">
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_tipo_visita')}</span><span class="summary-row__value">${_T('lbl_tipo_individual')}</span></div>
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_fecha')}</span><span class="summary-row__value">${formatFecha(_v('fechaVisita'))}</span></div>
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_hora')}</span><span class="summary-row__value">${esc(_v('horaVisita') || '—')}</span></div>
+            <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_personas')}</span><span class="summary-row__value">${r.personas}</span></div>
+          </div>
+        </div>`;
+      const com = _v('comentarios').trim();
+      if (com) html += `<div class="summary-block"><div class="summary-block__head">${_T('s4_block_comments')}</div><div class="summary-block__body"><div style="font-size:.9rem;line-height:1.6">${esc(com)}</div></div></div>`;
+      let lineas = '';
+      ENT_ROWS.forEach(row => {
+        const q = getQty(row.id);
+        if (!q) return;
+        const p = precioFila(row) || 0;
+        const sub = q * p;
+        let label;
+        if (row.kind === 'tipo') label = `${nombreCorto(row.tipo)} · ${q} × ${p} €`;
+        else label = p > 0 ? `${rowNombre(row)} · ${q} × ${p} €` : `${rowNombre(row)} · ${q}`;
+        const value = sub > 0 ? sub.toFixed(2).replace('.', ',') + ' €' : _T('ent_gratis');
+        lineas += `<div class="summary-row"><span class="summary-row__label">${esc(label)}</span><span class="summary-row__value">${value}</span></div>`;
+      });
+      html += `<div class="summary-block"><div class="summary-block__head">${_T('s4_block_desglose')}</div><div class="summary-block__body">${lineas}</div></div>`;
+      if (mixta) {
+        const note = (_T('s4_mixed_note') || '').replace('{0}', nombreDeTipo(gui));
+        html += `<div class="summary-block"><div class="summary-block__body"><div class="info-note" style="margin:0"><p>${note}</p></div></div></div>`;
+      }
+      html += `
+        <div class="total-bar">
+          <span class="total-bar__label">${_T('s4_total')}</span>
+          <span class="total-bar__amount">${r.total.toFixed(2).replace('.', ',')} <span>EUR</span></span>
+        </div>
+        <p style="font-size:.78rem;color:var(--stone-d);margin-top:14px;line-height:1.6">${_T('s4_footer_note')}</p>`;
+      return html;
+    }
+
     /* ── Hora Madrid ─────────────────────────────────────────────── */
     function horaActualMadridMin() { const md = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' })); return md.getHours() * 60 + md.getMinutes(); }
     function fechaHoyMadrid() { return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }); }
@@ -3505,11 +4379,20 @@
       document.getElementById('alert-step1').classList.remove('visible');
       const isGrupo = state.tipoVisita === 'grupo';
       const isEscolar = state.tipoVisita === 'escolar';
-      document.getElementById('tarifasIndividual').classList.toggle('visible', state.tipoVisita === 'individual');
+      const isInd = state.tipoVisita === 'individual';
+      document.getElementById('tarifasIndividual').classList.remove('visible'); // sustituida por la lista interactiva
       document.getElementById('tarifasGrupo').classList.toggle('visible', isGrupo);
       document.getElementById('tarifasEscolar').classList.toggle('visible', isEscolar);
+      document.getElementById('modalidadSection').style.display = 'block';
+      ['fieldNumPersonas', 'fieldMenores', 'fieldResidentes'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = isInd ? 'none' : ''; });
       document.getElementById('fieldTramoEdad').style.display = isEscolar ? 'block' : 'none';
       if (!isEscolar) document.getElementById('tramoEdad').value = '';
+      if (isInd) {
+        // La modalidad decide qué desplegables salen; arranca sin modalidad elegida.
+        state.visitMode = null; state._horaSig = null; state.entradas = {}; state.entAccOpen = { mon: true };
+        document.querySelectorAll('input[name="visitMode"]').forEach(r => r.checked = false);
+      }
+      document.getElementById('entradasIndividual').classList.toggle('visible', isInd && !!state.visitMode);
       actualizarDescripcionesModalidad();
       poblarTipoEntrada();
       const sel = document.getElementById('horaVisita');
@@ -3526,6 +4409,17 @@
     function onVisitModeChange() {
       const radio = document.querySelector('input[name="visitMode"]:checked');
       state.visitMode = radio ? radio.value : null;
+      if (state.tipoVisita === 'individual') {
+        state.entradas = {}; state._horaSig = null;
+        state.entAccOpen = state.visitMode === 'con-guia' ? { rec: true } : { mon: true };
+        document.getElementById('entradasIndividual').classList.toggle('visible', !!state.visitMode);
+        const horaSel = document.getElementById('horaVisita');
+        horaSel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+        document.getElementById('horaGrid').innerHTML = '';
+        document.getElementById('fechaHelper').style.display = 'none';
+        onEntradasChange();
+        return;
+      }
       poblarTipoEntrada();
       const sel = document.getElementById('horaVisita');
       sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
@@ -3546,6 +4440,9 @@
       let labelText = 'Tipo de entrada';
 
       if (!tv || !vm) { field.style.display = 'none'; sel.innerHTML = '<option value="" disabled selected>Seleccione tipo</option>'; document.getElementById('notaTipoEntrada').style.display = 'none'; return; }
+
+      // Individual usa los desplegables (no el select de tipo de entrada).
+      if (tv === 'individual') { field.style.display = 'none'; document.getElementById('notaTipoEntrada').style.display = 'none'; return; }
 
       if (tv === 'individual' && vm === 'sin-guia') opts = ENTRADAS_INDIVIDUAL_SIN_GUIA;
       else if (tv === 'individual' && vm === 'con-guia') opts = ENTRADAS_INDIVIDUAL_CON_GUIA;
@@ -3644,7 +4541,7 @@
     }
 
     function validarFechaConTipo() {
-      const tipo = document.getElementById('tipoEntrada').value;
+      const tipo = getTipoParaHorario();
       const fecha = document.getElementById('fechaVisita').value;
       const helper = document.getElementById('fechaHelper');
       const cfg = HORARIOS[tipo];
@@ -3657,6 +4554,7 @@
           return false;
         }
       }
+      if (state.tipoVisita === 'individual') { helper.style.display = 'none'; return true; }
       helper.textContent = '✦ ' + cfg.diasInfo;
       helper.style.color = 'var(--stone-d)'; helper.style.display = 'block';
       return true;
@@ -3672,6 +4570,7 @@
         sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
         grid.innerHTML = ''; return;
       }
+      if (state.tipoVisita === 'individual') { actualizarHorasIndividual(fecha); return; }
       const tipoEntrada = document.getElementById('tipoEntrada').value;
       const esGuiadaInd = state.tipoVisita === 'individual' && TIPOS_GUIADA_INDIVIDUAL.includes(tipoEntrada);
       const esGrupoOEsc = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
@@ -3696,7 +4595,7 @@
         sel.appendChild(opt);
       });
       if (horas.length === 0) sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
-      fetch(SCRIPT_URL + '?disponibilidad=' + fecha)
+      fetch(dispoURL(fecha))
         .then(r => r.json()).then(data => {
           if (!data.ok) return;
           if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
@@ -3708,7 +4607,7 @@
 
     function consultarYMostrarDisponibilidad(fecha) {
       const grid = document.getElementById('horaGrid');
-      fetch(SCRIPT_URL + '?disponibilidad=' + fecha)
+      fetch(dispoURL(fecha))
         .then(r => r.json()).then(data => {
           if (!data.ok) {
             grid.innerHTML = '<p class="hora-grid-msg err">No se pudo comprobar disponibilidad.</p>';
@@ -3716,7 +4615,7 @@
             return;
           }
           if (data.esDiaBloqueado) { grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
-          const tipoEntrada = document.getElementById('tipoEntrada').value;
+          const tipoEntrada = getTipoParaHorario();
           const horasCierre = data.horasCierre || [];
           const horasNoVG = data.horasNoVisitasGuiadas || [];
           if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar')
@@ -3849,6 +4748,7 @@
       return { tarifa: adultos * precioAdulto + menores * precioMenor + residentes * precioResidente, adultos, menores, residentes, precioAdulto, precioMenor, precioResidente };
     }
     function calcularTotal() {
+      if (state.tipoVisita === 'individual') return calcularTotalEntradas().total;
       const d = calcularDesglose();
       const vg = visitaGuiadaSeleccionada();
       if (vg === 'Casco Histórico + Catedral') return d.tarifa + SUPLEMENTO_GUIADA_CASCO;
@@ -3858,6 +4758,11 @@
 
     /* ── i18n helper ─────────────────────────────────────────────── */
     function _T(k) {
+      // PAGE_T se declara en un bloque <script> posterior. Si _T se invoca
+      // durante la carga de ESTE bloque (p. ej. generateCaptcha en el init),
+      // PAGE_T aún no existe; degradar a la clave evita un ReferenceError que
+      // abortaría el resto del script (incluido applyURLPrefill / modo edición).
+      if (typeof PAGE_T === 'undefined') return k;
       const lang = localStorage.getItem('cat-lang') || 'es';
       const pt = PAGE_T[lang] || PAGE_T.es;
       return (pt[k] !== undefined) ? pt[k] : (PAGE_T.es[k] || k);
@@ -3898,6 +4803,7 @@
       return '—';
     }
     function buildSummary() {
+      if (state.tipoVisita === 'individual') return buildSummaryIndividual();
       const d = calcularDesglose();
       const total = calcularTotal();
       const vg = visitaGuiadaSeleccionada();
@@ -4009,6 +4915,18 @@
         const alertEl = document.getElementById('alert-step2');
         alertEl.classList.remove('visible');
         let ok = true;
+        if (state.tipoVisita === 'individual') {
+          if (!state.visitMode) { alertEl.textContent = 'Selecciona la modalidad (sin guía o con guía).'; alertEl.classList.add('visible'); return false; }
+          const r = calcularTotalEntradas();
+          if (r.personas <= 0) { alertEl.textContent = _T('err_no_entradas'); alertEl.classList.add('visible'); return false; }
+          if (guiadasSeleccionadasCount() > 1) { alertEl.textContent = _T('err_multi_guiada'); alertEl.classList.add('visible'); return false; }
+          const fechaI = document.getElementById('fechaVisita').value;
+          if (!fechaI) { setError('fechaVisita', 'err-fechaVisita', true); ok = false; } else setError('fechaVisita', 'err-fechaVisita', false);
+          const horaI = document.getElementById('horaVisita').value;
+          if (!horaI) { setError('horaVisita', 'err-horaVisita', true); ok = false; } else setError('horaVisita', 'err-horaVisita', false);
+          if (!ok) { alertEl.textContent = 'Revisa los campos marcados en rojo.'; alertEl.classList.add('visible'); }
+          return ok;
+        }
         if (!state.visitMode) { alertEl.textContent = 'Selecciona la modalidad (sin guía o con guía).'; alertEl.classList.add('visible'); return false; }
         const tv = state.tipoVisita;
         const vm = state.visitMode;
@@ -4084,7 +5002,7 @@
       captchaB = Math.floor(Math.random() * 10) + 1;
       const q = document.getElementById('captcha-question');
       const a = document.getElementById('captcha-answer');
-      if (q) q.textContent = _T('s5_captcha_q').replace('{0}', captchaA).replace('{1}', captchaB);
+      if (q) q.innerHTML = _T('s5_captcha_q').replace('{0}', captchaA).replace('{1}', captchaB);
       if (a) a.value = '';
     }
 
@@ -4126,16 +5044,40 @@
       let visitaGuiadaPayload = 'No';
       let tipoEntradaPayload = '—';
       let monumentos;
+      let entradasPayload = [];
+      let desgloseEntradasPayload = '';
+      let mixtaGuiadaPayload = '';
       if (isGE) {
         tipoEntradaPayload = '—';
         visitaGuiadaPayload = (state.visitMode === 'con-guia') ? (tipoEntradaSel || 'No') : 'No';
         monumentos = 'Pulsera turística (4 monumentos)';
       } else {
-        tipoEntradaPayload = tipoEntradaSel || '';
+        // Visita individual: carrito de varias entradas (2 secciones)
+        const lineasTxt = [];
+        const tiposSet = [];
+        const gSel = guiadaSeleccionada();
+        ENT_ROWS.forEach(row => {
+          const q = getQty(row.id);
+          if (!q) return;
+          const p = precioFila(row) || 0;
+          let etiqueta;
+          if (row.kind === 'tipo') etiqueta = row.tipo;
+          else {
+            const base = row.kind === 'menor' ? 'Menor <12' : 'Residentes';
+            etiqueta = base + (row.sec === 'gui' ? ' (' + (gSel || '') + ')' : ' (sin guía)');
+          }
+          entradasPayload.push({ seccion: row.sec, tipo: row.tipo || etiqueta, tier: row.kind, cantidad: q, precioUnit: p, subtotal: q * p });
+          lineasTxt.push(`${etiqueta}: ${p > 0 ? q + ' × ' + p + ' € = ' + (q * p) + ' €' : q + ' · Gratuito'}`);
+          if (row.kind === 'tipo' && tiposSet.indexOf(row.tipo) === -1) tiposSet.push(row.tipo);
+        });
+        desgloseEntradasPayload = lineasTxt.join('\n');
+        tipoEntradaPayload = entradasPayload.map(e => `${e.tipo} ×${e.cantidad}`).join(', ');
+        monumentos = tiposSet.join(', ');
         visitaGuiadaPayload = 'No';
-        monumentos = tipoEntradaSel || '';
+        if (gSel && haySinGuiaEnCarrito()) mixtaGuiadaPayload = gSel;
       }
       const necesitaFacturaChecked = isGE && document.getElementById('necesitaFactura').checked;
+      const totalReserva = calcularTotal();
 
       const payload = {
         bookingId,
@@ -4159,7 +5101,14 @@
         cp: necesitaFacturaChecked ? document.getElementById('cpFact').value : '',
         necesitaFactura: necesitaFacturaChecked ? 'Sí' : 'No',
         comentarios: document.getElementById('comentarios').value,
+        entradas: entradasPayload,
+        desgloseEntradas: desgloseEntradasPayload,
+        mixtaGuiada: mixtaGuiadaPayload,
+        totalCliente: totalReserva,
       };
+      // Modo edición: el token enruta el POST a _editarReserva en el backend,
+      // que ACTUALIZA la fila existente en vez de crear una reserva nueva.
+      if (state.editToken) payload.token = state.editToken;
       try {
         await fetch(SCRIPT_URL, {
           method: 'POST', mode: 'no-cors',
@@ -4170,7 +5119,7 @@
       } catch (err) {
         console.error(err);
         alert('Ha ocurrido un error al enviar la solicitud. Por favor, inténtelo de nuevo.');
-        btn.disabled = false; btn.textContent = 'Enviar solicitud →';
+        btn.disabled = false; btn.textContent = state.editToken ? 'Guardar cambios →' : 'Enviar solicitud →';
       }
     }
     function showConfirmation(bookingId) {
@@ -4181,17 +5130,12 @@
         const el = document.getElementById('si-' + i);
         if (el) { el.classList.remove('active'); el.classList.add('done'); }
       }
-      document.getElementById('booking-id-display').textContent = bookingId;
-      document.getElementById('confirm-email-display').textContent = document.getElementById('email').value;
-      const qrContainer = document.getElementById('qrcode-container');
-      qrContainer.innerHTML = '';
-      const total = calcularTotal();
-      new QRCode(qrContainer, {
-        text: `CAT:${bookingId}|${document.getElementById('email').value}|${total.toFixed(2)}EUR`,
-        width: 180, height: 180,
-        colorDark: '#1A1A1A', colorLight: '#FDFAF4',
-        correctLevel: QRCode.CorrectLevel.H,
-      });
+      if (state.editToken) {
+        const t = document.querySelector('#step-confirm .confirm-title');
+        const s = document.querySelector('#step-confirm .confirm-note span');
+        if (t) { t.removeAttribute('data-i18n-page'); t.textContent = '¡Cambios enviados!'; }
+        if (s) { s.removeAttribute('data-i18n-page'); s.textContent = 'Hemos recibido los cambios de tu reserva. El equipo los revisará y recibirás la confirmación por email.'; }
+      }
       document.getElementById('confirm-summary-content').innerHTML = buildSummary();
     }
 
@@ -4220,6 +5164,15 @@
       document.querySelectorAll('.alert--error').forEach(a => a.classList.remove('visible'));
       state.tipoVisita = null;
       state.visitMode = null;
+      state.entradas = {};
+      state._horaSig = null;
+      state.entAccOpen = { mon: true };
+      const ew = document.getElementById('entradasWarn'); if (ew) { ew.style.display = 'none'; ew.innerHTML = ''; }
+      const etn = document.getElementById('entradasTotalNum'); if (etn) etn.textContent = '0,00';
+      document.getElementById('entradasIndividual')?.classList.remove('visible');
+      ['fieldNumPersonas', 'fieldMenores', 'fieldResidentes'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = ''; });
+      const ms = document.getElementById('modalidadSection'); if (ms) ms.style.display = 'block';
+      renderEntradasIndividual();
       currentStep = 1;
       document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('step-1').classList.add('active');
@@ -4279,6 +5232,37 @@
     document.getElementById('residentes').addEventListener('input', updatePersonasHelper);
     document.getElementById('fechaVisita').addEventListener('change', actualizarHoras);
     document.getElementById('necesitaFactura').addEventListener('change', onFacturaToggle);
+    const _entGroups = document.getElementById('entradasGroups');
+    if (_entGroups) _entGroups.addEventListener('click', e => {
+      const stepBtn = e.target.closest('[data-act]');
+      if (stepBtn) {
+        const row = stepBtn.closest('.ent-row'); if (!row) return;
+        cambiarEnt(row.getAttribute('data-id'), stepBtn.getAttribute('data-act') === 'inc' ? 1 : -1);
+        return;
+      }
+      const info = e.target.closest('[data-info]');
+      if (info) {
+        const open = info.classList.contains('is-open');
+        document.querySelectorAll('.ent-info.is-open').forEach(b => { b.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); });
+        if (!open) { info.classList.add('is-open'); info.setAttribute('aria-expanded', 'true'); }
+        return;
+      }
+      const acc = e.target.closest('[data-acc]');
+      if (acc) {
+        const card = acc.closest('.ent-acc'); if (!card) return;
+        const gid = card.getAttribute('data-grupo');
+        const willOpen = !(state.entAccOpen && state.entAccOpen[gid]);
+        state.entAccOpen = willOpen ? { [gid]: true } : {}; // acordeón único: solo uno abierto a la vez
+        document.querySelectorAll('#entradasGroups .ent-acc').forEach(c => {
+          const op = !!state.entAccOpen[c.getAttribute('data-grupo')];
+          c.classList.toggle('is-open', op);
+          const h = c.querySelector('.ent-acc__head'); if (h) h.setAttribute('aria-expanded', String(op));
+        });
+      }
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.ent-info')) document.querySelectorAll('.ent-info.is-open').forEach(b => { b.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); });
+    });
     ['nombre', 'telefono', 'email'].forEach(id => document.getElementById(id).addEventListener('blur', () => validateStep(3)));
 
     /* ── Formateo automático de campos ──────────────────────────── */
@@ -4361,6 +5345,145 @@
           actualizarHoras();
         }
       }
+    })();
+
+    /* ── Modo edición (desde el correo de confirmación: ?editar=<token>) ──
+       Rellena el wizard con la reserva existente y la marca para que el
+       envío ACTUALICE esa reserva (no cree una nueva). El backend ya expone
+       ?datos=<token> (lectura) y enruta el POST con token a _editarReserva. */
+    (function applyEditMode() {
+      const token = new URLSearchParams(location.search).get('editar');
+      if (!token) return;
+
+      // Marcar modo edición de inmediato: aunque el prefill fallase, el envío
+      // iría por la vía de edición (token) y no duplicaría la reserva.
+      state.editToken = token;
+
+      const wrap = document.getElementById('main-content');
+      let banner = null;
+      if (wrap) {
+        banner = document.createElement('div');
+        banner.id = 'edit-banner';
+        banner.style.cssText = 'margin:0 0 22px;padding:14px 18px;border:1px solid rgba(201,168,76,.45);border-left:3px solid #C9A84C;border-radius:6px;background:rgba(201,168,76,.08);font-size:.92rem;line-height:1.5';
+        banner.textContent = 'Cargando los datos de tu reserva…';
+        wrap.insertBefore(banner, wrap.firstChild);
+      }
+      const submitBtn = document.getElementById('btn-submit');
+      // Quitar el binding i18n: si no, PAGE_applyLang (que corre después)
+      // restauraría "Enviar solicitud →" al recargar el idioma.
+      if (submitBtn) { submitBtn.removeAttribute('data-i18n-page'); submitBtn.textContent = 'Guardar cambios →'; }
+
+      function tipoVisitaARadio(label) {
+        const s = String(label || '').trim().toLowerCase();
+        if (/escolar|school|scol|schul|eskola|학교/.test(s)) return 'escolar';
+        if (/grupo|group|gruppe|gruppo|talde|grup|단체/.test(s)) return 'grupo';
+        return 'individual';
+      }
+
+      // Reconstruye state.entradas (visita individual) desde el resumen guardado
+      // "Catedral ×1, Pulsera Turística ×2, Menor <12 (sin guía) ×1, …".
+      function rebuildCarrito(resumen) {
+        state.entradas = {};
+        let hayGuiada = false;
+        String(resumen || '').split(',').forEach(part => {
+          const m = part.trim().match(/^(.*?)\s*[×x]\s*(\d+)$/i);
+          if (!m) return;
+          const name = m[1].trim();
+          const qty = parseInt(m[2], 10) || 0;
+          if (qty <= 0) return;
+          const rowTipo = ENT_ROWS.find(r => r.kind === 'tipo' && r.tipo === name);
+          if (rowTipo) { state.entradas[rowTipo.id] = qty; if (rowTipo.sec === 'gui') hayGuiada = true; return; }
+          const esSin = /sin gu/i.test(name);
+          if (/menor/i.test(name)) { state.entradas[esSin ? 'menorSin' : 'menorGui'] = qty; if (!esSin) hayGuiada = true; }
+          else if (/residen/i.test(name)) { state.entradas[esSin ? 'resSin' : 'resGui'] = qty; if (!esSin) hayGuiada = true; }
+        });
+        return hayGuiada ? 'con-guia' : 'sin-guia';
+      }
+
+      function setRadio(name, value) {
+        const r = document.querySelector(`input[name="${name}"][value="${value}"]`);
+        if (r) r.checked = true;
+        return r;
+      }
+      function setVal(id, value) {
+        const el = document.getElementById(id);
+        if (el && value != null && value !== '' && value !== '—') el.value = value;
+      }
+
+      // La hora se elige con <select> (individual sin guía) o con rejilla de
+      // botones (grupo/escolar/guiada), que se rellena tras un fetch async →
+      // reintentamos unos segundos hasta encontrar la opción/botón.
+      function prefillHora(hora, intentos) {
+        if (!hora) return;
+        intentos = intentos || 0;
+        const sel = document.getElementById('horaVisita');
+        if (sel && sel.style.display !== 'none') {
+          const opt = [...sel.options].find(o => o.value === hora && !o.disabled);
+          if (opt) { sel.value = hora; return; }
+        }
+        const btn = [...document.querySelectorAll('#horaGrid button')].find(b => b.textContent.trim() === hora);
+        if (btn && !btn.disabled) { btn.click(); return; }
+        if (intentos < 50) setTimeout(() => prefillHora(hora, intentos + 1), 100);
+      }
+
+      function prefill(d) {
+        const tipo = tipoVisitaARadio(d.tipoVisita);
+        setRadio('tipoVisita', tipo);
+        applyTipoVisita(tipo);
+
+        if (tipo === 'individual') {
+          const modo = rebuildCarrito(d.tipoEntrada);
+          const cart = Object.assign({}, state.entradas);
+          setRadio('visitMode', modo);
+          onVisitModeChange();      // resetea state.entradas
+          state.entradas = cart;    // restaura el carrito reconstruido
+          onEntradasChange();       // re-render + sincroniza nº personas/menores/residentes
+        } else {
+          const guiada = (d.visitaGuiada === 'Sí' || d.visitaGuiada === 'Casco Histórico + Catedral');
+          setRadio('visitMode', guiada ? 'con-guia' : 'sin-guia');
+          onVisitModeChange();
+          if (tipo === 'escolar') setVal('tramoEdad', d.tipoEntrada);
+          if (guiada) { setVal('tipoEntrada', d.visitaGuiada); onTipoEntradaChange(); }
+          setVal('numPersonas', d.numPersonas);
+          setVal('menoresTreceAnios', d.menores);
+          updatePersonasHelper();
+          if (d.necesitaFactura === 'Sí') {
+            const chk = document.getElementById('necesitaFactura');
+            if (chk) { chk.checked = true; onFacturaToggle(); }
+            setVal('nombreCentro', d.nombreCentro);
+            setVal('nifCif', d.nifCif);
+            setVal('calleNumero', d.calleNumero);
+            setVal('ciudadFact', d.ciudad);
+            setVal('cpFact', d.cp);
+          }
+        }
+
+        setVal('nombre', d.nombre);
+        setVal('email', d.email);
+        setVal('telefono', d.telefono);
+        const coms = document.getElementById('comentarios');
+        if (coms && d.comentarios != null) coms.value = d.comentarios;
+
+        if (d.fechaVisita) {
+          const fi = document.getElementById('fechaVisita');
+          if (fi) { fi.value = d.fechaVisita; actualizarHoras(); prefillHora(d.horaVisita); }
+        }
+
+        if (banner) banner.innerHTML = '✎ <strong>Estás editando tu reserva.</strong> Modifica lo que necesites y pulsa «Guardar cambios». El equipo revisará los cambios y recibirás la confirmación por email.';
+      }
+
+      fetch(SCRIPT_URL + '?datos=' + encodeURIComponent(token))
+        .then(r => r.json())
+        .then(d => {
+          if (!d || !d.ok) {
+            if (banner) banner.textContent = 'No hemos podido cargar los datos de tu reserva (el enlace puede haber caducado). Revisa los datos manualmente antes de guardar.';
+            return;
+          }
+          prefill(d);
+        })
+        .catch(() => {
+          if (banner) banner.textContent = 'No hemos podido conectar para cargar tu reserva. Revisa tu conexión e inténtalo de nuevo.';
+        });
     })();
   </script>
   <!-- COOKIE BANNER + MODAL -->
@@ -4455,6 +5578,7 @@
         s1_card1_title: 'Visita individual',
         s1_card1_desc: 'Familias, turistas, peregrinos y visitas personales.',
         s1_card2_title: 'Visita en grupo',
+        s1_card1_short: 'Individual', s1_card2_short: 'Grupos', s1_card3_short: 'Escolares',
         s1_card2_desc: 'Grupos organizados, asociaciones e instituciones.',
         s1_card3_title: 'Grupos escolares',
         s1_card3_desc: 'Visitas educativas para centros escolares.',
@@ -4571,11 +5695,81 @@
         s4_fam_ticket_fixed: 'Ticket Familiar (precio fijo)',
         s4_supp_guiada: 'Suplemento visita guiada', s4_supp_casco: 'Suplemento guiada Casco + Catedral',
         s4_block_desglose: 'Desglose', s4_total: 'Total estimado',
-        s4_footer_note: 'El pago se realizará en taquilla o por transferencia tras recibir la confirmación por email. Las tarifas gratuitas para residentes y menores se acreditarán en taquilla.',
-        s5_captcha_q: '¿Cuánto es {0} + {1}?',
+        s4_footer_note: 'El pago se realizará en taquillas el día de su visita. Acreditar condiciones especiales.',
+        s2_ent_title: 'Selecciona tus entradas',
+        s2_ent_sub: 'Elige la cantidad de cada tipo. Puedes combinar varias en una misma reserva.',
+        s2_ent_total: 'Total',
+        ent_info_aria: 'Más información',
+        ent_cat: 'Catedral', ent_torre: 'Torre', ent_conv: 'Convento San Francisco',
+        ent_pul: 'Pulsera Turística', ent_pul_per: 'Pulsera Turística Peregrino', ent_fam: 'Ticket Familiar',
+        ent_diurna: 'Visita Guiada Diurna', ent_vip: 'Visita Guiada VIP', ent_noc: 'Visita Guiada Nocturna',
+        ent_diurna_short: 'VG Diurna', ent_vip_short: 'VG VIP', ent_noc_short: 'VG Nocturna',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Pulsera Peregrino',
+        ent_diurna_abbr: 'VGD', ent_vip_abbr: 'VGVIP', ent_noc_abbr: 'VGN',
+        ent_tier_adulto: 'Adulto', ent_tier_menor: 'Menor <12', ent_tier_residente: 'Residente', ent_tier_bono: 'Bono familiar',
+        ent_gratis: 'Gratuidad',
+        info_cat: 'Entrada de visita sin guía al monumento.',
+        info_torre: 'Entrada de visita sin guía al monumento.',
+        info_conv: 'Entrada de visita sin guía al monumento.',
+        info_pul: 'Acceso sin guía a los 4 monumentos.',
+        info_pul_per: 'Acceso sin guía a los 4 monumentos. Acreditar con credencial oficial del Camino en taquillas (mín. 4 etapas).',
+        info_fam: 'Incluye pulsera turística. Únicamente padres e hijos menores de 21 años.',
+        info_diurna: 'Incluye pulsera turística. Sujeto a disponibilidad.',
+        info_vip: 'Incluye pulsera turística. Aforo máximo 15 personas. Sujeto a disponibilidad.',
+        info_noc: 'Incluye pulsera turística. Sólo Viernes y Sábados a las 20:45 h. Sujeto a disponibilidad.',
+        info_menor_sin: 'Menores de 12 años: entrada gratuita a nuestros monumentos. Acreditar en taquillas.',
+        info_res_sin: 'Residentes en Santo Domingo de la Calzada. Acreditar en taquillas.',
+        info_red_gui: 'Debe adquirir el ticket reducido de la visita guiada.',
+        hora_consultando: 'Consultando disponibilidad…',
+        err_no_entradas: 'Selecciona al menos una entrada para continuar.',
+        err_multi_guiada: 'Solo se puede incluir una visita guiada por reserva (tienen horarios distintos). Para otra visita guiada, realiza una reserva aparte.',
+        warn_grupo_catedral: 'Con 18 o más entradas de Catedral conviene reservar como Visita en Grupo (tarifa de grupo desde 125 €).',
+        warn_grupo_pulsera: 'Con 13 o más Pulseras Turísticas conviene reservar como Visita en Grupo (tarifa de grupo desde 125 €).',
+        warn_grupo_total: 'Para 25 o más personas, realiza la reserva como Visita en Grupo.',
+        s4_mixed_note: 'La reserva queda registrada en el horario de la visita guiada seleccionada. Las personas con visita sin guía podrán visitar los monumentos en sus horarios normales.',
+        ent_sec_sin: 'Visitas sin guía', ent_sec_gui: 'Visitas guiadas',
+        ent_sec_gui_hint: 'Sólo un tipo de visita guiada por reserva',
+        grp_monumentos: 'Monumentos principales', grp_combinados: 'Entradas conjuntas', grp_condiciones: 'Condiciones especiales', grp_recomendadas: 'Visitas recomendadas',
+        ent_menor: 'Menor <12', ent_res: 'Residentes',
+        ent_gui_segun: 'según visita guiada', ent_sin_corto: 'sin guía',
+        ent_tarifa_pre: 'Tarifa:', ent_por_persona: '/ persona', ent_por_bono: '/ bono',
+        s5_captcha_q: '¿Cuánto es<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: 'He leído y acepto los términos y condiciones de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de entradas</a>, así como la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.'
       },
       en: {
+        s2_ent_title: 'Select your tickets',
+        s2_ent_sub: 'Choose the quantity of each type. You can combine several in one booking.',
+        s2_ent_total: 'Total',
+        ent_info_aria: 'More information',
+        ent_cat: 'Cathedral', ent_torre: 'Tower', ent_conv: 'San Francisco Convent',
+        ent_pul: 'Tourist Bracelet', ent_pul_per: 'Pilgrim Bracelet', ent_fam: 'Family Ticket',
+        ent_diurna: 'Daytime Guided Tour', ent_vip: 'VIP Guided Tour', ent_noc: 'Night-time Guided Tour',
+        ent_diurna_short: 'Daytime Tour', ent_vip_short: 'VIP Tour', ent_noc_short: 'Night Tour',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Pilgrim Bracelet',
+        ent_diurna_abbr: 'DT', ent_vip_abbr: 'VIP', ent_noc_abbr: 'NT',
+        ent_gratis: 'Free', ent_sec_sin: 'Visits without guide', ent_sec_gui: 'Guided visits',
+        ent_sec_gui_hint: 'Only one type of guided visit per booking',
+        grp_monumentos: 'Main monuments', grp_combinados: 'Combined tickets', grp_condiciones: 'Special conditions', grp_recomendadas: 'Recommended visits',
+        ent_menor: 'Under 12', ent_res: 'Residents', ent_gui_segun: 'depends on guided visit', ent_sin_corto: 'no guide',
+        info_cat: 'Self-guided visit ticket to the monument.',
+        info_torre: 'Self-guided visit ticket to the monument.',
+        info_conv: 'Self-guided visit ticket to the monument.',
+        info_pul: 'Self-guided access to the 4 monuments.',
+        info_pul_per: 'Self-guided access to the 4 monuments. Show your official Camino credential at the ticket office (min. 4 stages).',
+        info_fam: 'Includes tourist bracelet. Parents and children under 21 only.',
+        info_diurna: 'Includes tourist bracelet. Subject to availability.',
+        info_vip: 'Includes tourist bracelet. Maximum 15 people. Subject to availability.',
+        info_noc: 'Includes tourist bracelet. Fridays and Saturdays only at 20:45. Subject to availability.',
+        info_menor_sin: 'Children under 12: free entry to our monuments. To be verified at the ticket office.',
+        info_res_sin: 'Residents of Santo Domingo de la Calzada. To be verified at the ticket office.',
+        info_red_gui: 'You must purchase the reduced ticket for the guided visit.',
+        hora_consultando: 'Checking availability…',
+        err_no_entradas: 'Select at least one ticket to continue.',
+        err_multi_guiada: 'Only one guided visit is allowed per booking (they have different schedules). For another guided visit, make a separate booking.',
+        warn_grupo_catedral: 'With 18 or more Cathedral tickets, it is better to book as a Group Visit (group rate from €125).',
+        warn_grupo_pulsera: 'With 13 or more Tourist Bracelets, it is better to book as a Group Visit (group rate from €125).',
+        warn_grupo_total: 'For 25 or more people, please book as a Group Visit.',
+        s4_mixed_note: 'The booking is registered at the time of the selected guided visit. Visitors with self-guided tickets may visit the monuments during normal opening hours.',
         step_type: 'Type',
         step_visit: 'Visit',
         step_data: 'Details',
@@ -4586,6 +5780,7 @@
         s1_card1_title: 'Individual visit',
         s1_card1_desc: 'Families, tourists, pilgrims and personal visits.',
         s1_card2_title: 'Group visit',
+        s1_card1_short: 'Individual', s1_card2_short: 'Groups', s1_card3_short: 'Schools',
         s1_card2_desc: 'Organised groups, associations and institutions.',
         s1_card3_title: 'School groups',
         s1_card3_desc: 'Educational visits for schools.',
@@ -4702,11 +5897,44 @@
         s4_fam_ticket_fixed: 'Family Ticket (fixed price)',
         s4_supp_guiada: 'Guided tour supplement', s4_supp_casco: 'Old Town + Cathedral guided supplement',
         s4_block_desglose: 'Breakdown', s4_total: 'Estimated total',
-        s4_footer_note: 'Payment will be made at the ticket office or by bank transfer after receiving the confirmation by email. Free rates for residents and under 12 must be proved at the ticket office.',
-        s5_captcha_q: 'How much is {0} + {1}?',
+        s4_footer_note: 'Payment will be made at the ticket office on the day of your visit. Special conditions must be accredited.',
+        s5_captcha_q: 'How much is<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: 'I have read and accept the terms and conditions of <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">ticket purchase</a>, as well as the <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">privacy policy</a>.'
       },
       fr: {
+        s2_ent_title: 'Sélectionnez vos billets',
+        s2_ent_sub: 'Choisissez la quantité de chaque type. Vous pouvez en combiner plusieurs dans une même réservation.',
+        s2_ent_total: 'Total',
+        ent_info_aria: 'Plus d’informations',
+        ent_cat: 'Cathédrale', ent_torre: 'Tour', ent_conv: 'Couvent San Francisco',
+        ent_pul: 'Bracelet Touristique', ent_pul_per: 'Bracelet Pèlerin', ent_fam: 'Billet Famille',
+        ent_diurna: 'Visite Guidée Diurne', ent_vip: 'Visite Guidée VIP', ent_noc: 'Visite Guidée Nocturne',
+        ent_diurna_short: 'VG Diurne', ent_vip_short: 'VG VIP', ent_noc_short: 'VG Nocturne',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Bracelet Pèlerin',
+        ent_diurna_abbr: 'VGD', ent_vip_abbr: 'VGVIP', ent_noc_abbr: 'VGN',
+        ent_gratis: 'Gratuit', ent_sec_sin: 'Visites sans guide', ent_sec_gui: 'Visites guidées',
+        ent_sec_gui_hint: 'Un seul type de visite guidée par réservation',
+        grp_monumentos: 'Monuments principaux', grp_combinados: 'Billets combinés', grp_condiciones: 'Conditions spéciales', grp_recomendadas: 'Visites recommandées',
+        ent_menor: 'Moins de 12 ans', ent_res: 'Résidents', ent_gui_segun: 'selon la visite guidée', ent_sin_corto: 'sans guide',
+        info_cat: 'Billet de visite libre du monument.',
+        info_torre: 'Billet de visite libre du monument.',
+        info_conv: 'Billet de visite libre du monument.',
+        info_pul: 'Accès libre aux 4 monuments.',
+        info_pul_per: 'Accès libre aux 4 monuments. Présentez votre crédential officielle du Chemin à la billetterie (min. 4 étapes).',
+        info_fam: 'Inclut le bracelet touristique. Uniquement parents et enfants de moins de 21 ans.',
+        info_diurna: 'Inclut le bracelet touristique. Sous réserve de disponibilité.',
+        info_vip: 'Inclut le bracelet touristique. Maximum 15 personnes. Sous réserve de disponibilité.',
+        info_noc: 'Inclut le bracelet touristique. Uniquement vendredis et samedis à 20h45. Sous réserve de disponibilité.',
+        info_menor_sin: 'Enfants de moins de 12 ans : entrée gratuite à nos monuments. À justifier à la billetterie.',
+        info_res_sin: 'Résidents de Santo Domingo de la Calzada. À justifier à la billetterie.',
+        info_red_gui: 'Vous devez acheter le billet réduit de la visite guidée.',
+        hora_consultando: 'Vérification de la disponibilité…',
+        err_no_entradas: 'Sélectionnez au moins un billet pour continuer.',
+        err_multi_guiada: 'Une seule visite guidée par réservation (elles ont des horaires différents). Pour une autre visite guidée, faites une réservation séparée.',
+        warn_grupo_catedral: 'À partir de 18 billets Cathédrale, il est préférable de réserver en Visite de Groupe (tarif de groupe à partir de 125 €).',
+        warn_grupo_pulsera: 'À partir de 13 Bracelets Touristiques, il est préférable de réserver en Visite de Groupe (tarif de groupe à partir de 125 €).',
+        warn_grupo_total: 'Pour 25 personnes ou plus, réservez en Visite de Groupe.',
+        s4_mixed_note: 'La réservation est enregistrée à l’heure de la visite guidée sélectionnée. Les personnes avec un billet sans guide peuvent visiter les monuments aux heures habituelles.',
         step_type: 'Type',
         step_visit: 'Visite',
         step_data: 'Données',
@@ -4717,6 +5945,7 @@
         s1_card1_title: 'Visite individuelle',
         s1_card1_desc: 'Familles, touristes, pèlerins et visites personnelles.',
         s1_card2_title: 'Visite en groupe',
+        s1_card1_short: 'Individuel', s1_card2_short: 'Groupes', s1_card3_short: 'Scolaires',
         s1_card2_desc: 'Groupes organisés, associations et institutions.',
         s1_card3_title: 'Groupes scolaires',
         s1_card3_desc: 'Visites éducatives pour établissements scolaires.',
@@ -4833,11 +6062,44 @@
         s4_fam_ticket_fixed: 'Billet Famille (prix fixe)',
         s4_supp_guiada: 'Supplément visite guidée', s4_supp_casco: 'Supplément guidée Centre + Cathédrale',
         s4_block_desglose: 'Détail', s4_total: 'Total estimé',
-        s4_footer_note: 'Le paiement se fait au guichet ou par virement après réception de la confirmation par e-mail. Les tarifs gratuits pour résidents et moins de 12 ans devront être justifiés au guichet.',
-        s5_captcha_q: 'Combien font {0} + {1} ?',
+        s4_footer_note: 'Le paiement s’effectuera à la billetterie le jour de votre visite. Les conditions spéciales doivent être justifiées.',
+        s5_captcha_q: 'Combien font<span class="captcha-op">{0} + {1} ?</span>',
         s5_accept: 'J\'ai lu et j\'accepte les conditions générales d\'<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">achat de billets</a>, ainsi que la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">politique de confidentialité</a>.'
       },
       de: {
+        s2_ent_title: 'Wählen Sie Ihre Tickets',
+        s2_ent_sub: 'Wählen Sie die Menge jedes Typs. Sie können mehrere in einer Buchung kombinieren.',
+        s2_ent_total: 'Gesamt',
+        ent_info_aria: 'Mehr Informationen',
+        ent_cat: 'Kathedrale', ent_torre: 'Turm', ent_conv: 'Kloster San Francisco',
+        ent_pul: 'Touristen-Armband', ent_pul_per: 'Pilger-Armband', ent_fam: 'Familienticket',
+        ent_diurna: 'Tagesführung', ent_vip: 'VIP-Führung', ent_noc: 'Nachtführung',
+        ent_diurna_short: 'Tagesführung', ent_vip_short: 'VIP-Führung', ent_noc_short: 'Nachtführung',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Pilger-Armband',
+        ent_diurna_abbr: 'TF', ent_vip_abbr: 'VIP', ent_noc_abbr: 'NF',
+        ent_gratis: 'Kostenlos', ent_sec_sin: 'Besuche ohne Führung', ent_sec_gui: 'Führungen',
+        ent_sec_gui_hint: 'Nur eine Art Führung pro Buchung',
+        grp_monumentos: 'Hauptmonumente', grp_combinados: 'Kombi-Tickets', grp_condiciones: 'Sonderkonditionen', grp_recomendadas: 'Empfohlene Führungen',
+        ent_menor: 'Unter 12', ent_res: 'Anwohner', ent_gui_segun: 'je nach Führung', ent_sin_corto: 'ohne Führung',
+        info_cat: 'Ticket für den Besuch des Monuments ohne Führung.',
+        info_torre: 'Ticket für den Besuch des Monuments ohne Führung.',
+        info_conv: 'Ticket für den Besuch des Monuments ohne Führung.',
+        info_pul: 'Zugang ohne Führung zu den 4 Monumenten.',
+        info_pul_per: 'Zugang ohne Führung zu den 4 Monumenten. Mit offiziellem Pilgerausweis an der Kasse nachweisen (mind. 4 Etappen).',
+        info_fam: 'Inklusive Touristen-Armband. Nur Eltern und Kinder unter 21 Jahren.',
+        info_diurna: 'Inklusive Touristen-Armband. Nach Verfügbarkeit.',
+        info_vip: 'Inklusive Touristen-Armband. Maximal 15 Personen. Nach Verfügbarkeit.',
+        info_noc: 'Inklusive Touristen-Armband. Nur Freitags und Samstags um 20:45 Uhr. Nach Verfügbarkeit.',
+        info_menor_sin: 'Kinder unter 12 Jahren: freier Eintritt zu unseren Monumenten. An der Kasse nachzuweisen.',
+        info_res_sin: 'Anwohner von Santo Domingo de la Calzada. An der Kasse nachzuweisen.',
+        info_red_gui: 'Sie müssen das ermäßigte Ticket der Führung erwerben.',
+        hora_consultando: 'Verfügbarkeit wird geprüft…',
+        err_no_entradas: 'Wählen Sie mindestens ein Ticket, um fortzufahren.',
+        err_multi_guiada: 'Pro Buchung ist nur eine Führung möglich (sie haben unterschiedliche Zeiten). Für eine weitere Führung bitte separat buchen.',
+        warn_grupo_catedral: 'Ab 18 Kathedral-Tickets empfiehlt sich eine Gruppenbuchung (Gruppentarif ab 125 €).',
+        warn_grupo_pulsera: 'Ab 13 Touristen-Armbändern empfiehlt sich eine Gruppenbuchung (Gruppentarif ab 125 €).',
+        warn_grupo_total: 'Für 25 oder mehr Personen bitte als Gruppenbesuch buchen.',
+        s4_mixed_note: 'Die Buchung wird zur Uhrzeit der ausgewählten Führung registriert. Personen mit Tickets ohne Führung können die Monumente zu den üblichen Öffnungszeiten besuchen.',
         step_type: 'Typ',
         step_visit: 'Besuch',
         step_data: 'Daten',
@@ -4848,6 +6110,7 @@
         s1_card1_title: 'Einzelbesuch',
         s1_card1_desc: 'Familien, Touristen, Pilger und persönliche Besuche.',
         s1_card2_title: 'Gruppenbesuch',
+        s1_card1_short: 'Einzeln', s1_card2_short: 'Gruppen', s1_card3_short: 'Schulen',
         s1_card2_desc: 'Organisierte Gruppen, Vereine und Institutionen.',
         s1_card3_title: 'Schulgruppen',
         s1_card3_desc: 'Bildungsbesuche für Schulen.',
@@ -4964,11 +6227,44 @@
         s4_fam_ticket_fixed: 'Familienticket (Festpreis)',
         s4_supp_guiada: 'Führungszuschlag', s4_supp_casco: 'Zuschlag Altstadt + Kathedrale',
         s4_block_desglose: 'Aufschlüsselung', s4_total: 'Geschätzter Gesamtbetrag',
-        s4_footer_note: 'Die Zahlung erfolgt am Schalter oder per Überweisung nach Erhalt der E-Mail-Bestätigung. Kostenlose Tarife für Einwohner und unter 12 Jahre werden am Schalter nachgewiesen.',
-        s5_captcha_q: 'Wie viel ist {0} + {1}?',
+        s4_footer_note: 'Die Zahlung erfolgt an der Kasse am Tag Ihres Besuchs. Sonderkonditionen sind nachzuweisen.',
+        s5_captcha_q: 'Wie viel ist<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: 'Ich habe die Allgemeinen Geschäftsbedingungen für den <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">Ticketkauf</a> sowie die <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.'
       },
       pt: {
+        s2_ent_title: 'Selecione as suas entradas',
+        s2_ent_sub: 'Escolha a quantidade de cada tipo. Pode combinar várias na mesma reserva.',
+        s2_ent_total: 'Total',
+        ent_info_aria: 'Mais informação',
+        ent_cat: 'Catedral', ent_torre: 'Torre', ent_conv: 'Convento San Francisco',
+        ent_pul: 'Pulseira Turística', ent_pul_per: 'Pulseira Peregrino', ent_fam: 'Bilhete Família',
+        ent_diurna: 'Visita Guiada Diurna', ent_vip: 'Visita Guiada VIP', ent_noc: 'Visita Guiada Noturna',
+        ent_diurna_short: 'VG Diurna', ent_vip_short: 'VG VIP', ent_noc_short: 'VG Noturna',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Pulseira Peregrino',
+        ent_diurna_abbr: 'VGD', ent_vip_abbr: 'VGVIP', ent_noc_abbr: 'VGN',
+        ent_gratis: 'Gratuito', ent_sec_sin: 'Visitas sem guia', ent_sec_gui: 'Visitas guiadas',
+        ent_sec_gui_hint: 'Apenas um tipo de visita guiada por reserva',
+        grp_monumentos: 'Monumentos principais', grp_combinados: 'Bilhetes conjuntos', grp_condiciones: 'Condições especiais', grp_recomendadas: 'Visitas recomendadas',
+        ent_menor: 'Menor de 12', ent_res: 'Residentes', ent_gui_segun: 'consoante a visita guiada', ent_sin_corto: 'sem guia',
+        info_cat: 'Entrada de visita sem guia ao monumento.',
+        info_torre: 'Entrada de visita sem guia ao monumento.',
+        info_conv: 'Entrada de visita sem guia ao monumento.',
+        info_pul: 'Acesso sem guia aos 4 monumentos.',
+        info_pul_per: 'Acesso sem guia aos 4 monumentos. Comprove com a credencial oficial do Caminho nas bilheteiras (mín. 4 etapas).',
+        info_fam: 'Inclui pulseira turística. Apenas pais e filhos menores de 21 anos.',
+        info_diurna: 'Inclui pulseira turística. Sujeito a disponibilidade.',
+        info_vip: 'Inclui pulseira turística. Lotação máxima 15 pessoas. Sujeito a disponibilidade.',
+        info_noc: 'Inclui pulseira turística. Apenas Sextas e Sábados às 20:45 h. Sujeito a disponibilidade.',
+        info_menor_sin: 'Menores de 12 anos: entrada gratuita aos nossos monumentos. Comprovar nas bilheteiras.',
+        info_res_sin: 'Residentes em Santo Domingo de la Calzada. Comprovar nas bilheteiras.',
+        info_red_gui: 'Deve adquirir o bilhete reduzido da visita guiada.',
+        hora_consultando: 'A consultar disponibilidade…',
+        err_no_entradas: 'Selecione pelo menos uma entrada para continuar.',
+        err_multi_guiada: 'Só é possível incluir uma visita guiada por reserva (têm horários diferentes). Para outra visita guiada, faça uma reserva separada.',
+        warn_grupo_catedral: 'Com 18 ou mais entradas da Catedral convém reservar como Visita em Grupo (tarifa de grupo a partir de 125 €).',
+        warn_grupo_pulsera: 'Com 13 ou mais Pulseiras Turísticas convém reservar como Visita em Grupo (tarifa de grupo a partir de 125 €).',
+        warn_grupo_total: 'Para 25 ou mais pessoas, faça a reserva como Visita em Grupo.',
+        s4_mixed_note: 'A reserva fica registada no horário da visita guiada selecionada. As pessoas com entrada sem guia podem visitar os monumentos nos horários normais.',
         step_type: 'Tipo',
         step_visit: 'Visita',
         step_data: 'Dados',
@@ -4979,6 +6275,7 @@
         s1_card1_title: 'Visita individual',
         s1_card1_desc: 'Famílias, turistas, peregrinos e visitas pessoais.',
         s1_card2_title: 'Visita em grupo',
+        s1_card1_short: 'Individual', s1_card2_short: 'Grupos', s1_card3_short: 'Escolares',
         s1_card2_desc: 'Grupos organizados, associações e instituições.',
         s1_card3_title: 'Grupos escolares',
         s1_card3_desc: 'Visitas educativas para escolas.',
@@ -5095,11 +6392,44 @@
         s4_fam_ticket_fixed: 'Bilhete Família (preço fixo)',
         s4_supp_guiada: 'Suplemento visita guiada', s4_supp_casco: 'Suplemento guiada Centro + Catedral',
         s4_block_desglose: 'Detalhe', s4_total: 'Total estimado',
-        s4_footer_note: 'O pagamento é feito na bilheteira ou por transferência após receber a confirmação por email. As tarifas gratuitas para residentes e menores comprovam-se na bilheteira.',
-        s5_captcha_q: 'Quanto é {0} + {1}?',
+        s4_footer_note: 'O pagamento será efetuado nas bilheteiras no dia da sua visita. Comprovar condições especiais.',
+        s5_captcha_q: 'Quanto é<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: 'Li e aceito os termos e condições de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de bilhetes</a>, bem como a <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidade</a>.'
       },
       it: {
+        s2_ent_title: 'Seleziona i tuoi biglietti',
+        s2_ent_sub: 'Scegli la quantità di ogni tipo. Puoi combinarne diversi in un’unica prenotazione.',
+        s2_ent_total: 'Totale',
+        ent_info_aria: 'Maggiori informazioni',
+        ent_cat: 'Cattedrale', ent_torre: 'Torre', ent_conv: 'Convento San Francisco',
+        ent_pul: 'Braccialetto Turistico', ent_pul_per: 'Braccialetto Pellegrino', ent_fam: 'Biglietto Famiglia',
+        ent_diurna: 'Visita Guidata Diurna', ent_vip: 'Visita Guidata VIP', ent_noc: 'Visita Guidata Notturna',
+        ent_diurna_short: 'VG Diurna', ent_vip_short: 'VG VIP', ent_noc_short: 'VG Notturna',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Braccialetto Pellegrino',
+        ent_diurna_abbr: 'VGD', ent_vip_abbr: 'VGVIP', ent_noc_abbr: 'VGN',
+        ent_gratis: 'Gratuito', ent_sec_sin: 'Visite senza guida', ent_sec_gui: 'Visite guidate',
+        ent_sec_gui_hint: 'Un solo tipo di visita guidata per prenotazione',
+        grp_monumentos: 'Monumenti principali', grp_combinados: 'Biglietti combinati', grp_condiciones: 'Condizioni speciali', grp_recomendadas: 'Visite consigliate',
+        ent_menor: 'Minori di 12', ent_res: 'Residenti', ent_gui_segun: 'secondo la visita guidata', ent_sin_corto: 'senza guida',
+        info_cat: 'Biglietto di visita senza guida al monumento.',
+        info_torre: 'Biglietto di visita senza guida al monumento.',
+        info_conv: 'Biglietto di visita senza guida al monumento.',
+        info_pul: 'Accesso senza guida ai 4 monumenti.',
+        info_pul_per: 'Accesso senza guida ai 4 monumenti. Mostrare la credenziale ufficiale del Cammino alle biglietterie (min. 4 tappe).',
+        info_fam: 'Include il braccialetto turistico. Solo genitori e figli minori di 21 anni.',
+        info_diurna: 'Include il braccialetto turistico. Soggetto a disponibilità.',
+        info_vip: 'Include il braccialetto turistico. Massimo 15 persone. Soggetto a disponibilità.',
+        info_noc: 'Include il braccialetto turistico. Solo Venerdì e Sabato alle 20:45. Soggetto a disponibilità.',
+        info_menor_sin: 'Minori di 12 anni: ingresso gratuito ai nostri monumenti. Da comprovare alle biglietterie.',
+        info_res_sin: 'Residenti a Santo Domingo de la Calzada. Da comprovare alle biglietterie.',
+        info_red_gui: 'È necessario acquistare il biglietto ridotto della visita guidata.',
+        hora_consultando: 'Verifica disponibilità…',
+        err_no_entradas: 'Seleziona almeno un biglietto per continuare.',
+        err_multi_guiada: 'È possibile includere una sola visita guidata per prenotazione (hanno orari diversi). Per un’altra visita guidata, effettua una prenotazione separata.',
+        warn_grupo_catedral: 'Con 18 o più biglietti della Cattedrale conviene prenotare come Visita di Gruppo (tariffa di gruppo da 125 €).',
+        warn_grupo_pulsera: 'Con 13 o più Braccialetti Turistici conviene prenotare come Visita di Gruppo (tariffa di gruppo da 125 €).',
+        warn_grupo_total: 'Per 25 o più persone, prenota come Visita di Gruppo.',
+        s4_mixed_note: 'La prenotazione viene registrata all’orario della visita guidata selezionata. Le persone con biglietto senza guida possono visitare i monumenti negli orari abituali.',
         step_type: 'Tipo',
         step_visit: 'Visita',
         step_data: 'Dati',
@@ -5110,6 +6440,7 @@
         s1_card1_title: 'Visita individuale',
         s1_card1_desc: 'Famiglie, turisti, pellegrini e visite personali.',
         s1_card2_title: 'Visita di gruppo',
+        s1_card1_short: 'Individuale', s1_card2_short: 'Gruppi', s1_card3_short: 'Scolastici',
         s1_card2_desc: 'Gruppi organizzati, associazioni e istituzioni.',
         s1_card3_title: 'Gruppi scolastici',
         s1_card3_desc: 'Visite educative per scuole.',
@@ -5226,11 +6557,44 @@
         s4_fam_ticket_fixed: 'Biglietto Famiglia (prezzo fisso)',
         s4_supp_guiada: 'Supplemento visita guidata', s4_supp_casco: 'Supplemento guidata Centro + Cattedrale',
         s4_block_desglose: 'Dettaglio', s4_total: 'Totale stimato',
-        s4_footer_note: 'Il pagamento si effettua in biglietteria o tramite bonifico dopo aver ricevuto la conferma via email. Le tariffe gratuite per residenti e minori devono essere giustificate in biglietteria.',
-        s5_captcha_q: 'Quanto fa {0} + {1}?',
+        s4_footer_note: 'Il pagamento si effettuerà alle biglietterie il giorno della visita. Comprovare le condizioni speciali.',
+        s5_captcha_q: 'Quanto fa<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: 'Ho letto e accetto i termini e le condizioni di <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">acquisto biglietti</a>, nonché l\'<a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">informativa sulla privacy</a>.'
       },
       ko: {
+        s2_ent_title: '입장권 선택',
+        s2_ent_sub: '각 유형의 수량을 선택하세요. 한 예약에 여러 종류를 함께 담을 수 있습니다.',
+        s2_ent_total: '합계',
+        ent_info_aria: '추가 정보',
+        ent_cat: '대성당', ent_torre: '종탑', ent_conv: '산프란시스코 수도원',
+        ent_pul: '관광 팔찌', ent_pul_per: '순례자 팔찌', ent_fam: '가족 티켓',
+        ent_diurna: '주간 가이드 투어', ent_vip: 'VIP 가이드 투어', ent_noc: '야간 가이드 투어',
+        ent_diurna_short: '주간 투어', ent_vip_short: 'VIP 투어', ent_noc_short: '야간 투어',
+        ent_conv_short: '산프란시스코', ent_pul_per_short: '순례자 팔찌',
+        ent_diurna_abbr: '주간', ent_vip_abbr: 'VIP', ent_noc_abbr: '야간',
+        ent_gratis: '무료', ent_sec_sin: '가이드 없는 방문', ent_sec_gui: '가이드 투어',
+        ent_sec_gui_hint: '예약당 가이드 투어는 한 종류만 가능합니다',
+        grp_monumentos: '주요 기념물', grp_combinados: '통합권', grp_condiciones: '특별 조건', grp_recomendadas: '추천 투어',
+        ent_menor: '12세 미만', ent_res: '주민', ent_gui_segun: '가이드 투어에 따라', ent_sin_corto: '가이드 없음',
+        info_cat: '가이드 없는 기념물 방문 입장권.',
+        info_torre: '가이드 없는 기념물 방문 입장권.',
+        info_conv: '가이드 없는 기념물 방문 입장권.',
+        info_pul: '4개 기념물에 가이드 없이 입장.',
+        info_pul_per: '4개 기념물에 가이드 없이 입장. 매표소에서 공식 순례자 증명서로 확인(최소 4구간).',
+        info_fam: '관광 팔찌 포함. 부모와 21세 미만 자녀만 해당.',
+        info_diurna: '관광 팔찌 포함. 예약 가능 여부에 따라.',
+        info_vip: '관광 팔찌 포함. 최대 15명. 예약 가능 여부에 따라.',
+        info_noc: '관광 팔찌 포함. 금요일과 토요일 20:45에만. 예약 가능 여부에 따라.',
+        info_menor_sin: '12세 미만 어린이: 기념물 무료 입장. 매표소에서 확인.',
+        info_res_sin: '산토도밍고데라칼사다 주민. 매표소에서 확인.',
+        info_red_gui: '가이드 투어의 할인 입장권을 구매해야 합니다.',
+        hora_consultando: '예약 가능 여부 확인 중…',
+        err_no_entradas: '계속하려면 입장권을 하나 이상 선택하세요.',
+        err_multi_guiada: '예약당 가이드 투어는 하나만 포함할 수 있습니다(시간대가 다릅니다). 다른 가이드 투어는 별도로 예약하세요.',
+        warn_grupo_catedral: '대성당 입장권이 18장 이상이면 단체 방문으로 예약하는 것이 좋습니다(단체 요금 125 €부터).',
+        warn_grupo_pulsera: '관광 팔찌가 13개 이상이면 단체 방문으로 예약하는 것이 좋습니다(단체 요금 125 €부터).',
+        warn_grupo_total: '25명 이상은 단체 방문으로 예약하세요.',
+        s4_mixed_note: '예약은 선택한 가이드 투어 시간으로 등록됩니다. 가이드 없는 입장권 소지자는 일반 운영 시간에 기념물을 방문할 수 있습니다.',
         step_type: '유형',
         step_visit: '방문',
         step_data: '정보',
@@ -5241,6 +6605,7 @@
         s1_card1_title: '개인 방문',
         s1_card1_desc: '가족, 관광객, 순례자 및 개인 방문.',
         s1_card2_title: '단체 방문',
+        s1_card1_short: '개인', s1_card2_short: '단체', s1_card3_short: '학교',
         s1_card2_desc: '단체, 협회 및 기관.',
         s1_card3_title: '학교 단체',
         s1_card3_desc: '학교를 위한 교육 방문.',
@@ -5357,11 +6722,44 @@
         s4_fam_ticket_fixed: '가족 티켓 (고정 가격)',
         s4_supp_guiada: '가이드 투어 추가 요금', s4_supp_casco: '구시가지 + 대성당 가이드 추가 요금',
         s4_block_desglose: '내역', s4_total: '예상 총액',
-        s4_footer_note: '결제는 매표소에서 또는 이메일 확인 후 계좌이체로 진행됩니다. 거주자 및 12세 미만 무료 요금은 매표소에서 증빙해야 합니다.',
-        s5_captcha_q: '{0} + {1} 은(는) 얼마입니까?',
+        s4_footer_note: '결제는 방문 당일 매표소에서 진행됩니다. 특별 조건은 증빙이 필요합니다.',
+        s5_captcha_q: '<span class="captcha-op">{0} + {1}</span>은(는) 얼마입니까?',
         s5_accept: '<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">티켓 구매</a> 약관 및 <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">개인정보 처리방침</a>을 읽고 동의합니다.'
       },
       eu: {
+        s2_ent_title: 'Aukeratu zure sarrerak',
+        s2_ent_sub: 'Aukeratu mota bakoitzaren kopurua. Hainbat konbina ditzakezu erreserba berean.',
+        s2_ent_total: 'Guztira',
+        ent_info_aria: 'Informazio gehiago',
+        ent_cat: 'Katedrala', ent_torre: 'Dorrea', ent_conv: 'San Frantzisko Komentua',
+        ent_pul: 'Pultsera Turistikoa', ent_pul_per: 'Pultsera Erromesa', ent_fam: 'Familia Sarrera',
+        ent_diurna: 'Eguneko Bisita Gidatua', ent_vip: 'VIP Bisita Gidatua', ent_noc: 'Gaueko Bisita Gidatua',
+        ent_diurna_short: 'Eguneko BG', ent_vip_short: 'VIP BG', ent_noc_short: 'Gaueko BG',
+        ent_conv_short: 'San Frantzisko', ent_pul_per_short: 'Pultsera Erromesa',
+        ent_diurna_abbr: 'EBG', ent_vip_abbr: 'VIPBG', ent_noc_abbr: 'GBG',
+        ent_gratis: 'Doan', ent_sec_sin: 'Gidaririk gabeko bisitak', ent_sec_gui: 'Bisita gidatuak',
+        ent_sec_gui_hint: 'Erreserbako bisita gidatu mota bat baino ez',
+        grp_monumentos: 'Monumentu nagusiak', grp_combinados: 'Sarrera konbinatuak', grp_condiciones: 'Baldintza bereziak', grp_recomendadas: 'Bisita gomendatuak',
+        ent_menor: '12 urtez azpikoa', ent_res: 'Bizilagunak', ent_gui_segun: 'bisita gidatuaren arabera', ent_sin_corto: 'gidaririk gabe',
+        info_cat: 'Monumentua gidaririk gabe bisitatzeko sarrera.',
+        info_torre: 'Monumentua gidaririk gabe bisitatzeko sarrera.',
+        info_conv: 'Monumentua gidaririk gabe bisitatzeko sarrera.',
+        info_pul: 'Gidaririk gabeko sarbidea 4 monumentuetara.',
+        info_pul_per: 'Gidaririk gabeko sarbidea 4 monumentuetara. Egiaztatu Bidearen kreditzal ofizialarekin txarteldegietan (gutxienez 4 etapa).',
+        info_fam: 'Pultsera turistikoa barne. Gurasoak eta 21 urtez azpiko seme-alabak soilik.',
+        info_diurna: 'Pultsera turistikoa barne. Eskuragarritasunaren arabera.',
+        info_vip: 'Pultsera turistikoa barne. Gehienez 15 pertsona. Eskuragarritasunaren arabera.',
+        info_noc: 'Pultsera turistikoa barne. Ostiral eta larunbatetan soilik, 20:45ean. Eskuragarritasunaren arabera.',
+        info_menor_sin: '12 urtez azpiko haurrak: sarrera doan gure monumentuetara. Txarteldegietan egiaztatu beharra.',
+        info_res_sin: 'Santo Domingo de la Calzadako bizilagunak. Txarteldegietan egiaztatu beharra.',
+        info_red_gui: 'Bisita gidatuaren sarrera murriztua erosi behar duzu.',
+        hora_consultando: 'Eskuragarritasuna egiaztatzen…',
+        err_no_entradas: 'Aukeratu gutxienez sarrera bat jarraitzeko.',
+        err_multi_guiada: 'Erreserbako bisita gidatu bat baino ezin da sartu (ordutegi desberdinak dituzte). Beste bisita gidatu baterako, egin erreserba berri bat.',
+        warn_grupo_catedral: 'Katedraleko 18 sarrera edo gehiagorekin, hobe da Talde Bisita gisa erreserbatzea (taldeko tarifa 125 €-tik aurrera).',
+        warn_grupo_pulsera: '13 Pultsera Turistiko edo gehiagorekin, hobe da Talde Bisita gisa erreserbatzea (taldeko tarifa 125 €-tik aurrera).',
+        warn_grupo_total: '25 pertsona edo gehiagorako, egin erreserba Talde Bisita gisa.',
+        s4_mixed_note: 'Erreserba hautatutako bisita gidatuaren ordutegian erregistratzen da. Gidaririk gabeko sarrera dutenek ohiko ordutegian bisita ditzakete monumentuak.',
         step_type: 'Mota',
         step_visit: 'Bisita',
         step_data: 'Datuak',
@@ -5372,6 +6770,7 @@
         s1_card1_title: 'Bisita banakakoa',
         s1_card1_desc: 'Familiak, turistak, erromesak eta bisita pertsonalak.',
         s1_card2_title: 'Talde-bisita',
+        s1_card1_short: 'Banakakoa', s1_card2_short: 'Taldeak', s1_card3_short: 'Eskolak',
         s1_card2_desc: 'Antolatutako taldeak, elkarteak eta erakundeak.',
         s1_card3_title: 'Eskola-taldeak',
         s1_card3_desc: 'Ikastetxeentzako hezkuntza-bisitak.',
@@ -5488,11 +6887,44 @@
         s4_fam_ticket_fixed: 'Familia Sarrera (prezio finkoa)',
         s4_supp_guiada: 'Bisita gidatuaren gehigarria', s4_supp_casco: 'Hirigunea + Katedrala bisita gidatuaren gehigarria',
         s4_block_desglose: 'Xehetasunak', s4_total: 'Guztizko zenbatekoa',
-        s4_footer_note: 'Ordainketa txarteldegian edo transferentzia bidez egingo da, emailaren bidez berrespena jaso ondoren. Bizilagunentzako eta 12 urtetik beherakoentzako doaneko tarifak txarteldegian egiaztatuko dira.',
-        s5_captcha_q: 'Zenbat da {0} + {1}?',
+        s4_footer_note: 'Ordainketa zure bisitaren egunean txarteldegietan egingo da. Baldintza bereziak egiaztatu behar dira.',
+        s5_captcha_q: 'Zenbat da<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: '<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">Sarreren erosketa</a> baldintzak eta <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">pribatutasun politika</a> irakurri eta onartu ditut.'
       },
       ca: {
+        s2_ent_title: 'Selecciona les teves entrades',
+        s2_ent_sub: 'Tria la quantitat de cada tipus. Pots combinar-ne diverses en una mateixa reserva.',
+        s2_ent_total: 'Total',
+        ent_info_aria: 'Més informació',
+        ent_cat: 'Catedral', ent_torre: 'Torre', ent_conv: 'Convent San Francisco',
+        ent_pul: 'Polsera Turística', ent_pul_per: 'Polsera Pelegrí', ent_fam: 'Entrada Familiar',
+        ent_diurna: 'Visita Guiada Diürna', ent_vip: 'Visita Guiada VIP', ent_noc: 'Visita Guiada Nocturna',
+        ent_diurna_short: 'VG Diürna', ent_vip_short: 'VG VIP', ent_noc_short: 'VG Nocturna',
+        ent_conv_short: 'San Francisco', ent_pul_per_short: 'Polsera Pelegrí',
+        ent_diurna_abbr: 'VGD', ent_vip_abbr: 'VGVIP', ent_noc_abbr: 'VGN',
+        ent_gratis: 'Gratuïtat', ent_sec_sin: 'Visites sense guia', ent_sec_gui: 'Visites guiades',
+        ent_sec_gui_hint: 'Només un tipus de visita guiada per reserva',
+        grp_monumentos: 'Monuments principals', grp_combinados: 'Entrades conjuntes', grp_condiciones: 'Condicions especials', grp_recomendadas: 'Visites recomanades',
+        ent_menor: 'Menor de 12', ent_res: 'Residents', ent_gui_segun: 'segons la visita guiada', ent_sin_corto: 'sense guia',
+        info_cat: 'Entrada de visita sense guia al monument.',
+        info_torre: 'Entrada de visita sense guia al monument.',
+        info_conv: 'Entrada de visita sense guia al monument.',
+        info_pul: 'Accés sense guia als 4 monuments.',
+        info_pul_per: 'Accés sense guia als 4 monuments. Acrediteu amb la credencial oficial del Camí a les taquilles (mín. 4 etapes).',
+        info_fam: 'Inclou polsera turística. Únicament pares i fills menors de 21 anys.',
+        info_diurna: 'Inclou polsera turística. Subjecte a disponibilitat.',
+        info_vip: 'Inclou polsera turística. Aforament màxim 15 persones. Subjecte a disponibilitat.',
+        info_noc: 'Inclou polsera turística. Només Divendres i Dissabtes a les 20:45 h. Subjecte a disponibilitat.',
+        info_menor_sin: 'Menors de 12 anys: entrada gratuïta als nostres monuments. Acreditar a les taquilles.',
+        info_res_sin: 'Residents a Santo Domingo de la Calzada. Acreditar a les taquilles.',
+        info_red_gui: 'Heu d’adquirir l’entrada reduïda de la visita guiada.',
+        hora_consultando: 'Consultant disponibilitat…',
+        err_no_entradas: 'Selecciona almenys una entrada per continuar.',
+        err_multi_guiada: 'Només es pot incloure una visita guiada per reserva (tenen horaris diferents). Per a una altra visita guiada, fes una reserva a part.',
+        warn_grupo_catedral: 'Amb 18 o més entrades de Catedral convé reservar com a Visita en Grup (tarifa de grup des de 125 €).',
+        warn_grupo_pulsera: 'Amb 13 o més Polseres Turístiques convé reservar com a Visita en Grup (tarifa de grup des de 125 €).',
+        warn_grupo_total: 'Per a 25 o més persones, fes la reserva com a Visita en Grup.',
+        s4_mixed_note: 'La reserva queda registrada en l’horari de la visita guiada seleccionada. Les persones amb entrada sense guia poden visitar els monuments en els horaris normals.',
         step_type: 'Tipus',
         step_visit: 'Visita',
         step_data: 'Dades',
@@ -5503,6 +6935,7 @@
         s1_card1_title: 'Visita individual',
         s1_card1_desc: 'Famílies, turistes, pelegrins i visites personals.',
         s1_card2_title: 'Visita en grup',
+        s1_card1_short: 'Individual', s1_card2_short: 'Grups', s1_card3_short: 'Escolars',
         s1_card2_desc: 'Grups organitzats, associacions i institucions.',
         s1_card3_title: 'Grups escolars',
         s1_card3_desc: 'Visites educatives per a escoles.',
@@ -5619,8 +7052,8 @@
         s4_fam_ticket_fixed: 'Entrada Familiar (preu fix)',
         s4_supp_guiada: 'Suplement visita guiada', s4_supp_casco: 'Suplement guiada Centre + Catedral',
         s4_block_desglose: 'Detall', s4_total: 'Total estimat',
-        s4_footer_note: 'El pagament es realitzarà a la taquilla o per transferència després de rebre la confirmació per correu electrònic. Les tarifes gratuïtes per a residents i menors s\'acreditaran a la taquilla.',
-        s5_captcha_q: 'Quant és {0} + {1}?',
+        s4_footer_note: 'El pagament es realitzarà a les taquilles el dia de la vostra visita. Acreditar condicions especials.',
+        s5_captcha_q: 'Quant és<span class="captcha-op">{0} + {1}?</span>',
         s5_accept: 'He llegit i accepto els termes i condicions de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra d\'entrades</a>, així com la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacitat</a>.'
       },
     };
@@ -5637,6 +7070,7 @@
         const key = el.getAttribute('data-i18n-ph-page');
         if (t[key] !== undefined) el.placeholder = t[key];
       });
+      if (state.tipoVisita === 'individual') { renderEntradasIndividual(); onEntradasChange(); }
     };
   </script>
   <script src="assets/seo.js"></script>

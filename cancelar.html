@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cancelar reserva · Catedral de Santo Domingo de la Calzada</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: #12100E; color: #FDFAF4;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+    }
+    .w { width: 100%; max-width: 520px; }
+    .c { background: #1A1814; border: 1px solid rgba(201,168,76,.25); border-radius: 8px; overflow: hidden; }
+    .h { background: linear-gradient(135deg,#1a1814,#221f14); padding: 30px 36px; border-bottom: 2px solid #C9A84C; text-align: center; }
+    .h p { margin: 0 0 6px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #C9A84C; }
+    .h h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 300; color: #FDFAF4; }
+    .h h1 em { color: #e0a0a0; font-style: italic; }
+    .b { padding: 30px 36px; }
+    .info { background: rgba(201,168,76,.06); border-left: 2px solid #C9A84C; padding: 12px 16px; margin-bottom: 22px; font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.7; border-radius: 0 3px 3px 0; }
+    .info strong { color: #C9A84C; }
+    .lead { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,.7); margin: 0 0 24px; }
+    .lead .warn { color: #e0a0a0; font-weight: bold; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { flex: 1; min-width: 150px; display: block; padding: 14px 12px; border-radius: 3px; text-decoration: none;
+      font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; text-align: center; cursor: pointer;
+      border: 1px solid transparent; font-family: inherit; }
+    .btn--danger { background: rgba(180,60,60,.15); border-color: rgba(180,60,60,.5); color: #e08080; }
+    .btn--danger:hover { background: rgba(180,60,60,.28); }
+    .btn--ghost { background: rgba(201,168,76,.1); border-color: rgba(201,168,76,.35); color: #C9A84C; }
+    .btn--ghost:hover { background: rgba(201,168,76,.2); }
+    .btn[disabled] { opacity: .5; cursor: default; }
+    .center { text-align: center; }
+    .msg-title { font-size: 19px; margin: 6px 0 10px; font-family: Georgia, serif; }
+    .msg-title.ok { color: #C9A84C; }
+    .msg-title.cancel { color: #e0a0a0; }
+    .msg-title.err { color: #e08080; }
+    .msg-text { color: rgba(255,255,255,.6); font-size: 14px; line-height: 1.7; margin: 0; }
+    .msg-text strong { color: #FDFAF4; }
+    .spinner { width: 34px; height: 34px; margin: 6px auto 16px; border: 3px solid rgba(201,168,76,.25); border-top-color: #C9A84C; border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .sitelink { display: inline-block; margin-top: 22px; color: #C9A84C; text-decoration: none; font-size: 13px; }
+    .sitelink:hover { text-decoration: underline; }
+    .ft { background: #12100E; padding: 16px 36px; border-top: 1px solid rgba(201,168,76,.1); text-align: center; }
+    .ft p { margin: 0; font-size: 10px; color: rgba(255,255,255,.22); line-height: 1.5; }
+    @media (max-width: 560px) {
+      body { padding: 0; align-items: stretch; }
+      .w { max-width: none; }
+      .c { border-radius: 0; border-left: none; border-right: none; min-height: 100vh; display: flex; flex-direction: column; }
+      .h { padding: 26px 22px; }
+      .h h1 { font-size: 19px; }
+      .b { padding: 26px 22px; flex: 1; }
+      .ft { padding: 14px 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="w">
+    <div class="c">
+      <div class="h">
+        <p>— Patrimonio · Santo Domingo de la Calzada —</p>
+        <h1>Cancelar <em>reserva</em></h1>
+      </div>
+      <div class="b" id="app">
+        <div class="center">
+          <div class="spinner"></div>
+          <p class="msg-text">Cargando tu reserva…</p>
+        </div>
+      </div>
+      <div class="ft">
+        <p>Catedral de Santo Domingo de la Calzada · Camino de Santiago · La Rioja</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVEczVQQ51YyM_9o0SKyafc_LXoL8re47HjWlGljDw3S1lqX3b4aacgmDtV1nXNLPeWA/exec';
+    const SITE_URL = 'https://catedralsantodomingo.org/';
+    const app = document.getElementById('app');
+    const token = new URLSearchParams(location.search).get('token');
+
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    function fmtFecha(f) {
+      if (!f) return '—';
+      const m = String(f).match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (m) return `${m[3]}/${m[2]}/${m[1]}`;
+      return String(f);
+    }
+    function fmtHora(h) { return h ? String(h).slice(0, 5) : '—'; }
+
+    function viewLoading(text) {
+      app.innerHTML = `<div class="center"><div class="spinner"></div><p class="msg-text">${esc(text)}</p></div>`;
+    }
+    function viewMessage(cls, title, html) {
+      app.innerHTML = `<div class="center"><p class="msg-title ${cls}">${esc(title)}</p>`
+        + `<p class="msg-text">${html}</p>`
+        + `<a class="sitelink" href="${SITE_URL}">← Volver a la web de la Catedral</a></div>`;
+    }
+
+    function viewConfirm(d) {
+      const tipoLinea = d.tipoVisita + (d.tipoEntrada && d.tipoEntrada !== '—' ? ' — ' + d.tipoEntrada : '');
+      app.innerHTML = `
+        <div class="info">
+          <strong>Titular:</strong> ${esc(d.nombre)}<br/>
+          <strong>Fecha:</strong> ${esc(fmtFecha(d.fechaVisita))} a las ${esc(fmtHora(d.horaVisita))} h<br/>
+          <strong>Tipo:</strong> ${esc(tipoLinea)}<br/>
+          <strong>Nº de personas:</strong> ${esc(d.numPersonas)}
+        </div>
+        <p class="lead">¿Estás seguro de que deseas <span class="warn">cancelar</span> esta reserva? Esta acción no se puede deshacer.</p>
+        <div class="row">
+          <button class="btn btn--danger" id="btnCancel">✕ Sí, cancelar reserva</button>
+          <button class="btn btn--ghost" id="btnKeep">← Mantener reserva</button>
+        </div>`;
+      document.getElementById('btnKeep').addEventListener('click', () => {
+        viewMessage('ok', '✓ Tu reserva sigue activa', 'No se ha cancelado nada. Ya puedes cerrar esta ventana.');
+      });
+      document.getElementById('btnCancel').addEventListener('click', doCancel);
+    }
+
+    async function doCancel() {
+      viewLoading('Cancelando tu reserva…');
+      try {
+        const r = await fetch(SCRIPT_URL + '?cancelarWeb=' + encodeURIComponent(token));
+        const res = await r.json();
+        if (res && res.ok) {
+          viewMessage('cancel', 'Reserva cancelada',
+            'Tu reserva ha sido cancelada correctamente. En breve recibirás un correo de confirmación.');
+        } else if (res && /cancelad/i.test(res.error || '')) {
+          viewMessage('ok', 'Esta reserva ya estaba cancelada', 'No se ha realizado ningún cambio.');
+        } else {
+          viewMessage('err', 'No se pudo cancelar', esc((res && res.error) || 'Inténtalo de nuevo o llámanos al 941 34 00 33.'));
+        }
+      } catch (e) {
+        viewMessage('err', 'No se pudo cancelar', 'Hubo un problema de conexión. Inténtalo de nuevo o llámanos al 941 34 00 33.');
+      }
+    }
+
+    (function init() {
+      if (!token) {
+        viewMessage('err', 'Enlace no válido', 'No hemos encontrado el identificador de la reserva. Usa el botón de tu correo de confirmación.');
+        return;
+      }
+      fetch(SCRIPT_URL + '?datos=' + encodeURIComponent(token))
+        .then(r => r.json())
+        .then(d => {
+          if (!d || !d.ok) {
+            viewMessage('err', 'Reserva no encontrada', 'El enlace puede haber caducado. Si necesitas ayuda, llámanos al 941 34 00 33.');
+            return;
+          }
+          if (d.estado && /cancelad/i.test(d.estado)) {
+            viewMessage('ok', 'Esta reserva ya fue cancelada', 'No se ha realizado ningún cambio.');
+            return;
+          }
+          viewConfirm(d);
+        })
+        .catch(() => {
+          viewMessage('err', 'No se pudo cargar la reserva', 'Hubo un problema de conexión. Inténtalo de nuevo en unos segundos.');
+        });
+    })();
+  </script>
+</body>
+
+</html>

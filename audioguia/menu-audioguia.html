@@ -230,7 +230,7 @@
   </style>
 </head>
 
-<body><script>if(localStorage.getItem('a11y-light-mode')!=='0')document.body.classList.add('light-mode');</script>
+<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
 
   <div class="logo">
     <span class="logo-l1" id="logo-name">Catedral de Santo Domingo</span>

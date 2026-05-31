@@ -37,6 +37,15 @@
 -->
 
 <!-- ═══════════════════════════════════════════
+     APERTURA <body> — modo claro por defecto + guard anti-flash
+     El guard corre antes del primer render y quita .light-mode
+     solo si el usuario eligió modo oscuro (localStorage='0').
+═══════════════════════════════════════════ -->
+<!--
+<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
+-->
+
+<!-- ═══════════════════════════════════════════
      SKIP LINK (primer hijo de <body>, antes del cursor)
 ═══════════════════════════════════════════ -->
 <!--

@@ -23,6 +23,7 @@ const SHARED_T = {
     footer_disc_1: 'Catedral', footer_disc_2: 'Torre Exenta', footer_disc_3: 'Convento',
     footer_disc_4: 'Ermita Plaza', footer_disc_5: 'Monasterio Cañas',
     footer_col_info: 'Información',
+    footer_col_terms: 'Términos',
     footer_info_1: 'Institución', footer_info_2: 'Actualidad', footer_info_3: 'Noticias',
     footer_info_4: 'Agenda', footer_info_5: 'Valóranos',
     footer_copy: '© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · España',
@@ -85,6 +86,7 @@ const SHARED_T = {
     footer_disc_1: 'Cathedral', footer_disc_2: 'Freestanding Tower', footer_disc_3: 'Convent',
     footer_disc_4: 'Plaza Chapel', footer_disc_5: 'Cañas Monastery',
     footer_col_info: 'Information',
+    footer_col_terms: 'Terms',
     footer_info_1: 'Institution', footer_info_2: 'News', footer_info_3: 'Articles',
     footer_info_4: 'Agenda', footer_info_5: 'Rate us',
     footer_copy: '© 2026 Cathedral of Santo Domingo de la Calzada · La Rioja · Spain',
@@ -147,6 +149,7 @@ const SHARED_T = {
     footer_disc_1: 'Cathédrale', footer_disc_2: 'Tour indépendante', footer_disc_3: 'Couvent',
     footer_disc_4: 'Ermitage de la Place', footer_disc_5: 'Monastère de Cañas',
     footer_col_info: 'Informations',
+    footer_col_terms: 'Légal',
     footer_info_1: 'Institution', footer_info_2: 'Actualités', footer_info_3: 'Articles',
     footer_info_4: 'Agenda', footer_info_5: 'Évaluez-nous',
     footer_copy: '© 2026 Cathédrale de Santo Domingo de la Calzada · La Rioja · Espagne',
@@ -209,6 +212,7 @@ const SHARED_T = {
     footer_disc_1: 'Kathedrale', footer_disc_2: 'Freistehender Turm', footer_disc_3: 'Konvent',
     footer_disc_4: 'Ermita Plaza', footer_disc_5: 'Kloster Cañas',
     footer_col_info: 'Information',
+    footer_col_terms: 'Rechtliches',
     footer_info_1: 'Institution', footer_info_2: 'Aktuelles', footer_info_3: 'Artikel',
     footer_info_4: 'Agenda', footer_info_5: 'Bewerten Sie uns',
     footer_copy: '© 2026 Kathedrale von Santo Domingo de la Calzada · La Rioja · Spanien',
@@ -271,6 +275,7 @@ const SHARED_T = {
     footer_disc_1: 'Catedral', footer_disc_2: 'Torre independente', footer_disc_3: 'Convento',
     footer_disc_4: 'Ermita Plaza', footer_disc_5: 'Mosteiro de Cañas',
     footer_col_info: 'Informação',
+    footer_col_terms: 'Termos',
     footer_info_1: 'Instituição', footer_info_2: 'Atualidade', footer_info_3: 'Notícias',
     footer_info_4: 'Agenda', footer_info_5: 'Avalie-nos',
     footer_copy: '© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · Espanha',
@@ -333,6 +338,7 @@ const SHARED_T = {
     footer_disc_1: 'Cattedrale', footer_disc_2: 'Torre indipendente', footer_disc_3: 'Convento',
     footer_disc_4: 'Ermita Plaza', footer_disc_5: 'Monastero di Cañas',
     footer_col_info: 'Informazioni',
+    footer_col_terms: 'Termini',
     footer_info_1: 'Istituzione', footer_info_2: 'Attualità', footer_info_3: 'Articoli',
     footer_info_4: 'Agenda', footer_info_5: 'Valutaci',
     footer_copy: '© 2026 Cattedrale di Santo Domingo de la Calzada · La Rioja · Spagna',
@@ -395,6 +401,7 @@ const SHARED_T = {
     footer_disc_1: '대성당', footer_disc_2: '독립 종탑', footer_disc_3: '수도원',
     footer_disc_4: '에르미타 광장', footer_disc_5: '카냐스 수도원',
     footer_col_info: '정보',
+    footer_col_terms: '약관',
     footer_info_1: '기관', footer_info_2: '소식', footer_info_3: '기사',
     footer_info_4: '일정', footer_info_5: '평가하기',
     footer_copy: '© 2026 산토 도밍고 데 라 칼사다 대성당 · 라 리오하 · 스페인',
@@ -457,6 +464,7 @@ const SHARED_T = {
     footer_disc_1: 'Katedrala', footer_disc_2: 'Kanpoaldeko Dorrea', footer_disc_3: 'Komentua',
     footer_disc_4: 'Ermita Plaza', footer_disc_5: 'Cañasko Monasterioa',
     footer_col_info: 'Informazioa',
+    footer_col_terms: 'Baldintzak',
     footer_info_1: 'Erakundea', footer_info_2: 'Albisteak', footer_info_3: 'Artikuluak',
     footer_info_4: 'Agenda', footer_info_5: 'Baloratu gaitzazu',
     footer_copy: '© 2026 Santo Domingoko Katedrala · Errioxa · Espainia',
@@ -519,6 +527,7 @@ const SHARED_T = {
     footer_disc_1: 'Catedral', footer_disc_2: 'Torre Exempta', footer_disc_3: 'Convent',
     footer_disc_4: 'Ermita Plaza', footer_disc_5: 'Monestir de Cañas',
     footer_col_info: 'Informació',
+    footer_col_terms: 'Termes',
     footer_info_1: 'Institució', footer_info_2: 'Actualitat', footer_info_3: 'Notícies',
     footer_info_4: 'Agenda', footer_info_5: 'Valoreu-nos',
     footer_copy: '© 2026 Catedral de Santo Domingo de la Calzada · La Rioja · Espanya',
@@ -613,6 +622,7 @@ function _applyShared(lang) {
   _setHtml('[data-i18n="footer_col_visit"]', t.footer_col_visit);
   _setHtml('[data-i18n="footer_col_discover"]', t.footer_col_discover);
   _setHtml('[data-i18n="footer_col_info"]', t.footer_col_info);
+  _setHtml('[data-i18n="footer_col_terms"]', t.footer_col_terms);
   [1, 2, 3, 4, 5].forEach(n => {
     _setText(`[data-i18n="footer_visit_${n}"]`, t[`footer_visit_${n}`]);
     _setText(`[data-i18n="footer_disc_${n}"]`, t[`footer_disc_${n}`]);

@@ -3271,7 +3271,7 @@
   </style>
 </head>
 
-<body>
+<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
 
   <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
 
@@ -4252,14 +4252,14 @@
       { value: 'Visita Guiada Nocturna Catedral', label: 'Visita Guiada Nocturna Catedral — 15 €' }
     ];
     const ENTRADAS_GRUPO_GUIADA = [
-      { value: 'Sí', label: 'Catedral (+50 €)' },
-      { value: 'Casco Histórico + Catedral', label: 'Casco Histórico + Catedral (+100 €)' },
-      { value: 'Visita Guiada Nocturna Catedral', label: 'Nocturna Catedral (15€ / persona)' }
+      { value: 'Sí', label: 'Catedral (+50 €)', labelKey: 's4_vg_cat' },
+      { value: 'Casco Histórico + Catedral', label: 'Casco Histórico + Catedral (+100 €)', labelKey: 's4_vg_casco' },
+      { value: 'Visita Guiada Nocturna Catedral', label: 'Nocturna Catedral (15€ / persona)', labelKey: 's4_vg_noc' }
     ];
     // Escolar mantiene solo las dos guiadas con suplemento (la nocturna es solo para Grupo).
     const ENTRADAS_ESCOLAR_GUIADA = [
-      { value: 'Sí', label: 'Catedral (+50 €)' },
-      { value: 'Casco Histórico + Catedral', label: 'Casco Histórico + Catedral (+100 €)' }
+      { value: 'Sí', label: 'Catedral (+50 €)', labelKey: 's4_vg_cat' },
+      { value: 'Casco Histórico + Catedral', label: 'Casco Histórico + Catedral (+100 €)', labelKey: 's4_vg_casco' }
     ];
     // Mínimo de personas para considerar grupo en la nocturna (resto de grupos: 13).
     const MIN_GRUPO_NOCTURNA = 10;
@@ -4501,12 +4501,12 @@
       grid.innerHTML = '';
       sel.style.display = '';
       const horas = horasUnionSinGuiaIndividual(fecha);
-      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
       horas.forEach(h => { const o = document.createElement('option'); const pasado = slotEsPasado(h, fecha); o.value = h; o.textContent = pasado ? ('❌ ' + h) : h; if (pasado) o.disabled = true; sel.appendChild(o); });
-      if (!horas.length) sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
+      if (!horas.length) sel.innerHTML = `<option value="" disabled selected>${_T('opt_no_avail')}</option>`;
       fetch(dispoURL(fecha)).then(r => r.json()).then(data => {
         if (!data.ok) return;
-        if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
+        if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('grid_closed')}</p>`; return; }
         if (data.horasCierre && data.horasCierre.length) sel.querySelectorAll('option').forEach(opt => { if (data.horasCierre.includes(opt.value)) { opt.disabled = true; opt.textContent = '🔒 ' + opt.value; } });
       }).catch(() => { });
     }
@@ -4629,7 +4629,7 @@
       actualizarDescripcionesModalidad();
       poblarTipoEntrada();
       const sel = document.getElementById('horaVisita');
-      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
       sel.style.display = '';
       document.getElementById('horaGrid').innerHTML = '';
       document.getElementById('fechaHelper').style.display = 'none';
@@ -4647,7 +4647,7 @@
         state.entAccOpen = state.visitMode === 'con-guia' ? { rec: true } : { mon: true };
         document.getElementById('entradasIndividual').classList.toggle('visible', !!state.visitMode);
         const horaSel = document.getElementById('horaVisita');
-        horaSel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+        horaSel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
         document.getElementById('horaGrid').innerHTML = '';
         document.getElementById('fechaHelper').style.display = 'none';
         onEntradasChange();
@@ -4656,7 +4656,7 @@
       poblarTipoEntrada();
       actualizarEntradasGrupoUI();
       const sel = document.getElementById('horaVisita');
-      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
       sel.style.display = '';
       document.getElementById('horaGrid').innerHTML = '';
       if (document.getElementById('fechaVisita').value) actualizarHoras();
@@ -4672,17 +4672,17 @@
       const tv = state.tipoVisita;
       const vm = state.visitMode;
       let opts = null;
-      let labelText = 'Tipo de entrada';
+      let labelText = _T('s2_ticket_type');
 
-      if (!tv || !vm) { field.style.display = 'none'; sel.innerHTML = '<option value="" disabled selected>Seleccione tipo</option>'; document.getElementById('notaTipoEntrada').style.display = 'none'; return; }
+      if (!tv || !vm) { field.style.display = 'none'; sel.innerHTML = `<option value="" disabled selected>${_T('opt_select_type')}</option>`; document.getElementById('notaTipoEntrada').style.display = 'none'; return; }
 
       // Individual usa los desplegables (no el select de tipo de entrada).
       if (tv === 'individual') { field.style.display = 'none'; document.getElementById('notaTipoEntrada').style.display = 'none'; return; }
 
       if (tv === 'individual' && vm === 'sin-guia') opts = ENTRADAS_INDIVIDUAL_SIN_GUIA;
       else if (tv === 'individual' && vm === 'con-guia') opts = ENTRADAS_INDIVIDUAL_CON_GUIA;
-      else if (tv === 'grupo' && vm === 'con-guia') { opts = ENTRADAS_GRUPO_GUIADA; labelText = 'Modalidad guiada'; }
-      else if (tv === 'escolar' && vm === 'con-guia') { opts = ENTRADAS_ESCOLAR_GUIADA; labelText = 'Modalidad guiada'; }
+      else if (tv === 'grupo' && vm === 'con-guia') { opts = ENTRADAS_GRUPO_GUIADA; labelText = _T('lbl_guided_modality'); }
+      else if (tv === 'escolar' && vm === 'con-guia') { opts = ENTRADAS_ESCOLAR_GUIADA; labelText = _T('lbl_guided_modality'); }
 
       if (!opts) {
         field.style.display = 'none';
@@ -4691,8 +4691,8 @@
         return;
       }
       if (label) label.textContent = labelText;
-      let html = '<option value="" disabled selected>Seleccione</option>';
-      opts.forEach(o => { html += `<option value="${o.value}">${o.label}</option>`; });
+      let html = `<option value="" disabled selected>${_T('opt_select')}</option>`;
+      opts.forEach(o => { html += `<option value="${o.value}">${o.labelKey ? _T(o.labelKey) : o.label}</option>`; });
       sel.innerHTML = html;
       field.style.display = 'block';
     }
@@ -4832,15 +4832,15 @@
           helper.textContent = ''; helper.className = 'field-helper';
           if (esNocturnaGrupoSel()) {
             if (n && n < MIN_GRUPO_NOCTURNA) {
-              helper.textContent = `⚠ Mínimo ${MIN_GRUPO_NOCTURNA} personas para la Visita Guiada Nocturna en grupo.`;
+              helper.textContent = '⚠ ' + _T('helper_min_nocturna').replace('{0}', MIN_GRUPO_NOCTURNA);
               helper.className = 'field-helper warning';
             }
           } else if (_men > 0 && _pag <= 0 && _res <= 0) {
             // Hay menores pero ningún adulto (ni pagante ni residente, que se consideran adultos).
-            helper.textContent = '⚠ Obligatorio acudir con adultos.';
+            helper.textContent = '⚠ ' + _T('helper_must_adults');
             helper.className = 'field-helper warning';
           } else if (n && _pag <= 12) {
-            helper.textContent = '⚠ No considerado como grupo. Haga su reserva como individual.';
+            helper.textContent = '⚠ ' + _T('helper_not_group');
             helper.className = 'field-helper warning';
           }
         }
@@ -4853,11 +4853,11 @@
         const tipoEntrada = document.getElementById('tipoEntrada').value;
         const menores = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
         const residentes = parseInt(document.getElementById('residentes').value) || 0;
-        if (n >= 25) { helper.textContent = '⚠ Considerado como grupo. Realizar como Visita en Grupo.'; helper.className = 'field-helper warning'; return; }
-        if (tipoEntrada === 'Ticket Familiar') { helper.textContent = 'Tarifa familiar: 25 € (precio fijo)'; helper.className = 'field-helper'; return; }
+        if (n >= 25) { helper.textContent = '⚠ ' + _T('helper_is_group'); helper.className = 'field-helper warning'; return; }
+        if (tipoEntrada === 'Ticket Familiar') { helper.textContent = _T('helper_family_fixed'); helper.className = 'field-helper'; return; }
         const adultos = Math.max(0, n - menores - residentes);
-        if (tipoEntrada === 'Catedral' && adultos >= 18) { helper.textContent = '⚠ Considerado grupo reducido. Realizar como Visita en Grupo.'; helper.className = 'field-helper warning'; return; }
-        if (tipoEntrada === 'Pulsera Turística' && adultos >= 13) { helper.textContent = '⚠ Considerado grupo reducido. Realizar como Visita en Grupo.'; helper.className = 'field-helper warning'; return; }
+        if (tipoEntrada === 'Catedral' && adultos >= 18) { helper.textContent = '⚠ ' + _T('helper_small_group'); helper.className = 'field-helper warning'; return; }
+        if (tipoEntrada === 'Pulsera Turística' && adultos >= 13) { helper.textContent = '⚠ ' + _T('helper_small_group'); helper.className = 'field-helper warning'; return; }
         if (!tipoEntrada) { helper.textContent = ''; helper.className = 'field-helper'; return; }
         const precioAdulto = PRECIOS[tipoEntrada] || 0;
         const precioMenor = PRECIOS_MENOR_GUIADA[tipoEntrada] !== undefined ? PRECIOS_MENOR_GUIADA[tipoEntrada] : 0;
@@ -4883,7 +4883,7 @@
       const helper = document.getElementById('fechaHelper');
       if (cfg && cfg.nota) { notaTxt.innerHTML = cfg.nota.replace(/\n/g, '<br>'); notaBox.style.display = 'block'; }
       else notaBox.style.display = 'none';
-      if (esNocturnaGrupoSel()) { helper.textContent = '✦ Solo a las 20:45 h · todos los días'; helper.style.color = 'var(--stone-d)'; helper.style.display = 'block'; }
+      if (esNocturnaGrupoSel()) { helper.textContent = '✦ ' + _T('helper_nocturna_horario'); helper.style.color = 'var(--stone-d)'; helper.style.display = 'block'; }
       else if (cfg && cfg.diasInfo) { helper.textContent = '✦ ' + cfg.diasInfo; helper.style.color = 'var(--stone-d)'; helper.style.display = 'block'; }
       else helper.style.display = 'none';
       // Nocturna en grupo: preinicializar el nº de personas en el mínimo de grupo (10).
@@ -4892,7 +4892,7 @@
         const npVal = parseInt(npEl.value);
         if (!npVal || npVal < MIN_GRUPO_NOCTURNA) npEl.value = MIN_GRUPO_NOCTURNA;
       }
-      document.getElementById('horaVisita').innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      document.getElementById('horaVisita').innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
       document.getElementById('horaGrid').innerHTML = '';
       if (document.getElementById('fechaVisita').value) actualizarHoras();
       updatePersonasHelper();
@@ -4909,7 +4909,7 @@
       if (cfg.soloVieSab) {
         const dia = new Date(fecha + 'T00:00:00').getDay();
         if (dia !== 5 && dia !== 6) {
-          helper.textContent = '⚠ Sólo disponible Viernes y Sábados.';
+          helper.textContent = '⚠ ' + _T('helper_solo_vie_sab');
           helper.style.color = '#d97c6a'; helper.style.display = 'block';
           return false;
         }
@@ -4927,7 +4927,7 @@
       const fecha = document.getElementById('fechaVisita').value;
       if (!fecha) return;
       if (!validarFechaConTipo()) {
-        sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
+        sel.innerHTML = `<option value="" disabled selected>${_T('opt_no_avail')}</option>`;
         grid.innerHTML = ''; return;
       }
       if (state.tipoVisita === 'individual') { actualizarHorasIndividual(fecha); return; }
@@ -4938,7 +4938,7 @@
       const esGrupoOEsc = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
       if (esGrupoOEsc || esGuiadaInd) {
         sel.style.display = 'none';
-        grid.innerHTML = '<p class="hora-grid-msg">Consultando disponibilidad…</p>';
+        grid.innerHTML = `<p class="hora-grid-msg">${_T('hora_consultando')}</p>`;
         consultarYMostrarDisponibilidad(fecha);
         return;
       }
@@ -4948,7 +4948,7 @@
       const d = new Date(fecha + 'T00:00:00');
       const cfg = HORARIOS[tipoEntrada];
       const horas = (cfg && cfg.horas && cfg.horas[DIAS_SEMANA[d.getDay()]]) ? cfg.horas[DIAS_SEMANA[d.getDay()]] : [];
-      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
       horas.forEach(h => {
         const opt = document.createElement('option');
         const pasado = slotEsPasado(h, fecha);
@@ -4956,11 +4956,11 @@
         if (pasado) opt.disabled = true;
         sel.appendChild(opt);
       });
-      if (horas.length === 0) sel.innerHTML = '<option value="" disabled selected>Sin disponibilidad este día</option>';
+      if (horas.length === 0) sel.innerHTML = `<option value="" disabled selected>${_T('opt_no_avail')}</option>`;
       fetch(dispoURL(fecha))
         .then(r => r.json()).then(data => {
           if (!data.ok) return;
-          if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
+          if (data.esDiaBloqueado) { sel.style.display = 'none'; grid.innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('grid_closed')}</p>`; return; }
           if (data.horasCierre && data.horasCierre.length) {
             sel.querySelectorAll('option').forEach(opt => { if (data.horasCierre.includes(opt.value)) { opt.disabled = true; opt.textContent = '🔒 ' + opt.value; } });
           }
@@ -4974,7 +4974,7 @@
       _renderGridBotones(['20:45'], [], [], fecha, false);
       fetch(dispoURL(fecha)).then(r => r.json()).then(data => {
         if (data && data.ok && data.esDiaBloqueado) {
-          document.getElementById('horaGrid').innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>';
+          document.getElementById('horaGrid').innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('grid_closed')}</p>`;
         }
       }).catch(() => { });
     }
@@ -4984,11 +4984,11 @@
       fetch(dispoURL(fecha))
         .then(r => r.json()).then(data => {
           if (!data.ok) {
-            grid.innerHTML = '<p class="hora-grid-msg err">No se pudo comprobar disponibilidad.</p>';
+            grid.innerHTML = `<p class="hora-grid-msg err">${_T('grid_check_fail')}</p>`;
             if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') mostrarSelectGrupo(fecha);
             return;
           }
-          if (data.esDiaBloqueado) { grid.innerHTML = '<p class="hora-grid-msg err">⚠ Este día está cerrado al público.</p>'; return; }
+          if (data.esDiaBloqueado) { grid.innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('grid_closed')}</p>`; return; }
           const tipoEntrada = getTipoParaHorario();
           const horasCierre = data.horasCierre || [];
           const horasNoVG = data.horasNoVisitasGuiadas || [];
@@ -5001,7 +5001,7 @@
           else if (tipoEntrada === 'Visita Guiada Nocturna Catedral')
             renderizarHorasGuiadas(data.visitasGuiadas?.Nocturna || [], horasCierre, fecha);
         }).catch(() => {
-          grid.innerHTML = '<p class="hora-grid-msg err">Error de conexión.</p>';
+          grid.innerHTML = `<p class="hora-grid-msg err">${_T('grid_conn_err')}</p>`;
           if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') mostrarSelectGrupo(fecha);
         });
     }
@@ -5011,7 +5011,7 @@
       sel.style.display = '';
       const d = new Date(fecha + 'T00:00:00');
       const horas = d.getDay() === 6 ? HORAS_GRUPO_SAB : HORAS_GRUPO;
-      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>';
+      sel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`;
       horas.forEach(h => {
         const o = document.createElement('option');
         const pasado = slotEsPasado(h, fecha);
@@ -5024,7 +5024,7 @@
     function _renderGridBotones(horas, inactivas, bloqueadas, fecha, duracionDoble) {
       const grid = document.getElementById('horaGrid');
       const sel = document.getElementById('horaVisita');
-      sel.innerHTML = '<option value="" disabled selected>Seleccione hora</option>'; sel.value = '';
+      sel.innerHTML = `<option value="" disabled selected>${_T('opt_time_select')}</option>`; sel.value = '';
       const wrap = document.createElement('div');
       wrap.className = 'hora-grid';
       const btns = [];
@@ -5072,7 +5072,7 @@
       grid.innerHTML = ''; grid.appendChild(wrap);
       const leyenda = document.createElement('p');
       leyenda.className = 'hora-leyenda';
-      leyenda.innerHTML = '<span style="color:#6cd88a">■</span> Disponible &nbsp;<span style="color:rgba(220,130,110,.75)">■</span> No disponible &nbsp;<span style="color:rgba(210,90,60,.7)">■</span> Hora pasada';
+      leyenda.innerHTML = `<span style="color:#6cd88a">■</span> ${_T('leg_available')} &nbsp;<span style="color:rgba(220,130,110,.75)">■</span> ${_T('leg_unavailable')} &nbsp;<span style="color:rgba(210,90,60,.7)">■</span> ${_T('leg_past')}`;
       grid.appendChild(leyenda);
     }
 
@@ -5088,7 +5088,7 @@
     }
     function renderizarHorasGuiadas(horas, horasCierre, fecha) {
       const grid = document.getElementById('horaGrid');
-      if (!horas || horas.length === 0) { grid.innerHTML = '<p class="hora-grid-msg">No hay visitas programadas para este día.</p>'; return; }
+      if (!horas || horas.length === 0) { grid.innerHTML = `<p class="hora-grid-msg">${_T('grid_no_guided')}</p>`; return; }
       _renderGridBotones(horas, horasCierre || [], [], fecha);
     }
 
@@ -5310,7 +5310,7 @@
         alertEl.classList.remove('visible');
         let ok = true;
         if (state.tipoVisita === 'individual') {
-          if (!state.visitMode) { alertEl.textContent = 'Selecciona la modalidad (sin guía o con guía).'; alertEl.classList.add('visible'); return false; }
+          if (!state.visitMode) { alertEl.textContent = _T('err_modality'); alertEl.classList.add('visible'); return false; }
           const r = calcularTotalEntradas();
           if (r.personas <= 0) { alertEl.textContent = _T('err_no_entradas'); alertEl.classList.add('visible'); return false; }
           if (guiadasSeleccionadasCount() > 1) { alertEl.textContent = _T('err_multi_guiada'); alertEl.classList.add('visible'); return false; }
@@ -5319,10 +5319,10 @@
           if (!fechaI) { setError('fechaVisita', 'err-fechaVisita', true); ok = false; } else setError('fechaVisita', 'err-fechaVisita', false);
           const horaI = document.getElementById('horaVisita').value;
           if (!horaI) { setError('horaVisita', 'err-horaVisita', true); ok = false; } else setError('horaVisita', 'err-horaVisita', false);
-          if (!ok) { alertEl.textContent = 'Revisa los campos marcados en rojo.'; alertEl.classList.add('visible'); }
+          if (!ok) { alertEl.textContent = _T('err_check_fields'); alertEl.classList.add('visible'); }
           return ok;
         }
-        if (!state.visitMode) { alertEl.textContent = 'Selecciona la modalidad (sin guía o con guía).'; alertEl.classList.add('visible'); return false; }
+        if (!state.visitMode) { alertEl.textContent = _T('err_modality'); alertEl.classList.add('visible'); return false; }
         const tv = state.tipoVisita;
         const vm = state.visitMode;
         const requiereSelect = !((tv === 'grupo' || tv === 'escolar') && vm === 'sin-guia');
@@ -5342,19 +5342,19 @@
           const _pag = Math.max(0, (np || 0) - _men - _res);
           if (esNocturnaGrupoSel()) {
             if (np && np < MIN_GRUPO_NOCTURNA) {
-              alertEl.textContent = `Mínimo ${MIN_GRUPO_NOCTURNA} personas para la Visita Guiada Nocturna en grupo.`;
+              alertEl.textContent = _T('helper_min_nocturna').replace('{0}', MIN_GRUPO_NOCTURNA);
               alertEl.classList.add('visible'); ok = false;
             }
           } else if (_men > 0 && _pag <= 0) {
-            alertEl.textContent = 'Obligatorio acudir con adultos.';
+            alertEl.textContent = _T('helper_must_adults');
             alertEl.classList.add('visible'); ok = false;
           } else if (np && _pag <= 12) {
-            alertEl.textContent = 'No considerado como grupo. Haga su reserva como individual.';
+            alertEl.textContent = _T('helper_not_group');
             alertEl.classList.add('visible'); ok = false;
           }
         }
         if (!ok && !alertEl.classList.contains('visible')) {
-          alertEl.textContent = 'Revisa los campos marcados en rojo.';
+          alertEl.textContent = _T('err_check_fields');
           alertEl.classList.add('visible');
         }
         return ok;
@@ -5383,7 +5383,7 @@
             if (bad) ok = false;
           });
         }
-        if (!ok) { alertEl.textContent = 'Revisa los campos marcados en rojo.'; alertEl.classList.add('visible'); }
+        if (!ok) { alertEl.textContent = _T('err_check_fields'); alertEl.classList.add('visible'); }
         return ok;
       }
       if (n === 5) {
@@ -5391,8 +5391,8 @@
         const ans = parseInt(document.getElementById('captcha-answer').value);
         const correct = captchaA + captchaB;
         const terms = document.getElementById('accept-terms').checked;
-        if (ans !== correct) { alertEl.textContent = 'La respuesta al captcha no es correcta.'; alertEl.classList.add('visible'); document.getElementById('captcha-answer').classList.add('error'); return false; }
-        if (!terms) { alertEl.textContent = 'Debes aceptar los términos y la política de privacidad.'; alertEl.classList.add('visible'); return false; }
+        if (ans !== correct) { alertEl.textContent = _T('err_captcha_alert'); alertEl.classList.add('visible'); document.getElementById('captcha-answer').classList.add('error'); return false; }
+        if (!terms) { alertEl.textContent = _T('err_accept_terms'); alertEl.classList.add('visible'); return false; }
         alertEl.classList.remove('visible');
         document.getElementById('captcha-answer').classList.remove('error');
         return true;
@@ -5436,7 +5436,7 @@
     async function enviarReserva() {
       if (!validateStep(5)) return;
       const btn = document.getElementById('btn-submit');
-      btn.disabled = true; btn.textContent = 'Enviando…';
+      btn.disabled = true; btn.textContent = _T('btn_sending');
 
       const isGE = state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar';
       const tipoEntradaSel = document.getElementById('tipoEntrada').value;
@@ -5533,8 +5533,8 @@
         showConfirmation(bookingId);
       } catch (err) {
         console.error(err);
-        alert('Ha ocurrido un error al enviar la solicitud. Por favor, inténtelo de nuevo.');
-        btn.disabled = false; btn.textContent = state.editToken ? 'Guardar cambios →' : 'Enviar solicitud →';
+        alert(_T('err_submit'));
+        btn.disabled = false; btn.textContent = state.editToken ? _T('btn_save_changes') : _T('btn_submit');
       }
     }
     function showConfirmation(bookingId) {
@@ -5548,8 +5548,8 @@
       if (state.editToken) {
         const t = document.querySelector('#step-confirm .confirm-title');
         const s = document.querySelector('#step-confirm .confirm-note span');
-        if (t) { t.removeAttribute('data-i18n-page'); t.textContent = '¡Cambios enviados!'; }
-        if (s) { s.removeAttribute('data-i18n-page'); s.textContent = 'Hemos recibido los cambios de tu reserva. El equipo los revisará y recibirás la confirmación por email.'; }
+        if (t) { t.removeAttribute('data-i18n-page'); t.textContent = _T('edit_sent_title'); }
+        if (s) { s.removeAttribute('data-i18n-page'); s.textContent = _T('edit_sent_text'); }
       }
       document.getElementById('confirm-summary-content').innerHTML = buildSummary();
     }
@@ -5561,7 +5561,7 @@
       });
       ['menoresTreceAnios', 'residentes'].forEach(id => { const el = document.getElementById(id); if (el) { el.value = '0'; el.classList.remove('error'); } });
       ESC_ORDER.forEach(id => { const el = document.getElementById('esc_' + id); if (el) el.value = '0'; });
-      const teEl = document.getElementById('tipoEntrada'); if (teEl) teEl.innerHTML = '<option value="" disabled selected>Seleccione</option>';
+      const teEl = document.getElementById('tipoEntrada'); if (teEl) teEl.innerHTML = `<option value="" disabled selected>${_T('opt_select')}</option>`;
       document.querySelectorAll('input[name="tipoVisita"]').forEach(r => r.checked = false);
       document.querySelectorAll('input[name="visitMode"]').forEach(r => r.checked = false);
       document.getElementById('necesitaFactura').checked = false;
@@ -5829,13 +5829,13 @@
         banner = document.createElement('div');
         banner.id = 'edit-banner';
         banner.style.cssText = 'margin:0 0 22px;padding:14px 18px;border:1px solid rgba(201,168,76,.45);border-left:3px solid #C9A84C;border-radius:6px;background:rgba(201,168,76,.08);font-size:.92rem;line-height:1.5';
-        banner.textContent = 'Cargando los datos de tu reserva…';
+        banner.textContent = _T('edit_loading');
         wrap.insertBefore(banner, wrap.firstChild);
       }
       const submitBtn = document.getElementById('btn-submit');
       // Quitar el binding i18n: si no, PAGE_applyLang (que corre después)
       // restauraría "Enviar solicitud →" al recargar el idioma.
-      if (submitBtn) { submitBtn.removeAttribute('data-i18n-page'); submitBtn.textContent = 'Guardar cambios →'; }
+      if (submitBtn) { submitBtn.removeAttribute('data-i18n-page'); submitBtn.textContent = _T('btn_save_changes'); }
 
       function tipoVisitaARadio(label) {
         const s = String(label || '').trim().toLowerCase();
@@ -5934,20 +5934,20 @@
           if (fi) { fi.value = d.fechaVisita; actualizarFechaPlaceholder(); actualizarHoras(); prefillHora(d.horaVisita); }
         }
 
-        if (banner) banner.innerHTML = '✎ <strong>Estás editando tu reserva.</strong> Modifica lo que necesites y pulsa «Guardar cambios». El equipo revisará los cambios y recibirás la confirmación por email.';
+        if (banner) banner.innerHTML = '✎ <strong>' + _T('edit_banner_strong') + '</strong> ' + _T('edit_banner_rest');
       }
 
       fetch(SCRIPT_URL + '?datos=' + encodeURIComponent(token))
         .then(r => r.json())
         .then(d => {
           if (!d || !d.ok) {
-            if (banner) banner.textContent = 'No hemos podido cargar los datos de tu reserva (el enlace puede haber caducado). Revisa los datos manualmente antes de guardar.';
+            if (banner) banner.textContent = _T('edit_load_fail');
             return;
           }
           prefill(d);
         })
         .catch(() => {
-          if (banner) banner.textContent = 'No hemos podido conectar para cargar tu reserva. Revisa tu conexión e inténtalo de nuevo.';
+          if (banner) banner.textContent = _T('edit_conn_fail');
         });
     })();
   </script>
@@ -6172,7 +6172,6 @@
         ent_diurna_short: 'VG Diurna', ent_vip_short: 'VG VIP', ent_noc_short: 'VG Nocturna',
         ent_conv_short: 'San Francisco', ent_pul_per_short: 'Pulsera peregrino',
         ent_diurna_abbr: 'VGD', ent_vip_abbr: 'VGVIP', ent_noc_abbr: 'VGN',
-        ent_tier_adulto: 'Adulto', ent_tier_menor: 'Menor <12', ent_tier_residente: 'Residente', ent_tier_bono: 'Bono familiar',
         ent_gratis: 'Gratuidad',
         info_cat: 'Entrada de visita sin guía al monumento.',
         info_torre: 'Entrada de visita sin guía al monumento.',
@@ -6198,9 +6197,41 @@
         grp_monumentos: 'Entradas principales', grp_combinados: 'Entradas conjuntas', grp_condiciones: 'Condiciones especiales', grp_recomendadas: 'Visitas recomendadas',
         ent_menor: 'Menor <12', ent_res: 'Residentes',
         ent_gui_segun: 'según visita guiada', ent_sin_corto: 'sin guía',
-        ent_tarifa_pre: 'Tarifa:', ent_por_persona: '/ persona', ent_por_bono: '/ bono',
         s5_captcha_q: '¿Cuánto es<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: 'He leído y acepto los términos y condiciones de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de entradas</a>, así como la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.'
+        s5_accept: 'He leído y acepto los términos y condiciones de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de entradas</a>, así como la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.',
+        opt_no_avail: "Sin disponibilidad este día",
+        opt_select_type: "Seleccione tipo",
+        opt_select: "Seleccione",
+        grid_closed: "Este día está cerrado al público.",
+        grid_check_fail: "No se pudo comprobar disponibilidad.",
+        grid_conn_err: "Error de conexión.",
+        grid_no_guided: "No hay visitas programadas para este día.",
+        leg_available: "Disponible",
+        leg_unavailable: "No disponible",
+        leg_past: "Hora pasada",
+        lbl_guided_modality: "Modalidad guiada",
+        helper_min_nocturna: "Mínimo {0} personas para la Visita Guiada Nocturna en grupo.",
+        helper_must_adults: "Obligatorio acudir con adultos.",
+        helper_not_group: "No considerado como grupo. Haga su reserva como individual.",
+        helper_is_group: "Considerado como grupo. Realizar como Visita en Grupo.",
+        helper_family_fixed: "Tarifa familiar: 25 € (precio fijo)",
+        helper_small_group: "Considerado grupo reducido. Realizar como Visita en Grupo.",
+        helper_nocturna_horario: "Solo a las 20:45 h · todos los días",
+        helper_solo_vie_sab: "Sólo disponible Viernes y Sábados.",
+        err_modality: "Selecciona la modalidad (sin guía o con guía).",
+        err_check_fields: "Revisa los campos marcados en rojo.",
+        err_captcha_alert: "La respuesta al captcha no es correcta.",
+        err_accept_terms: "Debes aceptar los términos y la política de privacidad.",
+        btn_sending: "Enviando…",
+        btn_save_changes: "Guardar cambios →",
+        err_submit: "Ha ocurrido un error al enviar la solicitud. Por favor, inténtelo de nuevo.",
+        edit_loading: "Cargando los datos de tu reserva…",
+        edit_sent_title: "¡Cambios enviados!",
+        edit_sent_text: "Hemos recibido los cambios de tu reserva. El equipo los revisará y recibirás la confirmación por email.",
+        edit_banner_strong: "Estás editando tu reserva.",
+        edit_banner_rest: "Modifica lo que necesites y pulsa «Guardar cambios». El equipo revisará los cambios y recibirás la confirmación por email.",
+        edit_load_fail: "No hemos podido cargar los datos de tu reserva (el enlace puede haber caducado). Revisa los datos manualmente antes de guardar.",
+        edit_conn_fail: "No hemos podido conectar para cargar tu reserva. Revisa tu conexión e inténtalo de nuevo.",
       },
       en: {
         s2_ent_title: 'Select your tickets',
@@ -6366,7 +6397,40 @@
         s4_block_desglose: 'Breakdown', s4_total: 'Estimated total',
         s4_footer_note: 'Payment will be made at the ticket office on the day of your visit. Special conditions must be accredited.',
         s5_captcha_q: 'How much is<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: 'I have read and accept the terms and conditions of <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">ticket purchase</a>, as well as the <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">privacy policy</a>.'
+        s5_accept: 'I have read and accept the terms and conditions of <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">ticket purchase</a>, as well as the <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">privacy policy</a>.',
+        opt_no_avail: "No availability this day",
+        opt_select_type: "Select type",
+        opt_select: "Select",
+        grid_closed: "This day is closed to the public.",
+        grid_check_fail: "Availability could not be checked.",
+        grid_conn_err: "Connection error.",
+        grid_no_guided: "No tours scheduled for this day.",
+        leg_available: "Available",
+        leg_unavailable: "Unavailable",
+        leg_past: "Past time",
+        lbl_guided_modality: "Guided option",
+        helper_min_nocturna: "Minimum {0} people for the group Night Guided Tour.",
+        helper_must_adults: "Minors must be accompanied by adults.",
+        helper_not_group: "Not considered a group. Please book as an individual visit.",
+        helper_is_group: "Considered a group. Please book as a Group Visit.",
+        helper_family_fixed: "Family ticket: €25 (fixed price)",
+        helper_small_group: "Considered a small group. Please book as a Group Visit.",
+        helper_nocturna_horario: "Only at 20:45 · every day",
+        helper_solo_vie_sab: "Only available on Fridays and Saturdays.",
+        err_modality: "Select the visit mode (without guide or guided).",
+        err_check_fields: "Please review the fields marked in red.",
+        err_captcha_alert: "The captcha answer is not correct.",
+        err_accept_terms: "You must accept the terms and the privacy policy.",
+        btn_sending: "Sending…",
+        btn_save_changes: "Save changes →",
+        err_submit: "An error occurred while sending your request. Please try again.",
+        edit_loading: "Loading your booking details…",
+        edit_sent_title: "Changes sent!",
+        edit_sent_text: "We have received the changes to your booking. The team will review them and you will receive confirmation by email.",
+        edit_banner_strong: "You are editing your booking.",
+        edit_banner_rest: "Make any changes you need and press “Save changes”. The team will review the changes and you will receive confirmation by email.",
+        edit_load_fail: "We could not load your booking details (the link may have expired). Please check the details manually before saving.",
+        edit_conn_fail: "We could not connect to load your booking. Check your connection and try again.",
       },
       fr: {
         s2_ent_title: 'Sélectionnez vos billets',
@@ -6532,7 +6596,40 @@
         s4_block_desglose: 'Détail', s4_total: 'Total estimé',
         s4_footer_note: 'Le paiement s’effectuera à la billetterie le jour de votre visite. Les conditions spéciales doivent être justifiées.',
         s5_captcha_q: 'Combien font<span class="captcha-op">{0} + {1} ?</span>',
-        s5_accept: 'J\'ai lu et j\'accepte les conditions générales d\'<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">achat de billets</a>, ainsi que la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">politique de confidentialité</a>.'
+        s5_accept: 'J\'ai lu et j\'accepte les conditions générales d\'<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">achat de billets</a>, ainsi que la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">politique de confidentialité</a>.',
+        opt_no_avail: "Aucune disponibilité ce jour",
+        opt_select_type: "Sélectionnez le type",
+        opt_select: "Sélectionnez",
+        grid_closed: "Ce jour est fermé au public.",
+        grid_check_fail: "Impossible de vérifier la disponibilité.",
+        grid_conn_err: "Erreur de connexion.",
+        grid_no_guided: "Aucune visite programmée ce jour.",
+        leg_available: "Disponible",
+        leg_unavailable: "Non disponible",
+        leg_past: "Heure passée",
+        lbl_guided_modality: "Option guidée",
+        helper_min_nocturna: "Minimum {0} personnes pour la Visite Guidée Nocturne en groupe.",
+        helper_must_adults: "Les mineurs doivent être accompagnés d’adultes.",
+        helper_not_group: "Non considéré comme un groupe. Réservez en visite individuelle.",
+        helper_is_group: "Considéré comme un groupe. Réservez en Visite de Groupe.",
+        helper_family_fixed: "Billet famille : 25 € (prix fixe)",
+        helper_small_group: "Considéré comme petit groupe. Réservez en Visite de Groupe.",
+        helper_nocturna_horario: "Uniquement à 20h45 · tous les jours",
+        helper_solo_vie_sab: "Disponible uniquement les vendredis et samedis.",
+        err_modality: "Sélectionnez la modalité (sans guide ou guidée).",
+        err_check_fields: "Vérifiez les champs marqués en rouge.",
+        err_captcha_alert: "La réponse au captcha est incorrecte.",
+        err_accept_terms: "Vous devez accepter les conditions et la politique de confidentialité.",
+        btn_sending: "Envoi…",
+        btn_save_changes: "Enregistrer les modifications →",
+        err_submit: "Une erreur s’est produite lors de l’envoi de la demande. Veuillez réessayer.",
+        edit_loading: "Chargement des données de votre réservation…",
+        edit_sent_title: "Modifications envoyées !",
+        edit_sent_text: "Nous avons reçu les modifications de votre réservation. L’équipe les examinera et vous recevrez la confirmation par e-mail.",
+        edit_banner_strong: "Vous modifiez votre réservation.",
+        edit_banner_rest: "Modifiez ce dont vous avez besoin et appuyez sur « Enregistrer les modifications ». L’équipe examinera les modifications et vous recevrez la confirmation par e-mail.",
+        edit_load_fail: "Nous n’avons pas pu charger les données de votre réservation (le lien a peut-être expiré). Vérifiez les données manuellement avant d’enregistrer.",
+        edit_conn_fail: "Nous n’avons pas pu nous connecter pour charger votre réservation. Vérifiez votre connexion et réessayez.",
       },
       de: {
         s2_ent_title: 'Wählen Sie Ihre Tickets',
@@ -6698,7 +6795,40 @@
         s4_block_desglose: 'Aufschlüsselung', s4_total: 'Geschätzter Gesamtbetrag',
         s4_footer_note: 'Die Zahlung erfolgt an der Kasse am Tag Ihres Besuchs. Sonderkonditionen sind nachzuweisen.',
         s5_captcha_q: 'Wie viel ist<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: 'Ich habe die Allgemeinen Geschäftsbedingungen für den <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">Ticketkauf</a> sowie die <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.'
+        s5_accept: 'Ich habe die Allgemeinen Geschäftsbedingungen für den <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">Ticketkauf</a> sowie die <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.',
+        opt_no_avail: "Keine Verfügbarkeit an diesem Tag",
+        opt_select_type: "Typ auswählen",
+        opt_select: "Auswählen",
+        grid_closed: "Dieser Tag ist für die Öffentlichkeit geschlossen.",
+        grid_check_fail: "Verfügbarkeit konnte nicht geprüft werden.",
+        grid_conn_err: "Verbindungsfehler.",
+        grid_no_guided: "Keine Führungen an diesem Tag geplant.",
+        leg_available: "Verfügbar",
+        leg_unavailable: "Nicht verfügbar",
+        leg_past: "Vergangene Uhrzeit",
+        lbl_guided_modality: "Führungsoption",
+        helper_min_nocturna: "Mindestens {0} Personen für die nächtliche Gruppenführung.",
+        helper_must_adults: "Minderjährige müssen von Erwachsenen begleitet werden.",
+        helper_not_group: "Nicht als Gruppe eingestuft. Bitte als Einzelbesuch buchen.",
+        helper_is_group: "Als Gruppe eingestuft. Bitte als Gruppenbesuch buchen.",
+        helper_family_fixed: "Familienticket: 25 € (Festpreis)",
+        helper_small_group: "Als Kleingruppe eingestuft. Bitte als Gruppenbesuch buchen.",
+        helper_nocturna_horario: "Nur um 20:45 Uhr · täglich",
+        helper_solo_vie_sab: "Nur freitags und samstags verfügbar.",
+        err_modality: "Wählen Sie die Besuchsart (ohne Führung oder mit Führung).",
+        err_check_fields: "Bitte überprüfen Sie die rot markierten Felder.",
+        err_captcha_alert: "Die Captcha-Antwort ist nicht korrekt.",
+        err_accept_terms: "Sie müssen die Bedingungen und die Datenschutzrichtlinie akzeptieren.",
+        btn_sending: "Senden…",
+        btn_save_changes: "Änderungen speichern →",
+        err_submit: "Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        edit_loading: "Ihre Buchungsdaten werden geladen…",
+        edit_sent_title: "Änderungen gesendet!",
+        edit_sent_text: "Wir haben die Änderungen Ihrer Buchung erhalten. Das Team wird sie prüfen und Sie erhalten die Bestätigung per E-Mail.",
+        edit_banner_strong: "Sie bearbeiten Ihre Buchung.",
+        edit_banner_rest: "Ändern Sie, was Sie möchten, und klicken Sie auf „Änderungen speichern“. Das Team prüft die Änderungen und Sie erhalten die Bestätigung per E-Mail.",
+        edit_load_fail: "Wir konnten Ihre Buchungsdaten nicht laden (der Link ist möglicherweise abgelaufen). Bitte überprüfen Sie die Daten manuell vor dem Speichern.",
+        edit_conn_fail: "Wir konnten keine Verbindung herstellen, um Ihre Buchung zu laden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
       },
       pt: {
         s2_ent_title: 'Selecione as suas entradas',
@@ -6864,7 +6994,40 @@
         s4_block_desglose: 'Detalhe', s4_total: 'Total estimado',
         s4_footer_note: 'O pagamento será efetuado nas bilheteiras no dia da sua visita. Comprovar condições especiais.',
         s5_captcha_q: 'Quanto é<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: 'Li e aceito os termos e condições de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de bilhetes</a>, bem como a <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidade</a>.'
+        s5_accept: 'Li e aceito os termos e condições de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra de bilhetes</a>, bem como a <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacidade</a>.',
+        opt_no_avail: "Sem disponibilidade neste dia",
+        opt_select_type: "Selecione o tipo",
+        opt_select: "Selecione",
+        grid_closed: "Este dia está encerrado ao público.",
+        grid_check_fail: "Não foi possível verificar a disponibilidade.",
+        grid_conn_err: "Erro de ligação.",
+        grid_no_guided: "Não há visitas programadas para este dia.",
+        leg_available: "Disponível",
+        leg_unavailable: "Indisponível",
+        leg_past: "Hora passada",
+        lbl_guided_modality: "Opção guiada",
+        helper_min_nocturna: "Mínimo {0} pessoas para a Visita Guiada Noturna em grupo.",
+        helper_must_adults: "Os menores devem ser acompanhados por adultos.",
+        helper_not_group: "Não considerado grupo. Faça a sua reserva como individual.",
+        helper_is_group: "Considerado grupo. Faça a reserva como Visita em Grupo.",
+        helper_family_fixed: "Tarifa familiar: 25 € (preço fixo)",
+        helper_small_group: "Considerado grupo reduzido. Faça a reserva como Visita em Grupo.",
+        helper_nocturna_horario: "Apenas às 20:45 · todos os dias",
+        helper_solo_vie_sab: "Disponível apenas às sextas e sábados.",
+        err_modality: "Selecione a modalidade (sem guia ou com guia).",
+        err_check_fields: "Reveja os campos marcados a vermelho.",
+        err_captcha_alert: "A resposta ao captcha não está correta.",
+        err_accept_terms: "Deve aceitar os termos e a política de privacidade.",
+        btn_sending: "A enviar…",
+        btn_save_changes: "Guardar alterações →",
+        err_submit: "Ocorreu um erro ao enviar o pedido. Por favor, tente novamente.",
+        edit_loading: "A carregar os dados da sua reserva…",
+        edit_sent_title: "Alterações enviadas!",
+        edit_sent_text: "Recebemos as alterações da sua reserva. A equipa irá revê-las e receberá a confirmação por email.",
+        edit_banner_strong: "Está a editar a sua reserva.",
+        edit_banner_rest: "Altere o que precisar e clique em «Guardar alterações». A equipa irá rever as alterações e receberá a confirmação por email.",
+        edit_load_fail: "Não foi possível carregar os dados da sua reserva (o link pode ter expirado). Verifique os dados manualmente antes de guardar.",
+        edit_conn_fail: "Não foi possível ligar para carregar a sua reserva. Verifique a sua ligação e tente novamente.",
       },
       it: {
         s2_ent_title: 'Seleziona i tuoi biglietti',
@@ -7030,7 +7193,40 @@
         s4_block_desglose: 'Dettaglio', s4_total: 'Totale stimato',
         s4_footer_note: 'Il pagamento si effettuerà alle biglietterie il giorno della visita. Comprovare le condizioni speciali.',
         s5_captcha_q: 'Quanto fa<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: 'Ho letto e accetto i termini e le condizioni di <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">acquisto biglietti</a>, nonché l\'<a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">informativa sulla privacy</a>.'
+        s5_accept: 'Ho letto e accetto i termini e le condizioni di <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">acquisto biglietti</a>, nonché l\'<a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">informativa sulla privacy</a>.',
+        opt_no_avail: "Nessuna disponibilità in questo giorno",
+        opt_select_type: "Seleziona il tipo",
+        opt_select: "Seleziona",
+        grid_closed: "Questo giorno è chiuso al pubblico.",
+        grid_check_fail: "Impossibile verificare la disponibilità.",
+        grid_conn_err: "Errore di connessione.",
+        grid_no_guided: "Nessuna visita in programma per questo giorno.",
+        leg_available: "Disponibile",
+        leg_unavailable: "Non disponibile",
+        leg_past: "Ora passata",
+        lbl_guided_modality: "Opzione guidata",
+        helper_min_nocturna: "Minimo {0} persone per la Visita Guidata Notturna in gruppo.",
+        helper_must_adults: "I minori devono essere accompagnati da adulti.",
+        helper_not_group: "Non considerato gruppo. Effettua la prenotazione come individuale.",
+        helper_is_group: "Considerato gruppo. Effettua la prenotazione come Visita di Gruppo.",
+        helper_family_fixed: "Tariffa famiglia: 25 € (prezzo fisso)",
+        helper_small_group: "Considerato piccolo gruppo. Effettua la prenotazione come Visita di Gruppo.",
+        helper_nocturna_horario: "Solo alle 20:45 · tutti i giorni",
+        helper_solo_vie_sab: "Disponibile solo venerdì e sabato.",
+        err_modality: "Seleziona la modalità (senza guida o guidata).",
+        err_check_fields: "Controlla i campi evidenziati in rosso.",
+        err_captcha_alert: "La risposta al captcha non è corretta.",
+        err_accept_terms: "Devi accettare i termini e l’informativa sulla privacy.",
+        btn_sending: "Invio…",
+        btn_save_changes: "Salva modifiche →",
+        err_submit: "Si è verificato un errore durante l’invio della richiesta. Riprova.",
+        edit_loading: "Caricamento dei dati della tua prenotazione…",
+        edit_sent_title: "Modifiche inviate!",
+        edit_sent_text: "Abbiamo ricevuto le modifiche della tua prenotazione. Il team le esaminerà e riceverai la conferma via email.",
+        edit_banner_strong: "Stai modificando la tua prenotazione.",
+        edit_banner_rest: "Modifica ciò che ti serve e premi «Salva modifiche». Il team esaminerà le modifiche e riceverai la conferma via email.",
+        edit_load_fail: "Non è stato possibile caricare i dati della tua prenotazione (il link potrebbe essere scaduto). Verifica i dati manualmente prima di salvare.",
+        edit_conn_fail: "Non è stato possibile connettersi per caricare la tua prenotazione. Controlla la connessione e riprova.",
       },
       ko: {
         s2_ent_title: '입장권 선택',
@@ -7196,7 +7392,40 @@
         s4_block_desglose: '내역', s4_total: '예상 총액',
         s4_footer_note: '결제는 방문 당일 매표소에서 진행됩니다. 특별 조건은 증빙이 필요합니다.',
         s5_captcha_q: '<span class="captcha-op">{0} + {1}</span>은(는) 얼마입니까?',
-        s5_accept: '<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">티켓 구매</a> 약관 및 <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">개인정보 처리방침</a>을 읽고 동의합니다.'
+        s5_accept: '<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">티켓 구매</a> 약관 및 <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">개인정보 처리방침</a>을 읽고 동의합니다.',
+        opt_no_avail: "이 날은 예약 불가",
+        opt_select_type: "유형 선택",
+        opt_select: "선택",
+        grid_closed: "이 날은 일반 공개가 휴무입니다.",
+        grid_check_fail: "예약 가능 여부를 확인할 수 없습니다.",
+        grid_conn_err: "연결 오류.",
+        grid_no_guided: "이 날에 예정된 투어가 없습니다.",
+        leg_available: "가능",
+        leg_unavailable: "불가",
+        leg_past: "지난 시간",
+        lbl_guided_modality: "가이드 옵션",
+        helper_min_nocturna: "단체 야간 가이드 투어는 최소 {0}명이 필요합니다.",
+        helper_must_adults: "미성년자는 성인과 동반해야 합니다.",
+        helper_not_group: "단체로 인정되지 않습니다. 개인 방문으로 예약해 주세요.",
+        helper_is_group: "단체로 간주됩니다. 단체 방문으로 예약해 주세요.",
+        helper_family_fixed: "가족 티켓: 25유로 (고정 요금)",
+        helper_small_group: "소규모 단체로 간주됩니다. 단체 방문으로 예약해 주세요.",
+        helper_nocturna_horario: "매일 20:45에만 운영",
+        helper_solo_vie_sab: "금요일과 토요일에만 가능합니다.",
+        err_modality: "방문 방식을 선택하세요 (가이드 없음 또는 가이드 투어).",
+        err_check_fields: "빨간색으로 표시된 항목을 확인하세요.",
+        err_captcha_alert: "보안 문자 답이 올바르지 않습니다.",
+        err_accept_terms: "약관과 개인정보 처리방침에 동의해야 합니다.",
+        btn_sending: "전송 중…",
+        btn_save_changes: "변경사항 저장 →",
+        err_submit: "요청을 보내는 중 오류가 발생했습니다. 다시 시도해 주세요.",
+        edit_loading: "예약 정보를 불러오는 중…",
+        edit_sent_title: "변경사항이 전송되었습니다!",
+        edit_sent_text: "예약 변경사항을 접수했습니다. 담당팀이 검토 후 이메일로 확인을 보내드립니다.",
+        edit_banner_strong: "예약을 수정하고 있습니다.",
+        edit_banner_rest: "필요한 부분을 수정하고 «변경사항 저장»을 누르세요. 담당팀이 변경사항을 검토하고 이메일로 확인을 보내드립니다.",
+        edit_load_fail: "예약 정보를 불러올 수 없습니다 (링크가 만료되었을 수 있습니다). 저장하기 전에 정보를 직접 확인해 주세요.",
+        edit_conn_fail: "예약을 불러오기 위한 연결에 실패했습니다. 연결 상태를 확인하고 다시 시도해 주세요.",
       },
       eu: {
         s2_ent_title: 'Aukeratu zure sarrerak',
@@ -7362,7 +7591,40 @@
         s4_block_desglose: 'Xehetasunak', s4_total: 'Guztizko zenbatekoa',
         s4_footer_note: 'Ordainketa zure bisitaren egunean txarteldegietan egingo da. Baldintza bereziak egiaztatu behar dira.',
         s5_captcha_q: 'Zenbat da<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: '<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">Sarreren erosketa</a> baldintzak eta <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">pribatutasun politika</a> irakurri eta onartu ditut.'
+        s5_accept: '<a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">Sarreren erosketa</a> baldintzak eta <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">pribatutasun politika</a> irakurri eta onartu ditut.',
+        opt_no_avail: "Ez dago eskuragarritasunik egun honetan",
+        opt_select_type: "Hautatu mota",
+        opt_select: "Hautatu",
+        grid_closed: "Egun hau itxita dago publikoarentzat.",
+        grid_check_fail: "Ezin izan da eskuragarritasuna egiaztatu.",
+        grid_conn_err: "Konexio-errorea.",
+        grid_no_guided: "Ez dago bisitarik programatuta egun honetarako.",
+        leg_available: "Eskuragarri",
+        leg_unavailable: "Ez dago eskuragarri",
+        leg_past: "Iragandako ordua",
+        lbl_guided_modality: "Aukera gidatua",
+        helper_min_nocturna: "Gutxienez {0} pertsona taldeko Gaueko Bisita Gidaturako.",
+        helper_must_adults: "Adingabeek helduekin joan behar dute.",
+        helper_not_group: "Ez da talde gisa hartzen. Egin erreserba banakako bisita gisa.",
+        helper_is_group: "Talde gisa hartzen da. Egin erreserba Taldeko Bisita gisa.",
+        helper_family_fixed: "Familia-tarifa: 25 € (prezio finkoa)",
+        helper_small_group: "Talde txiki gisa hartzen da. Egin erreserba Taldeko Bisita gisa.",
+        helper_nocturna_horario: "20:45ean soilik · egunero",
+        helper_solo_vie_sab: "Ostiral eta larunbatetan soilik eskuragarri.",
+        err_modality: "Hautatu modalitatea (gidaririk gabe edo gidatua).",
+        err_check_fields: "Berrikusi gorriz markatutako eremuak.",
+        err_captcha_alert: "Captcharen erantzuna ez da zuzena.",
+        err_accept_terms: "Baldintzak eta pribatutasun-politika onartu behar dituzu.",
+        btn_sending: "Bidaltzen…",
+        btn_save_changes: "Gorde aldaketak →",
+        err_submit: "Errore bat gertatu da eskaera bidaltzean. Saiatu berriro, mesedez.",
+        edit_loading: "Zure erreserbaren datuak kargatzen…",
+        edit_sent_title: "Aldaketak bidali dira!",
+        edit_sent_text: "Zure erreserbaren aldaketak jaso ditugu. Taldeak berrikusiko ditu eta baieztapena emailez jasoko duzu.",
+        edit_banner_strong: "Zure erreserba editatzen ari zara.",
+        edit_banner_rest: "Aldatu behar duzuna eta sakatu «Gorde aldaketak». Taldeak aldaketak berrikusiko ditu eta baieztapena emailez jasoko duzu.",
+        edit_load_fail: "Ezin izan ditugu zure erreserbaren datuak kargatu (esteka iraungita egon daiteke). Egiaztatu datuak eskuz gorde aurretik.",
+        edit_conn_fail: "Ezin izan dugu konektatu zure erreserba kargatzeko. Egiaztatu konexioa eta saiatu berriro.",
       },
       ca: {
         s2_ent_title: 'Selecciona les teves entrades',
@@ -7528,7 +7790,40 @@
         s4_block_desglose: 'Detall', s4_total: 'Total estimat',
         s4_footer_note: 'El pagament es realitzarà a les taquilles el dia de la vostra visita. Acreditar condicions especials.',
         s5_captcha_q: 'Quant és<span class="captcha-op">{0} + {1}?</span>',
-        s5_accept: 'He llegit i accepto els termes i condicions de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra d\'entrades</a>, així com la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacitat</a>.'
+        s5_accept: 'He llegit i accepto els termes i condicions de <a href="https://catedralsantodomingo.org/legal/compra.html" target="_blank" rel="noopener">compra d\'entrades</a>, així com la <a href="https://catedralsantodomingo.org/legal/privacidad.html" target="_blank" rel="noopener">política de privacitat</a>.',
+        opt_no_avail: "Sense disponibilitat aquest dia",
+        opt_select_type: "Selecciona el tipus",
+        opt_select: "Selecciona",
+        grid_closed: "Aquest dia està tancat al públic.",
+        grid_check_fail: "No s’ha pogut comprovar la disponibilitat.",
+        grid_conn_err: "Error de connexió.",
+        grid_no_guided: "No hi ha visites programades per a aquest dia.",
+        leg_available: "Disponible",
+        leg_unavailable: "No disponible",
+        leg_past: "Hora passada",
+        lbl_guided_modality: "Opció guiada",
+        helper_min_nocturna: "Mínim {0} persones per a la Visita Guiada Nocturna en grup.",
+        helper_must_adults: "Els menors han d’anar acompanyats d’adults.",
+        helper_not_group: "No es considera grup. Fes la reserva com a individual.",
+        helper_is_group: "Es considera grup. Fes la reserva com a Visita en Grup.",
+        helper_family_fixed: "Tarifa familiar: 25 € (preu fix)",
+        helper_small_group: "Es considera grup reduït. Fes la reserva com a Visita en Grup.",
+        helper_nocturna_horario: "Només a les 20:45 · cada dia",
+        helper_solo_vie_sab: "Disponible només divendres i dissabtes.",
+        err_modality: "Selecciona la modalitat (sense guia o guiada).",
+        err_check_fields: "Revisa els camps marcats en vermell.",
+        err_captcha_alert: "La resposta al captcha no és correcta.",
+        err_accept_terms: "Has d’acceptar els termes i la política de privacitat.",
+        btn_sending: "Enviant…",
+        btn_save_changes: "Desa els canvis →",
+        err_submit: "S’ha produït un error en enviar la sol·licitud. Torna-ho a provar.",
+        edit_loading: "Carregant les dades de la teva reserva…",
+        edit_sent_title: "Canvis enviats!",
+        edit_sent_text: "Hem rebut els canvis de la teva reserva. L’equip els revisarà i rebràs la confirmació per correu electrònic.",
+        edit_banner_strong: "Estàs editant la teva reserva.",
+        edit_banner_rest: "Modifica el que necessitis i prem «Desa els canvis». L’equip revisarà els canvis i rebràs la confirmació per correu electrònic.",
+        edit_load_fail: "No hem pogut carregar les dades de la teva reserva (l’enllaç pot haver caducat). Revisa les dades manualment abans de desar.",
+        edit_conn_fail: "No hem pogut connectar per carregar la teva reserva. Revisa la connexió i torna-ho a provar.",
       },
     };
     window.PAGE_applyLang = function (lang) {

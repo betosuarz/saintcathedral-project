@@ -174,7 +174,7 @@
   </style>
 </head>
 
-<body><script>if(localStorage.getItem('a11y-light-mode')!=='0')document.body.classList.add('light-mode');</script>
+<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
 
   <a id="back-link" href="menu-audio.html?m=catedral" class="back" aria-label="Volver a idiomas">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

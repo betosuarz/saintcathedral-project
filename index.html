@@ -59,14 +59,17 @@
       position: relative;
       width: 100%;
       height: 100vh;
-      overflow: hidden
+      overflow: hidden;
+      touch-action: none;
     }
 
     .slides-track {
       position: absolute;
       inset: 0;
       transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     .slide {
@@ -82,15 +85,17 @@
       background-size: cover;
       background-position: center;
       transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     .slide.active .slide__bg {
-      transform: scale(1.04)
+      transform: scale3d(1.04, 1.04, 1)
     }
 
     .slide:not(.active) .slide__bg {
-      transform: scale(1)
+      transform: scale3d(1, 1, 1)
     }
 
     .slide::after {
@@ -1088,7 +1093,7 @@
 </script>
 </head>
 
-<body>
+<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
 
   <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
 
@@ -2017,7 +2022,7 @@
       isAnimating = true;
       slides[currentSlide].classList.remove('active');
       currentSlide = Math.max(0, Math.min(TOTAL_SLIDES - 1, n));
-      slidesTrack.style.transform = `translateY(-${currentSlide * 100}vh)`;
+      slidesTrack.style.transform = `translate3d(0, -${currentSlide * 100}vh, 0)`;
       slides[currentSlide].classList.add('active');
       dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
       progress.style.width = ((currentSlide + 1) / TOTAL_SLIDES * 100) + '%';
@@ -2044,10 +2049,22 @@
 
     let touchStartY = 0;
     heroSection.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+    // Bloquea el desplazamiento nativo durante el arrastre: el hero navega slide a slide (uno a
+    // uno) al soltar, igual que la rueda. iOS no respeta overflow:hidden del body, de ahí esto.
+    heroSection.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false });
     heroSection.addEventListener('touchend', e => {
       const dy = touchStartY - e.changedTouches[0].clientY;
       if (Math.abs(dy) < 40) return;
-      if (dy > 0) goToSlide(currentSlide + 1); else goToSlide(currentSlide - 1);
+      // Último slide + swipe hacia arriba → liberar y pasar a la siguiente sección (como la rueda).
+      if (dy > 0 && currentSlide === TOTAL_SLIDES - 1) {
+        document.body.style.overflow = 'auto';
+        heroSection.style.pointerEvents = 'none';
+        const next = document.querySelector('.section-video');
+        if (next) next.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      if (dy > 0) goToSlide(currentSlide + 1);
+      else goToSlide(currentSlide - 1);
     }, { passive: true });
     dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
 

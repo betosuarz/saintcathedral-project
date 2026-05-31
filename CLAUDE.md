@@ -26,8 +26,11 @@ Ver `CLAUDE-design.md` para estructura completa.
 `SHARED_T` en `shared.js`, 9 idiomas (`es en fr de pt it ko eu ca`). Clave activa en `localStorage['cat-lang']`. Páginas amplían con `window.PAGE_applyLang(lang, t)`.
 
 ## Dark / light mode
-- Dark: estado por defecto (`body:not(.light-mode)`)
-- Light: clase `body.light-mode` — el wizard `reservas.html` arranca en light
+- **Light: modo por defecto en todo el sitio.** Cada `<body>` lleva `class="light-mode"` + un guard inline (primer hijo del body) que lo quita solo si el usuario eligió oscuro:
+  `<script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>`
+  Corre antes del primer render → sin flash claro/oscuro al cargar.
+- Dark: opt-in vía botón a11y; persiste en `localStorage['a11y-light-mode']='0'`.
+- CSS: estilos claros bajo `body.light-mode`; oscuros bajo `body:not(.light-mode)`.
 
 ## Convenciones
 - Sin comentarios salvo WHY no obvio

@@ -1,4 +1,4 @@
-﻿$rootDir = "C:\saintcatedral-project"
+$rootDir = "C:\saintcatedral-project"
 $enc = New-Object System.Text.UTF8Encoding($false)
 
 $ADDRESS_CATHEDRAL = @"
@@ -49,7 +49,7 @@ $schemas = @{
       "religiousAffiliation": "Catholic",
       "isAccessibleForFree": false,
       "publicAccess": true,
-      "tourBookingPage": "https://catedralsantodomingo.org/reservas.html",
+      "tourBookingPage": "https://catedralsantodomingo.org/reservas",
       "sameAs": ["https://es.wikipedia.org/wiki/Catedral_de_Santo_Domingo_de_la_Calzada"]
     },
     {
@@ -86,15 +86,15 @@ $schemas = @{
 {
   "@context": "https://schema.org",
   "@type": ["Church", "PlaceOfWorship", "TouristAttraction"],
-  "@id": "https://catedralsantodomingo.org/monumentos/catedral.html#cathedral",
+  "@id": "https://catedralsantodomingo.org/monumentos/catedral#cathedral",
   "name": "Catedral de Santo Domingo de la Calzada",
   "description": "Catedral románico-gótica de los siglos XII–XIV, joya del Camino de Santiago en La Rioja. Visita el milagro del gallo y la gallina, único en el mundo, y el retablo de Damián Forment.",
-  "url": "https://catedralsantodomingo.org/monumentos/catedral.html",
+  "url": "https://catedralsantodomingo.org/monumentos/catedral",
   "image": "https://catedralsantodomingo.org/assets/img/retablo.webp",
   "address": $ADDRESS_CATHEDRAL,
   "geo": {"@type": "GeoCoordinates", "latitude": 42.4408, "longitude": -2.9536},
   "religiousAffiliation": "Catholic",
-  "tourBookingPage": "https://catedralsantodomingo.org/reservas.html",
+  "tourBookingPage": "https://catedralsantodomingo.org/reservas",
   "isAccessibleForFree": false
 }
 </script>
@@ -105,15 +105,15 @@ $schemas = @{
 {
   "@context": "https://schema.org",
   "@type": "TouristAttraction",
-  "@id": "https://catedralsantodomingo.org/monumentos/torre.html#tower",
+  "@id": "https://catedralsantodomingo.org/monumentos/torre#tower",
   "name": "Torre Exenta de Santo Domingo de la Calzada",
   "description": "Torre exenta barroca de 70 metros, único campanario separado del templo en La Rioja. Museo de relojes y campanas con vistas panorámicas.",
-  "url": "https://catedralsantodomingo.org/monumentos/torre.html",
+  "url": "https://catedralsantodomingo.org/monumentos/torre",
   "image": "https://catedralsantodomingo.org/assets/img/torre-exenta.webp",
   "address": $ADDRESS_CATHEDRAL,
   "geo": {"@type": "GeoCoordinates", "latitude": 42.4407, "longitude": -2.9534},
   "isAccessibleForFree": false,
-  "tourBookingPage": "https://catedralsantodomingo.org/reservas.html"
+  "tourBookingPage": "https://catedralsantodomingo.org/reservas"
 }
 </script>
 "@
@@ -123,10 +123,10 @@ $schemas = @{
 {
   "@context": "https://schema.org",
   "@type": ["PlaceOfWorship", "TouristAttraction"],
-  "@id": "https://catedralsantodomingo.org/monumentos/sanfrancisco.html#convent",
+  "@id": "https://catedralsantodomingo.org/monumentos/sanfrancisco#convent",
   "name": "Convento de San Francisco de Santo Domingo de la Calzada",
   "description": "Convento renacentista del siglo XVI fundado por Iñigo Ortiz de Zúñiga. Claustro porticado, sala de marfiles y exposiciones de arte sacro en el Camino Francés.",
-  "url": "https://catedralsantodomingo.org/monumentos/sanfrancisco.html",
+  "url": "https://catedralsantodomingo.org/monumentos/sanfrancisco",
   "image": "https://catedralsantodomingo.org/assets/img/sanfrancisco.webp",
   "address": {
     "@type": "PostalAddress",
@@ -135,7 +135,7 @@ $schemas = @{
     "addressCountry": "ES"
   },
   "religiousAffiliation": "Catholic",
-  "tourBookingPage": "https://catedralsantodomingo.org/reservas.html"
+  "tourBookingPage": "https://catedralsantodomingo.org/reservas"
 }
 </script>
 "@
@@ -145,10 +145,10 @@ $schemas = @{
 {
   "@context": "https://schema.org",
   "@type": ["PlaceOfWorship", "TouristAttraction"],
-  "@id": "https://catedralsantodomingo.org/monumentos/ermitaplaza.html#chapel",
+  "@id": "https://catedralsantodomingo.org/monumentos/ermitaplaza#chapel",
   "name": "Ermita de la Plaza · Iglesia de Nuestra Señora",
   "description": "Antigua iglesia de Nuestra Señora de la Plaza en Santo Domingo de la Calzada. Capilla histórica con la Virgen de la Plaza, talla gótica del siglo XIV.",
-  "url": "https://catedralsantodomingo.org/monumentos/ermitaplaza.html",
+  "url": "https://catedralsantodomingo.org/monumentos/ermitaplaza",
   "image": "https://catedralsantodomingo.org/assets/img/ermitaplaza.webp",
   "address": {
     "@type": "PostalAddress",
@@ -166,16 +166,16 @@ $schemas = @{
 {
   "@context": "https://schema.org",
   "@type": ["PlaceOfWorship", "Monastery", "TouristAttraction"],
-  "@id": "https://catedralsantodomingo.org/monumentos/monasteriocanas.html#monastery",
+  "@id": "https://catedralsantodomingo.org/monumentos/monasteriocanas#monastery",
   "name": "Monasterio Cisterciense de Santa María de Cañas",
   "alternateName": "Monasterio de Cañas",
   "description": "Monasterio cisterciense fundado en 1170. Vidrieras góticas, sepulcro de la Beata Urraca y Sala Capitular románica a 12 km de Santo Domingo de la Calzada.",
-  "url": "https://catedralsantodomingo.org/monumentos/monasteriocanas.html",
+  "url": "https://catedralsantodomingo.org/monumentos/monasteriocanas",
   "image": "https://catedralsantodomingo.org/assets/img/canas.webp",
   "address": $ADDRESS_CANAS,
   "geo": {"@type": "GeoCoordinates", "latitude": 42.413, "longitude": -2.851},
   "religiousAffiliation": "Catholic",
-  "tourBookingPage": "https://catedralsantodomingo.org/reservas.html"
+  "tourBookingPage": "https://catedralsantodomingo.org/reservas"
 }
 </script>
 "@

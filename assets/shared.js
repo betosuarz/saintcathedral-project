@@ -1371,7 +1371,7 @@ function initCookieBanner() {
   if (policyLink) {
     const slashes = (window.location.pathname.match(/\//g) || []).length;
     const prefix = slashes > 1 ? '../'.repeat(slashes - 1) : '';
-    policyLink.href = prefix + 'legal/cookies.html';
+    policyLink.href = prefix + 'legal/cookies';
   }
 
   _cookieApplyLang(t);

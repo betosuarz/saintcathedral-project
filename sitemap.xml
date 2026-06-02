@@ -8,88 +8,88 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/actualidad.html</loc>
+    <loc>https://catedralsantodomingo.org/actualidad</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/institucion.html</loc>
+    <loc>https://catedralsantodomingo.org/institucion</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/monumentos.html</loc>
+    <loc>https://catedralsantodomingo.org/monumentos</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/visitas.html</loc>
+    <loc>https://catedralsantodomingo.org/visitas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/reservas.html</loc>
+    <loc>https://catedralsantodomingo.org/reservas</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Monumentos -->
   <url>
-    <loc>https://catedralsantodomingo.org/monumentos/catedral.html</loc>
+    <loc>https://catedralsantodomingo.org/monumentos/catedral</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/monumentos/torre.html</loc>
+    <loc>https://catedralsantodomingo.org/monumentos/torre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/monumentos/sanfrancisco.html</loc>
+    <loc>https://catedralsantodomingo.org/monumentos/sanfrancisco</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/monumentos/ermitaplaza.html</loc>
+    <loc>https://catedralsantodomingo.org/monumentos/ermitaplaza</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/monumentos/monasteriocanas.html</loc>
+    <loc>https://catedralsantodomingo.org/monumentos/monasteriocanas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Visitas -->
   <url>
-    <loc>https://catedralsantodomingo.org/visitas/pulsera-turistica.html</loc>
+    <loc>https://catedralsantodomingo.org/visitas/pulsera-turistica</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/visitas/guiada-diurna.html</loc>
+    <loc>https://catedralsantodomingo.org/visitas/guiada-diurna</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/visitas/guiada-nocturna.html</loc>
+    <loc>https://catedralsantodomingo.org/visitas/guiada-nocturna</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/visitas/guiada-vip.html</loc>
+    <loc>https://catedralsantodomingo.org/visitas/guiada-vip</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://catedralsantodomingo.org/visitas/guiada-canas.html</loc>
+    <loc>https://catedralsantodomingo.org/visitas/guiada-canas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Legal (only the public-facing one) -->
   <url>
-    <loc>https://catedralsantodomingo.org/legal/accesibilidad.html</loc>
+    <loc>https://catedralsantodomingo.org/legal/accesibilidad</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

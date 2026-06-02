@@ -1,10 +1,10 @@
 User-agent: *
 Allow: /
-Disallow: /assets/_shared-fragments.html
+Disallow: /assets/_shared-fragments
 Disallow: /.claude/
-Disallow: /legal/aviso-legal.html
-Disallow: /legal/privacidad.html
-Disallow: /legal/cookies.html
-Disallow: /legal/compra.html
+Disallow: /legal/aviso-legal
+Disallow: /legal/privacidad
+Disallow: /legal/cookies
+Disallow: /legal/compra
 
 Sitemap: https://catedralsantodomingo.org/sitemap.xml

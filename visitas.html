@@ -2409,7 +2409,14 @@
     }
     .gv-cal__dots .d-day { background: var(--gold); }
     .gv-cal__dots .d-night { background: #8AB0D8; }
+    .gv-cal__dots .d-vip { background: #C2A0DE; }
+    .gv-cal__dots .d-closed { background: #D98A7A; }
     body.light-mode .gv-cal__dots .d-night { background: #4F6E94; }
+    body.light-mode .gv-cal__dots .d-vip { background: #8158A8; }
+    body.light-mode .gv-cal__dots .d-closed { background: #C0584A; }
+    /* Día con cierre de monumento: marca sutil en la celda */
+    .gv-cal__day--closed { box-shadow: inset 0 0 0 1px rgba(217,138,122,.55); border-radius: 7px; }
+    body.light-mode .gv-cal__day--closed { box-shadow: inset 0 0 0 1px rgba(192,88,74,.5); }
 
     .gv-cal__legend {
       display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;
@@ -2426,7 +2433,11 @@
     }
     .gv-cal__legend-item.d-day::before { background: var(--gold); }
     .gv-cal__legend-item.d-night::before { background: #8AB0D8; }
+    .gv-cal__legend-item.d-vip::before { background: #C2A0DE; }
+    .gv-cal__legend-item.d-closed::before { background: #D98A7A; }
     body.light-mode .gv-cal__legend-item.d-night::before { background: #4F6E94; }
+    body.light-mode .gv-cal__legend-item.d-vip::before { background: #8158A8; }
+    body.light-mode .gv-cal__legend-item.d-closed::before { background: #C0584A; }
 
     /* Day panel */
     .gv-day-panel {
@@ -2493,11 +2504,17 @@
 
     .gv-visit {
       display: grid;
-      grid-template-columns: auto auto 1fr auto;
-      align-items: center; gap: 14px;
-      padding: 14px 0;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      column-gap: 16px; row-gap: 6px;
+      padding: 16px 0;
       border-top: 1px solid rgba(201,168,76,.12);
     }
+    /* Desktop: hora + badge apilados (col 1); nombre/precio (col 2); acciones (col 3) */
+    .gv-visit__time { grid-column: 1; grid-row: 1; }
+    .gv-visit > .gv-visit__badge { grid-column: 1; grid-row: 2; justify-self: start; align-self: start; }
+    .gv-visit__main { grid-column: 2; grid-row: 1 / 3; }
+    .gv-visit__actions { grid-column: 3; grid-row: 1 / 3; align-self: center; }
     .gv-visit:first-of-type { border-top-color: rgba(201,168,76,.22); }
     body.light-mode .gv-visit { border-top-color: rgba(140,110,50,.12); }
     body.light-mode .gv-visit:first-of-type { border-top-color: rgba(140,110,50,.22); }
@@ -2511,7 +2528,8 @@
 
     .gv-visit__main { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
     .gv-visit__name {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      display: flex; align-items: baseline; gap: 10px;
+      justify-content: space-between;
       font-size: .92rem; font-weight: 500; color: var(--white);
     }
     body.light-mode .gv-visit__name { color: var(--carbon); }
@@ -2523,29 +2541,48 @@
     }
     .gv-visit__badge--day { background: rgba(201,168,76,.18); color: var(--gold-lt); }
     .gv-visit__badge--night { background: rgba(138,176,216,.25); color: #D4E2F2; }
+    .gv-visit__badge--vip { background: rgba(194,160,222,.25); color: #E3D2F2; }
     body.light-mode .gv-visit__badge--day { background: rgba(168,133,46,.14); color: #7A6025; }
     body.light-mode .gv-visit__badge--night { background: rgba(80,110,150,.14); color: #2F4D72; }
+    body.light-mode .gv-visit__badge--vip { background: rgba(129,88,168,.14); color: #5B3D7A; }
+
+    /* Aviso de cierre de monumento en el panel del día */
+    .gv-day-panel__closure {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 14px; margin-bottom: 12px;
+      border: 1px solid rgba(217,138,122,.4);
+      border-left: 3px solid #D98A7A;
+      border-radius: 6px;
+      background: rgba(217,138,122,.08);
+    }
+    body.light-mode .gv-day-panel__closure {
+      border-color: rgba(192,88,74,.35); border-left-color: #C0584A;
+      background: rgba(192,88,74,.06);
+    }
+    .gv-day-panel__closure-icon { color: #D98A7A; flex-shrink: 0; font-size: 1rem; line-height: 1.4; }
+    body.light-mode .gv-day-panel__closure-icon { color: #C0584A; }
+    .gv-day-panel__closure-title { font-weight: 600; font-size: .9rem; }
+    .gv-day-panel__closure-motivo { font-size: .8rem; opacity: .8; margin-top: 2px; }
 
     .gv-visit__duration {
       font-size: .78rem; font-weight: 400; color: rgba(245,240,232,.6);
+      flex-shrink: 0; white-space: nowrap;
     }
     body.light-mode .gv-visit__duration { color: rgba(20,18,16,.55); }
-    .gv-visit__duration::before {
-      content: '·'; margin-right: 8px; color: rgba(201,168,76,.5);
-    }
+    /* En desktop la duración va alineada a la derecha del título (sin separador) */
+    .gv-visit__duration::before { content: ''; margin-right: 0; }
 
     .gv-visit__meta {
       font-size: .78rem; color: rgba(245,240,232,.85);
-      display: flex; gap: 10px; flex-wrap: wrap;
+      display: flex; flex-direction: column; gap: 3px;
     }
     body.light-mode .gv-visit__meta { color: #4a4035; }
     .gv-visit__meta strong {
       color: var(--white); font-weight: 500;
     }
     body.light-mode .gv-visit__meta strong { color: var(--carbon); }
-    .gv-visit__meta span + span::before {
-      content: '·'; margin-right: 10px; color: rgba(201,168,76,.5);
-    }
+    /* En desktop precio y tarifa reducida van en líneas separadas (sin separador) */
+    .gv-visit__meta span + span::before { content: none; }
 
     .gv-visit__actions {
       display: flex; align-items: center; gap: 8px; flex-shrink: 0;
@@ -2766,6 +2803,11 @@
         grid-column: 1 / -1; grid-row: 2;
         margin-top: 4px;
       }
+      /* Móvil mantiene nombre/duración y precio/tarifa en línea (con separador) */
+      .gv-visit__name { justify-content: flex-start; align-items: center; flex-wrap: wrap; gap: 8px; }
+      .gv-visit__duration::before { content: '·'; margin-right: 8px; color: rgba(201,168,76,.5); }
+      .gv-visit__meta { flex-direction: row; gap: 10px; flex-wrap: wrap; }
+      .gv-visit__meta span + span::before { content: '·'; margin-right: 10px; color: rgba(201,168,76,.5); }
       .gv-visit__actions {
         grid-column: 1 / -1; grid-row: 3;
       }
@@ -3617,9 +3659,7 @@
 
           <div class="gv-cal__grid" id="gv-grid" role="grid"></div>
 
-          <div class="gv-cal__legend">
-            <span class="gv-cal__legend-item d-night" data-i18n-page="cal_legend_night">Visita guiada nocturna · 20:45 h</span>
-          </div>
+          <div class="gv-cal__legend" id="gv-legend"></div>
         </div>
 
         <!-- Day panel -->
@@ -3671,87 +3711,96 @@
       ca: ['diumenge','dilluns','dimarts','dimecres','dijous','divendres','dissabte']
     };
     const CAL_T = {
-      es: { dateOf: 'de', no_visits: 'No hay visitas guiadas programadas este día.', badge_night: '★ Nocturna',
-            label_noc: 'Visita guiada nocturna', from: 'Desde', per: '/ persona', mins: 'min', reduced: 'Menores 12 años / Residentes 5 €',
-            bullets_noc: [
-              'La Catedral bajo la nueva iluminación: leyendas, misterios y ocho siglos de historia.',
-              'Duración 60 min · grupo máx. 50 personas',
-              'Solo viernes y sábados a las 20:45 h',
-              'Incluye pulsera turística de visita libre',
-              'Adulto 15 € · Menor de 12 / Residente 5 €'
-            ] },
-      en: { dateOf: 'of', no_visits: 'No guided tours scheduled this day.', badge_night: '★ Night-time',
-            label_noc: 'Night-time guided tour', from: 'From', per: '/ person', mins: 'min', reduced: 'Under 12 / Residents €5',
-            bullets_noc: [
-              'The Cathedral under its new lighting: legends, mysteries and eight centuries of history.',
-              'Duration 60 min · max group 50 people',
-              'Only Fridays and Saturdays at 8:45 pm',
-              'Includes self-guided tourist wristband',
-              'Adult €15 · Under 12 / Resident €5'
-            ] },
-      fr: { dateOf: '', no_visits: 'Aucune visite guidée programmée ce jour.', badge_night: '★ Nocturne',
-            label_noc: 'Visite guidée nocturne', from: 'À partir de', per: '/ personne', mins: 'min', reduced: 'Moins de 12 ans / Résidents 5 €',
-            bullets_noc: [
-              'La Cathédrale sous son nouvel éclairage : légendes, mystères et huit siècles d\'histoire.',
-              'Durée 60 min · groupe max 50 personnes',
-              'Seulement vendredis et samedis à 20h45',
-              'Bracelet touristique en visite libre inclus',
-              'Adulte 15 € · Moins de 12 ans / Résident 5 €'
-            ] },
-      de: { dateOf: '', no_visits: 'An diesem Tag sind keine Führungen geplant.', badge_night: '★ Nachttour',
-            label_noc: 'Nachtführung', from: 'Ab', per: '/ Person', mins: 'Min', reduced: 'Unter 12 / Einheimische 5 €',
-            bullets_noc: [
-              'Die Kathedrale unter der neuen Beleuchtung: Legenden, Mysterien und acht Jahrhunderte Geschichte.',
-              'Dauer 60 Min · max. Gruppe 50 Personen',
-              'Nur freitags und samstags um 20:45 Uhr',
-              'Touristen-Armband für Selbstbesuch inklusive',
-              'Erwachsene 15 € · Unter 12 / Einheimische 5 €'
-            ] },
-      pt: { dateOf: 'de', no_visits: 'Não há visitas guiadas marcadas neste dia.', badge_night: '★ Noturna',
-            label_noc: 'Visita guiada noturna', from: 'Desde', per: '/ pessoa', mins: 'min', reduced: 'Menores de 12 / Residentes 5 €',
-            bullets_noc: [
-              'A Catedral sob a nova iluminação: lendas, mistérios e oito séculos de história.',
-              'Duração 60 min · grupo máx. 50 pessoas',
-              'Só sextas e sábados às 20h45',
-              'Inclui pulseira turística de visita livre',
-              'Adulto 15 € · Menor de 12 / Residente 5 €'
-            ] },
-      it: { dateOf: '', no_visits: 'Nessuna visita guidata in programma in questo giorno.', badge_night: '★ Notturna',
-            label_noc: 'Visita guidata notturna', from: 'Da', per: '/ persona', mins: 'min', reduced: 'Sotto i 12 / Residenti 5 €',
-            bullets_noc: [
-              'La Cattedrale sotto la nuova illuminazione: leggende, misteri e otto secoli di storia.',
-              'Durata 60 min · gruppo max 50 persone',
-              'Solo venerdì e sabato alle 20:45',
-              'Include braccialetto turistico per visita libera',
-              'Adulti 15 € · Sotto i 12 / Residenti 5 €'
-            ] },
-      ko: { dateOf: '', no_visits: '이 날 예정된 가이드 투어가 없습니다.', badge_night: '★ 야간',
-            label_noc: '야간 가이드 투어', from: '시작가', per: '/ 1인', mins: '분', reduced: '12세 미만 / 거주자 5 €',
-            bullets_noc: [
-              '새로운 조명 아래 대성당: 전설, 신비, 그리고 8세기에 걸친 역사.',
-              '소요 시간 60분 · 최대 50명',
-              '금·토요일 20:45만 운영',
-              '자유 관람용 관광 팔찌 포함',
-              '성인 15 € · 12세 미만 / 거주자 5 €'
-            ] },
-      eu: { dateOf: 'ko', no_visits: 'Egun honetan ez dago bisita gidaturik programatuta.', badge_night: '★ Gauekoa',
-            label_noc: 'Gaueko bisita gidatua', from: 'Hasierako prezioa', per: '/ pertsonako', mins: 'min', reduced: '12 urtez behera / Bizilagunak 5 €',
-            bullets_noc: [
-              'Katedrala argiteria berriarekin: kondairak, misterioak eta zortzi mendeko historia.',
-              'Iraupena 60 min · talde max 50 lagun',
-              'Ostiral eta larunbatetan soilik, 20:45ean',
-              'Bisita libreko pulsera turistikoa barne',
-              'Heldua 15 € · 12 urtetik beherakoa / Bizilaguna 5 €'
-            ] },
-      ca: { dateOf: 'de', no_visits: 'No hi ha visites guiades programades aquest dia.', badge_night: '★ Nocturna',
-            label_noc: 'Visita guiada nocturna', from: 'Des de', per: '/ persona', mins: 'min', reduced: 'Menors de 12 / Residents 5 €',
-            bullets_noc: [
-              'La Catedral sota la nova il·luminació: llegendes, misteris i vuit segles d\'història.',
-              'Durada 60 min · grup màx. 50 persones',
-              'Només divendres i dissabtes a les 20:45 h',
-              'Inclou polsera turística de visita lliure',
-              'Adult 15 € · Menor de 12 / Resident 5 €'
-            ] }
+      es: { dateOf: 'de', no_visits: 'No hay visitas guiadas programadas este día.', per: '/ persona', mins: 'min',
+            label_diurna: 'Visita guiada diurna', label_vip: 'Visita guiada VIP', label_noc: 'Visita guiada nocturna',
+            badge_day: '☀ Diurna', badge_vip: '★ VIP', badge_night: '★ Nocturna',
+            reduced_diurna: 'Menores 12 años / Residentes 4 €', reduced_vip: 'Menores 12 años / Residentes 5 €', reduced: 'Menores 12 años / Residentes 5 €',
+            legend_day: 'Diurna', legend_vip: 'VIP', legend_night: 'Nocturna · 20:45 h', legend_closed: 'Monumento cerrado',
+            closure_at: 'a las',
+            closure: { '*': 'Los monumentos permanecerán cerrados', 'Catedral': 'La Catedral permanecerá cerrada', 'Torre': 'La Torre permanecerá cerrada', 'San Francisco': 'El Convento de San Francisco permanecerá cerrado', 'Ermita Plaza': 'La Ermita de la Plaza permanecerá cerrada' },
+            bullets_diurna: ['Recorrido guiado por la Catedral y sus tesoros.', 'Duración 40 min', 'Incluye pulsera turística de visita libre', 'Adulto 14 € · Menor de 12 / Residente 4 €'],
+            bullets_vip: ['Visita exclusiva en grupo reducido con acceso especial.', 'Duración 90 min · aforo máx. 15 personas', 'Incluye pulsera turística de visita libre', 'Adulto 15 € · Menor de 12 / Residente 5 €'],
+            bullets_noc: ['La Catedral bajo la nueva iluminación: leyendas, misterios y ocho siglos de historia.', 'Duración 60 min · grupo máx. 50 personas', 'Solo viernes y sábados a las 20:45 h', 'Incluye pulsera turística de visita libre', 'Adulto 15 € · Menor de 12 / Residente 5 €'] },
+      en: { dateOf: 'of', no_visits: 'No guided tours scheduled this day.', per: '/ person', mins: 'min',
+            label_diurna: 'Daytime guided tour', label_vip: 'VIP guided tour', label_noc: 'Night-time guided tour',
+            badge_day: '☀ Daytime', badge_vip: '★ VIP', badge_night: '★ Night-time',
+            reduced_diurna: 'Under 12 / Residents €4', reduced_vip: 'Under 12 / Residents €5', reduced: 'Under 12 / Residents €5',
+            legend_day: 'Daytime', legend_vip: 'VIP', legend_night: 'Night-time · 8:45 pm', legend_closed: 'Monument closed',
+            closure_at: 'at',
+            closure: { '*': 'The monuments will remain closed', 'Catedral': 'The Cathedral will remain closed', 'Torre': 'The Tower will remain closed', 'San Francisco': 'The Convent of San Francisco will remain closed', 'Ermita Plaza': 'The Plaza Chapel will remain closed' },
+            bullets_diurna: ['Guided tour of the Cathedral and its treasures.', 'Duration 40 min', 'Includes self-guided tourist wristband', 'Adult €14 · Under 12 / Resident €4'],
+            bullets_vip: ['Exclusive small-group visit with special access.', 'Duration 90 min · max 15 people', 'Includes self-guided tourist wristband', 'Adult €15 · Under 12 / Resident €5'],
+            bullets_noc: ['The Cathedral under its new lighting: legends, mysteries and eight centuries of history.', 'Duration 60 min · max group 50 people', 'Only Fridays and Saturdays at 8:45 pm', 'Includes self-guided tourist wristband', 'Adult €15 · Under 12 / Resident €5'] },
+      fr: { dateOf: '', no_visits: 'Aucune visite guidée programmée ce jour.', per: '/ personne', mins: 'min',
+            label_diurna: 'Visite guidée diurne', label_vip: 'Visite guidée VIP', label_noc: 'Visite guidée nocturne',
+            badge_day: '☀ Diurne', badge_vip: '★ VIP', badge_night: '★ Nocturne',
+            reduced_diurna: 'Moins de 12 ans / Résidents 4 €', reduced_vip: 'Moins de 12 ans / Résidents 5 €', reduced: 'Moins de 12 ans / Résidents 5 €',
+            legend_day: 'Diurne', legend_vip: 'VIP', legend_night: 'Nocturne · 20h45', legend_closed: 'Monument fermé',
+            closure_at: 'à',
+            closure: { '*': 'Les monuments resteront fermés', 'Catedral': 'La Cathédrale restera fermée', 'Torre': 'La Tour restera fermée', 'San Francisco': 'Le Couvent de San Francisco restera fermé', 'Ermita Plaza': 'L\'Ermitage de la Place restera fermé' },
+            bullets_diurna: ['Visite guidée de la Cathédrale et de ses trésors.', 'Durée 40 min', 'Bracelet touristique en visite libre inclus', 'Adulte 14 € · Moins de 12 ans / Résident 4 €'],
+            bullets_vip: ['Visite exclusive en petit groupe avec accès spécial.', 'Durée 90 min · max 15 personnes', 'Bracelet touristique en visite libre inclus', 'Adulte 15 € · Moins de 12 ans / Résident 5 €'],
+            bullets_noc: ['La Cathédrale sous son nouvel éclairage : légendes, mystères et huit siècles d\'histoire.', 'Durée 60 min · groupe max 50 personnes', 'Seulement vendredis et samedis à 20h45', 'Bracelet touristique en visite libre inclus', 'Adulte 15 € · Moins de 12 ans / Résident 5 €'] },
+      de: { dateOf: '', no_visits: 'An diesem Tag sind keine Führungen geplant.', per: '/ Person', mins: 'Min',
+            label_diurna: 'Tagesführung', label_vip: 'VIP-Führung', label_noc: 'Nachtführung',
+            badge_day: '☀ Tag', badge_vip: '★ VIP', badge_night: '★ Nachttour',
+            reduced_diurna: 'Unter 12 / Einheimische 4 €', reduced_vip: 'Unter 12 / Einheimische 5 €', reduced: 'Unter 12 / Einheimische 5 €',
+            legend_day: 'Tagsüber', legend_vip: 'VIP', legend_night: 'Nachts · 20:45 Uhr', legend_closed: 'Denkmal geschlossen',
+            closure_at: 'um',
+            closure: { '*': 'Die Denkmäler bleiben geschlossen', 'Catedral': 'Die Kathedrale bleibt geschlossen', 'Torre': 'Der Turm bleibt geschlossen', 'San Francisco': 'Das Kloster San Francisco bleibt geschlossen', 'Ermita Plaza': 'Die Plaza-Kapelle bleibt geschlossen' },
+            bullets_diurna: ['Führung durch die Kathedrale und ihre Schätze.', 'Dauer 40 Min', 'Touristen-Armband für Selbstbesuch inklusive', 'Erwachsene 14 € · Unter 12 / Einheimische 4 €'],
+            bullets_vip: ['Exklusive Kleingruppen-Führung mit besonderem Zugang.', 'Dauer 90 Min · max. 15 Personen', 'Touristen-Armband für Selbstbesuch inklusive', 'Erwachsene 15 € · Unter 12 / Einheimische 5 €'],
+            bullets_noc: ['Die Kathedrale unter der neuen Beleuchtung: Legenden, Mysterien und acht Jahrhunderte Geschichte.', 'Dauer 60 Min · max. Gruppe 50 Personen', 'Nur freitags und samstags um 20:45 Uhr', 'Touristen-Armband für Selbstbesuch inklusive', 'Erwachsene 15 € · Unter 12 / Einheimische 5 €'] },
+      pt: { dateOf: 'de', no_visits: 'Não há visitas guiadas marcadas neste dia.', per: '/ pessoa', mins: 'min',
+            label_diurna: 'Visita guiada diurna', label_vip: 'Visita guiada VIP', label_noc: 'Visita guiada noturna',
+            badge_day: '☀ Diurna', badge_vip: '★ VIP', badge_night: '★ Noturna',
+            reduced_diurna: 'Menores de 12 / Residentes 4 €', reduced_vip: 'Menores de 12 / Residentes 5 €', reduced: 'Menores de 12 / Residentes 5 €',
+            legend_day: 'Diurna', legend_vip: 'VIP', legend_night: 'Noturna · 20h45', legend_closed: 'Monumento encerrado',
+            closure_at: 'às',
+            closure: { '*': 'Os monumentos permanecerão encerrados', 'Catedral': 'A Catedral permanecerá encerrada', 'Torre': 'A Torre permanecerá encerrada', 'San Francisco': 'O Convento de São Francisco permanecerá encerrado', 'Ermita Plaza': 'A Ermida da Praça permanecerá encerrada' },
+            bullets_diurna: ['Visita guiada à Catedral e aos seus tesouros.', 'Duração 40 min', 'Inclui pulseira turística de visita livre', 'Adulto 14 € · Menor de 12 / Residente 4 €'],
+            bullets_vip: ['Visita exclusiva em grupo reduzido com acesso especial.', 'Duração 90 min · máx. 15 pessoas', 'Inclui pulseira turística de visita livre', 'Adulto 15 € · Menor de 12 / Residente 5 €'],
+            bullets_noc: ['A Catedral sob a nova iluminação: lendas, mistérios e oito séculos de história.', 'Duração 60 min · grupo máx. 50 pessoas', 'Só sextas e sábados às 20h45', 'Inclui pulseira turística de visita livre', 'Adulto 15 € · Menor de 12 / Residente 5 €'] },
+      it: { dateOf: '', no_visits: 'Nessuna visita guidata in programma in questo giorno.', per: '/ persona', mins: 'min',
+            label_diurna: 'Visita guidata diurna', label_vip: 'Visita guidata VIP', label_noc: 'Visita guidata notturna',
+            badge_day: '☀ Diurna', badge_vip: '★ VIP', badge_night: '★ Notturna',
+            reduced_diurna: 'Sotto i 12 / Residenti 4 €', reduced_vip: 'Sotto i 12 / Residenti 5 €', reduced: 'Sotto i 12 / Residenti 5 €',
+            legend_day: 'Diurna', legend_vip: 'VIP', legend_night: 'Notturna · 20:45', legend_closed: 'Monumento chiuso',
+            closure_at: 'alle',
+            closure: { '*': 'I monumenti resteranno chiusi', 'Catedral': 'La Cattedrale resterà chiusa', 'Torre': 'La Torre resterà chiusa', 'San Francisco': 'Il Convento di San Francisco resterà chiuso', 'Ermita Plaza': 'La Cappella della Piazza resterà chiusa' },
+            bullets_diurna: ['Visita guidata della Cattedrale e dei suoi tesori.', 'Durata 40 min', 'Include braccialetto turistico per visita libera', 'Adulti 14 € · Sotto i 12 / Residenti 4 €'],
+            bullets_vip: ['Visita esclusiva in piccolo gruppo con accesso speciale.', 'Durata 90 min · max 15 persone', 'Include braccialetto turistico per visita libera', 'Adulti 15 € · Sotto i 12 / Residenti 5 €'],
+            bullets_noc: ['La Cattedrale sotto la nuova illuminazione: leggende, misteri e otto secoli di storia.', 'Durata 60 min · gruppo max 50 persone', 'Solo venerdì e sabato alle 20:45', 'Include braccialetto turistico per visita libera', 'Adulti 15 € · Sotto i 12 / Residenti 5 €'] },
+      ko: { dateOf: '', no_visits: '이 날 예정된 가이드 투어가 없습니다.', per: '/ 1인', mins: '분',
+            label_diurna: '주간 가이드 투어', label_vip: 'VIP 가이드 투어', label_noc: '야간 가이드 투어',
+            badge_day: '☀ 주간', badge_vip: '★ VIP', badge_night: '★ 야간',
+            reduced_diurna: '12세 미만 / 거주자 4 €', reduced_vip: '12세 미만 / 거주자 5 €', reduced: '12세 미만 / 거주자 5 €',
+            legend_day: '주간', legend_vip: 'VIP', legend_night: '야간 · 20:45', legend_closed: '기념물 휴무',
+            closure_at: '',
+            closure: { '*': '기념물이 휴무합니다', 'Catedral': '대성당이 휴무합니다', 'Torre': '종탑이 휴무합니다', 'San Francisco': '산 프란시스코 수도원이 휴무합니다', 'Ermita Plaza': '플라사 예배당이 휴무합니다' },
+            bullets_diurna: ['대성당과 그 보물들을 둘러보는 가이드 투어.', '소요 시간 40분', '자유 관람용 관광 팔찌 포함', '성인 14 € · 12세 미만 / 거주자 4 €'],
+            bullets_vip: ['특별 입장이 포함된 소규모 단독 투어.', '소요 시간 90분 · 최대 15명', '자유 관람용 관광 팔찌 포함', '성인 15 € · 12세 미만 / 거주자 5 €'],
+            bullets_noc: ['새로운 조명 아래 대성당: 전설, 신비, 그리고 8세기에 걸친 역사.', '소요 시간 60분 · 최대 50명', '금·토요일 20:45만 운영', '자유 관람용 관광 팔찌 포함', '성인 15 € · 12세 미만 / 거주자 5 €'] },
+      eu: { dateOf: 'ko', no_visits: 'Egun honetan ez dago bisita gidaturik programatuta.', per: '/ pertsonako', mins: 'min',
+            label_diurna: 'Eguneko bisita gidatua', label_vip: 'VIP bisita gidatua', label_noc: 'Gaueko bisita gidatua',
+            badge_day: '☀ Egunekoa', badge_vip: '★ VIP', badge_night: '★ Gauekoa',
+            reduced_diurna: '12 urtez behera / Bizilagunak 4 €', reduced_vip: '12 urtez behera / Bizilagunak 5 €', reduced: '12 urtez behera / Bizilagunak 5 €',
+            legend_day: 'Egunekoa', legend_vip: 'VIP', legend_night: 'Gauekoa · 20:45', legend_closed: 'Monumentua itxita',
+            closure_at: '',
+            closure: { '*': 'Monumentuak itxita egongo dira', 'Catedral': 'Katedrala itxita egongo da', 'Torre': 'Dorrea itxita egongo da', 'San Francisco': 'San Francisco Komentua itxita egongo da', 'Ermita Plaza': 'Plazako Ermita itxita egongo da' },
+            bullets_diurna: ['Katedralaren eta haren altxorren bisita gidatua.', 'Iraupena 40 min', 'Bisita libreko pulsera turistikoa barne', 'Heldua 14 € · 12 urtez behera / Bizilaguna 4 €'],
+            bullets_vip: ['Talde txikiko bisita esklusiboa sarbide bereziarekin.', 'Iraupena 90 min · gehienez 15 lagun', 'Bisita libreko pulsera turistikoa barne', 'Heldua 15 € · 12 urtez behera / Bizilaguna 5 €'],
+            bullets_noc: ['Katedrala argiteria berriarekin: kondairak, misterioak eta zortzi mendeko historia.', 'Iraupena 60 min · talde max 50 lagun', 'Ostiral eta larunbatetan soilik, 20:45ean', 'Bisita libreko pulsera turistikoa barne', 'Heldua 15 € · 12 urtetik beherakoa / Bizilaguna 5 €'] },
+      ca: { dateOf: 'de', no_visits: 'No hi ha visites guiades programades aquest dia.', per: '/ persona', mins: 'min',
+            label_diurna: 'Visita guiada diürna', label_vip: 'Visita guiada VIP', label_noc: 'Visita guiada nocturna',
+            badge_day: '☀ Diürna', badge_vip: '★ VIP', badge_night: '★ Nocturna',
+            reduced_diurna: 'Menors de 12 / Residents 4 €', reduced_vip: 'Menors de 12 / Residents 5 €', reduced: 'Menors de 12 / Residents 5 €',
+            legend_day: 'Diürna', legend_vip: 'VIP', legend_night: 'Nocturna · 20:45 h', legend_closed: 'Monument tancat',
+            closure_at: 'a les',
+            closure: { '*': 'Els monuments romandran tancats', 'Catedral': 'La Catedral romandrà tancada', 'Torre': 'La Torre romandrà tancada', 'San Francisco': 'El Convent de Sant Francesc romandrà tancat', 'Ermita Plaza': 'L\'Ermita de la Plaça romandrà tancada' },
+            bullets_diurna: ['Visita guiada per la Catedral i els seus tresors.', 'Durada 40 min', 'Inclou polsera turística de visita lliure', 'Adult 14 € · Menor de 12 / Resident 4 €'],
+            bullets_vip: ['Visita exclusiva en grup reduït amb accés especial.', 'Durada 90 min · màx. 15 persones', 'Inclou polsera turística de visita lliure', 'Adult 15 € · Menor de 12 / Resident 5 €'],
+            bullets_noc: ['La Catedral sota la nova il·luminació: llegendes, misteris i vuit segles d\'història.', 'Durada 60 min · grup màx. 50 persones', 'Només divendres i dissabtes a les 20:45 h', 'Inclou polsera turística de visita lliure', 'Adult 15 € · Menor de 12 / Resident 5 €'] }
     };
 
     function _cLang() { return localStorage.getItem('cat-lang') || 'es'; }
@@ -3759,17 +3808,31 @@
     function DIAS() { return DIAS_I18N[_cLang()] || DIAS_I18N.es; }
     function _CT() { return CAL_T[_cLang()] || CAL_T.es; }
 
+    // Cada modalidad: textos vía _CT() (i18n), precio/duración fijos, URL de reserva.
     const VISITS_INFO = {
+      diurna: {
+        labelKey: 'label_diurna', badgeKey: 'badge_day', badgeClass: 'gv-visit__badge--day',
+        priceFrom: 14, dur: 40, reducedKey: 'reduced_diurna', bulletsKey: 'bullets_diurna',
+        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=diurna'
+      },
+      vip: {
+        labelKey: 'label_vip', badgeKey: 'badge_vip', badgeClass: 'gv-visit__badge--vip',
+        priceFrom: 15, dur: 90, reducedKey: 'reduced_vip', bulletsKey: 'bullets_vip',
+        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=vip'
+      },
       nocturna: {
-        get label() { return _CT().label_noc; },
-        badgeClass: 'gv-visit__badge--night',
-        priceFrom: 15,
-        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna',
-        get bullets() { return _CT().bullets_noc; }
+        labelKey: 'label_noc', badgeKey: 'badge_night', badgeClass: 'gv-visit__badge--night',
+        priceFrom: 15, dur: 60, reducedKey: 'reduced', bulletsKey: 'bullets_noc',
+        url: 'reservas.html?tipo=individual&modo=con-guia&entrada=nocturna'
       }
     };
+    // Orden de aparición de los tipos (dots en celda, items de leyenda).
+    const VISIT_TYPES = ['diurna', 'vip', 'nocturna'];
+    const DOT_CLASS = { diurna: 'd-day', vip: 'd-vip', nocturna: 'd-night' };
 
-    const HORA_NOCTURNA = '20:45';
+    // El backend (mismo Apps Script que reservas.html) sirve el mes completo en ?mesVisitas=YYYY-MM.
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVEczVQQ51YyM_9o0SKyafc_LXoL8re47HjWlGljDw3S1lqX3b4aacgmDtV1nXNLPeWA/exec';
+    const monthCache = {}; // 'YYYY-MM' → { dias: { 'YYYY-MM-DD': { visitas:[{tipo,hora}], cierres:[{monumento,hora,motivo}] } } }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -3778,24 +3841,70 @@
 
     const pad = n => String(n).padStart(2, '0');
     const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    const ymOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
 
-    function visitsForDate(date) {
-      const past = date < today;
-      const wd = date.getDay();
-      const list = [];
-      if (!past && (wd === 5 || wd === 6)) {
-        list.push({ type: 'nocturna', time: HORA_NOCTURNA });
+    // Descarga (y cachea) un mes. Si falla la red, deja el mes como vacío para no romper el render.
+    async function fetchMonth(ym) {
+      if (monthCache[ym]) return monthCache[ym];
+      try {
+        const r = await fetch(SCRIPT_URL + '?mesVisitas=' + encodeURIComponent(ym));
+        const data = await r.json();
+        monthCache[ym] = (data && data.ok && data.dias) ? { dias: data.dias } : { dias: {} };
+      } catch (e) {
+        monthCache[ym] = { dias: {} };
       }
-      return list;
+      return monthCache[ym];
     }
 
-    function render() {
+    function dayData(date) {
+      const mc = monthCache[ymOf(date)];
+      return (mc && mc.dias && mc.dias[ymd(date)]) || null;
+    }
+    function visitsForDate(date) {
+      const dd = dayData(date);
+      if (!dd || !dd.visitas) return [];
+      return dd.visitas
+        .map(v => ({ type: String(v.tipo || '').toLowerCase(), time: v.hora }))
+        .filter(v => VISITS_INFO[v.type]);
+    }
+    function closuresForDate(date) {
+      const dd = dayData(date);
+      return (dd && dd.cierres) ? dd.cierres : [];
+    }
+
+    // Leyenda dinámica: solo se muestran los tipos presentes en el mes + "cerrado" si hay cierres.
+    function renderLegend() {
+      const legend = document.getElementById('gv-legend');
+      if (!legend) return;
+      const ct = _CT();
+      const y = current.getFullYear(), m = current.getMonth();
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      const typesPresent = new Set();
+      let hasClosed = false;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(y, m, d);
+        visitsForDate(date).forEach(v => typesPresent.add(v.type));
+        if (closuresForDate(date).length) hasClosed = true;
+      }
+      const items = [];
+      VISIT_TYPES.forEach(t => {
+        if (!typesPresent.has(t)) return;
+        const txt = t === 'diurna' ? ct.legend_day : (t === 'vip' ? ct.legend_vip : ct.legend_night);
+        items.push(`<span class="gv-cal__legend-item ${DOT_CLASS[t]}">${txt}</span>`);
+      });
+      if (hasClosed) items.push(`<span class="gv-cal__legend-item d-closed">${ct.legend_closed}</span>`);
+      legend.innerHTML = items.join('');
+    }
+
+    async function render() {
       const y = current.getFullYear();
       const m = current.getMonth();
       monthLabel.textContent = `${MESES()[m]} ${y}`;
 
       const isCurrentMonth = (y === today.getFullYear() && m === today.getMonth());
       btnPrev.disabled = isCurrentMonth;
+
+      await fetchMonth(ymOf(current));
 
       const first = new Date(y, m, 1);
       const startWd = (first.getDay() + 6) % 7;
@@ -3811,55 +3920,78 @@
         const date = new Date(y, m, d);
         const past = date < today;
         const visits = visitsForDate(date);
+        const closures = closuresForDate(date);
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'gv-cal__day';
         btn.textContent = d;
         btn.setAttribute('role', 'gridcell');
-        btn.setAttribute('aria-label', `${d} ${_CT().dateOf} ${MESES()[m]}${visits.length ? ` · ${visits.length}` : ''}`);
+        btn.setAttribute('aria-label', `${d} ${_CT().dateOf} ${MESES()[m]}${visits.length ? ` · ${visits.length}` : ''}${closures.length ? ' · ⚠' : ''}`);
         if (past) btn.classList.add('gv-cal__day--past');
         if (date.getTime() === today.getTime()) btn.classList.add('gv-cal__day--today');
+        if (closures.length) btn.classList.add('gv-cal__day--closed');
 
-        if (visits.length) {
+        if (visits.length || closures.length) {
           const dots = document.createElement('span');
           dots.className = 'gv-cal__dots';
           const types = new Set(visits.map(v => v.type));
-          if (types.has('diurna')) {
-            const s = document.createElement('span'); s.className = 'd-day'; dots.appendChild(s);
-          }
-          if (types.has('nocturna')) {
-            const s = document.createElement('span'); s.className = 'd-night'; dots.appendChild(s);
-          }
+          VISIT_TYPES.forEach(t => {
+            if (!types.has(t)) return;
+            const s = document.createElement('span'); s.className = DOT_CLASS[t]; dots.appendChild(s);
+          });
+          if (closures.length) { const s = document.createElement('span'); s.className = 'd-closed'; dots.appendChild(s); }
           btn.appendChild(dots);
         }
 
         const key = ymd(date);
         if (key === selectedKey) btn.classList.add('gv-cal__day--selected');
 
-        if (!past) {
+        // Día clicable si tiene visitas, cierre, o no es pasado (para ver "no hay visitas").
+        if (!past || closures.length) {
           btn.addEventListener('click', () => selectDay(date));
         }
         grid.appendChild(btn);
+      }
+      renderLegend();
+    }
+
+    // Pinta el contenido del panel (cierres + visitas) para una fecha. Reutilizado por selectDay y por el cambio de idioma.
+    function fillPanel(date) {
+      const ct = _CT();
+      const visits = visitsForDate(date);
+      const closures = closuresForDate(date);
+      panelList.innerHTML = '';
+
+      closures.forEach(c => {
+        const mon = String(c.monumento || '').trim();
+        const title = (ct.closure && ct.closure[mon]) || (ct.closure && ct.closure['*']) || '';
+        const hora = (c.hora && c.hora !== '*') ? ` · ${ct.closure_at ? ct.closure_at + ' ' : ''}${c.hora}` : '';
+        const box = document.createElement('div');
+        box.className = 'gv-day-panel__closure';
+        box.innerHTML = `<span class="gv-day-panel__closure-icon" aria-hidden="true">⚠</span>`
+          + `<div><div class="gv-day-panel__closure-title">${title}${hora}</div>`
+          + (c.motivo ? `<div class="gv-day-panel__closure-motivo">${c.motivo}</div>` : '')
+          + `</div>`;
+        panelList.appendChild(box);
+      });
+
+      if (visits.length) {
+        visits.forEach(v => panelList.appendChild(renderVisit(v, date)));
+      } else if (!closures.length) {
+        const empty = document.createElement('div');
+        empty.className = 'gv-day-panel__empty';
+        empty.textContent = ct.no_visits;
+        panelList.appendChild(empty);
       }
     }
 
     function selectDay(date, opts) {
       selectedKey = ymd(date);
-      const visits = visitsForDate(date);
       const wdName = DIAS()[date.getDay()];
       const ct = _CT();
       const dateOf = ct.dateOf ? ` ${ct.dateOf} ` : ' ';
       panelTitle.textContent = `${wdName} ${date.getDate()}${dateOf}${MESES()[date.getMonth()]}`;
-      panelList.innerHTML = '';
-
-      if (!visits.length) {
-        const empty = document.createElement('div');
-        empty.className = 'gv-day-panel__empty';
-        empty.textContent = ct.no_visits;
-        panelList.appendChild(empty);
-      } else {
-        visits.forEach(v => panelList.appendChild(renderVisit(v, date)));
-      }
+      fillPanel(date);
 
       panel.classList.add('is-open');
       const isMobile = window.matchMedia('(max-width: 540px)').matches;
@@ -3883,6 +4015,9 @@
 
     function renderVisit(v, date) {
       const info = VISITS_INFO[v.type];
+      const ct = _CT();
+      const label = ct[info.labelKey] || '';
+      const bullets = ct[info.bulletsKey] || [];
       const row = document.createElement('div');
       row.className = 'gv-visit';
 
@@ -3890,24 +4025,23 @@
       time.className = 'gv-visit__time';
       time.textContent = v.time;
 
-      const ct = _CT();
       const badge = document.createElement('span');
       badge.className = `gv-visit__badge ${info.badgeClass}`;
-      badge.textContent = ct.badge_night;
+      badge.textContent = ct[info.badgeKey] || '';
 
       const main = document.createElement('div');
       main.className = 'gv-visit__main';
       main.innerHTML = `
         <div class="gv-visit__name">
-          <span>${info.label}</span>
-          <span class="gv-visit__duration">60 ${ct.mins}</span>
+          <span>${label}</span>
+          <span class="gv-visit__duration">${info.dur} ${ct.mins}</span>
         </div>
         <div class="gv-visit__meta">
           <span><strong>${info.priceFrom} €</strong> ${ct.per}</span>
-          <span>${ct.reduced}</span>
+          <span>${ct[info.reducedKey] || ''}</span>
         </div>
         <div class="gv-visit__info-inline">
-          <ul>${info.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+          <ul>${bullets.map(b => `<li>${b}</li>`).join('')}</ul>
         </div>
       `;
 
@@ -3917,10 +4051,10 @@
       const infoBtn = document.createElement('button');
       infoBtn.type = 'button';
       infoBtn.className = 'gv-info';
-      infoBtn.setAttribute('aria-label', `Información sobre ${info.label}`);
+      infoBtn.setAttribute('aria-label', `${label}`);
       infoBtn.innerHTML = `i<span class="gv-info__pop" role="tooltip">
-        <strong>${info.label}</strong>
-        <ul>${info.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+        <strong>${label}</strong>
+        <ul>${bullets.map(b => `<li>${b}</li>`).join('')}</ul>
       </span>`;
       infoBtn.addEventListener('click', e => {
         e.stopPropagation();
@@ -3970,30 +4104,24 @@
       render();
     });
 
-    render();
-    if (!window.matchMedia('(max-width: 540px)').matches) selectDay(today, { skipScroll: true });
+    // Init: esperar al primer render (carga el mes) antes de auto-seleccionar hoy,
+    // si no el panel se pintaría con la caché aún vacía.
+    render().then(() => {
+      if (!window.matchMedia('(max-width: 540px)').matches) selectDay(today, { skipScroll: true });
+    });
 
     const _origCalApplyLang = window.PAGE_applyLang;
     window.PAGE_applyLang = function(lang) {
       if (_origCalApplyLang) _origCalApplyLang(lang);
       render();
       if (selectedKey) {
-        const [y,m,d] = selectedKey.split('-').map(Number);
-        const date = new Date(y, m-1, d);
+        const [y, m, d] = selectedKey.split('-').map(Number);
+        const date = new Date(y, m - 1, d);
         const wd = DIAS()[date.getDay()];
         const ct = _CT();
         const dateOf = ct.dateOf ? ` ${ct.dateOf} ` : ' ';
-        panelTitle.textContent = `${wd} ${d}${dateOf}${MESES()[m-1]}`;
-        const visits = visitsForDate(date);
-        panelList.innerHTML = '';
-        if (!visits.length) {
-          const empty = document.createElement('div');
-          empty.className = 'gv-day-panel__empty';
-          empty.textContent = ct.no_visits;
-          panelList.appendChild(empty);
-        } else {
-          visits.forEach(v => panelList.appendChild(renderVisit(v, date)));
-        }
+        panelTitle.textContent = `${wd} ${d}${dateOf}${MESES()[m - 1]}`;
+        fillPanel(date);
       }
     };
   })();
@@ -5156,7 +5284,11 @@
       }
     };
 
+    // Encadenar el handler previo (p. ej. el override del calendario) en vez de
+    // sobrescribirlo: si no, el calendario no se repinta al cambiar de idioma.
+    const _origBaseApplyLang = window.PAGE_applyLang;
     window.PAGE_applyLang = function(lang) {
+      if (_origBaseApplyLang) _origBaseApplyLang(lang);
       const t = PAGE_T[lang] || PAGE_T.es;
       document.querySelectorAll('[data-i18n-page]').forEach(el => {
         const key = el.getAttribute('data-i18n-page');

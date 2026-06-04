@@ -561,6 +561,46 @@
       color: #7A6025;
     }
 
+    /* ── Tarjeta destacada: Boletín parroquial ───────────────── */
+    .inst-section .inst-card--destacada {
+      background: linear-gradient(135deg, rgba(223, 192, 112, .20), rgba(201, 168, 76, .12));
+      border-color: rgba(223, 192, 112, .55);
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+
+    .inst-section .inst-card--destacada:hover {
+      background: linear-gradient(135deg, rgba(223, 192, 112, .28), rgba(201, 168, 76, .18));
+      box-shadow: 0 8px 26px rgba(201, 168, 76, .18);
+    }
+
+    body.light-mode .inst-section .inst-card--destacada {
+      background: linear-gradient(135deg, rgba(223, 192, 112, .09), rgba(201, 168, 76, .06));
+      border-color: var(--gold-dk);
+    }
+
+    body.light-mode .inst-section .inst-card--destacada:hover {
+      background: linear-gradient(135deg, rgba(223, 192, 112, .15), rgba(201, 168, 76, .1));
+      box-shadow: 0 8px 26px rgba(168, 133, 46, .26);
+    }
+
+    body.light-mode .inst-section .inst-card--destacada .inst-card__label,
+    body.light-mode .inst-section .inst-card--destacada .inst-card__link {
+      color: #5C4A1A;
+    }
+
+    body.light-mode .inst-section .inst-card--destacada .inst-card__label::before {
+      background: #5C4A1A;
+    }
+
+    /* ── Borde dorado (sin cambiar el fondo) ──────────────────── */
+    .inst-section .inst-card--borde-oro {
+      border-color: rgba(223, 192, 112, .55);
+    }
+
+    body.light-mode .inst-section .inst-card--borde-oro {
+      border-color: var(--gold-dk);
+    }
+
     /* Nav interno */
     body.light-mode .inst-nav__item {
       background: rgba(168, 133, 46, .07);
@@ -1125,7 +1165,8 @@
   </style>
 </head>
 
-<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
+<body class="light-mode">
+  <script>try { document.body.classList.toggle('light-mode', localStorage.getItem('a11y-light-mode') !== '0') } catch (e) { }</script>
 
   <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
 
@@ -1473,37 +1514,38 @@
     <div class="inst-section__inner">
       <div class="inst-header reveal">
         <p class="eyebrow" data-i18n-page="parroquia_eyebrow">Vida parroquial</p>
-        <h2 class="inst-header__title" data-i18n-page="parroquia_title">Parroquia de <em>Santo Domingo</em></h2>
+        <h2 class="inst-header__title" data-i18n-page="parroquia_title">Parroquia de la <em>Santísima Trinidad</em></h2>
         <p class="inst-header__desc" data-i18n-page="parroquia_desc">La parroquia de la Catedral acompaña la vida
           espiritual de la comunidad. Celebra la Eucaristía diaria, los sacramentos y las fiestas litúrgicas del
           calendario riojano.</p>
       </div>
       <div class="inst-cards">
-        <div class="inst-card reveal">
+        <div class="inst-card inst-card--borde-oro reveal">
           <p class="inst-card__label" data-i18n-page="parroquia_card1_label">Horario de misas</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card1_title">Celebraciones eucarísticas</h3>
           <p class="inst-card__text" data-i18n-page="parroquia_card1_text"><strong>Ermita de la Plaza:</strong> De lunes
             a sábado, 9:30 h · De lunes a viernes, 20:00 h<br><strong>Catedral:</strong> Sábados, 20:00
             h<br><strong>Convento de San Francisco:</strong> Domingos, 13:00 h</p>
         </div>
-        <a href="assets/newsletter/newsletter2740.pdf" download class="inst-card reveal reveal-delay-1"
-          style="display:block;text-decoration:none;color:inherit;">
-          <p class="inst-card__label" data-i18n-page="parroquia_card2_label">Newsletter parroquial</p>
+        <a id="boletin-link" href="assets/newsletter/newsletter2740.pdf" download
+          class="inst-card inst-card--destacada reveal reveal-delay-1" style="display:block;text-decoration:none;color:inherit;">
+          <p class="inst-card__label" data-i18n-page="parroquia_card2_label">Boletín parroquial</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card2_title">Publicación semanal</h3>
           <p class="inst-card__text" data-i18n-page="parroquia_card2_text">Información sobre la vida de la comunidad,
-            reflexiones litúrgicas y anuncios parroquiales.<span style="display:block;margin-top:.7em">Descarga la
-              newsletter para que estés al tanto de todas nuestras actividades y eventos.</span></p>
+            reflexiones litúrgicas y anuncios parroquiales.<span style="display:block;margin-top:.7em">Descarga el
+              boletín parroquial para que estés al tanto de todas nuestras actividades y eventos parroquiales.</span>
+          </p>
           <span class="inst-card__link" data-i18n-page="parroquia_card2_link">Descargar (PDF) →</span>
         </a>
-        <div class="inst-card reveal reveal-delay-2">
+        <a href="#" class="inst-card reveal reveal-delay-2" id="open-contacto-vida"
+          style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="parroquia_card3_label">Actividades</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card3_title">Vida comunitaria</h3>
           <p class="inst-card__text" data-i18n-page="parroquia_card3_text">Catequesis · Bautizos · Comuniones ·
             Confirmaciones · Bodas · Coro parroquial<span style="display:block;margin-top:.7em">Si quieres más
               información, ponte en contacto:</span></p>
-          <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link"
-            data-i18n-page="parroquia_card3_link">Más información →</a>
-        </div>
+          <span class="inst-card__link" data-i18n-page="parroquia_card3_link">Más información →</span>
+        </a>
         <a href="#" class="inst-card reveal" id="open-fiestas"
           style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="parroquia_card4_label">Fiestas locales</p>
@@ -1513,15 +1555,15 @@
               con nosotros en familia.</span></p>
           <span class="inst-card__link" data-i18n-page="parroquia_card4_link">Más información →</span>
         </a>
-        <div class="inst-card inst-card--wide reveal reveal-delay-1">
+        <a href="#" class="inst-card inst-card--wide reveal reveal-delay-1" id="open-contacto-donativos"
+          style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="parroquia_card5_label">Donativos</p>
           <h3 class="inst-card__title" data-i18n-page="parroquia_card5_title">Apoya la obra pastoral</h3>
           <p class="inst-card__text" data-i18n-page="parroquia_card5_text">La comunidad parroquial sostiene su actividad
             gracias a las aportaciones de los fieles.<span style="display:block;margin-top:.7em">Si estás interesado,
               ponte en contacto.</span></p>
-          <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link"
-            data-i18n-page="parroquia_card5_link">Más información →</a>
-        </div>
+          <span class="inst-card__link" data-i18n-page="parroquia_card5_link">Más información →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1546,15 +1588,15 @@
             gestión del patrimonio · Asesoramiento episcopal · Representación institucional</p>
           <span class="inst-card__link" data-i18n-page="cabildo_card2_link">Más información →</span>
         </a>
-        <div class="inst-card inst-card--wide reveal">
+        <a href="#" class="inst-card inst-card--wide reveal" id="open-contacto-cabildo"
+          style="display:block;text-decoration:none;color:inherit;cursor:pointer">
           <p class="inst-card__label" data-i18n-page="cabildo_card4_label">Contacto institucional</p>
           <h3 class="inst-card__title" data-i18n-page="cabildo_card4_title">Comunicación con el Cabildo</h3>
           <p class="inst-card__text" data-i18n-page="cabildo_card4_text">Para asuntos relacionados con el gobierno
             capitular, solicitudes institucionales o información sobre la actividad del Cabildo Catedralicio de Santo
             Domingo de la Calzada.</p>
-          <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link"
-            data-i18n-page="cabildo_card4_link">Más información →</a>
-        </div>
+          <span class="inst-card__link" data-i18n-page="cabildo_card4_link">Más información →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1819,12 +1861,12 @@
         intro_body: 'Desde el siglo XII, la institución catedralicia ha sido el corazón espiritual y cultural de la ciudad. Hoy sigue cumpliendo su misión pastoral, litúrgica y de custodia del patrimonio histórico.',
         nav_parroquia: 'Parroquia', nav_cabildo: 'Cabildo', nav_archivo: 'Archivo',
         parroquia_eyebrow: 'Vida parroquial',
-        parroquia_title: 'Parroquia de <em>Santo Domingo</em>',
+        parroquia_title: 'Parroquia de la <em>Santísima Trinidad</em>',
         parroquia_desc: 'La parroquia de la Catedral acompaña la vida espiritual de la comunidad. Celebra la Eucaristía diaria, los sacramentos y las fiestas litúrgicas del calendario riojano.',
         parroquia_card1_label: 'Horario de misas', parroquia_card1_title: 'Celebraciones eucarísticas',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> De lunes a sábado, 9:30 h · De lunes a viernes, 20:00 h<br><strong>Catedral:</strong> Sábados, 20:00 h<br><strong>Convento de San Francisco:</strong> Domingos, 13:00 h',
-        parroquia_card2_label: 'Newsletter parroquial', parroquia_card2_title: 'Publicación semanal',
-        parroquia_card2_text: 'Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.<span style="display:block;margin-top:.7em">Descarga la newsletter para que estés al tanto de todas nuestras actividades y eventos.</span>',
+        parroquia_card2_label: 'Boletín parroquial', parroquia_card2_title: 'Publicación semanal',
+        parroquia_card2_text: 'Información sobre la vida de la comunidad, reflexiones litúrgicas y anuncios parroquiales.<span style="display:block;margin-top:.7em">Descarga el boletín parroquial para que estés al tanto de todas nuestras actividades y eventos parroquiales.</span>',
         parroquia_card2_link: 'Descargar (PDF) →',
         parroquia_card3_label: 'Actividades', parroquia_card3_title: 'Vida comunitaria',
         parroquia_card3_text: 'Catequesis · Bautizos · Comuniones · Confirmaciones · Bodas · Coro parroquial<span style="display:block;margin-top:.7em">Si quieres más información, ponte en contacto:</span>',
@@ -1863,10 +1905,9 @@
         cta_sub: 'Contacta con la institución para cualquier consulta sobre la parroquia, el cabildo o el archivo.',
         cta_btn: 'Contactar →',
         fp_eyebrow: 'Calendario festivo', fp_title: 'Fiestas locales y religiosas · Santo Domingo de la Calzada',
-        fp_g1_title: 'Fiestas locales oficiales', fp_g1_list: '<li><strong>12 de mayo</strong> · Festividad de Santo Domingo (patrón de la ciudad).</li><li><strong>18 de septiembre</strong> · Fiestas de Gracias.</li>',
-        fp_g2_title: 'Fiestas del Santo · Interés Turístico Nacional', fp_g2_list: '<li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li><li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del Peregrino) y Procesión de la Rueda.</li><li><strong>11 de mayo</strong> · Reparto del Pan del Santo y del Peregrino.</li><li><strong>12 de mayo</strong> · Día grande: Misa Solemne, Procesión del Santo y reparto del Almuerzo del Santo.</li><li><strong>15 de mayo</strong> · Procesión de San Isidro.</li>',
+        fp_g2_title: 'Fiestas del Santo · Interés Turístico Nacional', fp_g2_list: '<li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li><li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del Peregrino) y Procesión de la Rueda.</li><li><strong>11 de mayo</strong> · Día de La Rueda. Procesión del Pan del Santo y del Peregrino. Por la tarde, Procesión de La Rueda.</li><li><strong>12 de mayo</strong> · Día del Santo: Misa Solemne, Procesión del Santo y reparto del Almuerzo del Santo.</li><li><strong>15 de mayo</strong> · Misa y Procesión de San Isidro.</li>',
         fp_g3_title: 'Virgen de la Plaza', fp_g3_list: '<li><strong>5 de agosto</strong> · Festividad de la Virgen de la Plaza, patrona de los calceatenses.</li>',
-        fp_g4_title: 'Fiestas de Gracias y San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico calceatense.</li><li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li>',
+        fp_g4_title: 'Fiestas de Gracias y San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li><li><strong>19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico calceatense.</li>',
         fp_g5_title: 'Otras celebraciones religiosas', fp_g5_list: '<li>Cuaresma y Semana Santa: pregón, procesiones (Domingo de Ramos, Borriquita, Santa Cena, Viacrucis, Santo Entierro, Vigilia Pascual, Resurrección).</li><li>Corpus Christi: procesión por las calles del casco antiguo.</li><li>Solemnidades patronales y de Cristo Rey en la S. I. Catedral.</li>',
         fp_note: 'Las fechas pueden variar ligeramente cada año en función del calendario litúrgico. Consulta la programación oficial para confirmar horarios y ubicaciones.',
         cp_eyebrow: 'Competencias del Cabildo', cp_title: 'Funciones capitulares',
@@ -1889,7 +1930,11 @@
         af_lbl_name: 'Nombre completo', af_lbl_phone: 'Teléfono', af_lbl_email: 'Correo electrónico', af_lbl_comments: 'Comentarios',
         af_ph_comments: 'Indica el objeto de la investigación, las fechas previstas y tu acreditación académica o institucional.',
         af_terms: 'Acepto la <a href="legal/privacidad" target="_blank" rel="noopener">política de privacidad</a> y las <a href="legal/aviso-legal" target="_blank" rel="noopener">condiciones de uso</a>.',
-        af_submit: 'Enviar solicitud →'
+        af_submit: 'Enviar solicitud →',
+        cf_eyebrow: 'Contacto', cf_intro: 'Completa el formulario y nos pondremos en contacto contigo.',
+        cf_ph_comments: 'Escribe tu consulta o mensaje.', cf_submit: 'Enviar →',
+        fm_fields: 'Por favor, completa todos los campos.', fm_terms: 'Debes aceptar la política de privacidad y las condiciones.',
+        fm_opening: 'Abriendo tu cliente de correo…'
       },
       en: {
         page_eyebrow: 'Cathedral · Parish · Chapter · Archive',
@@ -1901,12 +1946,12 @@
         intro_body: 'Since the 12th century, the cathedral institution has been the spiritual and cultural heart of the city. It still fulfils its pastoral and liturgical mission, and safeguards a heritage of exceptional value.',
         nav_parroquia: 'Parish', nav_cabildo: 'Chapter', nav_archivo: 'Archive',
         parroquia_eyebrow: 'Parish life',
-        parroquia_title: 'Parish of <em>Santo Domingo</em>',
+        parroquia_title: 'Parish of the <em>Holy Trinity</em>',
         parroquia_desc: 'The cathedral parish accompanies the spiritual life of the community. It celebrates daily Mass, sacraments and the liturgical feasts of the Riojan calendar.',
         parroquia_card1_label: 'Mass schedule', parroquia_card1_title: 'Eucharistic celebrations',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> Monday to Saturday, 9:30 · Monday to Friday, 20:00<br><strong>Cathedral:</strong> Saturdays, 20:00<br><strong>Convent of San Francisco:</strong> Sundays, 13:00',
-        parroquia_card2_label: 'Parish newsletter', parroquia_card2_title: 'Weekly publication',
-        parroquia_card2_text: 'News from the life of the community, liturgical reflections and parish announcements.<span style="display:block;margin-top:.7em">Download the newsletter to keep up to date with all our activities and events.</span>',
+        parroquia_card2_label: 'Parish bulletin', parroquia_card2_title: 'Weekly publication',
+        parroquia_card2_text: 'News from the life of the community, liturgical reflections and parish announcements.<span style="display:block;margin-top:.7em">Download the parish bulletin to keep up to date with all our parish activities and events.</span>',
         parroquia_card2_link: 'Download (PDF) →',
         parroquia_card3_label: 'Activities', parroquia_card3_title: 'Community life',
         parroquia_card3_text: 'Catechesis · Baptisms · First Communions · Confirmations · Weddings · Parish choir<span style="display:block;margin-top:.7em">If you would like more information, get in touch:</span>',
@@ -1945,10 +1990,9 @@
         cta_sub: 'Contact the institution for any enquiry about the parish, the chapter or the archive.',
         cta_btn: 'Contact us →',
         fp_eyebrow: 'Festive calendar', fp_title: 'Local and religious festivities · Santo Domingo de la Calzada',
-        fp_g1_title: 'Official local festivities', fp_g1_list: '<li><strong>12 May</strong> · Feast of Santo Domingo (patron saint of the city).</li><li><strong>18 September</strong> · Feast of Thanksgiving.</li>',
-        fp_g2_title: 'Saint\'s Festivities · National Tourist Interest', fp_g2_list: '<li><strong>25 April</strong> · Departure of the bagpipe and drum and registration of the Maidens.</li><li><strong>10 May</strong> · Blessing of the Branches, Procession of the Maidens (Bread of the Saint and the Pilgrim) and Procession of the Wheel.</li><li><strong>11 May</strong> · Distribution of the Bread of the Saint and the Pilgrim.</li><li><strong>12 May</strong> · Main day: Solemn Mass, Procession of the Saint and distribution of the Saint\'s Breakfast.</li><li><strong>15 May</strong> · Procession of San Isidro.</li>',
+        fp_g2_title: 'Saint\'s Festivities · National Tourist Interest', fp_g2_list: '<li><strong>25 April</strong> · Departure of the bagpipe and drum and registration of the Maidens.</li><li><strong>10 May</strong> · Blessing of the Branches, Procession of the Maidens (Bread of the Saint and the Pilgrim) and Procession of the Wheel.</li><li><strong>11 May</strong> · Day of the Wheel. Procession of the Bread of the Saint and the Pilgrim. In the afternoon, Procession of the Wheel.</li><li><strong>12 May</strong> · Saint\'s Day: Solemn Mass, Procession of the Saint and distribution of the Saint\'s Breakfast.</li><li><strong>15 May</strong> · Mass and Procession of San Isidro.</li>',
         fp_g3_title: 'Virgin of the Square', fp_g3_list: '<li><strong>5 August</strong> · Feast of the Virgin of the Square, patroness of Santo Domingo.</li>',
-        fp_g4_title: 'Feast of Thanksgiving and San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 September</strong> · Festive programme in honour of San Jerónimo Hermosilla, Dominican from Santo Domingo.</li><li><strong>18 September</strong> · Thanksgiving Mass at the Cathedral and procession.</li>',
+        fp_g4_title: 'Feast of Thanksgiving and San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18 September</strong> · Thanksgiving Mass at the Cathedral and procession.</li><li><strong>19 September</strong> · Festive programme in honour of San Jerónimo Hermosilla, Dominican from Santo Domingo.</li>',
         fp_g5_title: 'Other religious celebrations', fp_g5_list: '<li>Lent and Holy Week: opening address, processions (Palm Sunday, Borriquita, Last Supper, Stations of the Cross, Holy Burial, Easter Vigil, Resurrection).</li><li>Corpus Christi: procession through the streets of the old town.</li><li>Patron saint solemnities and Christ the King at the Cathedral.</li>',
         fp_note: 'Dates may vary slightly each year depending on the liturgical calendar. Check the official programme to confirm times and locations.',
         cp_eyebrow: 'Chapter competences', cp_title: 'Capitular functions',
@@ -1971,7 +2015,11 @@
         af_lbl_name: 'Full name', af_lbl_phone: 'Phone', af_lbl_email: 'Email', af_lbl_comments: 'Comments',
         af_ph_comments: 'Specify the subject of the research, the expected dates and your academic or institutional accreditation.',
         af_terms: 'I accept the <a href="legal/privacidad" target="_blank" rel="noopener">privacy policy</a> and the <a href="legal/aviso-legal" target="_blank" rel="noopener">terms of use</a>.',
-        af_submit: 'Send request →'
+        af_submit: 'Send request →',
+        cf_eyebrow: 'Contact', cf_intro: 'Complete the form and we will get in touch with you.',
+        cf_ph_comments: 'Write your enquiry or message.', cf_submit: 'Send →',
+        fm_fields: 'Please complete all fields.', fm_terms: 'You must accept the privacy policy and the terms.',
+        fm_opening: 'Opening your email client…'
       },
       fr: {
         page_eyebrow: 'Cathédrale · Paroisse · Chapitre · Archives',
@@ -1983,12 +2031,12 @@
         intro_body: 'Depuis le XIIe siècle, l\'institution cathédrale est le cœur spirituel et culturel de la ville. Elle poursuit aujourd\'hui sa mission pastorale, liturgique et la garde de son patrimoine historique.',
         nav_parroquia: 'Paroisse', nav_cabildo: 'Chapitre', nav_archivo: 'Archives',
         parroquia_eyebrow: 'Vie paroissiale',
-        parroquia_title: 'Paroisse de <em>Santo Domingo</em>',
+        parroquia_title: 'Paroisse de la <em>Sainte Trinité</em>',
         parroquia_desc: 'La paroisse de la Cathédrale accompagne la vie spirituelle de la communauté. Elle célèbre l\'Eucharistie quotidienne, les sacrements et les fêtes liturgiques du calendrier riojan.',
         parroquia_card1_label: 'Horaires des messes', parroquia_card1_title: 'Célébrations eucharistiques',
         parroquia_card1_text: '<strong>Ermita de la Plaza :</strong> du lundi au samedi, 9h30 · du lundi au vendredi, 20h<br><strong>Cathédrale :</strong> samedis, 20h<br><strong>Couvent de San Francisco :</strong> dimanches, 13h',
         parroquia_card2_label: 'Bulletin paroissial', parroquia_card2_title: 'Publication hebdomadaire',
-        parroquia_card2_text: 'Informations sur la vie de la communauté, réflexions liturgiques et annonces paroissiales.<span style="display:block;margin-top:.7em">Téléchargez le bulletin pour être au courant de toutes nos activités et événements.</span>',
+        parroquia_card2_text: 'Informations sur la vie de la communauté, réflexions liturgiques et annonces paroissiales.<span style="display:block;margin-top:.7em">Téléchargez le bulletin paroissial pour être au courant de toutes nos activités et événements paroissiaux.</span>',
         parroquia_card2_link: 'Télécharger (PDF) →',
         parroquia_card3_label: 'Activités', parroquia_card3_title: 'Vie communautaire',
         parroquia_card3_text: 'Catéchèse · Baptêmes · Premières communions · Confirmations · Mariages · Chorale paroissiale<span style="display:block;margin-top:.7em">Pour plus d\'informations, prenez contact :</span>',
@@ -2027,10 +2075,9 @@
         cta_sub: 'Contactez l\'institution pour toute question sur la paroisse, le chapitre ou les archives.',
         cta_btn: 'Nous contacter →',
         fp_eyebrow: 'Calendrier festif', fp_title: 'Fêtes locales et religieuses · Santo Domingo de la Calzada',
-        fp_g1_title: 'Fêtes locales officielles', fp_g1_list: '<li><strong>12 mai</strong> · Fête de Santo Domingo (patron de la ville).</li><li><strong>18 septembre</strong> · Fêtes d\'Action de Grâces.</li>',
-        fp_g2_title: 'Fêtes du Saint · Intérêt Touristique National', fp_g2_list: '<li><strong>25 avril</strong> · Sortie de la cornemuse avec tambour et inscription des Demoiselles.</li><li><strong>10 mai</strong> · Bénédiction des Rameaux, Procession des Demoiselles (Pain du Saint et du Pèlerin) et Procession de la Roue.</li><li><strong>11 mai</strong> · Distribution du Pain du Saint et du Pèlerin.</li><li><strong>12 mai</strong> · Grand jour : Messe Solennelle, Procession du Saint et distribution du Déjeuner du Saint.</li><li><strong>15 mai</strong> · Procession de San Isidro.</li>',
+        fp_g2_title: 'Fêtes du Saint · Intérêt Touristique National', fp_g2_list: '<li><strong>25 avril</strong> · Sortie de la cornemuse avec tambour et inscription des Demoiselles.</li><li><strong>10 mai</strong> · Bénédiction des Rameaux, Procession des Demoiselles (Pain du Saint et du Pèlerin) et Procession de la Roue.</li><li><strong>11 mai</strong> · Jour de la Roue. Procession du Pain du Saint et du Pèlerin. L\'après-midi, Procession de la Roue.</li><li><strong>12 mai</strong> · Jour du Saint : Messe Solennelle, Procession du Saint et distribution du Déjeuner du Saint.</li><li><strong>15 mai</strong> · Messe et Procession de San Isidro.</li>',
         fp_g3_title: 'Vierge de la Place', fp_g3_list: '<li><strong>5 août</strong> · Fête de la Vierge de la Place, patronne des calceatenses.</li>',
-        fp_g4_title: 'Fêtes d\'Action de Grâces et San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 septembre</strong> · Programme festif en l\'honneur de San Jerónimo Hermosilla, dominicain de Santo Domingo.</li><li><strong>18 septembre</strong> · Messe d\'Action de Grâces à la Cathédrale et procession.</li>',
+        fp_g4_title: 'Fêtes d\'Action de Grâces et San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18 septembre</strong> · Messe d\'Action de Grâces à la Cathédrale et procession.</li><li><strong>19 septembre</strong> · Programme festif en l\'honneur de San Jerónimo Hermosilla, dominicain de Santo Domingo.</li>',
         fp_g5_title: 'Autres célébrations religieuses', fp_g5_list: '<li>Carême et Semaine Sainte : discours d\'ouverture, processions (Rameaux, Borriquita, Cène, Chemin de Croix, Saint Enterrement, Vigile Pascale, Résurrection).</li><li>Corpus Christi : procession dans les rues de la vieille ville.</li><li>Solennités patronales et du Christ-Roi à la Cathédrale.</li>',
         fp_note: 'Les dates peuvent varier légèrement chaque année selon le calendrier liturgique. Consultez le programme officiel pour confirmer horaires et lieux.',
         cp_eyebrow: 'Compétences du Chapitre', cp_title: 'Fonctions capitulaires',
@@ -2053,7 +2100,11 @@
         af_lbl_name: 'Nom complet', af_lbl_phone: 'Téléphone', af_lbl_email: 'Adresse e-mail', af_lbl_comments: 'Commentaires',
         af_ph_comments: 'Indiquez l\'objet de la recherche, les dates prévues et votre accréditation académique ou institutionnelle.',
         af_terms: 'J\'accepte la <a href="legal/privacidad" target="_blank" rel="noopener">politique de confidentialité</a> et les <a href="legal/aviso-legal" target="_blank" rel="noopener">conditions d\'utilisation</a>.',
-        af_submit: 'Envoyer la demande →'
+        af_submit: 'Envoyer la demande →',
+        cf_eyebrow: 'Contact', cf_intro: 'Remplissez le formulaire et nous vous contacterons.',
+        cf_ph_comments: 'Écrivez votre demande ou message.', cf_submit: 'Envoyer →',
+        fm_fields: 'Veuillez remplir tous les champs.', fm_terms: 'Vous devez accepter la politique de confidentialité et les conditions.',
+        fm_opening: 'Ouverture de votre messagerie…'
       },
       de: {
         page_eyebrow: 'Kathedrale · Pfarrei · Domkapitel · Archiv',
@@ -2065,12 +2116,12 @@
         intro_body: 'Seit dem 12. Jahrhundert ist die Institution der Kathedrale das geistliche und kulturelle Herz der Stadt. Sie erfüllt weiterhin ihren pastoralen und liturgischen Auftrag und hütet das historische Erbe.',
         nav_parroquia: 'Pfarrei', nav_cabildo: 'Domkapitel', nav_archivo: 'Archiv',
         parroquia_eyebrow: 'Pfarrleben',
-        parroquia_title: 'Pfarrei von <em>Santo Domingo</em>',
+        parroquia_title: 'Pfarrei der <em>Heiligsten Dreifaltigkeit</em>',
         parroquia_desc: 'Die Pfarrei der Kathedrale begleitet das geistliche Leben der Gemeinschaft. Sie feiert die tägliche Eucharistie, die Sakramente und die liturgischen Feste des riojanischen Kalenders.',
         parroquia_card1_label: 'Gottesdienstzeiten', parroquia_card1_title: 'Eucharistiefeiern',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> Montag bis Samstag, 9:30 Uhr · Montag bis Freitag, 20:00 Uhr<br><strong>Kathedrale:</strong> samstags, 20:00 Uhr<br><strong>Konvent San Francisco:</strong> sonntags, 13:00 Uhr',
-        parroquia_card2_label: 'Pfarrnewsletter', parroquia_card2_title: 'Wöchentliche Veröffentlichung',
-        parroquia_card2_text: 'Informationen aus dem Leben der Gemeinschaft, liturgische Betrachtungen und Pfarrmitteilungen.<span style="display:block;margin-top:.7em">Laden Sie den Newsletter herunter, um über alle unsere Aktivitäten und Veranstaltungen auf dem Laufenden zu bleiben.</span>',
+        parroquia_card2_label: 'Pfarrbrief', parroquia_card2_title: 'Wöchentliche Veröffentlichung',
+        parroquia_card2_text: 'Informationen aus dem Leben der Gemeinschaft, liturgische Betrachtungen und Pfarrmitteilungen.<span style="display:block;margin-top:.7em">Laden Sie den Pfarrbrief herunter, um über alle unsere Pfarraktivitäten und -veranstaltungen auf dem Laufenden zu bleiben.</span>',
         parroquia_card2_link: 'Herunterladen (PDF) →',
         parroquia_card3_label: 'Aktivitäten', parroquia_card3_title: 'Gemeinschaftsleben',
         parroquia_card3_text: 'Katechese · Taufen · Erstkommunionen · Firmungen · Hochzeiten · Pfarrchor<span style="display:block;margin-top:.7em">Wenn Sie mehr erfahren möchten, nehmen Sie Kontakt auf:</span>',
@@ -2109,10 +2160,9 @@
         cta_sub: 'Wenden Sie sich an die Institution für jede Anfrage zur Pfarrei, zum Domkapitel oder zum Archiv.',
         cta_btn: 'Kontakt →',
         fp_eyebrow: 'Festkalender', fp_title: 'Lokale und religiöse Feste · Santo Domingo de la Calzada',
-        fp_g1_title: 'Offizielle lokale Feste', fp_g1_list: '<li><strong>12. Mai</strong> · Fest des Heiligen Domingo (Stadtpatron).</li><li><strong>18. September</strong> · Danksagungsfest.</li>',
-        fp_g2_title: 'Festlichkeiten des Heiligen · Nationales Touristisches Interesse', fp_g2_list: '<li><strong>25. April</strong> · Ausmarsch der Dudelsack-Trommel und Eintragung der Jungfrauen.</li><li><strong>10. Mai</strong> · Palmweihe, Prozession der Jungfrauen (Brot des Heiligen und des Pilgers) und Radprozession.</li><li><strong>11. Mai</strong> · Verteilung des Brots des Heiligen und des Pilgers.</li><li><strong>12. Mai</strong> · Großer Tag: Feierliche Messe, Prozession des Heiligen und Verteilung des Frühstücks des Heiligen.</li><li><strong>15. Mai</strong> · Prozession des heiligen Isidor.</li>',
+        fp_g2_title: 'Festlichkeiten des Heiligen · Nationales Touristisches Interesse', fp_g2_list: '<li><strong>25. April</strong> · Ausmarsch der Dudelsack-Trommel und Eintragung der Jungfrauen.</li><li><strong>10. Mai</strong> · Palmweihe, Prozession der Jungfrauen (Brot des Heiligen und des Pilgers) und Radprozession.</li><li><strong>11. Mai</strong> · Tag des Rades. Prozession des Brots des Heiligen und des Pilgers. Am Nachmittag, Radprozession.</li><li><strong>12. Mai</strong> · Tag des Heiligen: Feierliche Messe, Prozession des Heiligen und Verteilung des Frühstücks des Heiligen.</li><li><strong>15. Mai</strong> · Messe und Prozession des heiligen Isidor.</li>',
         fp_g3_title: 'Jungfrau vom Platz', fp_g3_list: '<li><strong>5. August</strong> · Fest der Jungfrau vom Platz, Patronin von Santo Domingo.</li>',
-        fp_g4_title: 'Danksagungsfest und San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17. – 19. September</strong> · Festprogramm zu Ehren von San Jerónimo Hermosilla, Dominikaner aus Santo Domingo.</li><li><strong>18. September</strong> · Dankmesse in der Kathedrale und Prozession.</li>',
+        fp_g4_title: 'Danksagungsfest und San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18. September</strong> · Dankmesse in der Kathedrale und Prozession.</li><li><strong>19. September</strong> · Festprogramm zu Ehren von San Jerónimo Hermosilla, Dominikaner aus Santo Domingo.</li>',
         fp_g5_title: 'Weitere religiöse Feiern', fp_g5_list: '<li>Fastenzeit und Karwoche: Eröffnungsrede, Prozessionen (Palmsonntag, Borriquita, Abendmahl, Kreuzweg, Heiliges Begräbnis, Osternacht, Auferstehung).</li><li>Fronleichnam: Prozession durch die Straßen der Altstadt.</li><li>Patronatsfeste und Christkönigsfest in der Kathedrale.</li>',
         fp_note: 'Die Daten können je nach liturgischem Kalender jedes Jahr leicht variieren. Konsultieren Sie das offizielle Programm zur Bestätigung von Zeiten und Orten.',
         cp_eyebrow: 'Zuständigkeiten des Domkapitels', cp_title: 'Kapitelfunktionen',
@@ -2135,7 +2185,11 @@
         af_lbl_name: 'Vollständiger Name', af_lbl_phone: 'Telefon', af_lbl_email: 'E-Mail', af_lbl_comments: 'Kommentare',
         af_ph_comments: 'Geben Sie den Forschungsgegenstand, die geplanten Daten und Ihre akademische oder institutionelle Akkreditierung an.',
         af_terms: 'Ich akzeptiere die <a href="legal/privacidad" target="_blank" rel="noopener">Datenschutzerklärung</a> und die <a href="legal/aviso-legal" target="_blank" rel="noopener">Nutzungsbedingungen</a>.',
-        af_submit: 'Anfrage senden →'
+        af_submit: 'Anfrage senden →',
+        cf_eyebrow: 'Kontakt', cf_intro: 'Füllen Sie das Formular aus und wir setzen uns mit Ihnen in Verbindung.',
+        cf_ph_comments: 'Schreiben Sie Ihre Anfrage oder Nachricht.', cf_submit: 'Senden →',
+        fm_fields: 'Bitte füllen Sie alle Felder aus.', fm_terms: 'Sie müssen die Datenschutzrichtlinie und die Bedingungen akzeptieren.',
+        fm_opening: 'Ihr E-Mail-Programm wird geöffnet…'
       },
       pt: {
         page_eyebrow: 'Catedral · Paróquia · Cabido · Arquivo',
@@ -2147,12 +2201,12 @@
         intro_body: 'Desde o século XII, a instituição catedralícia tem sido o coração espiritual e cultural da cidade. Hoje continua a cumprir a sua missão pastoral, litúrgica e de custódia do património histórico.',
         nav_parroquia: 'Paróquia', nav_cabildo: 'Cabido', nav_archivo: 'Arquivo',
         parroquia_eyebrow: 'Vida paroquial',
-        parroquia_title: 'Paróquia de <em>Santo Domingo</em>',
+        parroquia_title: 'Paróquia da <em>Santíssima Trindade</em>',
         parroquia_desc: 'A paróquia da Catedral acompanha a vida espiritual da comunidade. Celebra a Eucaristia diária, os sacramentos e as festas litúrgicas do calendário riojano.',
         parroquia_card1_label: 'Horário das missas', parroquia_card1_title: 'Celebrações eucarísticas',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> de segunda-feira a sábado, 9h30 · de segunda a sexta-feira, 20h00<br><strong>Catedral:</strong> sábados, 20h00<br><strong>Convento de São Francisco:</strong> domingos, 13h00',
         parroquia_card2_label: 'Boletim paroquial', parroquia_card2_title: 'Publicação semanal',
-        parroquia_card2_text: 'Informações sobre a vida da comunidade, reflexões litúrgicas e anúncios paroquiais.<span style="display:block;margin-top:.7em">Descarregue o boletim para se manter a par de todas as nossas atividades e eventos.</span>',
+        parroquia_card2_text: 'Informações sobre a vida da comunidade, reflexões litúrgicas e anúncios paroquiais.<span style="display:block;margin-top:.7em">Descarregue o boletim paroquial para se manter a par de todas as nossas atividades e eventos paroquiais.</span>',
         parroquia_card2_link: 'Descarregar (PDF) →',
         parroquia_card3_label: 'Atividades', parroquia_card3_title: 'Vida comunitária',
         parroquia_card3_text: 'Catequese · Batizados · Primeiras Comunhões · Confirmações · Casamentos · Coro paroquial<span style="display:block;margin-top:.7em">Se quiser mais informações, entre em contacto:</span>',
@@ -2191,10 +2245,9 @@
         cta_sub: 'Contacte a instituição para qualquer questão sobre a paróquia, o cabido ou o arquivo.',
         cta_btn: 'Contactar →',
         fp_eyebrow: 'Calendário festivo', fp_title: 'Festas locais e religiosas · Santo Domingo de la Calzada',
-        fp_g1_title: 'Festas locais oficiais', fp_g1_list: '<li><strong>12 de maio</strong> · Festividade de Santo Domingo (padroeiro da cidade).</li><li><strong>18 de setembro</strong> · Festas de Ação de Graças.</li>',
-        fp_g2_title: 'Festas do Santo · Interesse Turístico Nacional', fp_g2_list: '<li><strong>25 de abril</strong> · Saída da gaita com o tambor e registo das Donzelas.</li><li><strong>10 de maio</strong> · Bênção dos Ramos, Procissão das Donzelas (Pão do Santo e do Peregrino) e Procissão da Roda.</li><li><strong>11 de maio</strong> · Distribuição do Pão do Santo e do Peregrino.</li><li><strong>12 de maio</strong> · Dia grande: Missa Solene, Procissão do Santo e distribuição do Almoço do Santo.</li><li><strong>15 de maio</strong> · Procissão de San Isidro.</li>',
+        fp_g2_title: 'Festas do Santo · Interesse Turístico Nacional', fp_g2_list: '<li><strong>25 de abril</strong> · Saída da gaita com o tambor e registo das Donzelas.</li><li><strong>10 de maio</strong> · Bênção dos Ramos, Procissão das Donzelas (Pão do Santo e do Peregrino) e Procissão da Roda.</li><li><strong>11 de maio</strong> · Dia da Roda. Procissão do Pão do Santo e do Peregrino. À tarde, Procissão da Roda.</li><li><strong>12 de maio</strong> · Dia do Santo: Missa Solene, Procissão do Santo e distribuição do Almoço do Santo.</li><li><strong>15 de maio</strong> · Missa e Procissão de San Isidro.</li>',
         fp_g3_title: 'Virgem da Praça', fp_g3_list: '<li><strong>5 de agosto</strong> · Festividade da Virgem da Praça, padroeira dos calceatenses.</li>',
-        fp_g4_title: 'Festas de Ação de Graças e San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 de setembro</strong> · Programa festivo em honra a San Jerónimo Hermosilla, dominicano de Santo Domingo.</li><li><strong>18 de setembro</strong> · Missa de Ação de Graças na Catedral e procissão.</li>',
+        fp_g4_title: 'Festas de Ação de Graças e San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18 de setembro</strong> · Missa de Ação de Graças na Catedral e procissão.</li><li><strong>19 de setembro</strong> · Programa festivo em honra a San Jerónimo Hermosilla, dominicano de Santo Domingo.</li>',
         fp_g5_title: 'Outras celebrações religiosas', fp_g5_list: '<li>Quaresma e Semana Santa: pregão, procissões (Domingo de Ramos, Borriquita, Última Ceia, Via-Sacra, Santo Sepulcro, Vigília Pascal, Ressurreição).</li><li>Corpus Christi: procissão pelas ruas do centro histórico.</li><li>Solenidades patronais e de Cristo Rei na Catedral.</li>',
         fp_note: 'As datas podem variar ligeiramente cada ano em função do calendário litúrgico. Consulte a programação oficial para confirmar horários e locais.',
         cp_eyebrow: 'Competências do Cabido', cp_title: 'Funções capitulares',
@@ -2217,7 +2270,11 @@
         af_lbl_name: 'Nome completo', af_lbl_phone: 'Telefone', af_lbl_email: 'Correio eletrónico', af_lbl_comments: 'Comentários',
         af_ph_comments: 'Indique o objeto da investigação, as datas previstas e a sua acreditação académica ou institucional.',
         af_terms: 'Aceito a <a href="legal/privacidad" target="_blank" rel="noopener">política de privacidade</a> e as <a href="legal/aviso-legal" target="_blank" rel="noopener">condições de uso</a>.',
-        af_submit: 'Enviar pedido →'
+        af_submit: 'Enviar pedido →',
+        cf_eyebrow: 'Contacto', cf_intro: 'Preencha o formulário e entraremos em contacto consigo.',
+        cf_ph_comments: 'Escreva a sua consulta ou mensagem.', cf_submit: 'Enviar →',
+        fm_fields: 'Por favor, preencha todos os campos.', fm_terms: 'Tem de aceitar a política de privacidade e as condições.',
+        fm_opening: 'A abrir o seu cliente de e-mail…'
       },
       it: {
         page_eyebrow: 'Cattedrale · Parrocchia · Capitolo · Archivio',
@@ -2229,12 +2286,12 @@
         intro_body: 'Dal XII secolo l\'istituzione cattedrale è il cuore spirituale e culturale della città. Oggi continua a compiere la sua missione pastorale, liturgica e di custodia del patrimonio storico.',
         nav_parroquia: 'Parrocchia', nav_cabildo: 'Capitolo', nav_archivo: 'Archivio',
         parroquia_eyebrow: 'Vita parrocchiale',
-        parroquia_title: 'Parrocchia di <em>Santo Domingo</em>',
+        parroquia_title: 'Parrocchia della <em>Santissima Trinità</em>',
         parroquia_desc: 'La parrocchia della Cattedrale accompagna la vita spirituale della comunità. Celebra l\'Eucaristia quotidiana, i sacramenti e le feste liturgiche del calendario riojano.',
         parroquia_card1_label: 'Orari delle messe', parroquia_card1_title: 'Celebrazioni eucaristiche',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> dal lunedì al sabato, 9:30 · dal lunedì al venerdì, 20:00<br><strong>Cattedrale:</strong> sabato, 20:00<br><strong>Convento di San Francisco:</strong> domenica, 13:00',
-        parroquia_card2_label: 'Newsletter parrocchiale', parroquia_card2_title: 'Pubblicazione settimanale',
-        parroquia_card2_text: 'Informazioni sulla vita della comunità, riflessioni liturgiche e avvisi parrocchiali.<span style="display:block;margin-top:.7em">Scarica la newsletter per restare aggiornato su tutte le nostre attività ed eventi.</span>',
+        parroquia_card2_label: 'Bollettino parrocchiale', parroquia_card2_title: 'Pubblicazione settimanale',
+        parroquia_card2_text: 'Informazioni sulla vita della comunità, riflessioni liturgiche e avvisi parrocchiali.<span style="display:block;margin-top:.7em">Scarica il bollettino parrocchiale per restare aggiornato su tutte le nostre attività ed eventi parrocchiali.</span>',
         parroquia_card2_link: 'Scarica (PDF) →',
         parroquia_card3_label: 'Attività', parroquia_card3_title: 'Vita comunitaria',
         parroquia_card3_text: 'Catechesi · Battesimi · Prime Comunioni · Cresime · Matrimoni · Coro parrocchiale<span style="display:block;margin-top:.7em">Se desideri maggiori informazioni, mettiti in contatto:</span>',
@@ -2273,10 +2330,9 @@
         cta_sub: 'Contatta l\'istituzione per qualsiasi domanda sulla parrocchia, il capitolo o l\'archivio.',
         cta_btn: 'Contattaci →',
         fp_eyebrow: 'Calendario festivo', fp_title: 'Feste locali e religiose · Santo Domingo de la Calzada',
-        fp_g1_title: 'Feste locali ufficiali', fp_g1_list: '<li><strong>12 maggio</strong> · Festa di Santo Domingo (patrono della città).</li><li><strong>18 settembre</strong> · Feste del Ringraziamento.</li>',
-        fp_g2_title: 'Feste del Santo · Interesse Turistico Nazionale', fp_g2_list: '<li><strong>25 aprile</strong> · Uscita della cornamusa con il tamburo e registrazione delle Damigelle.</li><li><strong>10 maggio</strong> · Benedizione dei Rami, Processione delle Damigelle (Pane del Santo e del Pellegrino) e Processione della Ruota.</li><li><strong>11 maggio</strong> · Distribuzione del Pane del Santo e del Pellegrino.</li><li><strong>12 maggio</strong> · Giorno grande: Messa Solenne, Processione del Santo e distribuzione della Colazione del Santo.</li><li><strong>15 maggio</strong> · Processione di San Isidro.</li>',
+        fp_g2_title: 'Feste del Santo · Interesse Turistico Nazionale', fp_g2_list: '<li><strong>25 aprile</strong> · Uscita della cornamusa con il tamburo e registrazione delle Damigelle.</li><li><strong>10 maggio</strong> · Benedizione dei Rami, Processione delle Damigelle (Pane del Santo e del Pellegrino) e Processione della Ruota.</li><li><strong>11 maggio</strong> · Giorno della Ruota. Processione del Pane del Santo e del Pellegrino. Nel pomeriggio, Processione della Ruota.</li><li><strong>12 maggio</strong> · Giorno del Santo: Messa Solenne, Processione del Santo e distribuzione della Colazione del Santo.</li><li><strong>15 maggio</strong> · Messa e Processione di San Isidro.</li>',
         fp_g3_title: 'Vergine della Piazza', fp_g3_list: '<li><strong>5 agosto</strong> · Festa della Vergine della Piazza, patrona di Santo Domingo.</li>',
-        fp_g4_title: 'Feste del Ringraziamento e San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 settembre</strong> · Programma festivo in onore di San Jerónimo Hermosilla, domenicano di Santo Domingo.</li><li><strong>18 settembre</strong> · Messa di Ringraziamento in Cattedrale e processione.</li>',
+        fp_g4_title: 'Feste del Ringraziamento e San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18 settembre</strong> · Messa di Ringraziamento in Cattedrale e processione.</li><li><strong>19 settembre</strong> · Programma festivo in onore di San Jerónimo Hermosilla, domenicano di Santo Domingo.</li>',
         fp_g5_title: 'Altre celebrazioni religiose', fp_g5_list: '<li>Quaresima e Settimana Santa: discorso d\'apertura, processioni (Domenica delle Palme, Borriquita, Ultima Cena, Via Crucis, Santo Sepolcro, Veglia Pasquale, Risurrezione).</li><li>Corpus Domini: processione per le strade del centro storico.</li><li>Solennità patronali e di Cristo Re nella Cattedrale.</li>',
         fp_note: 'Le date possono variare leggermente ogni anno in base al calendario liturgico. Consulta il programma ufficiale per confermare orari e luoghi.',
         cp_eyebrow: 'Competenze del Capitolo', cp_title: 'Funzioni capitolari',
@@ -2299,7 +2355,11 @@
         af_lbl_name: 'Nome completo', af_lbl_phone: 'Telefono', af_lbl_email: 'Email', af_lbl_comments: 'Commenti',
         af_ph_comments: 'Indica l\'oggetto della ricerca, le date previste e il tuo accreditamento accademico o istituzionale.',
         af_terms: 'Accetto l\'<a href="legal/privacidad" target="_blank" rel="noopener">informativa sulla privacy</a> e le <a href="legal/aviso-legal" target="_blank" rel="noopener">condizioni d\'uso</a>.',
-        af_submit: 'Invia richiesta →'
+        af_submit: 'Invia richiesta →',
+        cf_eyebrow: 'Contatto', cf_intro: 'Compila il modulo e ti contatteremo.',
+        cf_ph_comments: 'Scrivi la tua richiesta o messaggio.', cf_submit: 'Invia →',
+        fm_fields: 'Per favore, compila tutti i campi.', fm_terms: 'Devi accettare l\'informativa sulla privacy e le condizioni.',
+        fm_opening: 'Apertura del tuo client di posta…'
       },
       ko: {
         page_eyebrow: '대성당 · 본당 · 참사회 · 기록보관소',
@@ -2311,12 +2371,12 @@
         intro_body: '12세기 이래로 대성당 기관은 도시의 영적·문화적 중심이었습니다. 오늘날에도 사목과 전례의 사명, 그리고 역사 유산의 수호를 계속하고 있습니다.',
         nav_parroquia: '본당', nav_cabildo: '참사회', nav_archivo: '기록보관소',
         parroquia_eyebrow: '본당 생활',
-        parroquia_title: '<em>산토 도밍고</em> 본당',
+        parroquia_title: '<em>삼위일체</em> 본당',
         parroquia_desc: '대성당 본당은 공동체의 영적 삶을 함께합니다. 매일의 미사와 성사, 라리오하 전례력의 축일을 거행합니다.',
         parroquia_card1_label: '미사 시간', parroquia_card1_title: '성찬례',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> 월요일~토요일 9:30 · 월요일~금요일 20:00<br><strong>대성당:</strong> 토요일 20:00<br><strong>산 프란시스코 수도원:</strong> 일요일 13:00',
-        parroquia_card2_label: '본당 소식지', parroquia_card2_title: '주간 발행물',
-        parroquia_card2_text: '공동체 생활 소식, 전례 묵상과 본당 공지사항.<span style="display:block;margin-top:.7em">모든 활동과 행사에 대한 소식을 받아보시려면 소식지를 내려받으세요.</span>',
+        parroquia_card2_label: '본당 주보', parroquia_card2_title: '주간 발행물',
+        parroquia_card2_text: '공동체 생활 소식, 전례 묵상과 본당 공지사항.<span style="display:block;margin-top:.7em">모든 본당 활동과 행사 소식을 받아보시려면 본당 주보를 내려받으세요.</span>',
         parroquia_card2_link: '내려받기 (PDF) →',
         parroquia_card3_label: '활동', parroquia_card3_title: '공동체 생활',
         parroquia_card3_text: '교리교육 · 세례 · 첫영성체 · 견진 · 혼인 · 본당 성가대<span style="display:block;margin-top:.7em">자세한 정보를 원하시면 연락해 주세요:</span>',
@@ -2355,10 +2415,9 @@
         cta_sub: '본당, 참사회, 기록보관소에 관한 문의는 기관으로 연락해 주세요.',
         cta_btn: '문의하기 →',
         fp_eyebrow: '축제 달력', fp_title: '지역 및 종교 축제 · 산토 도밍고 데 라 칼사다',
-        fp_g1_title: '공식 지역 축제', fp_g1_list: '<li><strong>5월 12일</strong> · 산토 도밍고 축일(도시의 수호 성인).</li><li><strong>9월 18일</strong> · 감사 축제.</li>',
-        fp_g2_title: '성인 축제 · 국가 관광 관심 행사', fp_g2_list: '<li><strong>4월 25일</strong> · 가이타와 북의 출발 및 처녀들 등록.</li><li><strong>5월 10일</strong> · 가지 축복, 처녀들의 행렬(성인과 순례자의 빵) 및 바퀴 행렬.</li><li><strong>5월 11일</strong> · 성인과 순례자의 빵 배분.</li><li><strong>5월 12일</strong> · 큰 날: 장엄 미사, 성인의 행렬, 성인의 식사 배분.</li><li><strong>5월 15일</strong> · 산 이시드로 행렬.</li>',
+        fp_g2_title: '성인 축제 · 국가 관광 관심 행사', fp_g2_list: '<li><strong>4월 25일</strong> · 가이타와 북의 출발 및 처녀들 등록.</li><li><strong>5월 10일</strong> · 가지 축복, 처녀들의 행렬(성인과 순례자의 빵) 및 바퀴 행렬.</li><li><strong>5월 11일</strong> · 바퀴의 날. 성인과 순례자의 빵 행렬. 오후에는 바퀴 행렬.</li><li><strong>5월 12일</strong> · 성인의 날: 장엄 미사, 성인의 행렬, 성인의 식사 배분.</li><li><strong>5월 15일</strong> · 산 이시드로 미사와 행렬.</li>',
         fp_g3_title: '광장의 성모', fp_g3_list: '<li><strong>8월 5일</strong> · 칼사텐세 사람들의 수호자, 광장의 성모 축일.</li>',
-        fp_g4_title: '감사 축제와 산 헤로니모 에르모시야', fp_g4_list: '<li><strong>9월 17 – 19일</strong> · 산토 도밍고의 도미니코회 수도사 산 헤로니모 에르모시야를 기리는 축제 프로그램.</li><li><strong>9월 18일</strong> · 대성당에서의 감사 미사와 행렬.</li>',
+        fp_g4_title: '감사 축제와 산 헤로니모 에르모시야', fp_g4_list: '<li><strong>9월 18일</strong> · 대성당에서의 감사 미사와 행렬.</li><li><strong>9월 19일</strong> · 산토 도밍고의 도미니코회 수도사 산 헤로니모 에르모시야를 기리는 축제 프로그램.</li>',
         fp_g5_title: '기타 종교 행사', fp_g5_list: '<li>사순절과 성주간: 개회 연설, 행렬(종려주일, 보리키타, 최후의 만찬, 십자가의 길, 성스러운 매장, 부활 성야, 부활).</li><li>성체 축일: 구시가지 거리 행렬.</li><li>대성당에서의 수호 성인과 그리스도 왕 축일.</li>',
         fp_note: '날짜는 매년 전례 달력에 따라 약간 달라질 수 있습니다. 시간과 장소를 확인하려면 공식 프로그램을 참조하세요.',
         cp_eyebrow: '참사회의 권한', cp_title: '참사회 기능',
@@ -2381,7 +2440,11 @@
         af_lbl_name: '성명', af_lbl_phone: '전화번호', af_lbl_email: '이메일', af_lbl_comments: '의견',
         af_ph_comments: '연구 주제, 예상 날짜, 학술 또는 기관 인증을 명시해 주세요.',
         af_terms: '<a href="legal/privacidad" target="_blank" rel="noopener">개인정보 처리방침</a> 및 <a href="legal/aviso-legal" target="_blank" rel="noopener">이용 약관</a>에 동의합니다.',
-        af_submit: '신청 보내기 →'
+        af_submit: '신청 보내기 →',
+        cf_eyebrow: '문의', cf_intro: '양식을 작성해 주시면 저희가 연락드리겠습니다.',
+        cf_ph_comments: '문의 사항이나 메시지를 작성해 주세요.', cf_submit: '보내기 →',
+        fm_fields: '모든 항목을 입력해 주세요.', fm_terms: '개인정보 처리방침과 이용약관에 동의하셔야 합니다.',
+        fm_opening: '이메일 앱을 여는 중…'
       },
       eu: {
         page_eyebrow: 'Katedrala · Parrokia · Kabildoa · Artxiboa',
@@ -2393,12 +2456,12 @@
         intro_body: 'XII. mendetik, katedraleko erakundea hiriaren bihotz espirituala eta kulturala izan da. Gaur egun ere bere artzain-eginkizuna, liturgikoa eta ondare historikoaren zaintzari eusten die.',
         nav_parroquia: 'Parrokia', nav_cabildo: 'Kabildoa', nav_archivo: 'Artxiboa',
         parroquia_eyebrow: 'Parrokia bizitza',
-        parroquia_title: '<em>Santo Domingo</em>ren parrokia',
+        parroquia_title: '<em>Trinitate Santua</em>ren parrokia',
         parroquia_desc: 'Katedraleko parrokiak komunitatearen bizitza espirituala laguntzen du. Eguneroko Eukaristia, sakramentuak eta Errioxako egutegiko jai liturgikoak ospatzen ditu.',
         parroquia_card1_label: 'Mezen ordutegia', parroquia_card1_title: 'Ospakizun eukaristikoak',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> astelehenetik larunbatera, 9:30 · astelehenetik ostiralera, 20:00<br><strong>Katedrala:</strong> larunbatetan, 20:00<br><strong>San Frantziskoren Komentua:</strong> igandeetan, 13:00',
         parroquia_card2_label: 'Parrokiako buletina', parroquia_card2_title: 'Asteroko argitalpena',
-        parroquia_card2_text: 'Komunitatearen bizitzari buruzko informazioa, liturgi gogoetak eta parrokiako oharrak.<span style="display:block;margin-top:.7em">Deskargatu buletina gure jarduera eta ekitaldi guztien berri izateko.</span>',
+        parroquia_card2_text: 'Komunitatearen bizitzari buruzko informazioa, liturgi gogoetak eta parrokiako oharrak.<span style="display:block;margin-top:.7em">Deskargatu parrokiako buletina gure parrokiako jarduera eta ekitaldi guztien berri izateko.</span>',
         parroquia_card2_link: 'Deskargatu (PDF) →',
         parroquia_card3_label: 'Jarduerak', parroquia_card3_title: 'Komunitate bizitza',
         parroquia_card3_text: 'Katekesia · Bataioak · Lehen Jaunartzeak · Sendotzak · Ezkontzak · Parrokiako abesbatza<span style="display:block;margin-top:.7em">Informazio gehiago nahi baduzu, jarri harremanetan:</span>',
@@ -2437,10 +2500,9 @@
         cta_sub: 'Jarri harremanetan erakundearekin parrokiari, kabildoari edo artxiboari buruzko edozein zalantza argitzeko.',
         cta_btn: 'Harremanetan jarri →',
         fp_eyebrow: 'Festa egutegia', fp_title: 'Tokiko eta erlijio jaiak · Santo Domingo de la Calzada',
-        fp_g1_title: 'Tokiko jai ofizialak', fp_g1_list: '<li><strong>maiatzaren 12a</strong> · Santo Domingoren festa (hiriko zaindaria).</li><li><strong>irailaren 18a</strong> · Esker Onezko Festak.</li>',
-        fp_g2_title: 'Santuaren Festak · Turismo Intereseko Nazionala', fp_g2_list: '<li><strong>apirilaren 25a</strong> · Gaita eta danborraren irteera eta Dontzeilen erregistroa.</li><li><strong>maiatzaren 10a</strong> · Erramuen bedeinkapena, Dontzeilen prozesioa (Santuaren eta Erromesaren ogia) eta Gurpilaren prozesioa.</li><li><strong>maiatzaren 11a</strong> · Santuaren eta Erromesaren ogiaren banaketa.</li><li><strong>maiatzaren 12a</strong> · Egun handia: Meza Solemne, Santuaren prozesioa eta Santuaren gosariaren banaketa.</li><li><strong>maiatzaren 15a</strong> · San Isidroren prozesioa.</li>',
+        fp_g2_title: 'Santuaren Festak · Turismo Intereseko Nazionala', fp_g2_list: '<li><strong>apirilaren 25a</strong> · Gaita eta danborraren irteera eta Dontzeilen erregistroa.</li><li><strong>maiatzaren 10a</strong> · Erramuen bedeinkapena, Dontzeilen prozesioa (Santuaren eta Erromesaren ogia) eta Gurpilaren prozesioa.</li><li><strong>maiatzaren 11a</strong> · Gurpilaren eguna. Santuaren eta Erromesaren ogiaren prozesioa. Arratsaldean, Gurpilaren prozesioa.</li><li><strong>maiatzaren 12a</strong> · Santuaren eguna: Meza Solemne, Santuaren prozesioa eta Santuaren gosariaren banaketa.</li><li><strong>maiatzaren 15a</strong> · San Isidroren meza eta prozesioa.</li>',
         fp_g3_title: 'Plazako Ama Birjina', fp_g3_list: '<li><strong>abuztuaren 5a</strong> · Plazako Ama Birjinaren festa, kalzedarren zaindaria.</li>',
-        fp_g4_title: 'Esker Onezko Festak eta San Jerónimo Hermosilla', fp_g4_list: '<li><strong>irailaren 17 – 19a</strong> · Santo Domingoko domingotar San Jerónimo Hermosillaren omenezko festa egitaraua.</li><li><strong>irailaren 18a</strong> · Katedraleko Esker Onezko meza eta prozesioa.</li>',
+        fp_g4_title: 'Esker Onezko Festak eta San Jerónimo Hermosilla', fp_g4_list: '<li><strong>irailaren 18a</strong> · Katedraleko Esker Onezko meza eta prozesioa.</li><li><strong>irailaren 19a</strong> · Santo Domingoko domingotar San Jerónimo Hermosillaren omenezko festa egitaraua.</li>',
         fp_g5_title: 'Beste erlijio ospakizun batzuk', fp_g5_list: '<li>Garizuma eta Aste Santua: pregoia, prozesioak (Erramu Igandea, Borriquita, Azken Afaria, Gurutze Bidea, Hilobi Santua, Pazko Bilatzea, Berpiztea).</li><li>Corpus Christi: hirigune zaharreko kaleetan zehar prozesioa.</li><li>Katedraleko zaindari eta Kristo Erregeren solemnitateak.</li>',
         fp_note: 'Egunak urtero apur bat aldatu daitezke liturgia egutegiaren arabera. Egitarau ofiziala kontsultatu orduak eta tokiak baieztatzeko.',
         cp_eyebrow: 'Kabildoaren eskumenak', cp_title: 'Kapituluaren funtzioak',
@@ -2463,7 +2525,11 @@
         af_lbl_name: 'Izen-deiturak', af_lbl_phone: 'Telefonoa', af_lbl_email: 'Helbide elektronikoa', af_lbl_comments: 'Iruzkinak',
         af_ph_comments: 'Adierazi ikerketaren xedea, aurreikusitako datak eta zure akreditazio akademikoa edo instituzionala.',
         af_terms: '<a href="legal/privacidad" target="_blank" rel="noopener">Pribatutasun politika</a> eta <a href="legal/aviso-legal" target="_blank" rel="noopener">erabilera baldintzak</a> onartzen ditut.',
-        af_submit: 'Eskaera bidali →'
+        af_submit: 'Eskaera bidali →',
+        cf_eyebrow: 'Harremana', cf_intro: 'Bete formularioa eta zurekin harremanetan jarriko gara.',
+        cf_ph_comments: 'Idatzi zure kontsulta edo mezua.', cf_submit: 'Bidali →',
+        fm_fields: 'Mesedez, bete eremu guztiak.', fm_terms: 'Pribatutasun-politika eta baldintzak onartu behar dituzu.',
+        fm_opening: 'Zure posta-bezeroa irekitzen…'
       },
       ca: {
         page_eyebrow: 'Catedral · Parròquia · Capítol · Arxiu',
@@ -2475,12 +2541,12 @@
         intro_body: 'Des del segle XII, la institució catedralícia ha estat el cor espiritual i cultural de la ciutat. Avui continua complint la seva missió pastoral, litúrgica i de custòdia del patrimoni històric.',
         nav_parroquia: 'Parròquia', nav_cabildo: 'Capítol', nav_archivo: 'Arxiu',
         parroquia_eyebrow: 'Vida parroquial',
-        parroquia_title: 'Parròquia de <em>Santo Domingo</em>',
+        parroquia_title: 'Parròquia de la <em>Santíssima Trinitat</em>',
         parroquia_desc: 'La parròquia de la Catedral acompanya la vida espiritual de la comunitat. Celebra l\'Eucaristia diària, els sagraments i les festes litúrgiques del calendari riojà.',
         parroquia_card1_label: 'Horari de misses', parroquia_card1_title: 'Celebracions eucarístiques',
         parroquia_card1_text: '<strong>Ermita de la Plaza:</strong> de dilluns a dissabte, 9:30 h · de dilluns a divendres, 20:00 h<br><strong>Catedral:</strong> dissabtes, 20:00 h<br><strong>Convent de San Francisco:</strong> diumenges, 13:00 h',
         parroquia_card2_label: 'Butlletí parroquial', parroquia_card2_title: 'Publicació setmanal',
-        parroquia_card2_text: 'Informació sobre la vida de la comunitat, reflexions litúrgiques i anuncis parroquials.<span style="display:block;margin-top:.7em">Descarrega el butlletí per estar al corrent de totes les nostres activitats i esdeveniments.</span>',
+        parroquia_card2_text: 'Informació sobre la vida de la comunitat, reflexions litúrgiques i anuncis parroquials.<span style="display:block;margin-top:.7em">Descarrega el butlletí parroquial per estar al corrent de totes les nostres activitats i esdeveniments parroquials.</span>',
         parroquia_card2_link: 'Descarregar (PDF) →',
         parroquia_card3_label: 'Activitats', parroquia_card3_title: 'Vida comunitària',
         parroquia_card3_text: 'Catequesi · Baptismes · Primeres Comunions · Confirmacions · Casaments · Cor parroquial<span style="display:block;margin-top:.7em">Si vols més informació, posa\'t en contacte:</span>',
@@ -2519,10 +2585,9 @@
         cta_sub: 'Contacta amb la institució per a qualsevol consulta sobre la parròquia, el capítol o l\'arxiu.',
         cta_btn: 'Contactar →',
         fp_eyebrow: 'Calendari festiu', fp_title: 'Festes locals i religioses · Santo Domingo de la Calzada',
-        fp_g1_title: 'Festes locals oficials', fp_g1_list: '<li><strong>12 de maig</strong> · Festivitat de Santo Domingo (patró de la ciutat).</li><li><strong>18 de setembre</strong> · Festes d\'Acció de Gràcies.</li>',
-        fp_g2_title: 'Festes del Sant · Interès Turístic Nacional', fp_g2_list: '<li><strong>25 d\'abril</strong> · Sortida de la gaita amb el tambor i registre de les Donzelles.</li><li><strong>10 de maig</strong> · Benedicció dels Rams, Processó de les Donzelles (Pa del Sant i del Pelegrí) i Processó de la Roda.</li><li><strong>11 de maig</strong> · Repartiment del Pa del Sant i del Pelegrí.</li><li><strong>12 de maig</strong> · Dia gran: Missa Solemne, Processó del Sant i repartiment de l\'Esmorzar del Sant.</li><li><strong>15 de maig</strong> · Processó de San Isidro.</li>',
+        fp_g2_title: 'Festes del Sant · Interès Turístic Nacional', fp_g2_list: '<li><strong>25 d\'abril</strong> · Sortida de la gaita amb el tambor i registre de les Donzelles.</li><li><strong>10 de maig</strong> · Benedicció dels Rams, Processó de les Donzelles (Pa del Sant i del Pelegrí) i Processó de la Roda.</li><li><strong>11 de maig</strong> · Dia de la Roda. Processó del Pa del Sant i del Pelegrí. A la tarda, Processó de la Roda.</li><li><strong>12 de maig</strong> · Dia del Sant: Missa Solemne, Processó del Sant i repartiment de l\'Esmorzar del Sant.</li><li><strong>15 de maig</strong> · Missa i Processó de San Isidro.</li>',
         fp_g3_title: 'Mare de Déu de la Plaça', fp_g3_list: '<li><strong>5 d\'agost</strong> · Festivitat de la Mare de Déu de la Plaça, patrona dels calceatenses.</li>',
-        fp_g4_title: 'Festes d\'Acció de Gràcies i San Jerónimo Hermosilla', fp_g4_list: '<li><strong>17 – 19 de setembre</strong> · Programa festiu en honor a San Jerónimo Hermosilla, dominic calceatense.</li><li><strong>18 de setembre</strong> · Missa d\'Acció de Gràcies a la Catedral i processó.</li>',
+        fp_g4_title: 'Festes d\'Acció de Gràcies i San Jerónimo Hermosilla', fp_g4_list: '<li><strong>18 de setembre</strong> · Missa d\'Acció de Gràcies a la Catedral i processó.</li><li><strong>19 de setembre</strong> · Programa festiu en honor a San Jerónimo Hermosilla, dominic calceatense.</li>',
         fp_g5_title: 'Altres celebracions religioses', fp_g5_list: '<li>Quaresma i Setmana Santa: pregó, processons (Diumenge de Rams, Borriquita, Sant Sopar, Viacrucis, Sant Enterrament, Vigília Pasqual, Resurrecció).</li><li>Corpus Christi: processó pels carrers del centre històric.</li><li>Solemnitats patronals i de Crist Rei a la Catedral.</li>',
         fp_note: 'Les dates poden variar lleugerament cada any en funció del calendari litúrgic. Consulta la programació oficial per confirmar horaris i ubicacions.',
         cp_eyebrow: 'Competències del Capítol', cp_title: 'Funcions capitulars',
@@ -2545,7 +2610,11 @@
         af_lbl_name: 'Nom complet', af_lbl_phone: 'Telèfon', af_lbl_email: 'Correu electrònic', af_lbl_comments: 'Comentaris',
         af_ph_comments: 'Indica l\'objecte de la recerca, les dates previstes i la teva acreditació acadèmica o institucional.',
         af_terms: 'Accepto la <a href="legal/privacidad" target="_blank" rel="noopener">política de privacitat</a> i les <a href="legal/aviso-legal" target="_blank" rel="noopener">condicions d\'ús</a>.',
-        af_submit: 'Enviar sol·licitud →'
+        af_submit: 'Enviar sol·licitud →',
+        cf_eyebrow: 'Contacte', cf_intro: 'Completa el formulari i ens posarem en contacte amb tu.',
+        cf_ph_comments: 'Escriu la teva consulta o missatge.', cf_submit: 'Enviar →',
+        fm_fields: 'Si us plau, omple tots els camps.', fm_terms: 'Has d\'acceptar la política de privacitat i les condicions.',
+        fm_opening: 'Obrint el teu client de correu…'
       }
     };
 
@@ -2559,6 +2628,13 @@
         const k = el.getAttribute('data-i18n-ph-page');
         if (pt[k] !== undefined) el.placeholder = pt[k];
       });
+    };
+
+    // Devuelve un mensaje de formulario en el idioma activo (para textos de JS).
+    window.PAGE_MSG = function (key) {
+      let lang; try { lang = localStorage.getItem('cat-lang'); } catch (e) { lang = null; }
+      const pt = PAGE_T[lang] || PAGE_T.es;
+      return pt[key] !== undefined ? pt[key] : (PAGE_T.es[key] || '');
     };
 
     // ── GENERIC INFO POPUPS ──────────────────────────────
@@ -2606,24 +2682,16 @@
       <div class="fiestas-popup__divider"></div>
 
       <div class="fiestas-popup__group">
-        <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g1_title">Fiestas locales oficiales</h4>
-        <ul class="fiestas-popup__list" data-i18n-page="fp_g1_list">
-          <li><strong>12 de mayo</strong> · Festividad de Santo Domingo (patrón de la ciudad).</li>
-          <li><strong>18 de septiembre</strong> · Fiestas de Gracias.</li>
-        </ul>
-      </div>
-
-      <div class="fiestas-popup__group">
         <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g2_title">Fiestas del Santo · Interés Turístico
           Nacional</h4>
         <ul class="fiestas-popup__list" data-i18n-page="fp_g2_list">
           <li><strong>25 de abril</strong> · Salida de la gaita con el tambor y registro de las Doncellas.</li>
           <li><strong>10 de mayo</strong> · Bendición de los Ramos, Procesión de Las Doncellas (Pan del Santo y del
             Peregrino) y Procesión de la Rueda.</li>
-          <li><strong>11 de mayo</strong> · Reparto del Pan del Santo y del Peregrino.</li>
-          <li><strong>12 de mayo</strong> · Día grande: Misa Solemne, Procesión del Santo y reparto del Almuerzo del
+          <li><strong>11 de mayo</strong> · Día de La Rueda. Procesión del Pan del Santo y del Peregrino. Por la tarde, Procesión de La Rueda.</li>
+          <li><strong>12 de mayo</strong> · Día del Santo: Misa Solemne, Procesión del Santo y reparto del Almuerzo del
             Santo.</li>
-          <li><strong>15 de mayo</strong> · Procesión de San Isidro.</li>
+          <li><strong>15 de mayo</strong> · Misa y Procesión de San Isidro.</li>
         </ul>
       </div>
 
@@ -2638,9 +2706,9 @@
         <h4 class="fiestas-popup__group-title" data-i18n-page="fp_g4_title">Fiestas de Gracias y San Jerónimo Hermosilla
         </h4>
         <ul class="fiestas-popup__list" data-i18n-page="fp_g4_list">
-          <li><strong>17 – 19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico
-            calceatense.</li>
           <li><strong>18 de septiembre</strong> · Misa de Acción de Gracias en la Catedral y procesión.</li>
+          <li><strong>19 de septiembre</strong> · Programa festivo en honor a San Jerónimo Hermosilla, dominico
+            calceatense.</li>
         </ul>
       </div>
 
@@ -2685,7 +2753,8 @@
         <p class="fiestas-popup__para" data-i18n-page="cp_p3">El Cabildo desempeña además funciones de
           <strong>asesoramiento episcopal</strong>, representación institucional y atención pastoral a quienes solicitan
           servicios religiosos en la Catedral. En Santo Domingo de la Calzada, lo integran el Deán, el Arcediano, el
-          Chantre, el Tesorero y los canónigos, conforme a sus estatutos propios.</p>
+          Chantre, el Tesorero y los canónigos, conforme a sus estatutos propios.
+        </p>
       </div>
 
       <a href="mailto:santodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px"
@@ -2723,7 +2792,8 @@
             Manso</strong> reunió y organizó las colecciones que habían quedado dispersas, devolviéndolas al espacio
           donde hoy se conservan. El edición en tres volúmenes de los cartularios, preparada por el medievalista
           <strong>Antonio Ubieto Arteta</strong>, constituye una fuente fundamental para el estudio de la historia
-          eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.</p>
+          eclesiástica, jurídica y social del Camino de Santiago en la Edad Media.
+        </p>
       </div>
 
       <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px"
@@ -2748,20 +2818,23 @@
           <strong>catálogo descriptivo</strong> elaborado a lo largo del siglo XX, que organiza los pergaminos sueltos,
           los volúmenes encuadernados, los cartularios y los libros sacramentales en series cronológicas y temáticas.
           Constituye la herramienta básica de consulta para investigadores acreditados y para la propia administración
-          del Cabildo.</p>
+          del Cabildo.
+        </p>
 
         <p class="fiestas-popup__para" data-i18n-page="ab_p2">La obra de referencia para el estudio del fondo medieval
           es la edición en tres volúmenes <em>Cartularios (I, II y III) de Santo Domingo de la Calzada</em>, preparada
           por el medievalista <strong>Agustín Ubieto Arteta</strong> y publicada por Ediciones Anubar en
           <strong>1978</strong>. Recoge y sistematiza los cartularios del antiguo monasterio y la sede episcopal,
           ofreciendo una fuente esencial para la historia eclesiástica, jurídica y social del Camino de Santiago en la
-          Edad Media.</p>
+          Edad Media.
+        </p>
 
         <p class="fiestas-popup__para" data-i18n-page="ab_p3">A esta edición se suman estudios complementarios como los
           <em>Apuntes para la biografía de Santo Domingo de la Calzada</em> (Berceo, n.º 82, 1972) del mismo autor, el
           inventario del <strong>Archivo Musical</strong> realizado por el musicólogo <strong>José López Calo</strong>,
           y diversas publicaciones de investigación accesibles en formato digital a través del <strong>Censo-Guía de
-            Archivos</strong> del Ministerio de Cultura.</p>
+            Archivos</strong> del Ministerio de Cultura.
+        </p>
       </div>
 
       <a href="mailto:archivosantodomingo@iglesiaenlarioja.org" class="inst-card__link" style="margin-top:8px"
@@ -2811,9 +2884,9 @@
         </div>
         <label class="fiestas-form__check">
           <input type="checkbox" id="archivo-form-terms" required />
-          <span data-i18n-page="af_terms">Acepto la <a href="legal/privacidad" target="_blank"
-              rel="noopener">política de privacidad</a> y las <a href="legal/aviso-legal" target="_blank"
-              rel="noopener">condiciones de uso</a>.</span>
+          <span data-i18n-page="af_terms">Acepto la <a href="legal/privacidad" target="_blank" rel="noopener">política
+              de privacidad</a> y las <a href="legal/aviso-legal" target="_blank" rel="noopener">condiciones de
+              uso</a>.</span>
         </label>
         <button type="submit" class="fiestas-form__submit" data-i18n-page="af_submit">Enviar solicitud →</button>
         <p class="fiestas-form__status" id="archivo-form-status" aria-live="polite"></p>
@@ -2860,11 +2933,11 @@
           const comments = document.getElementById('archivo-form-comments').value.trim();
           const terms = document.getElementById('archivo-form-terms').checked;
           if (!name || !phone || !email || !comments) {
-            status.textContent = 'Por favor, completa todos los campos.';
+            status.textContent = window.PAGE_MSG('fm_fields');
             return;
           }
           if (!terms) {
-            status.textContent = 'Debes aceptar la política de privacidad y las condiciones.';
+            status.textContent = window.PAGE_MSG('fm_terms');
             return;
           }
           const subject = encodeURIComponent('Solicitud de visita · Archivo Catedralicio');
@@ -2875,10 +2948,149 @@
             'Comentarios:\n' + comments + '\n\n' +
             '— Enviado desde el formulario web del Archivo Catedralicio.'
           );
-          status.textContent = 'Abriendo tu cliente de correo…';
+          status.textContent = window.PAGE_MSG('fm_opening');
           window.location.href = 'mailto:' + TO + '?subject=' + subject + '&body=' + body;
         });
       }
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACTO · FORMULARIO REUTILIZABLE
+       (Vida comunitaria · Donativos · Comunicación con el Cabildo)
+       El título se fija dinámicamente con el de la tarjeta pulsada.
+  ════════════════════════════════════════════════════════ -->
+  <div class="fiestas-overlay" id="contacto-overlay" role="dialog" aria-modal="true"
+    aria-labelledby="contacto-popup-title" aria-hidden="true">
+    <div class="fiestas-popup">
+      <button class="fiestas-popup__close" aria-label="Cerrar">×</button>
+      <p class="fiestas-popup__eyebrow" data-i18n-page="cf_eyebrow">Contacto</p>
+      <h3 class="fiestas-popup__title" id="contacto-popup-title">Contacto</h3>
+      <div class="fiestas-popup__divider"></div>
+
+      <p class="fiestas-popup__para" data-i18n-page="cf_intro">Completa el formulario y nos pondremos en contacto
+        contigo.</p>
+
+      <form class="fiestas-form" id="contacto-form" novalidate>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="contacto-form-name" data-i18n-page="af_lbl_name">Nombre
+            completo</label>
+          <input class="fiestas-form__input" type="text" id="contacto-form-name" name="nombre" required
+            autocomplete="name" />
+        </div>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="contacto-form-phone" data-i18n-page="af_lbl_phone">Teléfono</label>
+          <input class="fiestas-form__input" type="tel" id="contacto-form-phone" name="telefono" required
+            autocomplete="tel" />
+        </div>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="contacto-form-email" data-i18n-page="af_lbl_email">Correo
+            electrónico</label>
+          <input class="fiestas-form__input" type="email" id="contacto-form-email" name="correo" required
+            autocomplete="email" />
+        </div>
+        <div class="fiestas-form__row">
+          <label class="fiestas-form__label" for="contacto-form-comments"
+            data-i18n-page="af_lbl_comments">Comentarios</label>
+          <textarea class="fiestas-form__textarea" id="contacto-form-comments" name="comentarios" required
+            data-i18n-ph-page="cf_ph_comments" placeholder="Escribe tu consulta o mensaje."></textarea>
+        </div>
+        <label class="fiestas-form__check">
+          <input type="checkbox" id="contacto-form-terms" required />
+          <span data-i18n-page="af_terms">Acepto la <a href="legal/privacidad" target="_blank" rel="noopener">política
+              de privacidad</a> y las <a href="legal/aviso-legal" target="_blank" rel="noopener">condiciones de
+              uso</a>.</span>
+        </label>
+        <button type="submit" class="fiestas-form__submit" data-i18n-page="cf_submit">Enviar →</button>
+        <p class="fiestas-form__status" id="contacto-form-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ── CONTACTO · FORMULARIO REUTILIZABLE ───────────────
+    (function () {
+      const overlay = document.getElementById('contacto-overlay');
+      if (!overlay) return;
+      const closeBtn = overlay.querySelector('.fiestas-popup__close');
+      const titleEl = document.getElementById('contacto-popup-title');
+      const form = document.getElementById('contacto-form');
+      const status = document.getElementById('contacto-form-status');
+      const TO = 'santodomingo@iglesiaenlarioja.org';
+      let currentTitle = '';
+
+      function open(e, card) {
+        if (e) e.preventDefault();
+        const t = card && card.querySelector('.inst-card__title');
+        currentTitle = t ? t.textContent.trim() : '';
+        if (titleEl && currentTitle) titleEl.textContent = currentTitle;
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (status) status.textContent = '';
+      }
+      ['open-contacto-vida', 'open-contacto-donativos', 'open-contacto-cabildo'].forEach(function (id) {
+        const trigger = document.getElementById(id);
+        if (trigger) trigger.addEventListener('click', function (e) { open(e, trigger); });
+      });
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+      });
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const name = document.getElementById('contacto-form-name').value.trim();
+          const phone = document.getElementById('contacto-form-phone').value.trim();
+          const email = document.getElementById('contacto-form-email').value.trim();
+          const comments = document.getElementById('contacto-form-comments').value.trim();
+          const terms = document.getElementById('contacto-form-terms').checked;
+          if (!name || !phone || !email || !comments) {
+            status.textContent = window.PAGE_MSG('fm_fields');
+            return;
+          }
+          if (!terms) {
+            status.textContent = window.PAGE_MSG('fm_terms');
+            return;
+          }
+          const subject = encodeURIComponent('Contacto web · ' + (currentTitle || 'Parroquia') + ' · Santo Domingo de la Calzada');
+          const body = encodeURIComponent(
+            'Asunto: ' + (currentTitle || '') + '\n' +
+            'Nombre completo: ' + name + '\n' +
+            'Teléfono: ' + phone + '\n' +
+            'Correo electrónico: ' + email + '\n\n' +
+            'Comentarios:\n' + comments + '\n\n' +
+            '— Enviado desde el formulario web de la Parroquia.'
+          );
+          status.textContent = window.PAGE_MSG('fm_opening');
+          window.location.href = 'mailto:' + TO + '?subject=' + subject + '&body=' + body;
+        });
+      }
+    })();
+  </script>
+
+  <!-- Boletín parroquial: fija el enlace de descarga al último PDF de la carpeta BOLETINES.
+       Backend independiente (Apps Script propio), sin relación con reservas ni con el formulario de newsletter. -->
+  <script>
+    (function () {
+      // Pega aquí la URL .../exec del despliegue de boletin-backend.gs:
+      var BOLETIN_API = 'https://script.google.com/macros/s/AKfycbxAMX3KLC9YiXIcLE6Dp8nNwjUmkJ06eTFmeRcvCFU9U--ybrEsa-TLEHS2f1rAVcT6OA/exec';
+      if (!BOLETIN_API) return;
+      var a = document.getElementById('boletin-link');
+      if (!a) return;
+      fetch(BOLETIN_API)
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.url) { a.href = d.url; a.removeAttribute('download'); }
+        })
+        .catch(function () { /* deja el enlace de reserva (href por defecto) */ });
     })();
   </script>
 

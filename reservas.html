@@ -576,7 +576,7 @@
     }
 
     /* iOS Safari da al input[type=date] un ancho intrínseco grande; lo forzamos a no superar el wrapper */
-    .date-wrap > input[type="date"] {
+    .date-wrap>input[type="date"] {
       max-width: 100%;
     }
 
@@ -2413,7 +2413,7 @@
       /* iOS Safari ignora width en input[type=date] (usa su ancho intrínseco) y, con
          appearance:none, no renderiza el valor. Solución: appearance:none para que respete
          el ancho + texto nativo transparente y mostramos placeholder Y valor con el overlay. */
-      .date-wrap > input[type="date"] {
+      .date-wrap>input[type="date"] {
         -webkit-appearance: none;
         appearance: none;
         color: transparent;
@@ -3269,9 +3269,11 @@
       }
     }
   </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
-<body class="light-mode"><script>try{document.body.classList.toggle('light-mode',localStorage.getItem('a11y-light-mode')!=='0')}catch(e){}</script>
+<body class="light-mode">
+  <script>try { document.body.classList.toggle('light-mode', localStorage.getItem('a11y-light-mode') !== '0') } catch (e) { }</script>
 
   <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
 
@@ -3499,8 +3501,8 @@
               class="nav-num">04</span>Actualidad</a></li>
         <li class="side-menu__nav-item"><a href="institucion" class="side-menu__nav-link"><span
               class="nav-num">05</span>Institución</a></li>
-        <li class="side-menu__nav-item"><a href="reservas"
-            class="side-menu__nav-link side-menu__nav-link--active"><span class="nav-num">06</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="reservas" class="side-menu__nav-link side-menu__nav-link--active"><span
+              class="nav-num">06</span>Reservas</a></li>
       </ul>
     </nav>
     <div class="side-menu__social">
@@ -4047,6 +4049,14 @@
         <span class="captcha-hint" data-i18n-page="s5_captcha_hint">Calcula mentalmente y escribe el resultado.</span>
       </div>
 
+      <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+        <label>Si eres humano, deja este campo vacío
+          <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+
+      <div id="turnstile-widget" style="margin:0 0 18px"></div>
+
       <div class="checkbox-row">
         <input type="checkbox" id="accept-terms" />
         <label for="accept-terms" data-i18n-page="s5_accept">
@@ -4206,6 +4216,13 @@
   <script>
     /* ── Endpoint Apps Script ─────────────────────────────────────── */
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVEczVQQ51YyM_9o0SKyafc_LXoL8re47HjWlGljDw3S1lqX3b4aacgmDtV1nXNLPeWA/exec';
+
+    /* ── Cloudflare Turnstile (anti-bot) ──────────────────────────── */
+    // Pega aquí tu Site Key de Cloudflare Turnstile. Mientras contenga
+    // "YOUR_" el widget queda inactivo y el formulario funciona como antes.
+    const TURNSTILE_SITEKEY = '0x4AAAAAADew7ftgLNW4ln1L';
+    const TURNSTILE_ENABLED = TURNSTILE_SITEKEY.indexOf('YOUR_') === -1;
+    let turnstileId = null;
 
     /* ── Estado ──────────────────────────────────────────────────── */
     let currentStep = 1;
@@ -5393,6 +5410,7 @@
         const terms = document.getElementById('accept-terms').checked;
         if (ans !== correct) { alertEl.textContent = _T('err_captcha_alert'); alertEl.classList.add('visible'); document.getElementById('captcha-answer').classList.add('error'); return false; }
         if (!terms) { alertEl.textContent = _T('err_accept_terms'); alertEl.classList.add('visible'); return false; }
+        if (TURNSTILE_ENABLED && !turnstileToken()) { alertEl.textContent = _T('err_turnstile'); alertEl.classList.add('visible'); return false; }
         alertEl.classList.remove('visible');
         document.getElementById('captcha-answer').classList.remove('error');
         return true;
@@ -5410,12 +5428,26 @@
       if (a) a.value = '';
     }
 
+    function renderTurnstile() {
+      if (!TURNSTILE_ENABLED) return;
+      if (!window.turnstile) { setTimeout(renderTurnstile, 300); return; }
+      if (turnstileId === null) {
+        turnstileId = turnstile.render('#turnstile-widget', { sitekey: TURNSTILE_SITEKEY });
+      } else {
+        turnstile.reset(turnstileId);
+      }
+    }
+    function turnstileToken() {
+      return (TURNSTILE_ENABLED && window.turnstile && turnstileId !== null)
+        ? turnstile.getResponse(turnstileId) : '';
+    }
+
     /* ── Navegación (5 pasos) ────────────────────────────────────── */
     function goTo(n) {
       if (n > currentStep && !validateStep(currentStep)) return;
       document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
       if (n === 4) document.getElementById('summary-content').innerHTML = buildSummary();
-      if (n === 5) generateCaptcha();
+      if (n === 5) { generateCaptcha(); renderTurnstile(); }
       const panel = n <= 5 ? document.getElementById('step-' + n) : document.getElementById('step-confirm');
       panel.classList.add('active');
       panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -5520,6 +5552,8 @@
         desgloseEntradas: desgloseEntradasPayload,
         mixtaGuiada: mixtaGuiadaPayload,
         totalCliente: totalReserva,
+        website: (document.getElementById('hp-website') || {}).value || '',
+        turnstileToken: turnstileToken(),
       };
       // Modo edición: el token enruta el POST a _editarReserva en el backend,
       // que ACTUALIZA la fila existente en vez de crear una reserva nueva.
@@ -6224,6 +6258,7 @@
         err_modality: "Selecciona la modalidad (sin guía o con guía).",
         err_check_fields: "Revisa los campos marcados en rojo.",
         err_captcha_alert: "La respuesta al captcha no es correcta.",
+        err_turnstile: "Completa la verificación de seguridad.",
         err_accept_terms: "Debes aceptar los términos y la política de privacidad.",
         btn_sending: "Enviando…",
         btn_save_changes: "Guardar cambios →",
@@ -6423,6 +6458,7 @@
         err_modality: "Select the visit mode (without guide or guided).",
         err_check_fields: "Please review the fields marked in red.",
         err_captcha_alert: "The captcha answer is not correct.",
+        err_turnstile: "Please complete the security verification.",
         err_accept_terms: "You must accept the terms and the privacy policy.",
         btn_sending: "Sending…",
         btn_save_changes: "Save changes →",
@@ -6622,6 +6658,7 @@
         err_modality: "Sélectionnez la modalité (sans guide ou guidée).",
         err_check_fields: "Vérifiez les champs marqués en rouge.",
         err_captcha_alert: "La réponse au captcha est incorrecte.",
+        err_turnstile: "Veuillez compléter la vérification de sécurité.",
         err_accept_terms: "Vous devez accepter les conditions et la politique de confidentialité.",
         btn_sending: "Envoi…",
         btn_save_changes: "Enregistrer les modifications →",
@@ -6821,6 +6858,7 @@
         err_modality: "Wählen Sie die Besuchsart (ohne Führung oder mit Führung).",
         err_check_fields: "Bitte überprüfen Sie die rot markierten Felder.",
         err_captcha_alert: "Die Captcha-Antwort ist nicht korrekt.",
+        err_turnstile: "Bitte schließen Sie die Sicherheitsüberprüfung ab.",
         err_accept_terms: "Sie müssen die Bedingungen und die Datenschutzrichtlinie akzeptieren.",
         btn_sending: "Senden…",
         btn_save_changes: "Änderungen speichern →",
@@ -7020,6 +7058,7 @@
         err_modality: "Selecione a modalidade (sem guia ou com guia).",
         err_check_fields: "Reveja os campos marcados a vermelho.",
         err_captcha_alert: "A resposta ao captcha não está correta.",
+        err_turnstile: "Conclua a verificação de segurança.",
         err_accept_terms: "Deve aceitar os termos e a política de privacidade.",
         btn_sending: "A enviar…",
         btn_save_changes: "Guardar alterações →",
@@ -7219,6 +7258,7 @@
         err_modality: "Seleziona la modalità (senza guida o guidata).",
         err_check_fields: "Controlla i campi evidenziati in rosso.",
         err_captcha_alert: "La risposta al captcha non è corretta.",
+        err_turnstile: "Completa la verifica di sicurezza.",
         err_accept_terms: "Devi accettare i termini e l’informativa sulla privacy.",
         btn_sending: "Invio…",
         btn_save_changes: "Salva modifiche →",
@@ -7418,6 +7458,7 @@
         err_modality: "방문 방식을 선택하세요 (가이드 없음 또는 가이드 투어).",
         err_check_fields: "빨간색으로 표시된 항목을 확인하세요.",
         err_captcha_alert: "보안 문자 답이 올바르지 않습니다.",
+        err_turnstile: "보안 인증을 완료해 주세요.",
         err_accept_terms: "약관과 개인정보 처리방침에 동의해야 합니다.",
         btn_sending: "전송 중…",
         btn_save_changes: "변경사항 저장 →",
@@ -7617,6 +7658,7 @@
         err_modality: "Hautatu modalitatea (gidaririk gabe edo gidatua).",
         err_check_fields: "Berrikusi gorriz markatutako eremuak.",
         err_captcha_alert: "Captcharen erantzuna ez da zuzena.",
+        err_turnstile: "Osatu segurtasun-egiaztapena.",
         err_accept_terms: "Baldintzak eta pribatutasun-politika onartu behar dituzu.",
         btn_sending: "Bidaltzen…",
         btn_save_changes: "Gorde aldaketak →",
@@ -7816,6 +7858,7 @@
         err_modality: "Selecciona la modalitat (sense guia o guiada).",
         err_check_fields: "Revisa els camps marcats en vermell.",
         err_captcha_alert: "La resposta al captcha no és correcta.",
+        err_turnstile: "Completa la verificació de seguretat.",
         err_accept_terms: "Has d’acceptar els termes i la política de privacitat.",
         btn_sending: "Enviant…",
         btn_save_changes: "Desa els canvis →",

@@ -662,6 +662,15 @@ function doPost(e) {
     if (data.action === 'justificante') return procesarJustificante(data);
     if (data.token) return procesarEdicion(data);
 
+    // ── Anti-spam (solo reservas nuevas) ─────────────────────────────
+    // Honeypot: campo oculto que un humano deja vacío; si llega relleno, es un bot.
+    if (data.website) return jsonResponse({ ok: false, error: 'Solicitud rechazada.' });
+    // Cloudflare Turnstile: el token lo genera el widget del formulario y se
+    // verifica aquí contra Cloudflare. Sin token válido no se crea la reserva.
+    if (!verificarTurnstile(data.turnstileToken)) {
+      return jsonResponse({ ok: false, error: 'Verificación de seguridad no superada.' });
+    }
+
     // Nueva reserva
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME);
     if (!sheet) return jsonResponse({ ok: false, error: 'Hoja no encontrada. Ejecuta setupSheet().' });
@@ -747,6 +756,43 @@ function doPost(e) {
   } catch (err) {
     Logger.log('Error en doPost: ' + err.toString());
     return jsonResponse({ ok: false, error: err.toString() });
+  }
+}
+
+// Verifica el token de Cloudflare Turnstile contra el endpoint siteverify.
+// El secreto NO vive en este fichero (el repo es público): se lee de las
+// Propiedades del Script (Configuración del proyecto → Propiedades del script →
+// clave TURNSTILE_SECRET). Si la propiedad no está puesta, se omite la
+// verificación (fail-open) para no bloquear las reservas antes de configurarla.
+// Ejecuta esta función UNA VEZ desde el editor de Apps Script para conceder el
+// permiso de "conectar con un servicio externo" (script.external_request) que
+// necesita verificarTurnstile() para llamar a Cloudflare. Al ejecutarla saldrá
+// el diálogo de autorización: acéptalo. Después, redespliega una versión nueva.
+function autorizarUrlFetch() {
+  var resp = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'post',
+    payload: { secret: 'test', response: 'test' },
+    muteHttpExceptions: true
+  });
+  Logger.log('Permiso de UrlFetchApp concedido. Respuesta de prueba de Cloudflare: ' + resp.getContentText());
+}
+
+function verificarTurnstile(token) {
+  var secret = PropertiesService.getScriptProperties().getProperty('TURNSTILE_SECRET');
+  if (!secret) return true; // fail-open mientras no se configure el secreto
+  if (!token) return false;
+  try {
+    var resp = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'post',
+      payload: { secret: secret, response: token },
+      muteHttpExceptions: true
+    });
+    var result = JSON.parse(resp.getContentText());
+    if (result.success !== true) console.log('Turnstile rechazado: ' + resp.getContentText());
+    return result.success === true;
+  } catch (e) {
+    console.log('Turnstile error: ' + e);
+    return false;
   }
 }
 

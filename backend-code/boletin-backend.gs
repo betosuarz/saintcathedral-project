@@ -2,7 +2,7 @@
  * BOLETÍN PARROQUIAL — backend independiente (Google Apps Script Web App).
  *
  * Proyecto SEPARADO: no comparte código ni despliegue con el backend de
- * reservas/visitas (emailscathedral-project.js) ni con el formulario de
+ * reservas/visitas (reservas-backend.js) ni con el formulario de
  * newsletter de la web. Pégalo en un Apps Script NUEVO y vacío.
  *
  * Qué hace:

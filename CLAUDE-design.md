@@ -13,7 +13,7 @@
 ├── reservas.html              ← Wizard 5 pasos
 ├── legal/aviso-legal.html, privacidad.html, cookies.html, accesibilidad.html
 ├── assets/shared.css, shared.js, _shared-fragments.html
-└── newsletter-apps-script.js
+└── backend-code/reservas-backend.js, newsletter-backend.js, boletin-backend.gs, formsparroquia-backend.gs
 ```
 
 ## Tokens CSS (shared.css)

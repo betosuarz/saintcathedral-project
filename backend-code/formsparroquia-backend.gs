@@ -2,7 +2,7 @@
  * FORMULARIOS WEB — backend independiente (Google Apps Script Web App).
  *
  * Proyecto SEPARADO: no comparte código ni despliegue con reservas/visitas
- * (emailscathedral-project.js) ni con el boletín (boletin-backend.gs).
+ * (reservas-backend.js) ni con el boletín (boletin-backend.gs).
  *
  * Qué hace:
  *   doPost() recibe (por fetch) los envíos de los formularios de institucion.html

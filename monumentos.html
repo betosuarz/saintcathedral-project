@@ -527,6 +527,28 @@
       color: var(--gold)
     }
 
+    /* Aviso permanente "Clic para descubrir" en la esquina inferior derecha de la imagen */
+    .sdlc-split__img-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: rgba(14, 12, 10, .5);
+      border: 1px solid rgba(201, 168, 76, .55);
+      border-radius: 2px;
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      pointer-events: none
+    }
+
     .sdlc-split__body {
       display: flex;
       flex-direction: column;
@@ -1080,6 +1102,12 @@
         padding: 32px 32px;
       }
 
+      /* En móvil/tablet el contenido (con "Descubrir →") ya se muestra siempre:
+         el badge sería redundante. */
+      .sdlc-split__img-badge {
+        display: none
+      }
+
       .sdlc-split__body {
         padding: 40px 36px
       }
@@ -1481,6 +1509,7 @@
         <a href="monumentos/catedral" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/abside.webp'); background-position:center 40%"></div>
           <div class="sdlc-split__img-overlay"></div>
+          <span class="sdlc-split__img-badge" aria-hidden="true"><span data-i18n-page="mon_click">Clic para descubrir</span> →</span>
           <div class="sdlc-split__img-content">
             <p class="sdlc-split__img-eyebrow" data-i18n-page="mon1_eyebrow">Catedral · ss. XII–XIV</p>
             <h3 class="sdlc-split__img-title" data-i18n-page="mon1_title">La <em>Catedral</em></h3>
@@ -1512,6 +1541,7 @@
         <a href="monumentos/torre" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/torre.webp'); background-position:center 20%"></div>
           <div class="sdlc-split__img-overlay"></div>
+          <span class="sdlc-split__img-badge" aria-hidden="true"><span data-i18n-page="mon_click">Clic para descubrir</span> →</span>
           <div class="sdlc-split__img-content">
             <p class="sdlc-split__img-eyebrow" data-i18n-page="mon2_eyebrow">Torre exenta · s. XVIII</p>
             <h3 class="sdlc-split__img-title" data-i18n-page="mon2_title">La <em>Torre</em> Exenta</h3>
@@ -1543,6 +1573,7 @@
         <a href="monumentos/sanfrancisco" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/sanfrancisco.webp'); background-position:center"></div>
           <div class="sdlc-split__img-overlay"></div>
+          <span class="sdlc-split__img-badge" aria-hidden="true"><span data-i18n-page="mon_click">Clic para descubrir</span> →</span>
           <div class="sdlc-split__img-content">
             <p class="sdlc-split__img-eyebrow" data-i18n-page="mon3_eyebrow">Convento · ss. XIII–XVI</p>
             <h3 class="sdlc-split__img-title" data-i18n-page="mon3_title">Convento de <em>San Francisco</em></h3>
@@ -1574,6 +1605,7 @@
         <a href="monumentos/ermitaplaza" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/ermitaplaza.webp'); background-position:center"></div>
           <div class="sdlc-split__img-overlay"></div>
+          <span class="sdlc-split__img-badge" aria-hidden="true"><span data-i18n-page="mon_click">Clic para descubrir</span> →</span>
           <div class="sdlc-split__img-content">
             <p class="sdlc-split__img-eyebrow" data-i18n-page="mon4_eyebrow">Ermita · s. XII</p>
             <h3 class="sdlc-split__img-title" data-i18n-page="mon4_title">Ermita de la <em>Virgen de la Plaza</em></h3>
@@ -1641,6 +1673,7 @@
         <a href="monumentos/monasteriocanas" class="sdlc-split__img-link reveal">
           <div class="sdlc-split__img" style="background-image:url('assets/img/canas.webp'); background-position:center 30%"></div>
           <div class="sdlc-split__img-overlay"></div>
+          <span class="sdlc-split__img-badge" aria-hidden="true"><span data-i18n-page="mon_click">Clic para descubrir</span> →</span>
           <div class="sdlc-split__img-content">
             <p class="sdlc-split__img-eyebrow" data-i18n-page="canas_eyebrow">Fuera del conjunto urbano · s. XII</p>
             <h3 class="sdlc-split__img-title" data-i18n-page="canas_card_title">Monasterio de <em>Cañas</em></h3>
@@ -1836,7 +1869,7 @@
         intro_body: 'En el corazón del Camino Francés de Santiago, la ciudad de Santo Domingo de la Calzada reúne cuatro monumentos de primer orden: una Catedral románica que alberga el famoso gallinero vivo que revive el Milagro del Peregrino ahorcado, una imponente Torre barroca, el antiguo Convento franciscano y la Ermita gótica dedicada a la Virgen de la Plaza.',
         intro_body2: 'Cada uno de estos edificios guarda siglos de historia, arte y devoción. Visítalos por separado o accede a todos con la <strong><em>pulsera turística</em></strong> y descubre el legado que ha convertido a esta ciudad en referencia inexcusable del patrimonio riojano',
         stat1_label: 'Monumentos', stat2_label: 'Siglos de historia', stat3_label: 'Idiomas disponibles', stat4_label: 'Años de tradición',
-        mon1_eyebrow: 'Catedral · ss. XII–XIV', mon1_title: 'La <em>Catedral</em>', mon1_desc: 'Hay lugares que guardan siglos entre sus piedras. La Catedral de Santo Domingo de la Calzada es uno de ellos. Erguida sobre el corazón del Camino de Santiago, sus muros de piedra caliza han cobijado la fe de millones de peregrinos durante más de nueve siglos. Románica en su alma, gótica en su piel, monumental en cada detalle.', mon1_cta: 'Descubrir',
+        mon1_eyebrow: 'Catedral · ss. XII–XIV', mon1_title: 'La <em>Catedral</em>', mon1_desc: 'Hay lugares que guardan siglos entre sus piedras. La Catedral de Santo Domingo de la Calzada es uno de ellos. Erguida sobre el corazón del Camino de Santiago, sus muros de piedra caliza han cobijado la fe de millones de peregrinos durante más de nueve siglos. Románica en su alma, gótica en su piel, monumental en cada detalle.', mon1_cta: 'Descubrir', mon_click: 'Clic para descubrir',
         mon1_body: 'En su interior aguardan maravillas únicas en el mundo: el sepulcro del santo patrón, obra cumbre de la escultura renacentista; el retablo mayor que roba el aliento a quien lo contempla; y el célebre gallinero catedralicio, hogar vivo de dos gallinas blancas que protagonizan la leyenda más fascinante del Camino.',
         mon2_eyebrow: 'Torre exenta · s. XVIII', mon2_title: 'La <em>Torre</em> Exenta', mon2_desc: 'Hay torres que marcan el horizonte. Y hay torres que lo transforman. Con sus 70 metros de altura, la Torre se alza exenta y soberana, separada del templo como si quisiera contemplarlo desde la distancia. Una singularidad arquitectónica única en toda La Rioja.', mon2_cta: 'Descubrir',
         mon2_body: 'Su visita esconde dos experiencias inolvidables. En la Casa del Campanero, un fascinante museo de relojes y campanas desvela los secretos del tiempo que han marcado el ritmo de la ciudad durante siglos. Después, la subida al campanario regala una panorámica de 360 grados donde el Camino, los viñedos y la llanura infinita se funden en un horizonte que quita el aliento.',
@@ -1874,7 +1907,7 @@
         intro_body2: 'Every stone holds centuries of history, legend and devotion. Plan your visit and discover the soul of La Rioja through its most singular architecture.',
         stat1_label: 'Monuments', stat2_label: 'Centuries of history', stat3_label: 'Available languages', stat4_label: 'Years of tradition',
         grid_eyebrow: 'Heritage · Discover', grid_title: 'Choose your <em>destination</em>',
-        mon1_eyebrow: 'Cathedral · 12th–14th c.', mon1_title: 'The <em>Cathedral</em>', mon1_desc: 'A jewel of Riojan Romanesque-Gothic. Eight centuries of history, art and devotion at the heart of the French Way. Live hen house, Forment altarpiece and the Saint\'s tomb.', mon1_cta: 'Discover',
+        mon1_eyebrow: 'Cathedral · 12th–14th c.', mon1_title: 'The <em>Cathedral</em>', mon1_desc: 'A jewel of Riojan Romanesque-Gothic. Eight centuries of history, art and devotion at the heart of the French Way. Live hen house, Forment altarpiece and the Saint\'s tomb.', mon1_cta: 'Discover', mon_click: 'Click to discover',
         mon1_body: 'It houses the famous live hen house, a reminder of the miracle of the hanged man, the monumental altarpiece by Damián Forment and the tomb of the founding Saint. Its cloister and chapels bear witness to eight centuries of art and devotion.',
         mon2_eyebrow: 'Freestanding tower · 18th c.', mon2_title: 'The Freestanding <em>Tower</em>', mon2_desc: '70 metres of late Baroque dominating the skyline of the French Way. The tallest bell tower in La Rioja.', mon2_cta: 'Discover',
         mon2_body: 'Built in the 18th century, its design independent of the Cathedral makes it a rarity of Hispanic Baroque architecture. From its summit, the views over the city and the fields of La Rioja are exceptional.',
@@ -1913,7 +1946,7 @@
         intro_body: 'Au cœur du Chemin Français de Compostelle, la ville de Santo Domingo de la Calzada réunit quatre monuments de premier ordre : une cathédrale romano-gothique, une tour baroque indépendante, un couvent franciscain et un ermitage roman dédié à la Vierge.',
         intro_body2: 'Chaque pierre renferme des siècles d\'histoire, d\'art et de dévotion. Visitez-les séparément ou accédez à tous avec le bracelet touristique.',
         stat1_label: 'Monuments', stat2_label: 'Siècles d\'histoire', stat3_label: 'Langues disponibles', stat4_label: 'Ans de tradition',
-        mon1_eyebrow: 'Cathédrale · XII–XIV s.', mon1_title: 'La <em>Cathédrale</em>', mon1_desc: 'Joyau du romano-gothique riojane. Huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français.', mon1_cta: 'Découvrir',
+        mon1_eyebrow: 'Cathédrale · XII–XIV s.', mon1_title: 'La <em>Cathédrale</em>', mon1_desc: 'Joyau du romano-gothique riojane. Huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français.', mon1_cta: 'Découvrir', mon_click: 'Cliquez pour découvrir',
         mon1_body: 'Elle abrite le célèbre poulailler vivant en souvenir du miracle du pendu, le monumental retable de Damián Forment et le tombeau du Saint fondateur. Son cloître et ses chapelles témoignent de huit siècles d\'art et de dévotion.',
         mon2_eyebrow: 'Tour indépendante · XVIII s.', mon2_title: 'La <em>Tour</em> Indépendante', mon2_desc: '70 mètres de baroque tardif qui dominent l\'horizon du Chemin Français. Le clocher le plus haut de La Rioja.', mon2_cta: 'Découvrir',
         mon2_body: 'Construite au XVIIIe siècle, sa conception indépendante de la Cathédrale en fait une rareté de l\'architecture baroque hispanique. Depuis son sommet, les vues sur la ville et les champs de La Rioja sont exceptionnelles.',
@@ -1951,7 +1984,7 @@
         intro_body: 'Im Herzen des Französischen Jakobsweges vereint Santo Domingo de la Calzada vier Denkmäler ersten Ranges: eine romanisch-gotische Kathedrale, einen freistehenden Barockturm, ein Franziskanerkloster und eine romanische Kapelle, die der Jungfrau gewidmet ist.',
         intro_body2: 'Jeder Stein birgt Jahrhunderte Geschichte, Legende und Frömmigkeit. Besuchen Sie sie einzeln oder erkunden Sie sie alle mit dem Tourismusarmband.',
         stat1_label: 'Denkmäler', stat2_label: 'Jahrhunderte Geschichte', stat3_label: 'Verfügbare Sprachen', stat4_label: 'Jahre Tradition',
-        mon1_eyebrow: 'Kathedrale · 12.–14. Jh.', mon1_title: 'Die <em>Kathedrale</em>', mon1_desc: 'Juwel der riojaner Romanik-Gotik. Acht Jahrhunderte Geschichte, Kunst und Frömmigkeit im Herzen des Französischen Weges.', mon1_cta: 'Entdecken',
+        mon1_eyebrow: 'Kathedrale · 12.–14. Jh.', mon1_title: 'Die <em>Kathedrale</em>', mon1_desc: 'Juwel der riojaner Romanik-Gotik. Acht Jahrhunderte Geschichte, Kunst und Frömmigkeit im Herzen des Französischen Weges.', mon1_cta: 'Entdecken', mon_click: 'Zum Entdecken klicken',
         mon1_body: 'Sie beherbergt den berühmten lebendigen Hühnerstall zum Gedenken an das Wunder des Gehenkten, den monumentalen Altar von Damián Forment und das Grabmal des Gründerheiligen. Kreuzgang und Kapellen zeugen von acht Jahrhunderten Kunst und Frömmigkeit.',
         mon2_eyebrow: 'Freistehender Turm · 18. Jh.', mon2_title: 'Der <em>Freistehende Turm</em>', mon2_desc: '70 Meter Spätbarock, die den Horizont des Französischen Weges dominieren. Der höchste Glockenturm in La Rioja.', mon2_cta: 'Entdecken',
         mon2_body: 'Im 18. Jahrhundert erbaut, macht ihr eigenständiges Design unabhängig von der Kathedrale sie zu einer Rarität der hispanischen Barockarchitektur. Von ihrer Spitze aus bieten sich außergewöhnliche Ausblicke über die Stadt und die Felder La Riojas.',
@@ -1989,7 +2022,7 @@
         intro_body2: 'Cada pedra guarda séculos de história, lenda e devoção. Planeje sua visita e descubra a alma de La Rioja através da sua arquitetura mais singular.',
         sdlc_title: 'Monumentos de <em>Santo Domingo de la Calzada</em>',
         stat1_label: 'Monumentos', stat2_label: 'Séculos de história', stat3_label: 'Idiomas disponíveis', stat4_label: 'Anos de tradição',
-        mon1_eyebrow: 'Catedral · sécs. XII–XIV', mon1_title: 'A <em>Catedral</em>', mon1_desc: 'Joia do românico-gótico riojano. Oito séculos de história, arte e devoção no coração do Caminho Francês.', mon1_cta: 'Descobrir',
+        mon1_eyebrow: 'Catedral · sécs. XII–XIV', mon1_title: 'A <em>Catedral</em>', mon1_desc: 'Joia do românico-gótico riojano. Oito séculos de história, arte e devoção no coração do Caminho Francês.', mon1_cta: 'Descobrir', mon_click: 'Clique para descobrir',
         mon1_body: 'Abriga o famoso galinheiro vivo em memória do milagre do enforcado, o monumental retábulo de Damián Forment e o sepulcro do Santo fundador. Seu claustro e capelas são testemunho de oito séculos de arte e devoção.',
         mon2_eyebrow: 'Torre independente · séc. XVIII', mon2_title: 'A <em>Torre</em> Independente', mon2_desc: '70 metros de barroco tardio que dominam o horizonte do Caminho Francês. A torre campanário mais alta de La Rioja.', mon2_cta: 'Descobrir',
         mon2_body: 'Construída no século XVIII, seu design independente em relação à Catedral a torna uma raridade da arquitetura barroca hispânica. De seu cume, as vistas sobre a cidade e os campos de La Rioja são excepcionais.',
@@ -2027,7 +2060,7 @@
         intro_body: 'Nel cuore del Cammino Francese, la città di Santo Domingo de la Calzada riunisce quattro monumenti di primo ordine: una cattedrale romanico-gotica, una torre barocca indipendente, un convento francescano e un eremo romanico dedicato alla Vergine.',
         intro_body2: 'Ogni pietra custodisce secoli di storia, arte e devozione. Visitateli separatamente o accedete a tutti con il braccialetto turistico.',
         stat1_label: 'Monumenti', stat2_label: 'Secoli di storia', stat3_label: 'Lingue disponibili', stat4_label: 'Anni di tradizione',
-        mon1_eyebrow: 'Cattedrale · XII–XIV sec.', mon1_title: 'La <em>Cattedrale</em>', mon1_desc: 'Gioiello del romanico-gotico riojano. Otto secoli di storia, arte e devozione nel cuore del Cammino Francese.', mon1_cta: 'Scoprire',
+        mon1_eyebrow: 'Cattedrale · XII–XIV sec.', mon1_title: 'La <em>Cattedrale</em>', mon1_desc: 'Gioiello del romanico-gotico riojano. Otto secoli di storia, arte e devozione nel cuore del Cammino Francese.', mon1_cta: 'Scoprire', mon_click: 'Clicca per scoprire',
         mon1_body: 'Ospita il famoso pollaio vivo in memoria del miracolo dell\'impiccato, il monumentale retablo di Damián Forment e il sepolcro del Santo fondatore. Il suo chiostro e le sue cappelle testimoniano otto secoli di arte e devozione.',
         mon2_eyebrow: 'Torre indipendente · XVIII sec.', mon2_title: 'La <em>Torre</em> Indipendente', mon2_desc: '70 metri di barocco tardivo che dominano l\'orizzonte del Cammino Francese. Il campanile più alto de La Rioja.', mon2_cta: 'Scoprire',
         mon2_body: 'Costruita nel XVIII secolo, il suo design indipendente dalla Cattedrale la rende una rarità dell\'architettura barocca ispanica. Dalla sua cima, le vedute sulla città e i campi de La Rioja sono eccezionali.',
@@ -2065,7 +2098,7 @@
         intro_body: '프랑스 순례길의 중심에서 산토 도밍고 데 라 칼사다는 네 개의 주요 기념물을 보유하고 있습니다: 로마네스크-고딕 대성당, 독립형 바로크 종탑, 프란체스코 수도원, 그리고 성모에게 헌정된 로마네스크 예배당.',
         intro_body2: '모든 건물에는 수세기의 역사, 예술, 신앙이 깃들어 있습니다. 개별적으로 방문하거나 관광 팔찌로 모두 입장하세요.',
         stat1_label: '기념물', stat2_label: '역사의 세기', stat3_label: '이용 가능 언어', stat4_label: '전통의 세월',
-        mon1_eyebrow: '대성당 · 12–14세기', mon1_title: '<em>대성당</em>', mon1_desc: '리오하나 로마네스크-고딕의 보석. 프랑스 순례길의 중심에서 여덟 세기의 역사, 예술, 신앙을 담고 있습니다.', mon1_cta: '탐색',
+        mon1_eyebrow: '대성당 · 12–14세기', mon1_title: '<em>대성당</em>', mon1_desc: '리오하나 로마네스크-고딕의 보석. 프랑스 순례길의 중심에서 여덟 세기의 역사, 예술, 신앙을 담고 있습니다.', mon1_cta: '탐색', mon_click: '클릭하여 둘러보기',
         mon1_body: '교수형 기적을 기념하는 유명한 살아있는 닭장, 다미안 포르멘트의 웅장한 제단화, 성인 창시자의 묘소를 품고 있습니다. 회랑과 예배당은 8세기에 걸친 예술과 신앙의 증거입니다.',
         mon2_eyebrow: '독립 종탑 · 18세기', mon2_title: '<em>독립</em> 종탑', mon2_desc: '프랑스 순례길의 지평선을 지배하는 70미터의 후기 바로크. 라 리오하에서 가장 높은 종탑입니다.', mon2_cta: '탐색',
         mon2_body: '18세기에 건축된 이 탑은 대성당과 독립된 설계로 히스패닉 바로크 건축에서 드문 사례입니다. 정상에서 바라보는 도시와 라 리오하 들판의 전경은 탁월합니다.',
@@ -2103,7 +2136,7 @@
         intro_body: 'Frantziako Bidearen erdigunean, Santo Domingo de la Calzada hiriak lau monumentu nagusi biltzen ditu: katedrale erromaniko-gotikoa, dorre barroko askea, frantziskotarren komentu bat eta Birjinari eskainitako ermita erromanikoa.',
         intro_body2: 'Harri bakoitzak mendetako historia, arte eta debozio gordetzen ditu. Bisitatu bakoitza bereizita edo turismo-eskumuturreko batekin sar zaitez guztietara.',
         stat1_label: 'Monumentuak', stat2_label: 'Historia mendeak', stat3_label: 'Hizkuntza erabilgarriak', stat4_label: 'Tradizioko urteak',
-        mon1_eyebrow: 'Katedrala · XII–XIV. m.', mon1_title: '<em>Katedrala</em>', mon1_desc: 'Errioxako erromaniko-gotikoaren harribitxia. Zortzi mende historia, arte eta debozioa Frantziako Bidearen erdigunean.', mon1_cta: 'Aurkitu',
+        mon1_eyebrow: 'Katedrala · XII–XIV. m.', mon1_title: '<em>Katedrala</em>', mon1_desc: 'Errioxako erromaniko-gotikoaren harribitxia. Zortzi mende historia, arte eta debozioa Frantziako Bidearen erdigunean.', mon1_cta: 'Aurkitu', mon_click: 'Klik egin ezagutzeko',
         mon1_body: 'Urkamendiko mirakuluaren oroitzapenez bizi den oilategia, Damián Formenten aldare nagusia eta Santuaren hilobia biltzen ditu. Klaustroek eta kapailek zortzi mendeko arte eta debozioaren lekuko dira.',
         mon2_eyebrow: 'Dorre askea · XVIII. m.', mon2_title: '<em>Dorre</em> Askea', mon2_desc: 'Frantziako Bidearen horizontea nagusitzen duten 70 metro barroko berandu. Errioxako kanpandorre altuena.', mon2_cta: 'Aurkitu',
         mon2_body: 'XVIII. mendean eraikia, katedralaren ondoan modu independentean egoteak hispaniar barroko arkitekturaren bitxikeria bihurtzen du. Gailurretik, hiriari eta Errioxako zelaiei begira, ikuspegia ezin hobea da.',
@@ -2141,7 +2174,7 @@
         intro_body: 'Al cor del Camí Francès, la ciutat de Santo Domingo de la Calzada reuneix quatre monuments de primer ordre: una catedral romànic-gòtica, una torre barroca exenta, un convent franciscà i una ermita romànica dedicada a la Verge.',
         intro_body2: 'Cada pedra guarda segles d\'història, art i devoció. Visita\'ls per separat o accedeix a tots amb la polsera turística.',
         stat1_label: 'Monuments', stat2_label: 'Segles d\'història', stat3_label: 'Idiomes disponibles', stat4_label: 'Anys de tradició',
-        mon1_eyebrow: 'Catedral · ss. XII–XIV', mon1_title: 'La <em>Catedral</em>', mon1_desc: 'Joia del romànic-gòtic riojà. Vuit segles d\'història, art i devoció al cor del Camí Francès.', mon1_cta: 'Descobrir',
+        mon1_eyebrow: 'Catedral · ss. XII–XIV', mon1_title: 'La <em>Catedral</em>', mon1_desc: 'Joia del romànic-gòtic riojà. Vuit segles d\'història, art i devoció al cor del Camí Francès.', mon1_cta: 'Descobrir', mon_click: 'Clica per descobrir',
         mon1_body: 'Acull el famós galliner viu en record del miracle del penjat, el monumental retaule de Damián Forment i el sepulcre del Sant fundador. El seu claustre i les seves capelles testimonien vuit segles d\'art i devoció.',
         mon2_eyebrow: 'Torre exenta · s. XVIII', mon2_title: 'La <em>Torre</em> Exenta', mon2_desc: '70 metres de barroc tardà que dominen l\'horitzó del Camí Francès. El campanar més alt de La Rioja.', mon2_cta: 'Descobrir',
         mon2_body: 'Construïda al segle XVIII, el seu disseny independent respecte a la Catedral la converteix en una raresa de l\'arquitectura barroca hispànica. Des del seu cim, les vistes sobre la ciutat i els camps de La Rioja són excepcionals.',

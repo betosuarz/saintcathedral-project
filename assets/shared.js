@@ -752,12 +752,36 @@ function initCursor() {
   if (!cursor) return;
   const ring = cursor.querySelector('.cursor__ring');
   const dot = cursor.querySelector('.cursor__dot');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+  let mx = 0, my = 0, rx = 0, ry = 0, tx = -1, ty = -1;
+
+  // Decide si el fondo bajo el puntero es claro → cursor negro; oscuro → blanco.
+  // Los heroes (imagen de fondo) se tratan como oscuros. Respaldo: el modo del sitio.
+  function bgIsLight(x, y) {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return document.body.classList.contains('light-mode');
+    if (el.closest('.hero, .slide, .page-hero')) return false;
+    let node = el;
+    while (node && node.nodeType === 1) {
+      const c = getComputedStyle(node).backgroundColor.match(/[\d.]+/g);
+      if (c && c.length >= 3 && (c.length < 4 || parseFloat(c[3]) >= .4))
+        return (0.299 * +c[0] + 0.587 * +c[1] + 0.114 * +c[2]) / 255 > .55;
+      node = node.parentElement;
+    }
+    return document.body.classList.contains('light-mode');
+  }
+
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
     dot.style.left = mx + 'px'; dot.style.top = my + 'px';
   });
-  (function ani() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(ani); })();
+  // El color (negro/blanco) se recalcula en el loop solo cuando el puntero cambia de
+  // posición, así también acierta el fotograma en que el ratón se detiene.
+  (function ani() {
+    rx += (mx - rx) * .12; ry += (my - ry) * .12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    if (mx !== tx || my !== ty) { tx = mx; ty = my; cursor.classList.toggle('on-light', bgIsLight(mx, my)); }
+    requestAnimationFrame(ani);
+  })();
   document.querySelectorAll('a,button,.monument-card-hp,.visit-card,.audio-card,.pdf-card,.hero__dot').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));

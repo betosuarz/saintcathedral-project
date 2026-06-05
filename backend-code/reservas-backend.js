@@ -1494,6 +1494,7 @@ function onEditTrigger(e) {
         notificarGuia(datos);
         sheet.getRange(row, COL_ESTADO).setValue('⏳ Pendiente pago');
       } else {
+        if (esNocturnaGrupo(datos.visitaGuiada)) notificarGuia(datos);
         sheet.getRange(row, COL_ESTADO).setValue('📅 Reservado');
       }
       Logger.log((esEscolar ? 'Escolar' : 'Grupo') + ' confirmado fila ' + row + ' — ' + datos.nombre);
@@ -1815,7 +1816,7 @@ function buildEmailHTML(d) {
     : '';
 
   // Bloque pago (solo para grupos con visita guiada)
-  var bloquePago = (((esGrupoGuiado) || (esGrupoOrEscolar && d.necesitaFactura === 'Sí')) && d.token)
+  var bloquePago = ((esGrupoOrEscolar && d.necesitaFactura === 'Sí') && d.token)
     ? '<tr><td style="padding:0 48px 28px;">'
     + '<div style="background:rgba(201,168,76,0.06);border-left:2px solid #C9A84C;border-radius:0 3px 3px 0;padding:18px 20px;">'
     + '<p style="margin:0 0 14px;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.75);">'
@@ -2011,7 +2012,7 @@ function buildModificacionAprobadaHTML(d) {
     + '<p style="margin:0;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.5);font-style:italic;">' + d.comentarios + '</p></td></tr>'
     : '';
 
-  var bloquePago = (((esGrupoGuiado) || (esGrupoOrEscolar && d.necesitaFactura === 'Sí')) && d.token)
+  var bloquePago = ((esGrupoOrEscolar && d.necesitaFactura === 'Sí') && d.token)
     ? '<tr><td style="padding:0 48px 28px;">'
     + '<div style="background:rgba(201,168,76,0.06);border-left:2px solid #C9A84C;border-radius:0 3px 3px 0;padding:18px 20px;">'
     + '<p style="margin:0 0 14px;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.75);">'

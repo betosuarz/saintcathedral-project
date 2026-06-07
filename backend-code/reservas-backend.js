@@ -103,6 +103,7 @@ const HEADERS = [
   'Entradas (detalle)',     // Z  26  ← desglose multi-línea (visita individual)
   'Menores (<12)',          // AA 27  ← nº de menores (para tarifa nocturna de grupo y registro)
   'Residentes',             // AB 28  ← nº de residentes (para tarifa nocturna de grupo y registro)
+  'Responsables (gratis)',  // AC 29  ← nº de responsables/guías con gratuidad (grupos)
 ];
 
 const COL_RESPUESTA = 20; // T
@@ -134,7 +135,7 @@ function setupSheet() {
   sheet.setFrozenRows(1);
 
   // A–Z: 26 columnas. Token (X=24) necesita ancho generoso para mostrar el UUID.
-  const widths = [160, 100, 180, 220, 120, 110, 80, 80, 160, 100, 130, 100, 200, 110, 200, 130, 100, 100, 260, 260, 85, 160, 280, 200, 60, 340, 90, 90];
+  const widths = [160, 100, 180, 220, 120, 110, 80, 80, 160, 100, 130, 100, 200, 110, 200, 130, 100, 100, 260, 260, 85, 160, 280, 200, 60, 340, 90, 90, 90];
   widths.forEach((w, i) => sheet.setColumnWidth(i + 1, w));
 
   sheet.getRange(2, 10, 500, 1).setNumberFormat('"€"#,##0.00');
@@ -212,15 +213,17 @@ function setupTriggers() {
 //  2. CÁLCULO DE TARIFAS
 // ══════════════════════════════════════════════════════════════════
 
-function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes) {
+function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables) {
   var total = parseInt(nPersonas) || 0;
   var menores = parseInt(nMenores) || 0;
   var residentes = parseInt(nResidentes) || 0;
+  var responsables = parseInt(nResponsables) || 0;
   if (tipoVisita === 'Grupo') {
-    // Pagantes = totales − menores − residentes. 13–24 pagantes → 125 € (mínimo); 25+ → 5 €/pagante.
-    var pagantes = Math.max(0, total - menores - residentes);
+    // Pagantes = totales − menores − residentes − responsables (guía/responsable con gratuidad).
+    // 13–24 pagantes → 125 € (mínimo); 25+ → 5 €/pagante.
+    var pagantes = Math.max(0, total - menores - residentes - responsables);
     var tarifa = pagantes >= 25 ? pagantes * PRECIO_GRUPO_POR_PERSONA : PRECIO_GRUPO_MINIMO;
-    return { tarifa: tarifa, adultos: pagantes, menores: menores, residentes: residentes, precioAdulto: PRECIO_GRUPO_POR_PERSONA, precioMenor: 0 };
+    return { tarifa: tarifa, adultos: pagantes, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: PRECIO_GRUPO_POR_PERSONA, precioMenor: 0 };
   }
   if (tipoVisita === 'Grupo Escolar') {
     var precio = tramoPrecio(tramoEdad);
@@ -237,8 +240,8 @@ function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEda
   return { tarifa: (adultos * precioAdulto) + (menores * precioMenor), adultos: adultos, menores: menores, precioAdulto: precioAdulto, precioMenor: precioMenor };
 }
 
-function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes) {
-  return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes).tarifa;
+function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables) {
+  return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables).tarifa;
 }
 
 function calcularTotal(tarifa, visitaGuiada) {
@@ -251,15 +254,16 @@ function calcularTotal(tarifa, visitaGuiada) {
 function esNocturnaGrupo(visitaGuiada) {
   return visitaGuiada === 'Visita Guiada Nocturna Catedral';
 }
-function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes) {
+function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes, nResponsables) {
   var total = parseInt(nPersonas) || 0;
   var menores = parseInt(nMenores) || 0;
   var residentes = parseInt(nResidentes) || 0;
-  var adultos = Math.max(0, total - menores - residentes);
+  var responsables = parseInt(nResponsables) || 0;
+  var adultos = Math.max(0, total - menores - residentes - responsables);
   var pAdulto = PRECIOS['Visita Guiada Nocturna Catedral'];               // 15
   var pReducido = PRECIOS_MENOR_GUIADA['Visita Guiada Nocturna Catedral']; // 5
   var tarifa = adultos * pAdulto + (menores + residentes) * pReducido;
-  return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, precioAdulto: pAdulto, precioReducido: pReducido };
+  return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: pAdulto, precioReducido: pReducido };
 }
 function tieneGuiadaGrupo(v) {
   return v === 'Sí' || v === 'Casco Histórico + Catedral';
@@ -695,10 +699,10 @@ function doPost(e) {
       total = calcularTotal(baseEsc, guiada);
     } else if (esGrupo && esNocturnaGrupo(guiada)) {
       // Grupo con Visita Guiada Nocturna: 15 €/adulto + 5 € menores/residentes, sin suplemento.
-      var _noc = calcularNocturnaGrupo(data.numPersonas, data.menores, data.residentes);
+      var _noc = calcularNocturnaGrupo(data.numPersonas, data.menores, data.residentes, data.responsables);
       tarifa = _noc.tarifa; total = _noc.tarifa;
     } else {
-      tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes);
+      tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes, data.responsables);
       total = calcularTotal(tarifa, guiada);
     }
     var token = Utilities.getUuid();
@@ -736,6 +740,7 @@ function doPost(e) {
     if ((!esGrupoOrEscolar || esEscolar) && data.desgloseEntradas) sheet.getRange(nextRow, 26).setValue(data.desgloseEntradas);
     sheet.getRange(nextRow, 27).setValue(parseInt(data.menores) || 0);
     sheet.getRange(nextRow, 28).setValue(parseInt(data.residentes) || 0);
+    sheet.getRange(nextRow, 29).setValue(parseInt(data.responsables) || 0);
 
     var cell = sheet.getRange(nextRow, COL_ACEPTAR);
     var rule = SpreadsheetApp.newDataValidation()
@@ -885,6 +890,7 @@ function _editarReserva(data) {
   var numPersonas = data.numPersonas || ant.numPersonas;
   var menoresVal = parseInt(data.menores) || 0;
   var residentesVal = parseInt(data.residentes) || 0;
+  var responsablesVal = parseInt(data.responsables) || 0;
   var menores = esGrupoOrEscolar ? 0 : menoresVal; // tarifa individual usa menores; grupos normales no
   var esNocGrupo = esGrupo && esNocturnaGrupo(visitaGuiada);
   var tipoEntrada = esGrupoOrEscolar ? '—' : (data.tipoEntrada || ant.tipoEntrada || '—');
@@ -907,11 +913,11 @@ function _editarReserva(data) {
   } else if (esInd && ant.entradasDetalle && String(ant.entradasDetalle).trim()) {
     nuevasTarifas = ant.tarifas; nuevoTotal = ant.total;
   } else if (esNocGrupo) {
-    var _noc = calcularNocturnaGrupo(numPersonas, menoresVal, residentesVal);
+    var _noc = calcularNocturnaGrupo(numPersonas, menoresVal, residentesVal, responsablesVal);
     nuevasTarifas = _noc.tarifa; nuevoTotal = _noc.tarifa;
   } else {
     nuevasTarifas = calcularTarifaBase(tipoVisita, tipoEntrada, numPersonas,
-      menoresVal, data.tramoEdad || '', residentesVal);
+      menoresVal, data.tramoEdad || '', residentesVal, responsablesVal);
     nuevoTotal = calcularTotal(nuevasTarifas, visitaGuiada);
   }
 
@@ -937,6 +943,7 @@ function _editarReserva(data) {
   if ((!esGrupoOrEscolar || esEscolar) && data.desgloseEntradas) sheet.getRange(rowIndex, 26).setValue(data.desgloseEntradas);
   sheet.getRange(rowIndex, 27).setValue(menoresVal);
   sheet.getRange(rowIndex, 28).setValue(residentesVal);
+  sheet.getRange(rowIndex, 29).setValue(responsablesVal);
 
   var editTimestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
   sheet.getRange(rowIndex, COL_ACEPTAR).setValue('');
@@ -1039,7 +1046,7 @@ function consultarDatosReserva(token) {
       nombre: d.nombre, email: d.email, telefono: d.telefono,
       fechaVisita: fechaVal, horaVisita: horaVal,
       numPersonas: d.numPersonas,
-      menores: d.menores, residentes: d.residentes,
+      menores: d.menores, residentes: d.residentes, responsables: d.responsables,
       tipoEntrada: d.tipoVisita === 'Grupo Escolar' ? tramoKey : d.tipoEntrada,
       visitaGuiada: d.visitaGuiada,
       nombreCentro: d.nombreCentro, nifCif: d.nifCif,
@@ -1489,7 +1496,7 @@ function onEditTrigger(e) {
       if (editadoEnGrupo) { enviarConfirmacionModificacion(datos); } else { enviarCorreoConfirmacion(datos); }
       var eventoId = crearEventoCalendar(datos, row, editadoEnGrupo);
       sheet.getRange(row, COL_EVENTO_ID).setValue(eventoId);
-      if (datos.necesitaFactura === 'Sí') enviarProformaContabilidad(datos); // también tras edición → contabilidad siempre con datos actualizados
+      if (datos.necesitaFactura === 'Sí') enviarProformaContabilidad(datos, !!editadoEnGrupo); // también tras edición → contabilidad siempre con datos actualizados (con asunto/título de modificación)
       if (esGrupoGuiado) {
         notificarGuia(datos);
         sheet.getRange(row, COL_ESTADO).setValue('⏳ Pendiente pago');
@@ -1546,6 +1553,7 @@ function mapRowToData(fila) {
     entradasDetalle: fila[25],
     menores: fila[26],
     residentes: fila[27],
+    responsables: fila[28],
   };
 }
 
@@ -1593,11 +1601,12 @@ function reenviarJustificante(d) {
   }
 }
 
-function enviarProformaContabilidad(d) {
+function enviarProformaContabilidad(d, esModificacion) {
   var fechaFormato = formatearFecha(d.fechaVisita);
   var guiada = tieneGuiadaGrupo(d.visitaGuiada) ? guiadaLabel(d.visitaGuiada) : 'No';
-  GmailApp.sendEmail(CONFIG.EMAIL_CONTABILIDAD, 'Proforma para pago - Reserva de grupo para el ' + fechaFormato, '', {
-    htmlBody: buildProformaHTML(d, fechaFormato, guiada),
+  var asunto = (esModificacion ? 'Modificación de reserva' : 'Proforma para pago') + ' - Reserva de grupo para el ' + fechaFormato;
+  GmailApp.sendEmail(CONFIG.EMAIL_CONTABILIDAD, asunto, '', {
+    htmlBody: buildProformaHTML(d, fechaFormato, guiada, esModificacion),
     name: CONFIG.NOMBRE_INSTITUCION,
     from: CONFIG.EMAIL_REMITENTE,
   });
@@ -1688,7 +1697,10 @@ function buildCancelacionHTML(d) {
     + tdRow('Desglose por tramos', d.entradasDetalle ? String(d.entradasDetalle).replace(/\n/g, '<br>') : tramoLabel(d.tipoEntrada))
     + tdRowColor('Visita guiada', guiadaLabel(d.visitaGuiada), tieneGuiadaGrupo(d.visitaGuiada) ? '#c09090' : '#8C8070')
     : esGrupo
-      ? tdRow('Centro / Institución', d.nombreCentro || '—')
+      ? ((parseInt(d.responsables) || 0) > 0 ? tdRow('Responsable / guía (gratuito)', d.responsables) : '')
+      + ((parseInt(d.menores) || 0) > 0 ? tdRow('Menores &lt;12' + (esNocturnaGrupo(d.visitaGuiada) ? '' : ' (gratuito)'), d.menores) : '')
+      + ((parseInt(d.residentes) || 0) > 0 ? tdRow('Residentes' + (esNocturnaGrupo(d.visitaGuiada) ? '' : ' (gratuito)'), d.residentes) : '')
+      + tdRow('Centro / Institución', d.nombreCentro || '—')
       + tdRow('NIF / CIF', d.nifCif || '—')
       + tdRowColor('Visita guiada', guiadaLabel(d.visitaGuiada), tieneGuiadaGrupo(d.visitaGuiada) ? '#c09090' : '#8C8070')
       : (d.entradasDetalle && String(d.entradasDetalle).trim())
@@ -1794,7 +1806,10 @@ function buildEmailHTML(d) {
     + tdRowColor('Visita guiada', guiadaLabel(d.visitaGuiada), '#C9A84C')
     + tdRow('Necesita factura', d.necesitaFactura || '—')
     : esGrupo
-      ? tdRow('Centro / Institución', d.nombreCentro || '—')
+      ? ((parseInt(d.responsables) || 0) > 0 ? tdRow('Responsable / guía (gratuito)', d.responsables) : '')
+      + ((parseInt(d.menores) || 0) > 0 ? tdRow('Menores &lt;12' + (esNocturnaGrupo(d.visitaGuiada) ? '' : ' (gratuito)'), d.menores) : '')
+      + ((parseInt(d.residentes) || 0) > 0 ? tdRow('Residentes' + (esNocturnaGrupo(d.visitaGuiada) ? '' : ' (gratuito)'), d.residentes) : '')
+      + tdRow('Centro / Institución', d.nombreCentro || '—')
       + tdRow('NIF / CIF', d.nifCif || '—')
       + tdRowColor('Visita guiada', guiadaLabel(d.visitaGuiada), '#C9A84C')
       + tdRow('Necesita factura', d.necesitaFactura || '—')
@@ -1907,6 +1922,9 @@ function buildConfirmacionFinalHTML(d, fechaFormato) {
     + tdRowDate('Fecha', fechaFormato)
     + tdRowDate('Hora', _horaFin2 + ' h')
     + tdRow('Nº de personas', d.numPersonas)
+    + ((parseInt(d.responsables) || 0) > 0 ? tdRow('Responsable / guía (gratuito)', d.responsables) : '')
+    + ((parseInt(d.menores) || 0) > 0 ? tdRow('Menores &lt;12 (gratuito)', d.menores) : '')
+    + ((parseInt(d.residentes) || 0) > 0 ? tdRow('Residentes (gratuito)', d.residentes) : '')
     + tdRow('Centro / Institución', d.nombreCentro || '—')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#80c080;text-transform:uppercase;letter-spacing:1px;">TOTAL PAGADO</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:22px;color:#a0e0a0;font-family:Georgia,serif;font-weight:bold;">' + totalStr + '</span></td></tr>'
@@ -1991,7 +2009,10 @@ function buildModificacionAprobadaHTML(d) {
     + tdRowColor('Visita guiada', guiadaLabel(d.visitaGuiada), '#C9A84C')
     + tdRow('Necesita factura', d.necesitaFactura || '—')
     : esGrupo
-      ? tdRow('Centro / Institución', d.nombreCentro || '—')
+      ? ((parseInt(d.responsables) || 0) > 0 ? tdRow('Responsable / guía (gratuito)', d.responsables) : '')
+      + ((parseInt(d.menores) || 0) > 0 ? tdRow('Menores &lt;12' + (esNocturnaGrupo(d.visitaGuiada) ? '' : ' (gratuito)'), d.menores) : '')
+      + ((parseInt(d.residentes) || 0) > 0 ? tdRow('Residentes' + (esNocturnaGrupo(d.visitaGuiada) ? '' : ' (gratuito)'), d.residentes) : '')
+      + tdRow('Centro / Institución', d.nombreCentro || '—')
       + tdRow('NIF / CIF', d.nifCif || '—')
       + tdRowColor('Visita guiada', guiadaLabel(d.visitaGuiada), '#C9A84C')
       + tdRow('Necesita factura', d.necesitaFactura || '—')
@@ -2109,18 +2130,19 @@ function buildModificacionDenegadaHTML(d) {
     + '</table></td></tr></table></body></html>';
 }
 
-function buildProformaHTML(d, fechaFormato, guiada) {
+function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
   var horaFormato = formatearHora(d.horaVisita);
   var esEscolar = d.tipoVisita === 'Grupo Escolar';
   var subtituloProforma = esEscolar ? 'Reserva de grupo escolar confirmada' : 'Reserva de grupo confirmada';
   var labelCentro = esEscolar ? 'Centro escolar' : 'Centro / Institución';
+  var tituloH1 = esModificacion ? 'Edición de <em style="color:#DFC07A;">reserva</em>' : 'Proforma para <em style="color:#DFC07A;">pago</em>';
 
   var tramoEsc = d.tipoEntrada;
   var precioEsc = tramoPrecio(tramoEsc);
   if (precioEsc === null) precioEsc = 0;
-  // Pagantes = totales − menores − residentes (base del desglose de grupo/escolar/nocturna).
-  var _menP = parseInt(d.menores) || 0, _resP = parseInt(d.residentes) || 0;
-  var _aduP = Math.max(0, (parseInt(d.numPersonas) || 0) - _menP - _resP);
+  // Pagantes = totales − menores − residentes − responsables (base del desglose de grupo/escolar/nocturna).
+  var _menP = parseInt(d.menores) || 0, _resP = parseInt(d.residentes) || 0, _repP = parseInt(d.responsables) || 0;
+  var _aduP = Math.max(0, (parseInt(d.numPersonas) || 0) - _menP - _resP - _repP);
   var _redP = _menP + _resP;
   var subtotalEsc = precioEsc * _aduP;
   var bloqueImporte = esEscolar
@@ -2136,6 +2158,7 @@ function buildProformaHTML(d, fechaFormato, guiada) {
     ? '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Importe · Visita Guiada Nocturna</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow(_aduP + ' adulto' + (_aduP !== 1 ? 's' : '') + ' × ' + fmtEur(15), fmtEur(_aduP * 15))
+    + (_repP > 0 ? tdRow(_repP + ' responsable' + (_repP !== 1 ? 's' : '') + ' / guía · gratuidad', fmtEur(0)) : '')
     + (_redP > 0 ? tdRow(_redP + ' menor' + (_redP !== 1 ? 'es' : '') + '/residente' + (_redP !== 1 ? 's' : '') + ' × ' + fmtEur(5), fmtEur(_redP * 5)) : '')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
@@ -2143,6 +2166,7 @@ function buildProformaHTML(d, fechaFormato, guiada) {
     : '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Importe</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Tarifa base (' + _aduP + ' pagantes × ' + fmtEur(PRECIO_GRUPO_POR_PERSONA) + ', mín. ' + fmtEur(PRECIO_GRUPO_MINIMO) + ')', fmtEur(d.tarifas))
+    + (_repP > 0 ? tdRow(_repP + ' responsable' + (_repP !== 1 ? 's' : '') + ' / guía · gratuidad', fmtEur(0)) : '')
     + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRow('Suplemento visita guiada', fmtEur(d.visitaGuiada === 'Casco Histórico + Catedral' ? SUPLEMENTO_VISITA_GUIADA_CASCO : SUPLEMENTO_VISITA_GUIADA)) : '')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
@@ -2151,7 +2175,7 @@ function buildProformaHTML(d, fechaFormato, guiada) {
   return emailWrap(
     '<tr><td style="background:linear-gradient(135deg,#1a1814,#221f14);padding:36px 48px 32px;border-bottom:2px solid #C9A84C;text-align:center;">'
     + '<p style="margin:0 0 6px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;">— Contabilidad · Catedral de Santo Domingo —</p>'
-    + '<h1 style="margin:0;font-family:Georgia,serif;font-size:26px;font-weight:300;color:#FDFAF4;">Proforma para <em style="color:#DFC07A;">pago</em></h1>'
+    + '<h1 style="margin:0;font-family:Georgia,serif;font-size:26px;font-weight:300;color:#FDFAF4;">' + tituloH1 + '</h1>'
     + '<p style="margin:10px 0 0;font-size:12px;color:rgba(255,255,255,0.4);">' + subtituloProforma + '</p>'
     + '</td></tr>'
     + '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Datos del grupo</p>'
@@ -2301,12 +2325,14 @@ function crearEventoCalendar(d, row, editadoEn) {
     var nombreGrupo = (d.nombreCentro || d.nombre) + ' · ' + d.numPersonas + ' pers. · ' + fmtEur(d.total);
     // La nocturna de grupo NO lleva prefijo "VG " (no bloquea franja; coordinación manual).
     titulo = (esNocG ? '🌙 ' : '') + (tieneGuiadaGrupo(d.visitaGuiada) ? 'VG ' + nombreGrupo : nombreGrupo);
-    var _menG = parseInt(d.menores) || 0, _resG = parseInt(d.residentes) || 0;
-    var _aduG = Math.max(0, (parseInt(d.numPersonas) || 0) - _menG - _resG);
+    var _menG = parseInt(d.menores) || 0, _resG = parseInt(d.residentes) || 0, _repG = parseInt(d.responsables) || 0;
+    var _aduG = Math.max(0, (parseInt(d.numPersonas) || 0) - _menG - _resG - _repG);
     descripcion = ['📋 RESERVA DE GRUPO', '─────────────────────────────',
       'RESPONSABLE: ' + d.nombre, 'EMAIL: ' + d.email, 'TELÉFONO: ' + d.telefono,
       'CENTRO / INSTITUCIÓN: ' + (d.nombreCentro || '—'), 'NIF/CIF: ' + (d.nifCif || '—'),
-      'Nº DE PERSONAS: ' + d.numPersonas, 'VISITA GUIADA: ' + guiada,
+      'Nº DE PERSONAS: ' + d.numPersonas,
+      _repG > 0 ? 'RESPONSABLES / GUÍA (gratuidad): ' + _repG : '',
+      'VISITA GUIADA: ' + guiada,
       esNocG ? '   · ' + _aduG + ' adulto' + (_aduG !== 1 ? 's' : '') + ' × 15 € · ' + (_menG + _resG) + ' reducido' + ((_menG + _resG) !== 1 ? 's' : '') + ' × 5 €' : '',
       '💶 Tarifas: ' + fmtEur(d.tarifas), '💶 TOTAL: ' + fmtEur(d.total),
       'NECESITA FACTURA: ' + (d.necesitaFactura || '—'), 'DIRECCIÓN: ' + [d.calleNumero, d.ciudad, d.cp].filter(Boolean).join(', '),

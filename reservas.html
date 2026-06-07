@@ -3760,7 +3760,7 @@
       <div class="entradas-card" id="entradasGrupo">
         <p class="entradas-card__title" data-i18n-page="s2_ent_title">Selecciona tus entradas</p>
 
-        <!-- ── GRUPO: personas / menores / residentes ── -->
+        <!-- ── GRUPO: personas / responsable / menores / residentes ── -->
         <div id="grupoRows">
           <div class="grp-row">
             <span class="grp-row__label" id="labelNumPersonas" data-i18n-page="s2_persons_total">Personas totales</span>
@@ -3770,6 +3770,17 @@
               <input class="ent-stepper__val" id="numPersonas" type="number" min="0" max="500" inputmode="numeric"
                 placeholder="0" aria-label="Personas totales" />
               <button type="button" class="ent-stepper__btn" data-grp-step="numPersonas" data-act="inc"
+                aria-label="+">+</button>
+            </span>
+          </div>
+          <div class="grp-row">
+            <span class="grp-row__label" data-i18n-page="s2_group_leader">Responsable / guía</span>
+            <span class="ent-stepper ent-stepper--wide">
+              <button type="button" class="ent-stepper__btn" data-grp-step="responsablesGrupo" data-act="dec"
+                aria-label="−">−</button>
+              <input class="ent-stepper__val" id="responsablesGrupo" type="number" min="0" max="2" inputmode="numeric"
+                value="0" aria-label="Responsable / guía" readonly />
+              <button type="button" class="ent-stepper__btn" data-grp-step="responsablesGrupo" data-act="inc"
                 aria-label="+">+</button>
             </span>
           </div>
@@ -4280,6 +4291,7 @@
     ];
     // Mínimo de personas para considerar grupo en la nocturna (resto de grupos: 13).
     const MIN_GRUPO_NOCTURNA = 10;
+    const MAX_RESPONSABLES_GRUPO = 2;
 
     /* ── Horarios ────────────────────────────────────────────────── */
     const DIAS_SEMANA = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
@@ -4637,6 +4649,7 @@
         document.getElementById('numPersonas').value = '';
         document.getElementById('menoresTreceAnios').value = '0';
         document.getElementById('residentes').value = '0';
+        document.getElementById('responsablesGrupo').value = '0';
         document.getElementById('tipoEntrada').value = '';
         ESC_ORDER.forEach(id => { const el = document.getElementById('esc_' + id); if (el) el.value = '0'; });
         renderEscolar();
@@ -4776,11 +4789,13 @@
         const d = calcularDesglose();
         if (d.nocturna) {
           if (d.adultos > 0) lineas += row(`${d.adultos} × ${d.precioAdulto} €`, fmt(d.adultos * d.precioAdulto));
+          if (d.responsables > 0) lineas += row(`${d.responsables} ${_T('s4_leaders_free')}`, '0,00 €');
           if (d.menores > 0) lineas += row(`${d.menores} ${_T('s4_word_menores')} × ${d.precioMenor} €`, fmt(d.menores * d.precioMenor));
           if (d.residentes > 0) lineas += row(`${d.residentes} ${_T('s4_word_residentes')} × ${d.precioResidente} €`, fmt(d.residentes * d.precioResidente));
         } else {
           if (d.tarifa === PRECIO_GRUPO_MINIMO && d.adultos < 25) lineas += row(_T('s4_grp_min'), fmt(PRECIO_GRUPO_MINIMO));
           else lineas += row(`${d.adultos} ${_T('s4_persons_paying')} × ${PRECIO_GRUPO_POR_PERSONA} €`, fmt(d.tarifa));
+          if (d.responsables > 0) lineas += row(`${d.responsables} ${_T('s4_leaders_free')}`, '0,00 €');
           if (d.menores > 0) lineas += row(`${d.menores} ${_T('s4_menores_free')}`, '0,00 €');
           if (d.residentes > 0) lineas += row(`${d.residentes} ${_T('s4_residents_free')}`, '0,00 €');
         }
@@ -4808,18 +4823,24 @@
       const menEl = document.getElementById('menoresTreceAnios');
       const resEl = document.getElementById('residentes');
       if (!npEl || !menEl || !resEl) return;
+      const repEl = document.getElementById('responsablesGrupo');
       const total = parseInt(npEl.value) || 0;
       let men = parseInt(menEl.value) || 0;
       let res = parseInt(resEl.value) || 0;
-      // Recortar si superan el total (p. ej. al bajar personas totales).
-      if (res > total) { res = total; resEl.value = res; }
-      if (men > total - res) { men = Math.max(0, total - res); menEl.value = men; }
-      const canAdd = total > (men + res);
+      let rep = parseInt(repEl ? repEl.value : 0) || 0;
+      // Recortar si superan el total o el tope (p. ej. al bajar personas totales).
+      if (rep > MAX_RESPONSABLES_GRUPO) { rep = MAX_RESPONSABLES_GRUPO; if (repEl) repEl.value = rep; }
+      if (rep > total) { rep = total; if (repEl) repEl.value = rep; }
+      if (res > total - rep) { res = Math.max(0, total - rep); resEl.value = res; }
+      if (men > total - res - rep) { men = Math.max(0, total - res - rep); menEl.value = men; }
+      const canAdd = total > (men + res + rep);
       const dis = (sel, off) => { const b = document.querySelector(sel); if (b) b.disabled = off; };
       dis('[data-grp-step="menoresTreceAnios"][data-act="inc"]', !canAdd);
       dis('[data-grp-step="residentes"][data-act="inc"]', !canAdd);
+      dis('[data-grp-step="responsablesGrupo"][data-act="inc"]', !canAdd || rep >= MAX_RESPONSABLES_GRUPO);
       dis('[data-grp-step="menoresTreceAnios"][data-act="dec"]', men <= 0);
       dis('[data-grp-step="residentes"][data-act="dec"]', res <= 0);
+      dis('[data-grp-step="responsablesGrupo"][data-act="dec"]', rep <= 0);
     }
 
     /* ── Helper personas ─────────────────────────────────────────── */
@@ -4842,7 +4863,8 @@
         actualizarBloqueoContadoresGrupo();
         const _men = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
         const _res = parseInt(document.getElementById('residentes').value) || 0;
-        const _pag = Math.max(0, (n || 0) - _men - _res);
+        const _rep = parseInt(document.getElementById('responsablesGrupo').value) || 0;
+        const _pag = Math.max(0, (n || 0) - _men - _res - _rep);
         // Residentes: gratuidad (0 €) → nota de acreditación cuando hay alguno.
         if (resNota) resNota.style.display = _res > 0 ? '' : 'none';
         if (helper) {
@@ -5128,14 +5150,15 @@
       const menores = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
       const residentes = parseInt(document.getElementById('residentes').value) || 0;
       if (state.tipoVisita === 'grupo') {
-        const pagantes = Math.max(0, n - residentes - menores);
+        const responsables = parseInt(document.getElementById('responsablesGrupo').value) || 0;
+        const pagantes = Math.max(0, n - residentes - menores - responsables);
         if (esNocturnaGrupoSel()) {
           const pA = PRECIOS['Visita Guiada Nocturna Catedral'];            // 15 €/adulto
           const pR = PRECIO_RED_GUIADA['Visita Guiada Nocturna Catedral'];  // 5 € menores/residentes
-          return { tarifa: pagantes * pA + menores * pR + residentes * pR, adultos: pagantes, menores, residentes, precioAdulto: pA, precioMenor: pR, precioResidente: pR, nocturna: true };
+          return { tarifa: pagantes * pA + menores * pR + residentes * pR, adultos: pagantes, menores, residentes, responsables, precioAdulto: pA, precioMenor: pR, precioResidente: pR, nocturna: true };
         }
         const tarifa = pagantes >= 25 ? pagantes * PRECIO_GRUPO_POR_PERSONA : PRECIO_GRUPO_MINIMO;
-        return { tarifa, adultos: pagantes, menores, residentes, precioAdulto: PRECIO_GRUPO_POR_PERSONA, precioMenor: 0, precioResidente: 0 };
+        return { tarifa, adultos: pagantes, menores, residentes, responsables, precioAdulto: PRECIO_GRUPO_POR_PERSONA, precioMenor: 0, precioResidente: 0 };
       }
       if (state.tipoVisita === 'escolar') {
         // Escolar usa contadores por tramo (calcularEscolar); no hay tramo único.
@@ -5267,6 +5290,7 @@
       if (state.tipoVisita === 'grupo') {
         if (d.nocturna) {
           if (d.adultos > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.adultos} ${_T('s4_word_adultos')} × ${d.precioAdulto} €</span><span class="summary-row__value">${(d.adultos * d.precioAdulto).toFixed(2)} €</span></div>`;
+          if (d.responsables > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.responsables} ${_T('s4_leaders_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
           if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} ${_T('s4_word_menores')} × ${d.precioMenor} €</span><span class="summary-row__value">${(d.menores * d.precioMenor).toFixed(2)} €</span></div>`;
           if (d.residentes > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_word_residentes')} × ${d.precioResidente} €</span><span class="summary-row__value">${(d.residentes * d.precioResidente).toFixed(2)} €</span></div>`;
         } else {
@@ -5275,6 +5299,7 @@
           } else {
             lineas = `<div class="summary-row"><span class="summary-row__label">${d.adultos} ${_T('s4_persons_paying')} × ${PRECIO_GRUPO_POR_PERSONA} €</span><span class="summary-row__value">${d.tarifa.toFixed(2)} €</span></div>`;
           }
+          if (d.responsables > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.responsables} ${_T('s4_leaders_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
           if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} ${_T('s4_menores_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
           if (d.residentes > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_residents_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
         }
@@ -5537,6 +5562,7 @@
         numPersonas: document.getElementById('numPersonas').value,
         menores: document.getElementById('menoresTreceAnios').value || '0',
         residentes: document.getElementById('residentes').value || '0',
+        responsables: document.getElementById('responsablesGrupo').value || '0',
         tramoEdad: '',
         tipoEntrada: tipoEntradaPayload,
         monumentos,
@@ -5683,6 +5709,7 @@
     document.getElementById('numPersonas').addEventListener('input', updatePersonasHelper);
     document.getElementById('menoresTreceAnios').addEventListener('input', updatePersonasHelper);
     document.getElementById('residentes').addEventListener('input', updatePersonasHelper);
+    document.getElementById('responsablesGrupo').addEventListener('input', updatePersonasHelper);
     function actualizarFechaPlaceholder() {
       const inp = document.getElementById('fechaVisita');
       const wrap = inp && inp.closest('.date-wrap');
@@ -5948,6 +5975,7 @@
           setVal('numPersonas', d.numPersonas);
           setVal('menoresTreceAnios', d.menores);
           setVal('residentes', d.residentes);
+          setVal('responsablesGrupo', d.responsables);
           updatePersonasHelper();
           if (d.necesitaFactura === 'Sí') {
             const chk = document.getElementById('necesitaFactura');
@@ -6192,7 +6220,7 @@
         s4_block_factura: 'Facturación', s4_lbl_centro: 'Centro / institución', s4_lbl_nif: 'NIF / CIF', s4_lbl_direccion: 'Dirección',
         s4_block_comments: 'Comentarios',
         s4_grp_min: 'Grupo reducido (mínimo)', s4_persons_paying: 'pers. pagantes',
-        s4_menores_free: 'menores &lt;12 · gratuidad', s4_residents_free: 'residentes · gratuidad',
+        s4_menores_free: 'menores &lt;12 · gratuidad', s4_residents_free: 'residentes · gratuidad', s4_leaders_free: 'responsable/guía · gratuidad', s2_group_leader: 'Responsable / guía',
         s4_word_alumnos: 'alumnos', s4_word_adultos: 'adultos', s4_word_menores: 'menores', s4_word_residentes: 'residentes',
         s4_fam_ticket_fixed: 'Ticket Familiar (precio fijo)',
         s4_supp_guiada: 'Suplemento guiada', s4_supp_casco: 'Suplemento guiada Casco + Catedral',
@@ -6428,7 +6456,7 @@
         s4_block_factura: 'Invoicing', s4_lbl_centro: 'Institution', s4_lbl_nif: 'Tax ID', s4_lbl_direccion: 'Address',
         s4_block_comments: 'Comments',
         s4_grp_min: 'Small group (minimum)', s4_persons_paying: 'paying',
-        s4_menores_free: 'under 12 · free', s4_residents_free: 'residents · free',
+        s4_menores_free: 'under 12 · free', s4_residents_free: 'residents · free', s4_leaders_free: 'group leader/guide · free', s2_group_leader: 'Group leader / guide',
         s4_word_alumnos: 'pupils', s4_word_adultos: 'adults', s4_word_menores: 'under 12', s4_word_residentes: 'residents',
         s4_fam_ticket_fixed: 'Family Ticket (fixed price)',
         s4_supp_guiada: 'Guided tour supplement', s4_supp_casco: 'Old Town + Cathedral guided supplement',
@@ -6628,7 +6656,7 @@
         s4_block_factura: 'Facturation', s4_lbl_centro: 'Institution', s4_lbl_nif: 'NIF / SIRET', s4_lbl_direccion: 'Adresse',
         s4_block_comments: 'Commentaires',
         s4_grp_min: 'Petit groupe (minimum)', s4_persons_paying: 'pers. payantes',
-        s4_menores_free: 'moins de 12 ans · gratuit', s4_residents_free: 'résidents · gratuit',
+        s4_menores_free: 'moins de 12 ans · gratuit', s4_residents_free: 'résidents · gratuit', s4_leaders_free: 'responsable/guide · gratuit', s2_group_leader: 'Responsable / guide',
         s4_word_alumnos: 'élèves', s4_word_adultos: 'adultes', s4_word_menores: 'moins de 12 ans', s4_word_residentes: 'résidents',
         s4_fam_ticket_fixed: 'Billet Famille (prix fixe)',
         s4_supp_guiada: 'Supplément visite guidée', s4_supp_casco: 'Supplément guidée Centre + Cathédrale',
@@ -6828,7 +6856,7 @@
         s4_block_factura: 'Rechnung', s4_lbl_centro: 'Einrichtung', s4_lbl_nif: 'Steuer-ID', s4_lbl_direccion: 'Adresse',
         s4_block_comments: 'Kommentare',
         s4_grp_min: 'Kleine Gruppe (Mindestpreis)', s4_persons_paying: 'zahlende Pers.',
-        s4_menores_free: 'unter 12 · kostenlos', s4_residents_free: 'Einwohner · kostenlos',
+        s4_menores_free: 'unter 12 · kostenlos', s4_residents_free: 'Einwohner · kostenlos', s4_leaders_free: 'Gruppenleitung/Reiseleitung · kostenlos', s2_group_leader: 'Gruppenleitung / Reiseleitung',
         s4_word_alumnos: 'Schüler', s4_word_adultos: 'Erwachsene', s4_word_menores: 'unter 12', s4_word_residentes: 'Einwohner',
         s4_fam_ticket_fixed: 'Familienticket (Festpreis)',
         s4_supp_guiada: 'Führungszuschlag', s4_supp_casco: 'Zuschlag Altstadt + Kathedrale',
@@ -7028,7 +7056,7 @@
         s4_block_factura: 'Faturação', s4_lbl_centro: 'Instituição', s4_lbl_nif: 'NIF', s4_lbl_direccion: 'Endereço',
         s4_block_comments: 'Comentários',
         s4_grp_min: 'Grupo reduzido (mínimo)', s4_persons_paying: 'pess. pagantes',
-        s4_menores_free: 'menores &lt;12 · gratuito', s4_residents_free: 'residentes · gratuito',
+        s4_menores_free: 'menores &lt;12 · gratuito', s4_residents_free: 'residentes · gratuito', s4_leaders_free: 'responsável/guia · gratuito', s2_group_leader: 'Responsável / guia',
         s4_word_alumnos: 'alunos', s4_word_adultos: 'adultos', s4_word_menores: 'menores', s4_word_residentes: 'residentes',
         s4_fam_ticket_fixed: 'Bilhete Família (preço fixo)',
         s4_supp_guiada: 'Suplemento visita guiada', s4_supp_casco: 'Suplemento guiada Centro + Catedral',
@@ -7228,7 +7256,7 @@
         s4_block_factura: 'Fatturazione', s4_lbl_centro: 'Istituzione', s4_lbl_nif: 'P. IVA', s4_lbl_direccion: 'Indirizzo',
         s4_block_comments: 'Commenti',
         s4_grp_min: 'Gruppo ridotto (minimo)', s4_persons_paying: 'pers. paganti',
-        s4_menores_free: 'minori &lt;12 · gratuito', s4_residents_free: 'residenti · gratuito',
+        s4_menores_free: 'minori &lt;12 · gratuito', s4_residents_free: 'residenti · gratuito', s4_leaders_free: 'responsabile/guida · gratuito', s2_group_leader: 'Responsabile / guida',
         s4_word_alumnos: 'alunni', s4_word_adultos: 'adulti', s4_word_menores: 'minori', s4_word_residentes: 'residenti',
         s4_fam_ticket_fixed: 'Biglietto Famiglia (prezzo fisso)',
         s4_supp_guiada: 'Supplemento visita guidata', s4_supp_casco: 'Supplemento guidata Centro + Cattedrale',
@@ -7428,7 +7456,7 @@
         s4_block_factura: '청구', s4_lbl_centro: '기관', s4_lbl_nif: '세금ID', s4_lbl_direccion: '주소',
         s4_block_comments: '의견',
         s4_grp_min: '소규모 단체 (최소)', s4_persons_paying: '유료 인원',
-        s4_menores_free: '12세 미만 · 무료', s4_residents_free: '거주자 · 무료',
+        s4_menores_free: '12세 미만 · 무료', s4_residents_free: '거주자 · 무료', s4_leaders_free: '인솔자/가이드 · 무료', s2_group_leader: '인솔자 / 가이드',
         s4_word_alumnos: '학생', s4_word_adultos: '성인', s4_word_menores: '12세 미만', s4_word_residentes: '거주자',
         s4_fam_ticket_fixed: '가족 티켓 (고정 가격)',
         s4_supp_guiada: '가이드 투어 추가 요금', s4_supp_casco: '구시가지 + 대성당 가이드 추가 요금',
@@ -7628,7 +7656,7 @@
         s4_block_factura: 'Fakturazioa', s4_lbl_centro: 'Erakundea', s4_lbl_nif: 'IFZ', s4_lbl_direccion: 'Helbidea',
         s4_block_comments: 'Iruzkinak',
         s4_grp_min: 'Talde txikia (gutxieneko prezioa)', s4_persons_paying: 'pers. ordaintzaileak',
-        s4_menores_free: '12 urtetik beherakoak · doan', s4_residents_free: 'bizilagunak · doan',
+        s4_menores_free: '12 urtetik beherakoak · doan', s4_residents_free: 'bizilagunak · doan', s4_leaders_free: 'arduraduna/gida · doan', s2_group_leader: 'Arduraduna / gida',
         s4_word_alumnos: 'ikasle', s4_word_adultos: 'heldu', s4_word_menores: '12 urtetik beherakoak', s4_word_residentes: 'bizilagunak',
         s4_fam_ticket_fixed: 'Familia Sarrera (prezio finkoa)',
         s4_supp_guiada: 'Bisita gidatuaren gehigarria', s4_supp_casco: 'Hirigunea + Katedrala bisita gidatuaren gehigarria',
@@ -7828,7 +7856,7 @@
         s4_block_factura: 'Facturació', s4_lbl_centro: 'Institució', s4_lbl_nif: 'NIF / CIF', s4_lbl_direccion: 'Adreça',
         s4_block_comments: 'Comentaris',
         s4_grp_min: 'Grup reduït (mínim)', s4_persons_paying: 'pers. de pagament',
-        s4_menores_free: 'menors &lt;12 · gratuïtat', s4_residents_free: 'residents · gratuïtat',
+        s4_menores_free: 'menors &lt;12 · gratuïtat', s4_residents_free: 'residents · gratuïtat', s4_leaders_free: 'responsable/guia · gratuïtat', s2_group_leader: 'Responsable / guia',
         s4_word_alumnos: 'alumnes', s4_word_adultos: 'adults', s4_word_menores: 'menors', s4_word_residentes: 'residents',
         s4_fam_ticket_fixed: 'Entrada Familiar (preu fix)',
         s4_supp_guiada: 'Suplement visita guiada', s4_supp_casco: 'Suplement guiada Centre + Catedral',

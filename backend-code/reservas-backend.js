@@ -213,17 +213,19 @@ function setupTriggers() {
 //  2. CÁLCULO DE TARIFAS
 // ══════════════════════════════════════════════════════════════════
 
-function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables) {
+function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios) {
   var total = parseInt(nPersonas) || 0;
   var menores = parseInt(nMenores) || 0;
   var residentes = parseInt(nResidentes) || 0;
   var responsables = parseInt(nResponsables) || 0;
   if (tipoVisita === 'Grupo') {
     // Pagantes = totales − menores − residentes − responsables (guía/responsable con gratuidad).
-    // 13–24 pagantes → 125 € (mínimo); 25+ → 5 €/pagante.
+    // 13–24 pagantes → mínimo; 25+ → tarifa/pagante. Importes según la temporada (precios) o, si no hay hoja, las constantes por defecto.
+    var minimo = (precios && precios.grupoMinimo != null) ? precios.grupoMinimo : PRECIO_GRUPO_MINIMO;
+    var porPersona = (precios && precios.grupoPorPersona != null) ? precios.grupoPorPersona : PRECIO_GRUPO_POR_PERSONA;
     var pagantes = Math.max(0, total - menores - residentes - responsables);
-    var tarifa = pagantes >= 25 ? pagantes * PRECIO_GRUPO_POR_PERSONA : PRECIO_GRUPO_MINIMO;
-    return { tarifa: tarifa, adultos: pagantes, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: PRECIO_GRUPO_POR_PERSONA, precioMenor: 0 };
+    var tarifa = pagantes >= 25 ? pagantes * porPersona : minimo;
+    return { tarifa: tarifa, adultos: pagantes, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: porPersona, precioMenor: 0 };
   }
   if (tipoVisita === 'Grupo Escolar') {
     var precio = tramoPrecio(tramoEdad);
@@ -240,8 +242,8 @@ function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEda
   return { tarifa: (adultos * precioAdulto) + (menores * precioMenor), adultos: adultos, menores: menores, precioAdulto: precioAdulto, precioMenor: precioMenor };
 }
 
-function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables) {
-  return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables).tarifa;
+function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios) {
+  return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios).tarifa;
 }
 
 function calcularTotal(tarifa, visitaGuiada) {
@@ -254,16 +256,18 @@ function calcularTotal(tarifa, visitaGuiada) {
 function esNocturnaGrupo(visitaGuiada) {
   return visitaGuiada === 'Visita Guiada Nocturna Catedral';
 }
-function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes, nResponsables) {
+function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes, nResponsables, precios) {
   var total = parseInt(nPersonas) || 0;
   var menores = parseInt(nMenores) || 0;
   var residentes = parseInt(nResidentes) || 0;
   var responsables = parseInt(nResponsables) || 0;
   var adultos = Math.max(0, total - menores - residentes - responsables);
-  var pAdulto = PRECIOS['Visita Guiada Nocturna Catedral'];               // 15
-  var pReducido = PRECIOS_MENOR_GUIADA['Visita Guiada Nocturna Catedral']; // 5
-  var tarifa = adultos * pAdulto + (menores + residentes) * pReducido;
-  return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: pAdulto, precioReducido: pReducido };
+  var _defRed = PRECIOS_MENOR_GUIADA['Visita Guiada Nocturna Catedral']; // 5 por defecto
+  var pAdulto = (precios && precios.grupoNocturnaAdulto != null) ? precios.grupoNocturnaAdulto : PRECIOS['Visita Guiada Nocturna Catedral']; // 15 por defecto
+  var pMenor = (precios && precios.grupoNocturnaMenor != null) ? precios.grupoNocturnaMenor : _defRed;
+  var pResidente = (precios && precios.grupoNocturnaResidente != null) ? precios.grupoNocturnaResidente : _defRed;
+  var tarifa = adultos * pAdulto + menores * pMenor + residentes * pResidente;
+  return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: pAdulto, precioMenor: pMenor, precioResidente: pResidente };
 }
 function tieneGuiadaGrupo(v) {
   return v === 'Sí' || v === 'Casco Histórico + Catedral';
@@ -277,6 +281,138 @@ function guiadaLabel(v) {
 
 
 // ══════════════════════════════════════════════════════════════════
+//  2.b TEMPORADAS · precios y horarios por temporada (hoja "Temporadas")
+// ══════════════════════════════════════════════════════════════════
+// El gestor edita una hoja "Temporadas" con 3 tipos de bloque: fechas de cada
+// temporada, horarios de la Catedral y un cuadro de precios por temporada.
+// El backend la lee para saber qué temporada aplica a una fecha de visita y con
+// qué precios. FAIL-SAFE: si la hoja no existe o está mal formada, leerTemporadas()
+// devuelve null y todo funciona como hasta ahora (temporada Alta, todo abierto).
+const SHEET_TEMPORADAS = 'Temporadas';
+
+function _temStr(v) { return (v == null ? '' : String(v)).trim(); }
+// Solo minúsculas: las palabras clave que buscamos (pulsera, catedral, grupo, nocturna…) no llevan tilde.
+function _temNorm(s) { return _temStr(s).toLowerCase(); }
+function _temFechaISO(v) {
+  if (v instanceof Date) return Utilities.formatDate(v, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  var s = _temStr(v);
+  var m = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m) return m[1] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[3]).slice(-2);
+  m = s.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/); // dd/mm/yyyy
+  if (m) return m[3] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[1]).slice(-2);
+  return '';
+}
+// Extrae todos los números de una celda: "14 / 4 / 4 €" → [14,4,4]; "125 € · 5 €" → [125,5].
+function _temNums(v) {
+  var s = _temStr(v), out = [], re = /\d+(?:[.,]\d+)?/g, m;
+  while ((m = re.exec(s)) !== null) out.push(parseFloat(m[0].replace(',', '.')));
+  return out;
+}
+// Asigna los números de una fila de precios al objeto de temporada según su etiqueta.
+// El orden importa: lo más específico primero (peregrino antes que pulsera, grupo+nocturna
+// antes que grupo o nocturna sueltas, "catedral" suelta al final).
+function _temAsignarPrecio(p, labelNorm, n) {
+  function g(i) { return n.length > i ? n[i] : null; }
+  if (labelNorm.indexOf('pulsera') >= 0 && labelNorm.indexOf('peregrino') >= 0) { p['Pulsera Turística Peregrino'] = g(0); return; }
+  if (labelNorm.indexOf('pulsera') >= 0) { p['Pulsera Turística'] = g(0); return; }
+  if (labelNorm.indexOf('convento') >= 0) { p['Convento San Francisco'] = g(0); return; }
+  if (labelNorm.indexOf('familiar') >= 0) { p['Ticket Familiar'] = g(0); return; }
+  if (labelNorm.indexOf('torre') >= 0) { p['Torre'] = g(0); return; }
+  if (labelNorm.indexOf('suplement') >= 0) { p.suplementoCatedral = g(0); p.suplementoCasco = g(1); return; }
+  if (labelNorm.indexOf('grupo') >= 0 && labelNorm.indexOf('nocturna') >= 0) { p.grupoNocturnaAdulto = g(0); p.grupoNocturnaMenor = g(1); p.grupoNocturnaResidente = (n.length > 2) ? g(2) : g(1); return; }
+  if (labelNorm.indexOf('grupo') >= 0) { p.grupoMinimo = g(0); p.grupoPorPersona = g(1); return; }
+  if (labelNorm.indexOf('escolar') >= 0) { p.escolar = { menor12: g(0), e1213: g(1), e1415: g(2), e1617: g(3), mayor17: g(4) }; return; }
+  if (labelNorm.indexOf('diurna') >= 0) { p['Visita Guiada Diurna'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
+  if (labelNorm.indexOf('vip') >= 0) { p['Visita Guiada VIP'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
+  if (labelNorm.indexOf('nocturna') >= 0) { p['Visita Guiada Nocturna Catedral'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
+  if (labelNorm.indexOf('catedral') >= 0) { p['Catedral'] = g(0); return; }
+}
+
+function leerTemporadas() {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_TEMPORADAS);
+    if (!sheet) return null;
+    var rng = sheet.getDataRange();
+    var vals = rng.getValues();
+    var disp = rng.getDisplayValues(); // texto tal como se ve: las horas son objetos de tiempo en getValues()
+    if (!vals || !vals.length) return null;
+
+    var cfg = { fechas: [], horarios: {}, precios: {}, reservasHasta: '' };
+    var mode = null, season = null;
+
+    for (var r = 0; r < vals.length; r++) {
+      var row = vals[r];
+      var drow = disp[r] || [];
+      var a = _temStr(row[0]);
+      var an = _temNorm(a);
+
+      if (an.indexOf('fechas') === 0) { mode = 'fechas'; continue; }
+      if (an.indexOf('horarios') === 0) { mode = 'horarios'; continue; }
+      if (an.indexOf('precios') === 0) {
+        mode = 'precios';
+        season = a.replace(/^\s*precios\s*[·:\-]?\s*/i, '').trim();
+        if (season && !cfg.precios[season]) cfg.precios[season] = {};
+        continue;
+      }
+      if (!a) continue;                                            // fila en blanco
+      if (an === 'temporada' || an === 'concepto' || an === 'monumento') continue; // cabeceras
+
+      if (mode === 'fechas') {
+        var ini = _temFechaISO(row[1]), fin = _temFechaISO(row[2]);
+        if (ini && fin) cfg.fechas.push({ nombre: a, inicio: ini, fin: fin });
+      } else if (mode === 'horarios') {
+        cfg.horarios[a] = {
+          lvManana: [_temStr(drow[1]), _temStr(drow[2])],
+          lvTarde: [_temStr(drow[3]), _temStr(drow[4])],
+          sab: [_temStr(drow[5]), _temStr(drow[6])],
+          dom: [_temStr(drow[7]), _temStr(drow[8])]
+        };
+      } else if (mode === 'precios' && season) {
+        _temAsignarPrecio(cfg.precios[season], an, _temNums(drow[1]));
+      }
+    }
+
+    if (!cfg.fechas.length) return null;
+    for (var i = 0; i < cfg.fechas.length; i++) {
+      if (cfg.fechas[i].fin > cfg.reservasHasta) cfg.reservasHasta = cfg.fechas[i].fin;
+    }
+    return cfg;
+  } catch (e) { Logger.log('leerTemporadas: ' + e); return null; }
+}
+
+// Nombre de la temporada que aplica a una fecha ISO 'yyyy-mm-dd'. Defecto: 'Alta'.
+function temporadaPara(fechaISO, cfg) {
+  cfg = cfg || leerTemporadas();
+  if (cfg && cfg.fechas) {
+    for (var i = 0; i < cfg.fechas.length; i++) {
+      var f = cfg.fechas[i];
+      if (fechaISO >= f.inicio && fechaISO <= f.fin) return f.nombre;
+    }
+  }
+  return 'Alta';
+}
+
+// Precios de la temporada de esa fecha (los usa el servidor para recalcular grupos).
+// Devuelve null si no hay hoja → el cálculo usa las constantes por defecto.
+function preciosGrupoTemporada(fecha) {
+  var iso = _temFechaISO(fecha);
+  if (!iso) return null;
+  var cfg = leerTemporadas();
+  if (!cfg) return null;
+  var p = cfg.precios[temporadaPara(iso, cfg)];
+  return p || null;
+}
+
+// Endpoint ?temporadas → JSON con toda la configuración para el frontend.
+function consultarTemporadas() {
+  var cfg = leerTemporadas();
+  if (!cfg) return jsonResponse({ ok: false });
+  cfg.ok = true;
+  return jsonResponse(cfg);
+}
+
+
+// ══════════════════════════════════════════════════════════════════
 //  3. WEB APP
 // ══════════════════════════════════════════════════════════════════
 
@@ -286,6 +422,7 @@ function doGet(e) {
     if (e.parameter.justificante) return mostrarFormularioJustificante(e.parameter.justificante);
     if (e.parameter.disponibilidad) return consultarDisponibilidad(e.parameter.disponibilidad, e.parameter.excludeToken || null);
     if (e.parameter.mesVisitas) return consultarVisitasMes(e.parameter.mesVisitas);
+    if (e.parameter.temporadas !== undefined) return consultarTemporadas();
     if (e.parameter.datos) return consultarDatosReserva(e.parameter.datos);
     if (e.parameter.cancelarWeb) return _cancelarWebJSON(e.parameter.cancelarWeb);
     if (e.parameter.cancelar) return mostrarConfirmacionCancelacion(e.parameter.cancelar);
@@ -698,11 +835,13 @@ function doPost(e) {
       tarifa = baseEsc;
       total = calcularTotal(baseEsc, guiada);
     } else if (esGrupo && esNocturnaGrupo(guiada)) {
-      // Grupo con Visita Guiada Nocturna: 15 €/adulto + 5 € menores/residentes, sin suplemento.
-      var _noc = calcularNocturnaGrupo(data.numPersonas, data.menores, data.residentes, data.responsables);
+      // Grupo con Visita Guiada Nocturna, precios según la temporada de la fecha de visita.
+      var _ptNoc = preciosGrupoTemporada(data.fechaVisita);
+      var _noc = calcularNocturnaGrupo(data.numPersonas, data.menores, data.residentes, data.responsables, _ptNoc);
       tarifa = _noc.tarifa; total = _noc.tarifa;
     } else {
-      tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes, data.responsables);
+      var _ptGrp = preciosGrupoTemporada(data.fechaVisita);
+      tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes, data.responsables, _ptGrp);
       total = calcularTotal(tarifa, guiada);
     }
     var token = Utilities.getUuid();
@@ -913,11 +1052,13 @@ function _editarReserva(data) {
   } else if (esInd && ant.entradasDetalle && String(ant.entradasDetalle).trim()) {
     nuevasTarifas = ant.tarifas; nuevoTotal = ant.total;
   } else if (esNocGrupo) {
-    var _noc = calcularNocturnaGrupo(numPersonas, menoresVal, residentesVal, responsablesVal);
+    var _ptNocE = preciosGrupoTemporada(data.fechaVisita || ant.fechaVisita);
+    var _noc = calcularNocturnaGrupo(numPersonas, menoresVal, residentesVal, responsablesVal, _ptNocE);
     nuevasTarifas = _noc.tarifa; nuevoTotal = _noc.tarifa;
   } else {
+    var _ptGrpE = preciosGrupoTemporada(data.fechaVisita || ant.fechaVisita);
     nuevasTarifas = calcularTarifaBase(tipoVisita, tipoEntrada, numPersonas,
-      menoresVal, data.tramoEdad || '', residentesVal, responsablesVal);
+      menoresVal, data.tramoEdad || '', residentesVal, responsablesVal, _ptGrpE);
     nuevoTotal = calcularTotal(nuevasTarifas, visitaGuiada);
   }
 

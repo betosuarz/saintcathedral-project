@@ -5,6 +5,18 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # ── Redirecciones 301 del WordPress antiguo (URLs heredadas) ──
+  # Versión inglesa WPML: /en, /en/, /en/lo-que-sea → home
+  RewriteRule ^en(/.*)?$ / [R=301,L]
+  # Home antigua → home canónica
+  RewriteRule ^inicio/?$ / [R=301,L]
+  # Audioguía antigua → menú de audioguía actual
+  RewriteRule ^audioguia-can-ita/?$ /audioguia/menu-audioguia.html [R=301,L]
+  # Boletín parroquial (PDF en wp-content) → página de institución
+  RewriteRule ^wp-content/uploads/2026/05/BOLETIN_2738\.pdf$ /institucion [R=301,L]
+  # Cualquier otro resto de WordPress (uploads, wp-admin, etc.) → home
+  RewriteRule ^wp-(content|admin|includes|json)(/.*)?$ / [R=301,L]
+
   # Redirect 301: /index.html y /index → / (URL canónica raíz)
   RewriteCond %{THE_REQUEST} \s/index(\.html)?[\s?] [NC]
   RewriteRule ^index(\.html)?$ / [R=301,L]

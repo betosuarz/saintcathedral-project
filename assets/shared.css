@@ -74,22 +74,51 @@ button {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
+  --cur: #fff; /* color del cursor; el JS lo cambia a #000 sobre fondos claros */
+}
+
+/* El JS añade .on-light cuando el fondo bajo el puntero es claro → cursor negro */
+.cursor.on-light {
+  --cur: #000;
 }
 
 .cursor__dot {
   width: 6px;
   height: 6px;
-  background: var(--white);
+  background: var(--cur);
   border-radius: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
 }
 
+/* Ondas: dos anillos que emanan del puntero en bucle rápido, desfasados (solo contorno) */
+.cursor__dot::before,
+.cursor__dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--cur);
+  transform: translate(-50%, -50%);
+  animation: cursor-wave 1.6s var(--ease) infinite;
+}
+
+.cursor__dot::before {
+  animation-delay: -.8s;
+}
+
+@keyframes cursor-wave {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(.35); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(4); }
+}
+
 .cursor__ring {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(255, 255, 255, .6);
+  border: 2px solid var(--cur);
   border-radius: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -100,6 +129,12 @@ button {
   width: 56px;
   height: 56px;
   border-color: var(--gold);
+}
+
+/* Sobre elementos interactivos las ondas emanan más rápido */
+.cursor.hovering .cursor__dot::before,
+.cursor.hovering .cursor__dot::after {
+  animation-duration: 1s;
 }
 
 /* ── NAVBAR ──────────────────────────────────────────────────── */

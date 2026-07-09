@@ -4295,11 +4295,17 @@
       if (!TEMP_CFG) { TEMP_SEASON = null; TEMP_PRECIOS = null; return; }
       TEMP_SEASON = temporadaDe(fechaISO);
       TEMP_PRECIOS = (TEMP_SEASON && TEMP_CFG.precios && TEMP_CFG.precios[TEMP_SEASON]) || null;
+      // Refrescar la etiqueta de la nocturna en el desplegable de grupo (precio por temporada),
+      // sin reconstruir el <select> para no perder la opción ya seleccionada.
+      const _optNoc = document.querySelector('#tipoEntrada option[value="Visita Guiada Nocturna Catedral"]');
+      if (_optNoc) _optNoc.textContent = etqVgNoc();
       // Quitar del carrito individual lo que no se vende en esta temporada.
       let _quitadas = false;
       if (state.entradas) ENT_ROWS.forEach(r => { if (r.kind === 'tipo' && !tipoAbierto(r.tipo) && state.entradas[r.id]) { delete state.entradas[r.id]; _quitadas = true; } });
       if (_quitadas) state._avisoTemporada = true;
       if (state.tipoVisita === 'individual') onEntradasChange();
+      // Grupo/escolar: recalcular desglose y total con los precios de la nueva temporada.
+      else if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') renderTotalGrupo();
     }
 
     // ¿se vende este tipo de entrada en la temporada activa? (sin config → todo abierto)

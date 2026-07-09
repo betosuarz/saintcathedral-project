@@ -1623,7 +1623,15 @@ function onEditTrigger(e) {
     var tieneJustificante = datos.justificante && String(datos.justificante).trim();
 
     if (esGrupoGuiado && tieneJustificante) {
-      // Segunda confirmación: pago verificado → confirmar definitivamente
+      // Segunda confirmación: pago verificado → confirmar definitivamente.
+      // Si la modificación llegó DESPUÉS de subir el justificante, actualizar el evento
+      // original en el sitio (fecha/hora/título/desglose) reutilizándolo, y luego
+      // re-aplicar la URL del justificante sobre la descripción ya refrescada.
+      var editadoEnJustif = String(estado).indexOf('✏️') === 0 ? String(estado).replace('✏️ Editado: ', '') : null;
+      if (editadoEnJustif) {
+        var eventoIdJ = crearEventoCalendar(datos, row, editadoEnJustif);
+        if (eventoIdJ) { sheet.getRange(row, COL_EVENTO_ID).setValue(eventoIdJ); datos.eventoId = eventoIdJ; }
+      }
       enviarConfirmacionFinalGrupo(datos);
       reenviarJustificante(datos);
       actualizarEventoCalendarJustificante(datos);
@@ -1633,7 +1641,7 @@ function onEditTrigger(e) {
     } else if (esGrupoOrEscolar) {
       // Primera confirmación (o re-confirmación tras edición) de grupo o escolar
       var editadoEnGrupo = String(estado).indexOf('✏️') === 0 ? String(estado).replace('✏️ Editado: ', '') : null;
-      if (editadoEnGrupo && datos.eventoId) _eliminarEventoCalendar(datos.eventoId);
+      // Edición: NO se borra el evento. crearEventoCalendar reutiliza y actualiza el original (datos.eventoId) → mismo evento, sin duplicados.
       if (editadoEnGrupo) { enviarConfirmacionModificacion(datos); } else { enviarCorreoConfirmacion(datos); }
       var eventoId = crearEventoCalendar(datos, row, editadoEnGrupo);
       sheet.getRange(row, COL_EVENTO_ID).setValue(eventoId);
@@ -1650,7 +1658,7 @@ function onEditTrigger(e) {
     } else {
       // Individual (cualquier tipo de entrada)
       var editadoEnInd = String(estado).indexOf('✏️') === 0 ? String(estado).replace('✏️ Editado: ', '') : null;
-      if (editadoEnInd && datos.eventoId) _eliminarEventoCalendar(datos.eventoId);
+      // Edición: NO se borra el evento. crearEventoCalendar reutiliza y actualiza el original (datos.eventoId) → mismo evento, sin duplicados.
       if (editadoEnInd) { enviarConfirmacionModificacion(datos); } else { enviarCorreoConfirmacion(datos); }
       var eventoIdInd = crearEventoCalendar(datos, row, editadoEnInd);
       if (eventoIdInd) sheet.getRange(row, COL_EVENTO_ID).setValue(eventoIdInd);
@@ -2284,7 +2292,8 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
   // Pagantes = totales − menores − residentes − responsables (base del desglose de grupo/escolar/nocturna).
   var _menP = parseInt(d.menores) || 0, _resP = parseInt(d.residentes) || 0, _repP = parseInt(d.responsables) || 0;
   var _aduP = Math.max(0, (parseInt(d.numPersonas) || 0) - _menP - _resP - _repP);
-  var _redP = _menP + _resP;
+  // Nocturna de grupo: precios por temporada de la fecha (10 € en baja, 15 € en alta).
+  var _nocP = esNocturnaGrupo(d.visitaGuiada) ? calcularNocturnaGrupo(d.numPersonas, _menP, _resP, _repP, preciosGrupoTemporada(d.fechaVisita)) : null;
   var subtotalEsc = precioEsc * _aduP;
   var bloqueImporte = esEscolar
     ? '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Tarifas escolares</p>'
@@ -2298,9 +2307,10 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     : esNocturnaGrupo(d.visitaGuiada)
     ? '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Importe · Visita Guiada Nocturna</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
-    + tdRow(_aduP + ' adulto' + (_aduP !== 1 ? 's' : '') + ' × ' + fmtEur(15), fmtEur(_aduP * 15))
+    + tdRow(_aduP + ' adulto' + (_aduP !== 1 ? 's' : '') + ' × ' + fmtEur(_nocP.precioAdulto), fmtEur(_aduP * _nocP.precioAdulto))
     + (_repP > 0 ? tdRow(_repP + ' responsable' + (_repP !== 1 ? 's' : '') + ' / guía · gratuidad', fmtEur(0)) : '')
-    + (_redP > 0 ? tdRow(_redP + ' menor' + (_redP !== 1 ? 'es' : '') + '/residente' + (_redP !== 1 ? 's' : '') + ' × ' + fmtEur(5), fmtEur(_redP * 5)) : '')
+    + (_menP > 0 ? tdRow(_menP + ' menor' + (_menP !== 1 ? 'es' : '') + ' × ' + fmtEur(_nocP.precioMenor), fmtEur(_menP * _nocP.precioMenor)) : '')
+    + (_resP > 0 ? tdRow(_resP + ' residente' + (_resP !== 1 ? 's' : '') + ' × ' + fmtEur(_nocP.precioResidente), fmtEur(_resP * _nocP.precioResidente)) : '')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
     + '</table></td></tr>'
@@ -2468,13 +2478,17 @@ function crearEventoCalendar(d, row, editadoEn) {
     titulo = (esNocG ? '🌙 ' : '') + (tieneGuiadaGrupo(d.visitaGuiada) ? 'VG ' + nombreGrupo : nombreGrupo);
     var _menG = parseInt(d.menores) || 0, _resG = parseInt(d.residentes) || 0, _repG = parseInt(d.responsables) || 0;
     var _aduG = Math.max(0, (parseInt(d.numPersonas) || 0) - _menG - _resG - _repG);
+    // Precios de la nocturna de grupo según la temporada de la fecha (10 € en baja, 15 € en alta).
+    var _nocG = esNocG ? calcularNocturnaGrupo(d.numPersonas, _menG, _resG, _repG, preciosGrupoTemporada(d.fechaVisita)) : null;
     descripcion = ['📋 RESERVA DE GRUPO', '─────────────────────────────',
       'RESPONSABLE: ' + d.nombre, 'EMAIL: ' + d.email, 'TELÉFONO: ' + d.telefono,
       'CENTRO / INSTITUCIÓN: ' + (d.nombreCentro || '—'), 'NIF/CIF: ' + (d.nifCif || '—'),
       'Nº DE PERSONAS: ' + d.numPersonas,
       _repG > 0 ? 'RESPONSABLES / GUÍA (gratuidad): ' + _repG : '',
       'VISITA GUIADA: ' + guiada,
-      esNocG ? '   · ' + _aduG + ' adulto' + (_aduG !== 1 ? 's' : '') + ' × 15 € · ' + (_menG + _resG) + ' reducido' + ((_menG + _resG) !== 1 ? 's' : '') + ' × 5 €' : '',
+      esNocG ? '   · ' + _aduG + ' adulto' + (_aduG !== 1 ? 's' : '') + ' × ' + _nocG.precioAdulto + ' €'
+        + (_menG > 0 ? ' · ' + _menG + ' menor' + (_menG !== 1 ? 'es' : '') + ' × ' + _nocG.precioMenor + ' €' : '')
+        + (_resG > 0 ? ' · ' + _resG + ' residente' + (_resG !== 1 ? 's' : '') + ' × ' + _nocG.precioResidente + ' €' : '') : '',
       '💶 Tarifas: ' + fmtEur(d.tarifas), '💶 TOTAL: ' + fmtEur(d.total),
       'NECESITA FACTURA: ' + (d.necesitaFactura || '—'), 'DIRECCIÓN: ' + [d.calleNumero, d.ciudad, d.cp].filter(Boolean).join(', '),
       'COMENTARIOS: ' + (d.comentarios || 'Ninguno'),
@@ -2487,8 +2501,11 @@ function crearEventoCalendar(d, row, editadoEn) {
     var menores = parseInt(d.menores) || 0;
     var adultos = (parseInt(d.numPersonas) || 0) - menores;
     titulo = '🌙 Visita Nocturna — ' + d.nombre + ' (' + d.numPersonas + ' pers.) — ' + fmtEur(d.total);
-    var pAdultoNoc = PRECIOS['Visita Guiada Nocturna Catedral'];
-    var pMenorNoc = PRECIOS_MENOR_GUIADA['Visita Guiada Nocturna Catedral'];
+    // Precio de la nocturna según la temporada de la fecha (10 € en baja, 15 € en alta).
+    var _ptNocI = preciosGrupoTemporada(d.fechaVisita);
+    var _nocPI = _ptNocI && _ptNocI['Visita Guiada Nocturna Catedral'];
+    var pAdultoNoc = (_nocPI && _nocPI.adulto != null) ? _nocPI.adulto : PRECIOS['Visita Guiada Nocturna Catedral'];
+    var pMenorNoc = (_nocPI && _nocPI.menor != null) ? _nocPI.menor : PRECIOS_MENOR_GUIADA['Visita Guiada Nocturna Catedral'];
     var lineas = ['   · ' + adultos + ' adulto' + (adultos !== 1 ? 's' : '') + ' × ' + pAdultoNoc + ' € = ' + fmtEur(adultos * pAdultoNoc)];
     if (menores > 0) lineas.push('   · ' + menores + ' menor' + (menores !== 1 ? 'es' : '') + ' × ' + pMenorNoc + ' € = ' + fmtEur(menores * pMenorNoc));
     descripcion = ['🌙 VISITA GUIADA NOCTURNA CATEDRAL', '─────────────────────────────',
@@ -2522,6 +2539,30 @@ function crearEventoCalendar(d, row, editadoEn) {
   }
 
   if (editadoEn) descripcion += '\nEDITADO: ' + editadoEn;
+
+  // Edición de una reserva ya confirmada: reutilizar el evento original (actualizarlo
+  // en el sitio) en lugar de borrarlo y crear otro. Conserva el mismo evento/ID en
+  // Calendar y evita duplicados. En alta nueva (sin eventoId) o si el evento ya no
+  // existe en el calendario destino, se crea uno nuevo.
+  if (d.eventoId) {
+    try {
+      var existente = calendar.getEventById(d.eventoId);
+      if (existente) {
+        existente.setTitle(titulo);
+        existente.setTime(inicio, fin);
+        existente.setDescription(descripcion);
+        try { existente.setColor(colorEvento); } catch (err) { }
+        Logger.log('Evento actualizado: ' + titulo);
+        return existente.getId();
+      }
+      // No está en el calendario destino (p. ej. cambió el tipo de visita y le
+      // corresponde otro calendario): limpiar la copia huérfana antes de recrear.
+      _eliminarEventoCalendar(d.eventoId);
+    } catch (err) {
+      Logger.log('No se pudo reutilizar el evento ' + d.eventoId + '; se crea uno nuevo: ' + err);
+    }
+  }
+
   var evento = calendar.createEvent(titulo, inicio, fin, { description: descripcion });
   try { evento.setColor(colorEvento); } catch (err) { }
   Logger.log('Evento creado: ' + titulo);

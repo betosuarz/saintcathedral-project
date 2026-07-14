@@ -5609,6 +5609,21 @@
         tipoEntradaPayload = '—';
         visitaGuiadaPayload = (state.visitMode === 'con-guia') ? (tipoEntradaSel || 'No') : 'No';
         monumentos = 'Pulsera turística (4 monumentos)';
+        if (state.tipoVisita === 'grupo') {
+          // Grupo: la celda "Tipo de entrada" no tiene carrito; desglosamos aquí
+          // las categorías de personas con su número, igual que en individual.
+          const _n = parseInt(document.getElementById('numPersonas').value) || 0;
+          const _men = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
+          const _res = parseInt(document.getElementById('residentes').value) || 0;
+          const _rep = parseInt(document.getElementById('responsablesGrupo').value) || 0;
+          const _pag = Math.max(0, _n - _men - _res - _rep);
+          const _partes = [];
+          if (_pag > 0) _partes.push(`Adultos ×${_pag}`);
+          if (_men > 0) _partes.push(`Menor <12 ×${_men}`);
+          if (_res > 0) _partes.push(`Residentes ×${_res}`);
+          if (_rep > 0) _partes.push(`Responsables ×${_rep}`);
+          if (_partes.length) tipoEntradaPayload = _partes.join(', ');
+        }
         if (state.tipoVisita === 'escolar') {
           // Escolar: desglose por tramos (el backend calcula el total desde aquí).
           const e = calcularEscolar();

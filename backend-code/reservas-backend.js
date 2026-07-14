@@ -855,7 +855,9 @@ function doPost(e) {
       data.fechaVisita || '',
       data.horaVisita || '',
       data.numPersonas || '',
-      esGrupoOrEscolar ? '—' : (data.tipoEntrada || '—'),
+      // Grupo e individual guardan aquí el desglose de entradas; escolar mantiene '—'
+      // porque su detalle por tramos va en la col. Z ("Entradas (detalle)").
+      esEscolar ? '—' : (data.tipoEntrada || '—'),
       esEscolar ? tarifa : (esGrupo ? tarifa : tarifa),
       esGrupoOrEscolar ? guiada : '—',
       total,
@@ -1032,7 +1034,8 @@ function _editarReserva(data) {
   var responsablesVal = parseInt(data.responsables) || 0;
   var menores = esGrupoOrEscolar ? 0 : menoresVal; // tarifa individual usa menores; grupos normales no
   var esNocGrupo = esGrupo && esNocturnaGrupo(visitaGuiada);
-  var tipoEntrada = esGrupoOrEscolar ? '—' : (data.tipoEntrada || ant.tipoEntrada || '—');
+  // Escolar mantiene '—' (su detalle por tramos va en la col. Z); grupo e individual guardan desglose.
+  var tipoEntrada = esEscolar ? '—' : (data.tipoEntrada || ant.tipoEntrada || '—');
   // Tarifas / total:
   //  · Individual/Escolar con carrito en el payload → recalcular desde los subtotales.
   //  · Individual sin carrito en el payload → conservar lo anterior (solo cambiaron fecha/datos).

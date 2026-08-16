@@ -892,7 +892,7 @@ function doPost(e) {
     cell.setFontWeight('bold').setHorizontalAlignment('center');
 
     GmailApp.sendEmail(
-      CONFIG.EMAIL_DISENO,
+      CONFIG.EMAIL_INFO + ',' + CONFIG.EMAIL_DISENO,
       'Nueva reserva de la Catedral',
       'Nueva reserva realizada desde el formulario de la web de la Catedral.'
     );
@@ -1625,19 +1625,18 @@ function onEditTrigger(e) {
     var esGrupoGuiado = esGrupoOrEscolar && tieneGuiadaGrupo(datos.visitaGuiada);
     var tieneJustificante = datos.justificante && String(datos.justificante).trim();
 
-    if (esGrupoGuiado && tieneJustificante) {
-      // Segunda confirmación: pago verificado → confirmar definitivamente.
-      // Si la modificación llegó DESPUÉS de subir el justificante, actualizar el evento
-      // original en el sitio (fecha/hora/título/desglose) reutilizándolo, y luego
-      // re-aplicar la URL del justificante sobre la descripción ya refrescada.
+    if (esGrupoOrEscolar && tieneJustificante) {
+      // Segunda confirmación (grupo o escolar, CON o SIN visita guiada): justificante
+      // subido → confirmar definitivamente. Se regenera el evento reutilizando el original
+      // (mismo ID, sin duplicar): crearEventoCalendar reconstruye la descripción completa
+      // desde los datos de la reserva, ya con la URL del justificante en su línea. Así se
+      // evita depender de getDescription() (que devuelve HTML) y de un reemplazo de texto
+      // frágil. Vale igual si la modificación llegó después de subir el justificante.
       var editadoEnJustif = String(estado).indexOf('✏️') === 0 ? String(estado).replace('✏️ Editado: ', '') : null;
-      if (editadoEnJustif) {
-        var eventoIdJ = crearEventoCalendar(datos, row, editadoEnJustif);
-        if (eventoIdJ) { sheet.getRange(row, COL_EVENTO_ID).setValue(eventoIdJ); datos.eventoId = eventoIdJ; }
-      }
+      var eventoIdJ = crearEventoCalendar(datos, row, editadoEnJustif);
+      if (eventoIdJ) { sheet.getRange(row, COL_EVENTO_ID).setValue(eventoIdJ); datos.eventoId = eventoIdJ; }
       enviarConfirmacionFinalGrupo(datos);
       reenviarJustificante(datos);
-      actualizarEventoCalendarJustificante(datos);
       sheet.getRange(row, COL_ESTADO).setValue('✅ Confirmado');
       Logger.log('Confirmado con pago fila ' + row + ' — ' + datos.nombre);
 
@@ -1666,6 +1665,7 @@ function onEditTrigger(e) {
       var eventoIdInd = crearEventoCalendar(datos, row, editadoEnInd);
       if (eventoIdInd) sheet.getRange(row, COL_EVENTO_ID).setValue(eventoIdInd);
       notificarGuia(datos);
+      notificarAforoWhatsApp(datos, !!editadoEnInd);
       var esNocturna = datos.tipoEntrada === 'Visita Guiada Nocturna Catedral';
       sheet.getRange(row, COL_ESTADO).setValue(esNocturna ? '📅 Reservado' : '✅ Enviado');
       Logger.log('Individual confirmado fila ' + row + ' — ' + datos.nombre);
@@ -1803,6 +1803,94 @@ function notificarGuia(d) {
     from: CONFIG.EMAIL_REMITENTE,
   });
   Logger.log('Notificación a la guía enviada: ' + asunto);
+}
+
+var TIPOS_GUIADA_AFORO = ['Visita Guiada Diurna', 'Visita Guiada VIP', 'Visita Guiada Nocturna Catedral'];
+
+// tipoEntrada llega como texto concatenado del carrito:
+//   "Visita Guiada Diurna ×3, Menor <12 (Visita Guiada Diurna) ×1, Catedral ×2"
+// Para el aforo hay que sumar TODAS las líneas que citan cada guiada (adultos,
+// menores y residentes) e ignorar las entradas sin guía: numPersonas incluye
+// esas últimas y daría una cifra inflada a quien vende en taquilla.
+function contarPersonasGuiada(tipoEntrada) {
+  var conteo = {};
+  var re = /([^,]+?)\s*[×x]\s*(\d+)/g;
+  var m;
+  while ((m = re.exec(String(tipoEntrada || ''))) !== null) {
+    var etiqueta = m[1];
+    var n = parseInt(m[2], 10) || 0;
+    for (var i = 0; i < TIPOS_GUIADA_AFORO.length; i++) {
+      if (etiqueta.indexOf(TIPOS_GUIADA_AFORO[i]) !== -1) {
+        conteo[TIPOS_GUIADA_AFORO[i]] = (conteo[TIPOS_GUIADA_AFORO[i]] || 0) + n;
+        break;
+      }
+    }
+  }
+  return conteo;
+}
+
+// Aviso al equipo de taquillas cada vez que se acepta una visita guiada, para que
+// controlen el aforo restante que venden en persona.
+// WhatsApp no deja escribir en grupos desde ninguna API (ni la oficial ni CallMeBot),
+// así que se manda a cada persona por separado. Cada una activa su propia clave
+// escribiendo al bot: https://www.callmebot.com/blog/free-api-whatsapp-messages/
+// Los destinatarios NO viven en este fichero (el repo es público): Configuración del
+// proyecto → Propiedades del script → clave WA_DESTINOS con un JSON:
+//   [{"phone":"+34600000000","apikey":"123456"},{"phone":"+34611111111","apikey":"654321"}]
+// Sin esa propiedad la función no hace nada y las reservas siguen igual.
+function notificarAforoWhatsApp(d, esModificacion) {
+  var conteo = contarPersonasGuiada(d.tipoEntrada);
+  var tipos = Object.keys(conteo);
+  if (!tipos.length) { Logger.log('WhatsApp aforo: sin guiadas en "' + d.tipoEntrada + '" → no se avisa.'); return; }
+
+  var crudo = PropertiesService.getScriptProperties().getProperty('WA_DESTINOS');
+  if (!crudo) { Logger.log('WhatsApp aforo: falta la propiedad WA_DESTINOS.'); return; }
+  var destinos;
+  try {
+    destinos = JSON.parse(crudo);
+  } catch (e) {
+    Logger.log('WhatsApp aforo: WA_DESTINOS no es JSON válido → ' + e);
+    return;
+  }
+  if (!destinos.length) { Logger.log('WhatsApp aforo: WA_DESTINOS está vacío.'); return; }
+
+  var lineas = tipos.map(function (t) {
+    var corto = t.replace('Visita Guiada ', '').replace(' Catedral', '');
+    return corto + ' × ' + conteo[t] + ' pers.';
+  });
+  var texto = (esModificacion ? '✏️ VISITA GUIADA MODIFICADA' : '✅ VISITA GUIADA ACEPTADA') + '\n'
+    + lineas.join('\n') + '\n'
+    + 'A nombre de: ' + (d.nombre || '—') + '\n'
+    + formatearFecha(d.fechaVisita) + ' · ' + formatearHora(d.horaVisita) + ' h';
+
+  destinos.forEach(function (dest) {
+    if (!dest || !dest.phone || !dest.apikey) { Logger.log('WhatsApp aforo: destino sin phone o apikey → ' + JSON.stringify(dest)); return; }
+    var url = 'https://api.callmebot.com/whatsapp.php'
+      + '?phone=' + encodeURIComponent(dest.phone)
+      + '&apikey=' + encodeURIComponent(dest.apikey)
+      + '&text=' + encodeURIComponent(texto);
+    // Un fallo de la pasarela no puede tumbar la confirmación de la reserva.
+    try {
+      var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+      // CallMeBot responde 200 aunque falle (clave inválida, número no activado…):
+      // el motivo real viene en el cuerpo, así que hay que registrarlo.
+      var cuerpo = String(resp.getContentText() || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      Logger.log('WhatsApp aforo → ' + dest.phone + ' (HTTP ' + resp.getResponseCode() + '): ' + cuerpo.substring(0, 300));
+    } catch (err) {
+      Logger.log('WhatsApp aforo KO → ' + dest.phone + ': ' + err);
+    }
+  });
+}
+
+// Ejecútala desde el editor de Apps Script para comprobar el aviso sin crear una
+// reserva real. Mira el resultado en Registro de ejecuciones.
+function probarAvisoAforo() {
+  notificarAforoWhatsApp({
+    nombre: 'Prueba de aviso',
+    tipoEntrada: 'Visita Guiada Diurna ×3, Menor <12 (Visita Guiada Diurna) ×1, Catedral ×2',
+    fechaVisita: '2026-08-20',
+    horaVisita: '12:00',
+  }, false);
 }
 
 function enviarConfirmacionModificacion(d) {
@@ -1982,7 +2070,7 @@ function buildEmailHTML(d) {
     + '<p style="margin:0;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.78);">' + String(d.respuesta).trim() + '</p></div></td></tr>'
     : '';
 
-  // Bloque pago (solo para grupos con visita guiada)
+  // Bloque pago: cualquier grupo o escolar que necesite factura (guiado o no)
   var bloquePago = ((esGrupoOrEscolar && d.necesitaFactura === 'Sí') && d.token)
     ? '<tr><td style="padding:0 48px 28px;">'
     + '<div style="background:rgba(201,168,76,0.06);border-left:2px solid #C9A84C;border-radius:0 3px 3px 0;padding:18px 20px;">'
@@ -2391,28 +2479,6 @@ function tdRowColor(label, value, color) {
 //  7. GOOGLE CALENDAR
 // ══════════════════════════════════════════════════════════════════
 
-function actualizarEventoCalendarJustificante(d) {
-  if (!d.eventoId || !d.justificante) return;
-  try {
-    var calId = d.tipoVisita === 'Grupo Escolar' ? CONFIG.CALENDAR_ESCOLAR_ID : CONFIG.CALENDAR_ID;
-    var calendar = CalendarApp.getCalendarById(calId) || CalendarApp.getDefaultCalendar();
-    var evento = calendar.getEventById(d.eventoId);
-    if (!evento) { Logger.log('Evento no encontrado para ID: ' + d.eventoId); return; }
-
-    var url = String(d.justificante).trim();
-
-    var descActual = evento.getDescription();
-    var descActualizada = descActual.replace(
-      '💳 Justificante de pago: Pendiente',
-      '💳 Justificante de pago: ' + url
-    );
-    evento.setDescription(descActualizada);
-    Logger.log('Evento Calendar actualizado con justificante: ' + url);
-  } catch (err) {
-    Logger.log('Error actualizando evento Calendar: ' + err.toString());
-  }
-}
-
 function _eliminarEventoCalendar(eventoId) {
   if (!eventoId) return;
   var calIds = [CONFIG.CALENDAR_ID, CONFIG.CALENDAR_INDIVIDUAL_ID, CONFIG.CALENDAR_ESCOLAR_ID];
@@ -2452,6 +2518,8 @@ function crearEventoCalendar(d, row, editadoEn) {
   var esNocturna = !esGrupo && !esEscolar && d.tipoEntrada === 'Visita Guiada Nocturna Catedral';
   var titulo, descripcion, colorEvento;
   var reg = 'Fila en Sheets: ' + row + '\nRegistrado: ' + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
+  // Si la reserva ya tiene justificante subido, la descripción muestra su URL; si no, "Pendiente".
+  var justifLinea = '💳 Justificante de pago: ' + ((d.justificante && String(d.justificante).trim()) ? String(d.justificante).trim() : 'Pendiente');
 
   if (esEscolar) {
     var guiadaEsc = d.visitaGuiada === 'Casco Histórico + Catedral' ? 'Casco Histórico + Catedral' : (d.visitaGuiada === 'Sí' ? 'Catedral' : 'No');
@@ -2468,7 +2536,7 @@ function crearEventoCalendar(d, row, editadoEn) {
       'NECESITA FACTURA: ' + (d.necesitaFactura || '—'),
       'DIRECCIÓN: ' + [d.calleNumero, d.ciudad, d.cp].filter(Boolean).join(', '),
       'COMENTARIOS: ' + (d.comentarios || 'Ninguno'),
-      '💳 Justificante de pago: Pendiente',
+      justifLinea,
       '─────────────────────────────', reg,
     ].filter(function (l) { return l !== ''; }).join('\n');
     colorEvento = CalendarApp.EventColor.TEAL;
@@ -2495,7 +2563,7 @@ function crearEventoCalendar(d, row, editadoEn) {
       '💶 Tarifas: ' + fmtEur(d.tarifas), '💶 TOTAL: ' + fmtEur(d.total),
       'NECESITA FACTURA: ' + (d.necesitaFactura || '—'), 'DIRECCIÓN: ' + [d.calleNumero, d.ciudad, d.cp].filter(Boolean).join(', '),
       'COMENTARIOS: ' + (d.comentarios || 'Ninguno'),
-      '💳 Justificante de pago: Pendiente',
+      justifLinea,
       '─────────────────────────────', reg,
     ].filter(function (l) { return l !== ''; }).join('\n');
     colorEvento = esNocG ? CalendarApp.EventColor.CYAN : CalendarApp.EventColor.YELLOW;

@@ -742,6 +742,39 @@
       margin-bottom: 2px
     }
 
+    /* Escolares: 5 etapas educativas por bloque (Catedral / Catedral + Cañas) */
+    #escolares .age-table { grid-template-columns: repeat(5, 1fr) }
+    @media (min-width: 1201px) { #escolares .age-card { padding: 32px 14px } }
+    /* El curso es el dato que se lee; la etapa lo titula dos puntos por encima */
+    #escolares .age-card__sub {
+      font-size: .92rem;
+      letter-spacing: .08em;
+      margin-top: 8px
+    }
+    #escolares .age-card__range { font-size: .88rem; letter-spacing: .08em }
+    /* Rótulo de cada bloque: cuatro puntos por encima del resto de la página */
+    #escolares .price-block__label { font-size: .91rem; letter-spacing: .16em }
+    #escolares .price-block__label .lbl-short { display: none }
+    /* Móvil: la tarjeta se ensancha para que el título de etapa quepa en una línea,
+       y el rótulo del bloque se acorta (sin «precio por alumno») y crece dos puntos */
+    @media (max-width: 600px) {
+      #escolares .age-table > .age-card { flex: 0 0 78%; max-width: 78% }
+      #escolares .age-card__range { font-size: .71rem }
+      #escolares .price-block__label { font-size: .75rem }
+      #escolares .price-block__label .lbl-full { display: none }
+      #escolares .price-block__label .lbl-short { display: inline }
+    }
+    /* Universitarios no tiene curso: el hueco mantiene los precios a la misma altura */
+    #escolares .age-card__sub--empty::before { content: '\200B' }
+    #escolares .supp-grid { grid-template-columns: repeat(3, 1fr) }
+    @media (max-width: 900px) { #escolares .supp-grid { grid-template-columns: 1fr } }
+    @media (max-width: 1200px) {
+      #escolares .age-table { grid-template-columns: repeat(3, 1fr) }
+      /* La tarjeta de universitarios cierra la fila en vez de dejar un hueco */
+      #escolares .age-card:nth-child(5) { grid-column: span 2 }
+    }
+    @media (max-width: 900px)  { #escolares .age-table { grid-template-columns: 1fr 1fr } }
+
     .age-card {
       background: rgba(255,255,255,.028);
       border: 1px solid rgba(201,168,76,.1);
@@ -4283,49 +4316,117 @@
         <span class="visits-section__num">04</span>
         <div>
           <h2 class="visits-section__title" data-i18n-page="s4_title">Visitas <em>escolares</em></h2>
-          <p class="visits-section__sub" data-i18n-page="s4_sub">Tarifas de acceso adaptadas por edad para grupos escolares. Reserva previa con al menos 5 días de antelación.</p>
+          <p class="visits-section__sub" data-i18n-page="s4_sub">Tarifas por etapa educativa para grupos escolares. Reserva previa con al menos 5 días de antelación.</p>
         </div>
       </div>
 
-      <!-- Precios por edad -->
+      <!-- Precios por etapa educativa -->
       <div class="price-block">
-        <div class="price-block__label" data-i18n-page="esc_price_label">Precio por alumno</div>
+        <div class="price-block__label">
+          <span class="lbl-full" data-i18n-page="esc_price_label">Visita Catedral</span>
+          <span class="lbl-short" data-i18n-page="esc_price_label_short">Catedral Santo Domingo</span>
+        </div>
         <div class="age-table">
-          <div class="age-card age-card--free reveal">
-            <span class="age-card__range" data-i18n-page="esc_age1">Menores de 12 años</span>
-            <span class="age-card__sub" data-i18n-page="esc_age1_sub">Acceso libre</span>
-            <div class="age-card__price age-card__price--free" data-i18n-page="esc_age1_price">Gratis</div>
-            <div class="age-card__desc" data-i18n-page="esc_age1_desc">Sin coste de entrada</div>
+          <div class="age-card reveal">
+            <span class="age-card__range" data-i18n-page="esc_st_prim">Primaria</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv1">1.º – 3.º</span>
+            <div class="age-card__price">1 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal reveal-delay-1">
-            <span class="age-card__range" data-i18n-page="esc_age2">12 – 13 años</span>
-            <span class="age-card__sub" data-i18n-page="esc_age_school">Tarifa escolar</span>
+            <span class="age-card__range" data-i18n-page="esc_st_prim">Primaria</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv2">4.º – 6.º</span>
             <div class="age-card__price">2 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
             <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal reveal-delay-2">
-            <span class="age-card__range" data-i18n-page="esc_age3">13 – 14 años</span>
-            <span class="age-card__sub" data-i18n-page="esc_age_school">Tarifa escolar</span>
+            <span class="age-card__range" data-i18n-page="esc_st_eso">ESO</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv3">1.º – 4.º</span>
             <div class="age-card__price">3 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
             <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal">
-            <span class="age-card__range" data-i18n-page="esc_age4">15 – 16 años</span>
-            <span class="age-card__sub" data-i18n-page="esc_age_school">Tarifa escolar</span>
+            <span class="age-card__range" data-i18n-page="esc_st_bach">Bachillerato</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv4">1.º – 2.º</span>
             <div class="age-card__price">4 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
             <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
           <div class="age-card reveal reveal-delay-1">
-            <span class="age-card__range" data-i18n-page="esc_age5">17 años o más</span>
-            <span class="age-card__sub" data-i18n-page="esc_age5_sub">Tarifa general</span>
-            <div class="age-card__price age-card__price--text" data-i18n-page="esc_age5_price">Entrada<br>normal</div>
-            <div class="age-card__desc" data-i18n-page="esc_age5_desc">misma tarifa que el público general</div>
+            <span class="age-card__range" data-i18n-page="esc_st_uni">Universitarios</span>
+            <span class="age-card__sub age-card__sub--empty" aria-hidden="true"></span>
+            <div class="age-card__price">5 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
           </div>
-          <div class="age-card age-card--supp reveal reveal-delay-2">
-            <span class="age-card__range" data-i18n-page="esc_supp_range">Supl. Guiada · Catedral</span>
-            <span class="age-card__sub" data-i18n-page="esc_supp_sub">Opcional</span>
-            <div class="age-card__price">+50 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
-            <div class="age-card__desc" data-i18n-page="esc_supp_desc">por grupo · visita con guía experto</div>
+        </div>
+      </div>
+
+      <!-- Precios combinados con el Monasterio de Cañas -->
+      <div class="price-block">
+        <div class="price-block__label">
+          <span class="lbl-full" data-i18n-page="esc_price_label2">Visita Catedral + Monasterio de Cañas</span>
+          <span class="lbl-short" data-i18n-page="esc_price_label2_short">Catedral + Monasterio Cañas</span>
+        </div>
+        <div class="age-table">
+          <div class="age-card reveal">
+            <span class="age-card__range" data-i18n-page="esc_st_prim">Primaria</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv1">1.º – 3.º</span>
+            <div class="age-card__price">1,5 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
+          </div>
+          <div class="age-card reveal reveal-delay-1">
+            <span class="age-card__range" data-i18n-page="esc_st_prim">Primaria</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv2">4.º – 6.º</span>
+            <div class="age-card__price">3 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
+          </div>
+          <div class="age-card reveal reveal-delay-2">
+            <span class="age-card__range" data-i18n-page="esc_st_eso">ESO</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv3">1.º – 4.º</span>
+            <div class="age-card__price">4 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
+          </div>
+          <div class="age-card reveal">
+            <span class="age-card__range" data-i18n-page="esc_st_bach">Bachillerato</span>
+            <span class="age-card__sub" data-i18n-page="esc_lv4">1.º – 2.º</span>
+            <div class="age-card__price">5 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
+          </div>
+          <div class="age-card reveal reveal-delay-1">
+            <span class="age-card__range" data-i18n-page="esc_st_uni">Universitarios</span>
+            <span class="age-card__sub age-card__sub--empty" aria-hidden="true"></span>
+            <div class="age-card__price">7 <span style="font-size:1rem;font-family:var(--sans)">€</span></div>
+            <div class="age-card__desc" data-i18n-page="esc_per_alumno">por alumno</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suplemento de visita guiada -->
+      <div class="price-block">
+        <div class="price-block__label" data-i18n-page="esc_supp_label">Suplemento de visita guiada</div>
+        <div class="supp-grid">
+          <div class="supp-card reveal">
+            <svg class="supp-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <div>
+              <div class="supp-card__label" data-i18n-page="esc_supp_range">Visita guiada · Catedral</div>
+              <div class="supp-card__price">+ 50 €/grupo</div>
+              <div class="supp-card__note" data-i18n-page="esc_supp_desc">Opcional · visita con guía experto</div>
+            </div>
+          </div>
+          <div class="supp-card reveal reveal-delay-1">
+            <svg class="supp-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="10" width="5" height="11"/><rect x="9" y="4" width="6" height="17"/><rect x="17" y="8" width="5" height="13"/><path d="M1 21h22"/></svg>
+            <div>
+              <div class="supp-card__label" data-i18n-page="esc_supp2_range">Visita guiada · Casco Histórico + Catedral</div>
+              <div class="supp-card__price">+ 100 €/grupo</div>
+              <div class="supp-card__note" data-i18n-page="esc_supp_desc">Opcional · visita con guía experto</div>
+            </div>
+          </div>
+          <div class="supp-card reveal reveal-delay-2">
+            <svg class="supp-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div class="supp-card__label" data-i18n-page="esc_supp3_range">Visita guiada · Catedral + Monasterio de Cañas</div>
+              <div class="supp-card__price">+ 100 €/grupo</div>
+              <div class="supp-card__note" data-i18n-page="esc_supp_desc">Opcional · visita con guía experto</div>
+            </div>
           </div>
         </div>
       </div>
@@ -4694,13 +4795,13 @@
         grp_info_min_label: 'Mínimo', grp_info_min_val: '10 personas', grp_info_min_note: 'Sin límite máximo de asistentes',
         grp_info_hor_label: 'Horario grupos', grp_info_hor_val: 'Todos los días, 9:00 – 20:00<br>Sábados, 9:00 – 19:00',
         grp_info_contact_label: 'Contacto grupos',
-        s4_title: 'Visitas <em>escolares</em>', s4_sub: 'Tarifas de acceso adaptadas por edad para grupos escolares. Reserva previa con al menos 5 días de antelación.',
-        esc_price_label: 'Precio por alumno',
-        esc_age1: 'Menores de 12 años', esc_age1_sub: 'Acceso libre', esc_age1_price: 'Gratis', esc_age1_desc: 'Sin coste de entrada',
-        esc_age2: '12 – 13 años', esc_age3: '13 – 14 años', esc_age4: '15 – 16 años', esc_age5: '17 años o más',
-        esc_age_school: 'Tarifa escolar', esc_per_alumno: 'por alumno',
-        esc_age5_sub: 'Tarifa general', esc_age5_price: 'Entrada<br>normal', esc_age5_desc: 'misma tarifa que el público general',
-        esc_supp_range: 'Supl. Guiada · Catedral', esc_supp_sub: 'Opcional', esc_supp_desc: 'por grupo · visita con guía experto',
+        s4_title: 'Visitas <em>escolares</em>', s4_sub: 'Tarifas por etapa educativa para grupos escolares. Reserva previa con al menos 5 días de antelación.',
+        esc_price_label: 'Visita Catedral', esc_price_label_short: 'Catedral Santo Domingo',
+        esc_price_label2: 'Visita Catedral + Monasterio de Cañas', esc_price_label2_short: 'Catedral + Monasterio Cañas',
+        esc_st_prim: 'Primaria', esc_st_eso: 'ESO', esc_st_bach: 'Bachillerato', esc_st_uni: 'Universitarios',
+        esc_lv1: '1.º – 3.º', esc_lv2: '4.º – 6.º', esc_lv3: '1.º – 4.º', esc_lv4: '1.º – 2.º',
+        esc_per_alumno: 'por alumno',
+        esc_supp_label: 'Suplemento de visita guiada', esc_supp_range: 'Visita guiada · Catedral', esc_supp2_range: 'Visita guiada · Casco Histórico + Catedral', esc_supp3_range: 'Visita guiada · Catedral + Monasterio de Cañas', esc_supp_desc: 'Opcional · visita con guía experto',
         esc_info_guided_label: 'Visitas guiadas', esc_info_guided_val: 'Adaptadas por edades', esc_info_guided_note: 'según grupos escolares.',
         esc_info_gallo_label: 'Gallinero vivo', esc_info_gallo_val: 'Historia del Milagro', esc_info_gallo_note: 'del Gallo y la Gallina para niños.',
         esc_info_reserva_label: 'Reserva escolar', esc_info_reserva_val: 'Con 5 días de antelación', esc_info_reserva_note: 'desde la web oficial.',
@@ -4765,13 +4866,13 @@
         grp_info_min_label: 'Minimum', grp_info_min_val: '10 people', grp_info_min_note: 'No maximum attendee limit',
         grp_info_hor_label: 'Group hours', grp_info_hor_val: 'Every day, 9:00 – 20:00<br>Saturdays, 9:00 – 19:00',
         grp_info_contact_label: 'Group contact',
-        s4_title: '<em>School</em> visits', s4_sub: 'Age-adapted access rates for school groups. Booking required at least 5 days in advance.',
-        esc_price_label: 'Price per student',
-        esc_age1: 'Under 12 years old', esc_age1_sub: 'Free access', esc_age1_price: 'Free', esc_age1_desc: 'No entry cost',
-        esc_age2: '12 – 13 years', esc_age3: '13 – 14 years', esc_age4: '15 – 16 years', esc_age5: '17 years or older',
-        esc_age_school: 'School rate', esc_per_alumno: 'per student',
-        esc_age5_sub: 'General rate', esc_age5_price: 'Standard<br>ticket', esc_age5_desc: 'same rate as general public',
-        esc_supp_range: 'Guided supp. · Cathedral', esc_supp_sub: 'Optional', esc_supp_desc: 'per group · visit with expert guide',
+        s4_title: '<em>School</em> visits', s4_sub: 'Rates by school stage for educational groups. Booking required at least 5 days in advance.',
+        esc_price_label: 'Cathedral visit', esc_price_label_short: 'Santo Domingo Cathedral',
+        esc_price_label2: 'Cathedral + Cañas Monastery visit', esc_price_label2_short: 'Cathedral + Cañas Monastery',
+        esc_st_prim: 'Primary', esc_st_eso: 'Secondary', esc_st_bach: 'Upper secondary', esc_st_uni: 'University',
+        esc_lv1: 'Years 1 – 3', esc_lv2: 'Years 4 – 6', esc_lv3: 'Years 1 – 4', esc_lv4: 'Years 1 – 2',
+        esc_per_alumno: 'per student',
+        esc_supp_label: 'Guided tour supplement', esc_supp_range: 'Guided tour · Cathedral', esc_supp2_range: 'Guided tour · Old town + Cathedral', esc_supp3_range: 'Guided tour · Cathedral + Cañas Monastery', esc_supp_desc: 'Optional · visit with expert guide',
         esc_info_guided_label: 'Guided tours', esc_info_guided_val: 'Adapted by age', esc_info_guided_note: 'for school groups.',
         esc_info_gallo_label: 'Live henhouse', esc_info_gallo_val: 'Story of the Miracle', esc_info_gallo_note: 'of the Rooster and Hen for children.',
         esc_info_reserva_label: 'School booking', esc_info_reserva_val: '5 days in advance', esc_info_reserva_note: 'from the official website.',
@@ -4836,13 +4937,13 @@
         grp_info_min_label: 'Minimum', grp_info_min_val: '10 personnes', grp_info_min_note: 'Sans limite maximale de participants',
         grp_info_hor_label: 'Horaires groupes', grp_info_hor_val: 'Tous les jours, 9h00 – 20h00<br>Samedis, 9h00 – 19h00',
         grp_info_contact_label: 'Contact groupes',
-        s4_title: 'Visites <em>scolaires</em>', s4_sub: 'Tarifs d\'accès adaptés par âge pour groupes scolaires. Réservation préalable au moins 5 jours à l\'avance.',
-        esc_price_label: 'Prix par élève',
-        esc_age1: 'Moins de 12 ans', esc_age1_sub: 'Accès libre', esc_age1_price: 'Gratuit', esc_age1_desc: 'Sans coût d\'entrée',
-        esc_age2: '12 – 13 ans', esc_age3: '13 – 14 ans', esc_age4: '15 – 16 ans', esc_age5: '17 ans et plus',
-        esc_age_school: 'Tarif scolaire', esc_per_alumno: 'par élève',
-        esc_age5_sub: 'Tarif général', esc_age5_price: 'Billet<br>normal', esc_age5_desc: 'même tarif que le public général',
-        esc_supp_range: 'Suppl. Guidée · Cathédrale', esc_supp_sub: 'Optionnel', esc_supp_desc: 'par groupe · visite avec guide expert',
+        s4_title: 'Visites <em>scolaires</em>', s4_sub: 'Tarifs par niveau scolaire pour les groupes éducatifs. Réservation préalable au moins 5 jours à l\'avance.',
+        esc_price_label: 'Visite Cathédrale', esc_price_label_short: 'Cathédrale Santo Domingo',
+        esc_price_label2: 'Visite Cathédrale + Monastère de Cañas', esc_price_label2_short: 'Cathédrale + Monastère Cañas',
+        esc_st_prim: 'Primaire', esc_st_eso: 'Collège', esc_st_bach: 'Lycée', esc_st_uni: 'Université',
+        esc_lv1: 'Années 1 – 3', esc_lv2: 'Années 4 – 6', esc_lv3: 'Années 1 – 4', esc_lv4: 'Années 1 – 2',
+        esc_per_alumno: 'par élève',
+        esc_supp_label: 'Supplément de visite guidée', esc_supp_range: 'Visite guidée · Cathédrale', esc_supp2_range: 'Visite guidée · Centre historique + Cathédrale', esc_supp3_range: 'Visite guidée · Cathédrale + Monastère de Cañas', esc_supp_desc: 'Optionnel · visite avec guide expert',
         esc_info_guided_label: 'Visites guidées', esc_info_guided_val: 'Adaptées par âge', esc_info_guided_note: 'selon groupes scolaires.',
         esc_info_gallo_label: 'Poulailler vivant', esc_info_gallo_val: 'Histoire du Miracle', esc_info_gallo_note: 'du Coq et de la Poule pour les enfants.',
         esc_info_reserva_label: 'Réservation scolaire', esc_info_reserva_val: '5 jours à l\'avance', esc_info_reserva_note: 'depuis le site officiel.',
@@ -4907,13 +5008,13 @@
         grp_info_min_label: 'Mindestens', grp_info_min_val: '10 Personen', grp_info_min_note: 'Keine maximale Teilnehmerzahl',
         grp_info_hor_label: 'Gruppenzeiten', grp_info_hor_val: 'Täglich, 9:00 – 20:00<br>Samstags, 9:00 – 19:00',
         grp_info_contact_label: 'Gruppenkontakt',
-        s4_title: '<em>Schulbesuche</em>', s4_sub: 'Altersgerechte Zugangstarife für Schulgruppen. Vorherige Reservierung mindestens 5 Tage im Voraus.',
-        esc_price_label: 'Preis pro Schüler',
-        esc_age1: 'Unter 12 Jahren', esc_age1_sub: 'Freier Zugang', esc_age1_price: 'Kostenlos', esc_age1_desc: 'Kein Eintrittspreis',
-        esc_age2: '12 – 13 Jahre', esc_age3: '13 – 14 Jahre', esc_age4: '15 – 16 Jahre', esc_age5: '17 Jahre oder älter',
-        esc_age_school: 'Schultarif', esc_per_alumno: 'pro Schüler',
-        esc_age5_sub: 'Normaltarif', esc_age5_price: 'Normales<br>Ticket', esc_age5_desc: 'gleicher Tarif wie für die Allgemeinheit',
-        esc_supp_range: 'Führungszuschlag · Kathedrale', esc_supp_sub: 'Optional', esc_supp_desc: 'pro Gruppe · Besuch mit Expertenführung',
+        s4_title: '<em>Schulbesuche</em>', s4_sub: 'Tarife nach Schulstufe für Schulgruppen. Vorherige Reservierung mindestens 5 Tage im Voraus.',
+        esc_price_label: 'Kathedralenbesuch', esc_price_label_short: 'Kathedrale Santo Domingo',
+        esc_price_label2: 'Besuch Kathedrale + Kloster Cañas', esc_price_label2_short: 'Kathedrale + Kloster Cañas',
+        esc_st_prim: 'Grundschule', esc_st_eso: 'Sekundarstufe I', esc_st_bach: 'Sekundarstufe II', esc_st_uni: 'Studierende',
+        esc_lv1: 'Klassen 1 – 3', esc_lv2: 'Klassen 4 – 6', esc_lv3: 'Klassen 1 – 4', esc_lv4: 'Klassen 1 – 2',
+        esc_per_alumno: 'pro Schüler',
+        esc_supp_label: 'Führungszuschlag', esc_supp_range: 'Führung · Kathedrale', esc_supp2_range: 'Führung · Altstadt + Kathedrale', esc_supp3_range: 'Führung · Kathedrale + Kloster Cañas', esc_supp_desc: 'Optional · Besuch mit Expertenführung',
         esc_info_guided_label: 'Führungen', esc_info_guided_val: 'Altersgerecht', esc_info_guided_note: 'für Schulgruppen.',
         esc_info_gallo_label: 'Lebender Hühnerstall', esc_info_gallo_val: 'Geschichte des Wunders', esc_info_gallo_note: 'von Hahn und Henne für Kinder.',
         esc_info_reserva_label: 'Schulreservierung', esc_info_reserva_val: '5 Tage im Voraus', esc_info_reserva_note: 'über die offizielle Website.',
@@ -4978,13 +5079,13 @@
         grp_info_min_label: 'Mínimo', grp_info_min_val: '10 pessoas', grp_info_min_note: 'Sem limite máximo de participantes',
         grp_info_hor_label: 'Horário grupos', grp_info_hor_val: 'Todos os dias, 9:00 – 20:00<br>Sábados, 9:00 – 19:00',
         grp_info_contact_label: 'Contacto grupos',
-        s4_title: 'Visitas <em>escolares</em>', s4_sub: 'Tarifas de acesso adaptadas por idade para grupos escolares. Reserva prévia com pelo menos 5 dias de antecedência.',
-        esc_price_label: 'Preço por aluno',
-        esc_age1: 'Menores de 12 anos', esc_age1_sub: 'Acesso livre', esc_age1_price: 'Grátis', esc_age1_desc: 'Sem custo de entrada',
-        esc_age2: '12 – 13 anos', esc_age3: '13 – 14 anos', esc_age4: '15 – 16 anos', esc_age5: '17 anos ou mais',
-        esc_age_school: 'Tarifa escolar', esc_per_alumno: 'por aluno',
-        esc_age5_sub: 'Tarifa geral', esc_age5_price: 'Bilhete<br>normal', esc_age5_desc: 'mesma tarifa do público geral',
-        esc_supp_range: 'Supl. Guiada · Catedral', esc_supp_sub: 'Opcional', esc_supp_desc: 'por grupo · visita com guia especializado',
+        s4_title: 'Visitas <em>escolares</em>', s4_sub: 'Tarifas por nível de ensino para grupos escolares. Reserva prévia com pelo menos 5 dias de antecedência.',
+        esc_price_label: 'Visita Catedral', esc_price_label_short: 'Catedral Santo Domingo',
+        esc_price_label2: 'Visita Catedral + Mosteiro de Cañas', esc_price_label2_short: 'Catedral + Mosteiro Cañas',
+        esc_st_prim: 'Primária', esc_st_eso: 'Secundária', esc_st_bach: 'Pré-universitário', esc_st_uni: 'Universitários',
+        esc_lv1: '1.º – 3.º ano', esc_lv2: '4.º – 6.º ano', esc_lv3: '1.º – 4.º ano', esc_lv4: '1.º – 2.º ano',
+        esc_per_alumno: 'por aluno',
+        esc_supp_label: 'Suplemento de visita guiada', esc_supp_range: 'Visita guiada · Catedral', esc_supp2_range: 'Visita guiada · Centro Histórico + Catedral', esc_supp3_range: 'Visita guiada · Catedral + Mosteiro de Cañas', esc_supp_desc: 'Opcional · visita com guia especializado',
         esc_info_guided_label: 'Visitas guiadas', esc_info_guided_val: 'Adaptadas por idades', esc_info_guided_note: 'consoante grupos escolares.',
         esc_info_gallo_label: 'Galinheiro vivo', esc_info_gallo_val: 'História do Milagre', esc_info_gallo_note: 'do Galo e da Galinha para crianças.',
         esc_info_reserva_label: 'Reserva escolar', esc_info_reserva_val: '5 dias de antecedência', esc_info_reserva_note: 'a partir do site oficial.',
@@ -5049,13 +5150,13 @@
         grp_info_min_label: 'Minimo', grp_info_min_val: '10 persone', grp_info_min_note: 'Senza limite massimo di partecipanti',
         grp_info_hor_label: 'Orari gruppi', grp_info_hor_val: 'Tutti i giorni, 9:00 – 20:00<br>Sabato, 9:00 – 19:00',
         grp_info_contact_label: 'Contatto gruppi',
-        s4_title: 'Visite <em>scolastiche</em>', s4_sub: 'Tariffe di accesso adattate per età per gruppi scolastici. Prenotazione anticipata di almeno 5 giorni.',
-        esc_price_label: 'Prezzo per alunno',
-        esc_age1: 'Minori di 12 anni', esc_age1_sub: 'Accesso libero', esc_age1_price: 'Gratis', esc_age1_desc: 'Senza costo d\'ingresso',
-        esc_age2: '12 – 13 anni', esc_age3: '13 – 14 anni', esc_age4: '15 – 16 anni', esc_age5: '17 anni o più',
-        esc_age_school: 'Tariffa scolastica', esc_per_alumno: 'per alunno',
-        esc_age5_sub: 'Tariffa generale', esc_age5_price: 'Biglietto<br>normale', esc_age5_desc: 'stessa tariffa del pubblico generale',
-        esc_supp_range: 'Suppl. Guidata · Cattedrale', esc_supp_sub: 'Opzionale', esc_supp_desc: 'per gruppo · visita con guida esperta',
+        s4_title: 'Visite <em>scolastiche</em>', s4_sub: 'Tariffe per livello scolastico per gruppi scolastici. Prenotazione anticipata di almeno 5 giorni.',
+        esc_price_label: 'Visita Cattedrale', esc_price_label_short: 'Cattedrale Santo Domingo',
+        esc_price_label2: 'Visita Cattedrale + Monastero di Cañas', esc_price_label2_short: 'Cattedrale + Monastero Cañas',
+        esc_st_prim: 'Primaria', esc_st_eso: 'Secondaria I', esc_st_bach: 'Secondaria II', esc_st_uni: 'Universitari',
+        esc_lv1: 'Anni 1 – 3', esc_lv2: 'Anni 4 – 6', esc_lv3: 'Anni 1 – 4', esc_lv4: 'Anni 1 – 2',
+        esc_per_alumno: 'per alunno',
+        esc_supp_label: 'Supplemento di visita guidata', esc_supp_range: 'Visita guidata · Cattedrale', esc_supp2_range: 'Visita guidata · Centro storico + Cattedrale', esc_supp3_range: 'Visita guidata · Cattedrale + Monastero di Cañas', esc_supp_desc: 'Opzionale · visita con guida esperta',
         esc_info_guided_label: 'Visite guidate', esc_info_guided_val: 'Adattate per età', esc_info_guided_note: 'in base ai gruppi scolastici.',
         esc_info_gallo_label: 'Pollaio vivo', esc_info_gallo_val: 'Storia del Miracolo', esc_info_gallo_note: 'del Gallo e della Gallina per bambini.',
         esc_info_reserva_label: 'Prenotazione scolastica', esc_info_reserva_val: '5 giorni in anticipo', esc_info_reserva_note: 'dal sito ufficiale.',
@@ -5120,13 +5221,13 @@
         grp_info_min_label: '최소', grp_info_min_val: '10명', grp_info_min_note: '인원 상한 없음',
         grp_info_hor_label: '단체 운영시간', grp_info_hor_val: '매일 9:00 – 20:00<br>토요일 9:00 – 19:00',
         grp_info_contact_label: '단체 문의',
-        s4_title: '<em>학교</em> 방문', s4_sub: '학생 단체용 연령별 입장 요금. 최소 5일 전 사전 예약 필요.',
-        esc_price_label: '학생 1인당 요금',
-        esc_age1: '12세 미만', esc_age1_sub: '무료 입장', esc_age1_price: '무료', esc_age1_desc: '입장료 없음',
-        esc_age2: '12 – 13세', esc_age3: '13 – 14세', esc_age4: '15 – 16세', esc_age5: '17세 이상',
-        esc_age_school: '학생 요금', esc_per_alumno: '학생 1인당',
-        esc_age5_sub: '일반 요금', esc_age5_price: '일반<br>티켓', esc_age5_desc: '일반 관람객과 동일한 요금',
-        esc_supp_range: '가이드 추가 · 대성당', esc_supp_sub: '선택', esc_supp_desc: '단체당 · 전문 가이드 동반',
+        s4_title: '<em>학교</em> 방문', s4_sub: '학생 단체용 학년별 입장 요금. 최소 5일 전 사전 예약 필요.',
+        esc_price_label: '대성당 방문', esc_price_label_short: '산토도밍고 대성당',
+        esc_price_label2: '대성당 + 카냐스 수도원 방문', esc_price_label2_short: '대성당 + 카냐스 수도원',
+        esc_st_prim: '초등학교', esc_st_eso: '중학교', esc_st_bach: '고등학교', esc_st_uni: '대학생',
+        esc_lv1: '1 – 3학년', esc_lv2: '4 – 6학년', esc_lv3: '1 – 4학년', esc_lv4: '1 – 2학년',
+        esc_per_alumno: '학생 1인당',
+        esc_supp_label: '가이드 투어 추가 요금', esc_supp_range: '가이드 투어 · 대성당', esc_supp2_range: '가이드 투어 · 구시가지 + 대성당', esc_supp3_range: '가이드 투어 · 대성당 + 카냐스 수도원', esc_supp_desc: '선택 · 전문 가이드 동반',
         esc_info_guided_label: '가이드 투어', esc_info_guided_val: '연령별 맞춤', esc_info_guided_note: '학생 단체용.',
         esc_info_gallo_label: '닭장', esc_info_gallo_val: '기적 이야기', esc_info_gallo_note: '어린이용 닭과 수탉 이야기.',
         esc_info_reserva_label: '학교 예약', esc_info_reserva_val: '5일 전 예약', esc_info_reserva_note: '공식 웹사이트에서.',
@@ -5191,13 +5292,13 @@
         grp_info_min_label: 'Gutxienez', grp_info_min_val: '10 lagun', grp_info_min_note: 'Parte-hartzaileen muga gabe',
         grp_info_hor_label: 'Talde ordutegia', grp_info_hor_val: 'Egunero, 9:00 – 20:00<br>Larunbatak, 9:00 – 19:00',
         grp_info_contact_label: 'Talde kontaktua',
-        s4_title: '<em>Eskola</em> bisitak', s4_sub: 'Eskola-taldeentzako adinaren araberako sarbide-tarifak. Gutxienez 5 egun lehenago erreserbatu beharra.',
-        esc_price_label: 'Prezioa ikasleko',
-        esc_age1: '12 urtetik beherakoak', esc_age1_sub: 'Sarbide librea', esc_age1_price: 'Doan', esc_age1_desc: 'Sarrera kosturik gabe',
-        esc_age2: '12 – 13 urte', esc_age3: '13 – 14 urte', esc_age4: '15 – 16 urte', esc_age5: '17 urte edo gehiago',
-        esc_age_school: 'Eskola tarifa', esc_per_alumno: 'ikasleko',
-        esc_age5_sub: 'Tarifa orokorra', esc_age5_price: 'Sarrera<br>arrunta', esc_age5_desc: 'jendaurreko publikoaren tarifa berdina',
-        esc_supp_range: 'Gidaturako gehig. · Katedrala', esc_supp_sub: 'Aukerakoa', esc_supp_desc: 'taldeko · gidari adituarekin',
+        s4_title: '<em>Eskola</em> bisitak', s4_sub: 'Eskola-taldeentzako hezkuntza-etaparen araberako tarifak. Gutxienez 5 egun lehenago erreserbatu beharra.',
+        esc_price_label: 'Katedraleko bisita', esc_price_label_short: 'Santo Domingoko Katedrala',
+        esc_price_label2: 'Katedrala + Cañaseko Monasterioa bisita', esc_price_label2_short: 'Katedrala + Cañaseko Monasterioa',
+        esc_st_prim: 'Lehen Hezkuntza', esc_st_eso: 'DBH', esc_st_bach: 'Batxilergoa', esc_st_uni: 'Unibertsitarioak',
+        esc_lv1: '1 – 3 maila', esc_lv2: '4 – 6 maila', esc_lv3: '1 – 4 maila', esc_lv4: '1 – 2 maila',
+        esc_per_alumno: 'ikasleko',
+        esc_supp_label: 'Bisita gidatuaren gehigarria', esc_supp_range: 'Bisita gidatua · Katedrala', esc_supp2_range: 'Bisita gidatua · Hirigune historikoa + Katedrala', esc_supp3_range: 'Bisita gidatua · Katedrala + Cañaseko Monasterioa', esc_supp_desc: 'Aukerakoa · gidari adituarekin',
         esc_info_guided_label: 'Bisita gidatuak', esc_info_guided_val: 'Adinetara egokituak', esc_info_guided_note: 'eskola-taldeen arabera.',
         esc_info_gallo_label: 'Oilategi bizia', esc_info_gallo_val: 'Mirariaren historia', esc_info_gallo_note: 'Oilar eta oiloaren istorioa haurrentzat.',
         esc_info_reserva_label: 'Eskola erreserba', esc_info_reserva_val: '5 egun lehenago', esc_info_reserva_note: 'webgune ofizialetik.',
@@ -5262,13 +5363,13 @@
         grp_info_min_label: 'Mínim', grp_info_min_val: '10 persones', grp_info_min_note: 'Sense límit màxim d\'assistents',
         grp_info_hor_label: 'Horari grups', grp_info_hor_val: 'Tots els dies, 9:00 – 20:00<br>Dissabtes, 9:00 – 19:00',
         grp_info_contact_label: 'Contacte grups',
-        s4_title: 'Visites <em>escolars</em>', s4_sub: 'Tarifes d\'accés adaptades per edat per a grups escolars. Reserva prèvia amb almenys 5 dies d\'antelació.',
-        esc_price_label: 'Preu per alumne',
-        esc_age1: 'Menors de 12 anys', esc_age1_sub: 'Accés lliure', esc_age1_price: 'Gratis', esc_age1_desc: 'Sense cost d\'entrada',
-        esc_age2: '12 – 13 anys', esc_age3: '13 – 14 anys', esc_age4: '15 – 16 anys', esc_age5: '17 anys o més',
-        esc_age_school: 'Tarifa escolar', esc_per_alumno: 'per alumne',
-        esc_age5_sub: 'Tarifa general', esc_age5_price: 'Entrada<br>normal', esc_age5_desc: 'mateixa tarifa que el públic general',
-        esc_supp_range: 'Supl. Guiada · Catedral', esc_supp_sub: 'Opcional', esc_supp_desc: 'per grup · visita amb guia expert',
+        s4_title: 'Visites <em>escolars</em>', s4_sub: 'Tarifes per etapa educativa per a grups escolars. Reserva prèvia amb almenys 5 dies d\'antelació.',
+        esc_price_label: 'Visita Catedral', esc_price_label_short: 'Catedral Santo Domingo',
+        esc_price_label2: 'Visita Catedral + Monestir de Cañas', esc_price_label2_short: 'Catedral + Monestir Cañas',
+        esc_st_prim: 'Primària', esc_st_eso: 'ESO', esc_st_bach: 'Batxillerat', esc_st_uni: 'Universitaris',
+        esc_lv1: '1r – 3r', esc_lv2: '4t – 6è', esc_lv3: '1r – 4t', esc_lv4: '1r – 2n',
+        esc_per_alumno: 'per alumne',
+        esc_supp_label: 'Suplement de visita guiada', esc_supp_range: 'Visita guiada · Catedral', esc_supp2_range: 'Visita guiada · Centre Històric + Catedral', esc_supp3_range: 'Visita guiada · Catedral + Monestir de Cañas', esc_supp_desc: 'Opcional · visita amb guia expert',
         esc_info_guided_label: 'Visites guiades', esc_info_guided_val: 'Adaptades per edats', esc_info_guided_note: 'segons grups escolars.',
         esc_info_gallo_label: 'Galliner viu', esc_info_gallo_val: 'Història del Miracle', esc_info_gallo_note: 'del Gall i la Gallina per a nens.',
         esc_info_reserva_label: 'Reserva escolar', esc_info_reserva_val: 'Amb 5 dies d\'antelació', esc_info_reserva_note: 'des del web oficial.',

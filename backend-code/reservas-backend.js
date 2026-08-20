@@ -58,18 +58,34 @@ const PRECIO_GRUPO_POR_PERSONA = 5;
 const PRECIO_GRUPO_MINIMO = 125;
 const SUPLEMENTO_VISITA_GUIADA = 50;
 const SUPLEMENTO_VISITA_GUIADA_CASCO = 100;
-const PRECIOS_ESCOLAR = { 'menor12': 0, 'e1213': 2, 'e1415': 3, 'e1617': 4, 'mayor17': 5 };
-const LABELS_TRAMO = {
-  'menor12': 'Escolares menores de 12 años',
-  'e1213': 'Escolares 12–13 años',
-  'e1415': 'Escolares 14–15 años',
-  'e1617': 'Estudiantes 16–17 años',
-  'mayor17': 'Estudiantes mayores de 17 años',
+const SUPLEMENTO_VISITA_GUIADA_CANAS = 100;
+// Las guiadas de 100 € (casco histórico o Cañas) duran 2 h; la de Catedral, 1 h.
+function esGuiadaLarga(v) { return v === 'Casco Histórico + Catedral' || v === 'Catedral + Cañas'; }
+function suplementoGuiada(v) {
+  if (v === 'Casco Histórico + Catedral') return SUPLEMENTO_VISITA_GUIADA_CASCO;
+  if (v === 'Catedral + Cañas') return SUPLEMENTO_VISITA_GUIADA_CANAS;
+  return v === 'Sí' ? SUPLEMENTO_VISITA_GUIADA : 0;
+}
+// Tarifas escolares por curso. Dos destinos: solo Catedral, o Catedral + Monasterio de Cañas.
+const PRECIOS_ESCOLAR = {
+  'catedral': { 'prim13': 1, 'prim46': 2, 'eso': 3, 'bach': 4, 'uni': 5 },
+  'canas': { 'prim13': 1.5, 'prim46': 3, 'eso': 4, 'bach': 5, 'uni': 7 },
 };
+const LABELS_TRAMO = {
+  'prim13': 'Escolares 1.º–3.º Primaria',
+  'prim46': 'Escolares 4.º–6.º Primaria',
+  'eso': 'Escolares ESO',
+  'bach': 'Escolares Bachillerato',
+  'uni': 'Estudiantes universitarios',
+};
+const LABELS_DESTINO_ESC = { 'catedral': 'Catedral', 'canas': 'Catedral + Monasterio de Cañas' };
+function destinoEscolar(v) { return String(v || '').toLowerCase().indexOf('can') >= 0 ? 'canas' : 'catedral'; }
+function destinoEscolarLabel(v) { return LABELS_DESTINO_ESC[destinoEscolar(v)]; }
 function tramoLabel(tramo) { return LABELS_TRAMO[tramo] || (tramo || '—'); }
-function tramoPrecio(tramo) {
-  if (PRECIOS_ESCOLAR[tramo] !== undefined) return PRECIOS_ESCOLAR[tramo];
-  for (var k in LABELS_TRAMO) { if (LABELS_TRAMO[k] === tramo) return PRECIOS_ESCOLAR[k]; }
+function tramoPrecio(tramo, destino) {
+  var tabla = PRECIOS_ESCOLAR[destinoEscolar(destino)];
+  if (tabla[tramo] !== undefined) return tabla[tramo];
+  for (var k in LABELS_TRAMO) { if (LABELS_TRAMO[k] === tramo) return tabla[k]; }
   return null;
 }
 
@@ -213,7 +229,7 @@ function setupTriggers() {
 //  2. CÁLCULO DE TARIFAS
 // ══════════════════════════════════════════════════════════════════
 
-function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios) {
+function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios, destinoEsc) {
   var total = parseInt(nPersonas) || 0;
   var menores = parseInt(nMenores) || 0;
   var residentes = parseInt(nResidentes) || 0;
@@ -228,7 +244,7 @@ function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEda
     return { tarifa: tarifa, adultos: pagantes, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: porPersona, precioMenor: 0 };
   }
   if (tipoVisita === 'Grupo Escolar') {
-    var precio = tramoPrecio(tramoEdad);
+    var precio = tramoPrecio(tramoEdad, destinoEsc);
     if (precio === null) precio = 0;
     var pagEsc = Math.max(0, total - menores - residentes);
     return { tarifa: pagEsc * precio, adultos: pagEsc, menores: menores, residentes: residentes, precioAdulto: precio, precioMenor: 0, escolar: true };
@@ -242,13 +258,12 @@ function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEda
   return { tarifa: (adultos * precioAdulto) + (menores * precioMenor), adultos: adultos, menores: menores, precioAdulto: precioAdulto, precioMenor: precioMenor };
 }
 
-function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios) {
-  return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios).tarifa;
+function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios, destinoEsc) {
+  return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios, destinoEsc).tarifa;
 }
 
 function calcularTotal(tarifa, visitaGuiada) {
-  if (visitaGuiada === 'Casco Histórico + Catedral') return tarifa + SUPLEMENTO_VISITA_GUIADA_CASCO;
-  return tarifa + (visitaGuiada === 'Sí' ? SUPLEMENTO_VISITA_GUIADA : 0);
+  return tarifa + suplementoGuiada(visitaGuiada);
 }
 // Grupo con Visita Guiada Nocturna: tarifa por persona (15 €/adulto, 5 €/menor·residente),
 // SIN suplemento de grupo. No se trata como guiada a efectos de bloqueo de franja
@@ -270,10 +285,11 @@ function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes, nResponsables, 
   return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: pAdulto, precioMenor: pMenor, precioResidente: pResidente };
 }
 function tieneGuiadaGrupo(v) {
-  return v === 'Sí' || v === 'Casco Histórico + Catedral';
+  return v === 'Sí' || esGuiadaLarga(v);
 }
 function guiadaLabel(v) {
   if (v === 'Casco Histórico + Catedral') return 'Casco Histórico + Catedral';
+  if (v === 'Catedral + Cañas') return 'Catedral + Cañas';
   if (v === 'Sí') return 'Catedral';
   if (v === 'Visita Guiada Nocturna Catedral') return 'Visita Guiada Nocturna Catedral';
   return 'No solicitada';
@@ -321,7 +337,13 @@ function _temAsignarPrecio(p, labelNorm, n) {
   if (labelNorm.indexOf('suplement') >= 0) { p.suplementoCatedral = g(0); p.suplementoCasco = g(1); return; }
   if (labelNorm.indexOf('grupo') >= 0 && labelNorm.indexOf('nocturna') >= 0) { p.grupoNocturnaAdulto = g(0); p.grupoNocturnaMenor = g(1); p.grupoNocturnaResidente = (n.length > 2) ? g(2) : g(1); return; }
   if (labelNorm.indexOf('grupo') >= 0) { p.grupoMinimo = g(0); p.grupoPorPersona = g(1); return; }
-  if (labelNorm.indexOf('escolar') >= 0) { p.escolar = { menor12: g(0), e1213: g(1), e1415: g(2), e1617: g(3), mayor17: g(4) }; return; }
+  if (labelNorm.indexOf('escolar') >= 0) {
+    // Dos filas posibles: "Escolar Catedral" y "Escolar Cañas". Sin mención a Cañas → Catedral.
+    var destEsc = (labelNorm.indexOf('cañas') >= 0 || labelNorm.indexOf('canas') >= 0) ? 'canas' : 'catedral';
+    if (!p.escolar) p.escolar = {};
+    p.escolar[destEsc] = { prim13: g(0), prim46: g(1), eso: g(2), bach: g(3), uni: g(4) };
+    return;
+  }
   if (labelNorm.indexOf('diurna') >= 0) { p['Visita Guiada Diurna'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
   if (labelNorm.indexOf('vip') >= 0) { p['Visita Guiada VIP'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
   if (labelNorm.indexOf('nocturna') >= 0) { p['Visita Guiada Nocturna Catedral'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
@@ -471,7 +493,7 @@ function consultarDisponibilidad(fecha, excludeToken) {
         if (excludeToken && String(fila[COL_TOKEN - 1]) === String(excludeToken)) continue;
         if (fila[1] !== 'Grupo' && fila[1] !== 'Grupo Escolar') continue;
         var vg = String(fila[10]);
-        if (vg !== 'Sí' && vg !== 'Casco Histórico + Catedral') continue;
+        if (vg !== 'Sí' && !esGuiadaLarga(vg)) continue;
         if (estadosActivos.indexOf(String(fila[COL_ESTADO - 1])) === -1) continue;
         if (_normFecha(fila[5]) !== fechaNorm) continue;
         var hh, mm;
@@ -482,7 +504,7 @@ function consultarDisponibilidad(fecha, excludeToken) {
           hh = parseInt(hp[0]) || 0; mm = parseInt(hp[1]) || 0;
         }
         // Casco Histórico + Catedral dura 2 horas → bloquea 120 min
-        var durMin = vg === 'Casco Histórico + Catedral' ? 120 : 60;
+        var durMin = esGuiadaLarga(vg) ? 120 : 60;
         addFranja(hh, mm, durMin);
       }
     }
@@ -841,7 +863,7 @@ function doPost(e) {
       tarifa = _noc.tarifa; total = _noc.tarifa;
     } else {
       var _ptGrp = preciosGrupoTemporada(data.fechaVisita);
-      tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes, data.responsables, _ptGrp);
+      tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes, data.responsables, _ptGrp, data.escolarDestino);
       total = calcularTotal(tarifa, guiada);
     }
     var token = Utilities.getUuid();
@@ -855,9 +877,9 @@ function doPost(e) {
       data.fechaVisita || '',
       data.horaVisita || '',
       data.numPersonas || '',
-      // Grupo e individual guardan aquí el desglose de entradas; escolar mantiene '—'
-      // porque su detalle por tramos va en la col. Z ("Entradas (detalle)").
-      esEscolar ? '—' : (data.tipoEntrada || '—'),
+      // Grupo e individual guardan aquí el desglose de entradas; el escolar guarda los
+      // monumentos visitados, porque su detalle por curso va en la col. Z ("Entradas (detalle)").
+      esEscolar ? destinoEscolarLabel(data.escolarDestino) : (data.tipoEntrada || '—'),
       esEscolar ? tarifa : (esGrupo ? tarifa : tarifa),
       esGrupoOrEscolar ? guiada : '—',
       total,
@@ -1034,8 +1056,8 @@ function _editarReserva(data) {
   var responsablesVal = parseInt(data.responsables) || 0;
   var menores = esGrupoOrEscolar ? 0 : menoresVal; // tarifa individual usa menores; grupos normales no
   var esNocGrupo = esGrupo && esNocturnaGrupo(visitaGuiada);
-  // Escolar mantiene '—' (su detalle por tramos va en la col. Z); grupo e individual guardan desglose.
-  var tipoEntrada = esEscolar ? '—' : (data.tipoEntrada || ant.tipoEntrada || '—');
+  // Escolar guarda aquí los monumentos visitados (su detalle por curso va en la col. Z); grupo e individual, el desglose.
+  var tipoEntrada = esEscolar ? destinoEscolarLabel(data.escolarDestino) : (data.tipoEntrada || ant.tipoEntrada || '—');
   // Tarifas / total:
   //  · Individual/Escolar con carrito en el payload → recalcular desde los subtotales.
   //  · Individual sin carrito en el payload → conservar lo anterior (solo cambiaron fecha/datos).
@@ -2030,7 +2052,7 @@ function buildEmailHTML(d) {
   var fechaFormato = formatearFecha(d.fechaVisita);
   var horaFormato = formatearHora(d.horaVisita);
   var horaRangoFormato = horaFormato;
-  if (d.visitaGuiada === 'Casco Histórico + Catedral') {
+  if (esGuiadaLarga(d.visitaGuiada)) {
     var _hpFin = horaFormato.split(':');
     var _hhFin = parseInt(_hpFin[0] || 0) + 2;
     horaRangoFormato = horaFormato + ' – ' + String(_hhFin).padStart(2, '0') + ':' + (_hpFin[1] || '00');
@@ -2142,7 +2164,7 @@ function buildEmailHTML(d) {
 function buildConfirmacionFinalHTML(d, fechaFormato) {
   var totalStr = fmtEur(d.total);
   var _horaFin2 = formatearHora(d.horaVisita);
-  if (d.visitaGuiada === 'Casco Histórico + Catedral') {
+  if (esGuiadaLarga(d.visitaGuiada)) {
     var _hF2base = formatearHora(d.horaVisita);
     var _hpF2 = _hF2base.split(':');
     _horaFin2 = _hF2base + ' – ' + String(parseInt(_hpF2[0] || 0) + 2).padStart(2, '0') + ':' + (_hpF2[1] || '00');
@@ -2232,7 +2254,7 @@ function buildModificacionAprobadaHTML(d) {
   var fechaFormato = formatearFecha(d.fechaVisita);
   var horaFormato = formatearHora(d.horaVisita);
   var horaRangoFormato = horaFormato;
-  if (d.visitaGuiada === 'Casco Histórico + Catedral') {
+  if (esGuiadaLarga(d.visitaGuiada)) {
     var _hpFin3 = horaFormato.split(':');
     var _hhFin3 = parseInt(_hpFin3[0] || 0) + 2;
     horaRangoFormato = horaFormato + ' – ' + String(_hhFin3).padStart(2, '0') + ':' + (_hpFin3[1] || '00');
@@ -2391,7 +2413,7 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Desglose por tramos', d.entradasDetalle ? String(d.entradasDetalle).replace(/\n/g, '<br>') : tramoLabel(tramoEsc))
     + tdRow('Nº de alumnos', d.numPersonas)
-    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRowColor('Suplemento visita guiada', '+ ' + fmtEur(d.visitaGuiada === 'Casco Histórico + Catedral' ? SUPLEMENTO_VISITA_GUIADA_CASCO : SUPLEMENTO_VISITA_GUIADA) + ' / grupo', '#C9A84C') : '')
+    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRowColor('Suplemento visita guiada', '+ ' + fmtEur(suplementoGuiada(d.visitaGuiada)) + ' / grupo', '#C9A84C') : '')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
     + '</table></td></tr>'
@@ -2409,7 +2431,7 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Tarifa base (' + _aduP + ' pagantes × ' + fmtEur(PRECIO_GRUPO_POR_PERSONA) + ', mín. ' + fmtEur(PRECIO_GRUPO_MINIMO) + ')', fmtEur(d.tarifas))
     + (_repP > 0 ? tdRow(_repP + ' responsable' + (_repP !== 1 ? 's' : '') + ' / guía · gratuidad', fmtEur(0)) : '')
-    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRow('Suplemento visita guiada', fmtEur(d.visitaGuiada === 'Casco Histórico + Catedral' ? SUPLEMENTO_VISITA_GUIADA_CASCO : SUPLEMENTO_VISITA_GUIADA)) : '')
+    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada))) : '')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
     + '</table></td></tr>';
@@ -2511,7 +2533,7 @@ function crearEventoCalendar(d, row, editadoEn) {
   else { var hp = String(d.horaVisita).trim().split(':'); hh = parseInt(hp[0]) || 0; mm = parseInt(hp[1]) || 0; }
 
   var inicio = new Date(anio, mes - 1, dia, hh, mm, 0);
-  var durEventoMin = (d.visitaGuiada === 'Casco Histórico + Catedral') ? 120 : 60;
+  var durEventoMin = esGuiadaLarga(d.visitaGuiada) ? 120 : 60;
   var fin = new Date(inicio.getTime() + durEventoMin * 60000);
   var esGrupo = d.tipoVisita === 'Grupo';
   var esEscolar = d.tipoVisita === 'Grupo Escolar';
@@ -2522,7 +2544,7 @@ function crearEventoCalendar(d, row, editadoEn) {
   var justifLinea = '💳 Justificante de pago: ' + ((d.justificante && String(d.justificante).trim()) ? String(d.justificante).trim() : 'Pendiente');
 
   if (esEscolar) {
-    var guiadaEsc = d.visitaGuiada === 'Casco Histórico + Catedral' ? 'Casco Histórico + Catedral' : (d.visitaGuiada === 'Sí' ? 'Catedral' : 'No');
+    var guiadaEsc = tieneGuiadaGrupo(d.visitaGuiada) ? guiadaLabel(d.visitaGuiada) : 'No';
     var nombreEsc = (d.nombreCentro || d.nombre) + ' · ' + d.numPersonas + ' alumnos';
     titulo = tieneGuiadaGrupo(d.visitaGuiada) ? 'VG 🎒 ' + nombreEsc : '🎒 ' + nombreEsc;
     descripcion = ['🎒 GRUPO ESCOLAR', '─────────────────────────────',
@@ -2531,7 +2553,7 @@ function crearEventoCalendar(d, row, editadoEn) {
       'Nº DE ALUMNOS: ' + d.numPersonas, 'VISITA GUIADA: ' + guiadaEsc,
       '💶 Desglose por tramos:',
       (d.entradasDetalle ? String(d.entradasDetalle).split('\n').map(function (x) { return '   · ' + x; }).join('\n') : '   · ' + tramoLabel(d.tipoEntrada)),
-      d.visitaGuiada === 'Casco Histórico + Catedral' ? '💶 Suplemento guiada: 100 € / grupo' : (d.visitaGuiada === 'Sí' ? '💶 Suplemento guiada: 50 € / grupo' : ''),
+      suplementoGuiada(d.visitaGuiada) > 0 ? '💶 Suplemento guiada: ' + suplementoGuiada(d.visitaGuiada) + ' € / grupo' : '',
       '💶 TOTAL: ' + fmtEur(parseFloat(d.total) || 0),
       'NECESITA FACTURA: ' + (d.necesitaFactura || '—'),
       'DIRECCIÓN: ' + [d.calleNumero, d.ciudad, d.cp].filter(Boolean).join(', '),
@@ -2543,7 +2565,7 @@ function crearEventoCalendar(d, row, editadoEn) {
 
   } else if (esGrupo) {
     var esNocG = esNocturnaGrupo(d.visitaGuiada);
-    var guiada = d.visitaGuiada === 'Casco Histórico + Catedral' ? 'Casco Histórico + Catedral' : (d.visitaGuiada === 'Sí' ? 'Catedral' : (esNocG ? 'Visita Guiada Nocturna Catedral' : 'No'));
+    var guiada = tieneGuiadaGrupo(d.visitaGuiada) ? guiadaLabel(d.visitaGuiada) : (esNocG ? 'Visita Guiada Nocturna Catedral' : 'No');
     var nombreGrupo = (d.nombreCentro || d.nombre) + ' · ' + d.numPersonas + ' pers. · ' + fmtEur(d.total);
     // La nocturna de grupo NO lleva prefijo "VG " (no bloquea franja; coordinación manual).
     titulo = (esNocG ? '🌙 ' : '') + (tieneGuiadaGrupo(d.visitaGuiada) ? 'VG ' + nombreGrupo : nombreGrupo);

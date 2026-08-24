@@ -3,3 +3,9 @@
 
 # VS Code
 .vscode/
+.claude/worktrees/
+
+# Vídeos y página temporal de Kenia
+/assets/video/lodupup.mp4
+/assets/video/lomada.mp4
+/videos-kenia.html

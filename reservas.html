@@ -1607,6 +1607,139 @@
       text-align: left;
     }
 
+    /* ── Selector de visita guiada ────────────────────────────────
+       Hasta tablet (≤1024px) desplegable; en escritorio, radios. */
+    .guia-pick {
+      margin-bottom: 14px;
+    }
+
+    .guia-pick__select {
+      width: 100%;
+      font-family: var(--sans);
+      font-size: .92rem;
+      color: var(--carbon);
+      background: var(--cream);
+      border: 1px solid var(--stone-lt);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .guia-pick__select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .14);
+    }
+
+    .guia-pick__radios {
+      display: none;
+    }
+
+    body:not(.light-mode) .guia-pick__select {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .15);
+      color: var(--white);
+    }
+
+    @media (min-width: 1025px) {
+      .guia-pick__select {
+        display: none;
+      }
+
+      .guia-pick__radios {
+        display: grid;
+        gap: 8px;
+      }
+    }
+
+    .guia-radio {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border: 1px solid var(--stone-lt);
+      border-radius: var(--radius);
+      background: var(--cream);
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .guia-radio:hover {
+      border-color: var(--gold);
+    }
+
+    .guia-radio.is-sel {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, .09);
+    }
+
+    .guia-radio input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .guia-radio__check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--stone-lt);
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color var(--transition);
+    }
+
+    .guia-radio.is-sel .guia-radio__check {
+      border-color: var(--gold);
+    }
+
+    .guia-radio.is-sel .guia-radio__check::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .guia-radio__name {
+      flex: 1;
+      font-size: .9rem;
+      color: var(--carbon);
+      min-width: 0;
+    }
+
+    .guia-radio__price {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: #7A6025;
+      white-space: nowrap;
+    }
+
+    .guia-radio:focus-within {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    body:not(.light-mode) .guia-radio {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .15);
+    }
+
+    body:not(.light-mode) .guia-radio__name {
+      color: var(--white);
+    }
+
+    body:not(.light-mode) .guia-radio__price {
+      color: var(--gold-lt);
+    }
+
+    /* Cabecera del bloque de entradas guiadas: no se pliega */
+    .ent-acc__head--fijo {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: default;
+    }
+
     .ent-acc {
       border: 1px solid var(--stone-lt);
       border-radius: 4px;
@@ -3564,6 +3697,8 @@
               class="nav-num">05</span>Institución</a></li>
         <li class="side-menu__nav-item"><a href="reservas" class="side-menu__nav-link side-menu__nav-link--active"><span
               class="nav-num">06</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="tienda" class="side-menu__nav-link"><span
+              class="nav-num">07</span>Tienda</a></li>
       </ul>
     </nav>
     <div class="side-menu__social">
@@ -3722,7 +3857,7 @@
           <span class="tipo-visita-row__body">
             <span class="tipo-visita-row__title"><span class="tv-full" data-i18n-page="s1_card3_title">Visita
                 estudiantes</span><span class="tv-short" data-i18n-page="s1_card3_short">Estudiantes</span></span>
-            <span class="tipo-visita-row__desc" data-i18n-page="s1_card3_desc">Visitas para centros e
+            <span class="tipo-visita-row__desc" data-i18n-page="s1_card3_desc">Grupos de centros e
               instituciones educativas.</span>
           </span>
           <span class="tipo-visita-row__check" aria-hidden="true">
@@ -4535,8 +4670,30 @@
     const ENT_ABBR_KEY = { 'Visita Guiada Diurna': 'ent_diurna_abbr', 'Visita Guiada VIP': 'ent_vip_abbr', 'Visita Guiada Nocturna Catedral': 'ent_noc_abbr' };
     function nombreAbbr(tipo) { return ENT_ABBR_KEY[tipo] ? (_T(ENT_ABBR_KEY[tipo]) || nombreCorto(tipo)) : nombreCorto(tipo); }
     function rowNombre(row) { return _T(row.nameKey) || row.tipo || row.id; }
-    function guiadaSeleccionada() { const r = ENT_ROWS.find(x => x.guiada && getQty(x.id) > 0); return r ? r.tipo : null; }
-    function guiadasSeleccionadasCount() { return ENT_ROWS.filter(x => x.guiada && getQty(x.id) > 0).length; }
+    // La visita guiada se elige en un selector propio, no por su contador:
+    // así un residente puede reservar sin pagar además la entrada completa.
+    function guiadaSeleccionada() { return state.guiadaTipo || null; }
+    function guiadasSeleccionadasCount() { return state.guiadaTipo ? 1 : 0; }
+    function filaDeGuiadaElegida() {
+      return state.guiadaTipo ? ENT_ROWS.find(r => r.tipo === state.guiadaTipo) : null;
+    }
+    /* Al cambiar de visita se conservan las cantidades: el ticket individual
+       se muda a la fila de la nueva visita y se recalcula su precio. */
+    function elegirGuiada(tipo) {
+      tipo = tipo || null;
+      if (state.guiadaTipo === tipo) return;
+      if (!state.entradas) state.entradas = {};
+      const anterior = filaDeGuiadaElegida();
+      const nueva = tipo ? ENT_ROWS.find(r => r.tipo === tipo) : null;
+      const q = anterior ? getQty(anterior.id) : 0;
+      if (anterior) delete state.entradas[anterior.id];
+      if (nueva && q) state.entradas[nueva.id] = q;
+      if (!tipo) { delete state.entradas.menorGui; delete state.entradas.resGui; }
+      state.guiadaTipo = tipo;
+      state._horaSig = null;   // cada visita tiene sus propios pases
+      renderEntradasIndividual();
+      onEntradasChange();
+    }
     function haySinGuiaEnCarrito() { return ENT_ROWS.some(r => r.sec === 'sin' && getQty(r.id) > 0); }
     // Hay alguna entrada que no sea "menor < 12" seleccionada (para no permitir menores solos).
     function hayOtraEntradaNoMenor() { return ENT_ROWS.some(r => r.kind !== 'menor' && getQty(r.id) > 0); }
@@ -4550,9 +4707,10 @@
       const cont = document.getElementById('entradasGroups');
       if (!cont) return;
       const gui = guiadaSeleccionada();
-      function rowHTML(row) {
+      function rowHTML(row, opts) {
+        opts = opts || {};
         const qty = getQty(row.id);
-        const nombre = rowNombre(row);
+        const nombre = opts.nombre || rowNombre(row);
         const p = precioFila(row);
         let cls = '', precioLabel;
         if (row.dynamic && p === null) { cls = ' indef'; precioLabel = ''; }
@@ -4563,6 +4721,7 @@
         if (row.guiada && gui && gui !== row.tipo) incDis = true; // ya hay otra guiada
         if (row.dynamic && !gui) incDis = true;                   // menor/res guiada sin guiada elegida
         if (row.kind === 'menor' && !hayOtraEntradaNoMenor()) incDis = true; // menores solo con otra entrada
+        if (opts.bloqueada) incDis = true;                        // aún no hay visita elegida
         const info = row.infoKey ? (row.id === 'noc' ? _conHoraNoc(_T(row.infoKey)) : _T(row.infoKey)) : '';
         const labelHTML = (row.tipo && ENT_MOBILE_SHORT.indexOf(row.tipo) !== -1)
           ? `<span class="ent-name-full">${esc(nombre)}</span><span class="ent-name-short">${esc(nombreCorto(row.tipo))}</span>`
@@ -4583,6 +4742,45 @@
         html += `<div class="ent-sectitle"><span>${_T(seccion.titleKey)}</span>`
           + (seccion.hintKey ? `<span class="ent-sectitle__hint">${_T(seccion.hintKey)}</span>` : '')
           + `</div>`;
+
+        /* Sección guiada: primero se elige LA visita (una sola) y después
+           cuántas personas de cada tipo. El título de sección ya dice
+           «Visitas guiadas», así que el selector va suelto, sin acordeón. */
+        if (seccion.sec === 'gui') {
+          const opciones = ENT_ROWS.filter(r => r.guiada && tipoAbierto(r.tipo));
+          const sel = state.guiadaTipo || '';
+
+          html += `<div class="guia-pick">`
+            + `<select class="guia-pick__select" id="guiadaSelect" aria-label="${esc(_T('gui_pick_aria'))}">`
+            + `<option value=""${sel ? '' : ' selected'}>${esc(_T('gui_pick_ph'))}</option>`
+            + opciones.map(r => `<option value="${esc(r.tipo)}"${sel === r.tipo ? ' selected' : ''}>`
+              + `${esc(rowNombre(r))} · ${precioActivoTipo(r.tipo)} €</option>`).join('')
+            + `</select>`
+            + `<div class="guia-pick__radios" role="radiogroup" aria-label="${esc(_T('gui_pick_aria'))}">`
+            + opciones.map(r => `<label class="guia-radio${sel === r.tipo ? ' is-sel' : ''}">`
+              + `<input type="radio" name="guiadaTipo" value="${esc(r.tipo)}"${sel === r.tipo ? ' checked' : ''}>`
+              + `<span class="guia-radio__check" aria-hidden="true"></span>`
+              + `<span class="guia-radio__name">${esc(rowNombre(r))}</span>`
+              + `<span class="guia-radio__price">${precioActivoTipo(r.tipo)} €</span>`
+              + `</label>`).join('')
+            + `</div></div>`;
+
+          const filaGuia = filaDeGuiadaElegida();
+          const cuerpo =
+            (filaGuia
+              ? rowHTML(filaGuia, { nombre: _T('ent_ind_gui') })
+              // dynamic: sin visita elegida el precio aún no se conoce
+              : rowHTML({ id: '', kind: 'tipo', dynamic: true }, { nombre: _T('ent_ind_gui'), bloqueada: true }))
+            + rowHTML(rowById('resGui'))
+            + rowHTML(rowById('menorGui'));
+
+          html += `<div class="ent-acc is-open" data-grupo="sel_gui">`
+            + `<div class="ent-acc__head ent-acc__head--fijo">`
+            + `<span class="ent-acc__title">${_T('grp_sel_entrada')}</span></div>`
+            + `<div class="ent-acc__body">${cuerpo}</div></div>`;
+          return;
+        }
+
         ENT_GRUPOS.filter(g => g.sec === seccion.sec).forEach(grupo => {
           const rows = ENT_ROWS.filter(r => ENT_ROW_GRUPO[r.id] === grupo.id && (r.kind !== 'tipo' || tipoAbierto(r.tipo)));
           if (!rows.length) return; // grupo sin entradas disponibles en esta temporada
@@ -4602,6 +4800,7 @@
     }
 
     function cambiarEnt(id, delta) {
+      if (!id) return;   // fila de relleno: aún no hay visita guiada elegida
       if (!state.entradas) state.entradas = {};
       const row = rowById(id);
       if (row && row.guiada && delta > 0) { const g = guiadaSeleccionada(); if (g && g !== row.tipo) return; }
@@ -4815,7 +5014,7 @@
       state.visitMode = null;
       document.querySelectorAll('input[name="visitMode"]').forEach(r => r.checked = false);
       if (isInd) {
-        state._horaSig = null; state.entradas = {}; state.entAccOpen = { mon: true };
+        state._horaSig = null; state.entradas = {}; state.guiadaTipo = null; state.entAccOpen = { mon: true };
       } else {
         // Grupo/escolar: contadores a cero al cambiar de tipo.
         document.getElementById('numPersonas').value = '';
@@ -4847,7 +5046,7 @@
       const radio = document.querySelector('input[name="visitMode"]:checked');
       state.visitMode = radio ? radio.value : null;
       if (state.tipoVisita === 'individual') {
-        state.entradas = {}; state._horaSig = null;
+        state.entradas = {}; state.guiadaTipo = null; state._horaSig = null;
         state.entAccOpen = state.visitMode === 'con-guia' ? { rec: true } : { mon: true };
         document.getElementById('entradasIndividual').classList.toggle('visible', !!state.visitMode);
         const horaSel = document.getElementById('horaVisita');
@@ -5748,6 +5947,9 @@
           if (row.kind === 'tipo' && tiposSet.indexOf(row.tipo) === -1) tiposSet.push(row.tipo);
         });
         desgloseEntradasPayload = lineasTxt.join('\n');
+        // Si solo se han pedido residentes o menores, la visita guiada no
+        // aparecería en ninguna línea: se añade para que conste en la hoja.
+        if (gSel && tiposSet.indexOf(gSel) === -1) tiposSet.push(gSel);
         tipoEntradaPayload = entradasPayload.map(e => `${e.tipo} ×${e.cantidad}`).join(', ');
         monumentos = tiposSet.join(', ');
         visitaGuiadaPayload = 'No';
@@ -5848,7 +6050,7 @@
       document.querySelectorAll('.alert--error').forEach(a => a.classList.remove('visible'));
       state.tipoVisita = null;
       state.visitMode = null;
-      state.entradas = {};
+      state.entradas = {}; state.guiadaTipo = null;
       state._horaSig = null;
       state.entAccOpen = { mon: true };
       const ew = document.getElementById('entradasWarn'); if (ew) { ew.style.display = 'none'; ew.innerHTML = ''; }
@@ -5966,6 +6168,13 @@
       });
     }
     const _entGroups = document.getElementById('entradasGroups');
+    // Desplegable (móvil/tablet) y radios (escritorio) mueven el mismo estado
+    if (_entGroups) _entGroups.addEventListener('change', e => {
+      const sel = e.target.closest('#guiadaSelect');
+      if (sel) { elegirGuiada(sel.value); return; }
+      const rad = e.target.closest('input[name="guiadaTipo"]');
+      if (rad && rad.checked) elegirGuiada(rad.value);
+    });
     if (_entGroups) _entGroups.addEventListener('click', e => {
       const stepBtn = e.target.closest('[data-act]');
       if (stepBtn) {
@@ -6121,7 +6330,7 @@
       // Reconstruye state.entradas (visita individual) desde el resumen guardado
       // "Catedral ×1, Pulsera Turística ×2, Menor <12 (sin guía) ×1, …".
       function rebuildCarrito(resumen) {
-        state.entradas = {};
+        state.entradas = {}; state.guiadaTipo = null;
         let hayGuiada = false;
         String(resumen || '').split(',').forEach(part => {
           const m = part.trim().match(/^(.*?)\s*[×x]\s*(\d+)$/i);
@@ -6130,8 +6339,17 @@
           const qty = parseInt(m[2], 10) || 0;
           if (qty <= 0) return;
           const rowTipo = ENT_ROWS.find(r => r.kind === 'tipo' && r.tipo === name);
-          if (rowTipo) { state.entradas[rowTipo.id] = qty; if (rowTipo.sec === 'gui') hayGuiada = true; return; }
+          if (rowTipo) {
+            state.entradas[rowTipo.id] = qty;
+            if (rowTipo.sec === 'gui') { hayGuiada = true; state.guiadaTipo = rowTipo.tipo; }
+            return;
+          }
           const esSin = /sin gu/i.test(name);
+          // «Residentes (Visita Guiada Diurna)»: la visita viene entre paréntesis,
+          // y puede ser el único rastro de cuál era si no había entradas completas.
+          const entreParent = (name.match(/\(([^)]+)\)/) || [])[1];
+          const rowGui = entreParent ? ENT_ROWS.find(r => r.guiada && r.tipo === entreParent.trim()) : null;
+          if (rowGui && !state.guiadaTipo) state.guiadaTipo = rowGui.tipo;
           if (/menor/i.test(name)) { state.entradas[esSin ? 'menorSin' : 'menorGui'] = qty; if (!esSin) hayGuiada = true; }
           else if (/residen/i.test(name)) { state.entradas[esSin ? 'resSin' : 'resGui'] = qty; if (!esSin) hayGuiada = true; }
         });
@@ -6172,9 +6390,11 @@
         if (tipo === 'individual') {
           const modo = rebuildCarrito(d.tipoEntrada);
           const cart = Object.assign({}, state.entradas);
+          const guiadaPrev = state.guiadaTipo;
           setRadio('visitMode', modo);
-          onVisitModeChange();      // resetea state.entradas
+          onVisitModeChange();      // resetea state.entradas y la visita elegida
           state.entradas = cart;    // restaura el carrito reconstruido
+          state.guiadaTipo = guiadaPrev;
           onEntradasChange();       // re-render + sincroniza nº personas/menores/residentes
         } else {
           const guiada = (d.visitaGuiada === 'Sí' || esGuiadaLarga(d.visitaGuiada) || d.visitaGuiada === 'Visita Guiada Nocturna Catedral');
@@ -6321,7 +6541,7 @@
         s1_card1_short: 'Individual', s1_card2_short: 'Grupos', s1_card3_short: 'Estudiantes',
         s1_card2_desc: 'Grupos organizados, asociaciones e instituciones.',
         s1_card3_title: 'Visita estudiantes',
-        s1_card3_desc: 'Visitas para centros e instituciones educativas.',
+        s1_card3_desc: 'Grupos de centros e instituciones educativas.',
         s1_err: 'Selecciona el tipo de visita para continuar.',
         btn_continue: 'Continuar →',
         btn_back: '← Volver',
@@ -6466,6 +6686,7 @@
         ent_sec_sin: 'Visitas sin guía', ent_sec_gui: 'Visitas guiadas',
         ent_sec_gui_hint: 'Sólo un tipo de visita guiada por reserva',
         grp_monumentos: 'Entradas principales', grp_combinados: 'Entradas conjuntas', grp_condiciones: 'Condiciones especiales', grp_recomendadas: 'Visitas recomendadas',
+        grp_sel_entrada: 'Selecciona tu entrada', ent_ind_gui: 'Ticket individual', gui_pick_ph: 'Elige tu visita guiada', gui_pick_aria: 'Tipo de visita guiada',
         ent_menor: 'Menor <12', ent_res: 'Residentes',
         ent_gui_segun: 'según visita guiada', ent_sin_corto: 'sin guía',
         s5_captcha_q: '¿Cuánto es<span class="captcha-op">{0} + {1}?</span>',
@@ -6520,6 +6741,7 @@
         ent_gratis: 'Free', ent_sec_sin: 'Visits without guide', ent_sec_gui: 'Guided visits',
         ent_sec_gui_hint: 'Only one type of guided visit per booking',
         grp_monumentos: 'Main tickets', grp_combinados: 'Combined tickets', grp_condiciones: 'Special conditions', grp_recomendadas: 'Recommended visits',
+        grp_sel_entrada: 'Select your ticket', ent_ind_gui: 'Individual ticket', gui_pick_ph: 'Choose your guided visit', gui_pick_aria: 'Type of guided visit',
         ent_menor: 'Under 12', ent_res: 'Residents', ent_gui_segun: 'depends on guided visit', ent_sin_corto: 'no guide',
         info_cat: 'Self-guided visit ticket to the monument.',
         info_torre: 'Self-guided visit ticket to the monument.',
@@ -6554,7 +6776,7 @@
         s1_card1_short: 'Individual', s1_card2_short: 'Groups', s1_card3_short: 'Students',
         s1_card2_desc: 'Organised groups, associations and institutions.',
         s1_card3_title: 'Student visit',
-        s1_card3_desc: 'Visits for schools and educational institutions.',
+        s1_card3_desc: 'Groups from schools and educational institutions.',
         s1_err: 'Please select the type of visit to continue.',
         btn_continue: 'Continue →',
         btn_back: '← Back',
@@ -6716,6 +6938,7 @@
         ent_gratis: 'Gratuit', ent_sec_sin: 'Visites sans guide', ent_sec_gui: 'Visites guidées',
         ent_sec_gui_hint: 'Un seul type de visite guidée par réservation',
         grp_monumentos: 'Billets principaux', grp_combinados: 'Billets combinés', grp_condiciones: 'Conditions spéciales', grp_recomendadas: 'Visites recommandées',
+        grp_sel_entrada: 'Choisissez votre billet', ent_ind_gui: 'Billet individuel', gui_pick_ph: 'Choisissez votre visite guidée', gui_pick_aria: 'Type de visite guidée',
         ent_menor: 'Moins de 12 ans', ent_res: 'Résidents', ent_gui_segun: 'selon la visite guidée', ent_sin_corto: 'sans guide',
         info_cat: 'Billet de visite libre du monument.',
         info_torre: 'Billet de visite libre du monument.',
@@ -6750,7 +6973,7 @@
         s1_card1_short: 'Individuel', s1_card2_short: 'Groupes', s1_card3_short: 'Étudiants',
         s1_card2_desc: 'Groupes organisés, associations et institutions.',
         s1_card3_title: 'Visite étudiants',
-        s1_card3_desc: 'Visites pour écoles et établissements d\'enseignement.',
+        s1_card3_desc: "Groupes d'écoles et d'établissements d'enseignement.",
         s1_err: 'Sélectionnez le type de visite pour continuer.',
         btn_continue: 'Continuer →',
         btn_back: '← Retour',
@@ -6912,6 +7135,7 @@
         ent_gratis: 'Kostenlos', ent_sec_sin: 'Besuche ohne Führung', ent_sec_gui: 'Führungen',
         ent_sec_gui_hint: 'Nur eine Art Führung pro Buchung',
         grp_monumentos: 'Haupttickets', grp_combinados: 'Kombi-Tickets', grp_condiciones: 'Sonderkonditionen', grp_recomendadas: 'Empfohlene Führungen',
+        grp_sel_entrada: 'Wählen Sie Ihr Ticket', ent_ind_gui: 'Einzelticket', gui_pick_ph: 'Wählen Sie Ihre Führung', gui_pick_aria: 'Art der Führung',
         ent_menor: 'Unter 12', ent_res: 'Anwohner', ent_gui_segun: 'je nach Führung', ent_sin_corto: 'ohne Führung',
         info_cat: 'Ticket für den Besuch des Monuments ohne Führung.',
         info_torre: 'Ticket für den Besuch des Monuments ohne Führung.',
@@ -6946,7 +7170,7 @@
         s1_card1_short: 'Einzeln', s1_card2_short: 'Gruppen', s1_card3_short: 'Studierende',
         s1_card2_desc: 'Organisierte Gruppen, Vereine und Institutionen.',
         s1_card3_title: 'Besuch für Studierende',
-        s1_card3_desc: 'Besuche für Schulen und Bildungseinrichtungen.',
+        s1_card3_desc: 'Gruppen von Schulen und Bildungseinrichtungen.',
         s1_err: 'Bitte wählen Sie die Besuchsart aus, um fortzufahren.',
         btn_continue: 'Weiter →',
         btn_back: '← Zurück',
@@ -7108,6 +7332,7 @@
         ent_gratis: 'Gratuito', ent_sec_sin: 'Visitas sem guia', ent_sec_gui: 'Visitas guiadas',
         ent_sec_gui_hint: 'Apenas um tipo de visita guiada por reserva',
         grp_monumentos: 'Bilhetes principais', grp_combinados: 'Bilhetes conjuntos', grp_condiciones: 'Condições especiais', grp_recomendadas: 'Visitas recomendadas',
+        grp_sel_entrada: 'Selecione a sua entrada', ent_ind_gui: 'Bilhete individual', gui_pick_ph: 'Escolha a sua visita guiada', gui_pick_aria: 'Tipo de visita guiada',
         ent_menor: 'Menor de 12', ent_res: 'Residentes', ent_gui_segun: 'consoante a visita guiada', ent_sin_corto: 'sem guia',
         info_cat: 'Entrada de visita sem guia ao monumento.',
         info_torre: 'Entrada de visita sem guia ao monumento.',
@@ -7142,7 +7367,7 @@
         s1_card1_short: 'Individual', s1_card2_short: 'Grupos', s1_card3_short: 'Estudantes',
         s1_card2_desc: 'Grupos organizados, associações e instituições.',
         s1_card3_title: 'Visita estudantes',
-        s1_card3_desc: 'Visitas para escolas e instituições de ensino.',
+        s1_card3_desc: 'Grupos de escolas e instituições de ensino.',
         s1_err: 'Selecione o tipo de visita para continuar.',
         btn_continue: 'Continuar →',
         btn_back: '← Voltar',
@@ -7304,6 +7529,7 @@
         ent_gratis: 'Gratuito', ent_sec_sin: 'Visite senza guida', ent_sec_gui: 'Visite guidate',
         ent_sec_gui_hint: 'Un solo tipo di visita guidata per prenotazione',
         grp_monumentos: 'Biglietti principali', grp_combinados: 'Biglietti combinati', grp_condiciones: 'Condizioni speciali', grp_recomendadas: 'Visite consigliate',
+        grp_sel_entrada: 'Seleziona il tuo biglietto', ent_ind_gui: 'Biglietto individuale', gui_pick_ph: 'Scegli la tua visita guidata', gui_pick_aria: 'Tipo di visita guidata',
         ent_menor: 'Minori di 12', ent_res: 'Residenti', ent_gui_segun: 'secondo la visita guidata', ent_sin_corto: 'senza guida',
         info_cat: 'Biglietto di visita senza guida al monumento.',
         info_torre: 'Biglietto di visita senza guida al monumento.',
@@ -7338,7 +7564,7 @@
         s1_card1_short: 'Individuale', s1_card2_short: 'Gruppi', s1_card3_short: 'Studenti',
         s1_card2_desc: 'Gruppi organizzati, associazioni e istituzioni.',
         s1_card3_title: 'Visita studenti',
-        s1_card3_desc: 'Visite per scuole e istituzioni educative.',
+        s1_card3_desc: 'Gruppi di scuole e istituzioni educative.',
         s1_err: 'Seleziona il tipo di visita per continuare.',
         btn_continue: 'Continua →',
         btn_back: '← Indietro',
@@ -7500,6 +7726,7 @@
         ent_gratis: '무료', ent_sec_sin: '가이드 없는 방문', ent_sec_gui: '가이드 투어',
         ent_sec_gui_hint: '예약당 가이드 투어는 한 종류만 가능합니다',
         grp_monumentos: '주요 입장권', grp_combinados: '통합권', grp_condiciones: '특별 조건', grp_recomendadas: '추천 투어',
+        grp_sel_entrada: '입장권 선택', ent_ind_gui: '개인 입장권', gui_pick_ph: '가이드 투어를 선택하세요', gui_pick_aria: '가이드 투어 종류',
         ent_menor: '12세 미만', ent_res: '주민', ent_gui_segun: '가이드 투어에 따라', ent_sin_corto: '가이드 없음',
         info_cat: '가이드 없는 기념물 방문 입장권.',
         info_torre: '가이드 없는 기념물 방문 입장권.',
@@ -7534,7 +7761,7 @@
         s1_card1_short: '개인', s1_card2_short: '단체', s1_card3_short: '학생',
         s1_card2_desc: '단체, 협회 및 기관.',
         s1_card3_title: '학생 단체 방문',
-        s1_card3_desc: '학교 및 교육 기관을 위한 방문.',
+        s1_card3_desc: '학교 및 교육 기관 단체.',
         s1_err: '계속하려면 방문 유형을 선택하세요.',
         btn_continue: '계속 →',
         btn_back: '← 뒤로',
@@ -7696,6 +7923,7 @@
         ent_gratis: 'Doan', ent_sec_sin: 'Gidaririk gabeko bisitak', ent_sec_gui: 'Bisita gidatuak',
         ent_sec_gui_hint: 'Erreserbako bisita gidatu mota bat baino ez',
         grp_monumentos: 'Sarrera nagusiak', grp_combinados: 'Sarrera konbinatuak', grp_condiciones: 'Baldintza bereziak', grp_recomendadas: 'Bisita gomendatuak',
+        grp_sel_entrada: 'Hautatu zure sarrera', ent_ind_gui: 'Banakako sarrera', gui_pick_ph: 'Aukeratu bisita gidatua', gui_pick_aria: 'Bisita gidatu mota',
         ent_menor: '12 urtez azpikoa', ent_res: 'Bizilagunak', ent_gui_segun: 'bisita gidatuaren arabera', ent_sin_corto: 'gidaririk gabe',
         info_cat: 'Monumentua gidaririk gabe bisitatzeko sarrera.',
         info_torre: 'Monumentua gidaririk gabe bisitatzeko sarrera.',
@@ -7730,7 +7958,7 @@
         s1_card1_short: 'Banakakoa', s1_card2_short: 'Taldeak', s1_card3_short: 'Ikasleak',
         s1_card2_desc: 'Antolatutako taldeak, elkarteak eta erakundeak.',
         s1_card3_title: 'Ikasleen bisita',
-        s1_card3_desc: 'Ikastetxe eta hezkuntza-erakundeentzako bisitak.',
+        s1_card3_desc: 'Ikastetxe eta hezkuntza-erakundeetako taldeak.',
         s1_err: 'Aukeratu bisita mota jarraitzeko.',
         btn_continue: 'Jarraitu →',
         btn_back: '← Itzuli',
@@ -7892,6 +8120,7 @@
         ent_gratis: 'Gratuïtat', ent_sec_sin: 'Visites sense guia', ent_sec_gui: 'Visites guiades',
         ent_sec_gui_hint: 'Només un tipus de visita guiada per reserva',
         grp_monumentos: 'Entrades principals', grp_combinados: 'Entrades conjuntes', grp_condiciones: 'Condicions especials', grp_recomendadas: 'Visites recomanades',
+        grp_sel_entrada: 'Selecciona la teva entrada', ent_ind_gui: 'Tiquet individual', gui_pick_ph: 'Tria la teva visita guiada', gui_pick_aria: 'Tipus de visita guiada',
         ent_menor: 'Menor de 12', ent_res: 'Residents', ent_gui_segun: 'segons la visita guiada', ent_sin_corto: 'sense guia',
         info_cat: 'Entrada de visita sense guia al monument.',
         info_torre: 'Entrada de visita sense guia al monument.',
@@ -7926,7 +8155,7 @@
         s1_card1_short: 'Individual', s1_card2_short: 'Grups', s1_card3_short: 'Estudiants',
         s1_card2_desc: 'Grups organitzats, associacions i institucions.',
         s1_card3_title: 'Visita estudiants',
-        s1_card3_desc: 'Visites per a centres i institucions educatives.',
+        s1_card3_desc: 'Grups de centres i institucions educatives.',
         s1_err: 'Selecciona el tipus de visita per continuar.',
         btn_continue: 'Continuar →',
         btn_back: '← Tornar',

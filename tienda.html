@@ -1,0 +1,3602 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda · Belenes de Navidad · Catedral de Santo Domingo de la Calzada</title>
+  <meta name="description"
+    content="Tienda de la Catedral de Santo Domingo de la Calzada. Belenes de Navidad artesanales de tamaño mediano y grande. Reserva tu belén online." />
+  <meta name="author" content="Catedral de Santo Domingo de la Calzada" />
+  <meta name="theme-color" content="#0E0C0A" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://catedralsantodomingo.org/tienda" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Catedral de Santo Domingo de la Calzada" />
+  <meta property="og:title" content="Tienda · Belenes de Navidad · Catedral de Santo Domingo de la Calzada" />
+  <meta property="og:description"
+    content="Tienda de la Catedral de Santo Domingo de la Calzada. Belenes de Navidad artesanales de tamaño mediano y grande. Reserva tu belén online." />
+  <meta property="og:url" content="https://catedralsantodomingo.org/tienda" />
+  <meta property="og:image" content="https://catedralsantodomingo.org/assets/img/catedral-institucion.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale:alternate" content="en_GB" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:locale:alternate" content="de_DE" />
+  <meta property="og:locale:alternate" content="pt_PT" />
+  <meta property="og:locale:alternate" content="it_IT" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="og:locale:alternate" content="eu_ES" />
+  <meta property="og:locale:alternate" content="ca_ES" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tienda · Belenes de Navidad · Catedral de Santo Domingo de la Calzada" />
+  <meta name="twitter:description"
+    content="Tienda de la Catedral de Santo Domingo de la Calzada. Belenes de Navidad artesanales de tamaño mediano y grande. Reserva tu belén online." />
+  <meta name="twitter:image" content="https://catedralsantodomingo.org/assets/img/catedral-institucion.webp" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" type="image/svg+xml" href="favicon_black.svg?v=2" media="(prefers-color-scheme: light)" />
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+
+  <!-- Estilos compartidos -->
+  <link rel="stylesheet" href="assets/shared.css" />
+
+  <style>
+    /* ─── TOKENS ──────────────────────────────────────────────── */
+    :root {
+      --cream: #F5F0E8;
+      --cream-dark: #EDE6D6;
+      --stone: #8C8070;
+      --stone-lt: #BEB5A8;
+      --carbon: #1A1A1A;
+      --gold: #C9A84C;
+      --gold-lt: #DFC070;
+      --gold-dk: #A8852E;
+      --white: #FDFAF4;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --radius: 4px;
+      --shadow: 0 2px 18px rgba(140, 120, 80, .13);
+      --transition: 340ms cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* ─── RESET & BASE ────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--sans);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.65;
+      cursor: auto;
+    }
+
+    body.light-mode {
+      background-color: #F9F8F6;
+      background: #F9F8F6;
+      color: var(--carbon);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ─── NAVBAR OVERRIDES ───────────────────────────────────── */
+    .navbar__tagline {
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #5C5249;
+      font-family: var(--sans);
+      font-weight: 400;
+      white-space: nowrap;
+      flex: 1;
+      text-align: center;
+    }
+
+    .navbar__tagline-mobile {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .navbar__tagline {
+        white-space: normal;
+        text-align: left;
+        line-height: 1.5;
+        padding: 8px 0 0 16px;
+      }
+
+      .navbar__tagline-desktop {
+        display: none;
+      }
+
+      .navbar__tagline-mobile {
+        display: inline;
+        text-transform: uppercase;
+      }
+
+      .navbar__tagline-gallo {
+        color: #7A6025;
+      }
+
+      .navbar__tagline-catedral {
+        font-weight: 600;
+      }
+    }
+
+    body.light-mode .navbar--always-solid {
+      background: rgba(245, 240, 232, .97);
+      border-bottom-color: rgba(20, 18, 16, .1);
+    }
+
+    body.light-mode .navbar__logo-name,
+    body.light-mode .navbar__logo-sub,
+    body.light-mode .lang-selector__btn {
+      color: #141210;
+    }
+
+    body.light-mode .hamburger-line {
+      background: #141210;
+    }
+
+    body.light-mode .site-footer {
+      background: #F9F8F6;
+    }
+
+    body.light-mode .footer-brand__logo,
+    body.light-mode .footer-col__title {
+      color: #141210;
+    }
+
+    body.light-mode .footer-brand__desc,
+    body.light-mode .footer-col__list a {
+      color: #5C5048;
+    }
+
+    body.light-mode .footer-bottom__copy,
+    body.light-mode .footer-bottom__links a {
+      color: rgba(20, 18, 16, .65);
+    }
+
+    body.light-mode .lang-selector__dropdown {
+      background: rgba(245, 240, 232, .98);
+      border-color: rgba(20, 18, 16, .12);
+    }
+
+    body.light-mode .lang-selector__option {
+      color: rgba(20, 18, 16, .75);
+    }
+
+    body.light-mode .lang-selector__option:hover,
+    body.light-mode .lang-selector__option.active {
+      background: rgba(201, 168, 76, .1);
+      color: #141210;
+    }
+
+    /* ─── BREADCRUMB ──────────────────────────────────────────── */
+    .breadcrumb-bar {
+      position: relative;
+      top: auto;
+      margin-top: 104px;
+      height: auto;
+      min-height: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-bar {
+        margin-top: 92px;
+      }
+    }
+
+    .breadcrumb__link {
+      color: rgba(245, 240, 232, 0.45);
+    }
+
+    .breadcrumb__link:hover,
+    .breadcrumb__link:focus-visible {
+      color: var(--gold);
+      text-shadow: none;
+    }
+
+    .breadcrumb__current {
+      color: rgba(245, 240, 232, 0.85);
+    }
+
+    .breadcrumb__sep {
+      color: var(--gold);
+    }
+
+    body.light-mode .breadcrumb__link {
+      color: rgba(20, 18, 16, 0.45);
+    }
+
+    body.light-mode .breadcrumb__link:hover,
+    body.light-mode .breadcrumb__link:focus-visible {
+      color: var(--gold);
+      text-shadow: none;
+    }
+
+    body.light-mode .breadcrumb__current {
+      color: var(--carbon);
+    }
+
+    @media (max-width: 640px) {
+      body.light-mode .breadcrumb__back {
+        color: rgba(20, 18, 16, 0.55);
+      }
+    }
+
+    /* ─── PAGE HERO ───────────────────────────────────────────── */
+    .page-hero {
+      text-align: center;
+      padding: 64px 24px 44px;
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      .page-hero {
+        padding: 20px 24px 32px;
+        background: #F9F8F6;
+      }
+    }
+
+    .page-hero__eyebrow {
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #7a5e18;
+      margin-bottom: 14px;
+    }
+
+    .page-hero__title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--carbon);
+      margin-bottom: 18px;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: #7A6025;
+    }
+
+    .page-hero__desc {
+      max-width: 560px;
+      margin: 0 auto;
+      color: #5C5249;
+      font-size: .92rem;
+    }
+
+    body:not(.light-mode) .page-hero__title {
+      color: var(--cream);
+    }
+
+    body:not(.light-mode) .page-hero__eyebrow {
+      color: rgba(201, 168, 76, .75);
+    }
+
+    body:not(.light-mode) .page-hero__desc {
+      color: rgba(245, 240, 232, .58);
+    }
+
+    body.light-mode .page-hero__title {
+      color: var(--carbon) !important;
+    }
+
+    body.light-mode .page-hero__title em {
+      color: #7A6025 !important;
+    }
+
+    body.light-mode .page-hero__eyebrow {
+      color: #7a5e18 !important;
+    }
+
+    body.light-mode .page-hero__desc {
+      color: #5C5249 !important;
+    }
+
+    /* ─── LAYOUT TIENDA ───────────────────────────────────────── */
+    .shop-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      /* El hueco inferior deja sitio a la barra fija del carrito */
+      padding: 0 20px 140px;
+    }
+
+    .shop-view {
+      display: none;
+    }
+
+    .shop-view.active {
+      display: block;
+      animation: panelIn .38s cubic-bezier(.4, 0, .2, 1) forwards;
+    }
+
+    @keyframes panelIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-head__title {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--carbon);
+    }
+
+    .section-head__sub {
+      font-size: .85rem;
+      color: #5C5249;
+      margin-top: 4px;
+    }
+
+    body:not(.light-mode) .section-head__title {
+      color: var(--white);
+    }
+
+    body:not(.light-mode) .section-head__sub {
+      color: rgba(245, 240, 232, .62);
+    }
+
+    /* ─── GRID DE PRODUCTOS ───────────────────────────────────── */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 900px) {
+      .shop-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shop-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-card {
+      background: var(--white);
+      border: 1px solid rgba(201, 168, 76, .18);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+
+    .product-card:hover {
+      border-color: rgba(201, 168, 76, .5);
+      box-shadow: 0 8px 26px rgba(140, 120, 80, .18);
+      transform: translateY(-2px);
+    }
+
+    .product-card__media {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      aspect-ratio: 4 / 3;
+      background: var(--cream-dark);
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    /* Sin foto no hay nada que ampliar: se desactiva el gesto */
+    .product-card__media.no-zoom {
+      cursor: default;
+    }
+
+    /* Marca de agua mientras no haya foto del producto (o si falla la carga) */
+    .product-card__media::before {
+      content: '✦';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      color: rgba(201, 168, 76, .45);
+    }
+
+    .product-card__media img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 700ms var(--transition);
+    }
+
+    .product-card__media img.is-missing {
+      visibility: hidden;
+    }
+
+    .product-card:hover .product-card__media img {
+      transform: scale(1.04);
+    }
+
+    /* Indicador de «pulsa para ampliar»: siempre visible para que también
+       se entienda en pantallas táctiles, donde no hay hover. */
+    .media-zoom {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 2;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 18, 16, .72);
+      color: var(--gold-lt);
+      opacity: .85;
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .product-card__media:hover .media-zoom,
+    .product-card__media:focus-visible .media-zoom {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    .no-zoom .media-zoom {
+      display: none;
+    }
+
+    .product-card__tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      font-size: .6rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 5px 11px;
+      border-radius: 100px;
+      background: rgba(20, 18, 16, .82);
+      color: var(--gold-lt);
+      backdrop-filter: blur(4px);
+    }
+
+    .product-card__tag--gra {
+      background: var(--gold);
+      color: #211d14;
+    }
+
+    .product-card__body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 20px 22px 22px;
+    }
+
+    /* Referencia a la izquierda y existencias a la derecha, misma línea */
+    .product-card__meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .product-card__ref {
+      font-size: .725rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #8a7236;
+      min-width: 0;
+    }
+
+    .product-card__title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--carbon);
+      margin-bottom: 8px;
+    }
+
+    .product-card__desc {
+      font-size: .82rem;
+      line-height: 1.6;
+      color: #5C5249;
+      margin-bottom: 14px;
+    }
+
+    .product-card__specs {
+      list-style: none;
+      border-top: 1px solid rgba(201, 168, 76, .18);
+      padding-top: 12px;
+      margin-bottom: 18px;
+      display: grid;
+      gap: 5px;
+    }
+
+    .product-card__specs li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .76rem;
+      color: #5C5249;
+    }
+
+    .product-card__specs b {
+      font-weight: 500;
+      color: #8a7236;
+      letter-spacing: .04em;
+    }
+
+    /* Existencias leídas de inventario_tienda */
+    .product-card__stock {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      font-size: .725rem;
+      letter-spacing: .04em;
+      font-weight: 500;
+      white-space: nowrap;
+      color: #3f6b3a;
+    }
+
+    .product-card__stock::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    .product-card__stock--bajo {
+      color: #a86a1e;
+    }
+
+    .product-card__stock--agotado {
+      color: #a04a34;
+    }
+
+    body:not(.light-mode) .product-card__stock {
+      color: #8fc07f;
+    }
+
+    body:not(.light-mode) .product-card__stock--bajo {
+      color: #e0b070;
+    }
+
+    body:not(.light-mode) .product-card__stock--agotado {
+      color: #e0857a;
+    }
+
+    .product-card__foot {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .product-card__price {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: #7A6025;
+      line-height: 1;
+    }
+
+    .product-card__inline-qty {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .72rem;
+      color: #7A6025;
+      font-weight: 500;
+    }
+
+    body:not(.light-mode) .product-card {
+      background: #1a1610;
+      border-color: rgba(201, 168, 76, .15);
+    }
+
+    body:not(.light-mode) .product-card__media {
+      background: #0c0a08;
+    }
+
+    body:not(.light-mode) .product-card__title {
+      color: var(--white);
+    }
+
+    body:not(.light-mode) .product-card__desc,
+    body:not(.light-mode) .product-card__specs li {
+      color: rgba(245, 240, 232, .62);
+    }
+
+    body:not(.light-mode) .product-card__specs {
+      border-top-color: rgba(255, 255, 255, .1);
+    }
+
+    body:not(.light-mode) .product-card__ref,
+    body:not(.light-mode) .product-card__specs b {
+      color: var(--gold);
+    }
+
+    body:not(.light-mode) .product-card__price {
+      color: var(--gold-lt);
+    }
+
+    body:not(.light-mode) .product-card__inline-qty {
+      color: var(--gold-lt);
+    }
+
+    /* ─── BOTONES ─────────────────────────────────────────────── */
+    .btn {
+      font-family: var(--sans);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .btn--ghost {
+      background: transparent;
+      border: 1.5px solid var(--stone-lt);
+      color: #5C5249;
+    }
+
+    .btn--ghost:hover {
+      border-color: #5C5249;
+      color: var(--carbon);
+    }
+
+    body:not(.light-mode) .btn--ghost {
+      color: rgba(245, 240, 232, .78);
+    }
+
+    body:not(.light-mode) .btn--ghost:hover {
+      color: var(--white);
+    }
+
+    .btn--gold {
+      background: var(--gold);
+      color: #211d14;
+      border: 1.5px solid transparent;
+    }
+
+    .btn--gold:hover {
+      background: var(--gold-dk);
+      box-shadow: 0 4px 14px rgba(201, 168, 76, .35);
+      transform: translateY(-1px);
+    }
+
+    .btn--gold[disabled] {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn--sm {
+      padding: 10px 18px;
+      font-size: .7rem;
+    }
+
+    .btn--added {
+      background: rgba(201, 168, 76, .16);
+      color: #7A6025;
+      border: 1.5px solid var(--gold);
+    }
+
+    body:not(.light-mode) .btn--added {
+      color: var(--gold-lt);
+      background: rgba(201, 168, 76, .12);
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(201, 168, 76, .18);
+      flex-wrap: wrap;
+    }
+
+    body:not(.light-mode) .btn-row {
+      border-top-color: rgba(255, 255, 255, .08);
+    }
+
+    /* ─── BARRA FIJA "IR AL CARRITO" ──────────────────────────── */
+    .cart-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 120;
+      display: flex;
+      justify-content: center;
+      padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, rgba(249, 248, 246, .98) 55%, rgba(249, 248, 246, 0));
+      transform: translateY(115%);
+      transition: transform 420ms var(--transition);
+      pointer-events: none;
+    }
+
+    .cart-bar.visible {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    body:not(.light-mode) .cart-bar {
+      background: linear-gradient(to top, rgba(20, 18, 16, .98) 55%, rgba(20, 18, 16, 0));
+    }
+
+    .cart-bar__btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gold);
+      color: #211d14;
+      font-family: var(--sans);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 14px 30px 14px 24px;
+      border-radius: 100px;
+      box-shadow: 0 8px 26px rgba(20, 18, 16, .28);
+      transition: var(--transition);
+    }
+
+    .cart-bar__btn:hover {
+      background: var(--gold-dk);
+      transform: translateY(-2px);
+    }
+
+    .cart-bar__icon {
+      flex-shrink: 0;
+    }
+
+    .cart-bar__count {
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      border-radius: 100px;
+      background: #211d14;
+      color: var(--gold-lt);
+      font-size: .72rem;
+      line-height: 22px;
+      text-align: center;
+      letter-spacing: 0;
+    }
+
+    .cart-bar__total {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      letter-spacing: .02em;
+      text-transform: none;
+    }
+
+    @media (max-width: 420px) {
+      .cart-bar__btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 18px;
+      }
+    }
+
+    /* ─── PANELES (carrito / formulario / confirmación) ───────── */
+    .form-panel {
+      background: var(--white);
+      border: 1px solid rgba(201, 168, 76, .18);
+      border-radius: 8px;
+      padding: 44px 48px;
+      box-shadow: var(--shadow);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    body:not(.light-mode) .form-panel {
+      background: #1a1610;
+      border-color: rgba(201, 168, 76, .15);
+    }
+
+    .panel-title {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--carbon);
+      margin-bottom: 6px;
+    }
+
+    .panel-subtitle {
+      font-size: .82rem;
+      color: #5C5249;
+      margin-bottom: 32px;
+    }
+
+    body:not(.light-mode) .panel-title {
+      color: var(--white);
+    }
+
+    body:not(.light-mode) .panel-subtitle {
+      color: rgba(245, 240, 232, .62);
+    }
+
+    /* ─── LÍNEAS DEL CARRITO ──────────────────────────────────── */
+    .cart-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 84px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      border: 1px solid rgba(201, 168, 76, .18);
+      border-radius: 6px;
+      padding: 14px;
+      background: var(--cream);
+    }
+
+    body:not(.light-mode) .cart-item {
+      background: #141210;
+      border-color: rgba(255, 255, 255, .1);
+    }
+
+    .cart-item__thumb {
+      position: relative;
+      display: block;
+      width: 84px;
+      height: 66px;
+      padding: 0;
+      border: none;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--cream-dark);
+      cursor: zoom-in;
+    }
+
+    .cart-item__thumb.no-zoom {
+      cursor: default;
+    }
+
+    .cart-item__thumb::before {
+      content: '✦';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      color: rgba(201, 168, 76, .5);
+    }
+
+    .cart-item__thumb img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item__thumb img.is-missing {
+      visibility: hidden;
+    }
+
+    body:not(.light-mode) .cart-item__thumb {
+      background: #0c0a08;
+    }
+
+    .cart-item__ref {
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #8a7236;
+    }
+
+    .cart-item__name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--carbon);
+      line-height: 1.3;
+    }
+
+    body:not(.light-mode) .cart-item__name {
+      color: var(--white);
+    }
+
+    .cart-item__unit {
+      font-size: .74rem;
+      color: #5C5249;
+    }
+
+    body:not(.light-mode) .cart-item__unit {
+      color: rgba(245, 240, 232, .58);
+    }
+
+    .cart-item__side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .cart-item__line {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: #7A6025;
+      white-space: nowrap;
+    }
+
+    body:not(.light-mode) .cart-item__line {
+      color: var(--gold-lt);
+    }
+
+    .cart-item__remove {
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #a04a34;
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    body:not(.light-mode) .cart-item__remove {
+      color: #e0857a;
+    }
+
+    @media (max-width: 560px) {
+      .cart-item {
+        grid-template-columns: 64px 1fr;
+      }
+
+      .cart-item__thumb {
+        width: 64px;
+        height: 56px;
+      }
+
+      .cart-item__side {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    /* Selector de cantidad (mismo patrón que reservas.html) */
+    .qty-row {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--stone-lt);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      margin-top: 6px;
+    }
+
+    body:not(.light-mode) .qty-row {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .15);
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: none;
+      font-size: 1.05rem;
+      color: #5C5249;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .qty-btn:hover:not([disabled]) {
+      background: var(--gold);
+      color: #211d14;
+    }
+
+    .qty-btn[disabled] {
+      opacity: .35;
+      cursor: default;
+    }
+
+    body:not(.light-mode) .qty-btn {
+      color: rgba(245, 240, 232, .78);
+    }
+
+    .qty-value {
+      min-width: 40px;
+      text-align: center;
+      font-size: .9rem;
+      border-left: 1px solid var(--stone-lt);
+      border-right: 1px solid var(--stone-lt);
+      line-height: 32px;
+    }
+
+    body:not(.light-mode) .qty-value {
+      border-left-color: rgba(255, 255, 255, .15);
+      border-right-color: rgba(255, 255, 255, .15);
+    }
+
+    .cart-total {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(201, 168, 76, .22);
+    }
+
+    .cart-total__label {
+      font-size: .74rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #5C5249;
+    }
+
+    body:not(.light-mode) .cart-total__label {
+      color: rgba(245, 240, 232, .62);
+    }
+
+    .cart-total__amount {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: #7A6025;
+    }
+
+    body:not(.light-mode) .cart-total__amount {
+      color: var(--gold-lt);
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 28px 0 8px;
+      color: #5C5249;
+      font-size: .9rem;
+    }
+
+    body:not(.light-mode) .cart-empty {
+      color: rgba(245, 240, 232, .62);
+    }
+
+    /* ─── CAMPOS DE FORMULARIO ────────────────────────────────── */
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 24px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .field.span-2 {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #594E47;
+      font-weight: 500;
+    }
+
+    body:not(.light-mode) label {
+      color: rgba(245, 240, 232, .78);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"] {
+      font-family: var(--sans);
+      font-size: .9rem;
+      color: var(--carbon);
+      background: var(--cream);
+      border: 1px solid var(--stone-lt);
+      border-radius: var(--radius);
+      padding: 11px 14px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      width: 100%;
+      min-width: 0;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .14);
+      background: var(--white);
+    }
+
+    input.error {
+      border-color: #C0392B;
+      box-shadow: 0 0 0 3px rgba(192, 57, 43, .1);
+    }
+
+    body:not(.light-mode) input[type="text"],
+    body:not(.light-mode) input[type="email"],
+    body:not(.light-mode) input[type="tel"],
+    body:not(.light-mode) input[type="number"] {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .15);
+      color: var(--white);
+    }
+
+    body:not(.light-mode) input:focus {
+      background: #221c12;
+    }
+
+    .error-msg {
+      font-size: .72rem;
+      color: #C0392B;
+      display: none;
+      margin-top: 2px;
+    }
+
+    .error-msg.visible {
+      display: block;
+    }
+
+    body:not(.light-mode) .error-msg {
+      color: #e0857a;
+    }
+
+    /* ─── CAPTCHA + TÉRMINOS ──────────────────────────────────── */
+    .captcha-box {
+      border: 1px solid var(--stone-lt);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 8px 0 22px;
+      flex-wrap: wrap;
+    }
+
+    body:not(.light-mode) .captcha-box {
+      background: #1a1610;
+      border-color: rgba(255, 255, 255, .12);
+    }
+
+    .captcha-question {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--carbon);
+      flex: 1;
+      min-width: 120px;
+    }
+
+    body:not(.light-mode) .captcha-question {
+      color: var(--white);
+    }
+
+    .captcha-op {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .captcha-box input {
+      width: 110px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .captcha-hint {
+      font-size: .72rem;
+      color: #5C5249;
+      font-style: italic;
+    }
+
+    body:not(.light-mode) .captcha-hint {
+      color: rgba(245, 240, 232, .58);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .checkbox-row label {
+      font-size: .84rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--carbon);
+      cursor: pointer;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    body:not(.light-mode) .checkbox-row label {
+      color: var(--stone-lt);
+    }
+
+    .checkbox-row a {
+      color: #7A6025;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    body:not(.light-mode) .checkbox-row a {
+      color: var(--gold-lt);
+    }
+
+    /* ─── NOTA DE PORTES ──────────────────────────────────────── */
+    .info-note {
+      margin: 4px 0 22px;
+      padding: 14px 18px;
+      background: rgba(201, 168, 76, .07);
+      border-left: 2px solid var(--gold);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .info-note p {
+      margin: 0;
+      font-size: .8rem;
+      line-height: 1.65;
+      color: rgba(26, 26, 26, .78);
+    }
+
+    body:not(.light-mode) .info-note p {
+      color: rgba(245, 240, 232, .72);
+    }
+
+    /* ─── ALERTAS ─────────────────────────────────────────────── */
+    .alert {
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      font-size: .82rem;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .alert.visible {
+      display: block;
+    }
+
+    .alert--error {
+      background: #fdf0ee;
+      border: 1px solid #e0a09a;
+      color: #7a2828;
+    }
+
+    body:not(.light-mode) .alert--error {
+      background: rgba(192, 57, 43, .12);
+      border-color: rgba(192, 57, 43, .3);
+      color: #e0a09a;
+    }
+
+    /* ─── RESUMEN DEL PEDIDO EN EL FORMULARIO ─────────────────── */
+    .order-mini {
+      border: 1px solid rgba(201, 168, 76, .22);
+      border-radius: 6px;
+      background: var(--cream);
+      padding: 18px 22px;
+      margin-bottom: 28px;
+    }
+
+    body:not(.light-mode) .order-mini {
+      background: #141210;
+      border-color: rgba(255, 255, 255, .1);
+    }
+
+    .order-mini__row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: .82rem;
+      color: #5C5249;
+      padding: 3px 0;
+    }
+
+    body:not(.light-mode) .order-mini__row {
+      color: rgba(245, 240, 232, .68);
+    }
+
+    .order-mini__row--total {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(201, 168, 76, .22);
+      font-size: .9rem;
+      color: var(--carbon);
+      font-weight: 500;
+    }
+
+    body:not(.light-mode) .order-mini__row--total {
+      color: var(--white);
+    }
+
+    /* ─── CONFIRMACIÓN ────────────────────────────────────────── */
+    #view-confirmacion .form-panel {
+      text-align: center;
+    }
+
+    .confirm-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(201, 168, 76, .12);
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin: 0 auto 22px;
+    }
+
+    .confirm-title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--carbon);
+      margin-bottom: 10px;
+    }
+
+    body:not(.light-mode) .confirm-title {
+      color: var(--white);
+    }
+
+    .confirm-note {
+      font-size: .88rem;
+      color: #5C5249;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    body:not(.light-mode) .confirm-note {
+      color: rgba(245, 240, 232, .68);
+    }
+
+    /* ─── LIGHTBOX (imagen ampliada) ──────────────────────────────
+       z-index 8500: por encima de navbar (500), menú lateral (550) y
+       banner/modal de cookies (8000/8100), y por debajo del panel de
+       accesibilidad (8994+) para no bloquearlo. */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 8500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(14px, 4vw, 40px);
+      /* Hueco reservado a la derecha para los controles de zoom: así no
+         tapan la foto en ningún tamaño de pantalla. */
+      padding-right: calc(clamp(14px, 4vw, 40px) + 58px);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    .lightbox__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(14, 12, 10, .9);
+      backdrop-filter: blur(5px);
+    }
+
+    .lightbox__dialog {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: min(1100px, 100%);
+      /* Altura definida (no vh): el marco la reparte y la imagen se ajusta.
+         Evita que la barra de direcciones de iOS deje la foto fuera de vista. */
+      height: 100%;
+      animation: lightboxIn .32s cubic-bezier(.4, 0, .2, 1) forwards;
+    }
+
+    .lightbox__frame {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Recorta la foto ampliada para que no invada pie ni controles */
+      overflow: hidden;
+    }
+
+    /* Con zoom, el navegador no debe robarnos el gesto de arrastrar */
+    .lightbox__frame.is-zoomed {
+      touch-action: none;
+    }
+
+    @keyframes lightboxIn {
+      from {
+        opacity: 0;
+        transform: scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .lightbox__img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      background: var(--cream-dark);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+      transform-origin: center center;
+      transition: transform .24s cubic-bezier(.4, 0, .2, 1);
+      will-change: transform;
+    }
+
+    .lightbox__img.is-zoomed {
+      cursor: grab;
+    }
+
+    /* Mientras se arrastra o se pellizca, la transición estorba */
+    .lightbox__frame.is-panning .lightbox__img {
+      transition: none;
+    }
+
+    .lightbox__frame.is-grabbing .lightbox__img.is-zoomed {
+      cursor: grabbing;
+    }
+
+    /* ─── Controles de zoom (columna a la derecha) ─────────────── */
+    .lightbox__zoom {
+      position: fixed;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lightbox__zoombtn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(253, 250, 244, .14);
+      color: var(--white);
+      border: 1px solid rgba(253, 250, 244, .28);
+      transition: var(--transition);
+    }
+
+    .lightbox__zoombtn:hover:not([disabled]) {
+      background: rgba(253, 250, 244, .26);
+    }
+
+    .lightbox__zoombtn[disabled] {
+      opacity: .35;
+      cursor: default;
+    }
+
+    .lightbox__zoomlevel {
+      font-size: .66rem;
+      letter-spacing: .04em;
+      color: var(--cream);
+      background: rgba(20, 18, 16, .6);
+      border: 1px solid rgba(253, 250, 244, .16);
+      border-radius: 100px;
+      padding: 3px 0;
+      min-width: 50px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .lightbox__caption {
+      flex: 0 0 auto;
+      text-align: center;
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      /* No compite con la foto por el espacio vertical */
+      padding-bottom: 2px;
+    }
+
+    .lightbox__ref {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .lightbox__name {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .lightbox__price {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--gold-lt);
+    }
+
+    .lightbox__close {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(253, 250, 244, .14);
+      color: var(--white);
+      border: 1px solid rgba(253, 250, 244, .28);
+      transition: var(--transition);
+    }
+
+    .lightbox__close:hover {
+      background: rgba(253, 250, 244, .26);
+    }
+
+    @media (max-width: 560px) {
+      .lightbox__name {
+        font-size: 1.2rem;
+      }
+
+      .lightbox {
+        padding-right: calc(clamp(14px, 4vw, 40px) + 50px);
+      }
+
+      .lightbox__zoom {
+        right: 8px;
+        gap: 6px;
+      }
+
+      .lightbox__zoombtn {
+        width: 42px;
+        height: 42px;
+      }
+
+      .lightbox__zoomlevel {
+        min-width: 44px;
+        font-size: .6rem;
+      }
+    }
+
+    /* Apaisado en móvil: apenas hay altura, el pie se come la foto */
+    @media (max-height: 460px) {
+      .lightbox__caption {
+        display: none;
+      }
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .form-panel {
+        padding: 28px 22px;
+      }
+
+      .field-group {
+        grid-template-columns: 1fr;
+      }
+
+      .field.span-2 {
+        grid-column: span 1;
+      }
+
+      .btn-row {
+        flex-direction: column-reverse;
+      }
+
+      .btn-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+
+<body class="light-mode">
+  <script>try { document.body.classList.toggle('light-mode', localStorage.getItem('a11y-light-mode') !== '0') } catch (e) { }</script>
+
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Saltar al contenido principal</a>
+
+  <!-- ACCESIBILIDAD -->
+  <button id="a11y-toggle" class="a11y-toggle" aria-label="Herramientas de accesibilidad" aria-expanded="false"
+    aria-controls="a11y-panel">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"
+      aria-hidden="true">
+      <circle cx="12" cy="4" r="2" />
+      <path
+        d="M17.5 8.5h-11a.5.5 0 0 0 0 1H10v.8L8.6 17H6v1.5h3.1l1.1-5.5h3.6l1.1 5.5H18V17h-2.6L14 10.3V9.5h3.5a.5.5 0 0 0 0-1z" />
+    </svg>
+  </button>
+  <div id="a11y-overlay" class="a11y-overlay" aria-hidden="true"></div>
+  <div id="a11y-panel" class="a11y-panel" role="dialog" aria-label="Herramientas de accesibilidad" aria-hidden="true">
+    <button id="a11y-panel-close" class="a11y-panel__close" aria-label="Cerrar panel de accesibilidad">×</button>
+    <div class="a11y-panel__header" data-i18n="a11y_title">Herramientas de accesibilidad</div>
+    <ul class="a11y-panel__list">
+      <li>
+        <button class="a11y-option" id="a11y-text-increase" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          <span data-i18n="a11y_text_increase">Aumentar texto</span>
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-decrease" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+          </svg>
+          <span data-i18n="a11y_text_decrease">Disminuir texto</span>
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-light-mode" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <span>Modo Claro / Oscuro</span>
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-grayscale" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          <span data-i18n="a11y_grayscale">Escala de grises</span>
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-high-contrast" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18" stroke-width="1.8" />
+            <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
+          </svg>
+          <span data-i18n="a11y_high_contrast">Alto contraste</span>
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-invert" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v20M2 12h20" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9" fill="currentColor" stroke="none" />
+          </svg>
+          <span data-i18n="a11y_invert">Invertir colores</span>
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-underline-links" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+            <line x1="4" y1="20" x2="20" y2="20" />
+          </svg>
+          <span data-i18n="a11y_underline_links">Subrayar enlaces</span>
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-readable-font" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <polyline points="4 7 4 4 20 4 20 7" />
+            <line x1="9" y1="20" x2="15" y2="20" />
+            <line x1="12" y1="4" x2="12" y2="20" />
+          </svg>
+          <span data-i18n="a11y_readable_font">Fuente legible</span>
+        </button>
+      </li>
+      <li>
+        <button class="a11y-option" id="a11y-text-reader" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          <span data-i18n="a11y_read_text">Leer texto</span>
+        </button>
+      </li>
+      <li class="a11y-panel__divider" role="separator"></li>
+      <li>
+        <button class="a11y-option" id="a11y-reset">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          <span data-i18n="a11y_reset">Restablecer</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══ NAVBAR ══════════════════════════════════════════════════ -->
+  <nav class="navbar navbar--always-solid" id="navbar">
+    <a href="/" class="navbar__logo">
+      <img class="navbar__logo-favicon" id="logo-img" src="favicon.svg" alt="Catedral de Santo Domingo de la Calzada" />
+      <div class="navbar__logo-text">
+        <span class="navbar__logo-name">Catedral de Santo Domingo</span>
+        <span class="navbar__logo-sub">de la Calzada · La Rioja</span>
+      </div>
+    </a>
+    <span class="navbar__tagline">
+      <span class="navbar__tagline-desktop">Patrimonio · Camino de Santiago</span>
+      <span class="navbar__tagline-mobile"><span class="navbar__tagline-catedral">Catedral</span><br><span
+          class="navbar__tagline-gallo">del Gallo</span></span>
+    </span>
+    <div class="navbar__actions">
+      <button class="navbar__a11y-btn" id="navbar-a11y-btn" aria-label="Herramientas de accesibilidad" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="4" r="2" fill="currentColor" stroke="none" />
+          <path d="M5 9h14" />
+          <path d="M9 9v4l-2 7" />
+          <path d="M15 9v4l2 7" />
+          <path d="M9 13h6" />
+        </svg>
+      </button>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-selector__btn" id="lang-btn" aria-label="Seleccionar idioma" aria-expanded="false">
+          <span id="lang-current-flag">🇪🇸</span>
+          <span id="lang-current-code">ES</span>
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none">
+            <path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="lang-selector__dropdown" id="lang-dropdown" role="listbox">
+          <button class="lang-selector__option active" data-lang="es" role="option"><span
+              class="lang-flag">🇪🇸</span><span class="lang-name">Español</span><span
+              class="lang-code">ES</span></button>
+          <button class="lang-selector__option" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span><span
+              class="lang-name">English</span><span class="lang-code">EN</span></button>
+          <button class="lang-selector__option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span><span
+              class="lang-name">Français</span><span class="lang-code">FR</span></button>
+          <button class="lang-selector__option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span><span
+              class="lang-name">Deutsch</span><span class="lang-code">DE</span></button>
+          <button class="lang-selector__option" data-lang="pt" role="option"><span class="lang-flag">🇵🇹</span><span
+              class="lang-name">Português</span><span class="lang-code">PT</span></button>
+          <button class="lang-selector__option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span><span
+              class="lang-name">Italiano</span><span class="lang-code">IT</span></button>
+          <button class="lang-selector__option" data-lang="ko" role="option"><span class="lang-flag">🇰🇷</span><span
+              class="lang-name">한국어</span><span class="lang-code">KO</span></button>
+          <button class="lang-selector__option" data-lang="eu" role="option"><span class="lang-flag">ᴇᴜ</span><span
+              class="lang-name">Euskara</span><span class="lang-code">EU</span></button>
+          <button class="lang-selector__option" data-lang="ca" role="option"><span class="lang-flag">ᴄᴀ</span><span
+              class="lang-name">Català</span><span class="lang-code">CA</span></button>
+        </div>
+      </div>
+      <button class="navbar__hamburger" id="menu-open" aria-label="Menú">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SIDE MENU -->
+  <div class="menu-overlay" id="menu-overlay"></div>
+  <aside class="side-menu" id="side-menu" aria-label="Navegación principal">
+    <button class="side-menu__a11y-btn" aria-label="Herramientas de accesibilidad">
+      <svg class="side-menu__a11y-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle class="side-menu__a11y-circle" cx="12" cy="12" r="11" />
+        <path class="side-menu__a11y-figure"
+          d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z" />
+      </svg>
+      <span class="side-menu__a11y-label">Accesibilidad</span>
+    </button>
+    <button class="side-menu__close" id="menu-close" aria-label="Cerrar menú">×</button>
+    <nav class="side-menu__nav">
+      <ul class="side-menu__nav-list">
+        <li class="side-menu__nav-item"><a href="/" class="side-menu__nav-link"><span
+              class="nav-num">01</span>Inicio</a></li>
+        <li class="side-menu__nav-item"><a href="monumentos" class="side-menu__nav-link"><span
+              class="nav-num">02</span>Monumentos</a></li>
+        <li class="side-menu__nav-item"><a href="visitas" class="side-menu__nav-link"><span
+              class="nav-num">03</span>Visitas</a></li>
+        <li class="side-menu__nav-item"><a href="actualidad" class="side-menu__nav-link"><span
+              class="nav-num">04</span>Actualidad</a></li>
+        <li class="side-menu__nav-item"><a href="institucion" class="side-menu__nav-link"><span
+              class="nav-num">05</span>Institución</a></li>
+        <li class="side-menu__nav-item"><a href="reservas" class="side-menu__nav-link"><span
+              class="nav-num">06</span>Reservas</a></li>
+        <li class="side-menu__nav-item"><a href="tienda" class="side-menu__nav-link side-menu__nav-link--active"><span
+              class="nav-num">07</span>Tienda</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu__social">
+      <a href="https://www.instagram.com/catedralsantodomingolacalzada/" target="_blank" rel="noopener"
+        aria-label="Instagram"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg></a>
+      <a href="https://www.facebook.com/p/Catedral-de-Santo-Domingo-de-la-Calzada-61559333548948/" target="_blank"
+        rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      <a href="https://x.com/CatedralSanto" target="_blank" rel="noopener" aria-label="X / Twitter"><svg
+          viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path
+            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg></a>
+      <a href="mailto:entradas@catedralsantodomingo.org" aria-label="Correo electrónico"><svg viewBox="0 0 24 24"
+          width="14" height="14" fill="currentColor">
+          <path
+            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+        </svg></a>
+      <a href="tel:+34941340033" aria-label="Teléfono"><svg viewBox="0 0 24 24" width="14" height="14"
+          fill="currentColor">
+          <path
+            d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+        </svg></a>
+    </div>
+    <div class="side-menu__legal">
+      <a href="legal/privacidad">Privacidad</a>
+      <a href="legal/cookies">Cookies</a>
+      <a href="legal/aviso-legal">Aviso legal</a>
+      <a href="legal/compra">Compra</a>
+    </div>
+  </aside>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb-bar" aria-label="Ruta de navegación">
+    <ol class="breadcrumb__list" role="list">
+      <li><a href="/" class="breadcrumb__link" data-i18n="bc_home">Inicio</a></li>
+      <li class="breadcrumb__sep" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6" />
+        </svg></li>
+      <li><span class="breadcrumb__current" aria-current="page" data-i18n-page="bc_tienda">Tienda</span></li>
+    </ol>
+    <a href="/" class="breadcrumb__back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+      <span data-i18n="bc_home">Inicio</span>
+    </a>
+  </nav>
+
+  <!-- ═══ PAGE HERO ══════════════════════════════════════════════════ -->
+  <div class="page-hero">
+    <h1 class="page-hero__title" data-i18n-page="hero_title">Tienda de la <em>Catedral</em></h1>
+    <p class="page-hero__eyebrow" data-i18n-page="hero_eyebrow">Belenes de Navidad</p>
+    <p class="page-hero__desc" data-i18n-page="hero_desc">Belenes artesanales de tamaño mediano y grande. Reserva las
+      piezas que desees y nos pondremos en contacto contigo para confirmar tu pedido.</p>
+  </div>
+
+  <!-- ═══ TIENDA ═════════════════════════════════════════════════════ -->
+  <main class="shop-wrapper" id="main-content" tabindex="-1">
+
+    <!-- ── VISTA: CATÁLOGO ─────────────────────────────────────── -->
+    <section class="shop-view active" id="view-catalogo" aria-labelledby="cat-title">
+      <div class="section-head">
+        <h2 class="section-head__title" id="cat-title" data-i18n-page="cat_title">Belenes de Navidad</h2>
+        <p class="section-head__sub" data-i18n-page="cat_sub">Nueve referencias disponibles · Tamaño mediano y grande
+        </p>
+      </div>
+      <div class="shop-grid" id="shop-grid"></div>
+    </section>
+
+    <!-- ── VISTA: CARRITO ──────────────────────────────────────── -->
+    <section class="shop-view" id="view-carrito" aria-labelledby="carrito-title">
+      <div class="form-panel">
+        <h2 class="panel-title" id="carrito-title" data-i18n-page="cart_title">Tu carrito</h2>
+        <p class="panel-subtitle" data-i18n-page="cart_sub">Revisa las referencias y las cantidades antes de continuar.
+        </p>
+
+        <div class="cart-list" id="cart-list"></div>
+        <p class="cart-empty" id="cart-empty" data-i18n-page="cart_empty" hidden>Tu carrito está vacío.</p>
+
+        <div class="cart-total" id="cart-total-row">
+          <span class="cart-total__label" data-i18n-page="cart_total">Total del pedido</span>
+          <span class="cart-total__amount" id="cart-total-amount">0,00 €</span>
+        </div>
+
+        <div class="info-note">
+          <p data-i18n-page="nota_portes">Los portes de envío corren a cuenta del comprador. Se estudiará la viabilidad
+            del envío y se le confirmará mediante un correo electrónico.</p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn--ghost" id="btn-seguir" data-i18n-page="btn_seguir">← Seguir comprando</button>
+          <button class="btn btn--gold" id="btn-comprar" data-i18n-page="btn_comprar">Comprar →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VISTA: DATOS DEL COMPRADOR ──────────────────────────── -->
+    <section class="shop-view" id="view-datos" aria-labelledby="datos-title">
+      <div class="form-panel">
+        <h2 class="panel-title" id="datos-title" data-i18n-page="form_title">Datos para la reserva</h2>
+        <p class="panel-subtitle" data-i18n-page="form_sub">Completa tus datos y enviaremos tu solicitud al equipo de la
+          Catedral.</p>
+
+        <div class="order-mini" id="order-mini"></div>
+
+        <div class="field-group">
+          <div class="field span-2">
+            <label for="nombre" data-i18n-page="lb_nombre">Nombre y apellidos *</label>
+            <input type="text" id="nombre" autocomplete="name" />
+            <span class="error-msg" id="err-nombre" data-i18n-page="err_field">Campo obligatorio.</span>
+          </div>
+          <div class="field">
+            <label for="telefono" data-i18n-page="lb_telefono">Teléfono *</label>
+            <input type="tel" id="telefono" autocomplete="tel" />
+            <span class="error-msg" id="err-telefono" data-i18n-page="err_field">Campo obligatorio.</span>
+          </div>
+          <div class="field">
+            <label for="email" data-i18n-page="lb_email">Correo electrónico *</label>
+            <input type="email" id="email" autocomplete="email" />
+            <span class="error-msg" id="err-email" data-i18n-page="err_email">Introduce un correo válido.</span>
+          </div>
+          <div class="field span-2">
+            <label for="direccion" data-i18n-page="lb_direccion">Dirección *</label>
+            <input type="text" id="direccion" autocomplete="street-address" />
+            <span class="error-msg" id="err-direccion" data-i18n-page="err_field">Campo obligatorio.</span>
+          </div>
+          <div class="field">
+            <label for="ciudad" data-i18n-page="lb_ciudad">Ciudad *</label>
+            <input type="text" id="ciudad" autocomplete="address-level2" />
+            <span class="error-msg" id="err-ciudad" data-i18n-page="err_field">Campo obligatorio.</span>
+          </div>
+          <div class="field">
+            <label for="cp" data-i18n-page="lb_cp">Código postal *</label>
+            <input type="text" id="cp" inputmode="numeric" autocomplete="postal-code" />
+            <span class="error-msg" id="err-cp" data-i18n-page="err_field">Campo obligatorio.</span>
+          </div>
+        </div>
+
+        <div class="captcha-box">
+          <div class="captcha-question" id="captcha-question"></div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <input type="number" id="captcha-answer" aria-label="Resultado" />
+            <span class="error-msg" id="err-captcha" data-i18n-page="err_captcha">Respuesta incorrecta.</span>
+          </div>
+          <span class="captcha-hint" data-i18n-page="captcha_hint">Calcula mentalmente y escribe el resultado.</span>
+        </div>
+
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+          <label>Si eres humano, deja este campo vacío
+            <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
+
+        <div id="turnstile-widget" style="margin:0 0 18px"></div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="accept-terms" />
+          <label for="accept-terms" data-i18n-page="terms_label">
+            He leído y acepto las
+            <a href="legal/compra" target="_blank" rel="noopener">condiciones de compra</a>
+            y la
+            <a href="legal/privacidad" target="_blank" rel="noopener">política de privacidad</a>.
+          </label>
+        </div>
+
+        <div class="info-note">
+          <p data-i18n-page="nota_portes">Los portes de envío corren a cuenta del comprador. Se estudiará la viabilidad
+            del envío y se le confirmará mediante un correo electrónico.</p>
+        </div>
+
+        <div class="alert alert--error" id="alert-datos"></div>
+
+        <div class="btn-row">
+          <button class="btn btn--ghost" id="btn-volver-carrito" data-i18n-page="btn_volver">← Volver al carrito</button>
+          <button class="btn btn--gold" id="btn-reservar" data-i18n-page="btn_reservar">Reservar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── VISTA: CONFIRMACIÓN ─────────────────────────────────── -->
+    <section class="shop-view" id="view-confirmacion" aria-labelledby="conf-title">
+      <div class="form-panel">
+        <div class="confirm-icon">✦</div>
+        <h2 class="confirm-title" id="conf-title" data-i18n-page="conf_title">¡Solicitud enviada!</h2>
+        <p class="confirm-note" data-i18n-page="conf_sub">Hemos recibido tu reserva. Revisaremos la disponibilidad y la
+          viabilidad del envío, y te confirmaremos el pedido y los portes por correo electrónico.</p>
+
+        <div class="order-mini" id="conf-order-mini" style="margin-top:28px;text-align:left"></div>
+
+        <div class="btn-row" style="justify-content:center;border:none;padding-top:8px">
+          <button class="btn btn--ghost" id="btn-nueva" data-i18n-page="conf_new">↺ Nuevo pedido</button>
+          <a href="/" class="btn btn--gold" data-i18n-page="conf_home">Volver al inicio</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ LIGHTBOX: IMAGEN AMPLIADA ══════════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true"
+    aria-labelledby="lightbox-name">
+    <div class="lightbox__backdrop" id="lightbox-backdrop"></div>
+    <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Cerrar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+    <div class="lightbox__zoom" id="lightbox-zoom">
+      <button class="lightbox__zoombtn" id="zoom-in" type="button" aria-label="Acercar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+          stroke-linecap="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </button>
+      <span class="lightbox__zoomlevel" id="zoom-level" role="status" aria-live="polite">100%</span>
+      <button class="lightbox__zoombtn" id="zoom-out" type="button" aria-label="Alejar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+          stroke-linecap="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </button>
+    </div>
+    <div class="lightbox__dialog">
+      <div class="lightbox__frame">
+        <img class="lightbox__img" id="lightbox-img" alt="" />
+      </div>
+      <div class="lightbox__caption">
+        <span class="lightbox__ref" id="lightbox-ref"></span>
+        <span class="lightbox__name" id="lightbox-name"></span>
+        <span class="lightbox__price" id="lightbox-price"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BARRA FIJA: IR AL CARRITO ══════════════════════════════════ -->
+  <div class="cart-bar" id="cart-bar">
+    <button class="cart-bar__btn" id="cart-bar-btn">
+      <svg class="cart-bar__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="9" cy="20" r="1.4" />
+        <circle cx="18" cy="20" r="1.4" />
+        <path d="M1.5 2h3l2.2 11.2a1.8 1.8 0 0 0 1.8 1.4h8.6a1.8 1.8 0 0 0 1.8-1.4L22 5.5H5.2" />
+      </svg>
+      <span data-i18n-page="cartbar_go">Ir al carrito</span>
+      <span class="cart-bar__count" id="cart-bar-count">0</span>
+      <span class="cart-bar__total" id="cart-bar-total">0,00 €</span>
+    </button>
+  </div>
+
+  <!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">Catedral de<br>Santo Domingo de la Calzada</div>
+        <div class="footer-brand__sub">Camino de Santiago · La Rioja</div>
+        <p class="footer-brand__desc" data-i18n="footer_desc">Ocho siglos de historia, arte y devoción en el corazón del
+          Camino Francés. Patrimonio vivo de la humanidad.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/catedralsantodomingolacalzada/" target="_blank" rel="noopener"
+            class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+            </svg></a>
+          <a href="https://www.facebook.com/p/Catedral-de-Santo-Domingo-de-la-Calzada-61559333548948/" target="_blank"
+            rel="noopener" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg></a>
+          <a href="https://x.com/CatedralSanto" target="_blank" rel="noopener" class="footer-social__link"
+            aria-label="X"><svg viewBox="0 0 24 24">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg></a>
+          <a href="mailto:entradas@catedralsantodomingo.org" class="footer-social__link"
+            aria-label="Correo electrónico"><svg viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg></a>
+          <a href="tel:+34941340033" class="footer-social__link" aria-label="Teléfono"><svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+            </svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_visit">Visita</div>
+        <ul class="footer-col__list">
+          <li><a href="visitas#individuales" data-i18n="footer_visit_1">Individuales</a></li>
+          <li><a href="visitas#guiadas" data-i18n="footer_visit_2">Guiadas</a></li>
+          <li><a href="visitas#calendario-guiadas" data-i18n="footer_visit_3">Calendario</a></li>
+          <li><a href="visitas#grupos" data-i18n="footer_visit_4">Grupos</a></li>
+          <li><a href="visitas#escolares" data-i18n="footer_visit_5">Escolares</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_discover">Descubre</div>
+        <ul class="footer-col__list">
+          <li><a href="monumentos/catedral" data-i18n="footer_disc_1">Catedral</a></li>
+          <li><a href="monumentos/torre" data-i18n="footer_disc_2">Torre Exenta</a></li>
+          <li><a href="monumentos/sanfrancisco" data-i18n="footer_disc_3">Convento</a></li>
+          <li><a href="monumentos/ermitaplaza" data-i18n="footer_disc_4">Ermita Plaza</a></li>
+          <li><a href="monumentos/monasteriocanas" data-i18n="footer_disc_5">Monasterio Cañas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_info">Información</div>
+        <ul class="footer-col__list">
+          <li><a href="institucion" data-i18n="footer_info_1">Institución</a></li>
+          <li><a href="actualidad" data-i18n="footer_info_2">Actualidad</a></li>
+          <li><a href="actualidad#noticias" data-i18n="footer_info_3">Noticias</a></li>
+          <li><a href="actualidad#agenda" data-i18n="footer_info_4">Agenda</a></li>
+          <li><a href="actualidad#valoranos" data-i18n="footer_info_5">Valóranos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title" data-i18n="footer_col_terms">Términos</div>
+        <ul class="footer-col__list">
+          <li><a href="legal/aviso-legal" data-i18n="footer_legal_1">Aviso legal</a></li>
+          <li><a href="legal/privacidad" data-i18n="footer_legal_2">Privacidad</a></li>
+          <li><a href="legal/cookies" data-i18n="footer_legal_3">Cookies</a></li>
+          <li><a href="legal/compra" data-i18n="footer_legal_5">Compra</a></li>
+          <li><a href="legal/accesibilidad" data-i18n="footer_legal_4">Accesibilidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom__copy" data-i18n="footer_copy">© 2026 Catedral de Santo Domingo de la Calzada · La
+        Rioja · España</span>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER + MODAL -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">
+        <p id="cookie-banner-title" class="cookie-banner__title">Tu privacidad importa</p>
+        <p id="cookie-banner-desc" class="cookie-banner__desc">Usamos cookies para mejorar tu experiencia, analizar el
+          tráfico y recordar tus preferencias.</p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button id="cookie-btn-necessary" class="cookie-btn cookie-btn--outline">Solo necesarias</button>
+        <button id="cookie-btn-customize" class="cookie-btn cookie-btn--ghost">Personalizar</button>
+        <button id="cookie-btn-all" class="cookie-btn cookie-btn--primary">Aceptar todo</button>
+      </div>
+      <a href="legal/cookies" class="cookie-banner__link" data-cookie-link>Política de cookies</a>
+    </div>
+  </div>
+  <div id="cookie-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+    <div class="cookie-modal__backdrop"></div>
+    <div class="cookie-modal__dialog" tabindex="-1">
+      <div class="cookie-modal__header">
+        <h2 id="cookie-modal-title" class="cookie-modal__title">Preferencias de cookies</h2>
+        <button id="cookie-modal-close" class="cookie-modal__close" aria-label="Cerrar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="cookie-modal__body">
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span id="cookie-cat-necessary-name" class="cookie-cat__name">Necesarias</span>
+              <span class="cookie-cat__badge">Siempre activas</span>
+            </div>
+            <div class="cookie-toggle cookie-toggle--locked" aria-hidden="true"><span
+                class="cookie-toggle__track"></span></div>
+          </div>
+          <p id="cookie-cat-necessary-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-analytics-name" class="cookie-cat__name">Analíticas</span>
+            <label class="cookie-toggle" for="cookie-toggle-analytics" aria-labelledby="cookie-cat-analytics-name">
+              <input type="checkbox" id="cookie-toggle-analytics" name="analytics" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-analytics-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-marketing-name" class="cookie-cat__name">Marketing</span>
+            <label class="cookie-toggle" for="cookie-toggle-marketing" aria-labelledby="cookie-cat-marketing-name">
+              <input type="checkbox" id="cookie-toggle-marketing" name="marketing" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-marketing-desc" class="cookie-cat__desc"></p>
+        </div>
+        <div class="cookie-cat">
+          <div class="cookie-cat__header">
+            <span id="cookie-cat-prefs-name" class="cookie-cat__name">Preferencias</span>
+            <label class="cookie-toggle" for="cookie-toggle-prefs" aria-labelledby="cookie-cat-prefs-name">
+              <input type="checkbox" id="cookie-toggle-prefs" name="prefs" role="switch">
+              <span class="cookie-toggle__track"></span>
+            </label>
+          </div>
+          <p id="cookie-cat-prefs-desc" class="cookie-cat__desc"></p>
+        </div>
+      </div>
+      <div class="cookie-modal__footer">
+        <button id="cookie-modal-reject" class="cookie-btn cookie-btn--outline">Rechazar opcionales</button>
+        <button id="cookie-modal-save" class="cookie-btn cookie-btn--primary">Guardar preferencias</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TRADUCCIONES DE PÁGINA ══════════════════════════════════════ -->
+  <script>
+    const PAGE_T = {
+      es: {
+        bc_tienda: 'Tienda',
+        hero_title: 'Tienda de la <em>Catedral</em>',
+        hero_eyebrow: 'Belenes de Navidad',
+        hero_desc: 'Belenes artesanales de tamaño mediano y grande. Reserva las piezas que desees y nos pondremos en contacto contigo para confirmar tu pedido.',
+        cat_title: 'Belenes de Navidad',
+        cat_sub: 'Nueve referencias disponibles · Tamaño mediano y grande',
+        tag_med: 'Mediano', tag_gra: 'Grande',
+        lb_ref: 'Ref.', lb_unit: 'unidad', lb_in_cart: 'En el carrito:',
+        lb_quedan: 'Quedan {0}', lb_queda1: 'Queda 1', lb_agotado: 'Agotado', btn_max: 'Sin más stock',
+        err_sin_stock: 'Alguna pieza acaba de quedarse sin existencias. Revisa el carrito antes de enviar.',
+        spec_material: 'Material', spec_figuras: 'Figuras', spec_sanjose: 'Medida San José',
+        btn_add: 'Reservar', btn_added: 'Añadir otro',
+        cartbar_go: 'Ir al carrito',
+        cart_title: 'Tu carrito',
+        cart_sub: 'Revisa las referencias y las cantidades antes de continuar.',
+        cart_empty: 'Tu carrito está vacío.',
+        cart_remove: 'Quitar',
+        cart_total: 'Total del pedido',
+        aria_less: 'Quitar una unidad', aria_more: 'Añadir una unidad',
+        aria_zoom: 'Ampliar imagen de', lb_close: 'Cerrar',
+        lb_zoom_in: 'Acercar', lb_zoom_out: 'Alejar',
+        btn_seguir: '← Seguir comprando', btn_comprar: 'Comprar →',
+        form_title: 'Datos para la reserva',
+        form_sub: 'Completa tus datos y enviaremos tu solicitud al equipo de la Catedral.',
+        lb_nombre: 'Nombre y apellidos *', lb_telefono: 'Teléfono *', lb_email: 'Correo electrónico *',
+        lb_direccion: 'Dirección *', lb_ciudad: 'Ciudad *', lb_cp: 'Código postal *',
+        captcha_q: '¿Cuánto es<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Calcula mentalmente y escribe el resultado.',
+        ph_captcha: 'Resultado',
+        err_captcha: 'Respuesta incorrecta.',
+        err_field: 'Campo obligatorio.',
+        err_email: 'Introduce un correo válido.',
+        terms_label: 'He leído y acepto las <a href="legal/compra" target="_blank" rel="noopener">condiciones de compra</a> y la <a href="legal/privacidad" target="_blank" rel="noopener">política de privacidad</a>.',
+        nota_portes: 'Los portes de envío corren a cuenta del comprador. Se estudiará la viabilidad del envío y se le confirmará mediante un correo electrónico.',
+        btn_volver: '← Volver al carrito', btn_reservar: 'Reservar', btn_sending: 'Enviando…',
+        conf_title: '¡Solicitud enviada!',
+        conf_sub: 'Hemos recibido tu reserva. Revisaremos la disponibilidad y la viabilidad del envío, y te confirmaremos el pedido y los portes por correo electrónico.',
+        conf_new: '↺ Nuevo pedido', conf_home: 'Volver al inicio',
+        err_fields: 'Revisa los campos marcados en rojo.',
+        err_captcha_alert: 'La respuesta al captcha no es correcta.',
+        err_turnstile: 'Completa la verificación de seguridad.',
+        err_terms: 'Debes aceptar las condiciones de compra y la política de privacidad.',
+        err_submit: 'Se ha producido un error al enviar la solicitud. Inténtalo de nuevo.'
+      },
+      en: {
+        bc_tienda: 'Shop',
+        hero_title: 'Cathedral <em>Shop</em>',
+        hero_eyebrow: 'Christmas Nativity Scenes',
+        hero_desc: 'Handcrafted nativity scenes in medium and large sizes. Reserve the pieces you like and we will contact you to confirm your order.',
+        cat_title: 'Christmas Nativity Scenes',
+        cat_sub: 'Nine references available · Medium and large size',
+        tag_med: 'Medium', tag_gra: 'Large',
+        lb_ref: 'Ref.', lb_unit: 'unit', lb_in_cart: 'In your cart:',
+        lb_quedan: '{0} left', lb_queda1: '1 left', lb_agotado: 'Sold out', btn_max: 'No more stock',
+        err_sin_stock: 'One of the items has just sold out. Please check your cart before sending.',
+        spec_material: 'Material', spec_figuras: 'Figures', spec_sanjose: 'St Joseph height',
+        btn_add: 'Reserve', btn_added: 'Add another',
+        cartbar_go: 'Go to cart',
+        cart_title: 'Your cart',
+        cart_sub: 'Check the references and quantities before continuing.',
+        cart_empty: 'Your cart is empty.',
+        cart_remove: 'Remove',
+        cart_total: 'Order total',
+        aria_less: 'Remove one unit', aria_more: 'Add one unit',
+        aria_zoom: 'Enlarge image of', lb_close: 'Close',
+        lb_zoom_in: 'Zoom in', lb_zoom_out: 'Zoom out',
+        btn_seguir: '← Keep shopping', btn_comprar: 'Buy →',
+        form_title: 'Reservation details',
+        form_sub: 'Fill in your details and we will send your request to the Cathedral team.',
+        lb_nombre: 'Full name *', lb_telefono: 'Phone *', lb_email: 'Email *',
+        lb_direccion: 'Address *', lb_ciudad: 'City *', lb_cp: 'Postcode *',
+        captcha_q: 'How much is<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Work it out mentally and enter the result.',
+        ph_captcha: 'Result',
+        err_captcha: 'Incorrect answer.',
+        err_field: 'Required field.',
+        err_email: 'Enter a valid email address.',
+        terms_label: 'I have read and accept the <a href="legal/compra" target="_blank" rel="noopener">purchase conditions</a> and the <a href="legal/privacidad" target="_blank" rel="noopener">privacy policy</a>.',
+        nota_portes: 'Shipping costs are payable by the buyer. We will assess whether delivery is feasible and confirm it by email.',
+        btn_volver: '← Back to cart', btn_reservar: 'Reserve', btn_sending: 'Sending…',
+        conf_title: 'Request sent!',
+        conf_sub: 'We have received your reservation. We will check availability and shipping feasibility and confirm the order and delivery costs by email.',
+        conf_new: '↺ New order', conf_home: 'Back to home',
+        err_fields: 'Please check the fields marked in red.',
+        err_captcha_alert: 'The captcha answer is not correct.',
+        err_turnstile: 'Please complete the security verification.',
+        err_terms: 'You must accept the purchase conditions and the privacy policy.',
+        err_submit: 'An error occurred while sending the request. Please try again.'
+      },
+      fr: {
+        bc_tienda: 'Boutique',
+        hero_title: 'Boutique de la <em>Cathédrale</em>',
+        hero_eyebrow: 'Crèches de Noël',
+        hero_desc: "Crèches artisanales de taille moyenne et grande. Réservez les pièces souhaitées et nous vous contacterons pour confirmer votre commande.",
+        cat_title: 'Crèches de Noël',
+        cat_sub: 'Neuf références disponibles · Taille moyenne et grande',
+        tag_med: 'Moyenne', tag_gra: 'Grande',
+        lb_ref: 'Réf.', lb_unit: 'unité', lb_in_cart: 'Dans le panier :',
+        lb_quedan: 'Il en reste {0}', lb_queda1: 'Il en reste 1', lb_agotado: 'Épuisé', btn_max: 'Plus de stock',
+        err_sin_stock: "Un des articles vient d'être épuisé. Vérifiez votre panier avant d'envoyer.",
+        spec_material: 'Matériau', spec_figuras: 'Figurines', spec_sanjose: 'Hauteur saint Joseph',
+        btn_add: 'Réserver', btn_added: 'Ajouter encore',
+        cartbar_go: 'Voir le panier',
+        cart_title: 'Votre panier',
+        cart_sub: 'Vérifiez les références et les quantités avant de continuer.',
+        cart_empty: 'Votre panier est vide.',
+        cart_remove: 'Retirer',
+        cart_total: 'Total de la commande',
+        aria_less: 'Retirer une unité', aria_more: 'Ajouter une unité',
+        aria_zoom: "Agrandir l'image de", lb_close: 'Fermer',
+        lb_zoom_in: 'Zoom avant', lb_zoom_out: 'Zoom arrière',
+        btn_seguir: '← Continuer mes achats', btn_comprar: 'Acheter →',
+        form_title: 'Données de la réservation',
+        form_sub: "Complétez vos données et nous enverrons votre demande à l'équipe de la Cathédrale.",
+        lb_nombre: 'Nom et prénom *', lb_telefono: 'Téléphone *', lb_email: 'Courriel *',
+        lb_direccion: 'Adresse *', lb_ciudad: 'Ville *', lb_cp: 'Code postal *',
+        captcha_q: 'Combien font<span class="captcha-op">{0} + {1} ?</span>',
+        captcha_hint: 'Calculez mentalement et saisissez le résultat.',
+        ph_captcha: 'Résultat',
+        err_captcha: 'Réponse incorrecte.',
+        err_field: 'Champ obligatoire.',
+        err_email: 'Saisissez une adresse e-mail valide.',
+        terms_label: "J'ai lu et j'accepte les <a href=\"legal/compra\" target=\"_blank\" rel=\"noopener\">conditions d'achat</a> et la <a href=\"legal/privacidad\" target=\"_blank\" rel=\"noopener\">politique de confidentialité</a>.",
+        nota_portes: "Les frais de port sont à la charge de l'acheteur. Nous étudierons la faisabilité de l'expédition et vous la confirmerons par courriel.",
+        btn_volver: '← Retour au panier', btn_reservar: 'Réserver', btn_sending: 'Envoi…',
+        conf_title: 'Demande envoyée !',
+        conf_sub: "Nous avons bien reçu votre réservation. Nous vérifierons la disponibilité et la faisabilité de l'envoi, puis vous confirmerons la commande et les frais de port par courriel.",
+        conf_new: '↺ Nouvelle commande', conf_home: "Retour à l'accueil",
+        err_fields: 'Vérifiez les champs en rouge.',
+        err_captcha_alert: 'La réponse au captcha est incorrecte.',
+        err_turnstile: 'Veuillez compléter la vérification de sécurité.',
+        err_terms: "Vous devez accepter les conditions d'achat et la politique de confidentialité.",
+        err_submit: "Une erreur s'est produite lors de l'envoi de la demande. Réessayez."
+      },
+      de: {
+        bc_tienda: 'Shop',
+        hero_title: 'Shop der <em>Kathedrale</em>',
+        hero_eyebrow: 'Weihnachtskrippen',
+        hero_desc: 'Handgefertigte Krippen in mittlerer und großer Größe. Reservieren Sie die gewünschten Stücke und wir melden uns zur Bestätigung Ihrer Bestellung.',
+        cat_title: 'Weihnachtskrippen',
+        cat_sub: 'Neun Modelle verfügbar · Mittlere und große Größe',
+        tag_med: 'Mittel', tag_gra: 'Groß',
+        lb_ref: 'Art.-Nr.', lb_unit: 'Stück', lb_in_cart: 'Im Warenkorb:',
+        lb_quedan: 'Noch {0}', lb_queda1: 'Noch 1', lb_agotado: 'Ausverkauft', btn_max: 'Kein Bestand mehr',
+        err_sin_stock: 'Ein Artikel ist gerade ausverkauft. Bitte prüfen Sie Ihren Warenkorb vor dem Senden.',
+        spec_material: 'Material', spec_figuras: 'Figuren', spec_sanjose: 'Höhe hl. Josef',
+        btn_add: 'Reservieren', btn_added: 'Weitere hinzufügen',
+        cartbar_go: 'Zum Warenkorb',
+        cart_title: 'Ihr Warenkorb',
+        cart_sub: 'Prüfen Sie Artikel und Mengen, bevor Sie fortfahren.',
+        cart_empty: 'Ihr Warenkorb ist leer.',
+        cart_remove: 'Entfernen',
+        cart_total: 'Gesamtbetrag',
+        aria_less: 'Eine Einheit entfernen', aria_more: 'Eine Einheit hinzufügen',
+        aria_zoom: 'Bild vergrößern:', lb_close: 'Schließen',
+        lb_zoom_in: 'Vergrößern', lb_zoom_out: 'Verkleinern',
+        btn_seguir: '← Weiter einkaufen', btn_comprar: 'Kaufen →',
+        form_title: 'Angaben zur Reservierung',
+        form_sub: 'Füllen Sie Ihre Daten aus und wir senden Ihre Anfrage an das Team der Kathedrale.',
+        lb_nombre: 'Vor- und Nachname *', lb_telefono: 'Telefon *', lb_email: 'E-Mail *',
+        lb_direccion: 'Adresse *', lb_ciudad: 'Stadt *', lb_cp: 'Postleitzahl *',
+        captcha_q: 'Wie viel ist<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Rechnen Sie im Kopf und geben Sie das Ergebnis ein.',
+        ph_captcha: 'Ergebnis',
+        err_captcha: 'Falsche Antwort.',
+        err_field: 'Pflichtfeld.',
+        err_email: 'Geben Sie eine gültige E-Mail-Adresse ein.',
+        terms_label: 'Ich habe die <a href="legal/compra" target="_blank" rel="noopener">Kaufbedingungen</a> und die <a href="legal/privacidad" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie.',
+        nota_portes: 'Die Versandkosten trägt der Käufer. Wir prüfen die Durchführbarkeit des Versands und bestätigen sie per E-Mail.',
+        btn_volver: '← Zurück zum Warenkorb', btn_reservar: 'Reservieren', btn_sending: 'Senden…',
+        conf_title: 'Anfrage gesendet!',
+        conf_sub: 'Wir haben Ihre Reservierung erhalten. Wir prüfen Verfügbarkeit und Versandmöglichkeit und bestätigen Bestellung und Versandkosten per E-Mail.',
+        conf_new: '↺ Neue Bestellung', conf_home: 'Zur Startseite',
+        err_fields: 'Bitte prüfen Sie die rot markierten Felder.',
+        err_captcha_alert: 'Die Captcha-Antwort ist nicht korrekt.',
+        err_turnstile: 'Bitte schließen Sie die Sicherheitsüberprüfung ab.',
+        err_terms: 'Sie müssen die Kaufbedingungen und die Datenschutzerklärung akzeptieren.',
+        err_submit: 'Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte erneut versuchen.'
+      },
+      pt: {
+        bc_tienda: 'Loja',
+        hero_title: 'Loja da <em>Catedral</em>',
+        hero_eyebrow: 'Presépios de Natal',
+        hero_desc: 'Presépios artesanais de tamanho médio e grande. Reserve as peças que desejar e entraremos em contacto para confirmar a sua encomenda.',
+        cat_title: 'Presépios de Natal',
+        cat_sub: 'Nove referências disponíveis · Tamanho médio e grande',
+        tag_med: 'Médio', tag_gra: 'Grande',
+        lb_ref: 'Ref.', lb_unit: 'unidade', lb_in_cart: 'No carrinho:',
+        lb_quedan: 'Restam {0}', lb_queda1: 'Resta 1', lb_agotado: 'Esgotado', btn_max: 'Sem mais stock',
+        err_sin_stock: 'Um dos artigos acabou de esgotar. Verifique o seu carrinho antes de enviar.',
+        spec_material: 'Material', spec_figuras: 'Figuras', spec_sanjose: 'Medida São José',
+        btn_add: 'Reservar', btn_added: 'Adicionar outro',
+        cartbar_go: 'Ir para o carrinho',
+        cart_title: 'O seu carrinho',
+        cart_sub: 'Verifique as referências e as quantidades antes de continuar.',
+        cart_empty: 'O seu carrinho está vazio.',
+        cart_remove: 'Retirar',
+        cart_total: 'Total da encomenda',
+        aria_less: 'Retirar uma unidade', aria_more: 'Adicionar uma unidade',
+        aria_zoom: 'Ampliar imagem de', lb_close: 'Fechar',
+        lb_zoom_in: 'Aproximar', lb_zoom_out: 'Afastar',
+        btn_seguir: '← Continuar a comprar', btn_comprar: 'Comprar →',
+        form_title: 'Dados para a reserva',
+        form_sub: 'Preencha os seus dados e enviaremos o seu pedido à equipa da Catedral.',
+        lb_nombre: 'Nome completo *', lb_telefono: 'Telefone *', lb_email: 'Correio eletrónico *',
+        lb_direccion: 'Morada *', lb_ciudad: 'Cidade *', lb_cp: 'Código postal *',
+        captcha_q: 'Quanto é<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Calcule mentalmente e introduza o resultado.',
+        ph_captcha: 'Resultado',
+        err_captcha: 'Resposta incorreta.',
+        err_field: 'Campo obrigatório.',
+        err_email: 'Introduza um endereço de correio válido.',
+        terms_label: 'Li e aceito as <a href="legal/compra" target="_blank" rel="noopener">condições de compra</a> e a <a href="legal/privacidad" target="_blank" rel="noopener">política de privacidade</a>.',
+        nota_portes: 'Os portes de envio são por conta do comprador. Estudaremos a viabilidade do envio e confirmá-la-emos por correio eletrónico.',
+        btn_volver: '← Voltar ao carrinho', btn_reservar: 'Reservar', btn_sending: 'A enviar…',
+        conf_title: 'Pedido enviado!',
+        conf_sub: 'Recebemos a sua reserva. Vamos verificar a disponibilidade e a viabilidade do envio e confirmaremos a encomenda e os portes por correio eletrónico.',
+        conf_new: '↺ Nova encomenda', conf_home: 'Voltar ao início',
+        err_fields: 'Verifique os campos assinalados a vermelho.',
+        err_captcha_alert: 'A resposta ao captcha não está correta.',
+        err_turnstile: 'Conclua a verificação de segurança.',
+        err_terms: 'Tem de aceitar as condições de compra e a política de privacidade.',
+        err_submit: 'Ocorreu um erro ao enviar o pedido. Tente novamente.'
+      },
+      it: {
+        bc_tienda: 'Negozio',
+        hero_title: 'Negozio della <em>Cattedrale</em>',
+        hero_eyebrow: 'Presepi di Natale',
+        hero_desc: "Presepi artigianali di taglia media e grande. Prenota i pezzi che desideri e ti contatteremo per confermare l'ordine.",
+        cat_title: 'Presepi di Natale',
+        cat_sub: 'Nove referenze disponibili · Taglia media e grande',
+        tag_med: 'Media', tag_gra: 'Grande',
+        lb_ref: 'Rif.', lb_unit: 'unità', lb_in_cart: 'Nel carrello:',
+        lb_quedan: 'Ne restano {0}', lb_queda1: 'Ne resta 1', lb_agotado: 'Esaurito', btn_max: 'Scorte esaurite',
+        err_sin_stock: "Un articolo si è appena esaurito. Controlla il carrello prima di inviare.",
+        spec_material: 'Materiale', spec_figuras: 'Figure', spec_sanjose: 'Altezza San Giuseppe',
+        btn_add: 'Prenota', btn_added: 'Aggiungi ancora',
+        cartbar_go: 'Vai al carrello',
+        cart_title: 'Il tuo carrello',
+        cart_sub: 'Controlla le referenze e le quantità prima di continuare.',
+        cart_empty: 'Il tuo carrello è vuoto.',
+        cart_remove: 'Rimuovi',
+        cart_total: "Totale dell'ordine",
+        aria_less: "Rimuovi un'unità", aria_more: "Aggiungi un'unità",
+        aria_zoom: "Ingrandisci l'immagine di", lb_close: 'Chiudi',
+        lb_zoom_in: 'Ingrandisci', lb_zoom_out: 'Riduci',
+        btn_seguir: '← Continua gli acquisti', btn_comprar: 'Acquista →',
+        form_title: 'Dati per la prenotazione',
+        form_sub: "Compila i tuoi dati e invieremo la richiesta al team della Cattedrale.",
+        lb_nombre: 'Nome e cognome *', lb_telefono: 'Telefono *', lb_email: 'Email *',
+        lb_direccion: 'Indirizzo *', lb_ciudad: 'Città *', lb_cp: 'CAP *',
+        captcha_q: 'Quanto fa<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Calcola mentalmente e scrivi il risultato.',
+        ph_captcha: 'Risultato',
+        err_captcha: 'Risposta errata.',
+        err_field: 'Campo obbligatorio.',
+        err_email: 'Inserisci un indirizzo email valido.',
+        terms_label: 'Ho letto e accetto le <a href="legal/compra" target="_blank" rel="noopener">condizioni di acquisto</a> e la <a href="legal/privacidad" target="_blank" rel="noopener">informativa sulla privacy</a>.',
+        nota_portes: "Le spese di spedizione sono a carico dell'acquirente. Valuteremo la fattibilità della spedizione e te la confermeremo via email.",
+        btn_volver: '← Torna al carrello', btn_reservar: 'Prenota', btn_sending: 'Invio…',
+        conf_title: 'Richiesta inviata!',
+        conf_sub: "Abbiamo ricevuto la tua prenotazione. Verificheremo la disponibilità e la fattibilità della spedizione e ti confermeremo l'ordine e le spese via email.",
+        conf_new: '↺ Nuovo ordine', conf_home: 'Torna alla home',
+        err_fields: 'Controlla i campi evidenziati in rosso.',
+        err_captcha_alert: 'La risposta al captcha non è corretta.',
+        err_turnstile: 'Completa la verifica di sicurezza.',
+        err_terms: "Devi accettare le condizioni di acquisto e l'informativa sulla privacy.",
+        err_submit: "Si è verificato un errore durante l'invio della richiesta. Riprova."
+      },
+      ko: {
+        bc_tienda: '상점',
+        hero_title: '대성당 <em>상점</em>',
+        hero_eyebrow: '크리스마스 구유',
+        hero_desc: '중형 및 대형 수공예 성탄 구유입니다. 원하시는 작품을 예약하시면 주문 확인을 위해 연락드립니다.',
+        cat_title: '크리스마스 구유',
+        cat_sub: '9개 품목 · 중형 및 대형',
+        tag_med: '중형', tag_gra: '대형',
+        lb_ref: '품번', lb_unit: '개', lb_in_cart: '장바구니:',
+        lb_quedan: '{0}개 남음', lb_queda1: '1개 남음', lb_agotado: '품절', btn_max: '재고 없음',
+        err_sin_stock: '방금 품절된 상품이 있습니다. 보내기 전에 장바구니를 확인해 주세요.',
+        spec_material: '재질', spec_figuras: '인물상', spec_sanjose: '요셉상 높이',
+        btn_add: '예약하기', btn_added: '하나 더 담기',
+        cartbar_go: '장바구니로 이동',
+        cart_title: '장바구니',
+        cart_sub: '계속하기 전에 품목과 수량을 확인하세요.',
+        cart_empty: '장바구니가 비어 있습니다.',
+        cart_remove: '삭제',
+        cart_total: '주문 합계',
+        aria_less: '수량 줄이기', aria_more: '수량 늘리기',
+        aria_zoom: '이미지 확대:', lb_close: '닫기',
+        lb_zoom_in: '확대', lb_zoom_out: '축소',
+        btn_seguir: '← 계속 둘러보기', btn_comprar: '구매하기 →',
+        form_title: '예약 정보',
+        form_sub: '정보를 입력하시면 대성당 담당팀으로 요청이 전송됩니다.',
+        lb_nombre: '성명 *', lb_telefono: '전화번호 *', lb_email: '이메일 *',
+        lb_direccion: '주소 *', lb_ciudad: '도시 *', lb_cp: '우편번호 *',
+        captcha_q: '다음 계산의 답은<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: '암산으로 계산한 결과를 입력하세요.',
+        ph_captcha: '결과',
+        err_captcha: '답이 올바르지 않습니다.',
+        err_field: '필수 항목입니다.',
+        err_email: '유효한 이메일 주소를 입력하세요.',
+        terms_label: '<a href="legal/compra" target="_blank" rel="noopener">구매 약관</a>과 <a href="legal/privacidad" target="_blank" rel="noopener">개인정보 처리방침</a>을 읽고 동의합니다.',
+        nota_portes: '배송비는 구매자 부담입니다. 배송 가능 여부를 검토한 후 이메일로 안내해 드립니다.',
+        btn_volver: '← 장바구니로 돌아가기', btn_reservar: '예약하기', btn_sending: '전송 중…',
+        conf_title: '요청이 전송되었습니다!',
+        conf_sub: '예약을 접수했습니다. 재고와 배송 가능 여부를 확인한 뒤 주문 내용과 배송비를 이메일로 안내해 드립니다.',
+        conf_new: '↺ 새 주문', conf_home: '홈으로 돌아가기',
+        err_fields: '빨간색으로 표시된 항목을 확인하세요.',
+        err_captcha_alert: '캡차 답이 올바르지 않습니다.',
+        err_turnstile: '보안 확인을 완료해 주세요.',
+        err_terms: '구매 약관과 개인정보 처리방침에 동의해야 합니다.',
+        err_submit: '요청을 전송하는 중 오류가 발생했습니다. 다시 시도해 주세요.'
+      },
+      eu: {
+        bc_tienda: 'Denda',
+        hero_title: 'Katedralaren <em>Denda</em>',
+        hero_eyebrow: 'Gabonetako jaiotzak',
+        hero_desc: 'Eskulanez egindako jaiotzak, tamaina ertain eta handikoak. Erreserbatu nahi dituzun piezak eta zurekin harremanetan jarriko gara eskaera berresteko.',
+        cat_title: 'Gabonetako jaiotzak',
+        cat_sub: 'Bederatzi erreferentzia eskuragarri · Tamaina ertaina eta handia',
+        tag_med: 'Ertaina', tag_gra: 'Handia',
+        lb_ref: 'Erref.', lb_unit: 'unitate', lb_in_cart: 'Saskian:',
+        lb_quedan: '{0} geratzen dira', lb_queda1: '1 geratzen da', lb_agotado: 'Agortuta', btn_max: 'Stock gehiagorik ez',
+        err_sin_stock: 'Pieza bat agortu berri da. Berrikusi saskia bidali aurretik.',
+        spec_material: 'Materiala', spec_figuras: 'Irudiak', spec_sanjose: 'San Jose neurria',
+        btn_add: 'Erreserbatu', btn_added: 'Gehitu beste bat',
+        cartbar_go: 'Joan saskira',
+        cart_title: 'Zure saskia',
+        cart_sub: 'Egiaztatu erreferentziak eta kopuruak jarraitu aurretik.',
+        cart_empty: 'Zure saskia hutsik dago.',
+        cart_remove: 'Kendu',
+        cart_total: 'Eskaeraren guztizkoa',
+        aria_less: 'Kendu unitate bat', aria_more: 'Gehitu unitate bat',
+        aria_zoom: 'Handitu irudia:', lb_close: 'Itxi',
+        lb_zoom_in: 'Hurbildu', lb_zoom_out: 'Urrundu',
+        btn_seguir: '← Erosten jarraitu', btn_comprar: 'Erosi →',
+        form_title: 'Erreserbarako datuak',
+        form_sub: 'Bete zure datuak eta zure eskaera Katedraleko taldeari bidaliko diogu.',
+        lb_nombre: 'Izen-abizenak *', lb_telefono: 'Telefonoa *', lb_email: 'Helbide elektronikoa *',
+        lb_direccion: 'Helbidea *', lb_ciudad: 'Hiria *', lb_cp: 'Posta-kodea *',
+        captcha_q: 'Zenbat da<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Kalkulatu buruz eta idatzi emaitza.',
+        ph_captcha: 'Emaitza',
+        err_captcha: 'Erantzun okerra.',
+        err_field: 'Nahitaezko eremua.',
+        err_email: 'Sartu baliozko helbide elektroniko bat.',
+        terms_label: '<a href="legal/compra" target="_blank" rel="noopener">Erosketa-baldintzak</a> eta <a href="legal/privacidad" target="_blank" rel="noopener">pribatutasun-politika</a> irakurri eta onartzen ditut.',
+        nota_portes: 'Bidalketa-gastuak erosleak ordaindu behar ditu. Bidalketaren bideragarritasuna aztertuko dugu eta posta elektronikoz berretsiko dizugu.',
+        btn_volver: '← Itzuli saskira', btn_reservar: 'Erreserbatu', btn_sending: 'Bidaltzen…',
+        conf_title: 'Eskaera bidalita!',
+        conf_sub: 'Zure erreserba jaso dugu. Eskuragarritasuna eta bidalketaren bideragarritasuna aztertuko ditugu, eta eskaera eta bidalketa-gastuak posta elektronikoz berretsiko dizkizugu.',
+        conf_new: '↺ Eskaera berria', conf_home: 'Itzuli hasierara',
+        err_fields: 'Berrikusi gorriz markatutako eremuak.',
+        err_captcha_alert: 'Captcha-ren erantzuna ez da zuzena.',
+        err_turnstile: 'Osatu segurtasun-egiaztapena.',
+        err_terms: 'Erosketa-baldintzak eta pribatutasun-politika onartu behar dituzu.',
+        err_submit: 'Errore bat gertatu da eskaera bidaltzean. Saiatu berriro.'
+      },
+      ca: {
+        bc_tienda: 'Botiga',
+        hero_title: 'Botiga de la <em>Catedral</em>',
+        hero_eyebrow: 'Pessebres de Nadal',
+        hero_desc: 'Pessebres artesanals de mida mitjana i gran. Reserva les peces que vulguis i ens posarem en contacte amb tu per confirmar la comanda.',
+        cat_title: 'Pessebres de Nadal',
+        cat_sub: 'Nou referències disponibles · Mida mitjana i gran',
+        tag_med: 'Mitjana', tag_gra: 'Gran',
+        lb_ref: 'Ref.', lb_unit: 'unitat', lb_in_cart: 'Al carretó:',
+        lb_quedan: 'En queden {0}', lb_queda1: 'En queda 1', lb_agotado: 'Exhaurit', btn_max: 'Sense més estoc',
+        err_sin_stock: "Un dels articles s'acaba d'exhaurir. Revisa el carretó abans d'enviar.",
+        spec_material: 'Material', spec_figuras: 'Figures', spec_sanjose: 'Mida Sant Josep',
+        btn_add: 'Reservar', btn_added: 'Afegir-ne un altre',
+        cartbar_go: 'Anar al carretó',
+        cart_title: 'El teu carretó',
+        cart_sub: 'Revisa les referències i les quantitats abans de continuar.',
+        cart_empty: 'El teu carretó és buit.',
+        cart_remove: 'Treure',
+        cart_total: 'Total de la comanda',
+        aria_less: 'Treure una unitat', aria_more: 'Afegir una unitat',
+        aria_zoom: 'Ampliar imatge de', lb_close: 'Tancar',
+        lb_zoom_in: 'Apropar', lb_zoom_out: 'Allunyar',
+        btn_seguir: '← Continuar comprant', btn_comprar: 'Comprar →',
+        form_title: 'Dades per a la reserva',
+        form_sub: "Completa les teves dades i enviarem la teva sol·licitud a l'equip de la Catedral.",
+        lb_nombre: 'Nom i cognoms *', lb_telefono: 'Telèfon *', lb_email: 'Correu electrònic *',
+        lb_direccion: 'Adreça *', lb_ciudad: 'Ciutat *', lb_cp: 'Codi postal *',
+        captcha_q: 'Quant és<span class="captcha-op">{0} + {1}?</span>',
+        captcha_hint: 'Calcula mentalment i escriu el resultat.',
+        ph_captcha: 'Resultat',
+        err_captcha: 'Resposta incorrecta.',
+        err_field: 'Camp obligatori.',
+        err_email: 'Introdueix un correu vàlid.',
+        terms_label: 'He llegit i accepto les <a href="legal/compra" target="_blank" rel="noopener">condicions de compra</a> i la <a href="legal/privacidad" target="_blank" rel="noopener">política de privacitat</a>.',
+        nota_portes: "Les despeses d'enviament van a càrrec del comprador. S'estudiarà la viabilitat de l'enviament i se't confirmarà mitjançant un correu electrònic.",
+        btn_volver: '← Tornar al carretó', btn_reservar: 'Reservar', btn_sending: 'Enviant…',
+        conf_title: 'Sol·licitud enviada!',
+        conf_sub: "Hem rebut la teva reserva. Revisarem la disponibilitat i la viabilitat de l'enviament, i et confirmarem la comanda i les despeses per correu electrònic.",
+        conf_new: '↺ Nova comanda', conf_home: "Tornar a l'inici",
+        err_fields: 'Revisa els camps marcats en vermell.',
+        err_captcha_alert: 'La resposta al captcha no és correcta.',
+        err_turnstile: 'Completa la verificació de seguretat.',
+        err_terms: 'Has d’acceptar les condicions de compra i la política de privacitat.',
+        err_submit: "S'ha produït un error en enviar la sol·licitud. Torna-ho a provar."
+      }
+    };
+
+    window.PAGE_applyLang = function (lang) {
+      const t = PAGE_T[lang] || PAGE_T.es;
+      document.querySelectorAll('[data-i18n-page]').forEach(el => {
+        const key = el.getAttribute('data-i18n-page');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      // El catálogo y el carrito se pintan con JS: hay que repintarlos.
+      renderCatalogo();
+      renderCarrito();
+      generateCaptcha();
+      document.getElementById('lightbox-close').setAttribute('aria-label', t.lb_close);
+      document.getElementById('zoom-in').setAttribute('aria-label', t.lb_zoom_in);
+      document.getElementById('zoom-out').setAttribute('aria-label', t.lb_zoom_out);
+      if (lbRef) pintarLightbox();
+      if (document.getElementById('view-datos').classList.contains('active')) {
+        renderResumen(document.getElementById('order-mini'), lineasPedido(), totalImporte());
+      }
+      if (ultimoPedido && document.getElementById('view-confirmacion').classList.contains('active')) {
+        renderResumen(document.getElementById('conf-order-mini'), ultimoPedido.lineas, ultimoPedido.total);
+      }
+    };
+  </script>
+
+  <!-- ═══ JAVASCRIPT ══════════════════════════════════════════════════ -->
+  <script>
+    /* ── Endpoint Apps Script (tienda-backend.gs) ─────────────────────
+       Pega aquí la URL .../exec del despliegue. Mientras esté vacío, el
+       formulario abre el cliente de correo como respaldo (igual que los
+       formularios de institucion.html). */
+    const TIENDA_API = 'https://script.google.com/macros/s/AKfycbwC-QiAlsUE3XTrVY0l8qDsJ05dXFTk60VC5w5uemI4vtbZHvfhuHnwg5pLFXQHY1Te/exec';
+    const TIENDA_MAILTO = 'entradas@catedralsantodomingo.org';
+
+    /* ── Cloudflare Turnstile (anti-bot) — misma Site Key que reservas ──
+       Está dada de alta solo para catedralsantodomingo.org: fuera de ese
+       dominio el widget da el error 110200 («dominio no autorizado»).
+       Para probar en local, o se añade localhost en Cloudflare (Turnstile →
+       widget → Hostname Management), o se pone aquí de forma TEMPORAL la
+       clave de pruebas '1x00000000000000000000AA', que pasa en cualquier
+       dominio. Nunca subir la web con la clave de pruebas puesta. */
+    const TURNSTILE_SITEKEY = '0x4AAAAAADew7ftgLNW4ln1L';
+    const TURNSTILE_ENABLED = TURNSTILE_SITEKEY.indexOf('YOUR_') === -1;
+    let turnstileId = null;
+
+    /* ══ CATÁLOGO ════════════════════════════════════════════════════
+       Editar aquí para añadir, quitar o modificar referencias.
+       img      → foto ligera (900 px) de la tarjeta y del carrito.
+       imgFull  → foto grande (1800 px), solo se descarga al ampliar.
+       Las .webp se generan desde los .png originales de assets/img/tienda.
+       Si el archivo no existe, la tarjeta muestra el ornamento ✦ y
+       desactiva la ampliación.
+    ═══════════════════════════════════════════════════════════════════ */
+    const PRODUCTOS = [
+      {
+        ref: 'B-15', tamano: 'med', precio: 180,
+        nombre: 'Belén Mediano 1',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '38 cm',
+        img: 'assets/img/tienda/b-15.webp',
+        imgFull: 'assets/img/tienda/b-15-full.webp'
+      },
+      {
+        ref: 'B-16', tamano: 'med', precio: 200,
+        nombre: 'Belén Mediano 2',
+        desc: 'Misterio completo en resina policromada a mano, con portal de Belén en madera policromada.',
+        material: 'Resina y madera policromada', figuras: '11', sanJose: '31,5 cm',
+        img: 'assets/img/tienda/b-16.webp',
+        imgFull: 'assets/img/tienda/b-16-full.webp'
+      },
+      {
+        ref: '6', tamano: 'med', precio: 250,
+        nombre: 'Belén Mediano 3',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '38 cm',
+        img: 'assets/img/tienda/6.webp',
+        imgFull: 'assets/img/tienda/6-full.webp'
+      },
+      {
+        ref: 'B-18', tamano: 'med', precio: 265,
+        nombre: 'Belén Mediano 4',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '45 cm',
+        img: 'assets/img/tienda/b-18.webp',
+        imgFull: 'assets/img/tienda/b-18-full.webp'
+      },
+      {
+        ref: 'B-23', tamano: 'med', precio: 370,
+        nombre: 'Belén Mediano 5',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '46 cm',
+        img: 'assets/img/tienda/b-23.webp',
+        imgFull: 'assets/img/tienda/b-23-full.webp'
+      },
+      {
+        ref: 'B-24', tamano: 'med', precio: 570,
+        nombre: 'Belén Mediano 6',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '59 cm',
+        img: 'assets/img/tienda/b-24.webp',
+        imgFull: 'assets/img/tienda/b-24-full.webp'
+      },
+      {
+        ref: 'B-4', tamano: 'med', precio: 570,
+        nombre: 'Belén Mediano 7',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '59 cm',
+        img: 'assets/img/tienda/b-4.webp',
+        imgFull: 'assets/img/tienda/b-4-full.webp'
+      },
+      {
+        ref: 'B-26', tamano: 'gra', precio: 2350,
+        nombre: 'Belén Grande 1',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '87 cm',
+        img: 'assets/img/tienda/b-26.webp',
+        imgFull: 'assets/img/tienda/b-26-full.webp'
+      },
+      {
+        ref: 'B-27', tamano: 'gra', precio: 3700,
+        nombre: 'Belén Grande 2',
+        desc: 'Misterio completo en resina policromada a mano.',
+        material: 'Resina policromada', figuras: '11', sanJose: '109 cm',
+        img: 'assets/img/tienda/b-27.webp',
+        imgFull: 'assets/img/tienda/b-27-full.webp'
+      }
+    ];
+
+    /* ── Estado del carrito ─────────────────────────────────────────
+       Se guarda en localStorage como { ref: unidades } para que no se
+       pierda al recargar o al volver desde otra página. */
+    const CART_KEY = 'cat-tienda-carrito';
+    let cart = {};
+
+    /* Existencias por código, tal y como están en inventario_tienda.
+       null = todavía no se sabe (o TIENDA_API sin configurar): en ese caso
+       la web no muestra stock ni limita cantidades. */
+    let stockPorRef = null;
+    let captchaA, captchaB;
+    let ultimoPedido = null;
+
+    function cargarCarrito() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(CART_KEY) || '{}');
+        cart = {};
+        Object.keys(raw).forEach(ref => {
+          const n = parseInt(raw[ref], 10);
+          if (PRODUCTOS.some(p => p.ref === ref) && n > 0) cart[ref] = Math.min(n, 99);
+        });
+      } catch (e) { cart = {}; }
+    }
+
+    function guardarCarrito() {
+      try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) { }
+    }
+
+    /* ── Helpers ────────────────────────────────────────────────── */
+    function _T(key) {
+      const lang = (document.documentElement.lang || 'es');
+      const t = PAGE_T[lang] || PAGE_T.es;
+      return t[key] !== undefined ? t[key] : (PAGE_T.es[key] || '');
+    }
+
+    function fmtEUR(n) {
+      const partes = n.toFixed(2).split('.');
+      // Millares con punto y decimales con coma: 3.700,00 €
+      return partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + partes[1] + ' €';
+    }
+
+    function producto(ref) {
+      return PRODUCTOS.find(p => p.ref === ref);
+    }
+
+    /* ── Stock (inventario_tienda vía Apps Script) ──────────────── */
+    function stockDe(ref) {
+      if (!stockPorRef) return null;
+      return Object.prototype.hasOwnProperty.call(stockPorRef, ref) ? stockPorRef[ref] : null;
+    }
+
+    function puedeAnadir(ref) {
+      const st = stockDe(ref);
+      return st === null || (cart[ref] || 0) < st;
+    }
+
+    let ultimaCargaStock = 0;
+
+    /* forzar = true salta el estrangulador (al arrancar, al reservar o
+       cuando el backend avisa de que algo se ha agotado). */
+    function cargarStock(forzar) {
+      if (!TIENDA_API) return;
+      const ahora = Date.now();
+      if (!forzar && ahora - ultimaCargaStock < 60000) return;
+      ultimaCargaStock = ahora;
+      // El parámetro t rompe la caché del navegador: sin él, al volver a la
+      // página se reutilizaría la respuesta vieja y el stock no cambiaría.
+      fetch(TIENDA_API + '?stock=1&t=' + ahora, { cache: 'no-store' })
+        .then(r => r.json())
+        .then(d => {
+          if (!d || d.ok !== true || !d.stock) return;
+          stockPorRef = d.stock;
+          // Si el carrito tenía más unidades de las que quedan, se recorta
+          let ajustado = false;
+          Object.keys(cart).forEach(ref => {
+            const st = stockDe(ref);
+            if (st === null) return;
+            if (st <= 0) { delete cart[ref]; ajustado = true; }
+            else if (cart[ref] > st) { cart[ref] = st; ajustado = true; }
+          });
+          if (ajustado) guardarCarrito();
+          renderCatalogo();
+          renderCarrito();
+          renderBarra();
+        })
+        .catch(() => { });
+    }
+
+    function totalUnidades() {
+      return Object.values(cart).reduce((a, b) => a + b, 0);
+    }
+
+    function totalImporte() {
+      return Object.keys(cart).reduce((sum, ref) => {
+        const p = producto(ref);
+        return p ? sum + p.precio * cart[ref] : sum;
+      }, 0);
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    /* ── Render del catálogo ────────────────────────────────────── */
+    function renderCatalogo() {
+      const grid = document.getElementById('shop-grid');
+      grid.innerHTML = PRODUCTOS.map(p => {
+        const enCarrito = cart[p.ref] || 0;
+        const tagClass = p.tamano === 'gra' ? 'product-card__tag product-card__tag--gra' : 'product-card__tag';
+        const tagText = p.tamano === 'gra' ? _T('tag_gra') : _T('tag_med');
+
+        const st = stockDe(p.ref);
+        const agotado = st !== null && st <= 0;
+        const sinMas = st !== null && st > 0 && enCarrito >= st;
+        const quedan = st === 1 ? _T('lb_queda1') : _T('lb_quedan').replace('{0}', st);
+        const stockHtml = st === null ? '' : (agotado
+          ? `<span class="product-card__stock product-card__stock--agotado">${_T('lb_agotado')}</span>`
+          : `<span class="product-card__stock${st <= 2 ? ' product-card__stock--bajo' : ''}">${quedan}</span>`);
+
+        const btnTexto = agotado ? _T('lb_agotado')
+          : sinMas ? _T('btn_max')
+            : enCarrito ? _T('btn_added') : _T('btn_add');
+        const btnClase = (agotado || sinMas) ? 'btn--gold' : (enCarrito ? 'btn--added' : 'btn--gold');
+        return `
+        <article class="product-card">
+          <button type="button" class="product-card__media" data-zoom="${p.ref}"
+                  aria-label="${_T('aria_zoom')} ${escapeHtml(p.nombre)}">
+            <img src="${p.img}" alt="" loading="lazy"
+                 onerror="this.classList.add('is-missing');this.parentNode.classList.add('no-zoom')" />
+            <span class="${tagClass}">${tagText}</span>
+            <span class="media-zoom" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="1.8" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/>
+                <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </span>
+          </button>
+          <div class="product-card__body">
+            <div class="product-card__meta">
+              <span class="product-card__ref">${_T('lb_ref')} ${p.ref}</span>
+              ${stockHtml}
+            </div>
+            <h3 class="product-card__title">${escapeHtml(p.nombre)}</h3>
+            <p class="product-card__desc">${escapeHtml(p.desc)}</p>
+            <ul class="product-card__specs">
+              <li><b>${_T('spec_material')}</b><span>${escapeHtml(p.material)}</span></li>
+              <li><b>${_T('spec_figuras')}</b><span>${escapeHtml(p.figuras)}</span></li>
+              <li><b>${_T('spec_sanjose')}</b><span>${escapeHtml(p.sanJose)}</span></li>
+            </ul>
+            <div class="product-card__foot">
+              <span class="product-card__price">${fmtEUR(p.precio)}</span>
+              <button class="btn btn--sm ${btnClase}" data-add="${p.ref}"
+                      ${agotado || sinMas ? 'disabled' : ''}>
+                ${btnTexto}
+              </button>
+            </div>
+            ${enCarrito ? `<div class="product-card__inline-qty">${_T('lb_in_cart')} ${enCarrito}</div>` : ''}
+          </div>
+        </article>`;
+      }).join('');
+    }
+
+    /* ── Render del carrito ─────────────────────────────────────── */
+    function renderCarrito() {
+      const list = document.getElementById('cart-list');
+      const refs = Object.keys(cart);
+      const vacio = refs.length === 0;
+
+      document.getElementById('cart-empty').hidden = !vacio;
+      document.getElementById('cart-total-row').style.display = vacio ? 'none' : '';
+      document.getElementById('btn-comprar').disabled = vacio;
+
+      list.innerHTML = refs.map(ref => {
+        const p = producto(ref);
+        const n = cart[ref];
+        return `
+        <div class="cart-item">
+          <button type="button" class="cart-item__thumb" data-zoom="${ref}"
+                  aria-label="${_T('aria_zoom')} ${escapeHtml(p.nombre)}">
+            <img src="${p.img}" alt=""
+                 onerror="this.classList.add('is-missing');this.parentNode.classList.add('no-zoom')" />
+          </button>
+          <div>
+            <div class="cart-item__ref">${_T('lb_ref')} ${p.ref}</div>
+            <div class="cart-item__name">${escapeHtml(p.nombre)}</div>
+            <div class="cart-item__unit">${fmtEUR(p.precio)} / ${_T('lb_unit')}</div>
+            <div class="qty-row">
+              <button class="qty-btn" data-dec="${ref}" aria-label="${_T('aria_less')}">−</button>
+              <span class="qty-value">${n}</span>
+              <button class="qty-btn" data-inc="${ref}" aria-label="${_T('aria_more')}"
+                      ${puedeAnadir(ref) ? '' : 'disabled'}>+</button>
+            </div>
+          </div>
+          <div class="cart-item__side">
+            <span class="cart-item__line">${fmtEUR(p.precio * n)}</span>
+            <button class="cart-item__remove" data-del="${ref}">${_T('cart_remove')}</button>
+          </div>
+        </div>`;
+      }).join('');
+
+      document.getElementById('cart-total-amount').textContent = fmtEUR(totalImporte());
+    }
+
+    /* ── Barra fija ─────────────────────────────────────────────── */
+    function renderBarra() {
+      const bar = document.getElementById('cart-bar');
+      const n = totalUnidades();
+      bar.classList.toggle('visible', n > 0 && document.getElementById('view-catalogo').classList.contains('active'));
+      document.getElementById('cart-bar-count').textContent = n;
+      document.getElementById('cart-bar-total').textContent = fmtEUR(totalImporte());
+    }
+
+    /* ── Lightbox: la foto del producto a tamaño completo ───────── */
+    let lbRef = null;
+    let lbUltimoFoco = null;
+
+    const LB_ZOOM_MIN = 1, LB_ZOOM_MAX = 4, LB_ZOOM_PASO = 0.5;
+    let lbEscala = 1, lbX = 0, lbY = 0;
+
+    /* La foto sólo puede desplazarse lo que sobresale del marco por cada
+       lado; si al escalar sigue cabiendo entera, no hay paneo. */
+    function lbLimitarPaneo() {
+      const img = document.getElementById('lightbox-img');
+      const marco = document.querySelector('.lightbox__frame');
+      const maxX = Math.max(0, (img.clientWidth * lbEscala - marco.clientWidth) / 2);
+      const maxY = Math.max(0, (img.clientHeight * lbEscala - marco.clientHeight) / 2);
+      lbX = Math.max(-maxX, Math.min(maxX, lbX));
+      lbY = Math.max(-maxY, Math.min(maxY, lbY));
+    }
+
+    function lbAplicarZoom() {
+      const img = document.getElementById('lightbox-img');
+      const marco = document.querySelector('.lightbox__frame');
+      const menos = document.getElementById('zoom-out');
+      const mas = document.getElementById('zoom-in');
+      img.style.transform = 'translate(' + lbX + 'px,' + lbY + 'px) scale(' + lbEscala + ')';
+      img.classList.toggle('is-zoomed', lbEscala > 1);
+      marco.classList.toggle('is-zoomed', lbEscala > 1);
+      document.getElementById('zoom-level').textContent = Math.round(lbEscala * 100) + '%';
+      const topeMin = lbEscala <= LB_ZOOM_MIN + 0.001;
+      const topeMax = lbEscala >= LB_ZOOM_MAX - 0.001;
+      // Si se desactiva el botón que tiene el foco, el foco se perdería
+      if (topeMin && document.activeElement === menos) mas.focus();
+      if (topeMax && document.activeElement === mas) menos.focus();
+      menos.disabled = topeMin;
+      mas.disabled = topeMax;
+    }
+
+    function lbZoom(delta) {
+      lbFijarEscala(lbEscala + delta);
+    }
+
+    function lbFijarEscala(valor) {
+      lbEscala = Math.min(LB_ZOOM_MAX, Math.max(LB_ZOOM_MIN, Math.round(valor * 100) / 100));
+      if (lbEscala === LB_ZOOM_MIN) { lbX = 0; lbY = 0; }
+      lbLimitarPaneo();
+      lbAplicarZoom();
+    }
+
+    function pintarLightbox() {
+      const p = producto(lbRef);
+      if (!p) return;
+      document.getElementById('lightbox-ref').textContent = _T('lb_ref') + ' ' + p.ref;
+      document.getElementById('lightbox-name').textContent = p.nombre;
+      document.getElementById('lightbox-price').textContent = fmtEUR(p.precio);
+      document.getElementById('lightbox-img').alt = p.nombre;
+      document.getElementById('lightbox-close').setAttribute('aria-label', _T('lb_close'));
+    }
+
+    function abrirLightbox(ref, origen) {
+      const p = producto(ref);
+      if (!p) return;
+      lbRef = ref;
+      lbUltimoFoco = origen || document.activeElement;
+      const lbImg = document.getElementById('lightbox-img');
+      lbImg.onerror = () => { if (origen) origen.classList.add('no-zoom'); cerrarLightbox(); };
+      lbImg.src = p.imgFull || p.img;
+      lbFijarEscala(LB_ZOOM_MIN);
+      pintarLightbox();
+      const lb = document.getElementById('lightbox');
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      document.getElementById('lightbox-close').focus();
+    }
+
+    function cerrarLightbox() {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      document.getElementById('lightbox-img').removeAttribute('src');
+      lbFijarEscala(LB_ZOOM_MIN);
+      lbRef = null;
+      // El catálogo se repinta al añadir al carrito: el botón de origen
+      // puede haber dejado de existir, así que se comprueba antes.
+      if (lbUltimoFoco && document.body.contains(lbUltimoFoco)) lbUltimoFoco.focus();
+      lbUltimoFoco = null;
+    }
+
+    /* ── Resumen del pedido (formulario y confirmación) ─────────── */
+    function lineasPedido() {
+      return Object.keys(cart).map(ref => {
+        const p = producto(ref);
+        return { ref: p.ref, nombre: p.nombre, unidades: cart[ref], precio: p.precio, importe: p.precio * cart[ref] };
+      });
+    }
+
+    function renderResumen(el, lineas, total) {
+      el.innerHTML = lineas.map(l => `
+        <div class="order-mini__row">
+          <span>${l.unidades} × ${escapeHtml(l.nombre)} <em style="opacity:.7">(${l.ref})</em></span>
+          <span>${fmtEUR(l.importe)}</span>
+        </div>`).join('') + `
+        <div class="order-mini__row order-mini__row--total">
+          <span>${_T('cart_total')}</span><span>${fmtEUR(total)}</span>
+        </div>`;
+    }
+
+    /* ── Navegación entre vistas ────────────────────────────────── */
+    function irA(vista) {
+      document.querySelectorAll('.shop-view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + vista).classList.add('active');
+      renderBarra();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const main = document.getElementById('main-content');
+      if (main) main.focus({ preventScroll: true });
+      if (vista === 'datos') {
+        generateCaptcha();
+        renderTurnstile();
+        renderResumen(document.getElementById('order-mini'), lineasPedido(), totalImporte());
+      }
+    }
+
+    /* ── Captcha de matemáticas ─────────────────────────────────── */
+    function generateCaptcha() {
+      captchaA = Math.floor(Math.random() * 15) + 1;
+      captchaB = Math.floor(Math.random() * 10) + 1;
+      const q = document.getElementById('captcha-question');
+      const a = document.getElementById('captcha-answer');
+      if (q) q.innerHTML = _T('captcha_q').replace('{0}', captchaA).replace('{1}', captchaB);
+      if (a) { a.value = ''; a.classList.remove('error'); a.placeholder = _T('ph_captcha'); }
+      document.getElementById('err-captcha').classList.remove('visible');
+    }
+
+    function renderTurnstile() {
+      if (!TURNSTILE_ENABLED) return;
+      if (!window.turnstile) { setTimeout(renderTurnstile, 300); return; }
+      if (turnstileId === null) {
+        turnstileId = turnstile.render('#turnstile-widget', { sitekey: TURNSTILE_SITEKEY });
+      } else {
+        turnstile.reset(turnstileId);
+      }
+    }
+
+    function turnstileToken() {
+      return (TURNSTILE_ENABLED && window.turnstile && turnstileId !== null)
+        ? turnstile.getResponse(turnstileId) : '';
+    }
+
+    /* ── Validación ─────────────────────────────────────────────── */
+    function marcar(id, ok) {
+      const input = document.getElementById(id);
+      const err = document.getElementById('err-' + id);
+      input.classList.toggle('error', !ok);
+      if (err) err.classList.toggle('visible', !ok);
+      return ok;
+    }
+
+    function validarDatos() {
+      const alertEl = document.getElementById('alert-datos');
+      alertEl.classList.remove('visible');
+
+      let ok = true;
+      ok = marcar('nombre', document.getElementById('nombre').value.trim().length >= 3) && ok;
+      ok = marcar('telefono', /^[\d\s+()-]{9,}$/.test(document.getElementById('telefono').value.trim())) && ok;
+      ok = marcar('email', /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(document.getElementById('email').value.trim())) && ok;
+      ok = marcar('direccion', document.getElementById('direccion').value.trim().length >= 5) && ok;
+      ok = marcar('ciudad', document.getElementById('ciudad').value.trim().length >= 2) && ok;
+      ok = marcar('cp', /^[\dA-Za-z\s-]{4,10}$/.test(document.getElementById('cp').value.trim())) && ok;
+
+      if (!ok) {
+        alertEl.textContent = _T('err_fields');
+        alertEl.classList.add('visible');
+        return false;
+      }
+
+      const ans = parseInt(document.getElementById('captcha-answer').value, 10);
+      if (ans !== captchaA + captchaB) {
+        document.getElementById('captcha-answer').classList.add('error');
+        document.getElementById('err-captcha').classList.add('visible');
+        alertEl.textContent = _T('err_captcha_alert');
+        alertEl.classList.add('visible');
+        return false;
+      }
+      document.getElementById('captcha-answer').classList.remove('error');
+      document.getElementById('err-captcha').classList.remove('visible');
+
+      if (TURNSTILE_ENABLED && !turnstileToken()) {
+        alertEl.textContent = _T('err_turnstile');
+        alertEl.classList.add('visible');
+        return false;
+      }
+
+      if (!document.getElementById('accept-terms').checked) {
+        alertEl.textContent = _T('err_terms');
+        alertEl.classList.add('visible');
+        return false;
+      }
+
+      return true;
+    }
+
+    /* ── Envío ──────────────────────────────────────────────────── */
+    function enviarPedido() {
+      if (document.getElementById('hp-website').value) return;   // honeypot
+      if (!Object.keys(cart).length) return;
+      if (!validarDatos()) return;
+
+      const btn = document.getElementById('btn-reservar');
+      const alertEl = document.getElementById('alert-datos');
+      const lineas = lineasPedido();
+      const total = totalImporte();
+
+      const payload = {
+        origen: 'tienda',
+        nombre: document.getElementById('nombre').value.trim(),
+        telefono: document.getElementById('telefono').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        direccion: document.getElementById('direccion').value.trim(),
+        ciudad: document.getElementById('ciudad').value.trim(),
+        cp: document.getElementById('cp').value.trim(),
+        idioma: document.documentElement.lang || 'es',
+        lineas: lineas,
+        total: total,
+        turnstileToken: turnstileToken()
+      };
+
+      ultimoPedido = { lineas: lineas, total: total };
+
+      function exito() {
+        renderResumen(document.getElementById('conf-order-mini'), ultimoPedido.lineas, ultimoPedido.total);
+        cart = {};
+        guardarCarrito();
+        renderCatalogo();
+        renderCarrito();
+        cargarStock(true);      // por si el backend descuenta existencias
+        irA('confirmacion');
+      }
+
+      btn.disabled = true;
+      const textoOriginal = btn.textContent;
+      btn.textContent = _T('btn_sending');
+
+      if (TIENDA_API) {
+        fetch(TIENDA_API, { method: 'POST', body: JSON.stringify(payload) })
+          .then(r => r.json())
+          .then(res => {
+            if (res && res.ok) { exito(); }
+            else {
+              // El backend rechaza el pedido si alguna pieza se ha agotado
+              // entre que se cargó la página y se pulsó «Reservar».
+              const agotado = res && res.error === 'sin_stock';
+              alertEl.textContent = _T(agotado ? 'err_sin_stock' : 'err_submit');
+              alertEl.classList.add('visible');
+              if (agotado) cargarStock(true);
+              renderTurnstile();
+            }
+          })
+          .catch(() => {
+            alertEl.textContent = _T('err_submit');
+            alertEl.classList.add('visible');
+            renderTurnstile();
+          })
+          .finally(() => { btn.disabled = false; btn.textContent = textoOriginal; });
+      } else {
+        // Respaldo temporal hasta que TIENDA_API tenga la URL del Apps Script.
+        const cuerpo = [
+          'SOLICITUD DE RESERVA · TIENDA',
+          '',
+          'Nombre y apellidos: ' + payload.nombre,
+          'Teléfono: ' + payload.telefono,
+          'Correo electrónico: ' + payload.email,
+          'Dirección: ' + payload.direccion,
+          'Ciudad: ' + payload.ciudad,
+          'Código postal: ' + payload.cp,
+          '',
+          'PEDIDO:',
+          ...lineas.map(l => '· ' + l.unidades + ' × ' + l.nombre + ' (' + l.ref + ') — ' + fmtEUR(l.importe)),
+          '',
+          'TOTAL: ' + fmtEUR(total),
+          '',
+          'Portes no incluidos: a cargo del comprador, pendientes de confirmar.'
+        ].join('\n');
+        window.location.href = 'mailto:' + TIENDA_MAILTO
+          + '?subject=' + encodeURIComponent('Reserva tienda · Belenes · Santo Domingo de la Calzada')
+          + '&body=' + encodeURIComponent(cuerpo);
+        btn.disabled = false;
+        btn.textContent = textoOriginal;
+        exito();
+      }
+    }
+
+    /* ── Formateo automático al salir del campo ─────────────────── */
+    function toTitleCase(s) {
+      return s.trim().replace(/\s+/g, ' ')
+        .replace(/\S+/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+    }
+
+    /* ── Listeners ──────────────────────────────────────────────── */
+    document.addEventListener('click', e => {
+      const zoom = e.target.closest('[data-zoom]');
+      if (zoom) {
+        // Con loading="lazy" el onerror aún no ha saltado si la tarjeta no se
+        // ha visto: se comprueba también el estado real de la imagen.
+        const img = zoom.querySelector('img');
+        if (zoom.classList.contains('no-zoom') || (img && img.complete && !img.naturalWidth)) {
+          zoom.classList.add('no-zoom');
+          return;
+        }
+        abrirLightbox(zoom.getAttribute('data-zoom'), zoom);
+        return;
+      }
+      const add = e.target.closest('[data-add]');
+      if (add) {
+        const ref = add.getAttribute('data-add');
+        if (!puedeAnadir(ref)) return;      // no hay más existencias
+        cart[ref] = Math.min((cart[ref] || 0) + 1, 99);
+        guardarCarrito();
+        renderCatalogo();
+        renderCarrito();
+        renderBarra();
+        return;
+      }
+      const inc = e.target.closest('[data-inc]');
+      if (inc) {
+        const ref = inc.getAttribute('data-inc');
+        if (!puedeAnadir(ref)) return;
+        cart[ref] = Math.min((cart[ref] || 0) + 1, 99);
+        guardarCarrito(); renderCarrito(); renderCatalogo(); renderBarra();
+        return;
+      }
+      const dec = e.target.closest('[data-dec]');
+      if (dec) {
+        const ref = dec.getAttribute('data-dec');
+        cart[ref] = (cart[ref] || 0) - 1;
+        if (cart[ref] < 1) delete cart[ref];
+        guardarCarrito(); renderCarrito(); renderCatalogo(); renderBarra();
+        return;
+      }
+      const del = e.target.closest('[data-del]');
+      if (del) {
+        delete cart[del.getAttribute('data-del')];
+        guardarCarrito(); renderCarrito(); renderCatalogo(); renderBarra();
+        return;
+      }
+    });
+
+    document.getElementById('lightbox-close').addEventListener('click', cerrarLightbox);
+    document.getElementById('lightbox-backdrop').addEventListener('click', cerrarLightbox);
+    document.getElementById('zoom-in').addEventListener('click', () => lbZoom(LB_ZOOM_PASO));
+    document.getElementById('zoom-out').addEventListener('click', () => lbZoom(-LB_ZOOM_PASO));
+
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') { cerrarLightbox(); return; }
+      if (e.key === '+' || e.key === '=') { e.preventDefault(); lbZoom(LB_ZOOM_PASO); return; }
+      if (e.key === '-' || e.key === '_') { e.preventDefault(); lbZoom(-LB_ZOOM_PASO); return; }
+      if (e.key === '0') { e.preventDefault(); lbFijarEscala(LB_ZOOM_MIN); return; }
+      // El tabulador circula entre los botones del visor y no se escapa
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const foco = [...document.querySelectorAll('#lightbox button:not([disabled])')];
+        if (!foco.length) return;
+        const i = foco.indexOf(document.activeElement);
+        const sig = e.shiftKey
+          ? (i <= 0 ? foco.length - 1 : i - 1)
+          : (i === -1 || i === foco.length - 1 ? 0 : i + 1);
+        foco[sig].focus();
+      }
+    });
+
+    /* ── Arrastrar la foto ampliada y pellizcar para hacer zoom ─────
+       Pointer Events cubre ratón, dedo y lápiz con el mismo código. */
+    (function () {
+      const marco = document.querySelector('.lightbox__frame');
+      const punteros = new Map();
+      let arrastrando = false, ultX = 0, ultY = 0;
+      let distInicial = 0, escalaInicial = 1;
+
+      // Un puntero ya soltado hace que setPointerCapture lance NotFoundError
+      const capturar = id => { try { marco.setPointerCapture(id); } catch (err) { } };
+
+      const distancia = () => {
+        const [a, b] = [...punteros.values()];
+        return Math.hypot(a.x - b.x, a.y - b.y);
+      };
+
+      marco.addEventListener('pointerdown', e => {
+        punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (punteros.size === 2) {
+          arrastrando = false;
+          distInicial = distancia();
+          escalaInicial = lbEscala;
+          marco.classList.add('is-panning');
+          capturar(e.pointerId);
+          return;
+        }
+        // Sin zoom no se captura el puntero: si no, el clic pasaría a
+        // dirigirse al marco y cerraría el visor al tocar la foto.
+        if (lbEscala <= LB_ZOOM_MIN) return;
+        arrastrando = true;
+        ultX = e.clientX; ultY = e.clientY;
+        marco.classList.add('is-grabbing', 'is-panning');
+        capturar(e.pointerId);
+      });
+
+      marco.addEventListener('pointermove', e => {
+        if (!punteros.has(e.pointerId)) return;
+        punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+        if (punteros.size === 2 && distInicial > 0) {
+          lbFijarEscala(escalaInicial * distancia() / distInicial);
+          return;
+        }
+        if (!arrastrando) return;
+        lbX += e.clientX - ultX;
+        lbY += e.clientY - ultY;
+        ultX = e.clientX; ultY = e.clientY;
+        lbLimitarPaneo();
+        lbAplicarZoom();
+      });
+
+      // Se escucha en window: si el dedo o el ratón se sueltan fuera del
+      // marco, el estado no se queda colgado.
+      const soltar = e => {
+        if (!punteros.delete(e.pointerId)) return;
+        if (punteros.size < 2) distInicial = 0;
+        if (punteros.size === 0) {
+          arrastrando = false;
+          marco.classList.remove('is-grabbing', 'is-panning');
+        }
+      };
+      ['pointerup', 'pointercancel'].forEach(t => window.addEventListener(t, soltar));
+
+      window.addEventListener('resize', () => {
+        if (!lbRef) return;
+        lbLimitarPaneo();
+        lbAplicarZoom();
+      });
+
+      // Rueda del ratón sobre la foto
+      marco.addEventListener('wheel', e => {
+        if (!document.getElementById('lightbox').classList.contains('open')) return;
+        e.preventDefault();
+        lbZoom(e.deltaY < 0 ? LB_ZOOM_PASO : -LB_ZOOM_PASO);
+      }, { passive: false });
+
+      // Doble clic: alternar entre tamaño completo y 2x
+      marco.addEventListener('dblclick', () => {
+        lbFijarEscala(lbEscala > LB_ZOOM_MIN ? LB_ZOOM_MIN : 2);
+      });
+
+      // Clic en el hueco de alrededor (sin zoom): cerrar
+      marco.addEventListener('click', e => {
+        if (e.target === marco && lbEscala <= LB_ZOOM_MIN) cerrarLightbox();
+      });
+    })();
+
+    /* Si la pestaña ha estado en segundo plano, al volver se comprueba si
+       el inventario ha cambiado (como máximo una consulta por minuto). */
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') cargarStock();
+    });
+
+    document.getElementById('cart-bar-btn').addEventListener('click', () => { cargarStock(); renderCarrito(); irA('carrito'); });
+    document.getElementById('btn-seguir').addEventListener('click', () => irA('catalogo'));
+    document.getElementById('btn-comprar').addEventListener('click', () => { if (totalUnidades()) irA('datos'); });
+    document.getElementById('btn-volver-carrito').addEventListener('click', () => { renderCarrito(); irA('carrito'); });
+    document.getElementById('btn-reservar').addEventListener('click', enviarPedido);
+    document.getElementById('btn-nueva').addEventListener('click', () => irA('catalogo'));
+
+    ['nombre', 'direccion', 'ciudad'].forEach(id => {
+      document.getElementById(id).addEventListener('blur', e => {
+        if (e.target.value.trim()) e.target.value = toTitleCase(e.target.value.trim());
+      });
+    });
+    document.getElementById('telefono').addEventListener('blur', e => {
+      // Un móvil/fijo español se guarda a 9 dígitos: el +34 sobra en la ficha.
+      const v = e.target.value.replace(/[\s()-]/g, '');
+      if (/^\+34\d{9}$/.test(v)) e.target.value = v.slice(3);
+    });
+    document.getElementById('cp').addEventListener('blur', e => {
+      e.target.value = e.target.value.trim().toUpperCase();
+    });
+
+    /* ── Init ───────────────────────────────────────────────────── */
+    cargarCarrito();
+    renderCatalogo();
+    renderCarrito();
+    renderBarra();
+    generateCaptcha();
+    lbFijarEscala(LB_ZOOM_MIN);
+    cargarStock(true);
+</script>
+  <script src="assets/seo.js"></script>
+  <script src="assets/shared.js"></script>
+  <script>
+    (function () {
+      const btn = document.getElementById('a11y-light-mode');
+      const logoImg = document.getElementById('logo-img');
+      const KEY = 'a11y-light-mode';
+      function applyLightMode(on) {
+        document.body.classList.toggle('light-mode', on);
+        if (btn) { btn.classList.toggle('is-active', on); btn.setAttribute('aria-pressed', String(on)); }
+        if (logoImg) logoImg.src = on ? 'favicon_black.svg' : 'favicon.svg';
+        localStorage.setItem(KEY, on ? '1' : '0');
+      }
+      if (btn) btn.addEventListener('click', () => applyLightMode(!document.body.classList.contains('light-mode')));
+      if (localStorage.getItem(KEY) !== '0') applyLightMode(true);
+    })();
+  </script>
+</body>
+
+</html>

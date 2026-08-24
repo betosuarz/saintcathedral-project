@@ -258,6 +258,46 @@ window.PAGE_SEO = {
     }
   },
 
+  'tienda.html': {
+    og_image: 'assets/img/catedral-institucion.webp',
+    es: {
+      title: 'Tienda · Belenes de Navidad · Catedral de Santo Domingo de la Calzada',
+      description: 'Tienda de la Catedral de Santo Domingo de la Calzada. Belenes de Navidad artesanales de tamaño mediano y grande. Reserva tu belén online.'
+    },
+    en: {
+      title: 'Shop · Christmas Nativity Scenes · Cathedral of Santo Domingo de la Calzada',
+      description: 'Shop of the Cathedral of Santo Domingo de la Calzada. Handcrafted Christmas nativity scenes in medium and large sizes. Reserve yours online.'
+    },
+    fr: {
+      title: 'Boutique · Crèches de Noël · Cathédrale de Santo Domingo de la Calzada',
+      description: 'Boutique de la Cathédrale de Santo Domingo de la Calzada. Crèches de Noël artisanales de taille moyenne et grande. Réservez la vôtre en ligne.'
+    },
+    de: {
+      title: 'Shop · Weihnachtskrippen · Kathedrale Santo Domingo de la Calzada',
+      description: 'Shop der Kathedrale Santo Domingo de la Calzada. Handgefertigte Weihnachtskrippen in mittlerer und großer Größe. Reservieren Sie online.'
+    },
+    pt: {
+      title: 'Loja · Presépios de Natal · Catedral de Santo Domingo de la Calzada',
+      description: 'Loja da Catedral de Santo Domingo de la Calzada. Presépios de Natal artesanais de tamanho médio e grande. Reserve o seu online.'
+    },
+    it: {
+      title: 'Negozio · Presepi di Natale · Cattedrale di Santo Domingo de la Calzada',
+      description: 'Negozio della Cattedrale di Santo Domingo de la Calzada. Presepi di Natale artigianali di taglia media e grande. Prenota il tuo online.'
+    },
+    ko: {
+      title: '상점 · 크리스마스 구유 · 산토 도밍고 데 라 칼사다 대성당',
+      description: '산토 도밍고 데 라 칼사다 대성당 상점. 중형 및 대형 수공예 성탄 구유를 온라인으로 예약하세요.'
+    },
+    eu: {
+      title: 'Denda · Gabonetako jaiotzak · Santo Domingo de la Calzadako Katedrala',
+      description: 'Santo Domingo de la Calzadako Katedralaren denda. Eskulanez egindako Gabonetako jaiotzak, tamaina ertain eta handikoak. Erreserbatu online.'
+    },
+    ca: {
+      title: 'Botiga · Pessebres de Nadal · Catedral de Santo Domingo de la Calzada',
+      description: 'Botiga de la Catedral de Santo Domingo de la Calzada. Pessebres de Nadal artesanals de mida mitjana i gran. Reserva el teu en línia.'
+    }
+  },
+
   /* ── MONUMENTOS ──────────────────────────────────────────────── */
 
   'monumentos/catedral.html': {

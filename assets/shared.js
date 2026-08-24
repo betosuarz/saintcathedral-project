@@ -14,7 +14,7 @@ const SHARED_T = {
     hero_nav_hours: 'Horarios y tarifas', hero_nav_treasures: 'Tesoros', hero_nav_chronology: 'Cronología', hero_nav_spaces: 'Espacios', hero_nav_audio: 'Audioguía',
     ht_tab_hours: 'Horarios', ht_tab_prices: 'Tarifas', ver_mas: 'Ver más', ver_menos: 'Ver menos',
     menu_1: 'Inicio', menu_2: 'Monumentos', menu_3: 'Visitas',
-    menu_4: 'Actualidad', menu_5: 'Institución', menu_6: 'Reservas',
+    menu_4: 'Actualidad', menu_5: 'Institución', menu_6: 'Reservas', menu_7: 'Tienda',
     footer_desc: 'Ocho siglos de historia, arte y devoción en el corazón del Camino Francés. Patrimonio vivo de la humanidad.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Individuales', footer_visit_2: 'Guiadas', footer_visit_3: 'Calendario',
@@ -77,7 +77,7 @@ const SHARED_T = {
     hero_nav_hours: 'Hours & admission', hero_nav_treasures: 'Treasures', hero_nav_chronology: 'Timeline', hero_nav_spaces: 'Spaces', hero_nav_audio: 'Audioguide',
     ht_tab_hours: 'Hours', ht_tab_prices: 'Prices', ver_mas: 'See more', ver_menos: 'See less',
     menu_1: 'Home', menu_2: 'Monuments', menu_3: 'Visits',
-    menu_4: 'News', menu_5: 'Institution', menu_6: 'Bookings',
+    menu_4: 'News', menu_5: 'Institution', menu_6: 'Bookings', menu_7: 'Shop',
     footer_desc: 'Eight centuries of history, art and devotion at the heart of the French Way. Living heritage of humanity.',
     footer_col_visit: 'Visit',
     footer_visit_1: 'Individual', footer_visit_2: 'Guided', footer_visit_3: 'Calendar',
@@ -140,7 +140,7 @@ const SHARED_T = {
     hero_nav_hours: 'Horaires & tarifs', hero_nav_treasures: 'Trésors', hero_nav_chronology: 'Chronologie', hero_nav_spaces: 'Espaces', hero_nav_audio: 'Audioguide',
     ht_tab_hours: 'Horaires', ht_tab_prices: 'Tarifs', ver_mas: 'Voir plus', ver_menos: 'Voir moins',
     menu_1: 'Accueil', menu_2: 'Monuments', menu_3: 'Visites',
-    menu_4: 'Actualités', menu_5: 'Institution', menu_6: 'Réservations',
+    menu_4: 'Actualités', menu_5: 'Institution', menu_6: 'Réservations', menu_7: 'Boutique',
     footer_desc: 'Huit siècles d\'histoire, d\'art et de dévotion au cœur du Chemin Français. Patrimoine vivant de l\'humanité.',
     footer_col_visit: 'Visite',
     footer_visit_1: 'Individuelles', footer_visit_2: 'Guidées', footer_visit_3: 'Calendrier',
@@ -203,7 +203,7 @@ const SHARED_T = {
     hero_nav_hours: 'Öffnungszeiten & Preise', hero_nav_treasures: 'Schätze', hero_nav_chronology: 'Chronologie', hero_nav_spaces: 'Räume', hero_nav_audio: 'Audioguide',
     ht_tab_hours: 'Öffnungszeiten', ht_tab_prices: 'Preise', ver_mas: 'Mehr anzeigen', ver_menos: 'Weniger anzeigen',
     menu_1: 'Startseite', menu_2: 'Denkmäler', menu_3: 'Besuche',
-    menu_4: 'Aktuelles', menu_5: 'Institution', menu_6: 'Buchungen',
+    menu_4: 'Aktuelles', menu_5: 'Institution', menu_6: 'Buchungen', menu_7: 'Shop',
     footer_desc: 'Acht Jahrhunderte Geschichte, Kunst und Andacht im Herzen des Französischen Jakobsweges. Lebendiges Erbe der Menschheit.',
     footer_col_visit: 'Besuch',
     footer_visit_1: 'Einzelbesucher', footer_visit_2: 'Geführte', footer_visit_3: 'Kalender',
@@ -266,7 +266,7 @@ const SHARED_T = {
     hero_nav_hours: 'Horários e tarifas', hero_nav_treasures: 'Tesouros', hero_nav_chronology: 'Cronologia', hero_nav_spaces: 'Espaços', hero_nav_audio: 'Audioguia',
     ht_tab_hours: 'Horários', ht_tab_prices: 'Tarifas', ver_mas: 'Ver mais', ver_menos: 'Ver menos',
     menu_1: 'Início', menu_2: 'Monumentos', menu_3: 'Visitas',
-    menu_4: 'Notícias', menu_5: 'Instituição', menu_6: 'Reservas',
+    menu_4: 'Notícias', menu_5: 'Instituição', menu_6: 'Reservas', menu_7: 'Loja',
     footer_desc: 'Oito séculos de história, arte e devoção no coração do Caminho Francês. Património vivo da humanidade.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Individuais', footer_visit_2: 'Guiadas', footer_visit_3: 'Calendário',
@@ -329,7 +329,7 @@ const SHARED_T = {
     hero_nav_hours: 'Orari e tariffe', hero_nav_treasures: 'Tesori', hero_nav_chronology: 'Cronologia', hero_nav_spaces: 'Spazi', hero_nav_audio: 'Audioguida',
     ht_tab_hours: 'Orari', ht_tab_prices: 'Tariffe', ver_mas: 'Vedi di più', ver_menos: 'Vedi meno',
     menu_1: 'Home', menu_2: 'Monumenti', menu_3: 'Visite',
-    menu_4: 'Notizie', menu_5: 'Istituzione', menu_6: 'Prenotazioni',
+    menu_4: 'Notizie', menu_5: 'Istituzione', menu_6: 'Prenotazioni', menu_7: 'Negozio',
     footer_desc: 'Otto secoli di storia, arte e devozione nel cuore del Cammino Francese. Patrimonio vivente dell\'umanità.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Individuali', footer_visit_2: 'Guidate', footer_visit_3: 'Calendario',
@@ -392,7 +392,7 @@ const SHARED_T = {
     hero_nav_hours: '시간 및 요금', hero_nav_treasures: '보물', hero_nav_chronology: '연대기', hero_nav_spaces: '공간', hero_nav_audio: '오디오 가이드',
     ht_tab_hours: '운영 시간', ht_tab_prices: '요금', ver_mas: '더 보기', ver_menos: '간략히 보기',
     menu_1: '홈', menu_2: '기념물', menu_3: '관람',
-    menu_4: '뉴스', menu_5: '기관', menu_6: '예약',
+    menu_4: '뉴스', menu_5: '기관', menu_6: '예약', menu_7: '상점',
     footer_desc: '프랑스 길의 중심에서 8세기의 역사, 예술, 신앙. 인류의 살아있는 유산.',
     footer_col_visit: '관람',
     footer_visit_1: '개인', footer_visit_2: '가이드', footer_visit_3: '달력',
@@ -455,7 +455,7 @@ const SHARED_T = {
     hero_nav_hours: 'Ordutegiak eta tarifak', hero_nav_treasures: 'Altxorrak', hero_nav_chronology: 'Kronologia', hero_nav_spaces: 'Espazioak', hero_nav_audio: 'Audiogida',
     ht_tab_hours: 'Ordutegiak', ht_tab_prices: 'Tarifak', ver_mas: 'Gehiago ikusi', ver_menos: 'Gutxiago ikusi',
     menu_1: 'Hasiera', menu_2: 'Monumentuak', menu_3: 'Bisitaldiak',
-    menu_4: 'Albisteak', menu_5: 'Erakundea', menu_6: 'Erreserbak',
+    menu_4: 'Albisteak', menu_5: 'Erakundea', menu_6: 'Erreserbak', menu_7: 'Denda',
     footer_desc: 'Zortzi mende historia, arte eta debozio Frantziako Bidearen bihotzean. Gizadiaren ondare bizia.',
     footer_col_visit: 'Bisita',
     footer_visit_1: 'Banakakoak', footer_visit_2: 'Gidatuak', footer_visit_3: 'Egutegia',
@@ -518,7 +518,7 @@ const SHARED_T = {
     hero_nav_hours: 'Horaris i tarifes', hero_nav_treasures: 'Tresors', hero_nav_chronology: 'Cronologia', hero_nav_spaces: 'Espais', hero_nav_audio: 'Audioguia',
     ht_tab_hours: 'Horaris', ht_tab_prices: 'Tarifes', ver_mas: 'Veure més', ver_menos: 'Veure menys',
     menu_1: 'Inici', menu_2: 'Monuments', menu_3: 'Visites',
-    menu_4: 'Actualitat', menu_5: 'Institució', menu_6: 'Reserves',
+    menu_4: 'Actualitat', menu_5: 'Institució', menu_6: 'Reserves', menu_7: 'Botiga',
     footer_desc: 'Vuit segles d\'història, art i devoció al cor del Camí Francès. Patrimoni viu de la humanitat.',
     footer_col_visit: 'Visita',
     footer_visit_1: 'Individuals', footer_visit_2: 'Guiades', footer_visit_3: 'Calendari',
@@ -609,7 +609,7 @@ function _applyShared(lang) {
   });
 
   // Side menu nav links
-  const menuKeys = ['menu_1', 'menu_2', 'menu_3', 'menu_4', 'menu_5', 'menu_6'];
+  const menuKeys = ['menu_1', 'menu_2', 'menu_3', 'menu_4', 'menu_5', 'menu_6', 'menu_7'];
   document.querySelectorAll('.side-menu__nav-link').forEach((a, i) => {
     const key = menuKeys[i];
     if (!key || !t[key]) return;

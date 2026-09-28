@@ -33,6 +33,9 @@ const CONFIG = {
   // Sus visitas guiadas deben empezar por "VG " (igual que en la Catedral).
   CALENDAR_CANAS_ID: 'info.monasteriodecanas@gmail.com',
   EMAIL_CANAS: 'entradas@monasteriodecanas.org',
+  // Calendar donde se publican los bloqueos de la pestaña NoVisitasGuiadas: el mismo de
+  // «Visitas Guiadas» (CALENDAR_VG_ID), junto a las visitas de la pestaña VisitasGuiadas.
+  CALENDAR_NO_VG_ID: 'ed469aa32a2d0fd6802ea37ba514db786b80fd3b7d50ed98c7d15bdfbd0be271@group.calendar.google.com',
   FORM_URL: 'https://catedralsantodomingo.org/reservas',
   CANCEL_URL: 'https://catedralsantodomingo.org/cancelar',
   EMAIL_REMITENTE: 'entradas@catedralsantodomingo.org',
@@ -211,6 +214,41 @@ function setupSheet() {
   Logger.log('Hoja configurada: ' + HEADERS.length + ' columnas.');
 }
 
+// Ejecutar UNA VEZ para resaltar las reservas que ya existen: pendientes de aprobar (azul) y canceladas (rojo).
+function marcarPendientesExistentes() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME);
+  if (!sheet || sheet.getLastRow() < 2) return;
+  var estados = sheet.getRange(2, COL_ESTADO, sheet.getLastRow() - 1, 1).getValues();
+  for (var i = 0; i < estados.length; i++) {
+    var e = String(estados[i][0] || '');
+    if (_esEstadoCancelado(e)) { _marcarCancelada(sheet, i + 2); continue; }
+    var pendiente = e === 'Pendiente' || e.indexOf('✏️') === 0 || e.indexOf('📎') === 0;
+    _marcarPendiente(sheet, i + 2, pendiente);
+  }
+}
+
+// Ejecutar UNA VEZ (opcional) para ordenar las reservas que ya existen de más reciente a más
+// antigua. Invierte el orden de las filas de datos conservando valores, formatos y validaciones.
+function ordenarReservasRecientesArriba() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME);
+  if (!sheet || sheet.getLastRow() < 3) return;
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    var n = sheet.getLastRow() - 1;
+    var ancho = Math.max(sheet.getLastColumn(), HEADERS.length);
+    // Copia temporal debajo, en orden inverso, y luego se sube a su sitio.
+    for (var i = 0; i < n; i++) {
+      sheet.getRange(2 + (n - 1 - i), 1, 1, ancho).copyTo(sheet.getRange(2 + n + i, 1, 1, ancho));
+    }
+    sheet.getRange(2 + n, 1, n, ancho).copyTo(sheet.getRange(2, 1, n, ancho));
+    sheet.deleteRows(2 + n, n);
+    Logger.log('Reservas reordenadas: ' + n + ' filas (más reciente arriba).');
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function setupVisitasGuiadas() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var gold = '#C9A84C';
@@ -241,11 +279,11 @@ function setupVisitasGuiadas() {
 
   // ── NoVisitasGuiadas ─────────────────────────────────────────────
   var sheetNVG = ss.getSheetByName(CONFIG.SHEET_NO_VISITAS_GUIADAS) || ss.insertSheet(CONFIG.SHEET_NO_VISITAS_GUIADAS);
-  var headersNVG = ['Fecha', 'Hora  (* = bloqueo total)', 'Motivo'];
+  var headersNVG = ['Fecha', 'Hora  (* = bloqueo total)', 'Motivo', 'ID Evento Calendar'];
   var rangeNVG = sheetNVG.getRange(1, 1, 1, headersNVG.length);
   rangeNVG.setValues([headersNVG]).setFontWeight('bold').setBackground(dark).setFontColor(gold).setFontFamily('Arial').setFontSize(10);
   sheetNVG.setFrozenRows(1);
-  [130, 160, 300].forEach(function (w, i) { sheetNVG.setColumnWidth(i + 1, w); });
+  [130, 160, 300, 220].forEach(function (w, i) { sheetNVG.setColumnWidth(i + 1, w); });
 
   Logger.log('Pestañas VisitasGuiadas, Cierre y NoVisitasGuiadas configuradas.');
 }
@@ -919,6 +957,79 @@ function _sincronizarFilaVisitaGuiada(sheet, row) {
   }
 }
 
+// NoVisitasGuiadas → evento en el calendar «Visitas Guiadas» (CALENDAR_NO_VG_ID = CALENDAR_VG_ID).
+// Título = Motivo (col. C). Hora "*" → evento de todo el día; hora concreta → 1 h.
+// El ID del evento se guarda en la col. D para poder actualizarlo o borrarlo.
+function _sincronizarFilaNoVisitaGuiada(sheet, row) {
+  var v = sheet.getRange(row, 1, 1, 4).getValues()[0];
+  var fecha = v[0], hora = v[1], motivo = String(v[2] || '').trim(), idViejo = String(v[3] || '').trim();
+  var calendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_NO_VG_ID);
+  if (!calendar) { Logger.log('Sin acceso al calendar CALENDAR_NO_VG_ID'); return; }
+  if (idViejo) {
+    try { var ev = calendar.getEventById(idViejo); if (ev) ev.deleteEvent(); } catch (err) { }
+    sheet.getRange(row, 4).clearContent();
+  }
+  var horaStr = _normHora(hora);
+  if (!fecha || !horaStr) return;
+  var dia;
+  if (fecha instanceof Date) dia = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+  else {
+    var pf = _normFecha(fecha).split('/');
+    dia = new Date(parseInt(pf[2]), parseInt(pf[1]) - 1, parseInt(pf[0]));
+  }
+  if (isNaN(dia.getTime())) return;
+  var titulo = motivo || 'Sin visitas guiadas';
+  var descripcion = 'Bloqueo de visitas guiadas (pestaña NoVisitasGuiadas)' + (motivo ? '\nMotivo: ' + motivo : '')
+    + '\nHora: ' + (horaStr === '*' ? 'todo el día' : horaStr);
+  try {
+    var evento;
+    if (horaStr === '*') {
+      evento = calendar.createAllDayEvent(titulo, dia, { description: descripcion });
+    } else {
+      var hp = horaStr.split(':');
+      var inicio = new Date(dia.getFullYear(), dia.getMonth(), dia.getDate(), parseInt(hp[0]) || 0, parseInt(hp[1]) || 0, 0);
+      evento = calendar.createEvent(titulo, inicio, new Date(inicio.getTime() + 60 * 60000), { description: descripcion });
+    }
+    try { evento.setColor(CalendarApp.EventColor.GRAY); } catch (e) { }
+    try { evento.setTag('origen', 'NoVisitasGuiadas'); } catch (e) { }
+    sheet.getRange(row, 4).setValue(evento.getId());
+  } catch (err) {
+    Logger.log('Error creando evento NoVisitasGuiadas (fila ' + row + '): ' + err.toString());
+  }
+}
+
+// Borra los bloqueos cuya fila ya no existe en NoVisitasGuiadas. Solo toca eventos creados
+// desde la hoja (etiqueta origen=NoVisitasGuiadas).
+function _reconciliarNoVisitasGuiadas() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NO_VISITAS_GUIADAS);
+  var calendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_NO_VG_ID);
+  if (!sheet || !calendar) return;
+  SpreadsheetApp.flush();
+  var vivos = {};
+  if (sheet.getLastRow() >= 2) {
+    sheet.getRange(2, 4, sheet.getLastRow() - 1, 1).getValues().forEach(function (r) {
+      var id = String(r[0]).trim(); if (id) vivos[id] = true;
+    });
+  }
+  var desde = new Date(); desde.setFullYear(desde.getFullYear() - 1);
+  var hasta = new Date(); hasta.setFullYear(hasta.getFullYear() + 2);
+  calendar.getEvents(desde, hasta).forEach(function (ev) {
+    try {
+      if (ev.getTag('origen') === 'NoVisitasGuiadas' && !vivos[ev.getId()]) ev.deleteEvent();
+    } catch (err) { Logger.log('Error borrando bloqueo huérfano: ' + err); }
+  });
+}
+
+// Ejecutar UNA VEZ desde el editor para publicar en el calendar los bloqueos que ya existían.
+function sincronizarNoVisitasGuiadasAhora() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NO_VISITAS_GUIADAS);
+  if (!sheet) return;
+  sheet.getRange(1, 4).setValue('ID Evento Calendar');
+  for (var r = 2; r <= sheet.getLastRow(); r++) _sincronizarFilaNoVisitaGuiada(sheet, r);
+  _reconciliarNoVisitasGuiadas();
+  _reconciliarVisitasGuiadas();
+}
+
 // Borra de Google Calendar los eventos de visitas guiadas que ya no tienen fila en el
 // sheet (filas eliminadas o vaciadas). El calendario CALENDAR_VG_ID es exclusivo de
 // visitas guiadas, así que cualquier evento cuyo ID no siga en la columna E es huérfano.
@@ -942,6 +1053,15 @@ function _reconciliarVisitasGuiadas(sheet) {
     }
   }
 
+
+  // Bloqueos de NoVisitasGuiadas (col. D): comparten este calendario y también están vivos.
+  var sheetNVGr = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NO_VISITAS_GUIADAS);
+  if (sheetNVGr && sheetNVGr.getLastRow() >= 2) {
+    sheetNVGr.getRange(2, 4, sheetNVGr.getLastRow() - 1, 1).getValues().forEach(function (r) {
+      var idN = String(r[0]).trim(); if (idN) vivos[idN] = true;
+    });
+  }
+
   // Recorrer los eventos del calendario en un rango amplio y borrar los que no estén vivos.
   var desde = new Date(); desde.setFullYear(desde.getFullYear() - 1);
   var hasta = new Date(); hasta.setFullYear(hasta.getFullYear() + 2);
@@ -960,11 +1080,13 @@ function _reconciliarVisitasGuiadas(sheet) {
 function onChangeTrigger(e) {
   if (!e || (e.changeType !== 'REMOVE_ROW' && e.changeType !== 'OTHER')) return;
   try { _reconciliarVisitasGuiadas(); } catch (err) { Logger.log('onChangeTrigger: ' + err.toString()); }
+  try { _reconciliarNoVisitasGuiadas(); } catch (err) { Logger.log('onChangeTrigger NVG: ' + err.toString()); }
 }
 
 // Wrapper sin argumentos para ejecutar la limpieza manualmente desde el editor de Apps Script.
 function reconciliarVisitasGuiadasAhora() {
   _reconciliarVisitasGuiadas();
+  _reconciliarNoVisitasGuiadas();
 }
 
 function doPost(e) {
@@ -986,7 +1108,17 @@ function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME);
     if (!sheet) return jsonResponse({ ok: false, error: 'Hoja no encontrada. Ejecuta setupSheet().' });
 
-    var nextRow = Math.max(sheet.getLastRow(), 1) + 1;
+    // Las reservas nuevas se insertan ARRIBA (fila 2, bajo las cabeceras): la más reciente
+    // siempre queda la primera. El bloqueo evita que dos reservas simultáneas se pisen.
+    var lock = LockService.getScriptLock();
+    lock.waitLock(30000);
+    var nextRow = 2;
+    var hayDatos = sheet.getLastRow() >= 2;
+    sheet.insertRowBefore(2);
+    var anchoFila = Math.max(sheet.getLastColumn(), HEADERS.length);
+    if (hayDatos) sheet.getRange(3, 1, 1, anchoFila).copyTo(sheet.getRange(2, 1, 1, anchoFila), SpreadsheetApp.CopyPasteType.PASTE_FORMAT, false);
+    else sheet.getRange(2, 1, 1, anchoFila).clearFormat();
+    sheet.getRange(2, 1, 1, anchoFila).clearDataValidations();
     var timestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm:ss');
     var esGrupo = data.tipoVisita === 'Grupo';
     var esEscolar = data.tipoVisita === 'Grupo Escolar';
@@ -1065,6 +1197,10 @@ function doPost(e) {
       .build();
     cell.setDataValidation(rule);
     cell.setFontWeight('bold').setHorizontalAlignment('center');
+    _marcarPendiente(sheet, nextRow, true);
+    SpreadsheetApp.flush();
+    var filaNueva = sheet.getRange(nextRow, 1, 1, HEADERS.length).getValues()[0];
+    lock.releaseLock(); // la fila ya está escrita: otra reserva puede insertarse encima
 
     GmailApp.sendEmail(
       CONFIG.EMAIL_INFO + ',' + CONFIG.EMAIL_DISENO,
@@ -1075,7 +1211,6 @@ function doPost(e) {
     // Visita con Cañas (grupo o escolar): aviso con todos los datos al Monasterio.
     if (conCanasNueva) {
       try {
-        var filaNueva = sheet.getRange(nextRow, 1, 1, HEADERS.length).getValues()[0];
         notificarCanas(mapRowToData(filaNueva), 'nueva');
       } catch (errC) { Logger.log('Aviso a Cañas no enviado: ' + errC.toString()); }
     }
@@ -1147,6 +1282,7 @@ function procesarJustificante(data) {
     // Guardar URL directa — Sheets la convierte en enlace clicable automáticamente
     sheet.getRange(rowIndex, COL_JUSTIFICANTE).setValue(fileUrl);
     sheet.getRange(rowIndex, COL_ESTADO).setValue('📎 Justificante enviado');
+    _marcarPendiente(sheet, rowIndex, true);
     sheet.getRange(rowIndex, COL_ACEPTAR).setValue('');
 
     // Restaurar validación en ¿Aceptar?
@@ -1280,6 +1416,7 @@ function _editarReserva(data) {
   var editTimestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
   sheet.getRange(rowIndex, COL_ACEPTAR).setValue('');
   sheet.getRange(rowIndex, COL_ESTADO).setValue('✏️ Editado: ' + editTimestamp);
+  _marcarPendiente(sheet, rowIndex, true);
 
   notificarEdicion(ant, data, rowIndex);
   // Entrada conjunta (antes o ahora): avisar también al Monasterio de Cañas.
@@ -1524,6 +1661,7 @@ function _cancelarReserva(token) {
 
     // Actualizar estado en Sheets
     sheet.getRange(rowIndex, COL_ESTADO).setValue('🚫 Cancelado por usuario');
+    _marcarCancelada(sheet, rowIndex);
     if (nuevoEventoId) sheet.getRange(rowIndex, COL_EVENTO_ID).setValue(nuevoEventoId);
 
     // Correo al usuario
@@ -1547,6 +1685,32 @@ function _cancelarReserva(token) {
     Logger.log('Error en _cancelarReserva: ' + err.toString());
     return { ok: false, error: 'Error interno: ' + err.message };
   }
+}
+
+// Cancelación hecha por la Catedral (Estado cambiado a un texto con «Cancelado»): mismo proceso
+// que cuando cancela el cliente — evento a «Cancelado», libera Cañas y le avisa, correo al
+// cliente (con el texto de la col. Respuesta, si lo hay) y aviso a info.
+function _cancelarPorCatedral(sheet, row) {
+  var datos = mapRowToData(sheet.getRange(row, 1, 1, HEADERS.length).getValues()[0]);
+  var nuevoEventoId = _moverEventoACancelado(datos);
+  if (nuevoEventoId) sheet.getRange(row, COL_EVENTO_ID).setValue(nuevoEventoId);
+  if (tieneCanas(datos)) {
+    _cancelarEventoCanas(datos);
+    sheet.getRange(row, COL_EVENTO_CANAS).setValue('');
+    try { notificarCanas(datos, 'cancelada'); } catch (errC) { Logger.log('Aviso de cancelación a Cañas no enviado: ' + errC.toString()); }
+  }
+  if (datos.email) enviarCorreoCancelacion(datos, true);
+  var fechaF = formatearFecha(datos.fechaVisita);
+  GmailApp.sendEmail(
+    CONFIG.EMAIL_INFO,
+    '🚫 Reserva cancelada por la Catedral — ' + datos.nombre + ' — ' + fechaF,
+    'Se ha cancelado desde la hoja la reserva de ' + datos.nombre + ' (' + datos.email + ') del ' + fechaF + ' a las ' + formatearHora(datos.horaVisita) + ' h'
+    + (tieneCanas(datos) ? ' (Monasterio de Cañas a las ' + formatearHora(datos.horaCanas) + ' h)' : '') + '.\n'
+    + 'Tipo: ' + datos.tipoVisita + (datos.tipoEntrada && datos.tipoEntrada !== '—' ? ' — ' + datos.tipoEntrada : '') + '\n'
+    + 'Nº de personas: ' + datos.numPersonas + '\nTotal: ' + fmtEur(datos.total)
+  );
+  _marcarCancelada(sheet, row);
+  Logger.log('Reserva cancelada por la Catedral: ' + datos.nombre + ' — fila ' + row);
 }
 
 function _paginaCancelacion(ok, error, datos) {
@@ -1793,10 +1957,37 @@ function onEditTrigger(e) {
     return;
   }
 
+  // ── Sincronizar NoVisitasGuiadas → Google Calendar (título = Motivo) ──
+  if (sheet.getName() === CONFIG.SHEET_NO_VISITAS_GUIADAS) {
+    var firstRowN = Math.max(2, e.range.getRow());
+    var lastRowN = e.range.getLastRow();
+    for (var rn = firstRowN; rn <= lastRowN; rn++) _sincronizarFilaNoVisitaGuiada(sheet, rn);
+    _reconciliarNoVisitasGuiadas();
+    return;
+  }
+
   if (sheet.getName() !== CONFIG.SHEET_NAME) return;
 
   var col = e.range.getColumn();
   var row = e.range.getRow();
+  // Cancelación hecha por la Catedral: escribir en Estado un texto que contenga «Cancelado»
+  // (p. ej. «🚫 Cancelado por la Catedral»). Si antes no estaba cancelada, se hace la cancelación
+  // completa (evento, Cañas, correos); en cualquier caso la fila queda en rojo y negrita.
+  if (col === COL_ESTADO && row >= 2) {
+    var unaCelda = e.range.getLastRow() === row;
+    for (var rc = row; rc <= e.range.getLastRow(); rc++) {
+      var nuevoEst = sheet.getRange(rc, COL_ESTADO).getValue();
+      if (!_esEstadoCancelado(nuevoEst)) continue;
+      var yaLoEstaba = unaCelda && _esEstadoCancelado(e.oldValue);
+      if (unaCelda && !yaLoEstaba) {
+        try { _cancelarPorCatedral(sheet, rc); }
+        catch (errCan) { Logger.log('Error cancelando fila ' + rc + ': ' + errCan.toString()); _marcarCancelada(sheet, rc); }
+      } else {
+        _marcarCancelada(sheet, rc);
+      }
+    }
+    return;
+  }
   if (col !== COL_ACEPTAR || row < 2) return;
 
   var valor = sheet.getRange(row, COL_ACEPTAR).getValue();
@@ -1818,6 +2009,7 @@ function onEditTrigger(e) {
         enviarCorreoDenegacion(datos);
         sheet.getRange(row, COL_ESTADO).setValue('❌ Denegado');
       }
+      _marcarPendiente(sheet, row, false);
       Logger.log('Denegado fila ' + row + ' — ' + datos.nombre);
       return;
     }
@@ -1843,6 +2035,7 @@ function onEditTrigger(e) {
       enviarConfirmacionFinalGrupo(datos);
       reenviarJustificante(datos);
       sheet.getRange(row, COL_ESTADO).setValue('✅ Confirmado');
+      _marcarPendiente(sheet, row, false);
       Logger.log('Confirmado con pago fila ' + row + ' — ' + datos.nombre);
 
     } else if (esGrupoOrEscolar) {
@@ -1861,6 +2054,7 @@ function onEditTrigger(e) {
         if (esNocturnaGrupo(datos.visitaGuiada)) notificarGuia(datos);
         sheet.getRange(row, COL_ESTADO).setValue('📅 Reservado');
       }
+      _marcarPendiente(sheet, row, false);
       Logger.log((esEscolar ? 'Escolar' : 'Grupo') + ' confirmado fila ' + row + ' — ' + datos.nombre);
 
     } else {
@@ -1874,6 +2068,7 @@ function onEditTrigger(e) {
       notificarAforoWhatsApp(datos, !!editadoEnInd);
       var esNocturna = datos.tipoEntrada === 'Visita Guiada Nocturna Catedral';
       sheet.getRange(row, COL_ESTADO).setValue(esNocturna ? '📅 Reservado' : '✅ Enviado');
+      _marcarPendiente(sheet, row, false);
       Logger.log('Individual confirmado fila ' + row + ' — ' + datos.nombre);
     }
 
@@ -1882,6 +2077,33 @@ function onEditTrigger(e) {
     Logger.log('Error fila ' + row + ': ' + err.toString());
   }
 }
+
+// Resalta la fila entera (fuente azul #4A86E8 + negrita) mientras la reserva espera una
+// aprobación tuya: nueva, modificada por el cliente o con justificante subido.
+// Al aprobar/denegar vuelve a la fuente por defecto y sin negrita (la col. ¿Aceptar? sigue en negrita).
+var COLOR_PENDIENTE = '#4A86E8';
+function _marcarPendiente(sheet, row, pendiente) {
+  try {
+    var ancho = Math.max(sheet.getLastColumn(), HEADERS.length);
+    var r = sheet.getRange(row, 1, 1, ancho);
+    if (pendiente) {
+      r.setFontColor(COLOR_PENDIENTE).setFontWeight('bold');
+    } else {
+      r.setFontColor(null).setFontWeight('normal');
+      sheet.getRange(row, COL_ACEPTAR).setFontWeight('bold');
+    }
+  } catch (err) { Logger.log('No se pudo cambiar el formato de la fila ' + row + ': ' + err); }
+}
+
+// Reservas canceladas (por el cliente o por la Catedral): fila entera en rojo #FF0000 y negrita, de forma permanente.
+var COLOR_CANCELADA = '#FF0000';
+function _marcarCancelada(sheet, row) {
+  try {
+    var ancho = Math.max(sheet.getLastColumn(), HEADERS.length);
+    sheet.getRange(row, 1, 1, ancho).setFontColor(COLOR_CANCELADA).setFontWeight('bold');
+  } catch (err) { Logger.log('No se pudo marcar como cancelada la fila ' + row + ': ' + err); }
+}
+function _esEstadoCancelado(e) { return String(e || '').toLowerCase().indexOf('cancelad') !== -1; }
 
 function mapRowToData(fila) {
   return {
@@ -2120,16 +2342,16 @@ function enviarDenegacionModificacion(d) {
   Logger.log('Denegación de modificación enviada a: ' + d.email);
 }
 
-function enviarCorreoCancelacion(d) {
+function enviarCorreoCancelacion(d, porCatedral) {
   GmailApp.sendEmail(d.email, 'Cancelación de reserva · ' + CONFIG.NOMBRE_INSTITUCION, '', {
-    htmlBody: buildCancelacionHTML(d),
+    htmlBody: buildCancelacionHTML(d, porCatedral),
     name: CONFIG.NOMBRE_INSTITUCION,
     from: CONFIG.EMAIL_REMITENTE,
   });
   Logger.log('Correo de cancelación enviado a: ' + d.email);
 }
 
-function buildCancelacionHTML(d) {
+function buildCancelacionHTML(d, porCatedral) {
   var fechaFormato = formatearFecha(d.fechaVisita);
   var horaFormato = formatearHora(d.horaVisita);
   var esGrupo = d.tipoVisita === 'Grupo';
@@ -2168,7 +2390,12 @@ function buildCancelacionHTML(d) {
     + '</td></tr>'
     + '<tr><td style="padding:36px 48px 28px;">'
     + '<p style="margin:0 0 12px;font-size:14px;color:#FDFAF4;">Estimado/a <strong style="color:#e0b0b0;">' + d.nombre + '</strong>,</p>'
-    + '<p style="margin:0;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.65);">Le confirmamos que su reserva en la <strong style="color:#FDFAF4;">' + CONFIG.NOMBRE_INSTITUCION + '</strong> ha sido <strong style="color:#e0a0a0;">cancelada correctamente</strong>.</p>'
+    + (porCatedral
+      ? '<p style="margin:0;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.65);">Lamentamos comunicarle que su reserva en la <strong style="color:#FDFAF4;">' + CONFIG.NOMBRE_INSTITUCION + '</strong> ha sido <strong style="color:#e0a0a0;">cancelada por la Catedral</strong>. Disculpe las molestias.</p>'
+        + ((d.respuesta && String(d.respuesta).trim())
+          ? '<div style="margin:16px 0 0;background:rgba(180,80,80,0.08);border-left:2px solid #c08080;border-radius:0 3px 3px 0;padding:14px 18px;"><p style="margin:0 0 6px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c09090;">Mensaje de la Catedral</p><p style="margin:0;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.78);">' + String(d.respuesta).trim() + '</p></div>'
+          : '')
+      : '<p style="margin:0;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.65);">Le confirmamos que su reserva en la <strong style="color:#FDFAF4;">' + CONFIG.NOMBRE_INSTITUCION + '</strong> ha sido <strong style="color:#e0a0a0;">cancelada correctamente</strong>.</p>')
     + '</td></tr>'
     + '<tr><td style="padding:0 48px;"><div style="height:1px;background:linear-gradient(90deg,transparent,rgba(180,80,80,0.35),transparent);"></div></td></tr>'
     + '<tr><td style="padding:28px 48px;">'
@@ -2865,7 +3092,7 @@ function crearEventoCanas(d, row, editadoEn) {
     '💶 TOTAL: ' + fmtEur(d.total),
     'COMENTARIOS: ' + (d.comentarios || 'Ninguno'),
     '─────────────────────────────',
-    'Reserva gestionada por la Catedral de Santo Domingo de la Calzada · Fila en Sheets: ' + row,
+    'Reserva gestionada por la Catedral de Santo Domingo de la Calzada · Token: ' + (d.token || '—'),
   ].join('\n');
   if (editadoEn) descripcion += '\nEDITADO: ' + editadoEn;
   if (d.eventoCanasId) {
@@ -2961,7 +3188,7 @@ function crearEventoCalendar(d, row, editadoEn) {
   var esEscolar = d.tipoVisita === 'Grupo Escolar';
   var esNocturna = !esGrupo && !esEscolar && d.tipoEntrada === 'Visita Guiada Nocturna Catedral';
   var titulo, descripcion, colorEvento;
-  var reg = 'Fila en Sheets: ' + row + '\nRegistrado: ' + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
+  var reg = 'Token de la reserva: ' + (d.token || '—') + '\nRegistrado: ' + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
   // Si la reserva ya tiene justificante subido, la descripción muestra su URL; si no, "Pendiente".
   var justifLinea = '💳 Justificante de pago: ' + ((d.justificante && String(d.justificante).trim()) ? String(d.justificante).trim() : 'Pendiente');
 

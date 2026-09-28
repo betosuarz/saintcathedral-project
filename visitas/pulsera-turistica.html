@@ -194,13 +194,13 @@
     /* ── MONUMENT GRID ─────────────────────────────────────── */
     .monument-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 3px;
       margin-top: 48px
     }
 
     .monument-card {
-      grid-column: span 2;
+      grid-column: span 1;
       position: relative;
       overflow: hidden;
       aspect-ratio: 4/3;
@@ -208,9 +208,6 @@
       text-decoration: none;
       display: block
     }
-
-    .monument-card:nth-child(4) { grid-column: span 3 }
-    .monument-card:nth-child(5) { grid-column: span 3 }
 
     .monument-card__img {
       position: absolute;
@@ -585,8 +582,6 @@
       .intro-block { grid-template-columns: 1fr; gap: 40px }
       .monument-grid { grid-template-columns: repeat(2, 1fr) }
       .monument-card { grid-column: span 1 }
-      .monument-card:nth-child(4),
-      .monument-card:nth-child(5) { grid-column: span 1 }
       .info-inner { grid-template-columns: 1fr; gap: 56px }
     }
 
@@ -668,9 +663,7 @@
         scrollbar-width: none;
       }
       .monument-grid::-webkit-scrollbar { display: none }
-      .monument-card,
-      .monument-card:nth-child(4),
-      .monument-card:nth-child(5) {
+      .monument-card {
         grid-column: auto;
         flex: 0 0 78%;
         scroll-snap-align: start;
@@ -875,17 +868,6 @@
             <span class="monument-card__num">04</span>
             <span class="monument-card__name">Ermita <em>de la Plaza</em></span>
             <p class="monument-card__sub" data-i18n-page="m5_sub">Ermita histórica · Capilla de oración · Virgen de la Plaza · Iglesia gótica</p>
-          </div>
-        </a>
-
-        <!-- Monasterio de Cañas -->
-        <a href="../monumentos/monasteriocanas" class="monument-card">
-          <div class="monument-card__img" style="background-image:url('../assets/img/canas.webp'); background-position:center 35%"></div>
-          <span class="monument-card__arrow">→</span>
-          <div class="monument-card__body">
-            <span class="monument-card__num">05</span>
-            <span class="monument-card__name">Monasterio de <em>Cañas</em></span>
-            <p class="monument-card__sub" data-i18n-page="m4_sub">Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca · Exposiciones</p>
           </div>
         </a>
 
@@ -1165,7 +1147,6 @@
         m1_sub: 'Joya del Camino Francés · Románico y Gótico',
         m2_sub: 'Campanario · Vistas panorámicas · Museo de relojes y campanas',
         m3_sub: 'Arte sacro · Claustro porticado · Sala de marfiles · Exposiciones',
-        m4_sub: 'Gótico cisterciense · Vidrieras · Sepulcro Beata Urraca · Exposiciones',
         m5_sub: 'Ermita histórica · Capilla de oración · Virgen de la Plaza · Iglesia gótica',
         price_eyebrow: 'Tarifas',
         price_title: 'Precio <em>único</em> para todo el día',
@@ -1217,7 +1198,6 @@
         m1_sub: 'Jewel of the French Way · Romanesque and Gothic',
         m2_sub: 'Bell tower · Panoramic views · Museum of clocks and bells',
         m3_sub: 'Sacred art · Arcaded cloister · Ivory hall · Exhibitions',
-        m4_sub: 'Cistercian Gothic · Stained glass · Tomb of Blessed Urraca · Exhibitions',
         m5_sub: 'Historic chapel · Prayer chapel · Virgin of the Square · Gothic church',
         price_eyebrow: 'Rates',
         price_title: 'Single <em>price</em> for the whole day',
@@ -1269,7 +1249,6 @@
         m1_sub: 'Joyau du Chemin Français · Roman et Gothique',
         m2_sub: 'Clocher · Vues panoramiques · Musée des horloges et des cloches',
         m3_sub: 'Art sacré · Cloître à arcades · Salle des ivoires · Expositions',
-        m4_sub: 'Gothique cistercien · Vitraux · Tombeau de la Bienheureuse Urraca · Expositions',
         m5_sub: 'Ermitage historique · Chapelle de prière · Vierge de la Place · Église gothique',
         price_eyebrow: 'Tarifs',
         price_title: 'Prix <em>unique</em> pour toute la journée',
@@ -1321,7 +1300,6 @@
         m1_sub: 'Juwel des Jakobsweges · Romanik und Gotik',
         m2_sub: 'Glockenturm · Panoramablick · Uhren- und Glockenmuseum',
         m3_sub: 'Sakralkunst · Bogenkreuzgang · Elfenbeinsaal · Ausstellungen',
-        m4_sub: 'Zisterzienser-Gotik · Glasfenster · Grab der seligen Urraca · Ausstellungen',
         m5_sub: 'Historische Einsiedelei · Gebetskapelle · Jungfrau vom Platz · Gotische Kirche',
         price_eyebrow: 'Preise',
         price_title: '<em>Einheitspreis</em> für den ganzen Tag',
@@ -1373,7 +1351,6 @@
         m1_sub: 'Joia do Caminho Francês · Românico e Gótico',
         m2_sub: 'Campanário · Vistas panorâmicas · Museu de relógios e sinos',
         m3_sub: 'Arte sacra · Claustro com arcadas · Sala de marfins · Exposições',
-        m4_sub: 'Gótico cisterciense · Vitrais · Sepulcro da Beata Urraca · Exposições',
         m5_sub: 'Ermida histórica · Capela de oração · Virgem da Praça · Igreja gótica',
         price_eyebrow: 'Tarifas',
         price_title: 'Preço <em>único</em> para todo o dia',
@@ -1425,7 +1402,6 @@
         m1_sub: 'Gioiello del Cammino Francese · Romanico e Gotico',
         m2_sub: 'Campanile · Vista panoramica · Museo di orologi e campane',
         m3_sub: 'Arte sacra · Chiostro porticato · Sala degli avori · Mostre',
-        m4_sub: 'Gotico cistercense · Vetrate · Sepolcro della Beata Urraca · Mostre',
         m5_sub: 'Eremo storico · Cappella di preghiera · Vergine della Piazza · Chiesa gotica',
         price_eyebrow: 'Tariffe',
         price_title: 'Prezzo <em>unico</em> per l\'intera giornata',
@@ -1477,7 +1453,6 @@
         m1_sub: '프랑스 길의 보석 · 로마네스크와 고딕',
         m2_sub: '종탑 · 파노라마 전망 · 시계와 종 박물관',
         m3_sub: '성스러운 예술 · 아케이드 회랑 · 상아 전시실 · 전시회',
-        m4_sub: '시토회 고딕 · 스테인드글라스 · 복녀 우라카의 무덤 · 전시회',
         m5_sub: '역사적인 예배당 · 기도 예배당 · 광장의 성모 · 고딕 양식 교회',
         price_eyebrow: '요금',
         price_title: '하루 종일 <em>단일</em> 요금',
@@ -1529,7 +1504,6 @@
         m1_sub: 'Frantziako Bidearen bitxia · Erromanikoa eta Gotikoa',
         m2_sub: 'Kanpaitorrea · Ikuspegi panoramikoak · Erloju eta kanpaien museoa',
         m3_sub: 'Arte sakratua · Klaustro arkupeduna · Marfilen aretoa · Erakusketak',
-        m4_sub: 'Gotiko zistertziarra · Beirateak · Urraka Dohatsuaren hilobia · Erakusketak',
         m5_sub: 'Ermita historikoa · Otoitz kapera · Plazako Ama Birjina · Eliza gotikoa',
         price_eyebrow: 'Tarifak',
         price_title: 'Prezio <em>bakarra</em> egun osorako',
@@ -1581,7 +1555,6 @@
         m1_sub: 'Joia del Camí Francès · Romànic i Gòtic',
         m2_sub: 'Campanar · Vistes panoràmiques · Museu de rellotges i campanes',
         m3_sub: 'Art sacre · Claustre porticat · Sala dels ivoris · Exposicions',
-        m4_sub: 'Gòtic cistercenc · Vitralls · Sepulcre de la Beata Urraca · Exposicions',
         m5_sub: 'Ermita històrica · Capella d\'oració · Verge de la Plaça · Església gòtica',
         price_eyebrow: 'Tarifes',
         price_title: 'Preu <em>únic</em> per a tot el dia',

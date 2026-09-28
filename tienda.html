@@ -259,7 +259,25 @@
     @media (max-width: 640px) {
       .page-hero {
         padding: 20px 24px 32px;
+      }
+
+      /* El fondo claro solo en modo claro: sin acotarlo, en oscuro dejaba
+         el título crema sobre gris casi blanco. */
+      body.light-mode .page-hero {
         background: #F9F8F6;
+      }
+
+      /* Este hero no lleva foto de fondo. El velo oscuro y las sombras que
+         shared.css pone en móvil son para texto blanco sobre imagen: aquí
+         el ::before (z-index 1) tapa el texto y lo deja ilegible. */
+      .page-hero::before {
+        content: none;
+      }
+
+      .page-hero__title,
+      .page-hero__eyebrow,
+      .page-hero__desc {
+        text-shadow: none;
       }
     }
 
@@ -350,8 +368,20 @@
     }
 
     .section-head {
-      text-align: center;
-      margin-bottom: 36px;
+      text-align: left;
+      /* Metida como el carril de tarjetas, que cede 60 px a las flechas */
+      margin: 0 60px 36px;
+    }
+
+    /* Marca de sección: el mismo filete dorado que abre el breadcrumb */
+    .section-head::before {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      opacity: .55;
+      margin-bottom: 16px;
     }
 
     .section-head__title {
@@ -375,23 +405,138 @@
       color: rgba(245, 240, 232, .62);
     }
 
-    /* ─── GRID DE PRODUCTOS ───────────────────────────────────── */
+    /* ─── FLECHAS DEL CARRUSEL ────────────────────────────────────
+       Flotan sobre los bordes del carril en vez de colgar por fuera:
+       así no desbordan el ancho de la página en pantallas estrechas. */
+    .shop-carousel {
+      position: relative;
+    }
+
+    .shop-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 18, 16, .78);
+      color: var(--gold-lt);
+      border: 1px solid rgba(201, 168, 76, .38);
+      box-shadow: 0 6px 20px rgba(20, 18, 16, .3);
+      cursor: pointer;
+      transition: opacity var(--transition), background var(--transition), transform var(--transition);
+    }
+
+    .shop-nav:hover:not([disabled]) {
+      background: rgba(20, 18, 16, .92);
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    .shop-nav--prev {
+      left: 6px;
+    }
+
+    .shop-nav--next {
+      right: 6px;
+    }
+
+    /* Al llegar al extremo la flecha desaparece y sale del orden de
+       tabulación: si no, tapa la primera o la última tarjeta. */
+    .shop-nav[disabled] {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 560px) {
+      .shop-nav {
+        width: 38px;
+        height: 38px;
+      }
+
+      /* Pegadas al borde: cada píxel que ceden es ancho de tarjeta */
+      .shop-nav--prev {
+        left: 2px;
+      }
+
+      .shop-nav--next {
+        right: 2px;
+      }
+    }
+
+    /* ─── CARRUSEL DE PRODUCTOS ───────────────────────────────────
+       Desplazamiento horizontal en todos los tamaños. El padding
+       vertical deja sitio al levantamiento de la tarjeta al pasar el
+       ratón, que si no quedaría recortado por el overflow. */
     .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
       gap: 26px;
+      overflow-x: auto;
+      /* El carril se estrecha con márgenes, no con padding: así el
+         overflow recorta las tarjetas en su borde y ninguna llega a
+         asomar por debajo de las flechas, que quedan en los huecos. */
+      margin: 0 60px;
+      padding: 6px 0 18px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(201, 168, 76, .45) transparent;
+    }
+
+    .shop-grid > .product-card {
+      flex: 0 0 clamp(272px, 31%, 340px);
+      scroll-snap-align: start;
+    }
+
+    .shop-grid:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .shop-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .shop-grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .shop-grid::-webkit-scrollbar-thumb {
+      background: rgba(201, 168, 76, .35);
+      border-radius: 3px;
+    }
+
+    .shop-grid::-webkit-scrollbar-thumb:hover {
+      background: rgba(201, 168, 76, .6);
     }
 
     @media (max-width: 900px) {
       .shop-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+      }
+
+      .shop-grid > .product-card {
+        flex-basis: clamp(258px, 46%, 310px);
       }
     }
 
     @media (max-width: 560px) {
+      /* Las flechas son más pequeñas, el hueco lateral también */
       .shop-grid {
-        grid-template-columns: 1fr;
+        margin: 0 46px;
+      }
+
+      .section-head {
+        margin: 0 46px 28px;
+      }
+
+      .shop-grid > .product-card {
+        flex-basis: 100%;
       }
     }
 
@@ -522,24 +667,16 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .product-card__ref {
-      font-size: .725rem;
+      font-size: .89rem;
+      font-weight: 700;
       letter-spacing: .2em;
       text-transform: uppercase;
       color: #8a7236;
       min-width: 0;
-    }
-
-    .product-card__title {
-      font-family: var(--serif);
-      font-size: 1.25rem;
-      font-weight: 500;
-      line-height: 1.25;
-      color: var(--carbon);
-      margin-bottom: 8px;
     }
 
     .product-card__desc {
@@ -646,10 +783,6 @@
 
     body:not(.light-mode) .product-card__media {
       background: #0c0a08;
-    }
-
-    body:not(.light-mode) .product-card__title {
-      color: var(--white);
     }
 
     body:not(.light-mode) .product-card__desc,
@@ -949,17 +1082,6 @@
       letter-spacing: .2em;
       text-transform: uppercase;
       color: #8a7236;
-    }
-
-    .cart-item__name {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      color: var(--carbon);
-      line-height: 1.3;
-    }
-
-    body:not(.light-mode) .cart-item__name {
-      color: var(--white);
     }
 
     .cart-item__unit {
@@ -1573,35 +1695,34 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* Pie de la foto: referencia pegada a la izquierda y precio a la
+       derecha, en la misma línea y a lo ancho del marco. */
     .lightbox__caption {
       flex: 0 0 auto;
-      text-align: center;
+      width: 100%;
       color: var(--cream);
       display: flex;
-      flex-direction: column;
-      gap: 2px;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
       /* No compite con la foto por el espacio vertical */
       padding-bottom: 2px;
     }
 
     .lightbox__ref {
-      font-size: .6rem;
+      font-size: 1rem;
+      font-weight: 700;
       letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--gold);
     }
 
-    .lightbox__name {
-      font-family: var(--serif);
-      font-size: 1.45rem;
-      font-weight: 400;
-      line-height: 1.2;
-    }
-
     .lightbox__price {
       font-family: var(--serif);
-      font-size: 1.15rem;
+      font-size: 1.6rem;
+      font-weight: 700;
       color: var(--gold-lt);
+      font-variant-numeric: tabular-nums;
     }
 
     .lightbox__close {
@@ -1626,8 +1747,17 @@
     }
 
     @media (max-width: 560px) {
-      .lightbox__name {
-        font-size: 1.2rem;
+      .lightbox__ref {
+        font-size: .8rem;
+        letter-spacing: .16em;
+      }
+
+      .lightbox__price {
+        font-size: 1.25rem;
+      }
+
+      .lightbox__caption {
+        gap: 12px;
       }
 
       .lightbox {
@@ -1990,7 +2120,23 @@
         <p class="section-head__sub" data-i18n-page="cat_sub">Nueve referencias disponibles · Tamaño mediano y grande
         </p>
       </div>
-      <div class="shop-grid" id="shop-grid"></div>
+      <div class="shop-carousel">
+        <button class="shop-nav shop-nav--prev" id="shop-prev" type="button"
+                aria-controls="shop-grid" aria-label="Ver referencias anteriores" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 5 8 12 15 19"/>
+          </svg>
+        </button>
+        <div class="shop-grid" id="shop-grid" role="region" aria-labelledby="cat-title" tabindex="0"></div>
+        <button class="shop-nav shop-nav--next" id="shop-next" type="button"
+                aria-controls="shop-grid" aria-label="Ver más referencias" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 5 16 12 9 19"/>
+          </svg>
+        </button>
+      </div>
     </section>
 
     <!-- ── VISTA: CARRITO ──────────────────────────────────────── -->
@@ -2124,7 +2270,7 @@
 
   <!-- ═══ LIGHTBOX: IMAGEN AMPLIADA ══════════════════════════════════ -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true"
-    aria-labelledby="lightbox-name">
+    aria-labelledby="lightbox-ref">
     <div class="lightbox__backdrop" id="lightbox-backdrop"></div>
     <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Cerrar">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -2155,7 +2301,6 @@
       </div>
       <div class="lightbox__caption">
         <span class="lightbox__ref" id="lightbox-ref"></span>
-        <span class="lightbox__name" id="lightbox-name"></span>
         <span class="lightbox__price" id="lightbox-price"></span>
       </div>
     </div>
@@ -2362,6 +2507,7 @@
         aria_less: 'Quitar una unidad', aria_more: 'Añadir una unidad',
         aria_zoom: 'Ampliar imagen de', lb_close: 'Cerrar',
         lb_zoom_in: 'Acercar', lb_zoom_out: 'Alejar',
+        car_prev: 'Ver referencias anteriores', car_next: 'Ver más referencias',
         btn_seguir: '← Seguir comprando', btn_comprar: 'Comprar →',
         form_title: 'Datos para la reserva',
         form_sub: 'Completa tus datos y enviaremos tu solicitud al equipo de la Catedral.',
@@ -2407,6 +2553,7 @@
         aria_less: 'Remove one unit', aria_more: 'Add one unit',
         aria_zoom: 'Enlarge image of', lb_close: 'Close',
         lb_zoom_in: 'Zoom in', lb_zoom_out: 'Zoom out',
+        car_prev: 'Previous items', car_next: 'Next items',
         btn_seguir: '← Keep shopping', btn_comprar: 'Buy →',
         form_title: 'Reservation details',
         form_sub: 'Fill in your details and we will send your request to the Cathedral team.',
@@ -2452,6 +2599,7 @@
         aria_less: 'Retirer une unité', aria_more: 'Ajouter une unité',
         aria_zoom: "Agrandir l'image de", lb_close: 'Fermer',
         lb_zoom_in: 'Zoom avant', lb_zoom_out: 'Zoom arrière',
+        car_prev: 'Articles précédents', car_next: 'Articles suivants',
         btn_seguir: '← Continuer mes achats', btn_comprar: 'Acheter →',
         form_title: 'Données de la réservation',
         form_sub: "Complétez vos données et nous enverrons votre demande à l'équipe de la Cathédrale.",
@@ -2497,6 +2645,7 @@
         aria_less: 'Eine Einheit entfernen', aria_more: 'Eine Einheit hinzufügen',
         aria_zoom: 'Bild vergrößern:', lb_close: 'Schließen',
         lb_zoom_in: 'Vergrößern', lb_zoom_out: 'Verkleinern',
+        car_prev: 'Vorherige Artikel', car_next: 'Weitere Artikel',
         btn_seguir: '← Weiter einkaufen', btn_comprar: 'Kaufen →',
         form_title: 'Angaben zur Reservierung',
         form_sub: 'Füllen Sie Ihre Daten aus und wir senden Ihre Anfrage an das Team der Kathedrale.',
@@ -2542,6 +2691,7 @@
         aria_less: 'Retirar uma unidade', aria_more: 'Adicionar uma unidade',
         aria_zoom: 'Ampliar imagem de', lb_close: 'Fechar',
         lb_zoom_in: 'Aproximar', lb_zoom_out: 'Afastar',
+        car_prev: 'Artigos anteriores', car_next: 'Artigos seguintes',
         btn_seguir: '← Continuar a comprar', btn_comprar: 'Comprar →',
         form_title: 'Dados para a reserva',
         form_sub: 'Preencha os seus dados e enviaremos o seu pedido à equipa da Catedral.',
@@ -2587,6 +2737,7 @@
         aria_less: "Rimuovi un'unità", aria_more: "Aggiungi un'unità",
         aria_zoom: "Ingrandisci l'immagine di", lb_close: 'Chiudi',
         lb_zoom_in: 'Ingrandisci', lb_zoom_out: 'Riduci',
+        car_prev: 'Articoli precedenti', car_next: 'Articoli successivi',
         btn_seguir: '← Continua gli acquisti', btn_comprar: 'Acquista →',
         form_title: 'Dati per la prenotazione',
         form_sub: "Compila i tuoi dati e invieremo la richiesta al team della Cattedrale.",
@@ -2632,6 +2783,7 @@
         aria_less: '수량 줄이기', aria_more: '수량 늘리기',
         aria_zoom: '이미지 확대:', lb_close: '닫기',
         lb_zoom_in: '확대', lb_zoom_out: '축소',
+        car_prev: '이전 상품', car_next: '다음 상품',
         btn_seguir: '← 계속 둘러보기', btn_comprar: '구매하기 →',
         form_title: '예약 정보',
         form_sub: '정보를 입력하시면 대성당 담당팀으로 요청이 전송됩니다.',
@@ -2677,6 +2829,7 @@
         aria_less: 'Kendu unitate bat', aria_more: 'Gehitu unitate bat',
         aria_zoom: 'Handitu irudia:', lb_close: 'Itxi',
         lb_zoom_in: 'Hurbildu', lb_zoom_out: 'Urrundu',
+        car_prev: 'Aurreko erreferentziak', car_next: 'Hurrengo erreferentziak',
         btn_seguir: '← Erosten jarraitu', btn_comprar: 'Erosi →',
         form_title: 'Erreserbarako datuak',
         form_sub: 'Bete zure datuak eta zure eskaera Katedraleko taldeari bidaliko diogu.',
@@ -2722,6 +2875,7 @@
         aria_less: 'Treure una unitat', aria_more: 'Afegir una unitat',
         aria_zoom: 'Ampliar imatge de', lb_close: 'Tancar',
         lb_zoom_in: 'Apropar', lb_zoom_out: 'Allunyar',
+        car_prev: 'Referències anteriors', car_next: 'Més referències',
         btn_seguir: '← Continuar comprant', btn_comprar: 'Comprar →',
         form_title: 'Dades per a la reserva',
         form_sub: "Completa les teves dades i enviarem la teva sol·licitud a l'equip de la Catedral.",
@@ -2760,6 +2914,8 @@
       document.getElementById('lightbox-close').setAttribute('aria-label', t.lb_close);
       document.getElementById('zoom-in').setAttribute('aria-label', t.lb_zoom_in);
       document.getElementById('zoom-out').setAttribute('aria-label', t.lb_zoom_out);
+      document.getElementById('shop-prev').setAttribute('aria-label', t.car_prev);
+      document.getElementById('shop-next').setAttribute('aria-label', t.car_next);
       if (lbRef) pintarLightbox();
       if (document.getElementById('view-datos').classList.contains('active')) {
         renderResumen(document.getElementById('order-mini'), lineasPedido(), totalImporte());
@@ -2801,7 +2957,6 @@
     const PRODUCTOS = [
       {
         ref: 'B-15', tamano: 'med', precio: 180,
-        nombre: 'Belén Mediano 1',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '38 cm',
         img: 'assets/img/tienda/b-15.webp',
@@ -2809,7 +2964,6 @@
       },
       {
         ref: 'B-16', tamano: 'med', precio: 200,
-        nombre: 'Belén Mediano 2',
         desc: 'Misterio completo en resina policromada a mano, con portal de Belén en madera policromada.',
         material: 'Resina y madera policromada', figuras: '11', sanJose: '31,5 cm',
         img: 'assets/img/tienda/b-16.webp',
@@ -2817,7 +2971,6 @@
       },
       {
         ref: '6', tamano: 'med', precio: 250,
-        nombre: 'Belén Mediano 3',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '38 cm',
         img: 'assets/img/tienda/6.webp',
@@ -2825,7 +2978,6 @@
       },
       {
         ref: 'B-18', tamano: 'med', precio: 265,
-        nombre: 'Belén Mediano 4',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '45 cm',
         img: 'assets/img/tienda/b-18.webp',
@@ -2833,7 +2985,6 @@
       },
       {
         ref: 'B-23', tamano: 'med', precio: 370,
-        nombre: 'Belén Mediano 5',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '46 cm',
         img: 'assets/img/tienda/b-23.webp',
@@ -2841,7 +2992,6 @@
       },
       {
         ref: 'B-24', tamano: 'med', precio: 570,
-        nombre: 'Belén Mediano 6',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '59 cm',
         img: 'assets/img/tienda/b-24.webp',
@@ -2849,7 +2999,6 @@
       },
       {
         ref: 'B-4', tamano: 'med', precio: 570,
-        nombre: 'Belén Mediano 7',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '59 cm',
         img: 'assets/img/tienda/b-4.webp',
@@ -2857,7 +3006,6 @@
       },
       {
         ref: 'B-26', tamano: 'gra', precio: 2350,
-        nombre: 'Belén Grande 1',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '87 cm',
         img: 'assets/img/tienda/b-26.webp',
@@ -2865,7 +3013,6 @@
       },
       {
         ref: 'B-27', tamano: 'gra', precio: 3700,
-        nombre: 'Belén Grande 2',
         desc: 'Misterio completo en resina policromada a mano.',
         material: 'Resina policromada', figuras: '11', sanJose: '109 cm',
         img: 'assets/img/tienda/b-27.webp',
@@ -2999,7 +3146,7 @@
         return `
         <article class="product-card">
           <button type="button" class="product-card__media" data-zoom="${p.ref}"
-                  aria-label="${_T('aria_zoom')} ${escapeHtml(p.nombre)}">
+                  aria-label="${_T('aria_zoom')} ${p.ref}">
             <img src="${p.img}" alt="" loading="lazy"
                  onerror="this.classList.add('is-missing');this.parentNode.classList.add('no-zoom')" />
             <span class="${tagClass}">${tagText}</span>
@@ -3016,7 +3163,6 @@
               <span class="product-card__ref">${_T('lb_ref')} ${p.ref}</span>
               ${stockHtml}
             </div>
-            <h3 class="product-card__title">${escapeHtml(p.nombre)}</h3>
             <p class="product-card__desc">${escapeHtml(p.desc)}</p>
             <ul class="product-card__specs">
               <li><b>${_T('spec_material')}</b><span>${escapeHtml(p.material)}</span></li>
@@ -3034,6 +3180,57 @@
           </div>
         </article>`;
       }).join('');
+      actualizarFlechas();
+    }
+
+    /* ── Flechas del carrusel ───────────────────────────────────── */
+    function pasoCarrusel(grid) {
+      const card = grid.querySelector('.product-card');
+      if (!card) return grid.clientWidth;
+      const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function actualizarFlechas() {
+      const grid = document.getElementById('shop-grid');
+      const prev = document.getElementById('shop-prev');
+      const next = document.getElementById('shop-next');
+      if (!grid || !prev || !next) return;
+      const margen = grid.scrollWidth - grid.clientWidth;
+      // Holgura de 6 px: los navegadores devuelven decimales al hacer zoom
+      // y el ajuste del scroll-snap deja restos de un par de píxeles.
+      const holgura = 6;
+      prev.disabled = margen <= holgura || grid.scrollLeft <= holgura;
+      next.disabled = margen <= holgura || grid.scrollLeft >= margen - holgura;
+    }
+
+    /* El 'smooth' del navegador dura ~300 ms y es muy seco. Se anima a
+       mano para alargarlo y darle entrada y salida progresivas. */
+    const CARRUSEL_MS = 620;
+    let carruselAnim = null;
+
+    function desplazarCarrusel(sentido) {
+      const grid = document.getElementById('shop-grid');
+      const tope = grid.scrollWidth - grid.clientWidth;
+      const desde = grid.scrollLeft;
+      const hasta = Math.max(0, Math.min(tope, desde + sentido * pasoCarrusel(grid)));
+      if (carruselAnim) cancelAnimationFrame(carruselAnim);
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        grid.scrollLeft = hasta;
+        actualizarFlechas();
+        return;
+      }
+
+      const arranque = performance.now();
+      const paso = ahora => {
+        const t = Math.min(1, (ahora - arranque) / CARRUSEL_MS);
+        const suave = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        grid.scrollLeft = desde + (hasta - desde) * suave;
+        actualizarFlechas();
+        carruselAnim = t < 1 ? requestAnimationFrame(paso) : null;
+      };
+      carruselAnim = requestAnimationFrame(paso);
     }
 
     /* ── Render del carrito ─────────────────────────────────────── */
@@ -3052,13 +3249,12 @@
         return `
         <div class="cart-item">
           <button type="button" class="cart-item__thumb" data-zoom="${ref}"
-                  aria-label="${_T('aria_zoom')} ${escapeHtml(p.nombre)}">
+                  aria-label="${_T('aria_zoom')} ${p.ref}">
             <img src="${p.img}" alt=""
                  onerror="this.classList.add('is-missing');this.parentNode.classList.add('no-zoom')" />
           </button>
           <div>
             <div class="cart-item__ref">${_T('lb_ref')} ${p.ref}</div>
-            <div class="cart-item__name">${escapeHtml(p.nombre)}</div>
             <div class="cart-item__unit">${fmtEUR(p.precio)} / ${_T('lb_unit')}</div>
             <div class="qty-row">
               <button class="qty-btn" data-dec="${ref}" aria-label="${_T('aria_less')}">−</button>
@@ -3137,9 +3333,8 @@
       const p = producto(lbRef);
       if (!p) return;
       document.getElementById('lightbox-ref').textContent = _T('lb_ref') + ' ' + p.ref;
-      document.getElementById('lightbox-name').textContent = p.nombre;
       document.getElementById('lightbox-price').textContent = fmtEUR(p.precio);
-      document.getElementById('lightbox-img').alt = p.nombre;
+      document.getElementById('lightbox-img').alt = _T('lb_ref') + ' ' + p.ref;
       document.getElementById('lightbox-close').setAttribute('aria-label', _T('lb_close'));
     }
 
@@ -3179,14 +3374,14 @@
     function lineasPedido() {
       return Object.keys(cart).map(ref => {
         const p = producto(ref);
-        return { ref: p.ref, nombre: p.nombre, unidades: cart[ref], precio: p.precio, importe: p.precio * cart[ref] };
+        return { ref: p.ref, unidades: cart[ref], precio: p.precio, importe: p.precio * cart[ref] };
       });
     }
 
     function renderResumen(el, lineas, total) {
       el.innerHTML = lineas.map(l => `
         <div class="order-mini__row">
-          <span>${l.unidades} × ${escapeHtml(l.nombre)} <em style="opacity:.7">(${l.ref})</em></span>
+          <span>${l.unidades} × ${escapeHtml(l.ref)}</span>
           <span>${fmtEUR(l.importe)}</span>
         </div>`).join('') + `
         <div class="order-mini__row order-mini__row--total">
@@ -3363,7 +3558,7 @@
           'Código postal: ' + payload.cp,
           '',
           'PEDIDO:',
-          ...lineas.map(l => '· ' + l.unidades + ' × ' + l.nombre + ' (' + l.ref + ') — ' + fmtEUR(l.importe)),
+          ...lineas.map(l => '· ' + l.unidades + ' × ' + l.ref + ' — ' + fmtEUR(l.importe)),
           '',
           'TOTAL: ' + fmtEUR(total),
           '',
@@ -3556,6 +3751,11 @@
     document.getElementById('btn-volver-carrito').addEventListener('click', () => { renderCarrito(); irA('carrito'); });
     document.getElementById('btn-reservar').addEventListener('click', enviarPedido);
     document.getElementById('btn-nueva').addEventListener('click', () => irA('catalogo'));
+
+    document.getElementById('shop-prev').addEventListener('click', () => desplazarCarrusel(-1));
+    document.getElementById('shop-next').addEventListener('click', () => desplazarCarrusel(1));
+    document.getElementById('shop-grid').addEventListener('scroll', actualizarFlechas, { passive: true });
+    window.addEventListener('resize', actualizarFlechas);
 
     ['nombre', 'direccion', 'ciudad'].forEach(id => {
       document.getElementById(id).addEventListener('blur', e => {

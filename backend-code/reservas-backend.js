@@ -28,6 +28,11 @@ const CONFIG = {
   CALENDAR_INDIVIDUAL_ID: '2e70113fbefa9736bee9ce9f2fa68c09abe30bd28bd9c03f4de0223893be3732@group.calendar.google.com',
   CALENDAR_ESCOLAR_ID: '2325e4f5510c3704c26160a09541a9d96e43463a0f349ab7eabfe28c4f1e2366@group.calendar.google.com',
   CALENDAR_CANCELADO_ID: 'd383783e5e800ce2a94b134f15357d204b780800fc9d9e913c709b30a338f864@group.calendar.google.com',
+  // Calendar de grupos del Monasterio de Cañas (otra cuenta de Google). Debe estar compartido
+  // con la cuenta que ejecuta este script con permiso «Hacer cambios en eventos».
+  // Sus visitas guiadas deben empezar por "VG " (igual que en la Catedral).
+  CALENDAR_CANAS_ID: 'info.monasteriodecanas@gmail.com',
+  EMAIL_CANAS: 'entradas@monasteriodecanas.org',
   FORM_URL: 'https://catedralsantodomingo.org/reservas',
   CANCEL_URL: 'https://catedralsantodomingo.org/cancelar',
   EMAIL_REMITENTE: 'entradas@catedralsantodomingo.org',
@@ -61,11 +66,38 @@ const SUPLEMENTO_VISITA_GUIADA_CASCO = 100;
 const SUPLEMENTO_VISITA_GUIADA_CANAS = 100;
 // Las guiadas de 100 € (casco histórico o Cañas) duran 2 h; la de Catedral, 1 h.
 function esGuiadaLarga(v) { return v === 'Casco Histórico + Catedral' || v === 'Catedral + Cañas'; }
-function suplementoGuiada(v) {
-  if (v === 'Casco Histórico + Catedral') return SUPLEMENTO_VISITA_GUIADA_CASCO;
-  if (v === 'Catedral + Cañas') return SUPLEMENTO_VISITA_GUIADA_CANAS;
-  return v === 'Sí' ? SUPLEMENTO_VISITA_GUIADA : 0;
+// fecha (opcional): aplica el suplemento de la temporada de esa fecha si la hoja Temporadas lo define.
+function suplementoGuiada(v, fecha) {
+  var p = fecha ? preciosGrupoTemporada(fecha) : null;
+  if (v === 'Casco Histórico + Catedral') return (p && p.suplementoCasco != null) ? p.suplementoCasco : SUPLEMENTO_VISITA_GUIADA_CASCO;
+  if (v === 'Catedral + Cañas') return (p && p.suplementoCanas != null) ? p.suplementoCanas : SUPLEMENTO_VISITA_GUIADA_CANAS;
+  if (v === 'Sí') return (p && p.suplementoCatedral != null) ? p.suplementoCatedral : SUPLEMENTO_VISITA_GUIADA;
+  return 0;
 }
+// ── ENTRADA CONJUNTA · Catedral + Monasterio de Cañas (solo grupos) ──
+// Visita guiada de 1 h en cada monumento, el mismo día y con ≥30 min entre ambas.
+// Tarifa única: 8 €/persona; grupos de menos de 25 personas → mínimo 200 €.
+// Col. G = hora Catedral · col. AD = hora Cañas · col. AE = ID del evento en el calendar de Cañas.
+const VG_CONJUNTA = 'Catedral + Monasterio';
+const TIPO_ENTRADA_CONJUNTA = 'Entrada conjunta Catedral + Monasterio de Cañas';
+const PRECIO_CONJUNTA_POR_PERSONA = 8;
+const PRECIO_CONJUNTA_MINIMO = 200;
+const CONJUNTA_MIN_PERSONAS = 25;
+function esConjunta(v) { return v === VG_CONJUNTA; }
+// Reserva con visita al Monasterio de Cañas (grupo con entrada conjunta o escolar con destino
+// Catedral + Monasterio): tiene hora de Cañas en la col. AD.
+function tieneCanas(d) {
+  var h = d && d.horaCanas;
+  if (h instanceof Date) return true;
+  return !!String(h == null ? '' : h).trim();
+}
+function _escolarConCanas(data) { return data.tipoVisita === 'Grupo Escolar' && destinoEscolar(data.escolarDestino) === 'canas' && !!data.horaCanas; }
+function calcularTarifaConjunta(nPersonas) {
+  var n = parseInt(nPersonas) || 0;
+  if (!n) return 0;
+  return n >= CONJUNTA_MIN_PERSONAS ? n * PRECIO_CONJUNTA_POR_PERSONA : PRECIO_CONJUNTA_MINIMO;
+}
+
 // Tarifas escolares por curso. Dos destinos: solo Catedral, o Catedral + Monasterio de Cañas.
 const PRECIOS_ESCOLAR = {
   'catedral': { 'prim13': 1, 'prim46': 2, 'eso': 3, 'bach': 4, 'uni': 5 },
@@ -82,8 +114,15 @@ const LABELS_DESTINO_ESC = { 'catedral': 'Catedral', 'canas': 'Catedral + Monast
 function destinoEscolar(v) { return String(v || '').toLowerCase().indexOf('can') >= 0 ? 'canas' : 'catedral'; }
 function destinoEscolarLabel(v) { return LABELS_DESTINO_ESC[destinoEscolar(v)]; }
 function tramoLabel(tramo) { return LABELS_TRAMO[tramo] || (tramo || '—'); }
-function tramoPrecio(tramo, destino) {
-  var tabla = PRECIOS_ESCOLAR[destinoEscolar(destino)];
+function tramoPrecio(tramo, destino, precios) {
+  var dest = destinoEscolar(destino);
+  var tabla = PRECIOS_ESCOLAR[dest];
+  var tTemp = precios && precios.escolar && precios.escolar[dest];
+  if (tTemp) {
+    var k0 = tTemp[tramo] != null ? tramo : null;
+    if (!k0) for (var kk in LABELS_TRAMO) { if (LABELS_TRAMO[kk] === tramo) k0 = kk; }
+    if (k0 && tTemp[k0] != null) return tTemp[k0];
+  }
   if (tabla[tramo] !== undefined) return tabla[tramo];
   for (var k in LABELS_TRAMO) { if (LABELS_TRAMO[k] === tramo) return tabla[k]; }
   return null;
@@ -120,6 +159,8 @@ const HEADERS = [
   'Menores (<12)',          // AA 27  ← nº de menores (para tarifa nocturna de grupo y registro)
   'Residentes',             // AB 28  ← nº de residentes (para tarifa nocturna de grupo y registro)
   'Responsables (gratis)',  // AC 29  ← nº de responsables/guías con gratuidad (grupos)
+  'Hora Monasterio de Cañas', // AD 30 ← solo entrada conjunta Catedral + Monasterio
+  'ID Evento Cañas',        // AE 31  ← oculto, ID del evento en el calendar de Cañas
 ];
 
 const COL_RESPUESTA = 20; // T
@@ -128,6 +169,8 @@ const COL_ESTADO = 22; // V
 const COL_TOKEN = 23; // W
 const COL_JUSTIFICANTE = 24; // X
 const COL_EVENTO_ID = 25; // Y
+const COL_HORA_CANAS = 30; // AD
+const COL_EVENTO_CANAS = 31; // AE
 
 
 // ══════════════════════════════════════════════════════════════════
@@ -163,6 +206,7 @@ function setupSheet() {
   sheet.getRange(1, 23).setBackground('#0f1a2a').setFontColor('#60a0d0');  // W Token
   sheet.getRange(1, 24).setBackground('#0f2020').setFontColor('#60c0a0');  // X Justificante
   sheet.hideColumns(25); // Y ID Evento — uso interno
+  sheet.hideColumns(COL_EVENTO_CANAS); // AE ID Evento Cañas — uso interno
 
   Logger.log('Hoja configurada: ' + HEADERS.length + ' columnas.');
 }
@@ -209,19 +253,24 @@ function setupVisitasGuiadas() {
 function setupTriggers() {
   ScriptApp.getProjectTriggers().forEach(function (t) {
     var fn = t.getHandlerFunction();
-    if (fn === 'onEditTrigger' || fn === 'reconciliarVisitasGuiadasAhora') ScriptApp.deleteTrigger(t);
+    if (fn === 'onEditTrigger' || fn === 'onChangeTrigger' || fn === 'reconciliarVisitasGuiadasAhora') ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger('onEditTrigger')
     .forSpreadsheet(SpreadsheetApp.getActiveSpreadsheet())
     .onEdit()
     .create();
-  // onEdit NO se dispara al ELIMINAR una fila entera (solo al editar celdas), así que
-  // un trigger horario reconcilia los eventos huérfanos de VisitasGuiadas en Calendar.
+  // onEdit NO se dispara al ELIMINAR una fila entera (solo al editar celdas). onChange sí:
+  // al eliminar filas se limpian al momento los eventos huérfanos de VisitasGuiadas.
+  ScriptApp.newTrigger('onChangeTrigger')
+    .forSpreadsheet(SpreadsheetApp.getActiveSpreadsheet())
+    .onChange()
+    .create();
+  // Red de seguridad: reconciliación horaria por si algún cambio no llegó a disparar onChange.
   ScriptApp.newTrigger('reconciliarVisitasGuiadasAhora')
     .timeBased()
     .everyHours(1)
     .create();
-  Logger.log('Triggers instalados (onEdit + reconciliación horaria VG).');
+  Logger.log('Triggers instalados (onEdit + onChange + reconciliación horaria VG).');
 }
 
 
@@ -244,7 +293,7 @@ function calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEda
     return { tarifa: tarifa, adultos: pagantes, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: porPersona, precioMenor: 0 };
   }
   if (tipoVisita === 'Grupo Escolar') {
-    var precio = tramoPrecio(tramoEdad, destinoEsc);
+    var precio = tramoPrecio(tramoEdad, destinoEsc, precios);
     if (precio === null) precio = 0;
     var pagEsc = Math.max(0, total - menores - residentes);
     return { tarifa: pagEsc * precio, adultos: pagEsc, menores: menores, residentes: residentes, precioAdulto: precio, precioMenor: 0, escolar: true };
@@ -262,8 +311,8 @@ function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoE
   return calcularDesglose(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoEdad, nResidentes, nResponsables, precios, destinoEsc).tarifa;
 }
 
-function calcularTotal(tarifa, visitaGuiada) {
-  return tarifa + suplementoGuiada(visitaGuiada);
+function calcularTotal(tarifa, visitaGuiada, fecha) {
+  return tarifa + suplementoGuiada(visitaGuiada, fecha);
 }
 // Grupo con Visita Guiada Nocturna: tarifa por persona (15 €/adulto, 5 €/menor·residente),
 // SIN suplemento de grupo. No se trata como guiada a efectos de bloqueo de franja
@@ -285,12 +334,13 @@ function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes, nResponsables, 
   return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: pAdulto, precioMenor: pMenor, precioResidente: pResidente };
 }
 function tieneGuiadaGrupo(v) {
-  return v === 'Sí' || esGuiadaLarga(v);
+  return v === 'Sí' || esGuiadaLarga(v) || esConjunta(v);
 }
 function guiadaLabel(v) {
   if (v === 'Casco Histórico + Catedral') return 'Casco Histórico + Catedral';
   if (v === 'Catedral + Cañas') return 'Catedral + Cañas';
   if (v === 'Sí') return 'Catedral';
+  if (esConjunta(v)) return 'Catedral + Monasterio de Cañas';
   if (v === 'Visita Guiada Nocturna Catedral') return 'Visita Guiada Nocturna Catedral';
   return 'No solicitada';
 }
@@ -327,6 +377,18 @@ function _temNums(v) {
 // Asigna los números de una fila de precios al objeto de temporada según su etiqueta.
 // El orden importa: lo más específico primero (peregrino antes que pulsera, grupo+nocturna
 // antes que grupo o nocturna sueltas, "catedral" suelta al final).
+function _temEsCanas(t) { return t.indexOf('cañas') >= 0 || t.indexOf('canas') >= 0 || t.indexOf('monasterio') >= 0; }
+// Nivel educativo de un trozo de etiqueta ("1.º–3.º Prim", "ESO", "Local"…) → clave de tarifa.
+function _temNivelEscolar(seg) {
+  var t = String(seg || '');
+  if (t.indexOf('local') >= 0) return 'residentesEsc';
+  if (/1\D{0,4}3/.test(t)) return 'prim13';
+  if (/4\D{0,4}6/.test(t)) return 'prim46';
+  if (/\beso\b/.test(t)) return 'eso';
+  if (t.indexOf('bach') >= 0) return 'bach';
+  if (t.indexOf('univ') >= 0) return 'uni';
+  return null;
+}
 function _temAsignarPrecio(p, labelNorm, n) {
   function g(i) { return n.length > i ? n[i] : null; }
   if (labelNorm.indexOf('pulsera') >= 0 && labelNorm.indexOf('peregrino') >= 0) { p['Pulsera Turística Peregrino'] = g(0); return; }
@@ -334,14 +396,29 @@ function _temAsignarPrecio(p, labelNorm, n) {
   if (labelNorm.indexOf('convento') >= 0) { p['Convento San Francisco'] = g(0); return; }
   if (labelNorm.indexOf('familiar') >= 0) { p['Ticket Familiar'] = g(0); return; }
   if (labelNorm.indexOf('torre') >= 0) { p['Torre'] = g(0); return; }
-  if (labelNorm.indexOf('suplement') >= 0) { p.suplementoCatedral = g(0); p.suplementoCasco = g(1); return; }
+  if (labelNorm.indexOf('suplement') >= 0 && _temEsCanas(labelNorm)) { p.suplementoCanas = g(0); return; }
+  if (labelNorm.indexOf('suplement') >= 0) { p.suplementoCatedral = g(0); p.suplementoCasco = g(1); if (n.length > 2 && p.suplementoCanas == null) p.suplementoCanas = g(2); return; }
   if (labelNorm.indexOf('grupo') >= 0 && labelNorm.indexOf('nocturna') >= 0) { p.grupoNocturnaAdulto = g(0); p.grupoNocturnaMenor = g(1); p.grupoNocturnaResidente = (n.length > 2) ? g(2) : g(1); return; }
   if (labelNorm.indexOf('grupo') >= 0) { p.grupoMinimo = g(0); p.grupoPorPersona = g(1); return; }
   if (labelNorm.indexOf('escolar') >= 0) {
-    // Dos filas posibles: "Escolar Catedral" y "Escolar Cañas". Sin mención a Cañas → Catedral.
-    var destEsc = (labelNorm.indexOf('cañas') >= 0 || labelNorm.indexOf('canas') >= 0) ? 'canas' : 'catedral';
+    // Dos filas: Catedral ("Escolar Local / 1.º–3.º Prim / …") y Catedral + Monasterio
+    // ("Escolar Catedral+Monasterio Local / …"). Los niveles se leen de la propia etiqueta,
+    // separados por "/": Local, 1.º–3.º Prim, 4.º–6.º Prim, ESO, Bach, Univ. Cada número va
+    // con su nivel por orden; si hay un solo precio, vale para todos los niveles de la fila.
+    // Los niveles que no aparecen en la fila no se ofrecen en esa temporada.
+    var destEsc = _temEsCanas(labelNorm) ? 'canas' : 'catedral';
     if (!p.escolar) p.escolar = {};
-    p.escolar[destEsc] = { prim13: g(0), prim46: g(1), eso: g(2), bach: g(3), uni: g(4) };
+    var niveles = labelNorm.split('/').map(_temNivelEscolar);
+    var hayNiveles = niveles.some(function (k) { return !!k; });
+    var tabla = {};
+    if (hayNiveles) {
+      var soloUno = n.length === 1;
+      var idx = 0;
+      niveles.forEach(function (k) { if (!k) return; tabla[k] = soloUno ? g(0) : g(idx); idx++; });
+    } else {
+      tabla = { prim13: g(0), prim46: g(1), eso: g(2), bach: g(3), uni: g(4) }; // formato antiguo (por edades)
+    }
+    p.escolar[destEsc] = tabla;
     return;
   }
   if (labelNorm.indexOf('diurna') >= 0) { p['Visita Guiada Diurna'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
@@ -359,7 +436,7 @@ function leerTemporadas() {
     var disp = rng.getDisplayValues(); // texto tal como se ve: las horas son objetos de tiempo en getValues()
     if (!vals || !vals.length) return null;
 
-    var cfg = { fechas: [], horarios: {}, precios: {}, reservasHasta: '' };
+    var cfg = { fechas: [], horarios: {}, precios: {}, reservasHasta: '', fechasCanas: [], horariosCanas: {} };
     var mode = null, season = null;
 
     for (var r = 0; r < vals.length; r++) {
@@ -368,8 +445,8 @@ function leerTemporadas() {
       var a = _temStr(row[0]);
       var an = _temNorm(a);
 
-      if (an.indexOf('fechas') === 0) { mode = 'fechas'; continue; }
-      if (an.indexOf('horarios') === 0) { mode = 'horarios'; continue; }
+      if (an.indexOf('fechas') === 0) { mode = _temEsCanas(an) ? 'fechasCanas' : 'fechas'; continue; }
+      if (an.indexOf('horarios') === 0) { mode = _temEsCanas(an) ? 'horariosCanas' : 'horarios'; continue; }
       if (an.indexOf('precios') === 0) {
         mode = 'precios';
         season = a.replace(/^\s*precios\s*[·:\-]?\s*/i, '').trim();
@@ -379,9 +456,17 @@ function leerTemporadas() {
       if (!a) continue;                                            // fila en blanco
       if (an === 'temporada' || an === 'concepto' || an === 'monumento') continue; // cabeceras
 
-      if (mode === 'fechas') {
+      if (mode === 'fechas' || mode === 'fechasCanas') {
         var ini = _temFechaISO(row[1]), fin = _temFechaISO(row[2]);
-        if (ini && fin) cfg.fechas.push({ nombre: a, inicio: ini, fin: fin });
+        if (ini && fin) cfg[mode].push({ nombre: a, inicio: ini, fin: fin });
+      } else if (mode === 'horariosCanas') {
+        // Columnas B–Q: Lunes, Martes–Viernes, Sábado y Domingo; cada uno con dos turnos (Ap/Cie, Ap.2/Cie.2).
+        // Celdas vacías = cerrado en ese día/turno.
+        var hc = function (i) { return _temStr(drow[i]); };
+        cfg.horariosCanas[a] = {
+          l: [hc(1), hc(2), hc(3), hc(4)], mv: [hc(5), hc(6), hc(7), hc(8)],
+          sab: [hc(9), hc(10), hc(11), hc(12)], dom: [hc(13), hc(14), hc(15), hc(16)]
+        };
       } else if (mode === 'horarios') {
         cfg.horarios[a] = {
           lvManana: [_temStr(drow[1]), _temStr(drow[2])],
@@ -442,7 +527,7 @@ function doGet(e) {
   if (e && e.parameter) {
     if (e.parameter.editar) return mostrarFormularioEdicion(e.parameter.editar);
     if (e.parameter.justificante) return mostrarFormularioJustificante(e.parameter.justificante);
-    if (e.parameter.disponibilidad) return consultarDisponibilidad(e.parameter.disponibilidad, e.parameter.excludeToken || null);
+    if (e.parameter.disponibilidad) return consultarDisponibilidad(e.parameter.disponibilidad, e.parameter.excludeToken || null, !!e.parameter.canas);
     if (e.parameter.mesVisitas) return consultarVisitasMes(e.parameter.mesVisitas);
     if (e.parameter.temporadas !== undefined) return consultarTemporadas();
     if (e.parameter.datos) return consultarDatosReserva(e.parameter.datos);
@@ -459,18 +544,26 @@ function doGet(e) {
 // Fuentes: hoja de cálculo (grupos guiados pendientes/confirmados) + eventos de Google Calendar.
 // excludeToken: si se pasa (modo edición), se ignoran la fila y el evento del calendario
 // de la reserva que se está editando para que pueda ver su propio horario como disponible.
-function consultarDisponibilidad(fecha, excludeToken) {
+function consultarDisponibilidad(fecha, excludeToken, incluirCanas) {
   try {
     var fechaNorm = _normFecha(fecha);
     var franjas = [];
+    var franjasCanas = []; // solo se rellenan con incluirCanas (entrada conjunta)
 
     function addFranja(hh, mm, durMin) {
       var ini = hh * 60 + mm;
       franjas.push({ ini: ini, fin: ini + (durMin || 60) });
     }
+    function _horaAMin(v) {
+      if (v instanceof Date) return v.getHours() * 60 + v.getMinutes();
+      var hp = String(v || '').trim().split(':');
+      if (!hp[0]) return null;
+      return (parseInt(hp[0]) || 0) * 60 + (parseInt(hp[1]) || 0);
+    }
 
     // Buscar eventoId a excluir del calendario si hay token de edición
     var excludeEventoId = null;
+    var excludeEventoCanasId = null;
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME);
     if (sheet) {
       var allData = sheet.getDataRange().getValues();
@@ -480,6 +573,7 @@ function consultarDisponibilidad(fecha, excludeToken) {
         for (var t = 1; t < allData.length; t++) {
           if (String(allData[t][COL_TOKEN - 1]) === String(excludeToken)) {
             excludeEventoId = allData[t][COL_EVENTO_ID - 1] || null;
+            excludeEventoCanasId = allData[t][COL_EVENTO_CANAS - 1] || null;
             break;
           }
         }
@@ -493,9 +587,15 @@ function consultarDisponibilidad(fecha, excludeToken) {
         if (excludeToken && String(fila[COL_TOKEN - 1]) === String(excludeToken)) continue;
         if (fila[1] !== 'Grupo' && fila[1] !== 'Grupo Escolar') continue;
         var vg = String(fila[10]);
-        if (vg !== 'Sí' && !esGuiadaLarga(vg)) continue;
+        if (!tieneGuiadaGrupo(vg)) continue;
         if (estadosActivos.indexOf(String(fila[COL_ESTADO - 1])) === -1) continue;
         if (_normFecha(fila[5]) !== fechaNorm) continue;
+        // Con visita a Cañas (col. AD): la Catedral ocupa 1 h y Cañas otra 1 h.
+        var conCanasFila = tieneCanas({ horaCanas: fila[COL_HORA_CANAS - 1] });
+        if (incluirCanas && conCanasFila) {
+          var iniC = _horaAMin(fila[COL_HORA_CANAS - 1]);
+          if (iniC !== null) franjasCanas.push({ ini: iniC, fin: iniC + 60 });
+        }
         var hh, mm;
         if (fila[6] instanceof Date) {
           hh = fila[6].getHours(); mm = fila[6].getMinutes();
@@ -504,7 +604,7 @@ function consultarDisponibilidad(fecha, excludeToken) {
           hh = parseInt(hp[0]) || 0; mm = parseInt(hp[1]) || 0;
         }
         // Casco Histórico + Catedral dura 2 horas → bloquea 120 min
-        var durMin = esGuiadaLarga(vg) ? 120 : 60;
+        var durMin = (esGuiadaLarga(vg) && !conCanasFila) ? 120 : 60;
         addFranja(hh, mm, durMin);
       }
     }
@@ -533,12 +633,40 @@ function consultarDisponibilidad(fecha, excludeToken) {
       Logger.log('consultarDisponibilidad - error calendario: ' + calErr.toString());
     }
 
+    // 2.b Calendar de Cañas (solo entrada conjunta): eventos con prefijo "VG ".
+    if (incluirCanas) {
+      try {
+        var calCanas = CalendarApp.getCalendarById(CONFIG.CALENDAR_CANAS_ID);
+        if (calCanas) {
+          var pc = String(fecha).split('-');
+          var iniDiaC = new Date(parseInt(pc[0]), parseInt(pc[1]) - 1, parseInt(pc[2]), 0, 0, 0);
+          var finDiaC = new Date(parseInt(pc[0]), parseInt(pc[1]) - 1, parseInt(pc[2]), 23, 59, 59);
+          var evC = calCanas.getEvents(iniDiaC, finDiaC);
+          for (var jc = 0; jc < evC.length; jc++) {
+            if (!esTituloVG(evC[jc].getTitle())) continue;
+            if (excludeEventoCanasId && evC[jc].getId() === excludeEventoCanasId) continue;
+            var eiC = evC[jc].getStartTime(), efC = evC[jc].getEndTime();
+            var aC = eiC.getHours() * 60 + eiC.getMinutes();
+            var bC = efC.getHours() * 60 + efC.getMinutes();
+            franjasCanas.push({ ini: aC, fin: bC > aC ? bC : aC + 60 });
+          }
+        } else {
+          Logger.log('consultarDisponibilidad - sin acceso al calendar de Cañas (revisa CALENDAR_CANAS_ID y que esté compartido).');
+        }
+      } catch (calCErr) {
+        Logger.log('consultarDisponibilidad - error calendar Cañas: ' + calCErr.toString());
+      }
+    }
+
     // 3. Pestaña Cierre: días y horas bloqueadas administrativamente.
     //    Columnas: A=Fecha, B=Hora, C=Monumento, D=Motivo. reservas.html SOLO refleja el
     //    cierre de la Catedral, así que aquí solo cuentan filas con Monumento '*' o 'Catedral'.
     //    Monumento vacío = no es un cierre válido → se ignora.
     var esDiaBloqueado = false;
     var horasCierre = [];
+    // Cañas: filas de Cierre con Monumento "Cañas" / "Monasterio de Cañas" ('*' no le afecta).
+    var canasDiaBloqueado = false;
+    var horasCierreCanas = [];
     var sheetCierre = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_CIERRE);
     if (sheetCierre && sheetCierre.getLastRow() > 1) {
       var cierreData = sheetCierre.getRange(2, 1, sheetCierre.getLastRow() - 1, 3).getValues();
@@ -546,9 +674,16 @@ function consultarDisponibilidad(fecha, excludeToken) {
         if (!cierreData[c][0]) continue;
         if (_normFecha(cierreData[c][0]) !== fechaNorm) continue;
         var cMon = String(cierreData[c][2] || '').trim();
+        var cMonNorm = cMon.toLowerCase();
+        if (cMonNorm.indexOf('cañas') !== -1 || cMonNorm.indexOf('canas') !== -1) {
+          var cHoraC = _normHora(cierreData[c][1]);
+          if (cHoraC === '*') canasDiaBloqueado = true;
+          else if (cHoraC) horasCierreCanas.push(cHoraC);
+          continue;
+        }
         if (cMon !== '*' && cMon !== CONFIG.CIERRE_MONUMENTO_RESERVAS) continue; // solo Catedral afecta a reservas
         var cHora = _normHora(cierreData[c][1]);
-        if (cHora === '*') { esDiaBloqueado = true; break; }
+        if (cHora === '*') { esDiaBloqueado = true; continue; }
         if (cHora) {
           horasCierre.push(cHora);
         }
@@ -620,7 +755,13 @@ function consultarDisponibilidad(fecha, excludeToken) {
       }
     }
 
-    return jsonResponse({ ok: true, esDiaBloqueado: false, horasOcupadas: horasOcupadas, horasCierre: horasCierre, visitasGuiadas: visitasGuiadas, horasNoVisitasGuiadas: horasNoVisitasGuiadas });
+    var respuesta = { ok: true, esDiaBloqueado: false, horasOcupadas: horasOcupadas, horasCierre: horasCierre, visitasGuiadas: visitasGuiadas, horasNoVisitasGuiadas: horasNoVisitasGuiadas };
+    if (incluirCanas) {
+      // Entrada conjunta: franjas en minutos (la web ofrece horas cada 30 min).
+      respuesta.franjas = franjas;
+      respuesta.canas = { franjas: franjasCanas, esDiaBloqueado: canasDiaBloqueado, horasCierre: horasCierreCanas };
+    }
+    return jsonResponse(respuesta);
   } catch (err) {
     return jsonResponse({ ok: false, error: err.toString() });
   }
@@ -814,6 +955,13 @@ function _reconciliarVisitasGuiadas(sheet) {
   }
 }
 
+// Eliminar filas (o columnas) no dispara onEdit: este trigger onChange limpia al momento
+// los eventos de VisitasGuiadas cuya fila ya no existe en el sheet.
+function onChangeTrigger(e) {
+  if (!e || (e.changeType !== 'REMOVE_ROW' && e.changeType !== 'OTHER')) return;
+  try { _reconciliarVisitasGuiadas(); } catch (err) { Logger.log('onChangeTrigger: ' + err.toString()); }
+}
+
 // Wrapper sin argumentos para ejecutar la limpieza manualmente desde el editor de Apps Script.
 function reconciliarVisitasGuiadasAhora() {
   _reconciliarVisitasGuiadas();
@@ -855,7 +1003,10 @@ function doPost(e) {
       var baseEsc = 0;
       for (var _ee = 0; _ee < data.entradas.length; _ee++) baseEsc += Number(data.entradas[_ee].subtotal) || 0;
       tarifa = baseEsc;
-      total = calcularTotal(baseEsc, guiada);
+      total = calcularTotal(baseEsc, guiada, data.fechaVisita);
+    } else if (esGrupo && esConjunta(guiada)) {
+      // Entrada conjunta Catedral + Monasterio de Cañas: tarifa única por persona.
+      tarifa = calcularTarifaConjunta(data.numPersonas); total = tarifa;
     } else if (esGrupo && esNocturnaGrupo(guiada)) {
       // Grupo con Visita Guiada Nocturna, precios según la temporada de la fecha de visita.
       var _ptNoc = preciosGrupoTemporada(data.fechaVisita);
@@ -864,7 +1015,7 @@ function doPost(e) {
     } else {
       var _ptGrp = preciosGrupoTemporada(data.fechaVisita);
       tarifa = calcularTarifaBase(data.tipoVisita, data.tipoEntrada, data.numPersonas, data.menores, data.tramoEdad, data.residentes, data.responsables, _ptGrp, data.escolarDestino);
-      total = calcularTotal(tarifa, guiada);
+      total = calcularTotal(tarifa, guiada, data.fechaVisita);
     }
     var token = Utilities.getUuid();
 
@@ -879,7 +1030,7 @@ function doPost(e) {
       data.numPersonas || '',
       // Grupo e individual guardan aquí el desglose de entradas; el escolar guarda los
       // monumentos visitados, porque su detalle por curso va en la col. Z ("Entradas (detalle)").
-      esEscolar ? destinoEscolarLabel(data.escolarDestino) : (data.tipoEntrada || '—'),
+      esEscolar ? destinoEscolarLabel(data.escolarDestino) : (esGrupo && esConjunta(guiada) ? TIPO_ENTRADA_CONJUNTA : (data.tipoEntrada || '—')),
       esEscolar ? tarifa : (esGrupo ? tarifa : tarifa),
       esGrupoOrEscolar ? guiada : '—',
       total,
@@ -904,6 +1055,8 @@ function doPost(e) {
     sheet.getRange(nextRow, 27).setValue(parseInt(data.menores) || 0);
     sheet.getRange(nextRow, 28).setValue(parseInt(data.residentes) || 0);
     sheet.getRange(nextRow, 29).setValue(parseInt(data.responsables) || 0);
+    var conCanasNueva = (esGrupo && esConjunta(guiada)) || _escolarConCanas(data);
+    if (conCanasNueva) sheet.getRange(nextRow, COL_HORA_CANAS).setValue(data.horaCanas || '');
 
     var cell = sheet.getRange(nextRow, COL_ACEPTAR);
     var rule = SpreadsheetApp.newDataValidation()
@@ -918,6 +1071,14 @@ function doPost(e) {
       'Nueva reserva de la Catedral',
       'Nueva reserva realizada desde el formulario de la web de la Catedral.'
     );
+
+    // Visita con Cañas (grupo o escolar): aviso con todos los datos al Monasterio.
+    if (conCanasNueva) {
+      try {
+        var filaNueva = sheet.getRange(nextRow, 1, 1, HEADERS.length).getValues()[0];
+        notificarCanas(mapRowToData(filaNueva), 'nueva');
+      } catch (errC) { Logger.log('Aviso a Cañas no enviado: ' + errC.toString()); }
+    }
 
     return jsonResponse({ ok: true, row: nextRow });
 
@@ -1056,8 +1217,9 @@ function _editarReserva(data) {
   var responsablesVal = parseInt(data.responsables) || 0;
   var menores = esGrupoOrEscolar ? 0 : menoresVal; // tarifa individual usa menores; grupos normales no
   var esNocGrupo = esGrupo && esNocturnaGrupo(visitaGuiada);
+  var esConjGrupo = esGrupo && esConjunta(visitaGuiada);
   // Escolar guarda aquí los monumentos visitados (su detalle por curso va en la col. Z); grupo e individual, el desglose.
-  var tipoEntrada = esEscolar ? destinoEscolarLabel(data.escolarDestino) : (data.tipoEntrada || ant.tipoEntrada || '—');
+  var tipoEntrada = esEscolar ? destinoEscolarLabel(data.escolarDestino) : (esConjGrupo ? TIPO_ENTRADA_CONJUNTA : (data.tipoEntrada || ant.tipoEntrada || '—'));
   // Tarifas / total:
   //  · Individual/Escolar con carrito en el payload → recalcular desde los subtotales.
   //  · Individual sin carrito en el payload → conservar lo anterior (solo cambiaron fecha/datos).
@@ -1073,9 +1235,11 @@ function _editarReserva(data) {
   } else if (esEscolar && data.entradas && data.entradas.length) {
     var _te = 0;
     for (var _ee = 0; _ee < data.entradas.length; _ee++) _te += Number(data.entradas[_ee].subtotal) || 0;
-    nuevasTarifas = _te; nuevoTotal = calcularTotal(_te, visitaGuiada);
+    nuevasTarifas = _te; nuevoTotal = calcularTotal(_te, visitaGuiada, data.fechaVisita || ant.fechaVisita);
   } else if (esInd && ant.entradasDetalle && String(ant.entradasDetalle).trim()) {
     nuevasTarifas = ant.tarifas; nuevoTotal = ant.total;
+  } else if (esConjGrupo) {
+    nuevasTarifas = calcularTarifaConjunta(numPersonas); nuevoTotal = nuevasTarifas;
   } else if (esNocGrupo) {
     var _ptNocE = preciosGrupoTemporada(data.fechaVisita || ant.fechaVisita);
     var _noc = calcularNocturnaGrupo(numPersonas, menoresVal, residentesVal, responsablesVal, _ptNocE);
@@ -1083,8 +1247,8 @@ function _editarReserva(data) {
   } else {
     var _ptGrpE = preciosGrupoTemporada(data.fechaVisita || ant.fechaVisita);
     nuevasTarifas = calcularTarifaBase(tipoVisita, tipoEntrada, numPersonas,
-      menoresVal, data.tramoEdad || '', residentesVal, responsablesVal, _ptGrpE);
-    nuevoTotal = calcularTotal(nuevasTarifas, visitaGuiada);
+      menoresVal, data.tramoEdad || '', residentesVal, responsablesVal, _ptGrpE, data.escolarDestino);
+    nuevoTotal = calcularTotal(nuevasTarifas, visitaGuiada, data.fechaVisita || ant.fechaVisita);
   }
 
   sheet.getRange(rowIndex, 2).setValue(tipoVisita);
@@ -1110,12 +1274,21 @@ function _editarReserva(data) {
   sheet.getRange(rowIndex, 27).setValue(menoresVal);
   sheet.getRange(rowIndex, 28).setValue(residentesVal);
   sheet.getRange(rowIndex, 29).setValue(responsablesVal);
+  var conCanasEd = esConjGrupo || _escolarConCanas({ tipoVisita: tipoVisita, escolarDestino: data.escolarDestino, horaCanas: data.horaCanas });
+  sheet.getRange(rowIndex, COL_HORA_CANAS).setValue(conCanasEd ? (data.horaCanas || ant.horaCanas || '') : '');
 
   var editTimestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
   sheet.getRange(rowIndex, COL_ACEPTAR).setValue('');
   sheet.getRange(rowIndex, COL_ESTADO).setValue('✏️ Editado: ' + editTimestamp);
 
   notificarEdicion(ant, data, rowIndex);
+  // Entrada conjunta (antes o ahora): avisar también al Monasterio de Cañas.
+  if (conCanasEd || tieneCanas(ant)) {
+    try {
+      var filaEd = sheet.getRange(rowIndex, 1, 1, HEADERS.length).getValues()[0];
+      notificarCanas(conCanasEd ? mapRowToData(filaEd) : ant, conCanasEd ? 'modificada' : 'cancelada');
+    } catch (errCE) { Logger.log('Aviso de edición a Cañas no enviado: ' + errCE.toString()); }
+  }
   return { ok: true, editado: true };
 }
 
@@ -1129,6 +1302,7 @@ function notificarEdicion(ant, nuevo, row) {
       ['Teléfono', ant.telefono, nuevo.telefono],
       ['Fecha', String(ant.fechaVisita), nuevo.fechaVisita],
       ['Hora', String(ant.horaVisita), nuevo.horaVisita],
+      ['Hora Monasterio de Cañas', formatearHora(ant.horaCanas), nuevo.horaCanas],
       ['Nº de personas', String(ant.numPersonas), String(nuevo.numPersonas || '')],
       ['Visita guiada', ant.visitaGuiada, nuevo.visitaGuiada],
       ['Comentarios', ant.comentarios, nuevo.comentarios],
@@ -1211,6 +1385,7 @@ function consultarDatosReserva(token) {
       tipoVisita: d.tipoVisita,
       nombre: d.nombre, email: d.email, telefono: d.telefono,
       fechaVisita: fechaVal, horaVisita: horaVal,
+      horaCanas: d.horaCanas ? formatearHora(d.horaCanas) : '',
       numPersonas: d.numPersonas,
       menores: d.menores, residentes: d.residentes, responsables: d.responsables,
       tipoEntrada: d.tipoVisita === 'Grupo Escolar' ? tramoKey : d.tipoEntrada,
@@ -1340,6 +1515,12 @@ function _cancelarReserva(token) {
 
     // Mover evento a calendario Cancelado
     var nuevoEventoId = _moverEventoACancelado(datos);
+    // Entrada conjunta: liberar también la franja del calendar de Cañas y avisar al Monasterio.
+    if (tieneCanas(datos)) {
+      _cancelarEventoCanas(datos);
+      sheet.getRange(rowIndex, COL_EVENTO_CANAS).setValue('');
+      try { notificarCanas(datos, 'cancelada'); } catch (errCC) { Logger.log('Aviso de cancelación a Cañas no enviado: ' + errCC.toString()); }
+    }
 
     // Actualizar estado en Sheets
     sheet.getRange(rowIndex, COL_ESTADO).setValue('🚫 Cancelado por usuario');
@@ -1353,7 +1534,8 @@ function _cancelarReserva(token) {
     GmailApp.sendEmail(
       CONFIG.EMAIL_INFO,
       '🚫 Reserva cancelada por usuario — ' + datos.nombre + ' — ' + fechaF,
-      datos.nombre + ' (' + datos.email + ') ha cancelado su reserva del ' + fechaF + ' a las ' + formatearHora(datos.horaVisita) + ' h.\n'
+      datos.nombre + ' (' + datos.email + ') ha cancelado su reserva del ' + fechaF + ' a las ' + formatearHora(datos.horaVisita) + ' h'
+      + (tieneCanas(datos) ? ' (Monasterio de Cañas a las ' + formatearHora(datos.horaCanas) + ' h)' : '') + '.\n'
       + 'Tipo: ' + datos.tipoVisita + (datos.tipoEntrada && datos.tipoEntrada !== '—' ? ' — ' + datos.tipoEntrada : '') + '\n'
       + 'Nº de personas: ' + datos.numPersonas + '\nTotal: ' + fmtEur(datos.total)
     );
@@ -1657,6 +1839,7 @@ function onEditTrigger(e) {
       var editadoEnJustif = String(estado).indexOf('✏️') === 0 ? String(estado).replace('✏️ Editado: ', '') : null;
       var eventoIdJ = crearEventoCalendar(datos, row, editadoEnJustif);
       if (eventoIdJ) { sheet.getRange(row, COL_EVENTO_ID).setValue(eventoIdJ); datos.eventoId = eventoIdJ; }
+      _sincronizarEventoCanas(sheet, datos, row, editadoEnJustif);
       enviarConfirmacionFinalGrupo(datos);
       reenviarJustificante(datos);
       sheet.getRange(row, COL_ESTADO).setValue('✅ Confirmado');
@@ -1669,6 +1852,7 @@ function onEditTrigger(e) {
       if (editadoEnGrupo) { enviarConfirmacionModificacion(datos); } else { enviarCorreoConfirmacion(datos); }
       var eventoId = crearEventoCalendar(datos, row, editadoEnGrupo);
       sheet.getRange(row, COL_EVENTO_ID).setValue(eventoId);
+      _sincronizarEventoCanas(sheet, datos, row, editadoEnGrupo);
       if (datos.necesitaFactura === 'Sí') enviarProformaContabilidad(datos, !!editadoEnGrupo); // también tras edición → contabilidad siempre con datos actualizados (con asunto/título de modificación)
       if (esGrupoGuiado) {
         notificarGuia(datos);
@@ -1728,6 +1912,8 @@ function mapRowToData(fila) {
     menores: fila[26],
     residentes: fila[27],
     responsables: fila[28],
+    horaCanas: fila[COL_HORA_CANAS - 1],
+    eventoCanasId: fila[COL_EVENTO_CANAS - 1],
   };
 }
 
@@ -1817,6 +2003,7 @@ function notificarGuia(d) {
     + 'Tipo: ' + tipo + '\n'
     + 'Nombre / Entidad: ' + nombreMostrar + '\n'
     + 'Fecha y hora: ' + fechaHora + '\n'
+    + (tieneCanas(d) ? 'Con visita al Monasterio de Cañas a las ' + formatearHora(d.horaCanas) + ' h\n' : '')
     + 'Nº personas: ' + (d.numPersonas || '—') + '\n'
     + (d.comentarios ? 'Comentarios: ' + d.comentarios + '\n' : '');
 
@@ -1989,10 +2176,12 @@ function buildCancelacionHTML(d) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Tipo de visita', d.tipoVisita)
     + tdRowDate('Fecha', fechaFormato)
-    + tdRowDate('Hora', horaFormato + ' h')
+    + filasHoraHTML(d, horaFormato)
     + tdRow('Nº de personas', d.numPersonas)
     + detallesEspecificos
     + tdRow('Tarifas', tarifaStr)
+    + filasTarifaGrupoHTML(d)
+    + (suplementoGuiada(d.visitaGuiada, d.fechaVisita) > 0 ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada, d.fechaVisita)) + ' / grupo') : '')
     + desgloseHTML
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#c09090;text-transform:uppercase;letter-spacing:1px;">TOTAL</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:22px;color:#e0b0b0;font-family:Georgia,serif;font-weight:bold;">' + totalStr + '</span></td></tr>'
@@ -2040,6 +2229,29 @@ function buildDesgloseHTML(d) {
   var row2 = '<tr><td style="padding:4px 0 8px 12px;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-size:11px;color:#6a6050;">↳ ' + menorLabel + '</span></td>'
     + '<td style="padding:4px 0 8px;border-bottom:1px solid rgba(255,255,255,0.05);text-align:right;"><span style="font-size:11px;color:#8a8070;">' + (precioMenor > 0 ? fmtEur(menores * precioMenor) : 'gratuito') + '</span></td></tr>';
   return row1 + row2;
+}
+
+// Filas de tarifa por persona de un grupo (según la temporada de la fecha de visita).
+function filasTarifaGrupoHTML(d) {
+  if (d.tipoVisita !== 'Grupo') return '';
+  var n = parseInt(d.numPersonas) || 0;
+  if (esConjunta(d.visitaGuiada)) {
+    return n >= CONJUNTA_MIN_PERSONAS
+      ? tdRow('Tarifa por persona', n + ' personas × ' + fmtEur(PRECIO_CONJUNTA_POR_PERSONA))
+      : tdRow('Tarifa por persona', 'Mínimo ' + fmtEur(PRECIO_CONJUNTA_MINIMO) + ' (menos de ' + CONJUNTA_MIN_PERSONAS + ' personas; ' + fmtEur(PRECIO_CONJUNTA_POR_PERSONA) + '/persona a partir de ' + CONJUNTA_MIN_PERSONAS + ')');
+  }
+  var pt = preciosGrupoTemporada(d.fechaVisita);
+  if (esNocturnaGrupo(d.visitaGuiada)) {
+    var nc = calcularNocturnaGrupo(d.numPersonas, d.menores, d.residentes, d.responsables, pt);
+    return tdRow('Tarifa por persona', nc.adultos + ' adulto' + (nc.adultos !== 1 ? 's' : '') + ' × ' + fmtEur(nc.precioAdulto)
+      + (nc.menores > 0 ? ' · ' + nc.menores + ' menor' + (nc.menores !== 1 ? 'es' : '') + ' × ' + fmtEur(nc.precioMenor) : '')
+      + (nc.residentes > 0 ? ' · ' + nc.residentes + ' residente' + (nc.residentes !== 1 ? 's' : '') + ' × ' + fmtEur(nc.precioResidente) : ''));
+  }
+  var ds = calcularDesglose('Grupo', '', d.numPersonas, d.menores, '', d.residentes, d.responsables, pt);
+  var minimo = (pt && pt.grupoMinimo != null) ? pt.grupoMinimo : PRECIO_GRUPO_MINIMO;
+  return ds.adultos >= 25
+    ? tdRow('Tarifa por persona', ds.adultos + ' personas que pagan × ' + fmtEur(ds.precioAdulto))
+    : tdRow('Tarifa por persona', 'Mínimo de grupo ' + fmtEur(minimo) + ' (menos de 25 personas que pagan; ' + fmtEur(ds.precioAdulto) + '/persona a partir de 25)');
 }
 
 function buildEmailHTML(d) {
@@ -2125,7 +2337,7 @@ function buildEmailHTML(d) {
     + '</td></tr>'
     + '<tr><td style="padding:36px 48px 24px;">'
     + '<p style="margin:0 0 12px;font-size:14px;color:#FDFAF4;">Estimado/a <strong style="color:#DFC07A;">' + d.nombre + '</strong>,</p>'
-    + '<p style="margin:0;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.65);">Hemos recibido su solicitud de visita' + (esGrupo ? ' en grupo' : '') + ' a la <strong style="color:#FDFAF4;">' + CONFIG.NOMBRE_INSTITUCION + '</strong>. A continuación encontrará el resumen de su reserva.</p>'
+    + '<p style="margin:0;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.65);">Hemos recibido su solicitud de visita' + (esGrupo ? ' en grupo' : '') + ' a la <strong style="color:#FDFAF4;">' + CONFIG.NOMBRE_INSTITUCION + '</strong>' + (tieneCanas(d) ? ' y al <strong style="color:#FDFAF4;">Monasterio de Cañas</strong>' : '') + '. A continuación encontrará el resumen de su reserva.</p>'
     + '</td></tr>'
     + divider()
     + '<tr><td style="padding:28px 48px;">'
@@ -2133,10 +2345,12 @@ function buildEmailHTML(d) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Tipo de visita', d.tipoVisita)
     + tdRowDate('Fecha', fechaFormato)
-    + tdRowDate('Hora', horaRangoFormato + ' h')
+    + filasHoraHTML(d, horaRangoFormato)
     + tdRow('Nº de personas', d.numPersonas)
     + detallesEspecificos
     + tdRow('Tarifas', tarifaStr)
+    + filasTarifaGrupoHTML(d)
+    + (suplementoGuiada(d.visitaGuiada, d.fechaVisita) > 0 ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada, d.fechaVisita)) + ' / grupo') : '')
     + desgloseHTML
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:22px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + totalStr + '</span></td></tr>'
@@ -2148,6 +2362,7 @@ function buildEmailHTML(d) {
     + (tieneGuiada
       ? 'Rogamos acudir con 10 minutos de antelación a las taquillas de la Catedral. Las visitas guiadas comienzan a la hora reservada y no podrán retrasarse ni prolongarse fuera del horario asignado.<br/>Horarios sujetos a modificaciones por celebraciones litúrgicas.'
       : 'Horarios sujetos a modificaciones por celebraciones litúrgicas.')
+    + (tieneCanas(d) ? ' Entre las dos visitas se reservan 30 minutos para el desplazamiento entre la Catedral y el Monasterio de Cañas (15 minutos en coche).' : '')
     + (esGrupoGuiado ? ' Una vez confirmado el pago, la reserva quedará definitivamente efectuada.' : '')
     + (!tieneGuiada && esGrupoOrEscolar ? ' La reserva será registrada una vez confirmada.' : '')
     + (!esGrupoOrEscolar && !esNocturna ? ' Recojan sus entradas en las taquillas de nuestros monumentos.' : '')
@@ -2182,7 +2397,7 @@ function buildConfirmacionFinalHTML(d, fechaFormato) {
     + '<tr><td style="padding:28px 48px;">'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRowDate('Fecha', fechaFormato)
-    + tdRowDate('Hora', _horaFin2 + ' h')
+    + filasHoraHTML(d, _horaFin2)
     + tdRow('Nº de personas', d.numPersonas)
     + ((parseInt(d.responsables) || 0) > 0 ? tdRow('Responsable / guía (gratuito)', d.responsables) : '')
     + ((parseInt(d.menores) || 0) > 0 ? tdRow('Menores &lt;12 (gratuito)', d.menores) : '')
@@ -2321,10 +2536,12 @@ function buildModificacionAprobadaHTML(d) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Tipo de visita', d.tipoVisita)
     + tdRowDate('Fecha', fechaFormato)
-    + tdRowDate('Hora', horaRangoFormato + ' h')
+    + filasHoraHTML(d, horaRangoFormato)
     + tdRow('Nº de personas', d.numPersonas)
     + detallesEspecificos
     + tdRow('Tarifas', tarifaStr)
+    + filasTarifaGrupoHTML(d)
+    + (suplementoGuiada(d.visitaGuiada, d.fechaVisita) > 0 ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada, d.fechaVisita)) + ' / grupo') : '')
     + desgloseHTML
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:22px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + totalStr + '</span></td></tr>'
@@ -2336,6 +2553,7 @@ function buildModificacionAprobadaHTML(d) {
     + (tieneGuiada
       ? 'Rogamos acudir con 10 minutos de antelación a las taquillas de la Catedral. Las visitas guiadas comienzan a la hora reservada y no podrán retrasarse ni prolongarse fuera del horario asignado.<br/>Horarios sujetos a modificaciones por celebraciones litúrgicas.'
       : 'Horarios sujetos a modificaciones por celebraciones litúrgicas.')
+    + (tieneCanas(d) ? ' Entre las dos visitas se reservan 30 minutos para el desplazamiento entre la Catedral y el Monasterio de Cañas (15 minutos en coche).' : '')
     + (esGrupoGuiado ? ' Una vez confirmado el pago, la reserva quedará definitivamente efectuada.' : '')
     + (!tieneGuiada && esGrupoOrEscolar ? ' La reserva será registrada una vez confirmada.' : '')
     + (!esGrupoOrEscolar && !esNocturna ? ' Recojan sus entradas en las taquillas de nuestros monumentos.' : '')
@@ -2399,8 +2617,9 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
   var labelCentro = esEscolar ? 'Centro escolar' : 'Centro / Institución';
   var tituloH1 = esModificacion ? 'Edición de <em style="color:#DFC07A;">reserva</em>' : 'Proforma para <em style="color:#DFC07A;">pago</em>';
 
+  var _ptProf = preciosGrupoTemporada(d.fechaVisita);
   var tramoEsc = d.tipoEntrada;
-  var precioEsc = tramoPrecio(tramoEsc);
+  var precioEsc = tramoPrecio(tramoEsc, null, _ptProf);
   if (precioEsc === null) precioEsc = 0;
   // Pagantes = totales − menores − residentes − responsables (base del desglose de grupo/escolar/nocturna).
   var _menP = parseInt(d.menores) || 0, _resP = parseInt(d.residentes) || 0, _repP = parseInt(d.responsables) || 0;
@@ -2413,7 +2632,16 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     + '<table width="100%" cellpadding="0" cellspacing="0">'
     + tdRow('Desglose por tramos', d.entradasDetalle ? String(d.entradasDetalle).replace(/\n/g, '<br>') : tramoLabel(tramoEsc))
     + tdRow('Nº de alumnos', d.numPersonas)
-    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRowColor('Suplemento visita guiada', '+ ' + fmtEur(suplementoGuiada(d.visitaGuiada)) + ' / grupo', '#C9A84C') : '')
+    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRowColor('Suplemento visita guiada', '+ ' + fmtEur(suplementoGuiada(d.visitaGuiada, d.fechaVisita)) + ' / grupo', '#C9A84C') : '')
+    + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
+    + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
+    + '</table></td></tr>'
+    : esConjunta(d.visitaGuiada)
+    ? '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Importe · Entrada conjunta Catedral + Monasterio de Cañas</p>'
+    + '<table width="100%" cellpadding="0" cellspacing="0">'
+    + tdRow((parseInt(d.numPersonas) || 0) >= CONJUNTA_MIN_PERSONAS
+      ? (parseInt(d.numPersonas) || 0) + ' personas × ' + fmtEur(PRECIO_CONJUNTA_POR_PERSONA)
+      : 'Tarifa mínima (menos de ' + CONJUNTA_MIN_PERSONAS + ' personas)', fmtEur(d.tarifas))
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
     + '</table></td></tr>'
@@ -2429,9 +2657,11 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     + '</table></td></tr>'
     : '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Importe</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
-    + tdRow('Tarifa base (' + _aduP + ' pagantes × ' + fmtEur(PRECIO_GRUPO_POR_PERSONA) + ', mín. ' + fmtEur(PRECIO_GRUPO_MINIMO) + ')', fmtEur(d.tarifas))
+    + tdRow(_aduP >= 25
+      ? 'Tarifa base (' + _aduP + ' pagantes × ' + fmtEur(_ptProf && _ptProf.grupoPorPersona != null ? _ptProf.grupoPorPersona : PRECIO_GRUPO_POR_PERSONA) + ')'
+      : 'Tarifa mínima de grupo (' + _aduP + ' pagantes, menos de 25)', fmtEur(d.tarifas))
     + (_repP > 0 ? tdRow(_repP + ' responsable' + (_repP !== 1 ? 's' : '') + ' / guía · gratuidad', fmtEur(0)) : '')
-    + (tieneGuiadaGrupo(d.visitaGuiada) ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada))) : '')
+    + (suplementoGuiada(d.visitaGuiada, d.fechaVisita) > 0 ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada, d.fechaVisita))) : '')
     + '<tr><td style="padding:14px 0 0;"><span style="font-size:12px;font-weight:bold;color:#C9A84C;text-transform:uppercase;letter-spacing:1px;">TOTAL A PAGAR</span></td>'
     + '<td style="padding:14px 0 0;text-align:right;"><span style="font-size:24px;color:#DFC07A;font-family:Georgia,serif;font-weight:bold;">' + fmtEur(d.total) + '</span></td></tr>'
     + '</table></td></tr>';
@@ -2452,7 +2682,7 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     + divider('0.3')
     + '<tr><td style="padding:28px 48px;"><p style="margin:0 0 16px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;">✦ Detalles de la visita</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">'
-    + tdRowDate('Fecha', fechaFormato) + tdRowDate('Hora', horaFormato + ' h') + tdRow('Nº de alumnos / personas', d.numPersonas)
+    + tdRowDate('Fecha', fechaFormato) + filasHoraHTML(d, horaFormato) + tdRow('Nº de alumnos / personas', d.numPersonas)
     + tdRowColor('Visita guiada', guiada, tieneGuiadaGrupo(d.visitaGuiada) ? '#C9A84C' : '#FDFAF4')
     + tdRow('Comentarios', d.comentarios || '—')
     + (d.respuesta ? tdRow('Respuesta enviada al cliente', d.respuesta) : '')
@@ -2461,6 +2691,26 @@ function buildProformaHTML(d, fechaFormato, guiada, esModificacion) {
     + bloqueImporte
     + footer('rgba(201,168,76,0.12)')
   );
+}
+
+// Entrada conjunta: las dos visitas en orden cronológico ({ etiqueta, hora, texto }).
+function horarioConjunta(d) {
+  var items = [
+    { etiqueta: 'Catedral', hora: formatearHora(d.horaVisita) },
+    { etiqueta: 'Monasterio de Cañas', hora: formatearHora(d.horaCanas) },
+  ].filter(function (x) { return x.hora && x.hora !== '—'; });
+  items.forEach(function (x) {
+    var hp = x.hora.split(':');
+    x.min = (parseInt(hp[0]) || 0) * 60 + (parseInt(hp[1]) || 0);
+    var f = x.min + 60;
+    x.texto = x.hora + ' – ' + String(Math.floor(f / 60)).padStart(2, '0') + ':' + String(f % 60).padStart(2, '0') + ' h';
+  });
+  items.sort(function (a, b) { return a.min - b.min; });
+  return items;
+}
+function filasHoraHTML(d, horaTexto) {
+  if (!tieneCanas(d)) return tdRowDate('Hora', horaTexto + ' h');
+  return horarioConjunta(d).map(function (x) { return tdRowDate('Hora ' + x.etiqueta, x.texto); }).join('');
 }
 
 // Helpers HTML de correo
@@ -2514,6 +2764,178 @@ function _eliminarEventoCalendar(eventoId) {
   }
 }
 
+// Entrada conjunta: crea/actualiza el evento "VG " en el calendar de Cañas y guarda su ID (col. AE).
+// Si la reserva ya no es conjunta, elimina el evento que tuviera.
+// Visita guiada en el calendar de Cañas: título que empieza por "VG" (admite minúsculas,
+// espacios delante y "VG:", "VG-", "VG ·"…).
+function esTituloVG(t) { return /^\s*VG(\s|:|-|·|$)/i.test(String(t || '')); }
+
+// DIAGNÓSTICO · Ejecutar desde el editor de Apps Script (seleccionar la función → Ejecutar)
+// y mirar el Registro de ejecución. Comprueba el acceso al calendar de Cañas y lista los
+// eventos de los próximos 30 días, indicando cuáles cuentan como visita guiada ("VG").
+function diagnosticoCanas() {
+  var cal = CalendarApp.getCalendarById(CONFIG.CALENDAR_CANAS_ID);
+  if (!cal) {
+    Logger.log('❌ Sin acceso al calendar "' + CONFIG.CALENDAR_CANAS_ID + '". Revisa el ID y que esté compartido con '
+      + Session.getEffectiveUser().getEmail() + ' y añadido en su Google Calendar (Otros calendarios → +).');
+    return;
+  }
+  Logger.log('✅ Acceso correcto al calendar: ' + cal.getName());
+  var desde = new Date(), hasta = new Date(desde.getTime() + 30 * 24 * 3600 * 1000);
+  var evs = cal.getEvents(desde, hasta);
+  Logger.log('Eventos en los próximos 30 días: ' + evs.length);
+  evs.forEach(function (e) {
+    Logger.log((esTituloVG(e.getTitle()) ? '  [VG] ' : '  [--] ')
+      + Utilities.formatDate(e.getStartTime(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm') + '–'
+      + Utilities.formatDate(e.getEndTime(), Session.getScriptTimeZone(), 'HH:mm') + '  ' + e.getTitle());
+  });
+}
+
+function _sincronizarEventoCanas(sheet, d, row, editadoEn) {
+  try {
+    if (!tieneCanas(d)) {
+      if (d.eventoCanasId) { _eliminarEventoCanas(d.eventoCanasId); sheet.getRange(row, COL_EVENTO_CANAS).setValue(''); }
+      return;
+    }
+    var id = crearEventoCanas(d, row, editadoEn);
+    if (id) sheet.getRange(row, COL_EVENTO_CANAS).setValue(id);
+  } catch (err) {
+    Logger.log('Error sincronizando evento de Cañas (fila ' + row + '): ' + err.toString());
+  }
+}
+
+function _eliminarEventoCanas(eventoId) {
+  if (!eventoId) return;
+  try {
+    var cal = CalendarApp.getCalendarById(CONFIG.CALENDAR_CANAS_ID);
+    var evt = cal ? cal.getEventById(eventoId) : null;
+    if (evt) evt.deleteEvent();
+  } catch (e) { Logger.log('No se pudo borrar el evento de Cañas: ' + e); }
+}
+
+// Cancelación: borra el evento de Cañas (libera la franja) y deja una copia tachada en el calendario Cancelado.
+function _cancelarEventoCanas(d) {
+  if (!d.eventoCanasId) return;
+  try {
+    var cal = CalendarApp.getCalendarById(CONFIG.CALENDAR_CANAS_ID);
+    var evt = cal ? cal.getEventById(d.eventoCanasId) : null;
+    if (!evt) return;
+    var titulo = evt.getTitle(), desc = evt.getDescription(), ini = evt.getStartTime(), fin = evt.getEndTime();
+    evt.deleteEvent();
+    var calCancelado = CalendarApp.getCalendarById(CONFIG.CALENDAR_CANCELADO_ID);
+    if (calCancelado) {
+      var canceladoEn = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm');
+      var copia = calCancelado.createEvent(_strikethrough(titulo || ''), ini, fin, { description: (desc || '') + '\nCANCELADO: ' + canceladoEn });
+      try { copia.setColor(CalendarApp.EventColor.GRAY); } catch (e) { }
+    }
+  } catch (err) { Logger.log('Error cancelando evento de Cañas: ' + err.toString()); }
+}
+
+function _fechaHoraDate(fechaVal, horaVal) {
+  var anio, mes, dia;
+  if (fechaVal instanceof Date) { anio = fechaVal.getFullYear(); mes = fechaVal.getMonth() + 1; dia = fechaVal.getDate(); }
+  else {
+    var s = String(fechaVal).trim();
+    var partes = s.indexOf('/') !== -1 ? s.split('/') : s.split('-');
+    if (partes[0].length === 4) { anio = parseInt(partes[0]); mes = parseInt(partes[1]); dia = parseInt(partes[2]); }
+    else { dia = parseInt(partes[0]); mes = parseInt(partes[1]); anio = parseInt(partes[2]); }
+  }
+  var hh, mm;
+  if (horaVal instanceof Date) { hh = horaVal.getHours(); mm = horaVal.getMinutes(); }
+  else { var hp = String(horaVal).trim().split(':'); hh = parseInt(hp[0]) || 0; mm = parseInt(hp[1]) || 0; }
+  return new Date(anio, mes - 1, dia, hh, mm, 0);
+}
+
+function crearEventoCanas(d, row, editadoEn) {
+  var calendar = CalendarApp.getCalendarById(CONFIG.CALENDAR_CANAS_ID);
+  if (!calendar) throw new Error('Sin acceso al calendar de Cañas (revisa CALENDAR_CANAS_ID y que esté compartido con esta cuenta).');
+  var inicio = _fechaHoraDate(d.fechaVisita, d.horaCanas);
+  var fin = new Date(inicio.getTime() + 60 * 60000);
+  var esEsc = d.tipoVisita === 'Grupo Escolar';
+  var guiadaC = tieneGuiadaGrupo(d.visitaGuiada);
+  // Solo las visitas guiadas llevan "VG " (son las que bloquean hora en la web).
+  var titulo = (guiadaC ? 'VG ' : '') + (esEsc ? '🎒 ' : '') + _nombreGrupo(d) + ' · ' + d.numPersonas + (esEsc ? ' alumnos' : ' pers.')
+    + (esEsc ? (guiadaC ? ' · Escolar guiada' : ' · Escolar sin guía') : ' · Entrada conjunta') + ' (Catedral ' + formatearHora(d.horaVisita) + ')';
+  var descripcion = [esEsc ? '🎒 GRUPO ESCOLAR · CATEDRAL + MONASTERIO DE CAÑAS' : '🏛 ENTRADA CONJUNTA CATEDRAL + MONASTERIO DE CAÑAS', '─────────────────────────────',
+    'RESPONSABLE: ' + d.nombre, 'EMAIL: ' + d.email, 'TELÉFONO: ' + d.telefono,
+    (esEsc ? 'CENTRO ESCOLAR: ' : 'CENTRO / INSTITUCIÓN: ') + (d.nombreCentro || '—'),
+    (esEsc ? 'Nº DE ALUMNOS: ' : 'Nº DE PERSONAS: ') + d.numPersonas,
+    'VISITA GUIADA: ' + (guiadaC ? 'Sí (Catedral y Monasterio)' : 'No'),
+    'HORARIO: ' + horarioConjunta(d).map(function (x) { return x.etiqueta + ' ' + x.texto; }).join(' · '),
+    '💶 TOTAL: ' + fmtEur(d.total),
+    'COMENTARIOS: ' + (d.comentarios || 'Ninguno'),
+    '─────────────────────────────',
+    'Reserva gestionada por la Catedral de Santo Domingo de la Calzada · Fila en Sheets: ' + row,
+  ].join('\n');
+  if (editadoEn) descripcion += '\nEDITADO: ' + editadoEn;
+  if (d.eventoCanasId) {
+    try {
+      var existente = calendar.getEventById(d.eventoCanasId);
+      if (existente) {
+        existente.setTitle(titulo); existente.setTime(inicio, fin); existente.setDescription(descripcion);
+        return existente.getId();
+      }
+    } catch (e) { Logger.log('No se pudo reutilizar el evento de Cañas; se crea uno nuevo: ' + e); }
+  }
+  var evento = calendar.createEvent(titulo, inicio, fin, { description: descripcion });
+  try { evento.setColor(CalendarApp.EventColor.YELLOW); } catch (e) { }
+  return evento.getId();
+}
+
+// Aviso al Monasterio de Cañas (entradas@monasteriodecanas.org) con todos los datos de la reserva.
+// tipo: 'nueva' | 'modificada' | 'cancelada'
+function _nombreGrupo(d) {
+  var c = String(d.nombreCentro || '').trim();
+  return (c && c !== '—') ? c : d.nombre;
+}
+function notificarCanas(d, tipo) {
+  var titulos = { nueva: 'Nueva reserva', modificada: 'Reserva modificada', cancelada: 'Reserva cancelada' };
+  var fechaF = formatearFecha(d.fechaVisita);
+  var esEsc = d.tipoVisita === 'Grupo Escolar';
+  var etiqueta = esEsc ? 'Grupo escolar Catedral + Monasterio' + (tieneGuiadaGrupo(d.visitaGuiada) ? ' (guiada)' : ' (sin guía)') : 'Entrada conjunta Catedral + Monasterio';
+  var asunto = (titulos[tipo] || 'Reserva') + ' · ' + etiqueta + ' · ' + _nombreGrupo(d) + ' · ' + fechaF;
+  var horario = horarioConjunta(d);
+  var html = emailWrap(
+    '<tr><td style="background:linear-gradient(135deg,#1a1814,#221f14);padding:36px 48px 32px;border-bottom:2px solid #C9A84C;text-align:center;">'
+    + '<p style="margin:0 0 6px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;">— ' + etiqueta + ' —</p>'
+    + '<h1 style="margin:0;font-family:Georgia,serif;font-size:26px;font-weight:300;color:#FDFAF4;">' + (titulos[tipo] || 'Reserva') + '</h1>'
+    + '<p style="margin:10px 0 0;font-size:12px;color:rgba(255,255,255,0.5);">'
+    + (tipo === 'cancelada' ? 'Esta reserva se ha cancelado: la franja del Monasterio queda libre.'
+      : 'Estado en la Catedral: pendiente de confirmar. El evento en el calendar de Cañas se crea al aceptarla.')
+    + '</p></td></tr>'
+    + '<tr><td style="padding:28px 48px;"><table width="100%" cellpadding="0" cellspacing="0">'
+    + tdRowDate('Fecha', fechaF)
+    + horario.map(function (x) { return tdRowDate('Hora ' + x.etiqueta, x.texto); }).join('')
+    + tdRow('Nº de personas', d.numPersonas)
+    + tdRow('Responsable', d.nombre) + tdRow('Email', d.email) + tdRow('Teléfono', d.telefono || '—')
+    + tdRow('Centro / Institución', d.nombreCentro || '—') + tdRow('NIF / CIF', d.nifCif || '—')
+    + tdRow('Necesita factura', d.necesitaFactura || '—')
+    + (esEsc
+      ? tdRow('Visita guiada', tieneGuiadaGrupo(d.visitaGuiada) ? 'Sí (Catedral y Monasterio)' : 'No')
+        + tdRow('Desglose', d.entradasDetalle ? String(d.entradasDetalle).replace(/\n/g, '<br>') : '—')
+        + (suplementoGuiada(d.visitaGuiada, d.fechaVisita) > 0 ? tdRow('Suplemento visita guiada', fmtEur(suplementoGuiada(d.visitaGuiada, d.fechaVisita))) : '')
+      : tdRow('Tarifa', ((parseInt(d.numPersonas) || 0) >= CONJUNTA_MIN_PERSONAS ? d.numPersonas + ' × ' + fmtEur(PRECIO_CONJUNTA_POR_PERSONA) : 'Mínimo (menos de ' + CONJUNTA_MIN_PERSONAS + ' personas)')))
+    + tdRow('Total', fmtEur(d.total))
+    + tdRow('Comentarios', d.comentarios || '—')
+    + '</table></td></tr>'
+    + footer('rgba(201,168,76,0.12)')
+  );
+  var texto = (titulos[tipo] || 'Reserva') + ' — ' + etiqueta + '\n\n'
+    + 'Fecha: ' + fechaF + '\n'
+    + horario.map(function (x) { return 'Hora ' + x.etiqueta + ': ' + x.texto; }).join('\n') + '\n'
+    + 'Nº de personas: ' + d.numPersonas + '\n'
+    + 'Responsable: ' + d.nombre + ' · ' + d.email + ' · ' + (d.telefono || '—') + '\n'
+    + 'Centro / Institución: ' + (d.nombreCentro || '—') + '\n'
+    + 'Total: ' + fmtEur(d.total) + '\n'
+    + 'Comentarios: ' + (d.comentarios || '—');
+  GmailApp.sendEmail(CONFIG.EMAIL_CANAS, asunto, texto, {
+    htmlBody: html,
+    name: CONFIG.NOMBRE_INSTITUCION,
+    from: CONFIG.EMAIL_REMITENTE,
+  });
+  Logger.log('Aviso a Cañas (' + tipo + '): ' + asunto);
+}
+
 function crearEventoCalendar(d, row, editadoEn) {
   var calId = d.tipoVisita === 'Grupo Escolar' ? CONFIG.CALENDAR_ESCOLAR_ID
     : d.tipoVisita === 'Grupo' ? CONFIG.CALENDAR_ID
@@ -2533,7 +2955,7 @@ function crearEventoCalendar(d, row, editadoEn) {
   else { var hp = String(d.horaVisita).trim().split(':'); hh = parseInt(hp[0]) || 0; mm = parseInt(hp[1]) || 0; }
 
   var inicio = new Date(anio, mes - 1, dia, hh, mm, 0);
-  var durEventoMin = esGuiadaLarga(d.visitaGuiada) ? 120 : 60;
+  var durEventoMin = (esGuiadaLarga(d.visitaGuiada) && !tieneCanas(d)) ? 120 : 60;
   var fin = new Date(inicio.getTime() + durEventoMin * 60000);
   var esGrupo = d.tipoVisita === 'Grupo';
   var esEscolar = d.tipoVisita === 'Grupo Escolar';
@@ -2546,14 +2968,16 @@ function crearEventoCalendar(d, row, editadoEn) {
   if (esEscolar) {
     var guiadaEsc = tieneGuiadaGrupo(d.visitaGuiada) ? guiadaLabel(d.visitaGuiada) : 'No';
     var nombreEsc = (d.nombreCentro || d.nombre) + ' · ' + d.numPersonas + ' alumnos';
-    titulo = tieneGuiadaGrupo(d.visitaGuiada) ? 'VG 🎒 ' + nombreEsc : '🎒 ' + nombreEsc;
+    titulo = (tieneGuiadaGrupo(d.visitaGuiada) ? 'VG 🎒 ' + nombreEsc : '🎒 ' + nombreEsc)
+      + (tieneCanas(d) ? ' · + Cañas ' + formatearHora(d.horaCanas) : '');
     descripcion = ['🎒 GRUPO ESCOLAR', '─────────────────────────────',
       'RESPONSABLE: ' + d.nombre, 'EMAIL: ' + d.email, 'TELÉFONO: ' + d.telefono,
       'CENTRO ESCOLAR: ' + (d.nombreCentro || '—'), 'NIF/CIF: ' + (d.nifCif || '—'),
       'Nº DE ALUMNOS: ' + d.numPersonas, 'VISITA GUIADA: ' + guiadaEsc,
+      tieneCanas(d) ? 'HORARIO: ' + horarioConjunta(d).map(function (x) { return x.etiqueta + ' ' + x.texto; }).join(' · ') : '',
       '💶 Desglose por tramos:',
       (d.entradasDetalle ? String(d.entradasDetalle).split('\n').map(function (x) { return '   · ' + x; }).join('\n') : '   · ' + tramoLabel(d.tipoEntrada)),
-      suplementoGuiada(d.visitaGuiada) > 0 ? '💶 Suplemento guiada: ' + suplementoGuiada(d.visitaGuiada) + ' € / grupo' : '',
+      suplementoGuiada(d.visitaGuiada, d.fechaVisita) > 0 ? '💶 Suplemento guiada: ' + suplementoGuiada(d.visitaGuiada, d.fechaVisita) + ' € / grupo' : '',
       '💶 TOTAL: ' + fmtEur(parseFloat(d.total) || 0),
       'NECESITA FACTURA: ' + (d.necesitaFactura || '—'),
       'DIRECCIÓN: ' + [d.calleNumero, d.ciudad, d.cp].filter(Boolean).join(', '),
@@ -2568,7 +2992,8 @@ function crearEventoCalendar(d, row, editadoEn) {
     var guiada = tieneGuiadaGrupo(d.visitaGuiada) ? guiadaLabel(d.visitaGuiada) : (esNocG ? 'Visita Guiada Nocturna Catedral' : 'No');
     var nombreGrupo = (d.nombreCentro || d.nombre) + ' · ' + d.numPersonas + ' pers. · ' + fmtEur(d.total);
     // La nocturna de grupo NO lleva prefijo "VG " (no bloquea franja; coordinación manual).
-    titulo = (esNocG ? '🌙 ' : '') + (tieneGuiadaGrupo(d.visitaGuiada) ? 'VG ' + nombreGrupo : nombreGrupo);
+    titulo = (esNocG ? '🌙 ' : '') + (tieneGuiadaGrupo(d.visitaGuiada) ? 'VG ' + nombreGrupo : nombreGrupo)
+      + (tieneCanas(d) ? ' · + Cañas ' + formatearHora(d.horaCanas) : '');
     var _menG = parseInt(d.menores) || 0, _resG = parseInt(d.residentes) || 0, _repG = parseInt(d.responsables) || 0;
     var _aduG = Math.max(0, (parseInt(d.numPersonas) || 0) - _menG - _resG - _repG);
     // Precios de la nocturna de grupo según la temporada de la fecha (10 € en baja, 15 € en alta).
@@ -2579,6 +3004,7 @@ function crearEventoCalendar(d, row, editadoEn) {
       'Nº DE PERSONAS: ' + d.numPersonas,
       _repG > 0 ? 'RESPONSABLES / GUÍA (gratuidad): ' + _repG : '',
       'VISITA GUIADA: ' + guiada,
+      tieneCanas(d) ? 'HORARIO: ' + horarioConjunta(d).map(function (x) { return x.etiqueta + ' ' + x.texto; }).join(' · ') : '',
       esNocG ? '   · ' + _aduG + ' adulto' + (_aduG !== 1 ? 's' : '') + ' × ' + _nocG.precioAdulto + ' €'
         + (_menG > 0 ? ' · ' + _menG + ' menor' + (_menG !== 1 ? 'es' : '') + ' × ' + _nocG.precioMenor + ' €' : '')
         + (_resG > 0 ? ' · ' + _resG + ' residente' + (_resG !== 1 ? 's' : '') + ' × ' + _nocG.precioResidente + ' €' : '') : '',

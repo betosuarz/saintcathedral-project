@@ -109,9 +109,12 @@ function _json(obj) {
    Columnas esperadas (el orden da igual, se buscan por el nombre de la
    cabecera y se ignoran tildes y mayúsculas):
      Referencia | Imagen | Precio | Código | Existencias |
-     Tienda | Expo | Almacén | Observaciones
-   «Código» es lo que casa con la referencia de cada producto en la web
-   (B-15, B-16, 6, B-18…) y «Existencias» es el stock que se publica.
+     Tienda | Expo | Almacén | Stock | Observaciones
+   «Referencia» es lo que casa con el ref de cada producto en tienda.html
+   (B-15, B-16, 6, B-18…); «Código» es el código interno del proveedor
+   (6542-15, JY0027…) y queda como clave alternativa.
+   «Stock» es lo que se publica en la web: la suma de Existencias +
+   Tienda + Expo + Almacén. Si esa columna no existe, se calcula aquí.
 ═══════════════════════════════════════════════════════════════════ */
 
 function _norm(s) {
@@ -174,25 +177,41 @@ function leerInventario_() {
 
   var cRef = col('Referencia'), cPrecio = col('Precio');
   var cTienda = col('Tienda'), cExpo = col('Expo'), cAlmacen = col('Almacén');
-  var cObs = col('Observaciones');
+  var cStock = col('Stock'), cObs = col('Observaciones');
 
-  var porCodigo = {};
+  var porRef = {};
   for (var i = 1; i < datos.length; i++) {
-    var codigo = String(datos[i][cCodigo] || '').trim();
-    if (!codigo) continue;
-    porCodigo[codigo] = {
+    var codigo = String(datos[i][cCodigo] == null ? '' : datos[i][cCodigo]).trim();
+    var referencia = cRef >= 0 ? String(datos[i][cRef] == null ? '' : datos[i][cRef]).trim() : '';
+    if (!codigo && !referencia) continue;
+
+    var existencias = Math.max(0, parseInt(datos[i][cExist], 10) || 0);
+    var tienda = cTienda >= 0 ? (parseInt(datos[i][cTienda], 10) || 0) : 0;
+    var expo = cExpo >= 0 ? (parseInt(datos[i][cExpo], 10) || 0) : 0;
+    var almacen = cAlmacen >= 0 ? (parseInt(datos[i][cAlmacen], 10) || 0) : 0;
+
+    var ficha = {
       codigo: codigo,
-      referencia: cRef >= 0 ? String(datos[i][cRef] || '').trim() : '',
+      referencia: referencia,
       precio: cPrecio >= 0 ? Number(datos[i][cPrecio]) || 0 : 0,
-      existencias: Math.max(0, parseInt(datos[i][cExist], 10) || 0),
-      tienda: cTienda >= 0 ? (parseInt(datos[i][cTienda], 10) || 0) : 0,
-      expo: cExpo >= 0 ? (parseInt(datos[i][cExpo], 10) || 0) : 0,
-      almacen: cAlmacen >= 0 ? (parseInt(datos[i][cAlmacen], 10) || 0) : 0,
+      existencias: existencias,
+      tienda: tienda,
+      expo: expo,
+      almacen: almacen,
+      // Lo que ve el cliente: manda la columna «Stock»; si no está, se suma.
+      disponible: Math.max(0, cStock >= 0
+        ? (parseInt(datos[i][cStock], 10) || 0)
+        : existencias + tienda + expo + almacen),
       observaciones: cObs >= 0 ? String(datos[i][cObs] || '').trim() : '',
       fila: i + 1
     };
+
+    // La web pregunta por «Referencia» (B-15, 6…). El «Código» del proveedor
+    // (6542-15…) se indexa también, como alias.
+    if (referencia) porRef[referencia] = ficha;
+    if (codigo && !porRef[codigo]) porRef[codigo] = ficha;
   }
-  return { porCodigo: porCodigo, hoja: hoja, colExistencias: cExist + 1 };
+  return { porRef: porRef, hoja: hoja, colExistencias: cExist + 1 };
 }
 
 /** { ok:true, stock:{ 'B-15':3, ... } } — lo que consume tienda.html */
@@ -202,9 +221,9 @@ function consultarStock() {
   if (guardado) return JSON.parse(guardado);
 
   try {
-    var inv = leerInventario_().porCodigo;
+    var inv = leerInventario_().porRef;
     var stock = {};
-    Object.keys(inv).forEach(function (c) { stock[c] = inv[c].existencias; });
+    Object.keys(inv).forEach(function (c) { stock[c] = inv[c].disponible; });
     var salida = {
       ok: true,
       stock: stock,
@@ -366,9 +385,9 @@ function registrarPedido_(datos) {
       var n = Math.max(0, Math.min(99, parseInt(l.unidades, 10) || 0));
       if (!n) continue;
 
-      var ficha = inv.porCodigo[ref];
-      if (ficha && ficha.existencias < n) {
-        sinStock.push({ ref: ref, pedidas: n, disponibles: ficha.existencias });
+      var ficha = inv.porRef[ref];
+      if (ficha && ficha.disponible < n) {
+        sinStock.push({ ref: ref, pedidas: n, disponibles: ficha.disponible });
         continue;
       }
 
@@ -383,17 +402,23 @@ function registrarPedido_(datos) {
       unidades += n;
       total += n * precio;
 
+      // La web ya no manda nombre de producto: la referencia ES la etiqueta.
+      // El `nombre` se sigue aceptando por si llega de un pedido antiguo.
+      var etiqueta = String(l.nombre || '').trim();
+      etiqueta = etiqueta ? etiqueta + ' (' + ref + ')' : ref;
+
       articulos.push({
         ref: ref,
         referenciaInv: ficha ? ficha.referencia : '',
-        nombre: String(l.nombre || ''),
+        etiqueta: etiqueta,
         unidades: n,
         precio: precio
       });
 
       detalle.push(
-        n + ' × ' + String(l.nombre || '') + ' (' + ref + ') — ' + eur_(n * precio)
-        + (ficha ? '\n      Stock: ' + ficha.existencias
+        n + ' × ' + etiqueta + ' — ' + eur_(n * precio)
+        + (ficha ? '\n      Stock: ' + ficha.disponible
+          + ' · Existencias ' + ficha.existencias
           + ' · Tienda ' + ficha.tienda + ' · Expo ' + ficha.expo + ' · Almacén ' + ficha.almacen
           + (ficha.observaciones ? ' · ' + ficha.observaciones : '')
           : '\n      (referencia no encontrada en el inventario)')
@@ -419,7 +444,7 @@ function registrarPedido_(datos) {
       var f = primeraFila + k;
       return [
         numPedido, fecha, nombre, telefono, correo, direccion, ciudad, cp,
-        a.referenciaInv, a.nombre + ' (' + a.ref + ')', a.unidades, a.precio,
+        a.referenciaInv, a.etiqueta, a.unidades, a.precio,
         '=' + cUnidades + f + '*' + cPrecio + f,    // Total (€)
         '',                                         // Coste envío (a mano)
         '',                                         // IVA envío (a mano)
@@ -475,11 +500,12 @@ function registrarPedido_(datos) {
   }
 }
 
-/** Resta las unidades vendidas de la columna Existencias. */
+/** Resta las unidades vendidas de la columna Existencias (la manual: si
+    «Stock» es una fórmula suma, el total se recalcula solo). */
 function descontarStock_(inv, lineas) {
   var hoja = inv.hoja, col = inv.colExistencias;
   lineas.forEach(function (l) {
-    var ficha = inv.porCodigo[String(l.ref || '').trim()];
+    var ficha = inv.porRef[String(l.ref || '').trim()];
     var n = parseInt(l.unidades, 10) || 0;
     if (!ficha || !n) return;
     hoja.getRange(ficha.fila, col).setValue(Math.max(0, ficha.existencias - n));
@@ -958,12 +984,12 @@ function diagnosticoInventario() {
 /** Comprueba que los códigos de la hoja casan con los de la web. */
 function comprobarCodigos() {
   var DE_LA_WEB = ['B-15', 'B-16', '6', 'B-18', 'B-23', 'B-24', 'B-4', 'B-26', 'B-27'];
-  var inv = leerInventario_().porCodigo;
+  var inv = leerInventario_().porRef;
   var faltan = DE_LA_WEB.filter(function (c) { return !inv[c]; });
   var sobran = Object.keys(inv).filter(function (c) { return DE_LA_WEB.indexOf(c) === -1; });
   Logger.log('En la web pero NO en la hoja: %s', faltan.length ? faltan.join(', ') : '(ninguno)');
   Logger.log('En la hoja pero NO en la web: %s', sobran.length ? sobran.join(', ') : '(ninguno)');
   DE_LA_WEB.forEach(function (c) {
-    if (inv[c]) Logger.log('  %s → Existencias: %s', c, inv[c].existencias);
+    if (inv[c]) Logger.log('  %s → Stock publicado: %s', c, inv[c].disponible);
   });
 }

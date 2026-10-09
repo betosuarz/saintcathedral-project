@@ -4768,12 +4768,12 @@
       if (dw === 0) return cjIntervalos(h.dom || []);
       return cjIntervalos((h.lvManana || []).concat(h.lvTarde || []));
     }
-    // Horas en punto para grupos y escolares (visita de 1 h dentro del horario de la temporada).
+    // Horas cada 30 min para grupos y escolares (visita de 1 h dentro del horario de la temporada).
     function horasGrupoDia(fecha) {
       const iv = horarioCatedralDia(fecha);
       if (!iv) return new Date(fecha + 'T00:00:00').getDay() === 6 ? HORAS_GRUPO_SAB : HORAS_GRUPO;
       const out = [];
-      iv.forEach(([a, c]) => { for (let m = Math.ceil(a / 60) * 60; m + 60 <= c; m += 60) out.push(cjHHMM(m)); });
+      iv.forEach(([a, c]) => { for (let m = Math.ceil(a / 30) * 30; m + 60 <= c; m += 30) out.push(cjHHMM(m)); });
       return out;
     }
     function cjSlots(intervalos) {
@@ -5101,7 +5101,7 @@
     function _slotsRango(ap, cie) {
       const a = _hmMin(ap), c = _hmMin(cie), out = [];
       if (!ap || !cie || c <= a) return out;
-      for (let h = Math.ceil(a / 60); h * 60 <= c; h++) out.push((h < 10 ? '0' : '') + h + ':00');
+      for (let m = Math.ceil(a / 30) * 30; m <= c; m += 30) out.push(cjHHMM(m));
       return out;
     }
     function horasCatedralDeTemporada() {
@@ -5176,23 +5176,24 @@
 
     /* ── Horarios ────────────────────────────────────────────────── */
     const DIAS_SEMANA = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-    const HORAS_TODAS = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-    const HORAS_TODAS_SAB = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
     const HORAS_TORRE_CONV = ['10:00', '11:00', '12:00', '13:00', '16:00', '17:00', '18:00', '19:00'];
-    const HORAS_GRUPO = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
-    const HORAS_GRUPO_SAB = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
-    function horasPorDiaCompleto() { const r = {}; DIAS_SEMANA.forEach(d => { r[d] = d === 'sábado' ? HORAS_TODAS_SAB : HORAS_TODAS; }); return r; }
+    function horasCada30(desde, hasta) { const out = []; for (let m = cjMin(desde); m <= cjMin(hasta); m += 30) out.push(cjHHMM(m)); return out; }
+    const HORAS_GRUPO = horasCada30('09:00', '19:00');
+    const HORAS_GRUPO_SAB = horasCada30('09:00', '18:00');
+    const HORAS_CATEDRAL = horasCada30('09:00', '20:00');
+    const HORAS_CATEDRAL_SAB = horasCada30('09:00', '19:00');
+    function horasCatedralCompleto() { const r = {}; DIAS_SEMANA.forEach(d => { r[d] = d === 'sábado' ? HORAS_CATEDRAL_SAB : HORAS_CATEDRAL; }); return r; }
     function horasTorreConv() { const r = {}; DIAS_SEMANA.forEach(d => { r[d] = HORAS_TORRE_CONV; }); return r; }
     const HORARIOS = {
-      'Catedral': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Abierta todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+      'Catedral': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Abierta todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasCatedralCompleto() },
       'Torre': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
       'Convento San Francisco': { nota: 'Entrada individual de visita sin guía al monumento.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
-      'Pulsera Turística': { nota: 'Acceso sin guía a los 4 monumentos.', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
-      'Pulsera Turística Peregrino': { nota: 'Acceso sin guía a los 4 monumentos.\n⚠ Acreditar con credencial oficial del Camino en taquillas (mín. 4 etapas).', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+      'Pulsera Turística': { nota: 'Acceso sin guía a los 4 monumentos.', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasCatedralCompleto() },
+      'Pulsera Turística Peregrino': { nota: 'Acceso sin guía a los 4 monumentos.\n⚠ Acreditar con credencial oficial del Camino en taquillas (mín. 4 etapas).', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasCatedralCompleto() },
       'Visita Guiada Diurna': { nota: 'Incluye pulsera turística.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
       'Visita Guiada VIP': { nota: 'Incluye pulsera turística. Aforo máximo 15 personas.', diasInfo: 'Todos los días · 10:00–14:00 h y 16:00–20:00 h', horas: horasTorreConv() },
       'Visita Guiada Nocturna Catedral': { nota: 'Incluye pulsera turística.\nLos demás monumentos en sus horarios normales.', diasInfo: 'Solo viernes y sábados · 20:45 h', soloVieSab: true, horas: { viernes: ['20:45'], sábado: ['20:45'] } },
-      'Ticket Familiar': { nota: 'Incluye pulsera turística. Únicamente padres e hijos menores de 21 años.', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasPorDiaCompleto() },
+      'Ticket Familiar': { nota: 'Incluye pulsera turística. Únicamente padres e hijos menores de 21 años.', diasInfo: 'Todos los días · Lun–Vie y Dom 9:00–20:00 h · Sáb 9:00–19:00 h', horas: horasCatedralCompleto() },
     };
     const TIPOS_GUIADA_INDIVIDUAL = ['Visita Guiada Diurna', 'Visita Guiada VIP', 'Visita Guiada Nocturna Catedral'];
 
@@ -5490,8 +5491,13 @@
       fetch(dispoURL(fecha)).then(r => r.json()).then(data => {
         if (!data || !data.ok) return;
         if (data.esDiaBloqueado) { grid.innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('grid_closed')}</p>`; return; }
-        if (data.horasCierre && data.horasCierre.length) _renderGridBotones(horas, [], data.horasCierre, fecha, false);
+        if (data.horasCierre && data.horasCierre.length) _renderGridBotones(horas, [], horasDentroDeCierre(horas, data.horasCierre), fecha, false);
       }).catch(() => { });
+    }
+    // Un cierre a las HH:MM cubre 1 h: bloquea las horas de entrada que caen en [HH:MM, HH:MM+60).
+    function horasDentroDeCierre(horas, horasCierre) {
+      const fr = cjFranjasDeHoras(horasCierre);
+      return horas.filter(h => { const m = cjMin(h); return fr.some(f => m >= f.ini && m < f.fin); });
     }
 
     function reevaluarHoraIndividual() {
@@ -6043,6 +6049,7 @@
           const tipoEntrada = getTipoParaHorario();
           const horasCierre = data.horasCierre || [];
           const horasNoVG = data.horasNoVisitasGuiadas || [];
+          _ultimaDispo = data;
           if (state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar')
             renderizarHorasDisponibilidad(data.horasOcupadas || [], horasCierre, horasNoVG, fecha);
           else if (tipoEntrada === 'Visita Guiada Diurna')
@@ -6064,6 +6071,12 @@
       _renderGridBotones(horas, [], [], fecha, false);
     }
 
+    // Índices de las horas que caen dentro de una visita de 2 h que empieza en horas[idx].
+    function _sigsDoble(horas, idx) {
+      const ini = cjMin(horas[idx]), out = [];
+      for (let i = idx + 1; i < horas.length && cjMin(horas[i]) < ini + 120; i++) out.push(i);
+      return out;
+    }
     function _renderGridBotones(horas, inactivas, bloqueadas, fecha, duracionDoble) {
       const grid = document.getElementById('horaGrid');
       const sel = document.getElementById('horaVisita');
@@ -6076,12 +6089,13 @@
         const inactivo = inactivas.includes(h);
         const bloqueado = !inactivo && (bloqueadas || []).includes(h);
         let bloqueadoDur = false;
+        const sigs = duracionDoble ? _sigsDoble(horas, idx) : [];
         if (duracionDoble && !pasado && !inactivo && !bloqueado) {
-          const hSig = horas[idx + 1];
-          if (!hSig) {
+          // Hace falta que exista la hora X+60 (las 2 h caben antes del cierre) y que nada entre medias esté ocupado.
+          if (!horas.includes(cjHHMM(cjMin(h) + 60))) {
             bloqueadoDur = true;
           } else {
-            bloqueadoDur = slotEsPasado(hSig, fecha) || inactivas.includes(hSig) || (bloqueadas || []).includes(hSig);
+            bloqueadoDur = sigs.some(i => slotEsPasado(horas[i], fecha) || inactivas.includes(horas[i]) || (bloqueadas || []).includes(horas[i]));
           }
         }
         const btn = document.createElement('button');
@@ -6096,7 +6110,7 @@
             btn.addEventListener('mouseenter', () => {
               if (window.matchMedia('(max-width: 720px)').matches) return;
               btns[idx]?.classList.add('hover-doble');
-              btns[idx + 1]?.classList.add('hover-doble');
+              sigs.forEach(i => btns[i]?.classList.add('hover-doble'));
             });
             btn.addEventListener('mouseleave', () => {
               btns.forEach(b => b.classList.remove('hover-doble'));
@@ -6105,7 +6119,7 @@
           btn.addEventListener('click', () => {
             btns.forEach(b => b.classList.remove('selected', 'selected-sig'));
             btn.classList.add('selected');
-            if (duracionDoble && btns[idx + 1]) btns[idx + 1].classList.add('selected-sig');
+            if (duracionDoble) sigs.forEach(i => btns[i]?.classList.add('selected-sig'));
             sel.innerHTML = '<option value="' + h + '" selected>' + h + '</option>'; sel.value = h;
           });
         }
@@ -6124,11 +6138,24 @@
       // (coordinación manual): se trata como sin guía a efectos de disponibilidad.
       const tieneGuiada = state.visitMode === 'con-guia' && !esNocturnaGrupoSel();
       const horasDia = horasGrupoDia(fecha);
-      const ocupadasEf = tieneGuiada ? horasOcupadas.concat(horasNoVG || []) : [];
       const tipoEntrada = document.getElementById('tipoEntrada').value;
       const duracionDoble = tieneGuiada && esGuiadaLarga(tipoEntrada);
-      _renderGridBotones(horasDia, ocupadasEf.concat(horasCierre || []), [], fecha, duracionDoble);
+      // Cada hora es una visita de 1 h [X, X+60): se bloquea si solapa con reservas, cierres o no-guiadas.
+      const frCierre = cjFranjasDeHoras(horasCierre);
+      const frNoVG = cjFranjasDeHoras(horasNoVG);
+      // Backend nuevo: franjas exactas. Backend antiguo (solo horas en punto): una media hora
+      // se bloquea si la hora en punto anterior o la siguiente están ocupadas.
+      const frRes = Array.isArray(_ultimaDispo.franjas) ? _ultimaDispo.franjas : null;
+      const ocupada = m => frRes ? cjSolapa(m, frRes)
+        : (m % 60 === 0 ? horasOcupadas.includes(cjHHMM(m)) : (horasOcupadas.includes(cjHHMM(m - 30)) || horasOcupadas.includes(cjHHMM(m + 30))));
+      const inactivas = horasDia.filter(h => {
+        const m = cjMin(h);
+        if (cjSolapa(m, frCierre)) return true;
+        return tieneGuiada && (ocupada(m) || cjSolapa(m, frNoVG));
+      });
+      _renderGridBotones(horasDia, inactivas, [], fecha, duracionDoble);
     }
+    let _ultimaDispo = {};
     function renderizarHorasGuiadas(horas, horasCierre, fecha) {
       const grid = document.getElementById('horaGrid');
       if (!horas || horas.length === 0) { grid.innerHTML = `<p class="hora-grid-msg">${_T('grid_no_guided')}</p>`; return; }

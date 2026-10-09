@@ -779,7 +779,8 @@ function consultarDisponibilidad(fecha, excludeToken, incluirCanas) {
 
     // 6. Determinar qué slots quedan bloqueados por solapamiento
     //    Un slot X está bloqueado si su franja [X, X+60) solapa con alguna franja existente [ini, fin).
-    var SLOTS = [540, 600, 660, 720, 780, 840, 900, 960, 1020, 1080, 1140]; // 09:00–19:00 en minutos
+    var SLOTS = []; // cada 30 min (08:00–21:30); la web solo pinta las del horario de cada temporada
+    for (var sm = 480; sm <= 1290; sm += 30) SLOTS.push(sm);
     var horasOcupadas = [];
     for (var s = 0; s < SLOTS.length; s++) {
       var slotIni = SLOTS[s];
@@ -793,10 +794,9 @@ function consultarDisponibilidad(fecha, excludeToken, incluirCanas) {
       }
     }
 
-    var respuesta = { ok: true, esDiaBloqueado: false, horasOcupadas: horasOcupadas, horasCierre: horasCierre, visitasGuiadas: visitasGuiadas, horasNoVisitasGuiadas: horasNoVisitasGuiadas };
+    // franjas en minutos: la web ofrece horas cada 30 min y calcula el solapamiento exacto.
+    var respuesta = { ok: true, esDiaBloqueado: false, horasOcupadas: horasOcupadas, horasCierre: horasCierre, visitasGuiadas: visitasGuiadas, horasNoVisitasGuiadas: horasNoVisitasGuiadas, franjas: franjas };
     if (incluirCanas) {
-      // Entrada conjunta: franjas en minutos (la web ofrece horas cada 30 min).
-      respuesta.franjas = franjas;
       respuesta.canas = { franjas: franjasCanas, esDiaBloqueado: canasDiaBloqueado, horasCierre: horasCierreCanas };
     }
     return jsonResponse(respuesta);

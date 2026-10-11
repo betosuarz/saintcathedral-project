@@ -60,8 +60,8 @@ const PRECIOS = {
   'Visita Guiada Nocturna Catedral': 15,
   'Ticket Familiar': 25,
 };
-const PRECIOS_MENOR_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
-const PRECIO_MENOR_NOCTURNA = 5; // legacy alias
+const PRECIOS_MENOR_GUIADA = { 'Visita Guiada Diurna': 0, 'Visita Guiada VIP': 0, 'Visita Guiada Nocturna Catedral': 0 };
+const PRECIO_MENOR_NOCTURNA = 0; // legacy alias
 const PRECIO_GRUPO_POR_PERSONA = 5;
 const PRECIO_GRUPO_MINIMO = 125;
 const SUPLEMENTO_VISITA_GUIADA = 50;
@@ -352,7 +352,7 @@ function calcularTarifaBase(tipoVisita, tipoEntrada, nPersonas, nMenores, tramoE
 function calcularTotal(tarifa, visitaGuiada, fecha) {
   return tarifa + suplementoGuiada(visitaGuiada, fecha);
 }
-// Grupo con Visita Guiada Nocturna: tarifa por persona (15 €/adulto, 5 €/menor·residente),
+// Grupo con Visita Guiada Nocturna: tarifa por persona (15 €/adulto, menores gratis, 5 €/residente),
 // SIN suplemento de grupo. No se trata como guiada a efectos de bloqueo de franja
 // (coordinación manual) → NO se incluye en tieneGuiadaGrupo().
 function esNocturnaGrupo(visitaGuiada) {
@@ -364,9 +364,9 @@ function calcularNocturnaGrupo(nPersonas, nMenores, nResidentes, nResponsables, 
   var residentes = parseInt(nResidentes) || 0;
   var responsables = parseInt(nResponsables) || 0;
   var adultos = Math.max(0, total - menores - residentes - responsables);
-  var _defRed = PRECIOS_MENOR_GUIADA['Visita Guiada Nocturna Catedral']; // 5 por defecto
+  var _defRed = 5; // reducido residente por defecto
   var pAdulto = (precios && precios.grupoNocturnaAdulto != null) ? precios.grupoNocturnaAdulto : PRECIOS['Visita Guiada Nocturna Catedral']; // 15 por defecto
-  var pMenor = (precios && precios.grupoNocturnaMenor != null) ? precios.grupoNocturnaMenor : _defRed;
+  var pMenor = 0; // menores de 12 no pagan en visitas guiadas
   var pResidente = (precios && precios.grupoNocturnaResidente != null) ? precios.grupoNocturnaResidente : _defRed;
   var tarifa = adultos * pAdulto + menores * pMenor + residentes * pResidente;
   return { tarifa: tarifa, adultos: adultos, menores: menores, residentes: residentes, responsables: responsables, precioAdulto: pAdulto, precioMenor: pMenor, precioResidente: pResidente };
@@ -436,7 +436,7 @@ function _temAsignarPrecio(p, labelNorm, n) {
   if (labelNorm.indexOf('torre') >= 0) { p['Torre'] = g(0); return; }
   if (labelNorm.indexOf('suplement') >= 0 && _temEsCanas(labelNorm)) { p.suplementoCanas = g(0); return; }
   if (labelNorm.indexOf('suplement') >= 0) { p.suplementoCatedral = g(0); p.suplementoCasco = g(1); if (n.length > 2 && p.suplementoCanas == null) p.suplementoCanas = g(2); return; }
-  if (labelNorm.indexOf('grupo') >= 0 && labelNorm.indexOf('nocturna') >= 0) { p.grupoNocturnaAdulto = g(0); p.grupoNocturnaMenor = g(1); p.grupoNocturnaResidente = (n.length > 2) ? g(2) : g(1); return; }
+  if (labelNorm.indexOf('grupo') >= 0 && labelNorm.indexOf('nocturna') >= 0) { p.grupoNocturnaAdulto = g(0); p.grupoNocturnaMenor = 0; p.grupoNocturnaResidente = (n.length > 2) ? g(2) : g(1); return; }
   if (labelNorm.indexOf('grupo') >= 0) { p.grupoMinimo = g(0); p.grupoPorPersona = g(1); return; }
   if (labelNorm.indexOf('escolar') >= 0) {
     // Dos filas: Catedral ("Escolar Local / 1.º–3.º Prim / …") y Catedral + Monasterio
@@ -459,9 +459,9 @@ function _temAsignarPrecio(p, labelNorm, n) {
     p.escolar[destEsc] = tabla;
     return;
   }
-  if (labelNorm.indexOf('diurna') >= 0) { p['Visita Guiada Diurna'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
-  if (labelNorm.indexOf('vip') >= 0) { p['Visita Guiada VIP'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
-  if (labelNorm.indexOf('nocturna') >= 0) { p['Visita Guiada Nocturna Catedral'] = { adulto: g(0), menor: g(1), residente: g(2) }; return; }
+  if (labelNorm.indexOf('diurna') >= 0) { p['Visita Guiada Diurna'] = { adulto: g(0), menor: 0, residente: g(2) }; return; }
+  if (labelNorm.indexOf('vip') >= 0) { p['Visita Guiada VIP'] = { adulto: g(0), menor: 0, residente: g(2) }; return; }
+  if (labelNorm.indexOf('nocturna') >= 0) { p['Visita Guiada Nocturna Catedral'] = { adulto: g(0), menor: 0, residente: g(2) }; return; }
   if (labelNorm.indexOf('catedral') >= 0) { p['Catedral'] = g(0); return; }
 }
 
@@ -1359,7 +1359,7 @@ function _editarReserva(data) {
   // Tarifas / total:
   //  · Individual/Escolar con carrito en el payload → recalcular desde los subtotales.
   //  · Individual sin carrito en el payload → conservar lo anterior (solo cambiaron fecha/datos).
-  //  · Grupo nocturna → 15 €/adulto + 5 € menores/residentes (sin suplemento).
+  //  · Grupo nocturna → 15 €/adulto + 5 € residentes, menores gratis (sin suplemento).
   //  · Grupo → recalcular por pagantes.
   var esInd = !esGrupoOrEscolar;
   var tieneCarrito = esInd && data.entradas && data.entradas.length;

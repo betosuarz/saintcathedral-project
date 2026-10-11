@@ -4134,14 +4134,14 @@
             <div class="tarifa-item"><span data-i18n-page="tar_ind_pul_per">Pulsera Peregrino</span><span
                 class="tarifa-dots"></span><span data-i18n-page="tar_per_person_5">5 € / persona</span></div>
             <div class="tarifa-item"><span data-i18n-page="tar_ind_vg_diurna">Visita Guiada Diurna</span><span
-                class="tarifa-dots"></span><span data-i18n-page="tar_vg_diurna_price">14 € / pers · 4 € menores
-                &lt;12</span></div>
+                class="tarifa-dots"></span><span data-i18n-page="tar_vg_diurna_price">14 € / pers · menores
+                &lt;12 gratis</span></div>
             <div class="tarifa-item"><span data-i18n-page="tar_ind_vg_vip">Visita Guiada VIP</span><span
-                class="tarifa-dots"></span><span data-i18n-page="tar_vg_15_price">15 € / pers · 5 € menores
-                &lt;12</span></div>
+                class="tarifa-dots"></span><span data-i18n-page="tar_vg_15_price">15 € / pers · menores
+                &lt;12 gratis</span></div>
             <div class="tarifa-item"><span data-i18n-page="tar_ind_vg_noc">Visita Guiada Nocturna</span><span
-                class="tarifa-dots"></span><span data-i18n-page="tar_vg_15_price">15 € / pers · 5 € menores
-                &lt;12</span></div>
+                class="tarifa-dots"></span><span data-i18n-page="tar_vg_15_price">15 € / pers · menores
+                &lt;12 gratis</span></div>
             <div class="tarifa-item"><span data-i18n-page="tar_ind_fam">Ticket Familiar</span><span
                 class="tarifa-dots"></span><span data-i18n-page="tar_fam_price">25 € / familia</span></div>
           </div>
@@ -5004,7 +5004,7 @@
       'Visita Guiada Diurna': 14, 'Visita Guiada VIP': 15,
       'Visita Guiada Nocturna Catedral': 15, 'Ticket Familiar': 25
     };
-    const PRECIOS_MENOR_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
+    const PRECIOS_MENOR_GUIADA = { 'Visita Guiada Diurna': 0, 'Visita Guiada VIP': 0, 'Visita Guiada Nocturna Catedral': 0 };
     const PRECIOS_RESIDENTE_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
     // Tarifas escolares por curso. Dos destinos: solo Catedral, o Catedral + Monasterio de Cañas.
     const PRECIOS_ESCOLAR = {
@@ -5092,6 +5092,7 @@
     }
     // Precio reducido (menor/residente) de una guiada en la temporada activa.
     function precioReducidoActivo(guiada, kind) {
+      if (kind === 'menor') return 0; // menores de 12 no pagan en visitas guiadas (ignora la hoja de temporadas)
       const v = TEMP_PRECIOS && TEMP_PRECIOS[guiada];
       if (v && typeof v === 'object') return kind === 'residente' ? v.residente : v.menor;
       return PRECIO_RED_GUIADA[guiada];
@@ -5126,7 +5127,7 @@
     function _conHoraNoc(text) { return String(text || '').replace(/\d{1,2}:\d{2}/, horaNocturna()); }
     function gPorPersona() { return (TEMP_PRECIOS && TEMP_PRECIOS.grupoPorPersona != null) ? TEMP_PRECIOS.grupoPorPersona : PRECIO_GRUPO_POR_PERSONA; }
     function gNocAdulto() { return (TEMP_PRECIOS && TEMP_PRECIOS.grupoNocturnaAdulto != null) ? TEMP_PRECIOS.grupoNocturnaAdulto : PRECIOS['Visita Guiada Nocturna Catedral']; }
-    function gNocMenor() { return (TEMP_PRECIOS && TEMP_PRECIOS.grupoNocturnaMenor != null) ? TEMP_PRECIOS.grupoNocturnaMenor : PRECIO_RED_GUIADA['Visita Guiada Nocturna Catedral']; }
+    function gNocMenor() { return 0; }
     function gNocResidente() { return (TEMP_PRECIOS && TEMP_PRECIOS.grupoNocturnaResidente != null) ? TEMP_PRECIOS.grupoNocturnaResidente : PRECIO_RED_GUIADA['Visita Guiada Nocturna Catedral']; }
     // Etiqueta "Nocturna … (15 €/persona)" con el precio de la temporada (cambia el último número del texto, valga el idioma).
     function etqVgNoc() { return String(_T('s4_vg_noc') || '').replace(/\d+(?=\D*$)/, gNocAdulto()); }
@@ -5215,7 +5216,7 @@
       { id: 'diurna', sec: 'gui', kind: 'tipo', tipo: 'Visita Guiada Diurna', precio: 14, guiada: true, nameKey: 'ent_diurna', infoKey: 'info_diurna' },
       { id: 'vip', sec: 'gui', kind: 'tipo', tipo: 'Visita Guiada VIP', precio: 15, guiada: true, nameKey: 'ent_vip', infoKey: 'info_vip' },
       { id: 'noc', sec: 'gui', kind: 'tipo', tipo: 'Visita Guiada Nocturna Catedral', precio: 15, guiada: true, nameKey: 'ent_noc', infoKey: 'info_noc' },
-      { id: 'menorGui', sec: 'gui', kind: 'menor', precio: null, dynamic: true, nameKey: 'ent_menor', infoKey: 'info_red_gui' },
+      { id: 'menorGui', sec: 'gui', kind: 'menor', precio: null, dynamic: true, nameKey: 'ent_menor', infoKey: 'info_menor_sin' },
       { id: 'resGui', sec: 'gui', kind: 'residente', precio: null, dynamic: true, nameKey: 'ent_res', infoKey: 'info_red_gui' },
     ];
     const PRECIO_RED_GUIADA = { 'Visita Guiada Diurna': 4, 'Visita Guiada VIP': 5, 'Visita Guiada Nocturna Catedral': 5 };
@@ -5802,7 +5803,7 @@
         } else if (d.nocturna) {
           if (d.adultos > 0) lineas += row(`${d.adultos} × ${d.precioAdulto} €`, fmt(d.adultos * d.precioAdulto));
           if (d.responsables > 0) lineas += row(`${d.responsables} ${_T('s4_leaders_free')}`, '0,00 €');
-          if (d.menores > 0) lineas += row(`${d.menores} ${_T('s4_word_menores')} × ${d.precioMenor} €`, fmt(d.menores * d.precioMenor));
+          if (d.menores > 0) lineas += row(`${d.menores} ${_T('s4_menores_free')}`, '0,00 €');
           if (d.residentes > 0) lineas += row(`${d.residentes} ${_T('s4_word_residentes')} × ${d.precioResidente} €`, fmt(d.residentes * d.precioResidente));
         } else {
           if (d.tarifa === gMin() && d.adultos < 25) lineas += row(`${_T('s4_grp_min')} · ${d.adultos} ${_T('s4_persons_paying')}`, fmt(d.tarifa));
@@ -6171,7 +6172,7 @@
       }
       return 'No';
     }
-    // Grupo con la Visita Guiada Nocturna elegida: tarifa 15 €/adulto, 5 € menores/residentes
+    // Grupo con la Visita Guiada Nocturna elegida: tarifa 15 €/adulto, menores gratis, 5 € residentes
     // y mínimo de grupo reducido a 10 (resto de grupos: 13). Usa horario normal de grupos.
     function esNocturnaGrupoSel() {
       return state.tipoVisita === 'grupo' && state.visitMode === 'con-guia'
@@ -6339,7 +6340,7 @@
         if (d.nocturna) {
           if (d.adultos > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.adultos} ${_T('s4_word_adultos')} × ${d.precioAdulto} €</span><span class="summary-row__value">${(d.adultos * d.precioAdulto).toFixed(2).replace('.', ',')} €</span></div>`;
           if (d.responsables > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.responsables} ${_T('s4_leaders_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
-          if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} ${_T('s4_word_menores')} × ${d.precioMenor} €</span><span class="summary-row__value">${(d.menores * d.precioMenor).toFixed(2).replace('.', ',')} €</span></div>`;
+          if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} ${_T('s4_menores_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
           if (d.residentes > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_word_residentes')} × ${d.precioResidente} €</span><span class="summary-row__value">${(d.residentes * d.precioResidente).toFixed(2).replace('.', ',')} €</span></div>`;
         } else {
           if (d.tarifa === gMin() && d.adultos < 25) {
@@ -6361,7 +6362,7 @@
         lineas = `<div class="summary-row"><span class="summary-row__label">${_T('s4_fam_ticket_fixed')}</span><span class="summary-row__value">25,00 €</span></div>`;
       } else {
         if (d.adultos > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.adultos} ${_T('s4_word_adultos')} × ${d.precioAdulto} €</span><span class="summary-row__value">${(d.adultos * d.precioAdulto).toFixed(2).replace('.', ',')} €</span></div>`;
-        if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} ${_T('s4_word_menores')} × ${d.precioMenor} €</span><span class="summary-row__value">${(d.menores * d.precioMenor).toFixed(2).replace('.', ',')} €</span></div>`;
+        if (d.menores > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.menores} ${_T('s4_menores_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
         if (d.residentes > 0 && d.precioResidente > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_word_residentes')} × ${d.precioResidente} €</span><span class="summary-row__value">${(d.residentes * d.precioResidente).toFixed(2).replace('.', ',')} €</span></div>`;
         if (d.residentes > 0 && d.precioResidente === 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_residents_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
       }
@@ -7392,7 +7393,7 @@
         tar_ind_vg_diurna: 'Visita Guiada Diurna', tar_ind_vg_vip: 'Visita Guiada VIP', tar_ind_vg_noc: 'Visita Guiada Nocturna',
         tar_ind_fam: 'Ticket Familiar',
         tar_per_person_4: '4 € / persona', tar_per_person_5: '5 € / persona', tar_per_person_7: '7 € / persona', tar_per_person_10: '10 € / persona',
-        tar_vg_diurna_price: '14 € / pers · 4 € menores &lt;12', tar_vg_15_price: '15 € / pers · 5 € menores &lt;12',
+        tar_vg_diurna_price: '14 € / pers · menores &lt;12 gratis', tar_vg_15_price: '15 € / pers · menores &lt;12 gratis',
         tar_fam_price: '25 € / familia',
         tar_ind_note1: '✦ Menores de 12 años: entrada gratuita en Catedral, Torre y Convento San Francisco.',
         tar_ind_note2: '✦ Ticket Familiar: incluye pulsera turística. Únicamente padres e hijos menores de 21 años.',
@@ -7652,7 +7653,7 @@
         tar_ind_vg_diurna: 'Daytime Guided Tour', tar_ind_vg_vip: 'VIP Guided Tour', tar_ind_vg_noc: 'Night-time Guided Tour',
         tar_ind_fam: 'Family Ticket',
         tar_per_person_4: '€4 / person', tar_per_person_5: '€5 / person', tar_per_person_7: '€7 / person', tar_per_person_10: '€10 / person',
-        tar_vg_diurna_price: '€14 / person · €4 under 12', tar_vg_15_price: '€15 / person · €5 under 12',
+        tar_vg_diurna_price: '€14 / person · under 12 free', tar_vg_15_price: '€15 / person · under 12 free',
         tar_fam_price: '€25 / family',
         tar_ind_note1: '✦ Under 12: free entry to the Cathedral, Tower and San Francisco Convent.',
         tar_ind_note2: '✦ Family Ticket: includes the tourist bracelet. Parents and children under 21 only.',
@@ -7873,7 +7874,7 @@
         tar_ind_vg_diurna: 'Visite Guidée Diurne', tar_ind_vg_vip: 'Visite Guidée VIP', tar_ind_vg_noc: 'Visite Guidée Nocturne',
         tar_ind_fam: 'Billet Famille',
         tar_per_person_4: '4 € / personne', tar_per_person_5: '5 € / personne', tar_per_person_7: '7 € / personne', tar_per_person_10: '10 € / personne',
-        tar_vg_diurna_price: '14 € / pers · 4 € moins de 12 ans', tar_vg_15_price: '15 € / pers · 5 € moins de 12 ans',
+        tar_vg_diurna_price: '14 € / pers · gratuit moins de 12 ans', tar_vg_15_price: '15 € / pers · gratuit moins de 12 ans',
         tar_fam_price: '25 € / famille',
         tar_ind_note1: '✦ Moins de 12 ans : entrée gratuite à la Cathédrale, Tour et Couvent San Francisco.',
         tar_ind_note2: '✦ Billet Famille : inclut le bracelet touristique. Uniquement parents et enfants de moins de 21 ans.',
@@ -8094,7 +8095,7 @@
         tar_ind_vg_diurna: 'Tagesführung', tar_ind_vg_vip: 'VIP-Führung', tar_ind_vg_noc: 'Nachtführung',
         tar_ind_fam: 'Familienticket',
         tar_per_person_4: '4 € / Person', tar_per_person_5: '5 € / Person', tar_per_person_7: '7 € / Person', tar_per_person_10: '10 € / Person',
-        tar_vg_diurna_price: '14 € / Pers · 4 € unter 12', tar_vg_15_price: '15 € / Pers · 5 € unter 12',
+        tar_vg_diurna_price: '14 € / Pers · unter 12 kostenlos', tar_vg_15_price: '15 € / Pers · unter 12 kostenlos',
         tar_fam_price: '25 € / Familie',
         tar_ind_note1: '✦ Unter 12 Jahren: freier Eintritt in Kathedrale, Turm und Kloster San Francisco.',
         tar_ind_note2: '✦ Familienticket: enthält das Touristen-Armband. Nur Eltern und Kinder unter 21 Jahren.',
@@ -8315,7 +8316,7 @@
         tar_ind_vg_diurna: 'Visita Guiada Diurna', tar_ind_vg_vip: 'Visita Guiada VIP', tar_ind_vg_noc: 'Visita Guiada Noturna',
         tar_ind_fam: 'Bilhete Família',
         tar_per_person_4: '4 € / pessoa', tar_per_person_5: '5 € / pessoa', tar_per_person_7: '7 € / pessoa', tar_per_person_10: '10 € / pessoa',
-        tar_vg_diurna_price: '14 € / pess · 4 € menores &lt;12', tar_vg_15_price: '15 € / pess · 5 € menores &lt;12',
+        tar_vg_diurna_price: '14 € / pess · menores &lt;12 gratis', tar_vg_15_price: '15 € / pess · menores &lt;12 gratis',
         tar_fam_price: '25 € / família',
         tar_ind_note1: '✦ Menores de 12 anos: entrada gratuita na Catedral, Torre e Convento San Francisco.',
         tar_ind_note2: '✦ Bilhete Família: inclui pulseira turística. Apenas pais e filhos menores de 21 anos.',
@@ -8536,7 +8537,7 @@
         tar_ind_vg_diurna: 'Visita Guidata Diurna', tar_ind_vg_vip: 'Visita Guidata VIP', tar_ind_vg_noc: 'Visita Guidata Notturna',
         tar_ind_fam: 'Biglietto Famiglia',
         tar_per_person_4: '4 € / persona', tar_per_person_5: '5 € / persona', tar_per_person_7: '7 € / persona', tar_per_person_10: '10 € / persona',
-        tar_vg_diurna_price: '14 € / pers · 4 € minori &lt;12', tar_vg_15_price: '15 € / pers · 5 € minori &lt;12',
+        tar_vg_diurna_price: '14 € / pers · minori &lt;12 gratis', tar_vg_15_price: '15 € / pers · minori &lt;12 gratis',
         tar_fam_price: '25 € / famiglia',
         tar_ind_note1: '✦ Minori di 12 anni: ingresso gratuito in Cattedrale, Torre e Convento San Francisco.',
         tar_ind_note2: '✦ Biglietto Famiglia: include il braccialetto turistico. Solo genitori e figli minori di 21 anni.',
@@ -8757,7 +8758,7 @@
         tar_ind_vg_diurna: '주간 가이드 투어', tar_ind_vg_vip: 'VIP 가이드 투어', tar_ind_vg_noc: '야간 가이드 투어',
         tar_ind_fam: '가족 티켓',
         tar_per_person_4: '4 € / 1인', tar_per_person_5: '5 € / 1인', tar_per_person_7: '7 € / 1인', tar_per_person_10: '10 € / 1인',
-        tar_vg_diurna_price: '14 € / 1인 · 12세 미만 4 €', tar_vg_15_price: '15 € / 1인 · 12세 미만 5 €',
+        tar_vg_diurna_price: '14 € / 1인 · 12세 미만 무료', tar_vg_15_price: '15 € / 1인 · 12세 미만 무료',
         tar_fam_price: '25 € / 가족',
         tar_ind_note1: '✦ 12세 미만: 대성당, 종탑, 산프란시스코 수도원 무료 입장.',
         tar_ind_note2: '✦ 가족 티켓: 관광 팔찌 포함. 부모와 21세 미만 자녀만 해당.',
@@ -8978,7 +8979,7 @@
         tar_ind_vg_diurna: 'Eguneko Bisita Gidatua', tar_ind_vg_vip: 'VIP Bisita Gidatua', tar_ind_vg_noc: 'Gaueko Bisita Gidatua',
         tar_ind_fam: 'Familia Sarrera',
         tar_per_person_4: '4 € / pertsonako', tar_per_person_5: '5 € / pertsonako', tar_per_person_7: '7 € / pertsonako', tar_per_person_10: '10 € / pertsonako',
-        tar_vg_diurna_price: '14 € / pert · 4 € 12 urtetik beherakoak', tar_vg_15_price: '15 € / pert · 5 € 12 urtetik beherakoak',
+        tar_vg_diurna_price: '14 € / pert · 12 urtetik beherakoak doan', tar_vg_15_price: '15 € / pert · 12 urtetik beherakoak doan',
         tar_fam_price: '25 € / familia',
         tar_ind_note1: '✦ 12 urtetik beherakoak: doako sarrera Katedralean, Dorrean eta San Frantzisko Komentuan.',
         tar_ind_note2: '✦ Familia Sarrera: pultsera turistikoa barne. Gurasoak eta 21 urtetik beherako seme-alabak soilik.',
@@ -9199,7 +9200,7 @@
         tar_ind_vg_diurna: 'Visita Guiada Diürna', tar_ind_vg_vip: 'Visita Guiada VIP', tar_ind_vg_noc: 'Visita Guiada Nocturna',
         tar_ind_fam: 'Entrada Familiar',
         tar_per_person_4: '4 € / persona', tar_per_person_5: '5 € / persona', tar_per_person_7: '7 € / persona', tar_per_person_10: '10 € / persona',
-        tar_vg_diurna_price: '14 € / pers · 4 € menors &lt;12', tar_vg_15_price: '15 € / pers · 5 € menors &lt;12',
+        tar_vg_diurna_price: '14 € / pers · menors &lt;12 gratis', tar_vg_15_price: '15 € / pers · menors &lt;12 gratis',
         tar_fam_price: '25 € / família',
         tar_ind_note1: '✦ Menors de 12 anys: entrada gratuïta a Catedral, Torre i Convent San Francisco.',
         tar_ind_note2: '✦ Entrada Familiar: inclou polsera turística. Únicament pares i fills menors de 21 anys.',

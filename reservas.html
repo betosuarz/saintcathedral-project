@@ -2787,6 +2787,11 @@
       }
     }
 
+    .cj-mod-tipo { margin: 4px 0 6px; }
+    .cjm-old { text-decoration: line-through; opacity: .7; }
+    .cjm-free { color: #2f7a47; font-weight: 600; }
+    body:not(.light-mode) .cjm-free { color: #6cd88a; }
+
     body:not(.light-mode) .cj-label { color: rgba(245, 240, 232, .78); }
     body:not(.light-mode) .cj-help,
     body:not(.light-mode) .cj-nota { color: rgba(245, 240, 232, .62); }
@@ -4189,6 +4194,50 @@
         </div>
       </div>
 
+      <!-- ── Modalidad · Entrada conjunta Catedral + Monasterio (solo grupo) ── -->
+      <div class="form-section" id="cjModSection" style="display:none">
+        <p class="form-section__title" data-i18n-page="cjm_title">Modalidad de cada visita</p>
+        <span class="cj-label" data-i18n-page="s1b_opt_cat">Catedral</span>
+        <div class="visit-mode-group cj-mod-group" role="radiogroup" aria-label="Catedral">
+          <label class="visit-mode-row">
+            <input type="radio" name="cjModCat" value="No" checked />
+            <span class="visit-mode-row__title" data-i18n-page="s2_no_guide_title">Visita sin guía</span>
+            <span class="visit-mode-row__desc" id="cjmDescCatNo"></span>
+            <span class="visit-mode-row__check" aria-hidden="true"></span>
+          </label>
+          <label class="visit-mode-row">
+            <input type="radio" name="cjModCat" value="Guiada" />
+            <span class="visit-mode-row__title" data-i18n-page="s2_guide_title">Visita guiada</span>
+            <span class="visit-mode-row__desc" id="cjmDescCatSi"></span>
+            <span class="visit-mode-row__check" aria-hidden="true"></span>
+          </label>
+        </div>
+        <div class="field field--full cj-mod-tipo" id="fieldCjModTipo" style="display:none">
+          <div class="ent-sectitle"><span data-i18n-page="s2_grp_vg_title">Tipo de visita guiada</span></div>
+          <select id="cjModCatTipo">
+            <option value="" disabled selected data-i18n-page="opt_select">Seleccione</option>
+            <option value="Sí"></option>
+            <option value="Casco Histórico + Catedral"></option>
+          </select>
+          <span class="error-msg" id="err-cjModCatTipo" data-i18n-page="err_select">Seleccione una opción.</span>
+        </div>
+        <span class="cj-label" data-i18n-page="s1b_can_name">Monasterio de Cañas</span>
+        <div class="visit-mode-group cj-mod-group" role="radiogroup" aria-label="Monasterio de Cañas">
+          <label class="visit-mode-row">
+            <input type="radio" name="cjModCan" value="No" checked />
+            <span class="visit-mode-row__title" data-i18n-page="s2_no_guide_title">Visita sin guía</span>
+            <span class="visit-mode-row__desc" id="cjmDescCanNo"></span>
+            <span class="visit-mode-row__check" aria-hidden="true"></span>
+          </label>
+          <label class="visit-mode-row">
+            <input type="radio" name="cjModCan" value="Sí" />
+            <span class="visit-mode-row__title" data-i18n-page="s2_guide_title">Visita guiada</span>
+            <span class="visit-mode-row__desc" id="cjmDescCanSi"></span>
+            <span class="visit-mode-row__check" aria-hidden="true"></span>
+          </label>
+        </div>
+      </div>
+
       <!-- ── Horario · Entrada conjunta Catedral + Monasterio (solo grupo) ── -->
       <div class="form-section" id="conjuntaSection" style="display:none">
         <p class="form-section__title" id="cjTitle" data-i18n-page="cj_title">Horario de las visitas guiadas</p>
@@ -4283,8 +4332,9 @@
             </span>
           </div>
           <span class="field-helper" id="grupoResNota" style="display:none">Acreditar en taquillas.</span>
-          <p class="cj-nota" id="cjNota" style="display:none" data-i18n-page="cj_nota">Visita guiada en los dos
-            monumentos · 8 € por persona · Grupos de menos de 25 personas: tarifa mínima de 200 €.</p>
+          <p class="cj-nota" id="cjNota" style="display:none" data-i18n-page="cj_nota">Cada monumento tiene su tarifa
+            de grupo (menos de 25 personas: tarifa mínima). Con la visita combinada, la visita guiada al Monasterio de
+            Cañas es gratuita.</p>
         </div>
 
         <!-- ── ESCOLAR: destino + nivel educativo + nº de alumnos ── -->
@@ -4697,14 +4747,16 @@
     }
 
     /* ══ ENTRADA CONJUNTA · Catedral + Monasterio de Cañas (solo grupo) ══
-       Visita guiada de 1 h en cada monumento, el mismo día, con al menos
-       30 min de separación para el desplazamiento. Horas cada 30 min en los
-       dos monumentos. Tarifa única: 8 €/persona; <25 personas → mínimo 200 €. */
+       Mismo día, con al menos 30 min de separación para el desplazamiento.
+       Modalidad elegida por monumento (sin guía / guiada). Tarifa = grupo
+       Catedral (según temporada) + grupo Cañas (5 €/pers., mín. 125 €)
+       + suplemento de guía en Catedral. La guiada de Cañas es gratuita. */
     const VG_CONJUNTA = 'Catedral + Monasterio';
     const TIPO_ENTRADA_CONJUNTA = 'Entrada conjunta Catedral + Monasterio de Cañas';
-    const PRECIO_CONJUNTA_POR_PERSONA = 8;
-    const PRECIO_CONJUNTA_MINIMO = 200;
     const CONJUNTA_MIN_PERSONAS = 25;
+    const PRECIO_CANAS_GRUPO_POR_PERSONA = 5;
+    const PRECIO_CANAS_GRUPO_MINIMO = 125;
+    const SUPLEMENTO_GUIADA_CANAS_CONJUNTA = 50; // se muestra tachado: en la conjunta es gratuita
     const CJ_DURACION = 60;
     const CJ_MARGEN = 30;
     const cj = { primero: null, horaCat: null, horaCanas: null, dispo: null, fecha: null, prefill: null, reqId: 0 };
@@ -4713,7 +4765,97 @@
     function esEscolarCanas() { return state.tipoVisita === 'escolar' && state.grupoDestino === 'catedral-canas'; }
     function usaHorarioCanas() { return esConjunta() || esEscolarCanas(); }
     // Solo las visitas guiadas miran los eventos "VG " de los calendarios; sin guía, cualquier hora del horario.
-    function cjConGuia() { return esConjunta() || state.visitMode === 'con-guia'; }
+    // 'No' | 'Sí' | 'Casco Histórico + Catedral' | '' (guiada sin tipo elegido todavía)
+    function cjModCat() {
+      const r = document.querySelector('input[name="cjModCat"]:checked');
+      if (!r || r.value === 'No') return 'No';
+      const sel = document.getElementById('cjModCatTipo');
+      return (sel && sel.value) || '';
+    }
+    function setCjModCat(v) {
+      document.querySelectorAll('input[name="cjModCat"]').forEach(r => r.checked = r.value === (v === 'No' ? 'No' : 'Guiada'));
+      const sel = document.getElementById('cjModCatTipo'); if (sel) sel.value = v === 'No' ? '' : v;
+      const f = document.getElementById('fieldCjModTipo'); if (f) f.style.display = v === 'No' ? 'none' : '';
+    }
+    function cjModCan() { const r = document.querySelector('input[name="cjModCan"]:checked'); return !!r && r.value === 'Sí'; }
+    // Valor de la columna «Visita guiada»: el backend lo lee con modosConjunta().
+    function vgConjunta(cat, can) {
+      const c = cat === 'Casco Histórico + Catedral' ? cat : (cat === 'Sí' ? 'Visita guiada' : 'Sin guía');
+      return `${VG_CONJUNTA} · Catedral: ${c} · Cañas: ${can ? 'Visita guiada' : 'Sin guía'}`;
+    }
+    function esVgConjunta(v) { return String(v || '').indexOf(VG_CONJUNTA) === 0; }
+    // Reservas antiguas («Catedral + Monasterio» a secas) eran guiadas en los dos monumentos.
+    function modosConjunta(v) {
+      if (!esVgConjunta(v)) return null;
+      const s = String(v);
+      if (s === VG_CONJUNTA) return { cat: 'Sí', can: true, legacy: true };
+      const cat = s.indexOf('Catedral: Casco') >= 0 ? 'Casco Histórico + Catedral' : (s.indexOf('Catedral: Visita guiada') >= 0 ? 'Sí' : 'No');
+      return { cat, can: s.indexOf('Cañas: Visita guiada') >= 0, legacy: false };
+    }
+    function cjGuiaEn(mon) {
+      if (esConjunta()) return mon === 'catedral' ? cjModCat() !== 'No' : cjModCan();
+      return state.visitMode === 'con-guia';
+    }
+    function cjConGuia() { return cjGuiaEn('catedral') || cjGuiaEn('canas'); }
+    // Casco Histórico + Catedral dura 2 h; el resto de visitas, 1 h.
+    function cjDur(mon) { return (esConjunta() && mon === 'catedral' && cjModCat() === 'Casco Histórico + Catedral') ? 120 : CJ_DURACION; }
+    function cjModosTexto() {
+      const cat = cjModCat();
+      const tc = cat === 'No' ? _T('s2_no_guide_title') : (cat ? _T(cat === 'Sí' ? 'cjm_vg_cat' : 'cjm_vg_casco') : _T('s2_guide_title'));
+      const tn = cjModCan() ? `${_T('s2_guide_title')} (${_T('ent_gratis')})` : _T('s2_no_guide_title');
+      return `${_T('s1b_opt_cat')}: ${tc} · ${_T('s1b_can_name')}: ${tn}`;
+    }
+    function cjGratisHTML(txt) { return `<s class="cjm-old">${txt}</s> <strong class="cjm-free">${_T('ent_gratis')}</strong>`; }
+    // Precios en las tarjetas de modalidad (dependen de la temporada de la fecha elegida).
+    function cjModTextos() {
+      const n = x => String(x).replace('.', ',');
+      const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+      const tar = (pp, mn) => _T('cjm_tarifa').replace('{0}', n(pp)).replace('{1}', n(mn));
+      const sC = n(supGuiada('Sí')), sH = n(supGuiada('Casco Histórico + Catedral'));
+      set('cjmDescCatNo', tar(gPorPersona(), gMin()));
+      const eur = x => ((localStorage.getItem('cat-lang') || 'es') === 'en') ? '€' + x : x + ' €';
+      set('cjmDescCatSi', _T('cjm_desc_cat_vg').replace('{0}', `${eur(sC)} / ${eur(sH)}`));
+      set('cjmDescCanNo', tar(PRECIO_CANAS_GRUPO_POR_PERSONA, PRECIO_CANAS_GRUPO_MINIMO));
+      set('cjmDescCanSi', _T('cjm_desc_can_vg').replace('{0}', eur(SUPLEMENTO_GUIADA_CANAS_CONJUNTA)));
+      // Opciones del desplegable «Tipo de visita guiada» (Catedral).
+      const sel = document.getElementById('cjModCatTipo');
+      if (sel) {
+        const oC = sel.querySelector('option[value="Sí"]'), oH = sel.querySelector('option[value="Casco Histórico + Catedral"]');
+        const nomH = _T('s4_vg_casco').replace(/\s*\(.*\)\s*$/, '');
+        if (oC) oC.textContent = `${_T('s1b_opt_cat')} (${_T('cjm_opt_sup').replace('{0}', sC)})`;
+        if (oH) oH.textContent = `${nomH} (${_T('cjm_opt_sup').replace('{0}', sH)})`;
+      }
+    }
+    // Líneas [etiqueta, importe] del desglose de la conjunta (tarjeta y resumen).
+    function cjLineas(d) {
+      const fmt = x => x.toFixed(2).replace('.', ',') + ' €';
+      const out = [];
+      if (!d.personas) return out;
+      const menos = d.adultos < CONJUNTA_MIN_PERSONAS;
+      const pers = p => `${d.adultos} ${_T('s4_persons_paying')} × ${String(p).replace('.', ',')} €`;
+      out.push([`${_T('s1b_opt_cat')} · ${menos ? _T('cj_s4_min') : pers(d.precioAdulto)}`, fmt(d.baseCat)]);
+      out.push([`${_T('s1b_can_name')} · ${menos ? _T('cj_s4_min') : pers(d.precioCanas)}`, fmt(d.baseCan)]);
+      if (d.responsables > 0) out.push([`${d.responsables} ${_T('s4_leaders_free')}`, '0,00 €']);
+      if (d.menores > 0) out.push([`${d.menores} ${_T('s4_menores_free')}`, '0,00 €']);
+      if (d.residentes > 0) out.push([`${d.residentes} ${_T('s4_residents_free')}`, '0,00 €']);
+      const cat = cjModCat();
+      if (cat && cat !== 'No') out.push([_T(cat === 'Sí' ? 'cjm_vg_cat' : 'cjm_vg_casco'), '+ ' + fmt(supGuiada(cat))]);
+      if (cjModCan()) out.push([_T('cjm_vg_can'), cjGratisHTML('+ ' + fmt(SUPLEMENTO_GUIADA_CANAS_CONJUNTA))]);
+      return out;
+    }
+    function onCjModChange() {
+      const rCat = document.querySelector('input[name="cjModCat"]:checked');
+      const fT = document.getElementById('fieldCjModTipo'); if (fT) fT.style.display = (rCat && rCat.value === 'Guiada') ? '' : 'none';
+      if (cjModCat()) { const e = document.getElementById('err-cjModCatTipo'); if (e) e.classList.remove('visible'); }
+      cjTextos();
+      // La disponibilidad depende de si hay guía en cada monumento: se recalculan las rejillas
+      // conservando las horas elegidas si siguen libres.
+      if (cj.horaCat || cj.horaCanas) cj.prefill = { cat: cj.horaCat, canas: cj.horaCanas };
+      cjReset(true);
+      if (document.getElementById('fechaVisita').value) cjRender();
+      updatePersonasHelper();
+      renderTotalGrupo();
+    }
     function cjMin(h) { const [a, b] = String(h).split(':').map(Number); return a * 60 + (b || 0); }
     function cjHHMM(m) { return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
     // Horario del Monasterio de Cañas por temporada → intervalos [apertura, cierre] en minutos.
@@ -4776,16 +4918,17 @@
       iv.forEach(([a, c]) => { for (let m = Math.ceil(a / 30) * 30; m + 60 <= c; m += 30) out.push(cjHHMM(m)); });
       return out;
     }
-    function cjSlots(intervalos) {
+    function cjSlots(intervalos, dur = CJ_DURACION) {
       const out = [];
-      intervalos.forEach(([a, b]) => { for (let m = a; m + CJ_DURACION <= b; m += 30) out.push(m); });
+      intervalos.forEach(([a, b]) => { for (let m = a; m + dur <= b; m += 30) out.push(m); });
       return out;
     }
-    function cjSolapa(m, franjas) { return (franjas || []).some(f => m < f.fin && f.ini < m + CJ_DURACION); }
+    function cjSolapa(m, franjas, dur = CJ_DURACION) { return (franjas || []).some(f => m < f.fin && f.ini < m + dur); }
     function cjFranjasDeHoras(horas) {
       return (horas || []).filter(h => /^\d{1,2}:\d{2}$/.test(h)).map(h => ({ ini: cjMin(h), fin: cjMin(h) + 60 }));
     }
-    function cjSeparadas(a, b) { return b + CJ_DURACION + CJ_MARGEN <= a || b >= a + CJ_DURACION + CJ_MARGEN; }
+    // a = hora del primer monumento elegido, b = hora del otro.
+    function cjSeparadas(a, b) { const P = cj.primero || 'catedral', Q = cjOtro(P); return b + cjDur(Q) + CJ_MARGEN <= a || b >= a + cjDur(P) + CJ_MARGEN; }
     function cjOtro(mon) { return mon === 'catedral' ? 'canas' : 'catedral'; }
     function cjNombre(mon) { return _T(mon === 'catedral' ? 's1b_opt_cat' : 's1b_can_name'); }
     function cjHoraDe(mon) { return mon === 'catedral' ? cj.horaCat : cj.horaCanas; }
@@ -4799,23 +4942,24 @@
     function cjEstado(mon, m, fecha) {
       if (slotEsPasado(cjHHMM(m), fecha)) return 'pasado';
       const dp = cj.dispo || {};
-      if (!cjConGuia()) {
+      const dur = cjDur(mon);
+      if (!cjGuiaEn(mon)) {
         // Sin guía: solo cuentan los cierres del monumento, no las visitas guiadas.
-        if (mon === 'catedral') return (dp.esDiaBloqueado || cjSolapa(m, cjFranjasDeHoras(dp.horasCierre))) ? 'ocupado' : 'libre';
+        if (mon === 'catedral') return (dp.esDiaBloqueado || cjSolapa(m, cjFranjasDeHoras(dp.horasCierre), dur)) ? 'ocupado' : 'libre';
         const c0 = dp.canas || {};
-        return (c0.esDiaBloqueado || cjSolapa(m, cjFranjasDeHoras(c0.horasCierre))) ? 'ocupado' : 'libre';
+        return (c0.esDiaBloqueado || cjSolapa(m, cjFranjasDeHoras(c0.horasCierre), dur)) ? 'ocupado' : 'libre';
       }
       if (mon === 'catedral') {
         if (dp.esDiaBloqueado) return 'ocupado';
         const fr = (dp.franjas || []).concat(cjFranjasDeHoras(dp.horasCierre), cjFranjasDeHoras(dp.horasNoVisitasGuiadas));
-        return cjSolapa(m, fr) ? 'ocupado' : 'libre';
+        return cjSolapa(m, fr, dur) ? 'ocupado' : 'libre';
       }
       const c = dp.canas || {};
       if (c.esDiaBloqueado) return 'ocupado';
       const frC = (c.franjas || []).concat(cjFranjasDeHoras(c.horasCierre));
-      return cjSolapa(m, frC) ? 'ocupado' : 'libre';
+      return cjSolapa(m, frC, dur) ? 'ocupado' : 'libre';
     }
-    function cjSlotsDe(mon, fecha) { return cjSlots(mon === 'catedral' ? horarioCatedralConjunta(fecha) : horarioCanas(fecha)); }
+    function cjSlotsDe(mon, fecha) { return cjSlots(mon === 'catedral' ? horarioCatedralConjunta(fecha) : horarioCanas(fecha), cjDur(mon)); }
 
     function cjReset(keepPrimero) {
       cj.horaCat = null; cj.horaCanas = null;
@@ -4844,6 +4988,10 @@
       if (state.tipoVisita === 'escolar') poblarTipoEntrada();
       const ms = document.getElementById('modalidadSection');
       if (ms) ms.style.display = on ? 'none' : 'block';
+      const cms = document.getElementById('cjModSection');
+      if (cms) cms.style.display = on ? '' : 'none';
+      if (on && cambio) { setCjModCat('No'); document.querySelectorAll('input[name="cjModCan"]').forEach(r => r.checked = r.value === 'No'); }
+      if (on) cjModTextos();
       if (on) {
         document.querySelectorAll('input[name="visitMode"]').forEach(r => r.checked = r.value === 'con-guia');
         state.visitMode = 'con-guia';
@@ -4898,8 +5046,9 @@
 
     // Textos de la sección según sea visita guiada o sin guía.
     function cjTextos() {
-      const sg = !cjConGuia();
-      [['cjTitle', sg ? 'cj_title_sg' : 'cj_title'], ['cjHelp', sg ? 'cj_help_sg' : 'cj_help']].forEach(([id, k]) => {
+      const ambas = cjGuiaEn('catedral') && cjGuiaEn('canas');
+      const kHelp = cjDur('catedral') > CJ_DURACION ? 'cj_help_casco' : (ambas ? 'cj_help' : 'cj_help_sg');
+      [['cjTitle', ambas ? 'cj_title' : 'cj_title_sg'], ['cjHelp', kHelp]].forEach(([id, k]) => {
         const el = document.getElementById(id); if (el) { el.setAttribute('data-i18n-page', k); el.textContent = _T(k); }
       });
     }
@@ -4909,7 +5058,7 @@
       p.innerHTML = `<span style="color:#6cd88a">■</span> ${_T('leg_available')} &nbsp;<span style="color:rgba(220,130,110,.75)">■</span> ${_T('leg_unavailable')} &nbsp;<span style="color:rgba(120,110,95,.45)">■</span> ${_T('cj_leg_margen')}`;
       return p;
     }
-    function cjPintarGrid(cont, items, seleccion, onPick) {
+    function cjPintarGrid(cont, items, seleccion, onPick, dur = CJ_DURACION) {
       const wrap = document.createElement('div');
       wrap.className = 'hora-grid';
       items.forEach(it => {
@@ -4923,6 +5072,8 @@
           btn.className = 'hora-btn ' + (it.estado === 'margen' ? 'bloqueado-dur' : it.estado);
           btn.disabled = true;
         }
+        // Resto de la franja de la visita elegida (p. ej. 10:00 con 2 h → 10:30, 11:00 y 11:30).
+        if (seleccion !== null && it.m > seleccion && it.m < seleccion + dur) btn.classList.add('selected-sig');
         wrap.appendChild(btn);
       });
       cont.innerHTML = '';
@@ -4938,9 +5089,9 @@
       if (!cj.dispo || cj.fecha !== fecha) { cjActualizar(fecha); return; }
       const P = cj.primero, Q = cjOtro(P);
       b1.style.display = '';
-      const kHora = cjConGuia() ? 'cj_hora_de' : 'cj_hora_de_sg';
-      document.getElementById('cjLabel1').textContent = _T(kHora).replace('{0}', cjNombre(P));
-      document.getElementById('cjLabel2').textContent = _T(kHora).replace('{0}', cjNombre(Q));
+      const kHora = mon => cjGuiaEn(mon) ? 'cj_hora_de' : 'cj_hora_de_sg';
+      document.getElementById('cjLabel1').textContent = _T(kHora(P)).replace('{0}', cjNombre(P));
+      document.getElementById('cjLabel2').textContent = _T(kHora(Q)).replace('{0}', cjNombre(Q));
       if (cj.dispo.esDiaBloqueado) { g1.innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('grid_closed')}</p>`; b2.style.display = 'none'; return; }
       if (!horarioCanas(fecha).length || (cj.dispo.canas && cj.dispo.canas.esDiaBloqueado)) {
         g1.innerHTML = `<p class="hora-grid-msg err">⚠ ${_T('cj_canas_cerrado')}</p>`; b2.style.display = 'none'; return;
@@ -4971,7 +5122,7 @@
         document.getElementById('err-cjHoras').classList.remove('visible');
         document.getElementById('alert-step2').classList.remove('visible');
         cjRender();
-      });
+      }, cjDur(P));
       if (selP === null) { b2.style.display = 'none'; g2.innerHTML = ''; return; }
       b2.style.display = '';
       const items2 = cjSlotsDe(Q, fecha).map(m => {
@@ -4985,17 +5136,16 @@
         document.getElementById('err-cjHoras').classList.remove('visible');
         document.getElementById('alert-step2').classList.remove('visible');
         cjRender();
-      });
+      }, cjDur(Q));
     }
     // Filas del resumen: las dos visitas en orden cronológico.
     function cjFilasResumen() {
-      const fin = h => cjHHMM(cjMin(h) + CJ_DURACION);
+      const fin = (h, mon) => cjHHMM(cjMin(h) + cjDur(mon));
       const filas = [];
-      if (cj.horaCat) filas.push({ m: cjMin(cj.horaCat), label: _T('cj_s4_hora_cat'), val: `${cj.horaCat} – ${fin(cj.horaCat)} h` });
-      if (cj.horaCanas) filas.push({ m: cjMin(cj.horaCanas), label: _T('cj_s4_hora_canas'), val: `${cj.horaCanas} – ${fin(cj.horaCanas)} h` });
+      if (cj.horaCat) filas.push({ m: cjMin(cj.horaCat), label: _T('cj_s4_hora_cat'), val: `${cj.horaCat} – ${fin(cj.horaCat, 'catedral')} h` });
+      if (cj.horaCanas) filas.push({ m: cjMin(cj.horaCanas), label: _T('cj_s4_hora_canas'), val: `${cj.horaCanas} – ${fin(cj.horaCanas, 'canas')} h` });
       return filas.sort((a, b) => a.m - b.m);
     }
-    function cjTarifa(n) { return !n ? 0 : (n >= CONJUNTA_MIN_PERSONAS ? n * PRECIO_CONJUNTA_POR_PERSONA : PRECIO_CONJUNTA_MINIMO); }
 
     /* ── Precios ─────────────────────────────────────────────────── */
     const PRECIOS = {
@@ -5023,6 +5173,8 @@
     // Las guiadas de 100 € (casco histórico o Cañas) ocupan el doble de franja que la de Catedral.
     function esGuiadaLarga(v) { return v === 'Casco Histórico + Catedral' || v === 'Catedral + Cañas'; }
     function supGuiada(v) {
+      const mc = modosConjunta(v);
+      if (mc) return (!mc.legacy && mc.cat !== 'No') ? supGuiada(mc.cat) : 0;
       const tp = (typeof TEMP_PRECIOS !== 'undefined') ? TEMP_PRECIOS : null;
       if (v === 'Casco Histórico + Catedral') return (tp && tp.suplementoCasco != null) ? tp.suplementoCasco : SUPLEMENTO_GUIADA_CASCO;
       if (v === 'Catedral + Cañas') return (tp && tp.suplementoCanas != null) ? tp.suplementoCanas : SUPLEMENTO_GUIADA_CANAS;
@@ -5064,6 +5216,7 @@
       [['Sí', 's4_vg_cat'], ['Casco Histórico + Catedral', 's4_vg_casco'], ['Catedral + Cañas', 's4_vg_canas']].forEach(([v, k]) => {
         const o = document.querySelector(`#tipoEntrada option[value="${v}"]`); if (o) o.textContent = etqSup(k, v);
       });
+      cjModTextos();
       // Quitar del carrito individual lo que no se vende en esta temporada.
       let _quitadas = false;
       if (state.entradas) ENT_ROWS.forEach(r => { if (r.kind === 'tipo' && !tipoAbierto(r.tipo) && state.entradas[r.id]) { delete state.entradas[r.id]; _quitadas = true; } });
@@ -5723,7 +5876,7 @@
       const lbl = document.getElementById('labelNumPersonas');
       if (lbl) lbl.textContent = _T('s2_persons_total');
       const cjOn = esConjunta();
-      document.querySelectorAll('#grupoRows .grp-row--extra').forEach(r => { r.style.display = cjOn ? 'none' : ''; });
+      document.querySelectorAll('#grupoRows .grp-row--extra').forEach(r => { r.style.display = ''; });
       const cjn = document.getElementById('cjNota'); if (cjn) cjn.style.display = cjOn ? '' : 'none';
       if (cjOn && guiadaBlock) guiadaBlock.style.display = 'none';
       if (esEscolarCanas() && guiadaBlock) guiadaBlock.style.display = 'none';
@@ -5797,9 +5950,7 @@
       if (isGrupo) {
         const d = calcularDesglose();
         if (d.conjunta) {
-          if (d.adultos > 0) lineas += d.adultos < CONJUNTA_MIN_PERSONAS
-            ? row(_T('cj_s4_min'), fmt(d.tarifa))
-            : row(`${d.adultos} ${_T('s4_word_personas')} × ${d.precioAdulto} €`, fmt(d.tarifa));
+          cjLineas(d).forEach(([l, v]) => { lineas += row(l, v); });
         } else if (d.nocturna) {
           if (d.adultos > 0) lineas += row(`${d.adultos} × ${d.precioAdulto} €`, fmt(d.adultos * d.precioAdulto));
           if (d.responsables > 0) lineas += row(`${d.responsables} ${_T('s4_leaders_free')}`, '0,00 €');
@@ -5821,7 +5972,7 @@
         });
         total = e.total;
       }
-      if (supGuiada(vg) > 0) lineas += row(_T('s4_supp_guiada'), '+ ' + fmt(supGuiada(vg)));
+      if (!esConjunta() && supGuiada(vg) > 0) lineas += row(_T('s4_supp_guiada'), '+ ' + fmt(supGuiada(vg)));
       wrap.innerHTML = lineas;
       totalEl.textContent = total.toFixed(2).replace('.', ',');
     }
@@ -5872,8 +6023,10 @@
           return;
         }
         if (esConjunta()) {
+          actualizarBloqueoContadoresGrupo();
+          const _resC = parseInt(document.getElementById('residentes').value) || 0;
           if (helper) { helper.textContent = ''; helper.className = 'field-helper'; }
-          if (resNota) resNota.style.display = 'none';
+          if (resNota) resNota.style.display = _resC > 0 ? '' : 'none';
           renderTotalGrupo();
           return;
         }
@@ -6166,7 +6319,7 @@
     /* ── Cálculo de tarifas ──────────────────────────────────────── */
     function tramoPrecio(tramo, dest) { const t = PRECIOS_ESCOLAR[dest === 'canas' ? 'canas' : 'catedral']; return t[tramo] !== undefined ? t[tramo] : 0; }
     function visitaGuiadaSeleccionada() {
-      if (esConjunta()) return VG_CONJUNTA;
+      if (esConjunta()) return vgConjunta(cjModCat(), cjModCan());
       if ((state.tipoVisita === 'grupo' || state.tipoVisita === 'escolar') && state.visitMode === 'con-guia') {
         return document.getElementById('tipoEntrada').value || 'No';
       }
@@ -6183,7 +6336,12 @@
       const menores = parseInt(document.getElementById('menoresTreceAnios').value) || 0;
       const residentes = parseInt(document.getElementById('residentes').value) || 0;
       if (esConjunta()) {
-        return { tarifa: cjTarifa(n), adultos: n, menores: 0, residentes: 0, responsables: 0, precioAdulto: PRECIO_CONJUNTA_POR_PERSONA, precioMenor: 0, precioResidente: 0, conjunta: true };
+        // Responsables (máx. 2), menores de 12 y residentes: gratuidad. Pagan el resto.
+        const responsables = parseInt(document.getElementById('responsablesGrupo').value) || 0;
+        const pag = Math.max(0, n - menores - residentes - responsables);
+        const baseCat = !n ? 0 : (pag >= CONJUNTA_MIN_PERSONAS ? pag * gPorPersona() : gMin());
+        const baseCan = !n ? 0 : (pag >= CONJUNTA_MIN_PERSONAS ? pag * PRECIO_CANAS_GRUPO_POR_PERSONA : PRECIO_CANAS_GRUPO_MINIMO);
+        return { tarifa: baseCat + baseCan, baseCat, baseCan, personas: n, adultos: pag, menores, residentes, responsables, precioAdulto: gPorPersona(), precioCanas: PRECIO_CANAS_GRUPO_POR_PERSONA, precioMenor: 0, precioResidente: 0, conjunta: true };
       }
       if (state.tipoVisita === 'grupo') {
         const responsables = parseInt(document.getElementById('responsablesGrupo').value) || 0;
@@ -6267,6 +6425,7 @@
       return 'Individual';
     }
     function modalidadLabel() {
+      if (esConjunta()) return cjModosTexto();
       if (state.visitMode === 'sin-guia') return _T('lbl_modal_sin');
       if (state.visitMode === 'con-guia') return _T('lbl_modal_con');
       return '—';
@@ -6295,15 +6454,15 @@
             <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_tipo_visita')}</span><span class="summary-row__value">${tipoVisitaLabel()}</span></div>
             <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_modalidad')}</span><span class="summary-row__value">${modalidadLabel()}</span></div>
             ${!isGE && tipoEntradaSel ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_ticket_type')}</span><span class="summary-row__value">${esc(tipoEntradaSel)}</span></div>` : ''}
-            ${isGE && state.visitMode === 'con-guia' ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_vg')}</span><span class="summary-row__value">${vg === VG_CONJUNTA ? _T('opt_esc_dest_canas') : vg === 'Sí' ? etqSup('s4_vg_cat', vg) : (vg === 'Casco Histórico + Catedral' ? etqSup('s4_vg_casco', vg) : (vg === 'Catedral + Cañas' ? etqSup('s4_vg_canas', vg) : (vg === 'Visita Guiada Nocturna Catedral' ? etqVgNoc() : '—')))}</span></div>` : ''}
+            ${isGE && state.visitMode === 'con-guia' && !esConjunta() ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_vg')}</span><span class="summary-row__value">${vg === 'Sí' ? etqSup('s4_vg_cat', vg) : (vg === 'Casco Histórico + Catedral' ? etqSup('s4_vg_casco', vg) : (vg === 'Catedral + Cañas' ? etqSup('s4_vg_canas', vg) : (vg === 'Visita Guiada Nocturna Catedral' ? etqVgNoc() : '—')))}</span></div>` : ''}
             ${state.tipoVisita === 'escolar' ? `<div class="summary-row"><span class="summary-row__label">${_T('s2_esc_dest')}</span><span class="summary-row__value">${_T(escDestino() === 'canas' ? 'opt_esc_dest_canas' : 'opt_esc_dest_cat')}</span></div>` : ''}
             <div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_fecha')}</span><span class="summary-row__value">${formatFecha(document.getElementById('fechaVisita').value)}</span></div>
             ${usaHorarioCanas()
               ? cjFilasResumen().map(f => `<div class="summary-row"><span class="summary-row__label">${f.label}</span><span class="summary-row__value">${f.val}</span></div>`).join('')
               : `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_hora')}</span><span class="summary-row__value">${esc(document.getElementById('horaVisita').value || '—')}</span></div>`}
             <div class="summary-row"><span class="summary-row__label">${state.tipoVisita === 'escolar' ? _T('s4_lbl_alumnos') : _T('s4_lbl_personas')}</span><span class="summary-row__value">${document.getElementById('numPersonas').value || '—'}</span></div>
-            ${state.tipoVisita !== 'escolar' && !esConjunta() ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_menores')}</span><span class="summary-row__value">${document.getElementById('menoresTreceAnios').value || '0'}</span></div>` : ''}
-            ${state.tipoVisita !== 'escolar' && !esConjunta() ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_residentes')}</span><span class="summary-row__value">${residentes}</span></div>` : ''}
+            ${state.tipoVisita !== 'escolar' ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_menores')}</span><span class="summary-row__value">${document.getElementById('menoresTreceAnios').value || '0'}</span></div>` : ''}
+            ${state.tipoVisita !== 'escolar' ? `<div class="summary-row"><span class="summary-row__label">${_T('s4_lbl_residentes')}</span><span class="summary-row__value">${residentes}</span></div>` : ''}
           </div>
         </div>`;
 
@@ -6333,9 +6492,7 @@
 
       let lineas = '';
       if (state.tipoVisita === 'grupo' && d.conjunta) {
-        lineas = d.adultos < CONJUNTA_MIN_PERSONAS
-          ? `<div class="summary-row"><span class="summary-row__label">${_T('cj_s4_min')}</span><span class="summary-row__value">${d.tarifa.toFixed(2).replace('.', ',')} €</span></div>`
-          : `<div class="summary-row"><span class="summary-row__label">${d.adultos} ${_T('s4_word_personas')} × ${d.precioAdulto} €</span><span class="summary-row__value">${d.tarifa.toFixed(2).replace('.', ',')} €</span></div>`;
+        lineas = cjLineas(d).map(([l, v]) => `<div class="summary-row"><span class="summary-row__label">${l}</span><span class="summary-row__value">${v}</span></div>`).join('');
       } else if (state.tipoVisita === 'grupo') {
         if (d.nocturna) {
           if (d.adultos > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.adultos} ${_T('s4_word_adultos')} × ${d.precioAdulto} €</span><span class="summary-row__value">${(d.adultos * d.precioAdulto).toFixed(2).replace('.', ',')} €</span></div>`;
@@ -6366,7 +6523,7 @@
         if (d.residentes > 0 && d.precioResidente > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_word_residentes')} × ${d.precioResidente} €</span><span class="summary-row__value">${(d.residentes * d.precioResidente).toFixed(2).replace('.', ',')} €</span></div>`;
         if (d.residentes > 0 && d.precioResidente === 0) lineas += `<div class="summary-row"><span class="summary-row__label">${d.residentes} ${_T('s4_residents_free')}</span><span class="summary-row__value">0,00 €</span></div>`;
       }
-      if (supGuiada(vg) > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${_T('s4_supp_guiada')}</span><span class="summary-row__value">+ ${supGuiada(vg).toFixed(2).replace('.', ',')} €</span></div>`;
+      if (!esConjunta() && supGuiada(vg) > 0) lineas += `<div class="summary-row"><span class="summary-row__label">${_T('s4_supp_guiada')}</span><span class="summary-row__value">+ ${supGuiada(vg).toFixed(2).replace('.', ',')} €</span></div>`;
 
       html += `
         <div class="summary-block">
@@ -6420,6 +6577,11 @@
           if (!horasOk) ok = false;
           const npC = parseInt(document.getElementById('numPersonas').value);
           if (!npC || npC < 1) { setError('numPersonas', 'err-numPersonas', true); ok = false; } else setError('numPersonas', 'err-numPersonas', false);
+          const tipoOk = cjModCat() !== '';
+          setError('cjModCatTipo', 'err-cjModCatTipo', !tipoOk);
+          if (!tipoOk) ok = false;
+          const dC = calcularDesglose();
+          if (ok && dC.menores > 0 && dC.adultos <= 0 && dC.residentes <= 0) { alertEl.textContent = _T('helper_must_adults'); alertEl.classList.add('visible'); return false; }
           if (!ok) { alertEl.textContent = (!horasOk && fechaC) ? _T('err_cj_horas') : _T('err_check_fields'); alertEl.classList.add('visible'); }
           return ok;
         }
@@ -6663,7 +6825,7 @@
       const cjOnEnvio = esConjunta();
       if (cjOnEnvio) {
         tipoEntradaPayload = TIPO_ENTRADA_CONJUNTA;
-        visitaGuiadaPayload = VG_CONJUNTA;
+        visitaGuiadaPayload = visitaGuiadaSeleccionada();
         monumentos = 'Catedral + Monasterio de Cañas';
       }
       const necesitaFacturaChecked = isGE && document.getElementById('necesitaFactura').checked;
@@ -6679,9 +6841,9 @@
         horaVisita: document.getElementById('horaVisita').value,
         numPersonas: document.getElementById('numPersonas').value,
         horaCanas: usaHorarioCanas() ? (cj.horaCanas || '') : '',
-        menores: cjOnEnvio ? '0' : (document.getElementById('menoresTreceAnios').value || '0'),
-        residentes: cjOnEnvio ? '0' : (document.getElementById('residentes').value || '0'),
-        responsables: cjOnEnvio ? '0' : (document.getElementById('responsablesGrupo').value || '0'),
+        menores: document.getElementById('menoresTreceAnios').value || '0',
+        residentes: document.getElementById('residentes').value || '0',
+        responsables: document.getElementById('responsablesGrupo').value || '0',
         tramoEdad: state.tipoVisita === 'escolar' ? escNivel() : '',
         escolarDestino: state.tipoVisita === 'escolar' ? escDestino() : '',
         tipoEntrada: tipoEntradaPayload,
@@ -6747,6 +6909,8 @@
       { const ds = document.getElementById('detallesSection'); if (ds) ds.style.display = ''; }
       document.querySelectorAll('#grupoRows .grp-row--extra').forEach(r => { r.style.display = ''; });
       { const cjn = document.getElementById('cjNota'); if (cjn) cjn.style.display = 'none'; }
+      { const cms = document.getElementById('cjModSection'); if (cms) cms.style.display = 'none'; }
+      setCjModCat('No'); document.querySelectorAll('input[name="cjModCan"]').forEach(r => r.checked = r.value === 'No');
       const escNivEl = document.getElementById('escNivel'); if (escNivEl) escNivEl.value = '';
       const teEl = document.getElementById('tipoEntrada'); if (teEl) teEl.innerHTML = `<option value="" disabled selected>${_T('opt_select')}</option>`;
       document.querySelectorAll('input[name="tipoVisita"]').forEach(r => r.checked = false);
@@ -6835,6 +6999,8 @@
     document.querySelectorAll('input[name="tipoVisita"]').forEach(r => r.addEventListener('change', onTipoVisitaChangeFromRadio));
     document.querySelectorAll('input[name="grupoDestino"]').forEach(r => r.addEventListener('change', onGrupoDestinoChange));
     document.querySelectorAll('input[name="cjPrimero"]').forEach(r => r.addEventListener('change', onCjPrimeroChange));
+    document.querySelectorAll('input[name="cjModCat"], input[name="cjModCan"]').forEach(r => r.addEventListener('change', onCjModChange));
+    document.getElementById('cjModCatTipo').addEventListener('change', onCjModChange);
     document.querySelectorAll('input[name="visitMode"]').forEach(r => r.addEventListener('change', onVisitModeChange));
     document.getElementById('tipoEntrada').addEventListener('change', onTipoEntradaChange);
     document.getElementById('numPersonas').addEventListener('input', updatePersonasHelper);
@@ -7117,11 +7283,17 @@
           state.entradas = cart;    // restaura el carrito reconstruido
           state.guiadaTipo = guiadaPrev;
           onEntradasChange();       // re-render + sincroniza nº personas/menores/residentes
-        } else if (tipo === 'grupo' && d.visitaGuiada === VG_CONJUNTA) {
+        } else if (tipo === 'grupo' && esVgConjunta(d.visitaGuiada)) {
           setRadio('grupoDestino', 'catedral-canas');
           state.grupoDestino = 'catedral-canas';
           aplicarModoDestino();
+          const mcj = modosConjunta(d.visitaGuiada);
+          setCjModCat(mcj.cat); setRadio('cjModCan', mcj.can ? 'Sí' : 'No');
+          cjTextos();
           setVal('numPersonas', d.numPersonas);
+          setVal('menoresTreceAnios', d.menores);
+          setVal('residentes', d.residentes);
+          setVal('responsablesGrupo', d.responsables);
           updatePersonasHelper();
           cj.prefill = { cat: d.horaVisita, canas: d.horaCanas };
           const primero = (d.horaCanas && d.horaVisita && cjMin(d.horaCanas) < cjMin(d.horaVisita)) ? 'canas' : 'catedral';
@@ -7314,7 +7486,10 @@
         cj_leg_margen: 'Sin margen de desplazamiento',
         cj_canas_cerrado: 'El Monasterio de Cañas está cerrado ese día. Elige otra fecha.',
         cj_sin_horas: 'No quedan horas disponibles para las dos visitas ese día. Elige otra fecha.',
-        cj_nota: 'Visita guiada en los dos monumentos · 8 € por persona · Grupos de menos de 25 personas: tarifa mínima de 200 €.',
+        cj_nota: 'Cada monumento tiene su tarifa de grupo (menos de 25 personas: tarifa mínima). Con la visita combinada, la visita guiada al Monasterio de Cañas es gratuita.',
+        cjm_title: 'Modalidad de cada visita', cjm_vg_cat: 'Visita guiada Catedral', cjm_vg_can: 'Visita guiada Monasterio de Cañas', cjm_vg_casco: 'Visita guiada Casco Histórico + Catedral', cjm_tarifa: '{0} €/persona · mínimo {1} € (menos de 25 personas)',
+        cj_help_casco: 'La visita guiada Casco Histórico + Catedral dura 2 horas y en el Monasterio se reserva 1 hora. Entre una y otra se dejan al menos 30 minutos para el desplazamiento (el Monasterio está a 15 minutos en coche).',
+        cjm_desc_cat_vg: 'Tarifa visita por libre + {0} suplemento visita guiada', cjm_desc_can_vg: 'Tarifa visita por libre + <s class="cjm-old">{0} suplemento</s> <strong class="cjm-free">GRATUIDAD</strong> visita guiada', cjm_opt_sup: '+{0} € suplemento visita guiada',
         cj_s4_hora_cat: 'Hora Catedral',
         cj_s4_hora_canas: 'Hora Monasterio de Cañas',
         cj_s4_min: 'Tarifa mínima (menos de 25 personas)',
@@ -7574,7 +7749,10 @@
         cj_leg_margen: 'Not enough travel time',
         cj_canas_cerrado: 'Cañas Monastery is closed on that day. Please choose another date.',
         cj_sin_horas: 'There are no times left for both tours on that day. Please choose another date.',
-        cj_nota: 'Guided tour of both monuments · €8 per person · Groups of fewer than 25 people: minimum fee of €200.',
+        cj_nota: 'Each monument has its own group rate (fewer than 25 people: minimum fee). With the combined visit, the guided tour of Cañas Monastery is free.',
+        cjm_title: 'Type of visit at each monument', cjm_vg_cat: 'Cathedral guided tour', cjm_vg_can: 'Cañas Monastery guided tour', cjm_vg_casco: 'Old Town + Cathedral guided tour', cjm_tarifa: '€{0}/person · minimum €{1} (fewer than 25 people)',
+        cj_help_casco: 'The Old Town + Cathedral guided tour lasts 2 hours and 1 hour is booked at the Monastery. At least 30 minutes are left between them for travel (the Monastery is a 15-minute drive away).',
+        cjm_desc_cat_vg: 'Self-guided visit rate + {0} guided tour supplement', cjm_desc_can_vg: 'Self-guided visit rate + <s class="cjm-old">{0} supplement</s> <strong class="cjm-free">FREE</strong> guided tour', cjm_opt_sup: '+€{0} guided tour supplement',
         cj_s4_hora_cat: 'Cathedral time',
         cj_s4_hora_canas: 'Cañas Monastery time',
         cj_s4_min: 'Minimum fee (fewer than 25 people)',
@@ -7795,7 +7973,10 @@
         cj_leg_margen: 'Temps de trajet insuffisant',
         cj_canas_cerrado: 'Le Monastère de Cañas est fermé ce jour-là. Choisissez une autre date.',
         cj_sin_horas: 'Il n’y a plus d’horaires disponibles pour les deux visites ce jour-là. Choisissez une autre date.',
-        cj_nota: 'Visite guidée des deux monuments · 8 € par personne · Groupes de moins de 25 personnes : tarif minimum de 200 €.',
+        cj_nota: 'Chaque monument a son propre tarif de groupe (moins de 25 personnes : tarif minimum). Avec la visite combinée, la visite guidée du Monastère de Cañas est gratuite.',
+        cjm_title: 'Modalité de chaque visite', cjm_vg_cat: 'Visite guidée Cathédrale', cjm_vg_can: 'Visite guidée Monastère de Cañas', cjm_vg_casco: 'Visite guidée Centre historique + Cathédrale', cjm_tarifa: '{0} €/personne · minimum {1} € (moins de 25 personnes)',
+        cj_help_casco: 'La visite guidée Centre historique + Cathédrale dure 2 heures et 1 heure est réservée au Monastère. Au moins 30 minutes sont prévues entre les deux pour le trajet (le Monastère est à 15 minutes en voiture).',
+        cjm_desc_cat_vg: 'Tarif visite libre + {0} de supplément visite guidée', cjm_desc_can_vg: 'Tarif visite libre + <s class="cjm-old">{0} de supplément</s> <strong class="cjm-free">GRATUITÉ</strong> visite guidée', cjm_opt_sup: '+{0} € supplément visite guidée',
         cj_s4_hora_cat: 'Heure Cathédrale',
         cj_s4_hora_canas: 'Heure Monastère de Cañas',
         cj_s4_min: 'Tarif minimum (moins de 25 personnes)',
@@ -8016,7 +8197,10 @@
         cj_leg_margen: 'Zu wenig Fahrzeit',
         cj_canas_cerrado: 'Das Kloster Cañas ist an diesem Tag geschlossen. Bitte wählen Sie ein anderes Datum.',
         cj_sin_horas: 'An diesem Tag gibt es keine freien Zeiten mehr für beide Führungen. Bitte wählen Sie ein anderes Datum.',
-        cj_nota: 'Führung in beiden Denkmälern · 8 € pro Person · Gruppen unter 25 Personen: Mindestpreis 200 €.',
+        cj_nota: 'Jedes Denkmal hat seinen eigenen Gruppentarif (unter 25 Personen: Mindestpreis). Beim Kombibesuch ist die Führung im Kloster Cañas kostenlos.',
+        cjm_title: 'Art des Besuchs je Denkmal', cjm_vg_cat: 'Führung Kathedrale', cjm_vg_can: 'Führung Kloster Cañas', cjm_vg_casco: 'Führung Altstadt + Kathedrale', cjm_tarifa: '{0} €/Person · mindestens {1} € (unter 25 Personen)',
+        cj_help_casco: 'Die Führung Altstadt + Kathedrale dauert 2 Stunden, im Kloster wird 1 Stunde reserviert. Dazwischen bleiben mindestens 30 Minuten für die Fahrt (das Kloster liegt 15 Autominuten entfernt).',
+        cjm_desc_cat_vg: 'Tarif Besuch ohne Führung + {0} Führungszuschlag', cjm_desc_can_vg: 'Tarif Besuch ohne Führung + <s class="cjm-old">{0} Zuschlag</s> <strong class="cjm-free">KOSTENLOSE</strong> Führung', cjm_opt_sup: '+{0} € Führungszuschlag',
         cj_s4_hora_cat: 'Uhrzeit Kathedrale',
         cj_s4_hora_canas: 'Uhrzeit Kloster Cañas',
         cj_s4_min: 'Mindestpreis (unter 25 Personen)',
@@ -8237,7 +8421,10 @@
         cj_leg_margen: 'Sem margem para a deslocação',
         cj_canas_cerrado: 'O Mosteiro de Cañas está fechado nesse dia. Escolha outra data.',
         cj_sin_horas: 'Não há horários disponíveis para as duas visitas nesse dia. Escolha outra data.',
-        cj_nota: 'Visita guiada aos dois monumentos · 8 € por pessoa · Grupos com menos de 25 pessoas: tarifa mínima de 200 €.',
+        cj_nota: 'Cada monumento tem a sua tarifa de grupo (menos de 25 pessoas: tarifa mínima). Com a visita combinada, a visita guiada ao Mosteiro de Cañas é gratuita.',
+        cjm_title: 'Modalidade de cada visita', cjm_vg_cat: 'Visita guiada Catedral', cjm_vg_can: 'Visita guiada Mosteiro de Cañas', cjm_vg_casco: 'Visita guiada Centro Histórico + Catedral', cjm_tarifa: '{0} €/pessoa · mínimo {1} € (menos de 25 pessoas)',
+        cj_help_casco: 'A visita guiada Centro Histórico + Catedral dura 2 horas e no Mosteiro reserva-se 1 hora. Entre uma e outra deixam-se pelo menos 30 minutos para a deslocação (o Mosteiro fica a 15 minutos de carro).',
+        cjm_desc_cat_vg: 'Tarifa visita livre + {0} de suplemento visita guiada', cjm_desc_can_vg: 'Tarifa visita livre + <s class="cjm-old">{0} de suplemento</s> <strong class="cjm-free">GRATUITIDADE</strong> visita guiada', cjm_opt_sup: '+{0} € suplemento visita guiada',
         cj_s4_hora_cat: 'Hora Catedral',
         cj_s4_hora_canas: 'Hora Mosteiro de Cañas',
         cj_s4_min: 'Tarifa mínima (menos de 25 pessoas)',
@@ -8458,7 +8645,10 @@
         cj_leg_margen: 'Tempo di spostamento insufficiente',
         cj_canas_cerrado: 'Il Monastero di Cañas è chiuso quel giorno. Scegli un’altra data.',
         cj_sin_horas: 'Non ci sono orari disponibili per le due visite quel giorno. Scegli un’altra data.',
-        cj_nota: 'Visita guidata ai due monumenti · 8 € a persona · Gruppi con meno di 25 persone: tariffa minima di 200 €.',
+        cj_nota: 'Ogni monumento ha la sua tariffa di gruppo (meno di 25 persone: tariffa minima). Con la visita combinata, la visita guidata al Monastero di Cañas è gratuita.',
+        cjm_title: 'Modalità di ogni visita', cjm_vg_cat: 'Visita guidata Cattedrale', cjm_vg_can: 'Visita guidata Monastero di Cañas', cjm_vg_casco: 'Visita guidata Centro storico + Cattedrale', cjm_tarifa: '{0} €/persona · minimo {1} € (meno di 25 persone)',
+        cj_help_casco: 'La visita guidata Centro storico + Cattedrale dura 2 ore e al Monastero si riserva 1 ora. Tra una visita e l’altra si lasciano almeno 30 minuti per lo spostamento (il Monastero è a 15 minuti in auto).',
+        cjm_desc_cat_vg: 'Tariffa visita libera + {0} di supplemento visita guidata', cjm_desc_can_vg: 'Tariffa visita libera + <s class="cjm-old">{0} di supplemento</s> <strong class="cjm-free">GRATUITÀ</strong> visita guidata', cjm_opt_sup: '+{0} € supplemento visita guidata',
         cj_s4_hora_cat: 'Orario Cattedrale',
         cj_s4_hora_canas: 'Orario Monastero di Cañas',
         cj_s4_min: 'Tariffa minima (meno di 25 persone)',
@@ -8679,7 +8869,10 @@
         cj_leg_margen: '이동 시간 부족',
         cj_canas_cerrado: '그날은 카냐스 수도원이 휴관합니다. 다른 날짜를 선택하세요.',
         cj_sin_horas: '그날은 두 투어 모두 가능한 시간이 없습니다. 다른 날짜를 선택하세요.',
-        cj_nota: '두 기념물 가이드 투어 · 1인 8 € · 25명 미만 단체: 최소 요금 200 €.',
+        cj_nota: '각 기념물마다 단체 요금이 적용됩니다 (25명 미만: 최소 요금). 통합 방문 시 카냐스 수도원 가이드 투어는 무료입니다.',
+        cjm_title: '기념물별 방문 방식', cjm_vg_cat: '대성당 가이드 투어', cjm_vg_can: '카냐스 수도원 가이드 투어', cjm_vg_casco: '구시가지 + 대성당 가이드 투어', cjm_tarifa: '1인 {0} € · 최소 {1} € (25명 미만)',
+        cj_help_casco: '구시가지 + 대성당 가이드 투어는 2시간이며 수도원에는 1시간이 예약됩니다. 두 방문 사이에는 이동을 위해 최소 30분을 둡니다 (수도원은 차로 15분 거리입니다).',
+        cjm_desc_cat_vg: '자유 관람 요금 + 가이드 투어 추가 요금 {0}', cjm_desc_can_vg: '자유 관람 요금 + <s class="cjm-old">추가 요금 {0}</s> 가이드 투어 <strong class="cjm-free">무료</strong>', cjm_opt_sup: '가이드 투어 추가 요금 +{0} €',
         cj_s4_hora_cat: '대성당 시간',
         cj_s4_hora_canas: '카냐스 수도원 시간',
         cj_s4_min: '최소 요금 (25명 미만)',
@@ -8900,7 +9093,10 @@
         cj_leg_margen: 'Joan-etorrirako denbora nahikorik ez',
         cj_canas_cerrado: 'Cañaseko Monasterioa itxita dago egun horretan. Aukeratu beste data bat.',
         cj_sin_horas: 'Egun horretan ez dago ordu librerik bi bisitetarako. Aukeratu beste data bat.',
-        cj_nota: 'Bisita gidatua bi monumentuetan · 8 € pertsonako · 25 pertsona baino gutxiagoko taldeak: gutxieneko tarifa 200 €.',
+        cj_nota: 'Monumentu bakoitzak bere talde-tarifa du (25 pertsona baino gutxiago: gutxieneko tarifa). Bisita konbinatuarekin, Cañaseko Monasterioko bisita gidatua doakoa da.',
+        cjm_title: 'Bisita bakoitzaren modalitatea', cjm_vg_cat: 'Katedraleko bisita gidatua', cjm_vg_can: 'Cañaseko Monasterioko bisita gidatua', cjm_vg_casco: 'Hirigune historikoa + Katedrala bisita gidatua', cjm_tarifa: '{0} €/pertsona · gutxienez {1} € (25 pertsona baino gutxiago)',
+        cj_help_casco: 'Hirigune historikoa + Katedrala bisita gidatuak 2 ordu irauten du eta Monasterioan ordu 1 erreserbatzen da. Bien artean gutxienez 30 minutu uzten dira joan-etorrirako (Monasterioa autoz 15 minutura dago).',
+        cjm_desc_cat_vg: 'Bisita librearen tarifa + {0} bisita gidatuaren gehigarria', cjm_desc_can_vg: 'Bisita librearen tarifa + <s class="cjm-old">{0} gehigarria</s> bisita gidatua <strong class="cjm-free">DOAN</strong>', cjm_opt_sup: '+{0} € bisita gidatuaren gehigarria',
         cj_s4_hora_cat: 'Katedralaren ordua',
         cj_s4_hora_canas: 'Cañaseko Monasterioaren ordua',
         cj_s4_min: 'Gutxieneko tarifa (25 pertsona baino gutxiago)',
@@ -9121,7 +9317,10 @@
         cj_leg_margen: 'Sense marge de desplaçament',
         cj_canas_cerrado: 'El Monestir de Cañas és tancat aquell dia. Tria una altra data.',
         cj_sin_horas: 'No queden hores disponibles per a les dues visites aquell dia. Tria una altra data.',
-        cj_nota: 'Visita guiada als dos monuments · 8 € per persona · Grups de menys de 25 persones: tarifa mínima de 200 €.',
+        cj_nota: 'Cada monument té la seva tarifa de grup (menys de 25 persones: tarifa mínima). Amb la visita combinada, la visita guiada al Monestir de Cañas és gratuïta.',
+        cjm_title: 'Modalitat de cada visita', cjm_vg_cat: 'Visita guiada Catedral', cjm_vg_can: 'Visita guiada Monestir de Cañas', cjm_vg_casco: 'Visita guiada Centre Històric + Catedral', cjm_tarifa: '{0} €/persona · mínim {1} € (menys de 25 persones)',
+        cj_help_casco: 'La visita guiada Centre Històric + Catedral dura 2 hores i al Monestir es reserva 1 hora. Entre una i l’altra es deixen almenys 30 minuts per al desplaçament (el Monestir és a 15 minuts en cotxe).',
+        cjm_desc_cat_vg: 'Tarifa visita lliure + {0} de suplement visita guiada', cjm_desc_can_vg: 'Tarifa visita lliure + <s class="cjm-old">{0} de suplement</s> <strong class="cjm-free">GRATUÏTAT</strong> visita guiada', cjm_opt_sup: '+{0} € suplement visita guiada',
         cj_s4_hora_cat: 'Hora Catedral',
         cj_s4_hora_canas: 'Hora Monestir de Cañas',
         cj_s4_min: 'Tarifa mínima (menys de 25 persones)',
@@ -9294,7 +9493,10 @@
         const _prevTe = _te ? _te.value : '';
         poblarTipoEntrada();
         if (_te && _prevTe) _te.value = _prevTe;
-        renderEscolar(); renderTotalGrupo();
+        cjModTextos();
+        // renderEscolar sincroniza nº de personas con los alumnos: solo en escolar (en grupo lo vaciaría).
+        if (state.tipoVisita === 'escolar') renderEscolar();
+        renderTotalGrupo();
       }
     };
   </script>
